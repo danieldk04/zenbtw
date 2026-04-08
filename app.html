@@ -2037,7 +2037,7 @@ function syncToSheets(){
     </div>
     <div class="pro-success" id="proSuccess">
       <div class="pro-success-icon">✅</div>
-      <h3>Check je mailbox!</h3>
+      <h3>Hou je mailbox in de gaten!</h3>
       <p>Je bent toegevoegd. Zodra de PDF-rapportage live gaat, ben jij de eerste die het hoort.</p>
       <span class="pro-discount">50% korting gereserveerd voor jou</span>
     </div>
@@ -2148,11 +2148,11 @@ function submitProEmail(){
     return;
   }
   errEl.style.display='none';
-  // 1. Verstuur naar Google Sheets
+  // 1. Verstuur naar Google Sheets (text/plain = simple request, geen preflight bij no-cors)
   fetch('https://script.google.com/macros/s/AKfycbxiEdovQ-K2ztYLKPcNbvKjn38n0l9Uq9M1DZ80wWVvtMqg8e5FRviC4uIoTMppP0dE/exec',{
     method:'POST',
     mode:'no-cors',
-    headers:{'Content-Type':'application/json'},
+    headers:{'Content-Type':'text/plain'},
     body:JSON.stringify({email:email,ts:new Date().toISOString(),bron:'zenbtw-pro-modal'})
   }).catch(function(){});
   // 2. Meta Pixel Lead event
@@ -2161,7 +2161,7 @@ function submitProEmail(){
   }
   // 3. Umami event
   if(typeof umami!=='undefined'){
-    umami.track('submit-pro-email',{email:email});
+    umami.track('pro-email-success',{email:email});
   }
   // Opslaan in localStorage (lokale backup)
   try{
