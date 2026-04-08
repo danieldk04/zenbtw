@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /Social Media/
+
+Sitemap: https://zenbtw.netlify.app/sitemap.xml
