@@ -2036,9 +2036,9 @@ function syncToSheets(){
       <p id="proEmailErr" style="display:none;margin-top:8px;font-size:12px;color:var(--dn);font-family:'JetBrains Mono',monospace">Vul een geldig e-mailadres in.</p>
     </div>
     <div class="pro-success" id="proSuccess">
-      <div class="pro-success-icon">🎉</div>
-      <h3>Bedankt! Je staat op de lijst.</h3>
-      <p>Zodra de PDF-rapportage live gaat, ben jij de eerste die het hoort.</p>
+      <div class="pro-success-icon">✅</div>
+      <h3>Check je mailbox!</h3>
+      <p>Je bent toegevoegd. Zodra de PDF-rapportage live gaat, ben jij de eerste die het hoort.</p>
       <span class="pro-discount">50% korting gereserveerd voor jou</span>
     </div>
   </div>
@@ -2148,21 +2148,28 @@ function submitProEmail(){
     return;
   }
   errEl.style.display='none';
-  // Umami event
+  // 1. Verstuur naar Google Sheets
+  fetch('https://script.google.com/macros/s/AKfycbxiEdovQ-K2ztYLKPcNbvKjn38n0l9Uq9M1DZ80wWVvtMqg8e5FRviC4uIoTMppP0dE/exec',{
+    method:'POST',
+    mode:'no-cors',
+    headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({email:email,ts:new Date().toISOString(),bron:'zenbtw-pro-modal'})
+  }).catch(function(){});
+  // 2. Meta Pixel Lead event
+  if(typeof fbq!=='undefined'){
+    fbq('track','Lead');
+  }
+  // 3. Umami event
   if(typeof umami!=='undefined'){
     umami.track('submit-pro-email',{email:email});
   }
-  // Meta Pixel Lead event
-  if(typeof fbq!=='undefined'){
-    fbq('track', 'Lead');
-  }
-  // Opslaan in localStorage
+  // Opslaan in localStorage (lokale backup)
   try{
     var leads=JSON.parse(localStorage.getItem('zenbtw_pro_leads')||'[]');
     leads.push({email:email,ts:new Date().toISOString()});
     localStorage.setItem('zenbtw_pro_leads',JSON.stringify(leads));
   }catch(e){}
-  // Toon succesmelding
+  // 4. Toon bevestiging
   document.getElementById('proForm').style.display='none';
   document.getElementById('proSuccess').style.display='block';
   // Sluit automatisch na 3 seconden
