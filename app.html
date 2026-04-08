@@ -767,7 +767,7 @@ src="https://www.facebook.com/tr?id=964378096043237&ev=PageView&noscript=1"
 <div class="vw" id="vwalerts">
   <div class="ph"><div><div class="pe">Meldingen</div><div class="pt">E-mailalerts instellen</div></div></div>
   <div class="als">
-    <div class="alrow"><div><div class="all">🔔 KOR-drempel waarschuwing</div><div class="als-sub">Ontvang een e-mail als je de drempel nadert</div></div><label class="tog"><input type="checkbox" id="alTog" onchange="saveAl()"><span class="tsl"></span></label></div>
+    <div class="alrow"><div><div class="all">🔔 BTW-drempel waarschuwing</div><div class="als-sub">Ontvang een e-mail als je de drempel nadert</div></div><label class="tog"><input type="checkbox" id="alTog" onchange="saveAl()"><span class="tsl"></span></label></div>
     <input class="alei" type="email" id="alEmail" placeholder="jouw@emailadres.nl" oninput="saveAl()">
     <div class="althr"><div class="altl">Waarschuw mij bij:</div>
       <div class="althbtns"><button class="thb on" id="th60" onclick="setTh(60)">60%</button><button class="thb" id="th75" onclick="setTh(75)">75%</button><button class="thb" id="th90" onclick="setTh(90)">90%</button><button class="thb" id="th100" onclick="setTh(100)">100%</button></div>
@@ -1601,7 +1601,7 @@ function delCorr(i){if(i<0||i>=S.correcties.length)return;S.correcties.splice(i,
 function saveAl(){AL.enabled=document.getElementById('alTog').checked;AL.email=document.getElementById('alEmail').value;const su=document.getElementById('alSheets');if(su)AL.sheetsUrl=su.value.trim();idbPut('ktx_al',AL).catch(()=>{});localStorage.setItem('ktx_al',JSON.stringify(AL));const sv=document.getElementById('alSv');sv.classList.add('on');setTimeout(()=>sv.classList.remove('on'),2000);if(AL.enabled&&'Notification'in window&&Notification.permission==='default')Notification.requestPermission();}
 function setTh(p){AL.threshold=p;AL.lastAlertSent=0;document.querySelectorAll('.thb').forEach(b=>b.classList.remove('on'));document.getElementById('th'+p).classList.add('on');localStorage.setItem('ktx_al',JSON.stringify(AL));}
 function loadAlUI(){document.getElementById('alTog').checked=AL.enabled;document.getElementById('alEmail').value=AL.email||'';document.querySelectorAll('.thb').forEach(b=>b.classList.remove('on'));const t=document.getElementById('th'+AL.threshold);if(t)t.classList.add('on');const su=document.getElementById('alSheets');if(su)su.value=AL.sheetsUrl||'';}
-function checkAlert(){if(!AL.enabled||!AL.email)return;const pct=Math.min(calcYearCB()/S.korLimit*100,100);const p=Math.round(pct);if(p>=AL.threshold){if('Notification'in window&&Notification.permission==='granted')new Notification('ZENBTW BTW-alert',{body:'KOR-drempel '+p+'% bereikt (jaar '+S.year+')!'});if(p!==AL.lastAlertSent)stuurEmailAlert(p);}}
+function checkAlert(){if(!AL.enabled||!AL.email)return;const pct=Math.min(calcYearCB()/S.korLimit*100,100);const p=Math.round(pct);if(p>=AL.threshold){if('Notification'in window&&Notification.permission==='granted')new Notification('ZenBTW Alert',{body:'BTW-drempel '+p+'% bereikt (jaar '+S.year+')!'});if(p!==AL.lastAlertSent)stuurEmailAlert(p);}}
 
 // EXPORTS
 function exportXML(){
