@@ -14,7 +14,11 @@
 
 <!-- ── Favicon ── -->
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><path d=%22M50 8 L88 20 L88 55 Q88 78 50 92 Q12 78 12 55 L12 20 Z%22 fill=%22%231a4731%22/><rect x=%2227%22 y=%2254%22 width=%2210%22 height=%2218%22 fill=%22white%22 rx=%222%22/><rect x=%2241%22 y=%2242%22 width=%2210%22 height=%2230%22 fill=%22white%22 rx=%222%22/><rect x=%2255%22 y=%2232%22 width=%2210%22 height=%2240%22 fill=%22white%22 rx=%222%22/><path d=%22M24 56 Q52 36 74 26%22 stroke=%22white%22 stroke-width=%224%22 fill=%22none%22 stroke-linecap=%22round%22/><path d=%22M70 20 L80 28 L68 30 Z%22 fill=%22white%22/></svg>">
-<link rel="shortcut icon" href="./favicon.png">
+<!-- ── Preconnect voor snellere externe resources ── -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://cloud.umami.is">
+<link rel="preconnect" href="https://connect.facebook.net">
 
 <!-- ── Open Graph (Facebook / LinkedIn) ── -->
 <meta property="og:type" content="website">
@@ -253,7 +257,7 @@ a{text-decoration:none}
 /* Sub */
 .hero-sub{
   font-size:clamp(15px,1.5vw,18px);
-  color:var(--tx3);line-height:1.72;
+  color:#4a4540;line-height:1.72;
   margin-bottom:30px;
   max-width:460px
 }
@@ -280,7 +284,7 @@ a{text-decoration:none}
 
 /* Microcopy onder CTA */
 .cta-microcopy{
-  font-size:12.5px;color:var(--tx4);
+  font-size:12.5px;color:#635d59;
   display:flex;align-items:center;gap:7px;
   padding-left:4px;margin-bottom:28px
 }
@@ -327,7 +331,7 @@ a{text-decoration:none}
   font-family:'JetBrains Mono',monospace;
   font-size:10.5px;font-weight:700;
   text-transform:uppercase;letter-spacing:.1em;
-  color:var(--tx4)
+  color:#5c5652
 }
 .kor-preview-status{
   display:inline-flex;align-items:center;gap:5px;
@@ -826,7 +830,7 @@ src="https://www.facebook.com/tr?id=964378096043237&ev=PageView&noscript=1"
 <!-- ══════════════ NAV ══════════════ -->
 <nav class="nav">
   <a href="index.html" class="nav-logo">
-    <img src="./Gemini_Generated_Image_sy48vgsy48vgsy48.png" alt="ZenBTW Logo" class="nav-logo-img" style="border-radius:4px">
+    <img src="./Gemini_Generated_Image_sy48vgsy48vgsy48.png" alt="ZenBTW Logo" class="nav-logo-img" style="border-radius:4px" width="52" height="52" fetchpriority="high">
     <span class="nav-wordmark">Zen<em>BTW</em></span>
   </a>
   <div class="nav-links">
@@ -924,7 +928,7 @@ src="https://www.facebook.com/tr?id=964378096043237&ev=PageView&noscript=1"
         </div>
       </div>
       <div class="browser-img">
-        <img src="./screen-dashboard.png" alt="ZenBTW BTW Dashboard">
+        <img src="./screen-dashboard.png" alt="ZenBTW BTW Dashboard" width="900" height="562" loading="lazy">
       </div>
     </div>
 
@@ -1005,7 +1009,7 @@ src="https://www.facebook.com/tr?id=964378096043237&ev=PageView&noscript=1"
       </ul>
     </div>
     <div class="feature-img-wrap">
-      <img src="./screen-landen.png" alt="BTW per EU-land">
+      <img src="./screen-landen.png" alt="BTW per EU-land" width="900" height="562" loading="lazy">
     </div>
   </div>
 
@@ -1022,7 +1026,7 @@ src="https://www.facebook.com/tr?id=964378096043237&ev=PageView&noscript=1"
       </ul>
     </div>
     <div class="feature-img-wrap">
-      <img src="./screen-oss.png" alt="OSS aangifte">
+      <img src="./screen-oss.png" alt="OSS aangifte" width="900" height="562" loading="lazy">
     </div>
   </div>
 
@@ -1039,7 +1043,7 @@ src="https://www.facebook.com/tr?id=964378096043237&ev=PageView&noscript=1"
       </ul>
     </div>
     <div class="feature-img-wrap">
-      <img src="./screen-instellingen.png" alt="Bedrijfsinstellingen">
+      <img src="./screen-instellingen.png" alt="Bedrijfsinstellingen" width="900" height="562" loading="lazy">
     </div>
   </div>
 
@@ -1093,7 +1097,7 @@ src="https://www.facebook.com/tr?id=964378096043237&ev=PageView&noscript=1"
 <footer>
   <div class="footer-inner">
     <a href="index.html" class="footer-logo">
-      <img src="./Gemini_Generated_Image_sy48vgsy48vgsy48.png" alt="ZenBTW Logo" style="border-radius:4px">
+      <img src="./Gemini_Generated_Image_sy48vgsy48vgsy48.png" alt="ZenBTW Logo" style="border-radius:4px" width="36" height="36" loading="lazy">
       <span class="footer-name">Zen<em>BTW</em></span>
     </a>
     <span class="footer-copy">© 2025 ZenBTW — BTW-dashboard voor marketplace-verkopers</span>
