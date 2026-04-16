@@ -439,7 +439,17 @@ input:checked + .tsl:before{transform:translateX(17px)}
 .pro-discount{display:inline-block;margin-top:10px;background:var(--acl);color:var(--ac);font-weight:700;font-size:12px;padding:4px 12px;border-radius:100px;border:1px solid #b2cfbf}
 .trust-bar{display:flex;justify-content:space-around;margin:20px 0;font-size:0.85rem;color:#2e7d32;background:#edf7ed;padding:12px;border-radius:10px;border:1px solid #c8e6c9;font-weight:500}
 .trust-bar span{display:flex;align-items:center;gap:5px}
-@media(max-width:600px){.trust-bar{flex-direction:column;gap:8px;align-items:flex-start}}
+@media(max-width:600px){
+  .trust-bar{flex-direction:column;gap:10px;align-items:flex-start;padding:14px 16px;font-size:0.82rem}
+  .trust-bar span{width:100%}
+}
+/* ── Upload zones mobiel ── */
+@media(max-width:480px){
+  .uz{border-radius:10px}
+  .uz .ut{font-size:12.5px}
+  .uz .ubg{font-size:10px;padding:2px 7px}
+  .pro-btn{font-size:12px;padding:9px 10px}
+}
 
 </style>
 <script defer src="https://cloud.umami.is/script.js" data-website-id="9cb58ff4-cf6e-4773-8dd5-f2f0b6ad5510"></script>
