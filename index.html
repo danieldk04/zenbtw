@@ -903,6 +903,14 @@ footer{
   transition:all .2s
 }
 .founder-cta:hover{background:var(--acd);transform:translateY(-2px);box-shadow:0 8px 24px rgba(26,71,49,.36)}
+@media(max-width:1060px){
+  .founder-grid{grid-template-columns:1fr;gap:32px;text-align:center}
+  .founder-text{order:1}
+  .founder-photo-wrap{order:2;margin:0 auto}
+  .founder-photo{width:180px;height:180px;object-fit:cover;object-position:top center}
+  .founder-body{text-align:left}
+  .founder-cta{width:100%;justify-content:center}
+}
 </style>
 <script defer src="https://cloud.umami.is/script.js" data-website-id="9cb58ff4-cf6e-4773-8dd5-f2f0b6ad5510"></script>
 <!-- Google tag (gtag.js) -->
