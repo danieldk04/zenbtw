@@ -793,7 +793,82 @@ footer{
 
   footer{padding:22px 18px}
   .footer-inner{flex-direction:column;align-items:center;text-align:center;gap:12px}
+
+  /* About founder responsive */
+  .about-founder{padding:60px 20px}
+  .founder-grid{grid-template-columns:1fr;gap:36px}
+  .founder-photo{width:200px;height:200px;border-radius:50%;margin:0 auto}
 }
+</style>
+
+<style>
+/* ══ ABOUT FOUNDER ══ */
+.about-founder{
+  background:#f5f3ef;
+  padding:88px 24px;
+  border-top:1px solid var(--br);
+  border-bottom:1px solid var(--br)
+}
+.about-founder-inner{max-width:1040px;margin:0 auto}
+.founder-eyebrow{
+  font-size:11.5px;font-weight:700;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--acm);
+  margin-bottom:16px
+}
+.founder-grid{
+  display:grid;
+  grid-template-columns:280px 1fr;
+  gap:64px;
+  align-items:center
+}
+.founder-photo-wrap{text-align:center}
+.founder-photo{
+  width:220px;height:220px;
+  border-radius:50%;
+  object-fit:cover;
+  object-position:top center;
+  border:4px solid var(--wh);
+  box-shadow:0 8px 32px rgba(26,71,49,.15);
+  display:block;margin:0 auto 16px
+}
+.founder-photo-caption{
+  font-size:12px;color:var(--tx3);
+  font-style:italic
+}
+.founder-h2{
+  font-family:'Fraunces',serif;
+  font-size:clamp(24px,3vw,34px);
+  font-weight:700;
+  color:var(--tx);
+  line-height:1.22;
+  letter-spacing:-.5px;
+  margin-bottom:20px
+}
+.founder-body{
+  font-size:16px;line-height:1.75;
+  color:#3a3632;
+  margin-bottom:16px
+}
+.founder-body strong{color:var(--tx);font-weight:700}
+.founder-signature{
+  font-family:'Fraunces',serif;
+  font-size:22px;
+  font-weight:600;
+  font-style:italic;
+  color:var(--acm);
+  margin:24px 0 28px;
+  letter-spacing:.2px
+}
+.founder-cta{
+  display:inline-flex;align-items:center;gap:9px;
+  padding:14px 26px;
+  background:var(--ac);color:#fff;
+  border-radius:var(--rs);
+  font-size:15px;font-weight:700;
+  box-shadow:0 4px 18px rgba(26,71,49,.28);
+  transition:all .2s
+}
+.founder-cta:hover{background:var(--acd);transform:translateY(-2px);box-shadow:0 8px 24px rgba(26,71,49,.36)}
 </style>
 <script defer src="https://cloud.umami.is/script.js" data-website-id="9cb58ff4-cf6e-4773-8dd5-f2f0b6ad5510"></script>
 <!-- Google tag (gtag.js) -->
@@ -1082,6 +1157,51 @@ src="https://www.facebook.com/tr?id=964378096043237&ev=PageView&noscript=1"
     </div>
   </div>
 </div>
+
+<!-- ══════════════ ABOUT FOUNDER ══════════════ -->
+<section class="about-founder" id="over-daniel">
+  <div class="about-founder-inner">
+    <div class="founder-eyebrow">Het verhaal achter ZenBTW</div>
+    <div class="founder-grid">
+
+      <div class="founder-photo-wrap">
+        <picture>
+          <source srcset="./daniel.jpg" type="image/jpeg">
+          <img src="./daniel.jpg"
+               alt="Daniel, oprichter van ZenBTW"
+               class="founder-photo"
+               width="220" height="220"
+               loading="lazy">
+        </picture>
+        <p class="founder-photo-caption">Daniel — oprichter ZenBTW</p>
+      </div>
+
+      <div class="founder-text">
+        <h2 class="founder-h2">Van spreadsheet-frustratie<br>naar volledige controle.</h2>
+
+        <p class="founder-body">
+          In augustus 2024 startte ik mijn eigen vintage webshop <strong>Revaleur</strong>. Terwijl de shop groeide naar <strong>680+ reviews</strong>, groeide ook de administratieve hoofdpijn.
+        </p>
+        <p class="founder-body">
+          Ik was uren kwijt aan het uitpluizen van buitenlandse BTW-tarieven en CSV-bestanden van Etsy en Shopify. De angst voor een fout in de aangifte bleef knagen.
+        </p>
+        <p class="founder-body">
+          Gecombineerd met een achtergrond van <strong>4+ jaar in Finance</strong> besloot ik ZenBTW te bouwen. Geen duur boekhoudpakket van €30/maand, maar een tool die precies doet wat een marketplace-verkoper nodig heeft — voor omzetten tussen de <strong>€2k en €20k</strong>.
+        </p>
+        <p class="founder-body">
+          Ik gebruik ZenBTW nu zelf voor elke aangifte. Het geeft me de rust om te focussen op de inkoop van nieuwe kleding, in plaats van op cijfertjes.
+        </p>
+
+        <div class="founder-signature">Succes met ondernemen, Daniel</div>
+
+        <a href="#" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;" class="founder-cta" data-umami-event="founder-cta-start">
+          🚀 Start je eigen check
+        </a>
+      </div>
+
+    </div>
+  </div>
+</section>
 
 <!-- ══════════════ CTA ══════════════ -->
 <section class="cta-section">
