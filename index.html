@@ -423,7 +423,7 @@ a{text-decoration:none}
   border:1px solid var(--br)
 }
 .url-lock{font-size:10px}
-.browser-img img{width:100%}
+.browser-img img{width:100%;height:auto;display:block;aspect-ratio:900/562}
 
 /* Floating cards op de screenshot */
 .float{
@@ -556,14 +556,15 @@ a{text-decoration:none}
 ══════════════════════════════════════ */
 .features{border-top:1.5px solid var(--br)}
 .feature-row{
-  display:grid;grid-template-columns:1fr 1fr;
+  display:grid;grid-template-columns:45fr 55fr;
   gap:clamp(40px,6vw,88px);align-items:center;
   padding:clamp(64px,7vw,96px) clamp(24px,5vw,80px);
-  max-width:1200px;margin:0 auto
+  max-width:1280px;margin:0 auto
 }
 .feature-row+.feature-row{border-top:1.5px solid var(--br)}
 .feature-row.flip{direction:rtl}
 .feature-row.flip>*{direction:ltr}
+.feature-text{min-width:0}
 .feature-text .section-h2{font-size:clamp(24px,2.8vw,36px);margin-bottom:14px}
 .feature-text .section-lead{font-size:15px}
 .checklist{
@@ -585,10 +586,12 @@ a{text-decoration:none}
 .feature-img-wrap{
   border-radius:var(--r);overflow:hidden;
   box-shadow:var(--shl);border:1.5px solid var(--br);
-  transition:transform .3s ease,box-shadow .3s ease
+  transition:transform .3s ease,box-shadow .3s ease;
+  min-width:0;          /* voorkomt grid-cel overflow */
+  align-self:center     /* niet stretchen tot rij-hoogte */
 }
 .feature-img-wrap:hover{transform:scale(1.015);box-shadow:0 32px 80px rgba(0,0,0,.18)}
-.feature-img-wrap img{width:100%}
+.feature-img-wrap img{width:100%;height:auto;display:block;aspect-ratio:900/562;object-fit:contain}
 
 /* ══════════════════════════════════════
    HOW IT WORKS — actieve werkwoorden
@@ -810,7 +813,7 @@ footer{
   .feature-text .section-eyebrow{text-align:center}
   .feature-text .section-lead{text-align:left}
   .checklist{text-align:left;display:inline-block;width:100%}
-  .feature-img-wrap img{width:100%;height:auto;border-radius:12px}
+  .feature-img-wrap img{width:100%;height:auto;display:block;aspect-ratio:900/562;object-fit:contain;border-radius:12px}
 
   /* ── USP grid ── */
   .usp-section{padding:48px 20px}
