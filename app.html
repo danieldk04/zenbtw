@@ -520,7 +520,7 @@ src="https://www.facebook.com/tr?id=964378096043237&ev=PageView&noscript=1"
   </div></div>
   <!-- PRO Rapport Knop -->
   <div style="padding:0 10px 14px">
-    <button class="pro-btn" onclick="openProModal()" id="proRapportBtn" data-umami-event="click-pro-report">
+    <button class="pro-btn" onclick="openProModal()" id="proRapportBtn" data-umami-event="click-pro-report" title="Beschikbaar na uploaden van je CSV">
       <span class="pro-btn-icon">📄</span>
       <span class="pro-btn-text">Officieel BTW-Rapport
         <span class="pro-btn-sub">Genereer PDF voor Belastingdienst</span>
@@ -641,6 +641,7 @@ src="https://www.facebook.com/tr?id=964378096043237&ev=PageView&noscript=1"
     <div class="uz" id="sZ" data-umami-event="upload-csv"><input type="file" accept=".csv" onchange="hu(event,'shopify')"><div class="ui">🛍️</div><div class="ut">Shopify CSV</div><div class="us">Orders → Exporteren → CSV</div><div class="ubg s">orders_export.csv</div></div>
     <div class="uz" id="vZ" data-umami-event="upload-csv"><input type="file" accept=".csv,.html,.htm" onchange="hu(event,'vinted')"><div class="ui">👗</div><div class="ut">Vinted CSV of HTML</div><div class="us">Instellingen → Mijn gegevens → Gegevens exporteren</div><div class="ubg v">transactions.csv / orders/index.html</div></div>
   </div>
+  <p style="text-align:center;font-size:12px;color:#888;margin:6px 0 0;letter-spacing:.02em">🔒 Geen account nodig voor de initiële scan.</p>
   <div class="plog" id="pL"></div>
   <div class="corr" id="corrSec">
     <div class="corrt">📝 Correcties voor volgende aangifte <span style="font-size:10.5px;font-weight:400;color:var(--tx3)">(Belastingdienst: wijzigingen in eerstvolgende melding)</span></div>
@@ -1287,6 +1288,11 @@ function confirmImport(){
   ['xBtn','xX','xC'].forEach(id=>{const el=document.getElementById(id);if(el)el.disabled=false;});
   document.getElementById('corrSec').className='corr on';populateCorrLand();
   saveS();checkAlert();syncToSheets();render();
+  // Toon PRO-modal eenmalig na upload (resultaten zijn zichtbaar na render)
+  if(!sessionStorage.getItem('zen_pro_shown')){
+    sessionStorage.setItem('zen_pro_shown','1');
+    setTimeout(openProModal, 2200);
+  }
 }
 
 // ── CALCS ──
@@ -2046,25 +2052,25 @@ function syncToSheets(){
   <div class="pro-modal">
     <button class="pro-modal-close" onclick="closeProModal()" aria-label="Sluiten">✕</button>
     <div class="pro-modal-icon">📄</div>
-    <div class="pro-modal-badge">✦ PRO FEATURE · €4,99</div>
-    <h2>Gratis Pro Report ontvangen?</h2>
+    <div class="pro-modal-badge">✦ PRO RAPPORT · €4,99</div>
+    <h2>Volledig actieplan voor je aangifte?</h2>
     <p style="font-size:11px;color:#635d59;margin-top:-8px;margin-bottom:4px">We gebruiken je e-mail alleen om het rapport te versturen, geen spam.</p>
     <p class="pro-modal-body">
-      We leggen momenteel de laatste hand aan de PDF-export functie.<br><br>
-      Laat je e-mailadres achter en we sturen je een bericht — met <strong>50% korting</strong> — zodra we live gaan.
+      Wil je het volledige rapport met actieplan voor je aangifte?<br><strong>Download als PDF voor €4,99.</strong><br><br>
+      Laat je e-mailadres achter en we sturen je direct de link toe.
     </p>
     <div id="proForm">
       <div class="pro-input-wrap">
         <input class="pro-input" type="email" id="proEmail" placeholder="jouw@emailadres.nl" autocomplete="email" onkeydown="if(event.key==='Enter')submitProEmail()">
-        <button class="pro-submit" onclick="submitProEmail()" data-umami-event="submit-pro-email">Hou me op de hoogte</button>
+        <button class="pro-submit" onclick="submitProEmail()" data-umami-event="submit-pro-email">Stuur mij de PDF →</button>
       </div>
       <p id="proEmailErr" style="display:none;margin-top:8px;font-size:12px;color:var(--dn);font-family:'JetBrains Mono',monospace">Vul een geldig e-mailadres in.</p>
     </div>
     <div class="pro-success" id="proSuccess">
       <div class="pro-success-icon">✅</div>
-      <h3>Hou je mailbox in de gaten!</h3>
-      <p>Je bent toegevoegd. Zodra de PDF-rapportage live gaat, ben jij de eerste die het hoort.</p>
-      <span class="pro-discount">50% korting gereserveerd voor jou</span>
+      <h3>Rapport onderweg!</h3>
+      <p>Je ontvangt de downloadlink voor je PDF-rapport zo snel mogelijk per e-mail.</p>
+      <span class="pro-discount">✅ Betaling volgt via e-mail</span>
     </div>
   </div>
 </div>
