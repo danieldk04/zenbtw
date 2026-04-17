@@ -423,7 +423,7 @@ a{text-decoration:none}
   border:1px solid var(--br)
 }
 .url-lock{font-size:10px}
-.browser-img img{width:100%;height:auto;display:block;aspect-ratio:900/562}
+.browser-img img{width:100%;height:auto;display:block}
 
 /* Floating cards op de screenshot */
 .float{
@@ -587,11 +587,13 @@ a{text-decoration:none}
   border-radius:var(--r);overflow:hidden;
   box-shadow:var(--shl);border:1.5px solid var(--br);
   transition:transform .3s ease,box-shadow .3s ease;
-  min-width:0;          /* voorkomt grid-cel overflow */
-  align-self:center     /* niet stretchen tot rij-hoogte */
+  min-width:0;
+  align-self:start;
+  max-width:900px;      /* nooit groter dan de bronafbeelding */
+  width:100%
 }
 .feature-img-wrap:hover{transform:scale(1.015);box-shadow:0 32px 80px rgba(0,0,0,.18)}
-.feature-img-wrap img{width:100%;height:auto;display:block;aspect-ratio:900/562;object-fit:contain}
+.feature-img-wrap img{width:100%;height:auto;display:block}
 
 /* ══════════════════════════════════════
    HOW IT WORKS — actieve werkwoorden
@@ -813,7 +815,7 @@ footer{
   .feature-text .section-eyebrow{text-align:center}
   .feature-text .section-lead{text-align:left}
   .checklist{text-align:left;display:inline-block;width:100%}
-  .feature-img-wrap img{width:100%;height:auto;display:block;aspect-ratio:900/562;object-fit:contain;border-radius:12px}
+  .feature-img-wrap img{width:100%;height:auto;display:block;border-radius:12px}
 
   /* ── USP grid ── */
   .usp-section{padding:48px 20px}
