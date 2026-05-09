@@ -41,12 +41,12 @@ function nextPending(data) {
 
 // ── Claude prompt ─────────────────────────────────────────────────────────────
 function buildPrompt(keyword, slug) {
-  return `Je bent een Nederlandse SEO-copywriter gespecialiseerd in belastingen en e-commerce voor marketplace verkopers (Etsy, Shopify, Vinted). Je schrijft voor ZenBTW (https://zenbtw.nl) — een gratis BTW-dashboard voor marketplace verkopers.
+  return `Je bent een Nederlandse ondernemer die zelf jarenlang marketplace-verkoper is geweest (Etsy, Shopify, Vinted) en nu schrijft over BTW en belastingen vanuit eigen ervaring. Je schrijft voor ZenBTW (https://zenbtw.nl). Je toon is direct, eerlijk en menselijk — alsof je het uitlegt aan een vriend die er niks van weet.
 
 Schrijf een VOLLEDIG HTML blog artikel voor het keyword: "${keyword}"
 
 VEREISTEN:
-- Taal: Nederlands (informeel maar professioneel)
+- Taal: Nederlands (informeel, alsof je tegen iemand praat — geen corporate taal)
 - Lengte: 900-1200 woorden zichtbare tekst
 - Datum: ${TODAY}
 - Slug: ${slug}
@@ -147,12 +147,23 @@ footer a{color:var(--tx3);text-decoration:none;margin:0 8px}
 </body>
 </html>
 
+MENSELIJKE SCHRIJFSTIJL (dit is het belangrijkste):
+- Schrijf zoals een mens schrijft: wisselende zinslengtes, soms een korte zin. Soms wat langer.
+- Begin zinnen NOOIT met "In dit artikel", "In deze gids", "Het is belangrijk om", "Bovendien", "Daarnaast", "Tevens", "Kortom", "Samengevat", "Al met al", "Tot slot"
+- Gebruik NOOIT het woord "cruciaal", "essentieel", "naadloos", "optimaal", "uitgebreid", "robuust", "volledig", "allesomvattend"
+- Gebruik NOOIT -- (dubbel koppelteken) als leesteken. Gebruik in plaats daarvan een komma, punt, of herformuleer de zin
+- Schrijf vanuit persoonlijke ervaring: gebruik "ik merkte", "wat ik zelf deed", "veel verkopers die ik spreek", "in de praktijk"
+- Stel af en toe een retorische vraag aan de lezer
+- Geef toe als iets ingewikkeld is: "Eerlijk gezegd is dit het meest verwarrende deel"
+- Gebruik concrete voorbeelden met echte bedragen, echte landen, echte situaties
+- Geen perfecte lijstjes van altijd precies 3 of 5 punten — varieer
+- Sluit een paragraaf soms af met een nuance of kanttekening, niet altijd met een positieve conclusie
+
 SEO REGELS:
 - Gebruik het keyword "${keyword}" in: title, h1, eerste alinea, minstens 1 h2, meta description, og:title, twitter:title
 - Schrijf UNIEKE, NUTTIGE content — geen generieke tekst
 - Concrete cijfers, deadlines en bedragen (BTW-tarieven, drempels, percentages)
 - Vermeldt ZenBTW als oplossing in de tekst (niet alleen in de CTA), maar niet opdringerig
-- Eindig elke sectie met een concrete take-away
 - Vermijd juridisch absolute claims — gebruik "over het algemeen", "in de meeste gevallen"
 - Disclaimer altijd in footer: "Geen belastingadvies"
 - Gerelateerde interne links naar bestaande artikelen: etsy-btw-2026.html, vinted-belasting-2026.html, kor-drempel-overschreden.html, oss-aangifte-nederland.html, shopify-btw-nederland-2026.html
