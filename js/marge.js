@@ -275,6 +275,53 @@ function renderMarge() {
 }
 
 /**
+ * exportMargeCSV()
+ * Exporteert de margetabel als CSV voor de boekhouder.
+ * Kolommen: sku, titel, merk, conditie, stuks, gem. prijs, omzet, inkoopprijs, totale inkoop, brutowinst, marge%
+ */
+function exportMargeCSV() {
+  const items = getMargeItems();
+  if (!items.length) { alert('Geen producten om te exporteren.'); return; }
+  const cp = S.costPrices || {};
+
+  const sep = ';';
+  const q   = v => `"${String(v).replace(/"/g, '""')}"`;
+  const eur  = v => typeof v === 'number' ? v.toFixed(2).replace('.', ',') : '';
+
+  const headers = ['SKU','Titel','Merk','Conditie','Stuks','Gem. prijs (€)','Omzet (€)','Inkoopprijs p/st (€)','Totale inkoop (€)','Brutowinst (€)','Marge%'];
+  const rows = items.map(p => {
+    const cost      = cp[p.sku];
+    const hasCost   = cost !== undefined && cost >= 0;
+    const totalCost = hasCost ? cost * p.qty : null;
+    const bruto     = hasCost ? p.revenue - totalCost : null;
+    const pct       = hasCost && p.revenue > 0 ? Math.round(bruto / p.revenue * 100) : null;
+    return [
+      q(p.sku),
+      q(p.title),
+      q(p.vendor),
+      q(p.condition),
+      p.qty,
+      eur(p.avgPrice),
+      eur(p.revenue),
+      hasCost ? eur(cost) : '',
+      hasCost ? eur(totalCost) : '',
+      bruto !== null ? eur(bruto) : '',
+      pct !== null ? pct + '%' : ''
+    ].join(sep);
+  });
+
+  const bom  = '﻿'; // UTF-8 BOM voor Excel
+  const csv  = bom + [headers.join(sep), ...rows].join('\r\n');
+  const blob = new Blob([csv], { type: 'text/csv;charset=utf-8' });
+  const url  = URL.createObjectURL(blob);
+  const a    = document.createElement('a');
+  a.href     = url;
+  a.download = `ZenBTW_marge_${S.year}.csv`;
+  a.click();
+  setTimeout(() => URL.revokeObjectURL(url), 1000);
+}
+
+/**
  * escHtml(str)
  * Minimale HTML-escaping voor inline attributen.
  */

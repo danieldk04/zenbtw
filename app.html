@@ -1129,7 +1129,8 @@ src="https://www.facebook.com/tr?id=964378096043237&ev=PageView&noscript=1"
 <div class="vw" id="vwmarge">
   <div class="ph">
     <div><div class="pe">Marge · Inkoopprijs</div><div class="pt">Brutowinst per product</div></div>
-    <div class="ha mob-hide">
+    <div class="ha mob-hide" style="gap:8px">
+      <button class="btn bs" onclick="exportMargeCSV()" style="font-size:12px;padding:7px 12px">📤 Exporteren</button>
       <label class="btn bs" style="cursor:pointer;font-size:12px;padding:7px 12px">
         📥 CSV importeren
         <input type="file" accept=".csv" onchange="handleMargeCSV(event)" style="display:none">
@@ -1569,8 +1570,26 @@ function parseVinted(text){
     log('Verwachte kolommen: prijs/price + buyer_country/koperland/land');
     return{ok:false,msg:'Geen verkoopdata gevonden — zie log voor details'};
   }
-  log('<span class="ok">✓ '+tot+' verkopen · €'+Math.round(rev)+' totale omzet</span>');
-  return{ok:true,byQuarter:byQ,totalRevenue:rev,totalOrders:tot,intlOrders:io};
+
+  // ── PASS 2: line-item aggregatie (producten/marge) ──
+  const vintedItems=[];
+  for(const row of rows){ try{
+    if(!isSold(row))continue;
+    const title=(row['artikeltitel']||row['item_title']||row['item title']||row['artikel']||row['title']||row['naam']||'').trim();
+    if(!title)continue;
+    const sku=(row['id']||row['order_id']||row['item_id']||title).toString().trim();
+    const qty=parseInt(row['quantity']||row['aantal']||'1')||1;
+    const price=getAmount(row);
+    if(price<=0)continue;
+    const date=row['aanmaakdatum']||row['created_at']||row['datum']||row['date']||'';
+    const q=dateToQuarter(date)||S.quarter;
+    const cc=getCountry(row)||'NL';
+    const condition=(row['staat']||row['condition']||row['kwaliteit']||'').trim();
+    vintedItems.push({platform:'vinted',orderName:sku,date,quarter:q,sku,title,qty,price,compareAt:null,vendor:'Vinted',country:cc,condition});
+  }catch(e){continue;}}
+
+  log('<span class="ok">✓ '+tot+' verkopen · €'+Math.round(rev)+' · '+vintedItems.length+' producten</span>');
+  return{ok:true,byQuarter:byQ,totalRevenue:rev,totalOrders:tot,intlOrders:io,lineItems:vintedItems};
 }
 
 function parseVintedHTML(html){
@@ -2123,7 +2142,16 @@ function renderJDetail(){
   const korClr=korStatus==='danger'?'var(--dn)':korStatus==='warn'?'#92400e':'var(--acm)';
   const korBg=korStatus==='danger'?'var(--dn)':korStatus==='warn'?'#f59e0b':'var(--ac)';
   const maxRev=Math.max(...ld.map(q=>qR(q)),1);
-  el.innerHTML=
+  // ── Jaar-vergelijking ──
+  const prevYear=String(parseInt(y)-1);
+  const prevQs=['Q1','Q2','Q3','Q4'].map(q=>q+' '+prevYear);
+  const prevRevTotal=prevQs.reduce((s,q)=>s+(S.quarterHistory[q]?.revenue||0),0);
+  const prevOrdersTotal=prevQs.reduce((s,q)=>s+(S.quarterHistory[q]?.totalOrders||0),0);
+  const hasPrev=prevRevTotal>0;
+  const growthPct=hasPrev?Math.round((tR-prevRevTotal)/prevRevTotal*100):null;
+  const growthPos=growthPct===null?null:growthPct>=0;
+  const yearCompHtml=hasPrev?`<div style="padding:10px 16px;background:var(--s2);border-bottom:1px solid var(--br);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px"><div style="font-size:11.5px;color:var(--tx3);font-weight:500">📊 Vergelijking met ${prevYear}</div><div style="display:flex;gap:20px;align-items:center;flex-wrap:wrap"><div style="text-align:center"><div style="font-size:10.5px;color:var(--tx4);margin-bottom:1px">${prevYear}</div><div style="font-family:'JetBrains Mono',monospace;font-size:13px;font-weight:600;color:var(--tx2)">€${fmt(Math.round(prevRevTotal))}</div><div style="font-size:10px;color:var(--tx4)">${prevOrdersTotal} orders</div></div><div style="font-size:18px;color:var(--tx4)">→</div><div style="text-align:center"><div style="font-size:10.5px;color:var(--tx4);margin-bottom:1px">${y}</div><div style="font-family:'JetBrains Mono',monospace;font-size:13px;font-weight:600;color:var(--tx)">€${fmt(Math.round(tR))}</div><div style="font-size:10px;color:var(--tx4)">${tO} orders</div></div><div style="padding:4px 10px;border-radius:6px;background:${growthPos?'var(--acl)':'var(--dnl)'};color:${growthPos?'var(--acm)':'var(--dn)'};font-size:12px;font-weight:700;font-family:'JetBrains Mono',monospace">${growthPos?'▲':'▼'} ${Math.abs(growthPct)}%</div></div></div>`:''
+  el.innerHTML=yearCompHtml+
     // KOR progressiebalk
     `<div style="padding:14px 16px 12px;border-bottom:1px solid var(--br)">
       <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:7px">
