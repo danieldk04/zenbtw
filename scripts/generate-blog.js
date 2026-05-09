@@ -61,9 +61,18 @@ HTML STRUCTUUR (gebruik EXACT dit format, vervang ALLEEN de content):
 <title>[SEO TITLE 55-60 tekens met keyword] | ZenBTW</title>
 <meta name="description" content="[Meta description 140-155 tekens, bevat keyword, prikkelend]">
 <link rel="canonical" href="https://zenbtw.nl/blog/${slug}.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="[ZELFDE ALS TITLE TAG, zonder '| ZenBTW']">
+<meta property="og:description" content="[ZELFDE ALS META DESCRIPTION]">
+<meta property="og:url" content="https://zenbtw.nl/blog/${slug}.html">
+<meta property="og:site_name" content="ZenBTW">
+<meta property="og:image" content="https://zenbtw.nl/og-blog.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="[ZELFDE ALS TITLE TAG, zonder '| ZenBTW']">
+<meta name="twitter:description" content="[ZELFDE ALS META DESCRIPTION]">
 <link rel="manifest" href="../manifest.json">
 <meta name="theme-color" content="#1a4731">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"[ARTICLE HEADLINE]","datePublished":"${TODAY}","dateModified":"${TODAY}","author":{"@type":"Organization","name":"ZenBTW"},"publisher":{"@type":"Organization","name":"ZenBTW","url":"https://zenbtw.nl"}}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"[ARTICLE HEADLINE]","datePublished":"${TODAY}","dateModified":"${TODAY}","author":{"@type":"Organization","name":"ZenBTW"},"publisher":{"@type":"Organization","name":"ZenBTW","url":"https://zenbtw.nl"},"image":"https://zenbtw.nl/og-blog.png"}</script>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
@@ -139,14 +148,24 @@ footer a{color:var(--tx3);text-decoration:none;margin:0 8px}
 </html>
 
 SEO REGELS:
-- Gebruik het keyword "${keyword}" in: title, h1, eerste alinea, minstens 1 h2, meta description
+- Gebruik het keyword "${keyword}" in: title, h1, eerste alinea, minstens 1 h2, meta description, og:title, twitter:title
 - Schrijf UNIEKE, NUTTIGE content — geen generieke tekst
 - Concrete cijfers, deadlines en bedragen (BTW-tarieven, drempels, percentages)
 - Vermeldt ZenBTW als oplossing in de tekst (niet alleen in de CTA), maar niet opdringerig
 - Eindig elke sectie met een concrete take-away
 - Vermijd juridisch absolute claims — gebruik "over het algemeen", "in de meeste gevallen"
 - Disclaimer altijd in footer: "Geen belastingadvies"
-- Gerelateerde interne links naar bestaande artikelen: etsy-btw-2026.html, vinted-belasting-2026.html, kor-drempel-overschreden.html, oss-aangifte-nederland.html
+- Gerelateerde interne links naar bestaande artikelen: etsy-btw-2026.html, vinted-belasting-2026.html, kor-drempel-overschreden.html, oss-aangifte-nederland.html, shopify-btw-nederland-2026.html
+
+LEESTIJD:
+- Bereken de leestijd op basis van de tekstlengte (gemiddeld 200 woorden per minuut)
+- Vermeld dit in de .meta div: "[X] minuten lezen"
+
+AFBEELDINGEN:
+- Voeg minimaal 1 relevante SVG-illustratie toe als inline <svg> in het artikel (niet als externe afbeelding)
+- De SVG moet een simpele, informatieve visualisatie zijn passend bij het onderwerp (bijv. een stroomdiagram, een getal-visualisatie, of een eenvoudige infographic)
+- Geef de SVG een role="img" en aria-label="[beschrijving]" attribuut
+- Omring de SVG met <figure style="margin:28px 0;text-align:center"> en een <figcaption style="font-size:13px;color:var(--tx3);margin-top:8px">[onderschrift]</figcaption>
 
 Geef ALLEEN de volledige HTML terug, zonder extra uitleg of markdown code blocks.`;
 }

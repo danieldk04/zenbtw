@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <rect width="1200" height="630" fill="#1a4731"/>
+  <rect x="60" y="60" width="1080" height="510" rx="24" fill="#2d6a4f" opacity="0.4"/>
+  <!-- Shield icon -->
+  <path d="M600 140 L660 162 L660 210 Q660 248 600 268 Q540 248 540 210 L540 162 Z" fill="none" stroke="#ffffff" stroke-width="4" opacity="0.9"/>
+  <path d="M575 210 L592 227 L628 191" stroke="#ffffff" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none" opacity="0.9"/>
+  <!-- Title -->
+  <text x="600" y="330" font-family="Georgia, serif" font-size="52" font-weight="700" fill="#ffffff" text-anchor="middle" opacity="0.95">ZenBTW</text>
+  <text x="600" y="390" font-family="Arial, sans-serif" font-size="26" fill="#a8d5bc" text-anchor="middle">BTW-gidsen voor marketplace-verkopers</text>
+  <!-- Bottom bar -->
+  <rect x="60" y="530" width="1080" height="2" fill="#ffffff" opacity="0.2"/>
+  <text x="600" y="575" font-family="Arial, sans-serif" font-size="20" fill="#a8d5bc" text-anchor="middle" opacity="0.8">zenbtw.nl</text>
+</svg>
