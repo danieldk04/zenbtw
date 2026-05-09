@@ -444,27 +444,46 @@ input:checked + .tsl:before{transform:translateX(17px)}
 .pro-badge{background:#fff;color:var(--ac);font-size:9.5px;font-weight:800;padding:2px 6px;border-radius:4px;letter-spacing:.04em;flex-shrink:0}
 
 /* ── PRO MODAL ── */
-.pro-overlay{position:fixed;inset:0;background:rgba(15,20,18,.55);backdrop-filter:blur(4px);z-index:9000;display:none;align-items:center;justify-content:center;padding:20px}
+.pro-overlay{position:fixed;inset:0;background:rgba(15,20,18,.6);backdrop-filter:blur(5px);z-index:9000;display:none;align-items:center;justify-content:center;padding:20px;overflow-y:auto}
 .pro-overlay.on{display:flex}
-.pro-modal{background:var(--wh);border-radius:20px;padding:36px 32px;max-width:440px;width:100%;box-shadow:0 24px 64px rgba(0,0,0,.18);position:relative;animation:modalIn .3s cubic-bezier(.16,1,.3,1)}
+.pro-modal{background:var(--wh);border-radius:22px;padding:0;max-width:540px;width:100%;box-shadow:0 32px 80px rgba(0,0,0,.22);position:relative;animation:modalIn .3s cubic-bezier(.16,1,.3,1);overflow:hidden}
 @keyframes modalIn{from{opacity:0;transform:translateY(16px) scale(.97)}to{opacity:1;transform:none}}
-.pro-modal-close{position:absolute;top:14px;right:16px;background:var(--s2);border:none;width:28px;height:28px;border-radius:50%;cursor:pointer;font-size:14px;color:var(--tx3);display:flex;align-items:center;justify-content:center;transition:all .15s}
+.pro-modal-close{position:absolute;top:14px;right:16px;background:rgba(255,255,255,.8);border:none;width:30px;height:30px;border-radius:50%;cursor:pointer;font-size:15px;color:var(--tx3);display:flex;align-items:center;justify-content:center;transition:all .15s;z-index:1}
 .pro-modal-close:hover{background:var(--br);color:var(--tx)}
-.pro-modal-icon{width:52px;height:52px;background:var(--acl);border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:24px;margin-bottom:18px}
-.pro-modal-badge{display:inline-flex;align-items:center;gap:5px;background:var(--acl);color:var(--ac);font-size:10.5px;font-weight:700;padding:3px 9px;border-radius:100px;border:1px solid #b2cfbf;margin-bottom:10px;letter-spacing:.04em}
-.pro-modal h2{font-family:'Fraunces',serif;font-size:22px;font-weight:700;letter-spacing:-.4px;color:var(--tx);margin-bottom:8px;line-height:1.25}
-.pro-modal-body{font-size:13.5px;color:var(--tx2);line-height:1.65;margin-bottom:22px}
-.pro-modal-body strong{color:var(--ac)}
+/* Header band */
+.pro-modal-hd{background:var(--ac);padding:28px 32px 24px;color:#fff}
+.pro-modal-badge{display:inline-flex;align-items:center;gap:5px;background:rgba(255,255,255,.18);color:#fff;font-size:10.5px;font-weight:700;padding:3px 10px;border-radius:100px;border:1px solid rgba(255,255,255,.3);margin-bottom:12px;letter-spacing:.05em}
+.pro-modal h2{font-family:'Fraunces',serif;font-size:24px;font-weight:700;letter-spacing:-.4px;color:#fff;line-height:1.2;margin-bottom:6px}
+.pro-modal-hd-sub{font-size:13px;color:rgba(255,255,255,.75);line-height:1.5}
+/* Price display */
+.pro-modal-price{display:flex;align-items:baseline;gap:4px;margin-top:18px}
+.pro-modal-price-val{font-family:'Fraunces',serif;font-size:44px;font-weight:700;color:#fff;letter-spacing:-2px;line-height:1}
+.pro-modal-price-sup{font-size:18px;color:rgba(255,255,255,.8);font-weight:600;margin-top:8px}
+.pro-modal-price-sub{font-size:13px;color:rgba(255,255,255,.65)}
+.pro-modal-annual{display:inline-flex;align-items:center;gap:5px;margin-top:8px;background:rgba(255,255,255,.15);border-radius:100px;padding:3px 11px;font-size:11.5px;color:rgba(255,255,255,.9);font-weight:600}
+/* Body */
+.pro-modal-body{padding:24px 32px 28px}
+/* Feature comparison */
+.pro-feat-grid{display:grid;grid-template-columns:1fr 1fr;gap:0;border:1px solid var(--br);border-radius:12px;overflow:hidden;margin-bottom:22px}
+.pro-feat-col{display:flex;flex-direction:column}
+.pro-feat-col-hd{padding:10px 14px;font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.07em;background:var(--s2);color:var(--tx3)}
+.pro-feat-col.pro-col .pro-feat-col-hd{background:var(--acl);color:var(--acm)}
+.pro-feat-row{display:flex;align-items:center;gap:8px;padding:8px 14px;border-top:1px solid var(--br);font-size:12.5px;color:var(--tx2);min-height:36px}
+.pro-feat-row .pfc{flex-shrink:0;width:16px;height:16px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700}
+.pro-feat-row .pfc.yes{background:var(--acl);color:var(--acm)}
+.pro-feat-row .pfc.no{background:var(--s2);color:var(--tx4)}
+.pro-feat-row .pfc.pro{background:var(--ac);color:#fff}
+/* Input */
 .pro-input-wrap{display:flex;flex-direction:column;gap:8px}
-.pro-input{width:100%;padding:11px 14px;border:1.5px solid var(--br);border-radius:var(--rs);font-family:'Plus Jakarta Sans',sans-serif;font-size:13.5px;color:var(--tx);background:var(--bg);outline:none;transition:border-color .15s}
+.pro-input{width:100%;padding:12px 14px;border:1.5px solid var(--br);border-radius:var(--rs);font-family:'Plus Jakarta Sans',sans-serif;font-size:13.5px;color:var(--tx);background:var(--bg);outline:none;transition:border-color .15s}
 .pro-input:focus{border-color:var(--ac);background:var(--wh)}
-.pro-submit{width:100%;padding:12px;background:var(--ac);color:#fff;border:none;border-radius:var(--rs);font-family:'Plus Jakarta Sans',sans-serif;font-size:13.5px;font-weight:700;cursor:pointer;transition:all .2s;box-shadow:0 4px 14px rgba(26,71,49,.22)}
-.pro-submit:hover{background:var(--acd);transform:translateY(-1px);box-shadow:0 6px 18px rgba(26,71,49,.3)}
-.pro-success{display:none;text-align:center;padding:12px 0 4px}
-.pro-success-icon{font-size:36px;margin-bottom:12px}
-.pro-success h3{font-family:'Fraunces',serif;font-size:18px;font-weight:700;color:var(--tx);margin-bottom:6px}
-.pro-success p{font-size:13px;color:var(--tx3);line-height:1.6}
-.pro-discount{display:inline-block;margin-top:10px;background:var(--acl);color:var(--ac);font-weight:700;font-size:12px;padding:4px 12px;border-radius:100px;border:1px solid #b2cfbf}
+.pro-submit{width:100%;padding:14px;background:var(--ac);color:#fff;border:none;border-radius:var(--rs);font-family:'Plus Jakarta Sans',sans-serif;font-size:14px;font-weight:700;cursor:pointer;transition:all .2s;box-shadow:0 4px 16px rgba(26,71,49,.25)}
+.pro-submit:hover{background:var(--acd);transform:translateY(-1px);box-shadow:0 8px 24px rgba(26,71,49,.35)}
+.pro-success{display:none;text-align:center;padding:16px 0 8px}
+.pro-success-icon{font-size:40px;margin-bottom:14px}
+.pro-success h3{font-family:'Fraunces',serif;font-size:20px;font-weight:700;color:var(--tx);margin-bottom:8px}
+.pro-success p{font-size:13.5px;color:var(--tx3);line-height:1.65}
+.pro-discount{display:inline-block;margin-top:12px;background:var(--acl);color:var(--ac);font-weight:700;font-size:12px;padding:4px 14px;border-radius:100px;border:1px solid #b2cfbf}
 .trust-bar{display:flex;justify-content:space-around;margin:20px 0;font-size:0.85rem;color:#2e7d32;background:#edf7ed;padding:12px;border-radius:10px;border:1px solid #c8e6c9;font-weight:500}
 .trust-bar span{display:flex;align-items:center;gap:5px}
 @media(max-width:600px){
@@ -2643,26 +2662,69 @@ function syncToSheets(){
 <div class="pro-overlay" id="proOverlay" onclick="if(event.target===this)closeProModal()">
   <div class="pro-modal">
     <button class="pro-modal-close" onclick="closeProModal()" aria-label="Sluiten">✕</button>
-    <div class="pro-modal-icon">📄</div>
-    <div class="pro-modal-badge">✦ PRO RAPPORT · €4,99</div>
-    <h2>Volledig actieplan voor je aangifte?</h2>
-    <p style="font-size:11px;color:#635d59;margin-top:-8px;margin-bottom:4px">We gebruiken je e-mail alleen om het rapport te versturen, geen spam.</p>
-    <p class="pro-modal-body">
-      Wil je het volledige rapport met actieplan voor je aangifte?<br><strong>Download als PDF voor €4,99.</strong><br><br>
-      Laat je e-mailadres achter en we sturen je direct de link toe.
-    </p>
-    <div id="proForm">
-      <div class="pro-input-wrap">
-        <input class="pro-input" type="email" id="proEmail" placeholder="jouw@emailadres.nl" autocomplete="email" onkeydown="if(event.key==='Enter')submitProEmail()">
-        <button class="pro-submit" onclick="submitProEmail()" data-umami-event="submit-pro-email">Stuur mij de PDF →</button>
+
+    <!-- Header -->
+    <div class="pro-modal-hd">
+      <div class="pro-modal-badge">⭐ ZENBTW PRO · Vroegboeker</div>
+      <h2>Meer inzicht.<br>Minder verrassingen.</h2>
+      <p class="pro-modal-hd-sub">Marge-analyse, productenranking, e-mailalerts en een professioneel jaarrapport — alles wat je nodig hebt als serieuze verkoper.</p>
+      <div class="pro-modal-price">
+        <span class="pro-modal-price-sup">€</span>
+        <span class="pro-modal-price-val">9<span style="font-size:22px;letter-spacing:-1px">,99</span></span>
+        <span class="pro-modal-price-sub">/maand</span>
       </div>
-      <p id="proEmailErr" style="display:none;margin-top:8px;font-size:12px;color:var(--dn);font-family:'JetBrains Mono',monospace">Vul een geldig e-mailadres in.</p>
+      <div class="pro-modal-annual">🎉 Jaarplan: €79 · bespaar 34%</div>
     </div>
-    <div class="pro-success" id="proSuccess">
-      <div class="pro-success-icon">✅</div>
-      <h3>Rapport onderweg!</h3>
-      <p>Je ontvangt de downloadlink voor je PDF-rapport zo snel mogelijk per e-mail.</p>
-      <span class="pro-discount">✅ Betaling volgt via e-mail</span>
+
+    <!-- Body -->
+    <div class="pro-modal-body">
+
+      <!-- Feature vergelijking -->
+      <div class="pro-feat-grid">
+        <div class="pro-feat-col">
+          <div class="pro-feat-col-hd">Gratis</div>
+          <div class="pro-feat-row"><span class="pfc yes">✓</span>KOR-drempel check</div>
+          <div class="pro-feat-row"><span class="pfc yes">✓</span>3 platforms (CSV)</div>
+          <div class="pro-feat-row"><span class="pfc yes">✓</span>27 EU-landen BTW</div>
+          <div class="pro-feat-row"><span class="pfc yes">✓</span>XML-aangifte export</div>
+          <div class="pro-feat-row"><span class="pfc no">–</span><span style="color:var(--tx4)">Marge analyse</span></div>
+          <div class="pro-feat-row"><span class="pfc no">–</span><span style="color:var(--tx4)">Productenranking</span></div>
+          <div class="pro-feat-row"><span class="pfc no">–</span><span style="color:var(--tx4)">E-mailalerts</span></div>
+          <div class="pro-feat-row"><span class="pfc no">–</span><span style="color:var(--tx4)">PDF jaarrapport</span></div>
+        </div>
+        <div class="pro-feat-col pro-col">
+          <div class="pro-feat-col-hd">PRO ⭐</div>
+          <div class="pro-feat-row"><span class="pfc pro">✓</span>KOR-drempel check</div>
+          <div class="pro-feat-row"><span class="pfc pro">✓</span>3 platforms (CSV)</div>
+          <div class="pro-feat-row"><span class="pfc pro">✓</span>27 EU-landen BTW</div>
+          <div class="pro-feat-row"><span class="pfc pro">✓</span>XML-aangifte export</div>
+          <div class="pro-feat-row"><span class="pfc pro">✓</span><strong>Marge analyse</strong></div>
+          <div class="pro-feat-row"><span class="pfc pro">✓</span><strong>Productenranking</strong></div>
+          <div class="pro-feat-row"><span class="pfc pro">✓</span><strong>E-mailalerts</strong></div>
+          <div class="pro-feat-row"><span class="pfc pro">✓</span><strong>PDF jaarrapport</strong></div>
+        </div>
+      </div>
+
+      <div id="proForm">
+        <p style="font-size:12.5px;color:var(--tx3);margin-bottom:12px;text-align:center">Laat je e-mail achter — we sturen je als eerste de PRO-toegang zodra die live gaat. <strong>30 dagen gratis.</strong></p>
+        <div class="pro-input-wrap">
+          <input class="pro-input" type="email" id="proEmail" placeholder="jouw@emailadres.nl" autocomplete="email" onkeydown="if(event.key==='Enter')submitProEmail()">
+          <button class="pro-submit" onclick="submitProEmail()" data-umami-event="submit-pro-email">Reserveer mijn PRO-plek →</button>
+        </div>
+        <p id="proEmailErr" style="display:none;margin-top:8px;font-size:12px;color:var(--dn);font-family:'JetBrains Mono',monospace">Vul een geldig e-mailadres in.</p>
+        <div style="display:flex;justify-content:center;gap:16px;margin-top:12px;font-size:11.5px;color:var(--tx4)">
+          <span>🔒 Geen spam</span>
+          <span>· Opzegbaar per maand</span>
+          <span>· 30 dagen gratis</span>
+        </div>
+      </div>
+
+      <div class="pro-success" id="proSuccess">
+        <div class="pro-success-icon">🎉</div>
+        <h3>Je staat op de lijst!</h3>
+        <p>We sturen je een e-mail zodra ZenBTW PRO live gaat. Je krijgt 30 dagen gratis toegang als vroegeboeker.</p>
+        <span class="pro-discount">✅ Vroegeboeker bevestigd</span>
+      </div>
     </div>
   </div>
 </div>

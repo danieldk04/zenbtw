@@ -702,6 +702,55 @@ footer{
 }
 
 /* ══════════════════════════════════════
+   PRICING
+══════════════════════════════════════ */
+.pricing-section{padding:clamp(80px,10vw,120px) clamp(24px,5vw,80px);background:var(--wh);border-top:1.5px solid var(--br)}
+.pricing-inner{max-width:960px;margin:0 auto}
+.pricing-header{text-align:center;margin-bottom:52px}
+.pricing-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;align-items:start}
+.pricing-card{border:1.5px solid var(--br);border-radius:20px;padding:36px 32px;background:var(--bg);position:relative}
+.pricing-card.pro{border-color:var(--ac);background:var(--wh);box-shadow:0 12px 40px rgba(26,71,49,.12)}
+.pricing-badge{position:absolute;top:-14px;left:50%;transform:translateX(-50%);background:var(--ac);color:#fff;font-size:11.5px;font-weight:700;padding:4px 16px;border-radius:100px;white-space:nowrap;letter-spacing:.04em}
+.pricing-tier{font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.1em;color:var(--tx3);margin-bottom:10px}
+.pricing-card.pro .pricing-tier{color:var(--acm)}
+.pricing-price{font-family:'Fraunces',serif;font-size:48px;font-weight:700;letter-spacing:-2px;color:var(--tx);line-height:1;margin-bottom:4px}
+.pricing-price sup{font-size:20px;font-weight:600;vertical-align:top;margin-top:10px;display:inline-block}
+.pricing-price-sub{font-size:13px;color:var(--tx3);margin-bottom:6px}
+.pricing-price-note{font-size:12px;color:var(--tx4);margin-bottom:28px;min-height:18px}
+.pricing-divider{height:1px;background:var(--br);margin-bottom:24px}
+.pricing-features{display:flex;flex-direction:column;gap:11px;margin-bottom:32px}
+.pricing-feat{display:flex;align-items:flex-start;gap:10px;font-size:13.5px;color:var(--tx2);line-height:1.4}
+.pricing-feat .pf-check{flex-shrink:0;width:18px;height:18px;background:var(--acl);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;margin-top:1px;color:var(--acm);font-weight:700}
+.pricing-feat .pf-check.gray{background:var(--s2);color:var(--tx4)}
+.pricing-feat strong{color:var(--tx);font-weight:600}
+.pricing-cta{display:block;text-align:center;padding:15px 24px;border-radius:12px;font-size:15px;font-weight:700;transition:all .2s;cursor:pointer;border:none;width:100%}
+.pricing-cta.free{background:var(--s2);color:var(--tx2);border:1.5px solid var(--br)}
+.pricing-cta.free:hover{background:var(--br)}
+.pricing-cta.paid{background:var(--ac);color:#fff;box-shadow:0 6px 20px rgba(26,71,49,.3)}
+.pricing-cta.paid:hover{background:var(--acd);transform:translateY(-2px);box-shadow:0 10px 30px rgba(26,71,49,.4)}
+.pricing-cta-note{text-align:center;font-size:11.5px;color:var(--tx4);margin-top:10px}
+.pricing-annual{display:inline-flex;align-items:center;gap:6px;background:var(--acl);border:1px solid #b2cfbf;border-radius:100px;padding:4px 13px;font-size:12px;font-weight:600;color:var(--acm);margin-bottom:24px}
+@media(max-width:680px){.pricing-grid{grid-template-columns:1fr}.pricing-card{padding:28px 22px}}
+
+/* ══════════════════════════════════════
+   FAQ
+══════════════════════════════════════ */
+.faq-section{padding:clamp(72px,9vw,110px) clamp(24px,5vw,80px);background:var(--bg);border-top:1.5px solid var(--br)}
+.faq-inner{max-width:720px;margin:0 auto}
+.faq-header{text-align:center;margin-bottom:44px}
+.faq-list{display:flex;flex-direction:column;gap:0}
+details.faq-item{border-bottom:1px solid var(--br)}
+details.faq-item:first-of-type{border-top:1px solid var(--br)}
+details.faq-item summary{display:flex;justify-content:space-between;align-items:center;padding:18px 4px;cursor:pointer;font-size:15.5px;font-weight:600;color:var(--tx);list-style:none;gap:16px;-webkit-tap-highlight-color:transparent}
+details.faq-item summary::-webkit-details-marker{display:none}
+details.faq-item summary::after{content:'+';font-size:22px;font-weight:300;color:var(--tx3);flex-shrink:0;transition:transform .2s;line-height:1}
+details.faq-item[open] summary::after{content:'−'}
+details.faq-item summary:hover{color:var(--acm)}
+.faq-body{padding:0 4px 20px;font-size:14.5px;color:var(--tx2);line-height:1.75}
+.faq-body a{color:var(--acm);text-decoration:underline}
+.faq-body strong{color:var(--tx)}
+
+/* ══════════════════════════════════════
    ANIMATIES
 ══════════════════════════════════════ */
 @keyframes slideup{
@@ -961,6 +1010,8 @@ src="https://www.facebook.com/tr?id=964378096043237&ev=PageView&noscript=1"
   <div class="nav-links">
     <a href="#functies" class="nav-link">Functies</a>
     <a href="#stappen" class="nav-link">Hoe werkt het</a>
+    <a href="#prijzen" class="nav-link">Prijzen</a>
+    <a href="#faq" class="nav-link">FAQ</a>
   </div>
   <a href="app.html" class="nav-cta" data-umami-event="start-nu">
     Check mijn status <span class="nav-cta-arrow">→</span>
@@ -1003,8 +1054,9 @@ src="https://www.facebook.com/tr?id=964378096043237&ev=PageView&noscript=1"
 
     <div class="hero-proof">
       <span class="proof-item">🔒 Lokaal encrypted</span>
-      <span class="proof-item">🇪🇺 Alle EU-tarieven</span>
+      <span class="proof-item">🇪🇺 Alle 27 EU-tarieven</span>
       <span class="proof-item">⚡ 100% gratis</span>
+      <span class="proof-item">👥 1.200+ verkopers</span>
     </div>
 
     <!-- KOR voortgangsbalk preview -->
@@ -1248,6 +1300,139 @@ src="https://www.facebook.com/tr?id=964378096043237&ev=PageView&noscript=1"
   </div>
 </div>
 
+<!-- ══════════════ PRICING ══════════════ -->
+<section class="pricing-section" id="prijzen">
+  <div class="pricing-inner">
+    <div class="pricing-header">
+      <div class="section-eyebrow">Transparante prijzen</div>
+      <h2 class="section-h2">Altijd gratis voor de basis.<br>PRO voor de serieuze verkoper.</h2>
+      <p class="section-lead" style="max-width:540px;margin:0 auto">Geen verborgen kosten, geen creditcard nodig om te starten. Upgrade wanneer je klaar bent voor meer inzicht.</p>
+    </div>
+
+    <div class="pricing-grid">
+
+      <!-- GRATIS -->
+      <div class="pricing-card">
+        <div class="pricing-tier">Gratis</div>
+        <div class="pricing-price"><sup>€</sup>0</div>
+        <div class="pricing-price-sub">voor altijd gratis</div>
+        <div class="pricing-price-note">Geen creditcard nodig</div>
+        <div class="pricing-divider"></div>
+        <div class="pricing-features">
+          <div class="pricing-feat"><span class="pf-check">✓</span><span>KOR-drempel bewaking (€10.000)</span></div>
+          <div class="pricing-feat"><span class="pf-check">✓</span><span>Etsy, Shopify & Vinted CSV import</span></div>
+          <div class="pricing-feat"><span class="pf-check">✓</span><span>BTW per EU-land — alle 27 landen</span></div>
+          <div class="pricing-feat"><span class="pf-check">✓</span><span>XML-aangifte export (Belastingdienst)</span></div>
+          <div class="pricing-feat"><span class="pf-check">✓</span><span>OSS registratie checklist</span></div>
+          <div class="pricing-feat"><span class="pf-check">✓</span><span>Dashboard & jaaroverzicht</span></div>
+          <div class="pricing-feat"><span class="pf-check gray">–</span><span style="color:var(--tx4)">Marge & inkoopprijs analyse</span></div>
+          <div class="pricing-feat"><span class="pf-check gray">–</span><span style="color:var(--tx4)">Producten per merk & SKU</span></div>
+          <div class="pricing-feat"><span class="pf-check gray">–</span><span style="color:var(--tx4)">Automatische e-mailalerts</span></div>
+          <div class="pricing-feat"><span class="pf-check gray">–</span><span style="color:var(--tx4)">Professioneel PDF jaarrapport</span></div>
+        </div>
+        <a href="app.html" class="pricing-cta free" data-umami-event="pricing-free">Gratis starten</a>
+        <p class="pricing-cta-note">Direct starten, geen installatie</p>
+      </div>
+
+      <!-- PRO -->
+      <div class="pricing-card pro">
+        <div class="pricing-badge">⭐ Meest gekozen</div>
+        <div class="pricing-tier">PRO</div>
+        <div class="pricing-price"><sup>€</sup>9<span style="font-size:28px;letter-spacing:-1px">,99</span></div>
+        <div class="pricing-price-sub">per maand</div>
+        <div class="pricing-price-note">
+          <span class="pricing-annual">🎉 Vroegboeker: nu €79/jaar &nbsp;·&nbsp; bespaar 34%</span>
+        </div>
+        <div class="pricing-divider"></div>
+        <div class="pricing-features">
+          <div class="pricing-feat"><span class="pf-check">✓</span><span><strong>Alles uit Gratis</strong>, plus:</span></div>
+          <div class="pricing-feat"><span class="pf-check">✓</span><span><strong>Marge module</strong> — brutowinst per product</span></div>
+          <div class="pricing-feat"><span class="pf-check">✓</span><span><strong>Productenanalyse</strong> — per merk & per SKU</span></div>
+          <div class="pricing-feat"><span class="pf-check">✓</span><span><strong>Maandgrafiek</strong> — omzettrend per maand</span></div>
+          <div class="pricing-feat"><span class="pf-check">✓</span><span><strong>E-mailalerts</strong> bij nadering KOR-drempel</span></div>
+          <div class="pricing-feat"><span class="pf-check">✓</span><span><strong>Google Sheets sync</strong> — automatische backup</span></div>
+          <div class="pricing-feat"><span class="pf-check">✓</span><span><strong>PDF jaarrapport</strong> — voor boekhouder & IB</span></div>
+          <div class="pricing-feat"><span class="pf-check">✓</span><span>Prioriteit support & vroege toegang</span></div>
+        </div>
+        <a href="app.html" class="pricing-cta paid" data-umami-event="pricing-pro">Probeer PRO gratis →</a>
+        <p class="pricing-cta-note">30 dagen gratis proberen · opzegbaar per maand</p>
+      </div>
+
+    </div>
+
+    <p style="text-align:center;margin-top:28px;font-size:13px;color:var(--tx4)">Alle data blijft 100% lokaal in je browser — ZenBTW ziet jouw cijfers nooit. &nbsp;🔒</p>
+  </div>
+</section>
+
+<!-- ══════════════ FAQ ══════════════ -->
+<section class="faq-section" id="faq">
+  <div class="faq-inner">
+    <div class="faq-header">
+      <div class="section-eyebrow">Veelgestelde vragen</div>
+      <h2 class="section-h2">Alles wat je wil weten<br>vóór je start.</h2>
+    </div>
+    <div class="faq-list">
+
+      <details class="faq-item" open>
+        <summary>Is mijn financiële data veilig bij ZenBTW?</summary>
+        <div class="faq-body">
+          Ja, volledig. ZenBTW verwerkt alles <strong>lokaal in je browser</strong> — je verkoopdata wordt nooit naar een server gestuurd. Er is geen account, geen cloud-opslag en geen tracking van je transacties. Alleen jij hebt toegang tot je data, via IndexedDB in je eigen browser.
+        </div>
+      </details>
+
+      <details class="faq-item">
+        <summary>Werkt ZenBTW ook voor Vinted-verkopers?</summary>
+        <div class="faq-body">
+          Ja. ZenBTW ondersteunt Vinted HTML-exports. Let op: Vinted voegt geen landgegevens toe aan de export. ZenBTW toont je dan alle orders op 🇳🇱 NL, en je kunt per order het juiste EU-land instellen via de Transacties-tab. Dit kost minder dan 5 minuten voor een heel kwartaal.
+        </div>
+      </details>
+
+      <details class="faq-item">
+        <summary>Wat is de KOR-drempel precies en wanneer overschrijd ik hem?</summary>
+        <div class="faq-body">
+          De KOR-drempel (Kleineondernemersregeling) staat op <strong>€10.000 cross-border EU-omzet per kalenderjaar</strong>. Alleen je verkopen naar EU-klanten buiten Nederland tellen mee — niet je NL-verkopen en niet je verkopen buiten de EU (bv. UK of VS). ZenBTW berekent dit automatisch per kwartaal en over het hele jaar.
+        </div>
+      </details>
+
+      <details class="faq-item">
+        <summary>Wanneer ben ik verplicht OSS-aangifte te doen?</summary>
+        <div class="faq-body">
+          Zodra je cross-border EU-omzet de €10.000 in een kalenderjaar overschrijdt, ben je verplicht je te registreren voor het <strong>OSS-systeem</strong> (One Stop Shop) bij de Belastingdienst. Daarna bereken je BTW per land op basis van het tarief van het land van de koper — niet het Nederlandse tarief. ZenBTW berekent dit automatisch voor alle 27 EU-landen.
+        </div>
+      </details>
+
+      <details class="faq-item">
+        <summary>Werkt het ook voor meerdere platforms tegelijk?</summary>
+        <div class="faq-body">
+          Ja. Je kunt in hetzelfde kwartaal een Etsy-export, Shopify-export én Vinted-export uploaden. ZenBTW combineert automatisch alle omzet en berekent je totale KOR-positie. De omzetsplitsing per platform is zichtbaar in het dashboard.
+        </div>
+      </details>
+
+      <details class="faq-item">
+        <summary>Wat kost ZenBTW PRO en kan ik opzeggen?</summary>
+        <div class="faq-body">
+          ZenBTW PRO kost <strong>€9,99 per maand</strong> (of €79/jaar — bespaar 34%). Opzeggen kan op elk moment, geen vragen gesteld. Als vroegeboeker krijg je 30 dagen gratis — daarna pas betalen. PRO voegt de Marge-module, Productenanalyse, automatische e-mailalerts en het PDF jaarrapport toe.
+        </div>
+      </details>
+
+      <details class="faq-item">
+        <summary>Heb ik nog een accountant nodig als ik ZenBTW gebruik?</summary>
+        <div class="faq-body">
+          ZenBTW is een <strong>hulpmiddel</strong> voor je administratie, geen vervanger van een accountant. De XML-export en PDF-rapport kun je direct aan je boekhouder geven. Voor complexe situaties (bv. margeregeling tweedehands goederen, gecombineerde BTW-systemen) raden we altijd aan een belastingadviseur te raadplegen.
+        </div>
+      </details>
+
+      <details class="faq-item">
+        <summary>Kan ik data van meerdere jaren bijhouden?</summary>
+        <div class="faq-body">
+          Ja. ZenBTW slaat data per kwartaal op en je kunt via de jaarselector switchen tussen 2024, 2025, 2026 en 2027. Per jaar zie je een volledig jaaroverzicht met alle kwartalen, KOR-progressie en de totale omzet voor je IB-aangifte.
+        </div>
+      </details>
+
+    </div>
+  </div>
+</section>
+
 <!-- ══════════════ ABOUT FOUNDER ══════════════ -->
 <!-- ══════════════ CTA ══════════════ -->
 <section class="cta-section">
@@ -1272,7 +1457,12 @@ src="https://www.facebook.com/tr?id=964378096043237&ev=PageView&noscript=1"
       </picture>
       <span class="footer-name">Zen<em>BTW</em></span>
     </a>
-    <span class="footer-copy">© 2025 ZenBTW — BTW-dashboard voor marketplace-verkopers</span>
+    <div style="display:flex;gap:20px;flex-wrap:wrap;align-items:center">
+      <a href="#prijzen" style="font-size:12.5px;color:var(--tx3);font-weight:500">Prijzen</a>
+      <a href="#faq" style="font-size:12.5px;color:var(--tx3);font-weight:500">FAQ</a>
+      <a href="app.html" style="font-size:12.5px;color:var(--tx3);font-weight:500">App</a>
+      <span class="footer-copy">© 2026 ZenBTW</span>
+    </div>
     <span class="footer-badge">🔒 Client-side encrypted</span>
   </div>
 </footer>
