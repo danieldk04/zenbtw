@@ -451,6 +451,26 @@ input:checked + .tsl:before{transform:translateX(17px)}
   .pro-btn{font-size:12px;padding:9px 10px}
 }
 
+/* ══════════════════════════════════════
+   KOR/OSS UITLEG KAART (#korUitleg)
+══════════════════════════════════════ */
+.ku{border-radius:var(--r);padding:18px 22px;margin-bottom:16px;border:1px solid;font-size:13.5px;line-height:1.65;transition:all .2s}
+.ku.safe{background:#f0f7f4;border-color:#b2cfbf}
+.ku.warn{background:var(--wnl);border-color:#fbbf24}
+.ku.danger{background:var(--dnl);border-color:#f5c2bc}
+.ku-title{font-weight:700;font-size:13px;margin-bottom:9px;display:flex;align-items:center;gap:7px}
+.ku.safe  .ku-title{color:var(--acm)}
+.ku.warn  .ku-title{color:#92400e}
+.ku.danger .ku-title{color:var(--dn)}
+.ku-body{color:var(--tx2);margin-bottom:11px;font-size:13px}
+.ku-list{list-style:none;padding:0;display:flex;flex-direction:column;gap:6px}
+.ku-list li{display:flex;align-items:flex-start;gap:9px;font-size:13px;color:var(--tx2)}
+.ku-list li span:first-child{flex-shrink:0;margin-top:1px}
+.ku-steps{margin:0 0 0 2px;padding-left:18px;display:flex;flex-direction:column;gap:7px}
+.ku-steps li{font-size:13px;color:var(--tx2);padding-left:4px}
+.ku-footer{margin-top:13px;padding-top:11px;border-top:1px solid rgba(0,0,0,.07);font-size:11.5px;color:var(--tx3)}
+.ku-footer strong{color:var(--tx2)}
+
 </style>
 <script defer src="https://cloud.umami.is/script.js" data-website-id="9cb58ff4-cf6e-4773-8dd5-f2f0b6ad5510"></script>
 <!-- Meta Pixel Code -->
@@ -612,6 +632,7 @@ src="https://www.facebook.com/tr?id=964378096043237&ev=PageView&noscript=1"
     </div>
     <button class="kbb" onclick="sv('alerts')">🔔 Alert</button>
   </div>
+  <div id="korUitleg" style="display:none"></div>
   <div id="margeWarn" style="display:none;margin-bottom:12px;padding:10px 14px;background:var(--wnl);border:1px solid #fcd34d;border-radius:var(--rs);font-size:12px;color:#92400e">⚠ <strong>Margeregeling actief</strong> — BTW-bedragen zijn indicatief (gebaseerd op omzet, niet winstmarge). Raadpleeg je boekhouder voor de definitieve BTW bij tweedehands goederen.</div>
   <div id="ossAP" style="display:none;margin-bottom:16px;padding:14px 18px;background:var(--dnl);border:1px solid #f5c2bc;border-radius:var(--rs)">
     <div style="font-size:13px;font-weight:700;color:var(--dn);margin-bottom:8px">🚨 Actieplan — OSS-aangifte is nu verplicht</div>
@@ -1363,11 +1384,72 @@ function updBanner() {
   const ap=document.getElementById('ossAP');if(ap)ap.style.display=(pct>=100&&tot)?'block':'none';
   // Margeregeling waarschuwing
   const mw=document.getElementById('margeWarn');if(mw)mw.style.display=(S.marge&&tot)?'block':'none';
+  // Uitleg kaart
+  updUitleg(pct,rem,yearCB,tot);
 
   // --- AUTOMATISCHE EMAIL ALERT ---
   const afgerondPct = Math.round(pct);
   if(AL.enabled && AL.email && calcTotal()>0 && afgerondPct>=AL.threshold && afgerondPct!==AL.lastAlertSent){
     stuurEmailAlert(afgerondPct);
+  }
+}
+
+// ── KOR/OSS UITLEG KAART ──────────────────────────────────────────────────
+function updUitleg(pct, rem, yearCB, tot) {
+  const el = document.getElementById('korUitleg');
+  if (!el) return;
+  if (!tot) { el.style.display = 'none'; return; }
+  el.style.display = '';
+
+  const lim = fmt(S.korLimit);
+  const cur = fmt(Math.round(yearCB));
+
+  if (pct >= 100) {
+    el.className = 'ku danger';
+    el.innerHTML = `
+      <div class="ku-title">🔴 Wat betekent dit voor jou?</div>
+      <p class="ku-body">
+        Je grensoverschrijdende EU-omzet in <strong>${S.year}</strong> is <strong>€${cur}</strong>
+        — dat is boven de KOR-drempel van <strong>€${lim}</strong>.
+        Je bent nu verplicht BTW te berekenen per EU-land en kwartaal OSS-aangifte te doen.
+      </p>
+      <div class="ku-footer">
+        💡 Gebruik <strong>"Aangifte exporteren"</strong> om je XML-bestand voor de Belastingdienst te genereren.
+        Deadline: uiterlijk 30 dagen na afloop van elk kwartaal.
+      </div>`;
+  } else if (pct >= 60) {
+    el.className = 'ku warn';
+    el.innerHTML = `
+      <div class="ku-title">⚠️ Bereid je voor — OSS-drempel in zicht</div>
+      <p class="ku-body">
+        Je zit op <strong>${Math.round(pct)}%</strong> van de KOR-drempel.
+        Je hebt nog <strong>€${fmt(Math.round(rem))}</strong> ruimte in ${S.year}.
+      </p>
+      <ol class="ku-steps">
+        <li>Bereken of je verwachte omzet de rest van <strong>${S.year}</strong> de drempel haalt</li>
+        <li>Verhoog je EU-prijzen alvast met ~21% zodat BTW er later in zit</li>
+        <li>Registreer voor <strong>OSS</strong> via Mijn Belastingdienst → BTW → E-commerce</li>
+        <li>Bewaar je kwartaaldata — dit heb je nodig voor je eerste OSS-melding</li>
+      </ol>
+      <div class="ku-footer">
+        🔔 Stel een e-mailalert in via <strong>⚙️ Instellingen → Meldingen</strong> zodat je automatisch een bericht krijgt bij overschrijding.
+      </div>`;
+  } else {
+    el.className = 'ku safe';
+    el.innerHTML = `
+      <div class="ku-title">✅ Je valt onder de KOR — geen BTW-plicht</div>
+      <p class="ku-body">
+        Zolang je grensoverschrijdende EU-verkopen onder <strong>€${lim}/jaar</strong> blijven,
+        hoef je <strong>geen BTW te berekenen</strong> aan EU-klanten buiten Nederland en hoef je geen OSS-aangifte in te dienen.
+      </p>
+      <ul class="ku-list">
+        <li><span>✅</span><span>Geen OSS-aangifte verplicht</span></li>
+        <li><span>✅</span><span>Geen BTW op EU-orders — je verkoopprijs is je eindbedrag</span></li>
+        <li><span>🔔</span><span>ZenBTW waarschuwt je automatisch zodra je 60% bereikt</span></li>
+      </ul>
+      <div class="ku-footer">
+        📊 Huidige cross-border EU-omzet: <strong>€${cur}</strong> van <strong>€${lim}</strong> (jaar ${S.year}).
+      </div>`;
   }
 }
 
