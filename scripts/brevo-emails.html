@@ -1,0 +1,194 @@
+<!--
+  ZenBTW — Brevo drip sequence e-mails
+  Kopieer elke sectie naar een aparte e-mail in Brevo Automations.
+  Onderwerp + HTML = alles wat je nodig hebt.
+-->
+
+<!-- ═══════════════════════════════════════════
+     MAIL 1 — Direct na aanmelding (Dag 0)
+     Onderwerp: Je bent erbij 👋 — dit doet ZenBTW voor je
+═══════════════════════════════════════════ -->
+<!DOCTYPE html>
+<html lang="nl">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Mail 1</title></head>
+<body style="margin:0;padding:0;background:#f7f6f3;font-family:'Helvetica Neue',Arial,sans-serif">
+<table width="100%" cellpadding="0" cellspacing="0" style="background:#f7f6f3;padding:40px 20px">
+  <tr><td align="center">
+    <table width="560" cellpadding="0" cellspacing="0" style="background:#ffffff;border-radius:16px;overflow:hidden;border:1.5px solid #e8e5de">
+      <!-- Header -->
+      <tr><td style="background:#1a4731;padding:28px 40px;text-align:center">
+        <p style="margin:0;font-size:26px;font-weight:700;color:#ffffff;letter-spacing:-0.5px;font-family:Georgia,serif">Zen<span style="color:#a8d5bc">BTW</span></p>
+        <p style="margin:6px 0 0;font-size:13px;color:rgba(255,255,255,0.7)">BTW-dashboard voor marketplace verkopers</p>
+      </td></tr>
+      <!-- Body -->
+      <tr><td style="padding:36px 40px">
+        <p style="margin:0 0 20px;font-size:17px;font-weight:600;color:#1a1814">Hey, welkom bij ZenBTW 👋</p>
+        <p style="margin:0 0 16px;font-size:15px;color:#4a4640;line-height:1.7">
+          Goed dat je je hebt aangemeld. Ik heb ZenBTW gebouwd omdat ik zelf jaren op Etsy en Shopify verkocht en er telkens achter kwam dat de BTW-regels voor EU-verkopen veel ingewikkelder zijn dan je denkt.
+        </p>
+        <p style="margin:0 0 16px;font-size:15px;color:#4a4640;line-height:1.7">
+          ZenBTW doet één ding goed: je uploadt je CSV-export van Etsy, Shopify of Vinted, en je ziet in 10 seconden:
+        </p>
+        <ul style="margin:0 0 20px;padding-left:22px">
+          <li style="font-size:15px;color:#4a4640;line-height:1.7;margin-bottom:8px">Hoe ver je van de <strong style="color:#1a1814">€10.000 KOR-drempel</strong> zit</li>
+          <li style="font-size:15px;color:#4a4640;line-height:1.7;margin-bottom:8px">Hoeveel BTW je per EU-land verschuldigd bent</li>
+          <li style="font-size:15px;color:#4a4640;line-height:1.7">Een kant-en-klare export voor je OSS-aangifte</li>
+        </ul>
+        <p style="margin:0 0 28px;font-size:15px;color:#4a4640;line-height:1.7">Probeer het nu — het is gratis en je hebt geen account nodig.</p>
+        <!-- CTA -->
+        <table cellpadding="0" cellspacing="0" width="100%"><tr><td align="center">
+          <a href="https://zenbtw.nl/app.html" style="display:inline-block;background:#1a4731;color:#ffffff;text-decoration:none;padding:14px 32px;border-radius:10px;font-size:15px;font-weight:700;letter-spacing:-0.1px">
+            📊 Open ZenBTW dashboard →
+          </a>
+        </td></tr></table>
+        <p style="margin:28px 0 0;font-size:13.5px;color:#8a847a;line-height:1.6">
+          Heb je vragen? Stuur gewoon een reply op deze mail — ik lees alles zelf.
+        </p>
+      </td></tr>
+      <!-- Footer -->
+      <tr><td style="padding:20px 40px;border-top:1px solid #e8e5de;text-align:center">
+        <p style="margin:0;font-size:12px;color:#b8b2a8">© 2026 ZenBTW · <a href="https://zenbtw.nl/privacy.html" style="color:#8a847a">Privacy</a> · <a href="{{ unsubscribe }}" style="color:#8a847a">Uitschrijven</a></p>
+      </td></tr>
+    </table>
+  </td></tr>
+</table>
+</body>
+</html>
+
+<!-- ═══════════════════════════════════════════
+     MAIL 2 — Dag 4
+     Onderwerp: Heb je al je CSV geüpload? (duurt 30 seconden)
+═══════════════════════════════════════════ -->
+<!DOCTYPE html>
+<html lang="nl">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Mail 2</title></head>
+<body style="margin:0;padding:0;background:#f7f6f3;font-family:'Helvetica Neue',Arial,sans-serif">
+<table width="100%" cellpadding="0" cellspacing="0" style="background:#f7f6f3;padding:40px 20px">
+  <tr><td align="center">
+    <table width="560" cellpadding="0" cellspacing="0" style="background:#ffffff;border-radius:16px;overflow:hidden;border:1.5px solid #e8e5de">
+      <tr><td style="background:#1a4731;padding:28px 40px;text-align:center">
+        <p style="margin:0;font-size:26px;font-weight:700;color:#ffffff;font-family:Georgia,serif">Zen<span style="color:#a8d5bc">BTW</span></p>
+      </td></tr>
+      <tr><td style="padding:36px 40px">
+        <p style="margin:0 0 20px;font-size:17px;font-weight:600;color:#1a1814">Heb je al gecontroleerd waar je staat?</p>
+        <p style="margin:0 0 16px;font-size:15px;color:#4a4640;line-height:1.7">
+          Veel verkopers weten pas dat ze de KOR-drempel hebben overschreden als de Belastingdienst al contact opneemt. Dan ben je te laat.
+        </p>
+        <p style="margin:0 0 16px;font-size:15px;color:#4a4640;line-height:1.7">
+          Het checken duurt 30 seconden:
+        </p>
+        <!-- Stappen -->
+        <table cellpadding="0" cellspacing="0" width="100%" style="margin:0 0 24px">
+          <tr>
+            <td style="width:32px;vertical-align:top;padding-top:2px">
+              <div style="width:26px;height:26px;background:#1a4731;border-radius:50%;text-align:center;line-height:26px;font-size:13px;font-weight:700;color:#fff">1</div>
+            </td>
+            <td style="padding-left:12px;padding-bottom:14px">
+              <p style="margin:0;font-size:15px;color:#1a1814;font-weight:600">Download je CSV</p>
+              <p style="margin:4px 0 0;font-size:14px;color:#8a847a">Etsy: Shopmanager → Financiën → Betalingen → Exporteren<br>Shopify: Rapporten → Verkopen → Exporteren<br>Vinted: Instellingen → Mijn gegevens → Exporteren</p>
+            </td>
+          </tr>
+          <tr>
+            <td style="width:32px;vertical-align:top;padding-top:2px">
+              <div style="width:26px;height:26px;background:#1a4731;border-radius:50%;text-align:center;line-height:26px;font-size:13px;font-weight:700;color:#fff">2</div>
+            </td>
+            <td style="padding-left:12px;padding-bottom:14px">
+              <p style="margin:0;font-size:15px;color:#1a1814;font-weight:600">Upload in ZenBTW</p>
+              <p style="margin:4px 0 0;font-size:14px;color:#8a847a">Geen account, geen installatie. Gewoon je bestand slepen.</p>
+            </td>
+          </tr>
+          <tr>
+            <td style="width:32px;vertical-align:top;padding-top:2px">
+              <div style="width:26px;height:26px;background:#1a4731;border-radius:50%;text-align:center;line-height:26px;font-size:13px;font-weight:700;color:#fff">3</div>
+            </td>
+            <td style="padding-left:12px">
+              <p style="margin:0;font-size:15px;color:#1a1814;font-weight:600">Zie direct je status</p>
+              <p style="margin:4px 0 0;font-size:14px;color:#8a847a">KOR-drempel, BTW per land, en een exportbestand voor je aangifte.</p>
+            </td>
+          </tr>
+        </table>
+        <table cellpadding="0" cellspacing="0" width="100%"><tr><td align="center">
+          <a href="https://zenbtw.nl/app.html" style="display:inline-block;background:#1a4731;color:#ffffff;text-decoration:none;padding:14px 32px;border-radius:10px;font-size:15px;font-weight:700">
+            Check mijn BTW-status →
+          </a>
+        </td></tr></table>
+        <!-- Tip box -->
+        <table cellpadding="0" cellspacing="0" width="100%" style="margin:24px 0 0">
+          <tr><td style="background:#e8f0ec;border-left:4px solid #1a4731;border-radius:0 8px 8px 0;padding:14px 18px">
+            <p style="margin:0;font-size:14px;color:#2d6a4f;font-weight:600">💡 Tip: de KOR-drempel van €10.000 geldt voor het hele kalenderjaar. Ook verkopen van januari tellen mee.</p>
+          </td></tr>
+        </table>
+      </td></tr>
+      <tr><td style="padding:20px 40px;border-top:1px solid #e8e5de;text-align:center">
+        <p style="margin:0;font-size:12px;color:#b8b2a8">© 2026 ZenBTW · <a href="https://zenbtw.nl/privacy.html" style="color:#8a847a">Privacy</a> · <a href="{{ unsubscribe }}" style="color:#8a847a">Uitschrijven</a></p>
+      </td></tr>
+    </table>
+  </td></tr>
+</table>
+</body>
+</html>
+
+<!-- ═══════════════════════════════════════════
+     MAIL 3 — Dag 10
+     Onderwerp: Wat andere verkopers nu doen met hun BTW
+═══════════════════════════════════════════ -->
+<!DOCTYPE html>
+<html lang="nl">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Mail 3</title></head>
+<body style="margin:0;padding:0;background:#f7f6f3;font-family:'Helvetica Neue',Arial,sans-serif">
+<table width="100%" cellpadding="0" cellspacing="0" style="background:#f7f6f3;padding:40px 20px">
+  <tr><td align="center">
+    <table width="560" cellpadding="0" cellspacing="0" style="background:#ffffff;border-radius:16px;overflow:hidden;border:1.5px solid #e8e5de">
+      <tr><td style="background:#1a4731;padding:28px 40px;text-align:center">
+        <p style="margin:0;font-size:26px;font-weight:700;color:#ffffff;font-family:Georgia,serif">Zen<span style="color:#a8d5bc">BTW</span></p>
+      </td></tr>
+      <tr><td style="padding:36px 40px">
+        <p style="margin:0 0 20px;font-size:17px;font-weight:600;color:#1a1814">Wat verkopers zoals jij nu doen</p>
+        <p style="margin:0 0 16px;font-size:15px;color:#4a4640;line-height:1.7">
+          Ik spreek elke week verkopers die niet wisten dat ze iets moesten doen met hun EU-verkopen. Dit zijn de drie meest gemaakte fouten:
+        </p>
+        <!-- Fouten -->
+        <table cellpadding="0" cellspacing="0" width="100%" style="margin:0 0 24px">
+          <tr><td style="background:#fdf0ee;border-left:4px solid #c0392b;border-radius:0 8px 8px 0;padding:12px 16px;margin-bottom:12px">
+            <p style="margin:0;font-size:14px;color:#c0392b;font-weight:600">❌ "Ik dacht dat Etsy de BTW al afdroeg"</p>
+            <p style="margin:4px 0 0;font-size:13.5px;color:#4a4640">Etsy int BTW voor sommige landen, maar jouw eigen OSS-plicht blijft bestaan zodra je boven €10.000 komt.</p>
+          </td></tr>
+          <tr><td style="height:10px"></td></tr>
+          <tr><td style="background:#fdf0ee;border-left:4px solid #c0392b;border-radius:0 8px 8px 0;padding:12px 16px;margin-bottom:12px">
+            <p style="margin:0;font-size:14px;color:#c0392b;font-weight:600">❌ "Ik verkoop toch maar kleine bedragen"</p>
+            <p style="margin:4px 0 0;font-size:13.5px;color:#4a4640">De drempel is €10.000 per jaar over alle EU-landen samen — niet per land. Dat is sneller bereikt dan je denkt.</p>
+          </td></tr>
+          <tr><td style="height:10px"></td></tr>
+          <tr><td style="background:#fdf0ee;border-left:4px solid #c0392b;border-radius:0 8px 8px 0;padding:12px 16px">
+            <p style="margin:0;font-size:14px;color:#c0392b;font-weight:600">❌ "Ik wacht wel tot ik een brief krijg"</p>
+            <p style="margin:4px 0 0;font-size:13.5px;color:#4a4640">Dankzij DAC7 stuurt Vinted/Etsy/Shopify je verkoopdata direct naar de Belastingdienst. Die brief kan zomaar komen.</p>
+          </td></tr>
+        </table>
+        <p style="margin:0 0 24px;font-size:15px;color:#4a4640;line-height:1.7">
+          ZenBTW laat je in 10 seconden zien of je actie moet ondernemen — en zo ja, precies hoeveel en aan welke landen.
+        </p>
+        <table cellpadding="0" cellspacing="0" width="100%"><tr><td align="center">
+          <a href="https://zenbtw.nl/app.html" style="display:inline-block;background:#1a4731;color:#ffffff;text-decoration:none;padding:14px 32px;border-radius:10px;font-size:15px;font-weight:700">
+            Controleer mijn status gratis →
+          </a>
+        </td></tr></table>
+        <!-- Blog link -->
+        <p style="margin:24px 0 8px;font-size:14px;color:#8a847a;text-align:center">Of lees eerst meer:</p>
+        <table cellpadding="0" cellspacing="0" width="100%">
+          <tr><td style="padding:10px 16px;border:1.5px solid #e8e5de;border-radius:10px;margin-bottom:8px">
+            <a href="https://zenbtw.nl/blog/kor-drempel-overschreden.html" style="text-decoration:none;color:#1a1814;font-size:14px;font-weight:600">→ KOR-drempel overschreden: wat moet je nu doen?</a>
+          </td></tr>
+          <tr><td style="height:8px"></td></tr>
+          <tr><td style="padding:10px 16px;border:1.5px solid #e8e5de;border-radius:10px">
+            <a href="https://zenbtw.nl/blog/oss-aangifte-nederland.html" style="text-decoration:none;color:#1a1814;font-size:14px;font-weight:600">→ OSS-aangifte Nederland: complete stap-voor-stap gids</a>
+          </td></tr>
+        </table>
+      </td></tr>
+      <tr><td style="padding:20px 40px;border-top:1px solid #e8e5de;text-align:center">
+        <p style="margin:0;font-size:12px;color:#b8b2a8">© 2026 ZenBTW · <a href="https://zenbtw.nl/privacy.html" style="color:#8a847a">Privacy</a> · <a href="{{ unsubscribe }}" style="color:#8a847a">Uitschrijven</a></p>
+      </td></tr>
+    </table>
+  </td></tr>
+</table>
+</body>
+</html>
