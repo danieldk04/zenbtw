@@ -5,6 +5,11 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>ZENBTW — Dashboard</title>
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><path d=%22M50 8 L88 20 L88 55 Q88 78 50 92 Q12 78 12 55 L12 20 Z%22 fill=%22%231a4731%22/><rect x=%2227%22 y=%2254%22 width=%2210%22 height=%2218%22 fill=%22white%22 rx=%222%22/><rect x=%2241%22 y=%2242%22 width=%2210%22 height=%2230%22 fill=%22white%22 rx=%222%22/><rect x=%2255%22 y=%2232%22 width=%2210%22 height=%2240%22 fill=%22white%22 rx=%222%22/><path d=%22M24 56 Q52 36 74 26%22 stroke=%22white%22 stroke-width=%224%22 fill=%22none%22 stroke-linecap=%22round%22/><path d=%22M70 20 L80 28 L68 30 Z%22 fill=%22white%22/></svg>">
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#1a4731">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="ZenBTW">
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
 :root{--bg:#f7f6f3;--wh:#fff;--s2:#f4f3ef;--br:#e8e5de;--brs:#d4cfc5;--ac:#1a4731;--acl:#e8f0ec;--acm:#2d6a4f;--dn:#c0392b;--dnl:#fdf0ee;--wn:#d97706;--wnl:#fffbeb;--tx:#1a1814;--tx2:#4a4640;--tx3:#8a847a;--tx4:#b8b2a8;--sh:0 1px 3px rgba(0,0,0,.06);--shm:0 4px 12px rgba(0,0,0,.08);--shl:0 12px 32px rgba(0,0,0,.1);--r:12px;--rs:8px;--rx:6px}
@@ -1421,14 +1426,33 @@ function parseEtsy(text){
     if(rows.length>0)return{ok:false,msg:'Alle '+rows.length+' rijen hebben bedrag €0 of een niet-herkend formaat. Controleer de kolom "Item Total" of "Order Total" in je CSV.'};
     return{ok:false,msg:'Geen verkooporders gevonden in dit bestand.'};
   }
+  // ── PASS 2: line-item aggregatie (producten) ──
+  const etsyItems=[];
+  for(const row of rows){ try{
+    const title=(row['title']||row['item title']||row['listing title']||'').trim();
+    if(!title)continue;
+    const sku=(row['listing id']||row['listingid']||row['listing_id']||title).trim();
+    const qty=parseInt(row['quantity']||row['qty']||'1')||1;
+    const cur=row['currency']||row['currency code']||'EUR';
+    // Gebruik item total voor nauwkeurige per-item omzet; valt terug op order value
+    const rawAmt=pm(row['item total']||row['order value']||row['price']||'0');
+    const price=applyFx(rawAmt,cur);
+    if(price<=0)continue;
+    const date=row['sale date']||row['order date']||row['date']||'';
+    const q=dateToQuarter(date)||S.quarter;
+    const cc=rc(row['ship country']||row['country']||'')||'NL';
+    const condition=(row['variations']||row['variation']||'').trim();
+    etsyItems.push({platform:'etsy',orderName:row['order id']||'',date,quarter:q,sku,title,qty,price,compareAt:null,vendor:'Etsy',country:cc,condition});
+  }catch(e){continue;}}
+
   // Jaar-mismatch waarschuwing: orders in ander jaar dan huidige selectie
   const yearsFound=[...new Set(Object.keys(byQ).map(q=>q.split(' ')[1]))];
   if(yearsFound.length>0&&!yearsFound.includes(S.year)){
     log('<span class="wn">⚠️ '+tot+' orders gevonden in jaar '+(yearsFound.join(' & '))+' — dashboard staat op '+S.year+'. Orders zijn opgeslagen in het Jaaroverzicht.</span>');
   }else{
-    log('<span class="ok">✓ '+tot+' orders · €'+Math.round(rev)+'</span>');
+    log('<span class="ok">✓ '+tot+' orders · €'+Math.round(rev)+' · '+etsyItems.length+' producten</span>');
   }
-  return{ok:true,byQuarter:byQ,totalRevenue:rev,totalOrders:tot,intlOrders:io};
+  return{ok:true,byQuarter:byQ,totalRevenue:rev,totalOrders:tot,intlOrders:io,lineItems:etsyItems};
 }
 function parseShopify(text){
   const p=pcsv(text);if(!p||!p.rows.length)return{ok:false,msg:'Leeg bestand'};
@@ -1649,11 +1673,11 @@ function confirmImport(){
       qh.platforms[plat].revenue+=qd.totalRevenue;qh.platforms[plat].orders+=qd.totalOrders;qh.platforms[plat].intl+=(qd.intlOrders||0);
     });
   }
-  // Merge line items (Shopify)
+  // Merge line items (Shopify / Etsy)
   if(r.lineItems&&r.lineItems.length){
     if(!Array.isArray(S.lineItems))S.lineItems=[];
-    // Verwijder eerder geladen Shopify-items voor dit platform zodat herlaad werkt
-    S.lineItems=S.lineItems.filter(i=>i.platform!=='shopify');
+    // Verwijder eerder geladen items van dit platform zodat herlaad werkt
+    S.lineItems=S.lineItems.filter(i=>i.platform!==plat);
     S.lineItems.push(...r.lineItems);
   }
   restoreQ();
