@@ -209,25 +209,40 @@ input:checked + .tsl:before{transform:translateX(17px)}
 .mtb-icbtn{width:38px;height:38px;border:none;border-radius:var(--rx);background:transparent;cursor:pointer;font-size:18px;display:flex;align-items:center;justify-content:center;-webkit-tap-highlight-color:transparent;flex-shrink:0;transition:background .15s}
 .mtb-icbtn:active,.mtb-icbtn:hover{background:var(--s2)}
 
-/* ── MOBILE BOTTOM NAV ── */
-.mob-nav{display:none;position:fixed;bottom:0;left:0;right:0;background:var(--wh);border-top:1px solid var(--br);z-index:100;padding:0 4px;padding-bottom:env(safe-area-inset-bottom)}
-.mob-nav-inner{display:flex;height:58px;align-items:stretch}
-.mni{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;cursor:pointer;border:none;background:none;color:var(--tx3);font-family:'Plus Jakarta Sans',sans-serif;font-size:10px;font-weight:500;border-radius:8px;transition:color .15s;padding:4px 2px;-webkit-tap-highlight-color:transparent;min-height:48px}
-.mni:active{opacity:.6}.mni.on{color:var(--ac)}
-.mni-icon{font-size:20px;line-height:1}.mni-label{line-height:1;letter-spacing:.01em}
+/* ── MOBILE HAMBURGER BUTTON ── */
+.mob-hamburger{width:42px;height:42px;border:none;border-radius:var(--rx);background:transparent;cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;-webkit-tap-highlight-color:transparent;flex-shrink:0;transition:background .15s;padding:0}
+.mob-hamburger:active,.mob-hamburger:hover{background:var(--s2)}
+.mob-hamburger .hb{width:20px;height:2px;background:var(--tx2);border-radius:2px;transition:all .25s cubic-bezier(.16,1,.3,1);transform-origin:center}
+.mob-hamburger.open .hb:nth-child(1){transform:translateY(7px) rotate(45deg)}
+.mob-hamburger.open .hb:nth-child(2){opacity:0;transform:scaleX(0)}
+.mob-hamburger.open .hb:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
 
-/* ── MOBILE MORE MENU ── */
-.mob-more{position:fixed;bottom:calc(64px + env(safe-area-inset-bottom));left:10px;right:10px;background:var(--wh);border:1px solid var(--br);border-radius:16px;box-shadow:var(--shl);z-index:99;display:none;animation:fU .2s ease;overflow:hidden}
-.mob-more.on{display:block}
-.mob-more-item{display:flex;align-items:center;gap:12px;padding:13px 16px;cursor:pointer;font-size:14px;font-weight:500;color:var(--tx2);-webkit-tap-highlight-color:transparent;min-height:50px;border-bottom:1px solid #f0ede8}
-.mob-more-item:last-of-type{border-bottom:none}
-.mob-more-item:active{background:var(--s2)}.mob-more-item.on{color:var(--ac);background:var(--acl)}
-.mob-more-item span{font-size:19px;width:26px;text-align:center;flex-shrink:0}
-.mob-more-overlay{position:fixed;inset:0;z-index:98;display:none}.mob-more-overlay.on{display:block}
-.mob-quarter-strip{padding:10px 14px;background:var(--s2);border-top:1px solid var(--br)}
+/* ── MOBILE DRAWER ── */
+.mob-drawer{position:fixed;top:0;left:0;bottom:0;width:min(300px,85vw);background:var(--wh);z-index:200;transform:translateX(-100%);transition:transform .3s cubic-bezier(.16,1,.3,1);overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch;display:flex;flex-direction:column}
+.mob-drawer.on{transform:translateX(0)}
+.mob-drawer-overlay{position:fixed;inset:0;z-index:199;background:rgba(0,0,0,.45);backdrop-filter:blur(2px);-webkit-backdrop-filter:blur(2px);display:none;opacity:0;transition:opacity .3s}
+.mob-drawer-overlay.on{display:block;opacity:1}
+/* Drawer header */
+.mob-drawer-hd{display:flex;align-items:center;justify-content:space-between;padding:calc(14px + env(safe-area-inset-top)) 16px 14px;border-bottom:1px solid var(--br);flex-shrink:0}
+.mob-drawer-logo{display:flex;align-items:center;gap:10px}
+.mob-drawer-close{width:36px;height:36px;border:none;border-radius:var(--rx);background:var(--s2);cursor:pointer;font-size:18px;display:flex;align-items:center;justify-content:center;color:var(--tx3);-webkit-tap-highlight-color:transparent;transition:all .15s}
+.mob-drawer-close:active{background:var(--br)}
+/* Drawer sections */
+.mob-drawer-section{padding:8px 0}
+.mob-drawer-section+.mob-drawer-section{border-top:1px solid var(--br)}
+.mob-drawer-label{padding:10px 18px 4px;font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:var(--tx4)}
+.mob-drawer-item{display:flex;align-items:center;gap:13px;padding:13px 18px;cursor:pointer;font-size:14px;font-weight:500;color:var(--tx2);-webkit-tap-highlight-color:transparent;min-height:50px;transition:all .12s;border:none;background:none;width:100%;text-align:left}
+.mob-drawer-item:active{background:var(--s2)}
+.mob-drawer-item.on{color:var(--ac);background:var(--acl);font-weight:600}
+.mob-drawer-item .di{font-size:20px;width:28px;text-align:center;flex-shrink:0}
+/* Quarter strip in drawer */
+.mob-drawer-q{padding:14px 18px 18px;border-top:1px solid var(--br);margin-top:auto;flex-shrink:0;padding-bottom:calc(18px + env(safe-area-inset-bottom))}
+.mob-drawer-q-label{font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:var(--tx4);margin-bottom:8px}
 .mob-qs-year{width:100%;padding:8px 10px;border:1px solid var(--br);border-radius:var(--rx);background:var(--wh);font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:500;color:var(--tx2);cursor:pointer;outline:none;height:42px;margin-bottom:8px}
 .mob-qs-btns{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:7px}
-.mob-quarter-strip .qb{padding:9px 4px;font-size:12px;min-height:42px}
+.mob-drawer-q .qb{padding:9px 4px;font-size:12px;min-height:42px}
+/* Current page badge in topbar */
+.mtb-view{font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:600;color:var(--acm);text-transform:uppercase;letter-spacing:.06em;background:var(--acl);padding:3px 8px;border-radius:100px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:90px}
 
 /* ── TABLE SCROLL ── */
 .table-scroll-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;margin:0 -18px;padding:0 18px}
@@ -256,9 +271,8 @@ input:checked + .tsl:before{transform:translateX(17px)}
 /* ── TABLET (≤900px) ── */
 @media(max-width:900px){
   .nav{display:none}
-  .mob-nav{display:flex}
   .mob-topbar{display:flex}
-  .vw{padding:16px 16px calc(68px + env(safe-area-inset-bottom));padding-top:calc(52px + env(safe-area-inset-top) + 16px)}
+  .vw{padding:16px 16px 28px;padding-top:calc(52px + env(safe-area-inset-top) + 16px)}
   .sg{grid-template-columns:repeat(2,1fr);gap:10px}
   .cg{grid-template-columns:1fr}
   .ur{grid-template-columns:1fr;gap:10px}
@@ -329,7 +343,7 @@ input:checked + .tsl:before{transform:translateX(17px)}
 
 /* ── EXTRA SMALL (≤360px) ── */
 @media(max-width:360px){
-  .vw{padding:12px 10px calc(68px + env(safe-area-inset-bottom));padding-top:calc(52px + env(safe-area-inset-top) + 12px)}
+  .vw{padding:12px 10px 24px;padding-top:calc(52px + env(safe-area-inset-top) + 12px)}
   .sv{font-size:18px}
   .btn{font-size:11px;padding:7px 9px}
   .sc{padding:10px 10px}
@@ -343,7 +357,7 @@ input:checked + .tsl:before{transform:translateX(17px)}
 
 @media print{
   body{background:#fff!important}.shell{display:block!important}
-  .nav,.ur,.ha,.xb,.disc,.kb,.plog,.prog,.fxbar,.corr,.als,.mob-nav,.mob-more,.mob-topbar,.ossAP-noprint,.trust-bar,.prod-tabs,.marge-import-bar,.btn{display:none!important}
+  .nav,.ur,.ha,.xb,.disc,.kb,.plog,.prog,.fxbar,.corr,.als,.mob-drawer,.mob-drawer-overlay,.mob-topbar,.ossAP-noprint,.trust-bar,.prod-tabs,.marge-import-bar,.btn{display:none!important}
   /* Alleen het actieve view printen */
   .vw{display:none!important}
   .vw.on{display:block!important;padding:0!important}
@@ -647,55 +661,105 @@ src="https://www.facebook.com/tr?id=964378096043237&ev=PageView&noscript=1"
   <div class="mtb-left">
     <picture>
       <source srcset="./logo.webp" type="image/webp">
-      <img src="./logo.webp" alt="ZenBTW Logo" style="height:32px;width:auto;display:block;border-radius:4px;object-fit:contain" width="58" height="32" fetchpriority="high">
+      <img src="./logo.webp" alt="ZenBTW Logo" style="height:30px;width:auto;display:block;border-radius:4px;object-fit:contain" width="55" height="30" fetchpriority="high">
     </picture>
     <div class="mtb-info">
       <span class="mtb-title">Zen<em>BTW</em></span>
       <span class="mtb-q" id="mtbQ">Q1 2025</span>
     </div>
+    <span class="mtb-view" id="mtbView">Dashboard</span>
   </div>
   <div class="mtb-right">
-    <select class="mtb-yearpick" id="yearSelMob" onchange="changeYear(this.value)">
-      <option value="2024">2024</option>
-      <option value="2025" selected>2025</option>
-      <option value="2026">2026</option>
-      <option value="2027">2027</option>
-    </select>
-    <button class="mtb-icbtn" onclick="sv('alerts');mniActive('mniAlert')" title="Meldingen">🔔</button>
-    <button class="mtb-icbtn" onclick="openSettings()" title="Instellingen">⚙️</button>
+    <button class="mtb-icbtn" onclick="sv('alerts')" title="Meldingen">🔔</button>
+    <button class="mob-hamburger" id="mobHamburger" onclick="toggleDrawer()" aria-label="Menu openen" aria-expanded="false">
+      <span class="hb"></span>
+      <span class="hb"></span>
+      <span class="hb"></span>
+    </button>
   </div>
 </div>
 
-<!-- MOBILE BOTTOM NAV -->
-<div class="mob-nav">
-  <div class="mob-nav-inner">
-    <button class="mni on" id="mniDash" onclick="sv('dashboard');mniActive('mniDash')">
-      <span class="mni-icon">📊</span><span class="mni-label">Dashboard</span>
+<!-- MOBILE DRAWER OVERLAY -->
+<div class="mob-drawer-overlay" id="drawerOverlay" onclick="closeDrawer()"></div>
+
+<!-- MOBILE DRAWER -->
+<div class="mob-drawer" id="mobDrawer">
+  <!-- Drawer header -->
+  <div class="mob-drawer-hd">
+    <div class="mob-drawer-logo">
+      <picture>
+        <source srcset="./logo.webp" type="image/webp">
+        <img src="./logo.webp" alt="ZenBTW" style="height:28px;width:auto;display:block;border-radius:4px" width="51" height="28">
+      </picture>
+      <span style="font-family:'Fraunces',serif;font-size:16px;font-weight:700;letter-spacing:-.3px">Zen<span style="color:var(--acm)">BTW</span></span>
+    </div>
+    <button class="mob-drawer-close" onclick="closeDrawer()" aria-label="Menu sluiten">✕</button>
+  </div>
+
+  <!-- Overzicht -->
+  <div class="mob-drawer-section">
+    <div class="mob-drawer-label">Overzicht</div>
+    <button class="mob-drawer-item on" id="mniDash" onclick="sv('dashboard');closeDrawer()">
+      <span class="di">📊</span>Dashboard
     </button>
-    <button class="mni" id="mniTx" onclick="sv('transacties');mniActive('mniTx')">
-      <span class="mni-icon">🧾</span><span class="mni-label">Orders</span>
+    <button class="mob-drawer-item" id="mniTx" onclick="sv('transacties');closeDrawer()">
+      <span class="di">🧾</span>Transacties
     </button>
-    <button class="mni" id="mniLanden" onclick="sv('landen');mniActive('mniLanden')">
-      <span class="mni-icon">🌍</span><span class="mni-label">Landen</span>
+    <button class="mob-drawer-item" id="mniProd" onclick="sv('producten');closeDrawer()">
+      <span class="di">📦</span>Producten
     </button>
-    <button class="mni" id="mniMore" onclick="toggleMobMore()">
-      <span class="mni-icon">☰</span><span class="mni-label">Meer</span>
+    <button class="mob-drawer-item" id="mniMarge" onclick="sv('marge');closeDrawer()">
+      <span class="di">💰</span>Marge
+    </button>
+    <button class="mob-drawer-item" id="mniLanden" onclick="sv('landen');closeDrawer()">
+      <span class="di">🌍</span>Landen
+    </button>
+    <button class="mob-drawer-item" id="mniJaar" onclick="sv('jaaroverzicht');closeDrawer()">
+      <span class="di">📅</span>Jaaroverzicht
     </button>
   </div>
-</div>
-<div class="mob-more-overlay" id="mobMoreOverlay" onclick="closeMobMore()"></div>
-<div class="mob-more" id="mobMore">
-  <div class="mob-more-item" id="mniProd" onclick="sv('producten');mniActive('mniProd');closeMobMore()"><span>📦</span>Producten</div>
-  <div class="mob-more-item" id="mniMarge" onclick="sv('marge');mniActive('mniMarge');closeMobMore()"><span>💰</span>Marge</div>
-  <div class="mob-more-item" id="mniJaar" onclick="sv('jaaroverzicht');mniActive('mniJaar');closeMobMore()"><span>📅</span>Jaaroverzicht</div>
-  <div class="mob-more-item" id="mniOSS" onclick="sv('oss');mniActive('mniOSS');closeMobMore()"><span>✅</span>OSS Registratie</div>
-  <div class="mob-more-item" id="mniHelp" onclick="sv('help');mniActive('mniHelp');closeMobMore()"><span>❓</span>Help & Uitleg</div>
-  <div class="mob-more-item" onclick="exportXML();closeMobMore()"><span>📄</span>Aangifte exporteren</div>
-  <div class="mob-more-item" onclick="exportCSVFile();closeMobMore()"><span>📊</span>CSV Export</div>
-  <div class="mob-more-item" onclick="syncToGoogle();closeMobMore()"><span>☁️</span>Cloud Backup</div>
-  <div class="mob-more-item" onclick="downloadBackup();closeMobMore()"><span>💾</span>Backup downloaden</div>
-  <div class="mob-quarter-strip">
-    <select class="mob-qs-year" id="yearSelMore" onchange="changeYear(this.value);closeMobMore()">
+
+  <!-- Aangifte -->
+  <div class="mob-drawer-section">
+    <div class="mob-drawer-label">Aangifte</div>
+    <button class="mob-drawer-item" onclick="exportXML();closeDrawer()">
+      <span class="di">📄</span>XML exporteren
+    </button>
+    <button class="mob-drawer-item" onclick="exportCSVFile();closeDrawer()">
+      <span class="di">📊</span>CSV rapport
+    </button>
+    <button class="mob-drawer-item" onclick="printRapport();closeDrawer()">
+      <span class="di">🖨️</span>PDF afdrukken
+    </button>
+  </div>
+
+  <!-- Tools -->
+  <div class="mob-drawer-section">
+    <div class="mob-drawer-label">Tools</div>
+    <button class="mob-drawer-item" id="mniOSS" onclick="sv('oss');closeDrawer()">
+      <span class="di">✅</span>OSS Registratie
+    </button>
+    <button class="mob-drawer-item" id="mniAlert" onclick="sv('alerts');closeDrawer()">
+      <span class="di">🔔</span>Meldingen
+    </button>
+    <button class="mob-drawer-item" id="mniHelp" onclick="sv('help');closeDrawer()">
+      <span class="di">❓</span>Help & Uitleg
+    </button>
+    <button class="mob-drawer-item" onclick="openSettings();closeDrawer()">
+      <span class="di">⚙️</span>Bedrijfsgegevens
+    </button>
+    <button class="mob-drawer-item" onclick="syncToGoogle();closeDrawer()">
+      <span class="di">☁️</span>Cloud Backup
+    </button>
+    <button class="mob-drawer-item" onclick="downloadBackup();closeDrawer()">
+      <span class="di">💾</span>Backup downloaden
+    </button>
+  </div>
+
+  <!-- Kwartaalkiezer -->
+  <div class="mob-drawer-q">
+    <div class="mob-drawer-q-label">Kwartaal</div>
+    <select class="mob-qs-year" id="yearSelMore" onchange="changeYear(this.value)">
       <option value="2024">2024</option>
       <option value="2025" selected>2025</option>
       <option value="2026">2026</option>
@@ -707,6 +771,7 @@ src="https://www.facebook.com/tr?id=964378096043237&ev=PageView&noscript=1"
       <button class="qb" id="mqb3" onclick="setQ(this,'Q3');syncMobQuarter(this)">Q3</button>
       <button class="qb" id="mqb4" onclick="setQ(this,'Q4');syncMobQuarter(this)">Q4</button>
     </div>
+    <a href="index.html" style="display:flex;align-items:center;gap:6px;margin-top:14px;font-size:12.5px;color:var(--tx3);text-decoration:none;font-weight:500">← Terug naar home</a>
   </div>
 </div>
 
@@ -1595,7 +1660,6 @@ const calcBtwData=c=>Object.entries(c||{}).filter(([cc])=>cc!=='NL'&&EU[cc]).red
 // ── RENDER ──
 function updateMobTopbar(){
   const q=document.getElementById('mtbQ');if(q)q.textContent=S.quarter;
-  const ym=document.getElementById('yearSelMob');if(ym)ym.value=S.year;
   const ymm=document.getElementById('yearSelMore');if(ymm)ymm.value=S.year;
   const ys=document.getElementById('yearSel');if(ys)ys.value=S.year;
 }
@@ -2257,9 +2321,8 @@ function sv(view){
   const el=document.getElementById('vw'+view);if(el)el.classList.add('on');
   const ni={dashboard:'nDash',transacties:'nTx',producten:'nProd',marge:'nMarge',landen:'nLanden',jaaroverzicht:'nJaar',oss:'nOSS',alerts:'nAlert',help:'nHelp'};
   const nel=document.getElementById(ni[view]);if(nel)nel.classList.add('on');
-  // sync mobile bottom nav
-  const mobMap={dashboard:'mniDash',transacties:'mniTx',landen:'mniLanden',producten:'mniProd',marge:'mniMarge',jaaroverzicht:'mniJaar',oss:'mniOSS',alerts:'mniAlert',help:'mniHelp'};
-  if(mobMap[view])mniActive(mobMap[view]);
+  // sync mobile drawer
+  mniActive(view);
   if(view==='transacties')renderTx();if(view==='landen')renderLanden();if(view==='jaaroverzicht'){renderYGrid();renderJDetail();}if(view==='oss')renderOSS();if(view==='alerts')loadAlUI();if(view==='producten')renderProducts();if(view==='marge')renderMarge();
 }
 function toggleAcc(el){el.closest('.acc').classList.toggle('on');}
@@ -2395,28 +2458,43 @@ async function syncToGoogle() {
 }
 
 // ── MOBILE NAV ──
-function mniActive(id){
-  // bottom nav items
-  document.querySelectorAll('.mni').forEach(n=>n.classList.remove('on'));
-  const el=document.getElementById(id);if(el)el.classList.add('on');
-  // more menu items - mark active if it's a more-menu view
-  document.querySelectorAll('.mob-more-item').forEach(n=>n.classList.remove('on'));
-  const moreMap={mniJaar:1,mniOSS:1,mniHelp:1,mniProd:1,mniMarge:1};
-  if(moreMap[id]){
-    document.getElementById('mniMore').classList.add('on');
-    const moreEl=document.getElementById(id);if(moreEl)moreEl.classList.add('on');
-  }
+// ── MOBILE DRAWER ──
+const VIEW_LABELS={dashboard:'Dashboard',transacties:'Transacties',producten:'Producten',marge:'Marge',landen:'Landen',jaaroverzicht:'Jaaroverzicht',oss:'OSS',alerts:'Meldingen',help:'Help'};
+function mniActive(view){
+  // Markeer actief item in drawer
+  document.querySelectorAll('.mob-drawer-item').forEach(n=>n.classList.remove('on'));
+  const idMap={dashboard:'mniDash',transacties:'mniTx',landen:'mniLanden',jaaroverzicht:'mniJaar',oss:'mniOSS',alerts:'mniAlert',help:'mniHelp',producten:'mniProd',marge:'mniMarge'};
+  const el=document.getElementById(idMap[view]);
+  if(el)el.classList.add('on');
+  // Update view badge in topbar
+  const badge=document.getElementById('mtbView');
+  if(badge)badge.textContent=VIEW_LABELS[view]||'';
 }
-function toggleMobMore(){
-  const m=document.getElementById('mobMore');const o=document.getElementById('mobMoreOverlay');
-  const open=m.classList.toggle('on');o.classList.toggle('on',open);
+function toggleDrawer(){
+  const d=document.getElementById('mobDrawer');
+  const o=document.getElementById('drawerOverlay');
+  const h=document.getElementById('mobHamburger');
+  const open=d.classList.toggle('on');
+  o.style.display=open?'block':'none';
+  setTimeout(()=>{if(open)o.style.opacity='1';},10);
+  h.classList.toggle('open',open);
+  h.setAttribute('aria-expanded',open);
+  document.body.style.overflow=open?'hidden':'';
 }
-function closeMobMore(){
-  document.getElementById('mobMore').classList.remove('on');
-  document.getElementById('mobMoreOverlay').classList.remove('on');
+function closeDrawer(){
+  const d=document.getElementById('mobDrawer');
+  const o=document.getElementById('drawerOverlay');
+  const h=document.getElementById('mobHamburger');
+  d.classList.remove('on');
+  o.style.opacity='0';
+  setTimeout(()=>{o.style.display='none';},300);
+  h.classList.remove('open');
+  h.setAttribute('aria-expanded','false');
+  document.body.style.overflow='';
 }
+// Legacy shim — geen bottom nav meer maar sv() roept dit nog aan
+function closeMobMore(){}
 function syncMobQuarter(btn){
-  // keep desktop quarter buttons in sync
   document.querySelectorAll('.nb .qb').forEach(b=>b.classList.remove('on'));
   const q=btn.textContent;
   document.querySelectorAll('.nb .qb').forEach(b=>{if(b.textContent===q)b.classList.add('on');});
@@ -2721,7 +2799,7 @@ function submitProEmail(){
   setTimeout(closeProModal,3000);
 }
 document.addEventListener('keydown',function(e){
-  if(e.key==='Escape')closeProModal();
+  if(e.key==='Escape'){closeProModal();closeDrawer();}
 });
 </script>
 <script src="js/products.js"></script>
