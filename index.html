@@ -1607,6 +1607,7 @@ src="https://www.facebook.com/tr?id=964378096043237&ev=PageView&noscript=1"
       <a href="#prijzen" style="font-size:12.5px;color:var(--tx3);font-weight:500">Prijzen</a>
       <a href="#faq" style="font-size:12.5px;color:var(--tx3);font-weight:500">FAQ</a>
       <a href="app.html" style="font-size:12.5px;color:var(--tx3);font-weight:500">App</a>
+      <a href="privacy.html" style="font-size:12.5px;color:var(--tx3);font-weight:500">Privacy</a>
       <span class="footer-copy">© 2026 ZenBTW</span>
     </div>
     <span class="footer-badge">🔒 Client-side encrypted</span>
@@ -1615,7 +1616,7 @@ src="https://www.facebook.com/tr?id=964378096043237&ev=PageView&noscript=1"
 
 <!-- ══════════════ GDPR COOKIE NOTICE ══════════════ -->
 <div id="cookieBanner" style="display:none;position:fixed;bottom:0;left:0;right:0;z-index:9999;background:#1a1814;color:#e8e5de;padding:14px 20px;display:flex;align-items:center;justify-content:space-between;gap:16px;font-size:13.5px;line-height:1.5;box-shadow:0 -2px 12px rgba(0,0,0,.2)">
-  <span>🍪 ZenBTW gebruikt <strong>geen tracking-cookies</strong>. We slaan alleen je voorkeur op voor de cookie-melding. Je data blijft 100% lokaal in je browser. <a href="#" style="color:#86efac;text-decoration:underline">Meer info</a></span>
+  <span>🍪 ZenBTW gebruikt <strong>geen tracking-cookies</strong>. Je verkoopdata blijft 100% lokaal in je browser. <a href="privacy.html" style="color:#86efac;text-decoration:underline">Privacyverklaring</a></span>
   <button onclick="dismissCookie()" style="background:#2d6a4f;color:#fff;border:none;border-radius:8px;padding:8px 18px;font-size:13px;font-weight:600;cursor:pointer;white-space:nowrap;flex-shrink:0">Begrepen ✓</button>
 </div>
 <script>
@@ -1645,7 +1646,7 @@ async function submitWaitlist(e){
   }catch(err){}
   // Stuur naar Formspree (vervang YOUR_FORM_ID met jouw Formspree form ID)
   try{
-    await fetch('https://formspree.io/f/YOUR_FORM_ID',{
+    await fetch('https://formspree.io/danieldekoning66@gmail.com',{
       method:'POST',
       headers:{'Content-Type':'application/json','Accept':'application/json'},
       body:JSON.stringify({email,bron:'zenbtw-waitlist',datum:new Date().toISOString()})

@@ -272,6 +272,32 @@ function renderMarge() {
           </span>
         </div>`;
     }).join('');
+
+  // Zoekbalk tonen als er producten zijn
+  const sw = document.getElementById('margeSearchWrap');
+  if (sw) sw.style.display = items.length > 5 ? 'flex' : 'none';
+  // Reset zoekbalk bij herladen
+  const si = document.getElementById('margeSearch');
+  if (si) { si.value = ''; }
+}
+
+/**
+ * filterMargeRows(query)
+ * Verbergt rijen die niet overeenkomen met de zoekterm.
+ */
+function filterMargeRows(query) {
+  const q = (query || '').toLowerCase().trim();
+  document.querySelectorAll('.marge-row[data-sku]').forEach(row => {
+    const sku   = (row.getAttribute('data-sku') || '').toLowerCase();
+    const title = (row.querySelector('.marge-title-txt')?.textContent || '').toLowerCase();
+    const brand = (row.querySelector('.marge-title-sub span')?.textContent || '').toLowerCase();
+    row.style.display = (!q || sku.includes(q) || title.includes(q) || brand.includes(q)) ? '' : 'none';
+  });
+  // Update subtitel
+  const visible = document.querySelectorAll('.marge-row[data-sku]:not([style*="none"])').length;
+  const sub = document.getElementById('margeCardSub');
+  if (sub && q) sub.textContent = `${visible} resultaten voor "${query}"`;
+  else if (sub) sub.textContent = 'Vul inkoopprijzen in voor brutowinst-berekening';
 }
 
 /**

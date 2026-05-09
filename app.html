@@ -3,7 +3,11 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ZENBTW — Dashboard</title>
+<title>ZenBTW — BTW Dashboard voor Marketplace Verkopers</title>
+<meta name="description" content="Bereken je KOR-drempel, bekijk BTW per EU-land en exporteer je OSS-aangifte. Voor Etsy, Shopify en Vinted verkopers. Gratis, privacyveilig en 100% in je browser.">
+<meta name="robots" content="noindex">
+<meta property="og:title" content="ZenBTW — BTW Dashboard">
+<meta property="og:description" content="KOR-drempel bewaken en OSS-aangifte exporteren voor marketplace-verkopers.">
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><path d=%22M50 8 L88 20 L88 55 Q88 78 50 92 Q12 78 12 55 L12 20 Z%22 fill=%22%231a4731%22/><rect x=%2227%22 y=%2254%22 width=%2210%22 height=%2218%22 fill=%22white%22 rx=%222%22/><rect x=%2241%22 y=%2242%22 width=%2210%22 height=%2230%22 fill=%22white%22 rx=%222%22/><rect x=%2255%22 y=%2232%22 width=%2210%22 height=%2240%22 fill=%22white%22 rx=%222%22/><path d=%22M24 56 Q52 36 74 26%22 stroke=%22white%22 stroke-width=%224%22 fill=%22none%22 stroke-linecap=%22round%22/><path d=%22M70 20 L80 28 L68 30 Z%22 fill=%22white%22/></svg>">
 <link rel="manifest" href="manifest.json">
 <meta name="theme-color" content="#1a4731">
@@ -595,6 +599,11 @@ input:checked + .tsl:before{transform:translateX(17px)}
 .marge-pct{font-size:11px;color:var(--tx3);text-align:right;font-family:'JetBrains Mono',monospace}
 .marge-rev-cell{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--tx);text-align:right}
 .marge-title-cell{overflow:hidden}
+.marge-search-wrap{padding:0 0 12px;display:flex;gap:8px;align-items:center}
+.marge-search{flex:1;padding:8px 12px;border:1.5px solid var(--br);border-radius:var(--rs);font-size:13px;font-family:inherit;background:var(--wh);color:var(--tx);outline:none;transition:border-color .15s}
+.marge-search:focus{border-color:var(--ac)}
+.marge-search-clear{padding:7px 11px;border:1px solid var(--br);border-radius:var(--rs);background:var(--wh);color:var(--tx3);cursor:pointer;font-size:12px;transition:all .15s}
+.marge-search-clear:hover{background:var(--s2)}
 .marge-title-txt{font-weight:500;color:var(--tx);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:12.5px}
 .marge-title-sub{font-size:10.5px;color:var(--tx3);margin-top:1px;display:flex;gap:6px}
 .marge-import-bar{display:flex;gap:8px;align-items:center;margin-bottom:16px;flex-wrap:wrap}
@@ -1201,6 +1210,10 @@ src="https://www.facebook.com/tr?id=964378096043237&ev=PageView&noscript=1"
     <div class="ch">
       <div><div class="ct" id="margeCardTitle">Marge per product</div><div class="cst" id="margeCardSub">Vul inkoopprijzen in voor brutowinst-berekening</div></div>
       <button class="btn bs" onclick="document.getElementById('margeImportHint').style.display=document.getElementById('margeImportHint').style.display==='none'?'block':'none'" style="font-size:11.5px;padding:5px 10px">CSV uitleg</button>
+    </div>
+    <div class="marge-search-wrap" id="margeSearchWrap" style="display:none;padding:12px 16px 0">
+      <input class="marge-search" id="margeSearch" type="search" placeholder="🔍 Zoek op titel, merk of SKU…" oninput="filterMargeRows(this.value)">
+      <button class="marge-search-clear" onclick="document.getElementById('margeSearch').value='';filterMargeRows('')" title="Wissen">✕</button>
     </div>
     <div class="table-scroll-wrap" id="margeBody">
       <div class="es"><div class="esi">💰</div><div class="est">Geen producten</div><div class="ess">Upload je Shopify CSV op het dashboard</div></div>
