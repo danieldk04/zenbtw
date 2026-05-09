@@ -2890,5 +2890,12 @@ document.addEventListener('keydown',function(e){
 </script>
 <script src="js/products.js"></script>
 <script src="js/marge.js"></script>
+<script>
+if('serviceWorker' in navigator){
+  window.addEventListener('load',()=>{
+    navigator.serviceWorker.register('sw.js').catch(()=>{});
+  });
+}
+</script>
 </body>
 </html>
