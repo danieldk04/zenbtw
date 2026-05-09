@@ -1,13 +1,6 @@
 {
   "queue": [
     {
-      "keyword": "shopify btw nederland 2026",
-      "slug": "shopify-btw-nederland-2026",
-      "status": "pending",
-      "priority": 1,
-      "notes": "Hoge zoekvolume, directe match met onze doelgroep"
-    },
-    {
       "keyword": "oss registratie belastingdienst stappenplan",
       "slug": "oss-registratie-belastingdienst",
       "status": "pending",
@@ -71,7 +64,17 @@
       "notes": "Specifiek pijnpunt"
     }
   ],
-  "published": [],
+  "published": [
+    {
+      "keyword": "shopify btw nederland 2026",
+      "slug": "shopify-btw-nederland-2026",
+      "status": "published",
+      "priority": 1,
+      "notes": "Hoge zoekvolume, directe match met onze doelgroep",
+      "publishedDate": "2026-05-09",
+      "outputFile": "blog/shopify-btw-nederland-2026.html"
+    }
+  ],
   "settings": {
     "maxPerRun": 1,
     "targetLanguage": "nl",
