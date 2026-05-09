@@ -23,8 +23,26 @@ body{background:var(--bg);color:var(--tx);font-family:'Plus Jakarta Sans',sans-s
 .ln em{color:var(--acm);font-style:normal}
 .ns{padding:0 10px;margin-bottom:6px}
 .nsl{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.1em;color:var(--tx4);padding:0 8px;margin-bottom:3px}
-.ni{display:flex;align-items:center;gap:8px;padding:8px 10px;border-radius:var(--rx);cursor:pointer;transition:all .15s;font-size:12.5px;font-weight:500;color:var(--tx3)}
+.ni{display:flex;align-items:center;gap:8px;padding:8px 10px;border-radius:var(--rx);cursor:pointer;transition:all .15s;font-size:12.5px;font-weight:500;color:var(--tx3);position:relative}
 .ni:hover{background:var(--s2);color:var(--tx2)}.ni.on{background:var(--acl);color:var(--ac);font-weight:600}
+.nav-badge{position:absolute;right:8px;top:50%;transform:translateY(-50%);min-width:18px;height:18px;border-radius:9px;background:var(--dn);color:#fff;font-size:10px;font-weight:700;display:flex;align-items:center;justify-content:center;padding:0 4px;font-family:'JetBrains Mono',monospace}
+.nav-badge.warn{background:#f59e0b}
+/* Onboarding banner */
+.onboard-banner{margin-bottom:20px;background:linear-gradient(135deg,#1a4731 0%,#2d6a4f 100%);border-radius:14px;padding:28px 28px 24px;color:#fff;position:relative;overflow:hidden}
+.onboard-banner::before{content:'';position:absolute;right:-40px;top:-40px;width:180px;height:180px;border-radius:50%;background:rgba(255,255,255,.05)}
+.onboard-banner h2{font-size:17px;font-weight:700;margin-bottom:6px;letter-spacing:-.01em}
+.onboard-banner p{font-size:13.5px;color:rgba(255,255,255,.75);margin-bottom:20px;line-height:1.6;max-width:480px}
+.onboard-steps{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:20px}
+.onboard-step{background:rgba(255,255,255,.1);border-radius:10px;padding:13px 14px;display:flex;flex-direction:column;gap:6px}
+.onboard-step-num{font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.5)}
+.onboard-step-icon{font-size:22px;line-height:1}
+.onboard-step-txt{font-size:12.5px;font-weight:600;color:#fff;line-height:1.4}
+.onboard-btns{display:flex;gap:10px;flex-wrap:wrap}
+.onboard-btn-primary{padding:9px 18px;background:#fff;color:#1a4731;border:none;border-radius:8px;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;transition:transform .15s}
+.onboard-btn-primary:hover{transform:translateY(-1px)}
+.onboard-btn-ghost{padding:9px 18px;background:rgba(255,255,255,.12);color:#fff;border:1px solid rgba(255,255,255,.25);border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;font-family:inherit;transition:background .15s}
+.onboard-btn-ghost:hover{background:rgba(255,255,255,.2)}
+@media(max-width:700px){.onboard-steps{grid-template-columns:1fr}.onboard-banner{padding:20px 18px 18px}}
 .nb{margin-top:auto;padding:14px 10px 0;border-top:1px solid var(--br)}
 .nq{padding:10px;background:var(--s2);border-radius:var(--rs)}
 .nql{font-size:10px;color:var(--tx4);font-weight:600;text-transform:uppercase;letter-spacing:.08em;margin-bottom:6px}
@@ -648,7 +666,7 @@ src="https://www.facebook.com/tr?id=964378096043237&ev=PageView&noscript=1"
   </div>
   <div class="ns" style="margin-top:10px"><div class="nsl">Tools</div>
     <div class="ni" id="nOSS" onclick="sv('oss')">✅ OSS Registratie</div>
-    <div class="ni" id="nAlert" onclick="sv('alerts')">🔔 Meldingen</div>
+    <div class="ni" id="nAlert" onclick="sv('alerts')">🔔 Meldingen<span class="nav-badge" id="navAlertBadge" style="display:none">!</span></div>
     <div class="ni" id="nHelp" onclick="sv('help')">❓ Help & Uitleg</div>
     <div class="ni" onclick="openSettings()">⚙️ Bedrijfsgegevens</div>
   </div>
@@ -846,6 +864,34 @@ src="https://www.facebook.com/tr?id=964378096043237&ev=PageView&noscript=1"
     <span>🇪🇺 OSS-Proof: Berekend volgens de laatste EU BTW-richtlijnen.</span>
     <span>⚡ Direct Resultaat: Geen wachttijden, direct inzicht.</span>
   </div>
+  <!-- Onboarding banner (alleen zichtbaar zonder data) -->
+  <div class="onboard-banner" id="onboardBanner" style="display:none">
+    <h2>👋 Welkom bij ZenBTW — je BTW-dashboard is klaar</h2>
+    <p>Upload je verkoopexport en zie binnen 10 seconden of je de KOR-drempel nadert en hoeveel BTW je moet afdragen per EU-land.</p>
+    <div class="onboard-steps">
+      <div class="onboard-step">
+        <div class="onboard-step-num">Stap 1</div>
+        <div class="onboard-step-icon">📂</div>
+        <div class="onboard-step-txt">Exporteer je CSV in Etsy, Shopify of Vinted</div>
+      </div>
+      <div class="onboard-step">
+        <div class="onboard-step-num">Stap 2</div>
+        <div class="onboard-step-icon">⬆️</div>
+        <div class="onboard-step-txt">Upload het bestand hieronder — 1 klik</div>
+      </div>
+      <div class="onboard-step">
+        <div class="onboard-step-num">Stap 3</div>
+        <div class="onboard-step-icon">📊</div>
+        <div class="onboard-step-txt">Zie direct je KOR-status, BTW en omzet</div>
+      </div>
+    </div>
+    <div class="onboard-btns">
+      <button class="onboard-btn-primary" onclick="loadDemoData()">▶ Probeer met demodata</button>
+      <button class="onboard-btn-ghost" onclick="sv('help')">❓ Hoe exporteer ik een CSV?</button>
+      <button class="onboard-btn-ghost" onclick="document.getElementById('onboardBanner').style.display='none'">✕ Sluiten</button>
+    </div>
+  </div>
+
   <div class="ur">
     <div class="uz" id="eZ" data-umami-event="upload-csv"><input type="file" accept=".csv" onchange="hu(event,'etsy')"><div class="ui">🏪</div><div class="ut">Etsy CSV</div><div class="us">Shop Manager → Data downloaden</div><div class="ubg e">EtsySoldOrders.csv</div></div>
     <div class="uz" id="sZ" data-umami-event="upload-csv"><input type="file" accept=".csv" onchange="hu(event,'shopify')"><div class="ui">🛍️</div><div class="ut">Shopify CSV</div><div class="us">Orders → Exporteren → CSV</div><div class="ubg s">orders_export.csv</div></div>
@@ -1737,11 +1783,36 @@ function render(){
   updProg();
   renderYGrid();
   renderMaandChart();
+  updateNavBadges();
+  updateOnboarding();
   if(document.getElementById('vwtransacties').classList.contains('on')) renderTx();
   if(document.getElementById('vwlanden').classList.contains('on')) renderLanden();
   if(document.getElementById('vwjaaroverzicht').classList.contains('on')) renderJDetail();
   if(document.getElementById('vwmarge')&&document.getElementById('vwmarge').classList.contains('on')) renderMarge();
 }
+
+function updateNavBadges(){
+  const pct=Math.min(Math.round(calcYearCB()/S.korLimit*100),100);
+  const badge=document.getElementById('navAlertBadge');
+  if(!badge)return;
+  if(pct>=90){badge.style.display='flex';badge.className='nav-badge';badge.title='KOR-drempel '+pct+'% bereikt — actie vereist!';}
+  else if(pct>=70){badge.style.display='flex';badge.className='nav-badge warn';badge.title='KOR-drempel '+pct+'% — let op';}
+  else{badge.style.display='none';}
+}
+
+function updateOnboarding(){
+  const b=document.getElementById('onboardBanner');if(!b)return;
+  const hasData=S.totalOrders>0||Object.keys(S.quarterHistory||{}).some(q=>S.quarterHistory[q]?.totalOrders>0);
+  if(hasData){b.style.display='none';}
+  else if(b.style.display==='none'&&!localStorage.getItem('zen_onboard_dismissed')){b.style.display='block';}
+}
+// Sla dismiss-state op zodat banner niet terugkomt in dezelfde sessie
+document.getElementById('onboardBanner')?.querySelectorAll('button').forEach(btn=>{
+  if(btn.textContent.includes('Sluiten')){
+    const orig=btn.onclick;
+    btn.onclick=function(){localStorage.setItem('zen_onboard_dismissed','1');if(orig)orig.call(this);};
+  }
+});
 
 function updBanner() {
   const cb = calcCB();                                        // huidig kwartaal
