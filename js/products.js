@@ -227,3 +227,43 @@ function renderProducts() {
       }).join('');
   }
 }
+
+/**
+ * exportProductsCSV()
+ * Exporteert de productenlijst (per artikel) als CSV.
+ */
+function exportProductsCSV() {
+  const items = aggregateByItem(getFilteredItems());
+  if (!items.length) { alert('Geen producten om te exporteren.'); return; }
+
+  const sep = ';';
+  const q   = v => `"${String(v || '').replace(/"/g, '""')}"`;
+  const eur  = v => typeof v === 'number' ? v.toFixed(2).replace('.', ',') : '';
+
+  const headers = ['Rang','SKU','Titel','Merk','Conditie','Stuks','Gem. prijs (€)','Gem. RRP (€)','Korting%','Omzet (€)'];
+  const rows = items.map((p, i) => {
+    const discPct = p.avgRRP > 0 ? Math.round((1 - p.avgPrice / p.avgRRP) * 100) : 0;
+    return [
+      i + 1,
+      q(p.sku),
+      q(p.title),
+      q(p.vendor),
+      q(p.condition),
+      p.qty,
+      eur(p.avgPrice),
+      p.avgRRP > 0 ? eur(p.avgRRP) : '',
+      discPct > 0 ? discPct + '%' : '',
+      eur(p.revenue)
+    ].join(sep);
+  });
+
+  const bom  = '﻿';
+  const csv  = bom + [headers.join(sep), ...rows].join('\r\n');
+  const blob = new Blob([csv], { type: 'text/csv;charset=utf-8' });
+  const url  = URL.createObjectURL(blob);
+  const a    = document.createElement('a');
+  a.href     = url;
+  a.download = `ZenBTW_producten_${S.year}.csv`;
+  a.click();
+  setTimeout(() => URL.revokeObjectURL(url), 1000);
+}

@@ -674,8 +674,9 @@ src="https://www.facebook.com/tr?id=964378096043237&ev=PageView&noscript=1"
   <div class="nb"><div class="nq">
     <select id="yearSel" onchange="changeYear(this.value)" style="width:100%;margin-bottom:7px;padding:5px 7px;border:1px solid var(--br);border-radius:var(--rx);background:var(--wh);font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:500;color:var(--tx2);cursor:pointer;outline:none">
       <option value="2024">2024</option>
-      <option value="2025" selected>2025</option>
+      <option value="2025">2025</option>
       <option value="2026">2026</option>
+      <option value="2027">2027</option>
       <option value="2027">2027</option>
     </select>
     <div class="nql" id="yrLbl">Kwartaal 2025</div>
@@ -803,8 +804,9 @@ src="https://www.facebook.com/tr?id=964378096043237&ev=PageView&noscript=1"
     <div class="mob-drawer-q-label">Kwartaal</div>
     <select class="mob-qs-year" id="yearSelMore" onchange="changeYear(this.value)">
       <option value="2024">2024</option>
-      <option value="2025" selected>2025</option>
+      <option value="2025">2025</option>
       <option value="2026">2026</option>
+      <option value="2027">2027</option>
       <option value="2027">2027</option>
     </select>
     <div class="mob-qs-btns">
@@ -1146,7 +1148,8 @@ src="https://www.facebook.com/tr?id=964378096043237&ev=PageView&noscript=1"
 <div class="vw" id="vwproducten">
   <div class="ph">
     <div><div class="pe">Producten · Shopify</div><div class="pt">Productanalyse</div></div>
-    <div class="ha mob-hide">
+    <div class="ha mob-hide" style="gap:8px">
+      <button class="btn bs" onclick="exportProductsCSV()" style="font-size:12px;padding:7px 12px">📤 Exporteren</button>
       <select id="prodVendorFilter" onchange="renderProducts()" class="btn bs" style="font-size:12px;padding:7px 12px;cursor:pointer"></select>
     </div>
   </div>
@@ -1287,9 +1290,11 @@ const OW=n=>n===1?'order':'orders';
 const fmt=n=>Number(n).toLocaleString('nl-NL');
 
 // ── STATE ──
+const _curYear = String(new Date().getFullYear());
+const _curQ = 'Q'+Math.ceil((new Date().getMonth()+1)/3)+' '+_curYear;
 let S = {
-  year: '2025',
-  quarter: 'Q1 2025',
+  year: _curYear,
+  quarter: _curQ,
   company: '',
   btwnr: '',
   kvk: '',
@@ -1329,13 +1334,13 @@ function loadS(){
     if(!Array.isArray(S.transactions))S.transactions=[];
     if(!Array.isArray(S.lineItems))S.lineItems=[];
     if(!S.costPrices||typeof S.costPrices!=='object')S.costPrices={};
-    if(!S.year)S.year=S.quarter.split(' ')[1]||'2025';
+    if(!S.year)S.year=S.quarter.split(' ')[1]||_curYear;
     return Promise.all([idbGet('ktx_al'),idbGet('ktx_oss')]);
   }).then(([al,oss])=>{
     if(al)AL=al;else{try{const ls=localStorage.getItem('ktx_al');if(ls)AL=JSON.parse(ls);}catch(e){}}
     if(oss)OSSck=oss;else{try{const ls=localStorage.getItem('ktx_oss');if(ls)OSSck=JSON.parse(ls);}catch(e){}}
   }).catch(()=>{
-    try{const d=localStorage.getItem('ktx_s');if(d){Object.assign(S,JSON.parse(d));if(!Array.isArray(S.transactions))S.transactions=[];if(!S.year)S.year=S.quarter.split(' ')[1]||'2025';}}catch(e){}
+    try{const d=localStorage.getItem('ktx_s');if(d){Object.assign(S,JSON.parse(d));if(!Array.isArray(S.transactions))S.transactions=[];if(!S.year)S.year=S.quarter.split(' ')[1]||_curYear;}}catch(e){}
     try{const a=localStorage.getItem('ktx_al');if(a)AL=JSON.parse(a);}catch(e){}
     try{const o=localStorage.getItem('ktx_oss');if(o)OSSck=JSON.parse(o);}catch(e){}
   });
@@ -2650,7 +2655,7 @@ function closeOnboard(){
 
 function loadDemoData(){
   closeOnboard();
-  const demoQ='Q1 2025';
+  const demoQ='Q1 '+_curYear;
   if(!S.quarterHistory[demoQ])S.quarterHistory[demoQ]={countries:{},rawOrders:[],totalOrders:0,intlOrders:0,revenue:0,platforms:{etsy:null,shopify:null,vinted:null}};
   const qh=S.quarterHistory[demoQ];
   // Etsy demo orders
@@ -2662,22 +2667,22 @@ function loadDemoData(){
   Object.entries(shop).forEach(([cc,d])=>{if(!qh.countries[cc])qh.countries[cc]={revenue:0,orders:0};qh.countries[cc].revenue+=d.revenue;qh.countries[cc].orders+=d.orders;});
   qh.platforms.shopify={revenue:1700,orders:12,intl:5};
   qh.totalOrders=51;qh.intlOrders=29;qh.revenue=7490;
-  S.year='2025';S.quarter=demoQ;
+  S.year=_curYear;S.quarter=demoQ;
   // Shopify demo line items — voor Producten & Marge view
   S.lineItems=S.lineItems.filter(i=>i.platform!=='shopify');
   const demoItems=[
-    {platform:'shopify',orderName:'#1001',date:'2025-01-14',quarter:demoQ,sku:'LEVI-501-32',title:'Levi\'s 501 Original Fit - W32 L30',qty:1,price:85,compareAt:120,vendor:'Levi\'s',country:'NL',condition:'Very Good'},
-    {platform:'shopify',orderName:'#1002',date:'2025-01-18',quarter:demoQ,sku:'NIKE-AF1-42',title:'Nike Air Force 1 \'07 - Maat 42',qty:1,price:110,compareAt:130,vendor:'Nike',country:'DE',condition:'New'},
-    {platform:'shopify',orderName:'#1003',date:'2025-01-22',quarter:demoQ,sku:'LEVI-501-32',title:'Levi\'s 501 Original Fit - W32 L30',qty:1,price:80,compareAt:120,vendor:'Levi\'s',country:'BE',condition:'Very Good'},
-    {platform:'shopify',orderName:'#1004',date:'2025-01-28',quarter:demoQ,sku:'ADIDAS-STAN-41',title:'Adidas Stan Smith - Maat 41',qty:1,price:75,compareAt:100,vendor:'Adidas',country:'NL',condition:'Good'},
-    {platform:'shopify',orderName:'#1005',date:'2025-02-03',quarter:demoQ,sku:'TOMMY-POLO-M',title:'Tommy Hilfiger Polo Shirt - Maat M',qty:2,price:130,compareAt:180,vendor:'Tommy Hilfiger',country:'FR',condition:'New'},
-    {platform:'shopify',orderName:'#1006',date:'2025-02-10',quarter:demoQ,sku:'NIKE-AF1-42',title:'Nike Air Force 1 \'07 - Maat 42',qty:1,price:108,compareAt:130,vendor:'Nike',country:'IT',condition:'New'},
-    {platform:'shopify',orderName:'#1007',date:'2025-02-14',quarter:demoQ,sku:'LEVI-512-30',title:'Levi\'s 512 Slim Taper - W30 L32',qty:1,price:70,compareAt:110,vendor:'Levi\'s',country:'NL',condition:'Good'},
-    {platform:'shopify',orderName:'#1008',date:'2025-02-20',quarter:demoQ,sku:'RALPH-SHIRT-L',title:'Ralph Lauren Oxford Shirt - Maat L',qty:1,price:95,compareAt:145,vendor:'Ralph Lauren',country:'ES',condition:'Very Good'},
-    {platform:'shopify',orderName:'#1009',date:'2025-03-05',quarter:demoQ,sku:'ADIDAS-STAN-41',title:'Adidas Stan Smith - Maat 41',qty:1,price:72,compareAt:100,vendor:'Adidas',country:'NL',condition:'Good'},
-    {platform:'shopify',orderName:'#1010',date:'2025-03-12',quarter:demoQ,sku:'TOMMY-POLO-M',title:'Tommy Hilfiger Polo Shirt - Maat M',qty:1,price:65,compareAt:90,vendor:'Tommy Hilfiger',country:'DE',condition:'Very Good'},
-    {platform:'shopify',orderName:'#1011',date:'2025-03-18',quarter:demoQ,sku:'LEVI-501-32',title:'Levi\'s 501 Original Fit - W32 L30',qty:1,price:82,compareAt:120,vendor:'Levi\'s',country:'NL',condition:'Very Good'},
-    {platform:'shopify',orderName:'#1012',date:'2025-03-25',quarter:demoQ,sku:'RALPH-SHIRT-L',title:'Ralph Lauren Oxford Shirt - Maat L',qty:1,price:88,compareAt:145,vendor:'Ralph Lauren',country:'NL',condition:'Very Good'},
+    {platform:'shopify',orderName:'#1001',date:_curYear+'-01-14',quarter:demoQ,sku:'LEVI-501-32',title:'Levi\'s 501 Original Fit - W32 L30',qty:1,price:85,compareAt:120,vendor:'Levi\'s',country:'NL',condition:'Very Good'},
+    {platform:'shopify',orderName:'#1002',date:_curYear+'-01-18',quarter:demoQ,sku:'NIKE-AF1-42',title:'Nike Air Force 1 \'07 - Maat 42',qty:1,price:110,compareAt:130,vendor:'Nike',country:'DE',condition:'New'},
+    {platform:'shopify',orderName:'#1003',date:_curYear+'-01-22',quarter:demoQ,sku:'LEVI-501-32',title:'Levi\'s 501 Original Fit - W32 L30',qty:1,price:80,compareAt:120,vendor:'Levi\'s',country:'BE',condition:'Very Good'},
+    {platform:'shopify',orderName:'#1004',date:_curYear+'-01-28',quarter:demoQ,sku:'ADIDAS-STAN-41',title:'Adidas Stan Smith - Maat 41',qty:1,price:75,compareAt:100,vendor:'Adidas',country:'NL',condition:'Good'},
+    {platform:'shopify',orderName:'#1005',date:_curYear+'-02-03',quarter:demoQ,sku:'TOMMY-POLO-M',title:'Tommy Hilfiger Polo Shirt - Maat M',qty:2,price:130,compareAt:180,vendor:'Tommy Hilfiger',country:'FR',condition:'New'},
+    {platform:'shopify',orderName:'#1006',date:_curYear+'-02-10',quarter:demoQ,sku:'NIKE-AF1-42',title:'Nike Air Force 1 \'07 - Maat 42',qty:1,price:108,compareAt:130,vendor:'Nike',country:'IT',condition:'New'},
+    {platform:'shopify',orderName:'#1007',date:_curYear+'-02-14',quarter:demoQ,sku:'LEVI-512-30',title:'Levi\'s 512 Slim Taper - W30 L32',qty:1,price:70,compareAt:110,vendor:'Levi\'s',country:'NL',condition:'Good'},
+    {platform:'shopify',orderName:'#1008',date:_curYear+'-02-20',quarter:demoQ,sku:'RALPH-SHIRT-L',title:'Ralph Lauren Oxford Shirt - Maat L',qty:1,price:95,compareAt:145,vendor:'Ralph Lauren',country:'ES',condition:'Very Good'},
+    {platform:'shopify',orderName:'#1009',date:_curYear+'-03-05',quarter:demoQ,sku:'ADIDAS-STAN-41',title:'Adidas Stan Smith - Maat 41',qty:1,price:72,compareAt:100,vendor:'Adidas',country:'NL',condition:'Good'},
+    {platform:'shopify',orderName:'#1010',date:_curYear+'-03-12',quarter:demoQ,sku:'TOMMY-POLO-M',title:'Tommy Hilfiger Polo Shirt - Maat M',qty:1,price:65,compareAt:90,vendor:'Tommy Hilfiger',country:'DE',condition:'Very Good'},
+    {platform:'shopify',orderName:'#1011',date:_curYear+'-03-18',quarter:demoQ,sku:'LEVI-501-32',title:'Levi\'s 501 Original Fit - W32 L30',qty:1,price:82,compareAt:120,vendor:'Levi\'s',country:'NL',condition:'Very Good'},
+    {platform:'shopify',orderName:'#1012',date:_curYear+'-03-25',quarter:demoQ,sku:'RALPH-SHIRT-L',title:'Ralph Lauren Oxford Shirt - Maat L',qty:1,price:88,compareAt:145,vendor:'Ralph Lauren',country:'NL',condition:'Very Good'},
   ];
   S.lineItems.push(...demoItems);
   // Demo inkoopprijzen vooringevuld
@@ -2698,8 +2703,8 @@ function initApp(){
   document.getElementById('fCo').value=S.company||'';document.getElementById('fBt').value=S.btwnr||'';document.getElementById('fKv').value=S.kvk||'';
   document.getElementById('fKo').value=S.korLimit;document.getElementById('fUsd').value=S.usdRate;document.getElementById('fGbp').value=S.gbpRate;
   document.getElementById('fBackupUrl').value=S.backupUrl||'';
-  const _ys=document.getElementById('yearSel');if(_ys)_ys.value=S.year||'2025';
-  const _yl=document.getElementById('yrLbl');if(_yl)_yl.textContent='Kwartaal '+(S.year||'2025');
+  const _ys=document.getElementById('yearSel');if(_ys)_ys.value=S.year||_curYear;
+  const _yl=document.getElementById('yrLbl');if(_yl)_yl.textContent='Kwartaal '+(S.year||_curYear);
   document.querySelectorAll('.qb').forEach(b=>{if(b.textContent===S.quarter.split(' ')[0])b.classList.add('on');else b.classList.remove('on');});
   renderCorr();if(S.correcties.length)document.getElementById('corrSec').className='corr on';
   if(calcTotal()>0){['xBtn','xX','xC'].forEach(id=>{const e=document.getElementById(id);if(e)e.disabled=false;});}
