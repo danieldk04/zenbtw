@@ -452,6 +452,45 @@ input:checked + .tsl:before{transform:translateX(17px)}
 }
 
 /* ══════════════════════════════════════
+   PRODUCTEN VIEW
+══════════════════════════════════════ */
+.prod-header,.prod-row{display:grid;grid-template-columns:30px 1fr 100px 68px 84px;gap:0;align-items:center}
+.prod-header{font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:var(--tx4);padding:10px 16px 8px;border-bottom:1px solid var(--br)}
+.prod-row{padding:10px 16px;border-bottom:1px solid var(--br);transition:background .1s;font-size:13px;cursor:default}
+.prod-row:last-child{border-bottom:none}
+.prod-row:hover{background:var(--s2)}
+.prod-row.prod-top-1{background:#f8fdf9}
+.prod-rank{font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:700;color:var(--tx4)}
+.prod-row.prod-top-1 .prod-rank{color:var(--ac)}
+.prod-name-wrap{overflow:hidden}
+.prod-title{font-weight:500;color:var(--tx);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:12.5px}
+.prod-sub{font-size:10.5px;color:var(--tx3);margin-top:1px;display:flex;gap:6px;align-items:center}
+.prod-badge{padding:1px 7px;border-radius:100px;font-size:10px;font-weight:600}
+.prod-badge.new{background:#e8f5e9;color:#2e7d32}
+.prod-badge.very-good{background:var(--acl);color:var(--acm)}
+.prod-badge.good{background:var(--wnl);color:#92400e}
+.prod-qty{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--tx3);text-align:center}
+.prod-avgprice{font-family:'JetBrains Mono',monospace;font-size:11.5px;color:var(--tx3);text-align:right}
+.prod-rev{font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;color:var(--tx);text-align:right}
+.brand-bar{display:grid;grid-template-columns:130px 1fr 70px 80px;gap:0;align-items:center;padding:10px 16px;border-bottom:1px solid var(--br);font-size:13px}
+.brand-bar:last-child{border-bottom:none}
+.brand-bar:hover{background:var(--s2)}
+.brand-name{font-weight:600;color:var(--tx);font-size:12.5px}
+.brand-track{height:5px;background:rgba(0,0,0,.08);border-radius:100px;overflow:hidden}
+.brand-fill{height:100%;background:var(--ac);border-radius:100px;transition:width .6s cubic-bezier(.16,1,.3,1)}
+.brand-qty{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--tx3);text-align:right}
+.brand-rev{font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;color:var(--tx);text-align:right}
+.prod-tabs{display:flex;gap:4px;margin-bottom:16px}
+.prod-tab{padding:7px 16px;border-radius:var(--rx);font-size:12.5px;font-weight:600;cursor:pointer;border:1px solid var(--br);background:var(--wh);color:var(--tx3);transition:all .15s}
+.prod-tab.on{background:var(--ac);color:#fff;border-color:var(--ac)}
+@media(max-width:680px){
+  .prod-header,.prod-row{grid-template-columns:24px 1fr 56px 72px}
+  .prod-header .ph4,.prod-row .ph4{display:none}
+  .brand-bar{grid-template-columns:100px 1fr 60px}
+  .brand-bar .bh4{display:none}
+}
+
+/* ══════════════════════════════════════
    KOR/OSS UITLEG KAART (#korUitleg)
 ══════════════════════════════════════ */
 .ku{border-radius:var(--r);padding:18px 22px;margin-bottom:16px;border:1px solid;font-size:13.5px;line-height:1.65;transition:all .2s}
@@ -508,6 +547,7 @@ src="https://www.facebook.com/tr?id=964378096043237&ev=PageView&noscript=1"
   <div class="ns"><div class="nsl">Overzicht</div>
     <div class="ni on" id="nDash" onclick="sv('dashboard')">📊 Dashboard</div>
     <div class="ni" id="nTx" onclick="sv('transacties')">🧾 Transacties</div>
+    <div class="ni" id="nProd" onclick="sv('producten')">📦 Producten</div>
     <div class="ni" id="nLanden" onclick="sv('landen')">🌍 Landen</div>
     <div class="ni" id="nJaar" onclick="sv('jaaroverzicht')">📅 Jaaroverzicht</div>
   </div>
@@ -834,6 +874,35 @@ src="https://www.facebook.com/tr?id=964378096043237&ev=PageView&noscript=1"
   </div>
 </div>
 
+<!-- PRODUCTEN VIEW -->
+<div class="vw" id="vwproducten">
+  <div class="ph">
+    <div><div class="pe">Producten · Shopify</div><div class="pt">Productanalyse</div></div>
+    <div class="ha mob-hide">
+      <select id="prodVendorFilter" onchange="renderProducts()" class="btn bs" style="font-size:12px;padding:7px 12px;cursor:pointer"></select>
+    </div>
+  </div>
+  <div class="sg">
+    <div class="sc"><div class="st"><div class="sl">Unieke producten</div><div class="si g">📦</div></div><div class="sv g" id="prodCount">—</div><div class="sd" id="prodCountSub">Upload Shopify CSV</div></div>
+    <div class="sc"><div class="st"><div class="sl">Best verkopend merk</div><div class="si a">🏆</div></div><div class="sv a" id="prodTopBrand">—</div><div class="sd" id="prodTopBrandSub">op omzet</div></div>
+    <div class="sc"><div class="st"><div class="sl">Gemiddelde prijs</div><div class="si">💶</div></div><div class="sv" id="prodAvgPrice">—</div><div class="sd">per verkocht item</div></div>
+    <div class="sc"><div class="st"><div class="sl">Totale omzet</div><div class="si r">💰</div></div><div class="sv r" id="prodRevTotal">—</div><div class="sd" id="prodRevSub">via Shopify</div></div>
+  </div>
+  <div class="prod-tabs">
+    <button class="prod-tab on" id="ptBrand" onclick="setProdTab('brand')">🏷️ Per merk</button>
+    <button class="prod-tab" id="ptItem" onclick="setProdTab('item')">📋 Per product</button>
+  </div>
+  <div class="card">
+    <div class="ch">
+      <div><div class="ct" id="prodCardTitle">Omzet per merk</div><div class="cst" id="prodCardSub">Shopify verkopen</div></div>
+      <div class="ctg" id="prodTag">—</div>
+    </div>
+    <div class="table-scroll-wrap" id="productenBody">
+      <div class="es"><div class="esi">📦</div><div class="est">Geen productdata</div><div class="ess">Upload je Shopify CSV om productverkopen te zien</div></div>
+    </div>
+  </div>
+</div>
+
 <!-- SETTINGS MODAL -->
 <div class="mo" id="sMo">
   <div class="md">
@@ -932,7 +1001,8 @@ let S = {
   correcties: [],
   hasFx: false,
   marge: false,
-  backupUrl: ''
+  backupUrl: '',
+  lineItems: []
 };let AL={enabled:false,email:'',threshold:60,lastAlertSent:0,sheetsUrl:''};
 let OSSck={};
 
@@ -1107,6 +1177,8 @@ function parseEtsy(text){
 function parseShopify(text){
   const p=pcsv(text);if(!p||!p.rows.length)return{ok:false,msg:'Leeg bestand'};
   const{rows}=p;const seen=new Set();const byQ={};let tot=0,rev=0,io=0;
+
+  // ── PASS 1: order-level aggregatie (BTW/KOR) ──
   for(const row of rows){ try{
     const nm=row['name']||row['order']||'';if(nm&&seen.has(nm))continue;if(nm)seen.add(nm);
     const date=row['created at']||row['created_at']||row['date']||'';
@@ -1121,8 +1193,27 @@ function parseShopify(text){
     byQ[q].countries[cc].revenue+=amt;byQ[q].countries[cc].orders++;byQ[q].totalOrders++;byQ[q].totalRevenue+=amt;
     tot++;rev+=amt;if(cc!=='NL'&&EU[cc]){io++;byQ[q].intlOrders=(byQ[q].intlOrders||0)+1;}
   }catch(e){continue;}}
-  log('<span class="ok">✓ '+tot+' orders · €'+Math.round(rev)+'</span>');
-  return{ok:true,byQuarter:byQ,totalRevenue:rev,totalOrders:tot,intlOrders:io};
+
+  // ── PASS 2: line-item aggregatie (producten) ──
+  // SKUs van interne/bundel-artikelen overslaan
+  const SKIP_SKUS=new Set(['0000','00000','0']);
+  const lineItems=[];let lastOrderName='',lastCountry='NL',lastDate='',lastQ='';
+  for(const row of rows){ try{
+    const nm=row['name']||'';
+    if(nm){lastOrderName=nm;lastCountry=rc(row['shipping country']||row['billing country']||'')||'NL';lastDate=row['created at']||row['created_at']||'';lastQ=dateToQuarter(lastDate)||S.quarter;}
+    const sku=(row['lineitem sku']||'').trim();if(!sku||SKIP_SKUS.has(sku))continue;
+    const title=(row['lineitem name']||'').trim();if(!title)continue;
+    const price=pm(row['lineitem price']||'0');if(price<=0)continue;
+    const qty=parseInt(row['lineitem quantity']||'1')||1;
+    const compareAt=pm(row['lineitem compare at price']||'0')||null;
+    const vendor=(row['vendor']||'').trim();
+    // Conditie uit titel extraheren (last segment na ' - ')
+    const parts=title.split(' - ');const condition=(parts[parts.length-1]||'').trim();
+    lineItems.push({platform:'shopify',orderName:lastOrderName,date:lastDate,quarter:lastQ,sku,title,qty,price,compareAt,vendor,country:lastCountry,condition});
+  }catch(e){continue;}}
+
+  log('<span class="ok">✓ '+tot+' orders · €'+Math.round(rev)+' · '+lineItems.length+' producten</span>');
+  return{ok:true,byQuarter:byQ,totalRevenue:rev,totalOrders:tot,intlOrders:io,lineItems};
 }
 function parseVinted(text){
   const p=pcsv(text);if(!p||!p.rows.length)return{ok:false,msg:'Leeg bestand'};
@@ -1301,6 +1392,13 @@ function confirmImport(){
       if(!qh.platforms[plat])qh.platforms[plat]={revenue:0,orders:0,intl:0};
       qh.platforms[plat].revenue+=qd.totalRevenue;qh.platforms[plat].orders+=qd.totalOrders;qh.platforms[plat].intl+=(qd.intlOrders||0);
     });
+  }
+  // Merge line items (Shopify)
+  if(r.lineItems&&r.lineItems.length){
+    if(!Array.isArray(S.lineItems))S.lineItems=[];
+    // Verwijder eerder geladen Shopify-items voor dit platform zodat herlaad werkt
+    S.lineItems=S.lineItems.filter(i=>i.platform!=='shopify');
+    S.lineItems.push(...r.lineItems);
   }
   restoreQ();
   z.className='uz ok';z.querySelector('.ui').textContent='✅';z.querySelector('.ut').textContent=r.totalOrders+' orders';z.querySelector('.us').textContent='€'+fmt(Math.round(r.totalRevenue));
@@ -1843,12 +1941,12 @@ function sv(view){
   document.querySelectorAll('.vw').forEach(v=>v.classList.remove('on'));
   document.querySelectorAll('.ni').forEach(n=>n.classList.remove('on'));
   const el=document.getElementById('vw'+view);if(el)el.classList.add('on');
-  const ni={dashboard:'nDash',transacties:'nTx',landen:'nLanden',jaaroverzicht:'nJaar',oss:'nOSS',alerts:'nAlert',help:'nHelp'};
+  const ni={dashboard:'nDash',transacties:'nTx',producten:'nProd',landen:'nLanden',jaaroverzicht:'nJaar',oss:'nOSS',alerts:'nAlert',help:'nHelp'};
   const nel=document.getElementById(ni[view]);if(nel)nel.classList.add('on');
   // sync mobile bottom nav
   const mobMap={dashboard:'mniDash',transacties:'mniTx',landen:'mniLanden',jaaroverzicht:'mniJaar',oss:'mniOSS',alerts:'mniAlert',help:'mniHelp'};
   if(mobMap[view])mniActive(mobMap[view]);
-  if(view==='transacties')renderTx();if(view==='landen')renderLanden();if(view==='jaaroverzicht'){renderYGrid();renderJDetail();}if(view==='oss')renderOSS();if(view==='alerts')loadAlUI();
+  if(view==='transacties')renderTx();if(view==='landen')renderLanden();if(view==='jaaroverzicht'){renderYGrid();renderJDetail();}if(view==='oss')renderOSS();if(view==='alerts')loadAlUI();if(view==='producten')renderProducts();
 }
 function toggleAcc(el){el.closest('.acc').classList.toggle('on');}
 
@@ -2292,5 +2390,6 @@ document.addEventListener('keydown',function(e){
   if(e.key==='Escape')closeProModal();
 });
 </script>
+<script src="js/products.js"></script>
 </body>
 </html>
