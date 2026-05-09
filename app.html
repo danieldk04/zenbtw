@@ -343,12 +343,21 @@ input:checked + .tsl:before{transform:translateX(17px)}
 
 @media print{
   body{background:#fff!important}.shell{display:block!important}
-  .nav,.ur,.ha,.xb,.disc,.kb .kbb,.plog,.prog,.fxbar,.corr,.als,.mob-nav,.mob-more,.mob-topbar,.ossAP-noprint{display:none!important}
-  .vw{display:block!important;padding:0!important}
-  .card,.sc{box-shadow:none!important;border:1px solid #ddd;break-inside:avoid;page-break-inside:avoid}
-  .cg{grid-template-columns:1fr 260px}.sg{grid-template-columns:repeat(4,1fr)}
+  .nav,.ur,.ha,.xb,.disc,.kb,.plog,.prog,.fxbar,.corr,.als,.mob-nav,.mob-more,.mob-topbar,.ossAP-noprint,.trust-bar,.prod-tabs,.marge-import-bar,.btn{display:none!important}
+  /* Alleen het actieve view printen */
+  .vw{display:none!important}
+  .vw.on{display:block!important;padding:0!important}
+  .card,.sc{box-shadow:none!important;border:1px solid #ddd!important;break-inside:avoid;page-break-inside:avoid}
+  .cg{grid-template-columns:1fr!important}.sg{grid-template-columns:repeat(2,1fr)!important}
+  .ss{display:flex!important;flex-direction:column!important;gap:10px!important}
   .prh{display:flex!important}
   .print-oss{display:block!important}
+  .print-rapport{display:block!important}
+  /* Print header */
+  .ph{border-bottom:2px solid #2c8c5a!important;margin-bottom:14px!important;padding-bottom:10px!important}
+  .pe{color:#2c8c5a!important;font-size:16px!important}
+  /* Maandgrafiek verbergen in print (te compact) */
+  #maandGrafiekWrap{display:none!important}
   @page{margin:18mm 15mm;size:A4}
 }
 .print-oss{display:none;margin-top:18px;padding-top:14px;border-top:2px solid var(--ac)}
@@ -356,6 +365,11 @@ input:checked + .tsl:before{transform:translateX(17px)}
 .print-oss-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;font-size:11px}
 .print-oss-item{padding:6px 8px;border:1px solid var(--br);border-radius:4px}
 .print-oss-item.done{background:var(--acl);border-color:#b2cfbf}
+/* Print rapport sectie */
+.print-rapport{display:none;margin-top:18px;padding-top:14px;border-top:2px solid var(--ac);page-break-before:always}
+.print-rapport-title{font-family:'Fraunces',serif;font-size:14px;font-weight:700;color:var(--ac);margin-bottom:10px}
+.print-rapport-row{display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid #eee;font-size:12px}
+.print-rapport-row:last-child{border-bottom:none;font-weight:700}
 
 /* ── DRAG OVER ── */
 .uz.drag-ov{border-color:var(--ac)!important;background:var(--acl)!important;transform:scale(1.02);transition:transform .15s}
@@ -592,7 +606,7 @@ src="https://www.facebook.com/tr?id=964378096043237&ev=PageView&noscript=1"
   <div class="ns" style="margin-top:10px"><div class="nsl">Aangifte</div>
     <div class="ni" onclick="exportXML()">📄 XML Export</div>
     <div class="ni" onclick="exportCSVFile()">📊 CSV Export</div>
-    <div class="ni" onclick="window.print()">🖨️ PDF Bijlage</div>
+    <div class="ni" onclick="printRapport()">🖨️ PDF Bijlage</div>
   </div>
   <div class="ns" style="margin-top:10px"><div class="nsl">Tools</div>
     <div class="ni" id="nOSS" onclick="sv('oss')">✅ OSS Registratie</div>
@@ -671,6 +685,8 @@ src="https://www.facebook.com/tr?id=964378096043237&ev=PageView&noscript=1"
 </div>
 <div class="mob-more-overlay" id="mobMoreOverlay" onclick="closeMobMore()"></div>
 <div class="mob-more" id="mobMore">
+  <div class="mob-more-item" id="mniProd" onclick="sv('producten');mniActive('mniProd');closeMobMore()"><span>📦</span>Producten</div>
+  <div class="mob-more-item" id="mniMarge" onclick="sv('marge');mniActive('mniMarge');closeMobMore()"><span>💰</span>Marge</div>
   <div class="mob-more-item" id="mniJaar" onclick="sv('jaaroverzicht');mniActive('mniJaar');closeMobMore()"><span>📅</span>Jaaroverzicht</div>
   <div class="mob-more-item" id="mniOSS" onclick="sv('oss');mniActive('mniOSS');closeMobMore()"><span>✅</span>OSS Registratie</div>
   <div class="mob-more-item" id="mniHelp" onclick="sv('help');mniActive('mniHelp');closeMobMore()"><span>❓</span>Help & Uitleg</div>
@@ -699,7 +715,7 @@ src="https://www.facebook.com/tr?id=964378096043237&ev=PageView&noscript=1"
   <div class="prh"><div><picture><source srcset="./logo.webp" type="image/webp"><img src="./logo.webp" alt="ZenBTW Logo" style="height:44px;width:auto;display:block;border-radius:4px;object-fit:contain" width="80" height="44"></picture><div style="font-size:12px;color:var(--tx3);margin-top:3px">OSS BTW-rapport bijlage · Belastingdienst</div></div><div class="phm"><div id="phC" style="font-weight:700;color:var(--tx)">—</div><div id="phB">—</div><div id="phKvk" style="font-size:10px;color:var(--tx4)">KVK —</div><div id="phP">Q1 2025</div><div id="phD"></div></div></div>
   <div class="ph">
     <div><div class="pe" id="ey">Q1 2025 · Geen data</div><div class="pt">ZENBTW Dashboard</div></div>
-    <div class="ha mob-hide"><button class="btn bs" onclick="openSettings()">⚙️ Instellingen</button><button class="btn bp sync-hidden" id="syncBtn" onclick="syncToGoogle()">☁️ Cloud Backup</button><button class="btn bs" onclick="window.print()">🖨️ PDF</button><button class="btn bp" onclick="exportXML()" id="xBtn" disabled>📄 Aangifte exporteren</button></div>
+    <div class="ha mob-hide"><button class="btn bs" onclick="openSettings()">⚙️ Instellingen</button><button class="btn bp sync-hidden" id="syncBtn" onclick="syncToGoogle()">☁️ Cloud Backup</button><button class="btn bs" onclick="printRapport()">🖨️ PDF</button><button class="btn bp" onclick="exportXML()" id="xBtn" disabled>📄 Aangifte exporteren</button></div>
   </div>
   <div class="kb safe" id="kB">
     <div class="kd"></div>
@@ -765,7 +781,7 @@ src="https://www.facebook.com/tr?id=964378096043237&ev=PageView&noscript=1"
           <div class="db"><div><div class="dl">Deadline <span id="dQl">Q1</span></div><div class="dv" id="dDl">30 april 2025</div></div><div class="dbg" id="dBg">— d</div></div>
           <button class="xb xp" onclick="exportXML()" id="xX" disabled>📄 XML-aangifte</button>
           <button class="xb xs" onclick="exportCSVFile()" id="xC" disabled>📊 CSV-rapport</button>
-          <button class="xb xs" onclick="window.print()">🖨️ PDF-bijlage</button>
+          <button class="xb xs" onclick="printRapport()">🖨️ PDF-bijlage</button>
         </div>
       </div>
       <div class="card"><div class="ch"><div><div class="ct">Bedrijfsgegevens</div></div><div style="display:flex;gap:8px"><button class="btn bs" onclick="openSettings()" style="padding:5px 10px;font-size:11.5px">Wijzigen</button><button class="btn bs" onclick="resetAllData()" style="padding:5px 10px;font-size:11.5px;color:var(--dn);border-color:var(--dn)">Wis alle data</button></div></div>
@@ -782,6 +798,11 @@ src="https://www.facebook.com/tr?id=964378096043237&ev=PageView&noscript=1"
 <div class="print-oss" id="printOssSection">
   <div class="print-oss-title">OSS Registratie Checklist</div>
   <div class="print-oss-grid" id="printOssGrid"></div>
+</div>
+<div class="print-rapport" id="printRapportSection">
+  <div class="print-rapport-title">BTW-samenvatting bijlage · ZENBTW</div>
+  <div id="printRapportBody"></div>
+  <div style="margin-top:10px;font-size:10px;color:#888;font-style:italic">Gegenereerd door ZENBTW · Data blijft lokaal in browser · Controleer altijd bij een erkend belastingadviseur vóór indiening.</div>
 </div>
 </div>
 
@@ -1982,10 +2003,58 @@ function renderYGrid(){
 
 function renderJDetail(){
   const el=document.getElementById('jdetail');const y=S.year;const Qs=['Q1','Q2','Q3','Q4'].map(q=>q+' '+y);
-  const ld=Qs.filter(q=>S.quarterHistory[q]);if(!ld.length){el.innerHTML='<div class="es"><div class="esi">📅</div><div class="est">Geen kwartaaldata</div><div class="ess">Upload CSV\'s per kwartaal</div></div>';return;}
+  const ld=Qs.filter(q=>S.quarterHistory[q]||(q===S.quarter&&calcTotal()>0));
+  if(!ld.length){el.innerHTML='<div class="es"><div class="esi">📅</div><div class="est">Geen kwartaaldata voor '+y+'</div><div class="ess">Upload CSV\'s per kwartaal om het jaaroverzicht te vullen</div></div>';return;}
   const qR=q=>q===S.quarter?calcTotal():(S.quarterHistory[q]?.revenue||0);
-  const tR=ld.reduce((s,q)=>s+qR(q),0);const tB=ld.reduce((s,q)=>s+qBtwFull(q),0);const tO=ld.reduce((s,q)=>s+(S.quarterHistory[q]?.totalOrders||0),0);
-  el.innerHTML=`<div class="table-scroll-wrap"><table class="dt"><thead><tr><th>Kwartaal</th><th class="r">Omzet</th><th class="r">Cross-border EU</th><th class="r">BTW</th><th class="r">Orders</th></tr></thead><tbody>${ld.map(q=>{const d=S.quarterHistory[q];const bw=qBtwFull(q);const cb=qCBFull(q);return`<tr><td><strong>${q}</strong></td><td class="am">€${fmt(Math.round(qR(q)))}</td><td class="am">€${fmt(Math.round(cb))}</td><td class="am bw">€${fmt(Math.round(bw))}</td><td class="am">${d.totalOrders}</td></tr>`;}).join('')}<tr style="border-top:2px solid var(--br)"><td><strong>Jaartotaal ${y}</strong></td><td class="am"><strong>€${fmt(Math.round(tR))}</strong></td><td class="am">—</td><td class="am bw"><strong>€${fmt(Math.round(tB))}</strong></td><td class="am">${tO}</td></tr></tbody></table></div><div style="margin:12px 0;padding:11px 13px;background:var(--acl);border:1px solid #b2cfbf;border-radius:var(--rs);font-size:11.5px;color:var(--acm);font-family:'JetBrains Mono',monospace">✓ IB-aangifte: totale omzet ${y} = <strong>€${fmt(Math.round(tR))}</strong> · Gebruik dit voor box 1 inkomstenbelasting</div>`;
+  const qO=q=>q===S.quarter?S.totalOrders:(S.quarterHistory[q]?.totalOrders||0);
+  const tR=ld.reduce((s,q)=>s+qR(q),0);
+  const tB=ld.reduce((s,q)=>s+qBtwFull(q),0);
+  const tCB=ld.reduce((s,q)=>s+qCBFull(q),0);
+  const tO=ld.reduce((s,q)=>s+qO(q),0);
+  const korPct=tCB>0?Math.min(Math.round(tCB/S.korLimit*100),100):0;
+  const korStatus=tCB>=S.korLimit?'danger':tCB>=S.korLimit*.7?'warn':'safe';
+  const korClr=korStatus==='danger'?'var(--dn)':korStatus==='warn'?'#92400e':'var(--acm)';
+  const korBg=korStatus==='danger'?'var(--dn)':korStatus==='warn'?'#f59e0b':'var(--ac)';
+  const maxRev=Math.max(...ld.map(q=>qR(q)),1);
+  el.innerHTML=
+    // KOR progressiebalk
+    `<div style="padding:14px 16px 12px;border-bottom:1px solid var(--br)">
+      <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:7px">
+        <span style="font-size:12.5px;font-weight:600;color:var(--tx)">KOR-drempel ${y}</span>
+        <span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;color:${korClr}">€${fmt(Math.round(tCB))} / €${fmt(S.korLimit)} <span style="font-weight:400;color:var(--tx3)">(${korPct}%)</span></span>
+      </div>
+      <div style="height:8px;background:var(--br);border-radius:100px;overflow:hidden">
+        <div style="height:100%;width:${korPct}%;background:${korBg};border-radius:100px;transition:width .6s cubic-bezier(.16,1,.3,1)"></div>
+      </div>
+      <div style="font-size:11px;color:var(--tx3);margin-top:5px">${korStatus==='danger'?'🚨 Drempel overschreden — OSS-aangifte verplicht':korStatus==='warn'?'⚠ Let op: je nadert de KOR-drempel':'✅ Onder de KOR-drempel — geen OSS-aangifte vereist'}</div>
+    </div>`+
+    // Kwartaal bars
+    `<div style="padding:12px 16px;border-bottom:1px solid var(--br);display:grid;grid-template-columns:repeat(4,1fr);gap:12px;align-items:end">
+      ${['Q1','Q2','Q3','Q4'].map(q=>{
+        const qn=q+' '+y;const rev=qR(qn);const hasData=ld.includes(qn);
+        const h=hasData&&rev>0?Math.max(4,Math.round(rev/maxRev*56)):0;
+        const isCur=qn===S.quarter;
+        return`<div style="display:flex;flex-direction:column;align-items:center;gap:4px">
+          <div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--tx3)">${hasData?'€'+fmt(Math.round(rev/1000))+'k':'—'}</div>
+          <div style="width:100%;height:${h}px;background:${isCur?'var(--ac)':'rgba(44,140,90,.35)'};border-radius:3px 3px 0 0;min-height:${hasData?2:0}px"></div>
+          <div style="font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:${isCur?700:500};color:${isCur?'var(--ac)':'var(--tx3)'}">${q}</div>
+        </div>`;
+      }).join('')}
+    </div>`+
+    // Tabel
+    `<div class="table-scroll-wrap"><table class="dt"><thead><tr><th>Kwartaal</th><th class="r">Omzet</th><th class="r">Cross-border EU</th><th class="r">BTW</th><th class="r">Orders</th></tr></thead><tbody>
+    ${ld.map(q=>{const bw=qBtwFull(q);const cb=qCBFull(q);const isCur=q===S.quarter;return`<tr${isCur?' style="background:var(--acl)"':''}><td><strong>${q}</strong>${isCur?' <span style="font-size:10px;color:var(--acm);font-family:\'JetBrains Mono\',monospace">← huidig</span>':''}</td><td class="am">€${fmt(Math.round(qR(q)))}</td><td class="am">€${fmt(Math.round(cb))}</td><td class="am bw">€${fmt(Math.round(bw))}</td><td class="am">${qO(q)}</td></tr>`;}).join('')}
+    <tr style="border-top:2px solid var(--br);background:var(--s2)"><td><strong>Jaartotaal ${y}</strong></td><td class="am"><strong>€${fmt(Math.round(tR))}</strong></td><td class="am"><strong>€${fmt(Math.round(tCB))}</strong></td><td class="am bw"><strong>€${fmt(Math.round(tB))}</strong></td><td class="am"><strong>${tO}</strong></td></tr>
+    </tbody></table></div>`+
+    // IB-aangifte samenvatting
+    `<div style="margin:14px 0 2px;padding:13px 16px;background:var(--acl);border:1px solid #b2cfbf;border-radius:var(--rs);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px">
+      <div>
+        <div style="font-size:12px;font-weight:700;color:var(--acm);margin-bottom:2px">📋 IB-aangifte ${y}</div>
+        <div style="font-size:11.5px;color:var(--tx2)">Totale omzet: <strong>€${fmt(Math.round(tR))}</strong> · BTW: <strong>€${fmt(Math.round(tB))}</strong> · Orders: <strong>${tO}</strong></div>
+        <div style="font-size:11px;color:var(--tx3);margin-top:2px">Gebruik de totale omzet voor Box 1 inkomstenbelasting</div>
+      </div>
+      <button class="btn bp" onclick="exportJaar()" style="font-size:12px;padding:8px 14px;white-space:nowrap">📊 Export CSV</button>
+    </div>`;
 }
 
 function exportJaar(){
@@ -1995,7 +2064,18 @@ function exportJaar(){
 }
 
 // OSS CHECKLIST
-const ossSteps=[{id:'kvk',t:'KVK-inschrijving',s:'Sta geregistreerd bij de Kamer van Koophandel'},{id:'btwnr',t:'BTW-nummer aanvragen',s:'Via KvK of direct bij Belastingdienst'},{id:'oss_reg',t:'OSS-registratie',s:'Mijn Belastingdienst Zakelijk → BTW → E-commerce'},{id:'drempel',t:'Drempelcontrole',s:'>€10.000 cross-border EU verkopen?'},{id:'tarieven',t:'BTW-tarieven controleren',s:'Controleer per land het juiste tarief voor jouw producten'},{id:'factuur',t:'Factuurtemplate aanpassen',s:'Voeg OSS VAT-ID, klantsland en BTW-bedrag toe'},{id:'admin',t:'Administratie opzetten',s:'Per order: land, bedrag, tarief. Bewaren: 10 jaar'},{id:'melding',t:'Eerste BTW-melding',s:'Kwartaalmelding via OSS-portaal vóór deadline'}];
+const ossSteps=[
+  {id:'kvk',t:'KVK-inschrijving',s:'Sta geregistreerd bij de Kamer van Koophandel'},
+  {id:'btwnr',t:'BTW-nummer aanvragen',s:'Via KvK of direct bij Belastingdienst'},
+  {id:'oss_reg',t:'OSS-registratie',s:'Mijn Belastingdienst Zakelijk → BTW → E-commerce'},
+  {id:'drempel',t:'Drempelcontrole',s:'>€10.000 cross-border EU verkopen in kalenderjaar?'},
+  {id:'marge',t:'Margeregeling beoordelen',s:'Tweedehands goederen? Controleer of margeregeling van toepassing is'},
+  {id:'tarieven',t:'BTW-tarieven controleren',s:'Controleer per land het juiste tarief voor jouw productcategorie'},
+  {id:'platform',t:'Platform-instellingen aanpassen',s:'Etsy/Shopify: schakel BTW in per EU-land of gebruik BTW-incl. prijzen'},
+  {id:'factuur',t:'Factuurtemplate aanpassen',s:'Voeg OSS VAT-ID, klantsland en BTW-bedrag toe aan factuur'},
+  {id:'admin',t:'Administratie opzetten',s:'Per order: land, bedrag, tarief bijhouden. Bewaarplicht: 10 jaar'},
+  {id:'melding',t:'Eerste kwartaalmelding',s:'Via OSS-portaal vóór deadline (30 dagen na kwartaalafloop)'}
+];
 function renderOSS(){
   const el=document.getElementById('ossGrid');const done=ossSteps.filter(s=>OSSck[s.id]).length;
   document.getElementById('ossBar').style.width=(done/ossSteps.length*100)+'%';
@@ -2018,6 +2098,34 @@ function saveAl(){AL.enabled=document.getElementById('alTog').checked;AL.email=d
 function setTh(p){AL.threshold=p;AL.lastAlertSent=0;document.querySelectorAll('.thb').forEach(b=>b.classList.remove('on'));document.getElementById('th'+p).classList.add('on');localStorage.setItem('ktx_al',JSON.stringify(AL));}
 function loadAlUI(){document.getElementById('alTog').checked=AL.enabled;document.getElementById('alEmail').value=AL.email||'';document.querySelectorAll('.thb').forEach(b=>b.classList.remove('on'));const t=document.getElementById('th'+AL.threshold);if(t)t.classList.add('on');const su=document.getElementById('alSheets');if(su)su.value=AL.sheetsUrl||'';}
 function checkAlert(){if(!AL.enabled||!AL.email)return;const pct=Math.min(calcYearCB()/S.korLimit*100,100);const p=Math.round(pct);if(p>=AL.threshold){if('Notification'in window&&Notification.permission==='granted')new Notification('ZenBTW Alert',{body:'BTW-drempel '+p+'% bereikt (jaar '+S.year+')!'});if(p!==AL.lastAlertSent)stuurEmailAlert(p);}}
+
+// ── PDF RAPPORT ──
+function printRapport(){
+  // Vul de print-rapport sectie met actuele data
+  const mg=buildMg();
+  const tot=calcTotal();const bw=calcBtw();const cb=calcCB();
+  const euRows=Object.entries(mg).filter(([cc])=>cc!=='NL'&&EU[cc]&&mg[cc].revenue>0)
+    .sort((a,b)=>b[1].revenue-a[1].revenue);
+  const body=document.getElementById('printRapportBody');
+  if(body){
+    const rows=[
+      ['Bedrijf',S.company||'—'],
+      ['BTW-nummer',S.btwnr||'—'],
+      ['KVK-nummer',S.kvk||'—'],
+      ['Kwartaal',S.quarter],
+      ['Totale omzet','€'+fmt(Math.round(tot))],
+      ['Binnenland (NL)','€'+fmt(Math.round(mg['NL']?.revenue||0))],
+      ['Cross-border EU','€'+fmt(Math.round(cb))],
+      ['BTW verschuldigd (OSS)','€'+fmt(Math.round(bw))],
+      ...euRows.map(([cc,d])=>[
+        (EU[cc].f||'')+' '+EU[cc].n+' ('+Math.round(EU[cc].r*100)+'%)',
+        '€'+fmt(Math.round(d.revenue))+' · BTW €'+fmt(Math.round(d.revenue*EU[cc].r))
+      ])
+    ];
+    body.innerHTML=rows.map(([l,v])=>`<div class="print-rapport-row"><span>${l}</span><span><strong>${v}</strong></span></div>`).join('');
+  }
+  window.print();
+}
 
 // EXPORTS
 function exportXML(){
@@ -2150,7 +2258,7 @@ function sv(view){
   const ni={dashboard:'nDash',transacties:'nTx',producten:'nProd',marge:'nMarge',landen:'nLanden',jaaroverzicht:'nJaar',oss:'nOSS',alerts:'nAlert',help:'nHelp'};
   const nel=document.getElementById(ni[view]);if(nel)nel.classList.add('on');
   // sync mobile bottom nav
-  const mobMap={dashboard:'mniDash',transacties:'mniTx',landen:'mniLanden',jaaroverzicht:'mniJaar',oss:'mniOSS',alerts:'mniAlert',help:'mniHelp'};
+  const mobMap={dashboard:'mniDash',transacties:'mniTx',landen:'mniLanden',producten:'mniProd',marge:'mniMarge',jaaroverzicht:'mniJaar',oss:'mniOSS',alerts:'mniAlert',help:'mniHelp'};
   if(mobMap[view])mniActive(mobMap[view]);
   if(view==='transacties')renderTx();if(view==='landen')renderLanden();if(view==='jaaroverzicht'){renderYGrid();renderJDetail();}if(view==='oss')renderOSS();if(view==='alerts')loadAlUI();if(view==='producten')renderProducts();if(view==='marge')renderMarge();
 }
@@ -2293,7 +2401,7 @@ function mniActive(id){
   const el=document.getElementById(id);if(el)el.classList.add('on');
   // more menu items - mark active if it's a more-menu view
   document.querySelectorAll('.mob-more-item').forEach(n=>n.classList.remove('on'));
-  const moreMap={mniJaar:1,mniOSS:1,mniHelp:1};
+  const moreMap={mniJaar:1,mniOSS:1,mniHelp:1,mniProd:1,mniMarge:1};
   if(moreMap[id]){
     document.getElementById('mniMore').classList.add('on');
     const moreEl=document.getElementById(id);if(moreEl)moreEl.classList.add('on');
@@ -2329,15 +2437,35 @@ function loadDemoData(){
   const etsy={DE:{revenue:1840,orders:12},BE:{revenue:620,orders:4},FR:{revenue:890,orders:6},NL:{revenue:2100,orders:15},GB:{revenue:340,orders:2}};
   Object.entries(etsy).forEach(([cc,d])=>{if(!qh.countries[cc])qh.countries[cc]={revenue:0,orders:0};qh.countries[cc].revenue+=d.revenue;qh.countries[cc].orders+=d.orders;});
   qh.platforms.etsy={revenue:5790,orders:39,intl:24};
-  // Shopify demo orders
+  // Shopify demo orders — country aggregatie
   const shop={IT:{revenue:430,orders:3},ES:{revenue:290,orders:2},NL:{revenue:980,orders:7}};
   Object.entries(shop).forEach(([cc,d])=>{if(!qh.countries[cc])qh.countries[cc]={revenue:0,orders:0};qh.countries[cc].revenue+=d.revenue;qh.countries[cc].orders+=d.orders;});
   qh.platforms.shopify={revenue:1700,orders:12,intl:5};
   qh.totalOrders=51;qh.intlOrders=29;qh.revenue=7490;
   S.year='2025';S.quarter=demoQ;
+  // Shopify demo line items — voor Producten & Marge view
+  S.lineItems=S.lineItems.filter(i=>i.platform!=='shopify');
+  const demoItems=[
+    {platform:'shopify',orderName:'#1001',date:'2025-01-14',quarter:demoQ,sku:'LEVI-501-32',title:'Levi\'s 501 Original Fit - W32 L30',qty:1,price:85,compareAt:120,vendor:'Levi\'s',country:'NL',condition:'Very Good'},
+    {platform:'shopify',orderName:'#1002',date:'2025-01-18',quarter:demoQ,sku:'NIKE-AF1-42',title:'Nike Air Force 1 \'07 - Maat 42',qty:1,price:110,compareAt:130,vendor:'Nike',country:'DE',condition:'New'},
+    {platform:'shopify',orderName:'#1003',date:'2025-01-22',quarter:demoQ,sku:'LEVI-501-32',title:'Levi\'s 501 Original Fit - W32 L30',qty:1,price:80,compareAt:120,vendor:'Levi\'s',country:'BE',condition:'Very Good'},
+    {platform:'shopify',orderName:'#1004',date:'2025-01-28',quarter:demoQ,sku:'ADIDAS-STAN-41',title:'Adidas Stan Smith - Maat 41',qty:1,price:75,compareAt:100,vendor:'Adidas',country:'NL',condition:'Good'},
+    {platform:'shopify',orderName:'#1005',date:'2025-02-03',quarter:demoQ,sku:'TOMMY-POLO-M',title:'Tommy Hilfiger Polo Shirt - Maat M',qty:2,price:130,compareAt:180,vendor:'Tommy Hilfiger',country:'FR',condition:'New'},
+    {platform:'shopify',orderName:'#1006',date:'2025-02-10',quarter:demoQ,sku:'NIKE-AF1-42',title:'Nike Air Force 1 \'07 - Maat 42',qty:1,price:108,compareAt:130,vendor:'Nike',country:'IT',condition:'New'},
+    {platform:'shopify',orderName:'#1007',date:'2025-02-14',quarter:demoQ,sku:'LEVI-512-30',title:'Levi\'s 512 Slim Taper - W30 L32',qty:1,price:70,compareAt:110,vendor:'Levi\'s',country:'NL',condition:'Good'},
+    {platform:'shopify',orderName:'#1008',date:'2025-02-20',quarter:demoQ,sku:'RALPH-SHIRT-L',title:'Ralph Lauren Oxford Shirt - Maat L',qty:1,price:95,compareAt:145,vendor:'Ralph Lauren',country:'ES',condition:'Very Good'},
+    {platform:'shopify',orderName:'#1009',date:'2025-03-05',quarter:demoQ,sku:'ADIDAS-STAN-41',title:'Adidas Stan Smith - Maat 41',qty:1,price:72,compareAt:100,vendor:'Adidas',country:'NL',condition:'Good'},
+    {platform:'shopify',orderName:'#1010',date:'2025-03-12',quarter:demoQ,sku:'TOMMY-POLO-M',title:'Tommy Hilfiger Polo Shirt - Maat M',qty:1,price:65,compareAt:90,vendor:'Tommy Hilfiger',country:'DE',condition:'Very Good'},
+    {platform:'shopify',orderName:'#1011',date:'2025-03-18',quarter:demoQ,sku:'LEVI-501-32',title:'Levi\'s 501 Original Fit - W32 L30',qty:1,price:82,compareAt:120,vendor:'Levi\'s',country:'NL',condition:'Very Good'},
+    {platform:'shopify',orderName:'#1012',date:'2025-03-25',quarter:demoQ,sku:'RALPH-SHIRT-L',title:'Ralph Lauren Oxford Shirt - Maat L',qty:1,price:88,compareAt:145,vendor:'Ralph Lauren',country:'NL',condition:'Very Good'},
+  ];
+  S.lineItems.push(...demoItems);
+  // Demo inkoopprijzen vooringevuld
+  if(!S.costPrices)S.costPrices={};
+  Object.assign(S.costPrices,{'LEVI-501-32':32,'NIKE-AF1-42':55,'LEVI-512-30':28,'ADIDAS-STAN-41':30,'RALPH-SHIRT-L':40});
   restoreQ();saveS();render();
   setTimeout(()=>{
-    log('<span class="ok">🚀 Demo data geladen — 51 orders van Etsy & Shopify. Vul via ⚙️ Instellingen je eigen gegevens in.</span>');
+    log('<span class="ok">🚀 Demo data geladen — 51 orders · 12 Shopify producten · inkoopprijzen vooringevuld. Klik op 📦 Producten of 💰 Marge om de analyse te zien.</span>');
     showLog();
     if(!S.company)openSettings();
   },300);
