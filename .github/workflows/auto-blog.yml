@@ -77,28 +77,25 @@ jobs:
 
           git add blog/*.html sitemap.xml keywords.json
 
-          node -e "
-            const d = JSON.parse(require('fs').readFileSync('keywords.json','utf8'));
-            const last = d.published[d.published.length-1];
-            const slug = last ? last.slug : 'unknown';
-            require('fs').writeFileSync('/tmp/slug.txt', slug);
-          "
+          node << 'NODESCRIPT'
+          const d = JSON.parse(require('fs').readFileSync('keywords.json','utf8'));
+          const last = d.published[d.published.length-1];
+          require('fs').writeFileSync('/tmp/slug.txt', last ? last.slug : 'unknown');
+          NODESCRIPT
+
           SLUG=$(cat /tmp/slug.txt)
-
           git commit -m "feat: auto-publish blog post ${SLUG}"
-
           git push
 
       - name: Summary
         run: |
-          echo "### Blog Post Generation" >> $GITHUB_STEP_SUMMARY
-          echo "" >> $GITHUB_STEP_SUMMARY
-          node -e "
-            const d = JSON.parse(require('fs').readFileSync('keywords.json','utf8'));
-            const pending = d.queue.filter(k=>k.status==='pending').length;
-            const total = d.published.length;
-            require('fs').writeFileSync('/tmp/stats.txt', pending + ' ' + total);
-          "
+          node << 'NODESCRIPT'
+          const d = JSON.parse(require('fs').readFileSync('keywords.json','utf8'));
+          const pending = d.queue.filter(k=>k.status==='pending').length;
+          const total = d.published.length;
+          require('fs').writeFileSync('/tmp/stats.txt', pending + ' ' + total);
+          NODESCRIPT
           read PENDING TOTAL < /tmp/stats.txt
+          echo "### Blog Post Generation" >> $GITHUB_STEP_SUMMARY
           echo "- **Published total:** $TOTAL posts" >> $GITHUB_STEP_SUMMARY
           echo "- **Keywords remaining:** $PENDING" >> $GITHUB_STEP_SUMMARY
