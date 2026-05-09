@@ -78,11 +78,13 @@ HTML STRUCTUUR (gebruik EXACT dit format, vervang ALLEEN de content):
 *{margin:0;padding:0;box-sizing:border-box}
 :root{--bg:#f7f6f3;--wh:#fff;--br:#e8e5de;--ac:#1a4731;--acl:#e8f0ec;--acm:#2d6a4f;--tx:#1a1814;--tx2:#4a4640;--tx3:#8a847a;--tx4:#b8b2a8;--s2:#f4f3ef;--dn:#c0392b;--dnl:#fdf0ee;--wn:#d97706;--wnl:#fffbeb}
 body{background:var(--bg);color:var(--tx);font-family:'Plus Jakarta Sans',sans-serif;-webkit-font-smoothing:antialiased;line-height:1.7}
-nav{background:var(--wh);border-bottom:1px solid var(--br);padding:0 clamp(20px,5vw,80px);height:64px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100}
-.nav-logo{display:flex;align-items:center;gap:8px;text-decoration:none;font-family:'Fraunces',serif;font-size:18px;font-weight:700;color:var(--tx)}
-.nav-logo em{color:var(--acm);font-style:normal}
-.nav-back{font-size:13.5px;color:var(--tx3);text-decoration:none;font-weight:500}
-.nav-cta{padding:9px 20px;background:var(--ac);color:#fff;border-radius:8px;font-size:13.5px;font-weight:700;text-decoration:none}
+nav{position:sticky;top:0;z-index:500;height:72px;background:rgba(247,246,243,.94);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-bottom:1.5px solid var(--br);box-shadow:0 2px 12px rgba(0,0,0,.05);display:flex;align-items:center;padding:0 clamp(20px,4vw,56px);justify-content:space-between;gap:24px}
+.nav-logo{display:flex;align-items:center;gap:13px;text-decoration:none;color:var(--tx);flex-shrink:0}
+.nav-logo-img{max-height:48px;width:auto;border-radius:8px;object-fit:contain;box-shadow:0 3px 10px rgba(26,71,49,.22)}
+.nav-wordmark{font-family:'Fraunces',serif;font-size:22px;font-weight:700;letter-spacing:-.5px;line-height:1}
+.nav-wordmark em{color:var(--acm);font-style:normal}
+.nav-back{font-size:13.5px;color:var(--tx3);text-decoration:none;font-weight:600}
+.nav-cta{display:inline-flex;align-items:center;gap:8px;padding:11px 22px;background:var(--ac);color:#fff;border-radius:10px;font-size:14px;font-weight:800;transition:all .2s;flex-shrink:0;box-shadow:0 4px 16px rgba(26,71,49,.35);text-decoration:none}
 .article-wrap{max-width:720px;margin:0 auto;padding:clamp(40px,6vw,72px) clamp(20px,5vw,40px) 100px}
 .article-tag{display:inline-block;font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:4px 10px;border-radius:5px;background:var(--acl);color:var(--acm);margin-bottom:14px}
 h1{font-family:'Fraunces',serif;font-size:clamp(26px,4vw,38px);font-weight:700;letter-spacing:-.02em;color:var(--tx);margin-bottom:14px;line-height:1.2}
@@ -115,9 +117,12 @@ footer a{color:var(--tx3);text-decoration:none;margin:0 8px}
 </head>
 <body>
 <nav>
-  <a href="../index.html" class="nav-logo">Zen<em>BTW</em></a>
+  <a href="../index.html" class="nav-logo">
+    <img src="../logo.webp" alt="ZenBTW Logo" class="nav-logo-img" width="48" height="48">
+    <span class="nav-wordmark">Zen<em>BTW</em></span>
+  </a>
   <a href="index.html" class="nav-back">← Blog</a>
-  <a href="../app.html" class="nav-cta">Gratis starten →</a>
+  <a href="../app.html" class="nav-cta">Check mijn status →</a>
 </nav>
 
 <div class="article-wrap">
