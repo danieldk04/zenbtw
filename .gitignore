@@ -2,3 +2,7 @@
 .claude/
 Social Media/
 Scherm­afbeelding*
+node_modules/
+.env
+.env.*
+*.env

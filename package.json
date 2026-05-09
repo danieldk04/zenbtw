@@ -1,0 +1,16 @@
+{
+  "name": "zenbtw-automation",
+  "version": "1.0.0",
+  "description": "ZenBTW content automation scripts",
+  "type": "module",
+  "scripts": {
+    "generate": "node scripts/generate-blog.js",
+    "preview-next": "node -e \"const d=JSON.parse(require('fs').readFileSync('keywords.json','utf8'));const n=d.queue.filter(k=>k.status==='pending').sort((a,b)=>a.priority-b.priority)[0];console.log(n?'Next: '+n.keyword+' → '+n.slug+'.html':'Queue empty');\""
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.27.0"
+  },
+  "engines": {
+    "node": ">=20.0.0"
+  }
+}

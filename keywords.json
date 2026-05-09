@@ -1,0 +1,83 @@
+{
+  "queue": [
+    {
+      "keyword": "shopify btw nederland 2026",
+      "slug": "shopify-btw-nederland-2026",
+      "status": "pending",
+      "priority": 1,
+      "notes": "Hoge zoekvolume, directe match met onze doelgroep"
+    },
+    {
+      "keyword": "oss registratie belastingdienst stappenplan",
+      "slug": "oss-registratie-belastingdienst",
+      "status": "pending",
+      "priority": 2,
+      "notes": "Informationeel, hoge conversie intent"
+    },
+    {
+      "keyword": "etsy verkoper belastingaangifte nederland",
+      "slug": "etsy-verkoper-belastingaangifte",
+      "status": "pending",
+      "priority": 3,
+      "notes": "Long-tail, hoge intentie"
+    },
+    {
+      "keyword": "kor vrijstelling 2026 voorwaarden",
+      "slug": "kor-vrijstelling-2026",
+      "status": "pending",
+      "priority": 4,
+      "notes": "Evergreen, wordt jaarlijks gezocht"
+    },
+    {
+      "keyword": "marketplace verkoper btw aangifte",
+      "slug": "marketplace-verkoper-btw-aangifte",
+      "status": "pending",
+      "priority": 5,
+      "notes": "Breed keyword, goede top-of-funnel"
+    },
+    {
+      "keyword": "dac7 belastingdienst rapportage 2026",
+      "slug": "dac7-belastingdienst-rapportage",
+      "status": "pending",
+      "priority": 6,
+      "notes": "Actueel onderwerp, angst-gebaseerde zoekopdracht"
+    },
+    {
+      "keyword": "vinted ondernemer btw registratie",
+      "slug": "vinted-ondernemer-btw-registratie",
+      "status": "pending",
+      "priority": 7,
+      "notes": "Niche, weinig concurrentie"
+    },
+    {
+      "keyword": "btw tarief eu landen overzicht 2026",
+      "slug": "btw-tarief-eu-landen-2026",
+      "status": "pending",
+      "priority": 8,
+      "notes": "Reference content, veel links naar toe"
+    },
+    {
+      "keyword": "shopify dropshipping btw nederland",
+      "slug": "shopify-dropshipping-btw",
+      "status": "pending",
+      "priority": 9,
+      "notes": "Groeiend segment"
+    },
+    {
+      "keyword": "kleine ondernemersregeling buitenland verkopen",
+      "slug": "kor-buitenland-verkopen",
+      "status": "pending",
+      "priority": 10,
+      "notes": "Specifiek pijnpunt"
+    }
+  ],
+  "published": [],
+  "settings": {
+    "maxPerRun": 1,
+    "targetLanguage": "nl",
+    "targetCountry": "NL",
+    "brand": "ZenBTW",
+    "siteUrl": "https://zenbtw.nl",
+    "blogDir": "blog"
+  }
+}
