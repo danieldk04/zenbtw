@@ -510,6 +510,43 @@ input:checked + .tsl:before{transform:translateX(17px)}
 .ku-footer{margin-top:13px;padding-top:11px;border-top:1px solid rgba(0,0,0,.07);font-size:11.5px;color:var(--tx3)}
 .ku-footer strong{color:var(--tx2)}
 
+/* ══════════════════════════════════════
+   MARGE VIEW
+══════════════════════════════════════ */
+.marge-row{display:grid;grid-template-columns:1fr 130px 100px 90px 90px;gap:0;align-items:center;padding:10px 16px;border-bottom:1px solid var(--br);font-size:13px;transition:background .1s}
+.marge-row:last-child{border-bottom:none}
+.marge-row:hover{background:var(--s2)}
+.marge-hd{display:grid;grid-template-columns:1fr 130px 100px 90px 90px;gap:0;padding:10px 16px 8px;border-bottom:1px solid var(--br);font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:var(--tx4)}
+.marge-inkoop{width:86px;padding:5px 8px;border:1px solid var(--br);border-radius:var(--rx);font-size:12px;font-family:'JetBrains Mono',monospace;background:var(--wh);color:var(--tx);outline:none;transition:border-color .15s}
+.marge-inkoop:focus{border-color:var(--ac)}
+.marge-marge-val{font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;text-align:right}
+.marge-marge-val.pos{color:var(--ac)}
+.marge-marge-val.neg{color:var(--dn)}
+.marge-pct{font-size:11px;color:var(--tx3);text-align:right;font-family:'JetBrains Mono',monospace}
+.marge-rev-cell{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--tx);text-align:right}
+.marge-title-cell{overflow:hidden}
+.marge-title-txt{font-weight:500;color:var(--tx);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:12.5px}
+.marge-title-sub{font-size:10.5px;color:var(--tx3);margin-top:1px;display:flex;gap:6px}
+.marge-import-bar{display:flex;gap:8px;align-items:center;margin-bottom:16px;flex-wrap:wrap}
+.marge-import-bar label{display:flex;align-items:center;gap:8px;padding:8px 14px;border:1px dashed var(--ac);border-radius:var(--rx);font-size:12.5px;color:var(--acm);cursor:pointer;font-weight:500;transition:all .15s}
+.marge-import-bar label:hover{background:var(--acl)}
+.marge-import-bar input[type=file]{display:none}
+@media(max-width:680px){
+  .marge-row,.marge-hd{grid-template-columns:1fr 100px 80px}
+  .marge-row .mh4,.marge-hd .mh4{display:none}
+}
+
+/* ══════════════════════════════════════
+   MAANDGRAFIEK (Dashboard)
+══════════════════════════════════════ */
+.maand-grid{display:grid;grid-template-columns:repeat(12,1fr);gap:4px;align-items:end;height:80px;margin:8px 0 4px}
+.maand-bar-wrap{display:flex;flex-direction:column;align-items:center;gap:2px}
+.maand-bar{width:100%;border-radius:3px 3px 0 0;background:var(--ac);opacity:.85;min-height:2px;transition:height .4s cubic-bezier(.16,1,.3,1)}
+.maand-bar.cur{opacity:1;background:var(--ac)}
+.maand-bar.empty{background:var(--br)}
+.maand-lbl{font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--tx4);text-align:center}
+.maand-amt{font-family:'JetBrains Mono',monospace;font-size:8.5px;color:var(--tx3);text-align:center}
+
 </style>
 <script defer src="https://cloud.umami.is/script.js" data-website-id="9cb58ff4-cf6e-4773-8dd5-f2f0b6ad5510"></script>
 <!-- Meta Pixel Code -->
@@ -548,6 +585,7 @@ src="https://www.facebook.com/tr?id=964378096043237&ev=PageView&noscript=1"
     <div class="ni on" id="nDash" onclick="sv('dashboard')">📊 Dashboard</div>
     <div class="ni" id="nTx" onclick="sv('transacties')">🧾 Transacties</div>
     <div class="ni" id="nProd" onclick="sv('producten')">📦 Producten</div>
+    <div class="ni" id="nMarge" onclick="sv('marge')">💰 Marge</div>
     <div class="ni" id="nLanden" onclick="sv('landen')">🌍 Landen</div>
     <div class="ni" id="nJaar" onclick="sv('jaaroverzicht')">📅 Jaaroverzicht</div>
   </div>
@@ -691,6 +729,12 @@ src="https://www.facebook.com/tr?id=964378096043237&ev=PageView&noscript=1"
     <div class="sc"><div class="st"><div class="sl">Intl. orders</div><div class="si b">🌍</div></div><div class="sv" id="sO">0</div><div class="sd" id="sOs">van 0 totaal</div></div>
     <div class="sc"><div class="st"><div class="sl">EU-landen</div><div class="si a">🗺️</div></div><div class="sv a" id="sC">0</div><div class="sd">excl. Nederland</div></div>
   </div>
+  <div id="maandGrafiekWrap" style="display:none;margin-bottom:14px">
+    <div class="card">
+      <div class="ch"><div><div class="ct">Omzet per maand</div><div class="cst" id="maandGrafiekSub">Gebaseerd op alle kwartalen</div></div><div class="ctg" id="maandGrafiekTag">—</div></div>
+      <div style="padding:6px 16px 14px" id="maandGrafiekBody"></div>
+    </div>
+  </div>
   <div class="fxbar" id="fxB">💱 Wisselkoers: <span id="fxI">—</span> · ECB kwartaalkoers</div>
   <div class="trust-bar">
     <span>🔒 Privacy: Data verlaat NOOIT uw browser.</span>
@@ -807,6 +851,74 @@ src="https://www.facebook.com/tr?id=964378096043237&ev=PageView&noscript=1"
     </div>
   </div>
 
+  <div class="acc">
+    <div class="acc-hd" onclick="toggleAcc(this)"><span>🏷️ Margeregeling — BTW over winstmarge (tweedehands)</span><span class="acc-ico">▶</span></div>
+    <div class="acc-bd">
+      <p>Als je <strong>tweedehands goederen</strong> (kleding, elektronica, meubels) verkoopt die je zelf hebt ingekocht van particulieren, mag je de <strong>margeregeling</strong> toepassen. Je berekent BTW dan alleen over de <em>winstmarge</em>, niet over de volledige verkoopprijs.</p>
+      <p style="margin-top:12px"><strong>Voorbeeld:</strong></p>
+      <div style="background:var(--s2);border-radius:var(--rx);padding:10px 14px;font-size:12.5px;line-height:2;margin:8px 0">
+        Inkoopprijs: <strong>€30</strong><br>
+        Verkoopprijs: <strong>€75</strong><br>
+        Marge: <strong>€45</strong><br>
+        BTW (21% over marge): <strong>€9,45</strong><br>
+        <span style="color:var(--tx3)">Zonder margeregeling zou BTW €13,23 zijn (21% van €75 incl. BTW)</span>
+      </div>
+      <p style="margin-top:10px"><strong>Wanneer mag je de margeregeling gebruiken?</strong></p>
+      <ul style="margin-top:6px;padding-left:18px;font-size:13px;color:var(--tx2);line-height:2">
+        <li>Je koopt goederen in <strong>zonder BTW</strong> (van particulieren of kleine ondernemers)</li>
+        <li>Het gaat om lichamelijke roerende zaken (geen diensten, geen digitale goederen)</li>
+        <li>Je past de regeling <strong>consistent toe</strong> per soort goed</li>
+      </ul>
+      <p style="margin-top:10px;padding:9px 12px;background:var(--wnl);border-radius:var(--rx);font-size:12px;color:#92400e"><strong>⚠ Let op:</strong> De margeregeling geldt <em>niet</em> voor de OSS-drempel van €10.000. Voor de drempelberekening telt je volledige verkoopomzet mee, niet alleen de marge. Gebruik de <strong>Marge</strong>-module in ZENBTW om inkoopprijzen bij te houden.</p>
+    </div>
+  </div>
+
+  <div class="acc">
+    <div class="acc-hd" onclick="toggleAcc(this)"><span>🗺️ OSS Scenario's — wanneer ben je verplicht?</span><span class="acc-ico">▶</span></div>
+    <div class="acc-bd">
+      <p>De OSS-aanmeldplicht hangt af van je situatie. Hier zijn de meest voorkomende scenario's:</p>
+      <div style="display:flex;flex-direction:column;gap:10px;margin-top:12px">
+        <div style="padding:10px 14px;background:var(--s2);border-radius:var(--rx);border-left:3px solid var(--ac)">
+          <div style="font-weight:600;font-size:13px;color:var(--tx);margin-bottom:3px">✅ Scenario A: Onder de drempel (KOR)</div>
+          <div style="font-size:12.5px;color:var(--tx2)">Cross-border EU-omzet in het lopende jaar <strong>onder €10.000</strong>. Je gebruikt het BTW-tarief van Nederland (21%). Geen OSS-aangifte nodig. ZENBTW markeert dit als KOR.</div>
+        </div>
+        <div style="padding:10px 14px;background:var(--wnl);border-radius:var(--rx);border-left:3px solid #fbbf24">
+          <div style="font-weight:600;font-size:13px;color:#92400e;margin-bottom:3px">⚠ Scenario B: Drempel gepasseerd (OSS verplicht)</div>
+          <div style="font-size:12.5px;color:var(--tx2)">Cross-border EU-omzet <strong>€10.000 of meer</strong>. Je moet per land het lokale BTW-tarief berekenen en je registreren voor OSS via Mijn Belastingdienst Zakelijk.</div>
+        </div>
+        <div style="padding:10px 14px;background:var(--dnl);border-radius:var(--rx);border-left:3px solid var(--dn)">
+          <div style="font-weight:600;font-size:13px;color:var(--dn);margin-bottom:3px">🚨 Scenario C: Reeds OSS-aangifte gedaan</div>
+          <div style="font-size:12.5px;color:var(--tx2)">Als je eenmaal OSS-aangifte hebt gedaan, kun je niet zomaar terug naar KOR. Raadpleeg de Belastingdienst voor stopzetting of overgangsperiodes.</div>
+        </div>
+        <div style="padding:10px 14px;background:var(--s2);border-radius:var(--rx);border-left:3px solid var(--tx3)">
+          <div style="font-weight:600;font-size:13px;color:var(--tx);margin-bottom:3px">🌐 Scenario D: Non-EU klanten (VS, UK, etc.)</div>
+          <div style="font-size:12.5px;color:var(--tx2)">Verkopen buiten de EU (GB, US, CA, etc.) tellen <strong>niet mee</strong> voor de OSS-drempel. Hier gelden de invoerregels van het bestemmingsland.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="acc">
+    <div class="acc-hd" onclick="toggleAcc(this)"><span>📅 Aangiftedeadlines 2025 & 2026</span><span class="acc-ico">▶</span></div>
+    <div class="acc-bd">
+      <p style="margin-bottom:10px">OSS-aangiftes moeten binnen <strong>30 dagen</strong> na het einde van elk kwartaal ingediend zijn:</p>
+      <table style="width:100%;border-collapse:collapse;font-size:12.5px">
+        <thead><tr style="background:var(--s2)"><th style="text-align:left;padding:8px 10px;border-bottom:2px solid var(--br)">Kwartaal</th><th style="text-align:left;padding:8px 10px;border-bottom:2px solid var(--br)">Periode</th><th style="text-align:left;padding:8px 10px;border-bottom:2px solid var(--br)">Deadline</th><th style="text-align:left;padding:8px 10px;border-bottom:2px solid var(--br)">Betaling</th></tr></thead>
+        <tbody>
+          <tr style="border-bottom:1px solid var(--br)"><td style="padding:8px 10px;font-weight:600">Q1 2025</td><td style="padding:8px 10px;color:var(--tx2)">1 jan – 31 mrt</td><td style="padding:8px 10px;color:var(--acm);font-weight:600">30 april 2025</td><td style="padding:8px 10px;color:var(--tx3)">30 april 2025</td></tr>
+          <tr style="border-bottom:1px solid var(--br)"><td style="padding:8px 10px;font-weight:600">Q2 2025</td><td style="padding:8px 10px;color:var(--tx2)">1 apr – 30 jun</td><td style="padding:8px 10px;color:var(--acm);font-weight:600">31 juli 2025</td><td style="padding:8px 10px;color:var(--tx3)">31 juli 2025</td></tr>
+          <tr style="border-bottom:1px solid var(--br)"><td style="padding:8px 10px;font-weight:600">Q3 2025</td><td style="padding:8px 10px;color:var(--tx2)">1 jul – 30 sep</td><td style="padding:8px 10px;color:var(--acm);font-weight:600">31 oktober 2025</td><td style="padding:8px 10px;color:var(--tx3)">31 oktober 2025</td></tr>
+          <tr style="border-bottom:1px solid var(--br)"><td style="padding:8px 10px;font-weight:600">Q4 2025</td><td style="padding:8px 10px;color:var(--tx2)">1 okt – 31 dec</td><td style="padding:8px 10px;color:var(--acm);font-weight:600">31 januari 2026</td><td style="padding:8px 10px;color:var(--tx3)">31 januari 2026</td></tr>
+          <tr style="border-bottom:1px solid var(--br);background:rgba(var(--ac-rgb,44,140,90),.04)"><td style="padding:8px 10px;font-weight:600">Q1 2026</td><td style="padding:8px 10px;color:var(--tx2)">1 jan – 31 mrt</td><td style="padding:8px 10px;color:var(--acm);font-weight:600">30 april 2026</td><td style="padding:8px 10px;color:var(--tx3)">30 april 2026</td></tr>
+          <tr style="border-bottom:1px solid var(--br);background:rgba(var(--ac-rgb,44,140,90),.04)"><td style="padding:8px 10px;font-weight:600">Q2 2026</td><td style="padding:8px 10px;color:var(--tx2)">1 apr – 30 jun</td><td style="padding:8px 10px;color:var(--acm);font-weight:600">31 juli 2026</td><td style="padding:8px 10px;color:var(--tx3)">31 juli 2026</td></tr>
+          <tr style="border-bottom:1px solid var(--br);background:rgba(var(--ac-rgb,44,140,90),.04)"><td style="padding:8px 10px;font-weight:600">Q3 2026</td><td style="padding:8px 10px;color:var(--tx2)">1 jul – 30 sep</td><td style="padding:8px 10px;color:var(--acm);font-weight:600">31 oktober 2026</td><td style="padding:8px 10px;color:var(--tx3)">31 oktober 2026</td></tr>
+          <tr style="background:rgba(var(--ac-rgb,44,140,90),.04)"><td style="padding:8px 10px;font-weight:600">Q4 2026</td><td style="padding:8px 10px;color:var(--tx2)">1 okt – 31 dec</td><td style="padding:8px 10px;color:var(--acm);font-weight:600">31 januari 2027</td><td style="padding:8px 10px;color:var(--tx3)">31 januari 2027</td></tr>
+        </tbody>
+      </table>
+      <p style="margin-top:10px;font-size:11.5px;color:var(--tx3)">💡 Tip: Stel een agenda-reminder in een week vóór de deadline. Te laat indienen leidt tot een boete van minimaal €50.</p>
+    </div>
+  </div>
+
   <div style="margin-top:16px;padding:13px 16px;background:var(--s2);border:1px solid var(--br);border-radius:var(--rs);font-size:11.5px;color:var(--tx3);line-height:1.65;display:flex;gap:10px;align-items:flex-start">
     <span style="font-size:16px;flex-shrink:0">⚖️</span>
     <div><strong style="color:var(--tx2)">Disclaimer</strong> — ZENBTW is een rekentool voor administratieve ondersteuning en vervangt geen officieel belastingadvies. Controleer je cijfers altijd bij de Belastingdienst of een erkend belastingadviseur vóór indiening van je BTW-aangifte.</div>
@@ -903,6 +1015,42 @@ src="https://www.facebook.com/tr?id=964378096043237&ev=PageView&noscript=1"
   </div>
 </div>
 
+<!-- MARGE -->
+<div class="vw" id="vwmarge">
+  <div class="ph">
+    <div><div class="pe">Marge · Inkoopprijs</div><div class="pt">Brutowinst per product</div></div>
+    <div class="ha mob-hide">
+      <label class="btn bs" style="cursor:pointer;font-size:12px;padding:7px 12px">
+        📥 CSV importeren
+        <input type="file" accept=".csv" onchange="handleMargeCSV(event)" style="display:none">
+      </label>
+    </div>
+  </div>
+  <!-- Stats -->
+  <div class="sg">
+    <div class="sc"><div class="st"><div class="sl">Totale omzet</div><div class="si g">💶</div></div><div class="sv g" id="margeRevTotal">—</div><div class="sd" id="margeRevSub">Shopify producten</div></div>
+    <div class="sc"><div class="st"><div class="sl">Totale inkoop</div><div class="si">🏷️</div></div><div class="sv" id="margeInkoopTotal">—</div><div class="sd" id="margeInkoopSub">Ingevulde inkoopprijzen</div></div>
+    <div class="sc"><div class="st"><div class="sl">Brutowinst</div><div class="si a">📈</div></div><div class="sv a" id="margeBruto">—</div><div class="sd" id="margeBrutoSub">Omzet min inkoop</div></div>
+    <div class="sc"><div class="st"><div class="sl">Gem. marge</div><div class="si r">%</div></div><div class="sv r" id="margeGem">—</div><div class="sd">Over bekende producten</div></div>
+  </div>
+  <!-- Import hint -->
+  <div id="margeImportHint" style="display:none;margin-bottom:14px;padding:11px 15px;background:var(--acl);border:1px solid var(--ac);border-radius:var(--rs);font-size:12.5px;color:var(--acm)">
+    💡 <strong>Bulk importeren:</strong> Upload een CSV met twee kolommen: <code>sku</code> en <code>inkoopprijs</code>. Scheiding: komma of puntkomma.
+  </div>
+  <div class="card">
+    <div class="ch">
+      <div><div class="ct" id="margeCardTitle">Marge per product</div><div class="cst" id="margeCardSub">Vul inkoopprijzen in voor brutowinst-berekening</div></div>
+      <button class="btn bs" onclick="document.getElementById('margeImportHint').style.display=document.getElementById('margeImportHint').style.display==='none'?'block':'none'" style="font-size:11.5px;padding:5px 10px">CSV uitleg</button>
+    </div>
+    <div class="table-scroll-wrap" id="margeBody">
+      <div class="es"><div class="esi">💰</div><div class="est">Geen producten</div><div class="ess">Upload je Shopify CSV op het dashboard</div></div>
+    </div>
+  </div>
+  <div style="margin-top:12px;padding:11px 15px;background:var(--s2);border:1px solid var(--br);border-radius:var(--rs);font-size:11.5px;color:var(--tx3);line-height:1.65">
+    <strong style="color:var(--tx2)">💡 Margeregeling:</strong> Als je met tweedehands goederen werkt, bereken je BTW alleen over de winstmarge (verkoopprijs − inkoopprijs). ZENBTW slaat inkoopprijzen lokaal op in je browser.
+  </div>
+</div>
+
 <!-- SETTINGS MODAL -->
 <div class="mo" id="sMo">
   <div class="md">
@@ -974,7 +1122,7 @@ src="https://www.facebook.com/tr?id=964378096043237&ev=PageView&noscript=1"
 
 <script>
 // ── EU TARIEVEN ──
-const EU={NL:{r:.21,f:'🇳🇱',n:'Nederland'},DE:{r:.19,f:'🇩🇪',n:'Duitsland'},BE:{r:.21,f:'🇧🇪',n:'België'},FR:{r:.20,f:'🇫🇷',n:'Frankrijk'},IT:{r:.22,f:'🇮🇹',n:'Italië'},ES:{r:.21,f:'🇪🇸',n:'Spanje'},AT:{r:.20,f:'🇦🇹',n:'Oostenrijk'},PL:{r:.23,f:'🇵🇱',n:'Polen'},PT:{r:.23,f:'🇵🇹',n:'Portugal'},SE:{r:.25,f:'🇸🇪',n:'Zweden'},DK:{r:.25,f:'🇩🇰',n:'Denemarken'},FI:{r:.24,f:'🇫🇮',n:'Finland'},IE:{r:.23,f:'🇮🇪',n:'Ierland'},CZ:{r:.21,f:'🇨🇿',n:'Tsjechië'},HU:{r:.27,f:'🇭🇺',n:'Hongarije'},RO:{r:.19,f:'🇷🇴',n:'Roemenië'},SK:{r:.20,f:'🇸🇰',n:'Slowakije'},BG:{r:.20,f:'🇧🇬',n:'Bulgarije'},HR:{r:.25,f:'🇭🇷',n:'Kroatië'},SI:{r:.22,f:'🇸🇮',n:'Slovenië'},LT:{r:.21,f:'🇱🇹',n:'Litouwen'},LV:{r:.21,f:'🇱🇻',n:'Letland'},EE:{r:.22,f:'🇪🇪',n:'Estland'},LU:{r:.17,f:'🇱🇺',n:'Luxemburg'},MT:{r:.18,f:'🇲🇹',n:'Malta'},CY:{r:.19,f:'🇨🇾',n:'Cyprus'},EL:{r:.24,f:'🇬🇷',n:'Griekenland'},GR:{r:.24,f:'🇬🇷',n:'Griekenland'}};
+const EU={NL:{r:.21,f:'🇳🇱',n:'Nederland'},DE:{r:.19,f:'🇩🇪',n:'Duitsland'},BE:{r:.21,f:'🇧🇪',n:'België'},FR:{r:.20,f:'🇫🇷',n:'Frankrijk'},IT:{r:.22,f:'🇮🇹',n:'Italië'},ES:{r:.21,f:'🇪🇸',n:'Spanje'},AT:{r:.20,f:'🇦🇹',n:'Oostenrijk'},PL:{r:.23,f:'🇵🇱',n:'Polen'},PT:{r:.23,f:'🇵🇹',n:'Portugal'},SE:{r:.25,f:'🇸🇪',n:'Zweden'},DK:{r:.25,f:'🇩🇰',n:'Denemarken'},FI:{r:.255,f:'🇫🇮',n:'Finland'},IE:{r:.23,f:'🇮🇪',n:'Ierland'},CZ:{r:.21,f:'🇨🇿',n:'Tsjechië'},HU:{r:.27,f:'🇭🇺',n:'Hongarije'},RO:{r:.19,f:'🇷🇴',n:'Roemenië'},SK:{r:.23,f:'🇸🇰',n:'Slowakije'},BG:{r:.20,f:'🇧🇬',n:'Bulgarije'},HR:{r:.25,f:'🇭🇷',n:'Kroatië'},SI:{r:.22,f:'🇸🇮',n:'Slovenië'},LT:{r:.21,f:'🇱🇹',n:'Litouwen'},LV:{r:.23,f:'🇱🇻',n:'Letland'},EE:{r:.24,f:'🇪🇪',n:'Estland'},LU:{r:.17,f:'🇱🇺',n:'Luxemburg'},MT:{r:.18,f:'🇲🇹',n:'Malta'},CY:{r:.19,f:'🇨🇾',n:'Cyprus'},EL:{r:.24,f:'🇬🇷',n:'Griekenland'},GR:{r:.24,f:'🇬🇷',n:'Griekenland'},_updated:'2025'};
 const NONEU={GB:{f:'🇬🇧',n:'Verenigd Koninkrijk'},US:{f:'🇺🇸',n:'Verenigde Staten'},CA:{f:'🇨🇦',n:'Canada'},AU:{f:'🇦🇺',n:'Australië'},CH:{f:'🇨🇭',n:'Zwitserland'},NO:{f:'🇳🇴',n:'Noorwegen'},MK:{f:'🇲🇰',n:'Noord-Macedonië'},XK:{f:'🇽🇰',n:'Kosovo'},TR:{f:'🇹🇷',n:'Turkije'},UA:{f:'🇺🇦',n:'Oekraïne'},CN:{f:'🇨🇳',n:'China'},JP:{f:'🇯🇵',n:'Japan'},KR:{f:'🇰🇷',n:'Zuid-Korea'},SG:{f:'🇸🇬',n:'Singapore'},NZ:{f:'🇳🇿',n:'Nieuw-Zeeland'},BR:{f:'🇧🇷',n:'Brazilië'},IN:{f:'🇮🇳',n:'India'},MX:{f:'🇲🇽',n:'Mexico'}};
 const CNM={'netherlands':'NL','nederland':'NL','the netherlands':'NL','germany':'DE','deutschland':'DE','duitsland':'DE','belgique':'BE','belgium':'BE','belgië':'BE','france':'FR','frankrijk':'FR','italy':'IT','italië':'IT','italia':'IT','spain':'ES','spanje':'ES','españa':'ES','austria':'AT','oostenrijk':'AT','österreich':'AT','poland':'PL','polen':'PL','polska':'PL','portugal':'PT','sweden':'SE','zweden':'SE','sverige':'SE','denmark':'DK','denemarken':'DK','finland':'FI','ireland':'IE','ierland':'IE','czech republic':'CZ','czechia':'CZ','tsjechië':'CZ','hungary':'HU','hongarije':'HU','romania':'RO','roemenië':'RO','slovakia':'SK','slowakije':'SK','bulgaria':'BG','bulgarije':'BG','croatia':'HR','kroatië':'HR','slovenia':'SI','slovenië':'SI','lithuania':'LT','litouwen':'LT','latvia':'LV','letland':'LV','estonia':'EE','estland':'EE','luxembourg':'LU','luxemburg':'LU','malta':'MT','cyprus':'CY','greece':'EL','griekenland':'EL','united kingdom':'GB','uk':'GB','england':'GB','united states':'US','usa':'US','canada':'CA','australia':'AU','north macedonia':'MK','macedonia':'MK','kosovo':'XK','switzerland':'CH','zwitserland':'CH','norway':'NO','noorwegen':'NO','turkey':'TR','turkije':'TR'};
 const CI=cc=>EU[cc]||NONEU[cc]||{f:'🌐',n:cc};
@@ -1002,7 +1150,8 @@ let S = {
   hasFx: false,
   marge: false,
   backupUrl: '',
-  lineItems: []
+  lineItems: [],
+  costPrices: {}
 };let AL={enabled:false,email:'',threshold:60,lastAlertSent:0,sheetsUrl:''};
 let OSSck={};
 
@@ -1021,6 +1170,8 @@ function loadS(){
     if(d)Object.assign(S,d);
     else{try{const ls=localStorage.getItem('ktx_s');if(ls)Object.assign(S,JSON.parse(ls));}catch(e){}}
     if(!Array.isArray(S.transactions))S.transactions=[];
+    if(!Array.isArray(S.lineItems))S.lineItems=[];
+    if(!S.costPrices||typeof S.costPrices!=='object')S.costPrices={};
     if(!S.year)S.year=S.quarter.split(' ')[1]||'2025';
     return Promise.all([idbGet('ktx_al'),idbGet('ktx_oss')]);
   }).then(([al,oss])=>{
@@ -1438,9 +1589,11 @@ function render(){
   updDL();
   updProg();
   renderYGrid();
+  renderMaandChart();
   if(document.getElementById('vwtransacties').classList.contains('on')) renderTx();
   if(document.getElementById('vwlanden').classList.contains('on')) renderLanden();
   if(document.getElementById('vwjaaroverzicht').classList.contains('on')) renderJDetail();
+  if(document.getElementById('vwmarge')&&document.getElementById('vwmarge').classList.contains('on')) renderMarge();
 }
 
 function updBanner() {
@@ -1659,6 +1812,59 @@ function updProg(){
   if(proj>S.korLimit&&yearCB<S.korLimit){const w=Math.ceil(remYear/rate);pt.innerHTML=`Op huidig tempo (€${fmt(Math.round(rate))}/week) bereik je de KOR-jaargrens over <strong>ca. ${w} ${OW(w)}</strong>. Bereid je OSS-registratie voor.`;pb.classList.add('on');}
   else if(proj>S.korLimit*.8){pt.innerHTML=`Prognose op jaarbasis: <strong>€${fmt(Math.round(proj))}</strong> cross-border omzet in ${S.year}. Je nadert de KOR-grens van €${fmt(S.korLimit)}.`;pb.classList.add('on');}
   else pb.classList.remove('on');
+}
+
+// ── MAANDGRAFIEK ──
+function renderMaandChart(){
+  const wrap=document.getElementById('maandGrafiekWrap');
+  const body=document.getElementById('maandGrafiekBody');
+  if(!wrap||!body)return;
+  // Verzamel omzet per kalendermaand uit quarterHistory + huidig kwartaal
+  const months=Array(12).fill(0);
+  const qhAll=Object.entries(S.quarterHistory);
+  // Voeg huidig kwartaal toe
+  const curRevByQ={};
+  const mg=buildMg();
+  const curRev=Object.values(mg).reduce((s,d)=>s+d.revenue,0)+S.transactions.filter(t=>t.quarter===S.quarter).reduce((s,t)=>s+t.amount,0);
+  curRevByQ[S.quarter]=curRev;
+  // Kwartaal → maand mapping
+  function qToMonths(q){const m={'Q1':[0,1,2],'Q2':[3,4,5],'Q3':[6,7,8],'Q4':[9,10,11]};return m[q.split(' ')[0]]||[];}
+  function qYear(q){return q.split(' ')[1]||''}
+  const yr=S.year;
+  // quarterHistory
+  qhAll.forEach(([q,d])=>{
+    if(qYear(q)!==yr)return;
+    const rev=(d.revenue||0);
+    const ms=qToMonths(q);
+    if(!ms.length)return;
+    ms.forEach(m=>{months[m]+=rev/3;});
+  });
+  // Huidig kwartaal (kan overlap hebben — voorkomen door dedup)
+  const processedQ=new Set(qhAll.map(([q])=>q));
+  if(!processedQ.has(S.quarter)){
+    const ms=qToMonths(S.quarter);
+    ms.forEach(m=>{months[m]+=curRev/3;});
+  }
+  const hasAny=months.some(v=>v>0);
+  if(!hasAny){wrap.style.display='none';return;}
+  wrap.style.display='block';
+  const max=Math.max(...months,1);
+  const lbls=['Jan','Feb','Mrt','Apr','Mei','Jun','Jul','Aug','Sep','Okt','Nov','Dec'];
+  const now=new Date();const curMon=now.getMonth();const curY=now.getFullYear().toString();
+  const tag=document.getElementById('maandGrafiekTag');
+  if(tag)tag.textContent=yr;
+  const sub=document.getElementById('maandGrafiekSub');
+  if(sub)sub.textContent='Omzetschatting per maand · '+yr;
+  body.innerHTML=`<div class="maand-grid">${months.map((v,i)=>{
+    const h=Math.max(v>0?4:1,Math.round(v/max*72));
+    const isCur=yr===curY&&i===curMon;
+    const cls='maand-bar'+(isCur?' cur':v===0?' empty':'');
+    return`<div class="maand-bar-wrap" title="${lbls[i]}: €${fmt(Math.round(v))}">
+      <div class="${cls}" style="height:${h}px"></div>
+      <div class="maand-lbl">${lbls[i]}</div>
+      ${v>0?`<div class="maand-amt">€${fmt(Math.round(v/1000)>0?Math.round(v/1000)+'k':Math.round(v))}</div>`:'<div class="maand-amt">—</div>'}
+    </div>`;
+  }).join('')}</div>`;
 }
 
 // TRANSACTIES
@@ -1941,12 +2147,12 @@ function sv(view){
   document.querySelectorAll('.vw').forEach(v=>v.classList.remove('on'));
   document.querySelectorAll('.ni').forEach(n=>n.classList.remove('on'));
   const el=document.getElementById('vw'+view);if(el)el.classList.add('on');
-  const ni={dashboard:'nDash',transacties:'nTx',producten:'nProd',landen:'nLanden',jaaroverzicht:'nJaar',oss:'nOSS',alerts:'nAlert',help:'nHelp'};
+  const ni={dashboard:'nDash',transacties:'nTx',producten:'nProd',marge:'nMarge',landen:'nLanden',jaaroverzicht:'nJaar',oss:'nOSS',alerts:'nAlert',help:'nHelp'};
   const nel=document.getElementById(ni[view]);if(nel)nel.classList.add('on');
   // sync mobile bottom nav
   const mobMap={dashboard:'mniDash',transacties:'mniTx',landen:'mniLanden',jaaroverzicht:'mniJaar',oss:'mniOSS',alerts:'mniAlert',help:'mniHelp'};
   if(mobMap[view])mniActive(mobMap[view]);
-  if(view==='transacties')renderTx();if(view==='landen')renderLanden();if(view==='jaaroverzicht'){renderYGrid();renderJDetail();}if(view==='oss')renderOSS();if(view==='alerts')loadAlUI();if(view==='producten')renderProducts();
+  if(view==='transacties')renderTx();if(view==='landen')renderLanden();if(view==='jaaroverzicht'){renderYGrid();renderJDetail();}if(view==='oss')renderOSS();if(view==='alerts')loadAlUI();if(view==='producten')renderProducts();if(view==='marge')renderMarge();
 }
 function toggleAcc(el){el.closest('.acc').classList.toggle('on');}
 
@@ -2391,5 +2597,6 @@ document.addEventListener('keydown',function(e){
 });
 </script>
 <script src="js/products.js"></script>
+<script src="js/marge.js"></script>
 </body>
 </html>
