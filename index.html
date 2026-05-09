@@ -1654,12 +1654,12 @@ async function submitWaitlist(e){
   const btn=document.getElementById('waitlistBtn');
   if(!email)return;
   btn.textContent='Bezig…';btn.disabled=true;
-  // Sla lokaal op als backup
+  // Lokale backup
   try{
     const list=JSON.parse(localStorage.getItem('zen_waitlist')||'[]');
     if(!list.includes(email)){list.push(email);localStorage.setItem('zen_waitlist',JSON.stringify(list));}
   }catch(err){}
-  // Stuur naar Formspree (vervang YOUR_FORM_ID met jouw Formspree form ID)
+  // Formspree backup
   try{
     await fetch('https://formspree.io/danieldekoning66@gmail.com',{
       method:'POST',
@@ -1667,7 +1667,28 @@ async function submitWaitlist(e){
       body:JSON.stringify({email,bron:'zenbtw-waitlist',datum:new Date().toISOString()})
     });
   }catch(err){}
-  // Toon successtatus ongeacht netwerk
+  // Brevo — voeg toe aan lijst + start drip automatisering
+  // STAP: vervang JOUW_BREVO_API_KEY hieronder na aanmaken account op brevo.com
+  const BREVO_KEY='JOUW_BREVO_API_KEY';
+  if(BREVO_KEY!=='JOUW_BREVO_API_KEY'){
+    try{
+      await fetch('https://api.brevo.com/v3/contacts',{
+        method:'POST',
+        headers:{
+          'accept':'application/json',
+          'content-type':'application/json',
+          'api-key':BREVO_KEY
+        },
+        body:JSON.stringify({
+          email,
+          attributes:{BRON:'zenbtw-waitlist',SIGNUP_DATE:new Date().toISOString().split('T')[0]},
+          listIds:[2], // lijst ID 2 = ZenBTW Waitlist (aanpassen na aanmaken in Brevo)
+          updateEnabled:true
+        })
+      });
+    }catch(err){}
+  }
+  // Toon successtatus
   document.getElementById('waitlistFormWrap').style.display='none';
   document.getElementById('waitlistSuccess').style.display='block';
 }

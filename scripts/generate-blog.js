@@ -259,6 +259,69 @@ function updateBlogIndex(slug, title, description, tag) {
   console.log('  blog/index.html: card added for', slug);
 }
 
+// ── Google Indexing API ────────────────────────────────────────────────────────
+async function submitToGoogleIndexing(slug) {
+  const keyJson = process.env.GOOGLE_SERVICE_ACCOUNT_JSON;
+  if (!keyJson) {
+    console.log('  Google Indexing: GOOGLE_SERVICE_ACCOUNT_JSON missing, skipping');
+    return;
+  }
+
+  try {
+    const key = JSON.parse(keyJson);
+    const url = `https://zenbtw.nl/blog/${slug}.html`;
+
+    // Build JWT for Google OAuth
+    const now = Math.floor(Date.now() / 1000);
+    const header  = { alg: 'RS256', typ: 'JWT' };
+    const payload = {
+      iss:   key.client_email,
+      scope: 'https://www.googleapis.com/auth/indexing',
+      aud:   'https://oauth2.googleapis.com/token',
+      exp:   now + 3600,
+      iat:   now
+    };
+
+    const { createSign } = await import('crypto');
+    const b64url = obj => Buffer.from(JSON.stringify(obj)).toString('base64url');
+    const unsigned  = `${b64url(header)}.${b64url(payload)}`;
+    const sign      = createSign('RSA-SHA256');
+    sign.update(unsigned);
+    const jwt = `${unsigned}.${sign.sign(key.private_key, 'base64url')}`;
+
+    // Exchange JWT for access token
+    const tokenRes = await fetch('https://oauth2.googleapis.com/token', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: new URLSearchParams({
+        grant_type: 'urn:ietf:params:oauth:grant-type:jwt-bearer',
+        assertion: jwt
+      })
+    });
+    const { access_token, error } = await tokenRes.json();
+    if (error) { console.log('  Google Indexing: token error:', error); return; }
+
+    // Submit URL
+    const indexRes = await fetch('https://indexing.googleapis.com/v3/urlNotifications:publish', {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${access_token}`,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ url, type: 'URL_UPDATED' })
+    });
+    const result = await indexRes.json();
+
+    if (result.urlNotificationMetadata) {
+      console.log('  Google Indexing: submitted', url);
+    } else {
+      console.log('  Google Indexing: error', JSON.stringify(result));
+    }
+  } catch (err) {
+    console.log('  Google Indexing: failed:', err.message);
+  }
+}
+
 // ── Reddit poster ─────────────────────────────────────────────────────────────
 async function postToReddit(keyword, slug, description) {
   const { REDDIT_CLIENT_ID, REDDIT_CLIENT_SECRET, REDDIT_USERNAME, REDDIT_PASSWORD } = process.env;
@@ -429,13 +492,16 @@ async function main() {
   // ── 5. Update blog index ───────────────────────────────────────────────────
   updateBlogIndex(item.slug, h1, description, tag);
 
-  // ── 6. Post to Reddit ─────────────────────────────────────────────────────
+  // ── 6. Google Indexing API ────────────────────────────────────────────────
+  await submitToGoogleIndexing(item.slug);
+
+  // ── 7. Post to Reddit ─────────────────────────────────────────────────────
   await postToReddit(item.keyword, item.slug, description);
 
-  // ── 7. Post to Medium ─────────────────────────────────────────────────────
+  // ── 8. Post to Medium ─────────────────────────────────────────────────────
   await postToMedium(h1, item.slug, html);
 
-  // ── 8. Mark keyword as published ──────────────────────────────────────────
+  // ── 9. Mark keyword as published ──────────────────────────────────────────
   const idx = data.queue.findIndex(k => k.slug === item.slug);
   data.queue[idx].status = 'published';
   data.queue[idx].publishedDate = TODAY;
