@@ -192,17 +192,34 @@ function updateBlogIndex(slug, title, description, tag) {
     return;
   }
 
-  const card = `
-    <article class="card">
-      <div class="card-tag">${tag}</div>
-      <h2><a href="${slug}.html">${title}</a></h2>
-      <p>${description}</p>
-      <a href="${slug}.html" class="card-link">Lees artikel →</a>
-    </article>`;
-
   let html = fs.readFileSync(indexPath, 'utf8');
-  // Insert before closing </div> of the grid
-  html = html.replace('</div>\n\n<footer', `${card}\n  </div>\n\n<footer`);
+
+  // Don't add duplicate
+  if (html.includes(`href="${slug}.html"`)) {
+    console.log('  blog/index.html: card already present, skipping');
+    return;
+  }
+
+  const card = `
+    <a href="${slug}.html" class="card">
+      <div class="card-body">
+        <span class="card-tag">${tag}</span>
+        <h2>${title}</h2>
+        <p>${description}</p>
+        <div class="card-meta">
+          <span>${new Date().toLocaleDateString('nl-NL', {month:'long', year:'numeric'})}</span>
+          <span class="card-read">Lees artikel →</span>
+        </div>
+      </div>
+    </a>`;
+
+  // Insert inside the .grid div, just before its closing tag
+  // The grid closes with "  </div>\n\n  <div class="cta-strip""
+  html = html.replace(
+    /(\s*)<\/div>\s*\n\s*<div class="cta-strip"/,
+    `$1${card}\n\n  </div>\n\n  <div class="cta-strip"`
+  );
+
   fs.writeFileSync(indexPath, html, 'utf8');
   console.log('  blog/index.html: card added for', slug);
 }
