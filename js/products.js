@@ -1,22 +1,30 @@
 // ── ZenBTW · Products Module ─────────────────────────────────────────────
 // Bouwdag #2: Best-verkopende producten per merk & per artikel (Shopify)
-// Afhankelijkheden: S.lineItems, S.quarter, fmt() — allen globaal in app.html
+// Afhankelijkheden: S.lineItems, S.year, fmt() — allen globaal in app.html
 // ─────────────────────────────────────────────────────────────────────────
 
 'use strict';
 
 let _prodTab = 'brand'; // actieve tab: 'brand' | 'item'
 
-// Interne Revaleur-artikelen die we NIET in de productenlijst willen
+// Interne artikelen die we NIET in de productenlijst willen
 const INTERNAL_VENDORS = new Set(['revaleur']);
 
 /**
- * getFilteredItems()
- * Geeft line items terug voor het geselecteerde kwartaal + optionele vendor-filter.
+ * getAllLineItems()
+ * Alle geladen line items, gefilterd op huidig jaar + optionele vendor-filter.
+ * Toont ALLE kwartalen van het geselecteerde jaar — niet alleen het actieve kwartaal.
  */
+function getAllLineItems() {
+  if (!Array.isArray(S.lineItems)) return [];
+  // Jaar-filter: toon alle kwartalen van S.year (bijv. "2026")
+  return S.lineItems.filter(i => (i.quarter || '').endsWith(S.year));
+}
+
 function getFilteredItems() {
-  if (!window.S || !Array.isArray(S.lineItems)) return [];
-  const items = S.lineItems.filter(i => i.quarter === S.quarter);
+  const items = getAllLineItems().filter(
+    i => !INTERNAL_VENDORS.has((i.vendor || '').toLowerCase())
+  );
   const vendorSel = document.getElementById('prodVendorFilter');
   const selected = vendorSel ? vendorSel.value : 'all';
   if (selected && selected !== 'all') {
@@ -33,7 +41,6 @@ function aggregateByBrand(items) {
   const map = {};
   for (const i of items) {
     const v = i.vendor || '—';
-    if (INTERNAL_VENDORS.has(v.toLowerCase())) continue;
     if (!map[v]) map[v] = { vendor: v, qty: 0, revenue: 0 };
     map[v].qty += i.qty || 1;
     map[v].revenue += i.price || 0;
@@ -44,45 +51,34 @@ function aggregateByBrand(items) {
 /**
  * aggregateByItem(items)
  * Groepeert op SKU, sorteert op omzet.
- * Vintage-items zijn uniek (1 SKU = 1 stuk), maar we groeperen toch
- * zodat herlaad van hetzelfde bestand geen duplicaten oplevert.
  */
 function aggregateByItem(items) {
   const map = {};
   for (const i of items) {
-    if (INTERNAL_VENDORS.has((i.vendor || '').toLowerCase())) continue;
     const key = i.sku || i.title;
     if (!map[key]) {
       map[key] = {
-        sku: i.sku,
-        title: i.title,
-        vendor: i.vendor || '—',
-        condition: i.condition || '',
-        qty: 0,
-        revenue: 0,
-        prices: [],
-        compareAts: []
+        sku: i.sku, title: i.title, vendor: i.vendor || '—',
+        condition: i.condition || '', qty: 0, revenue: 0,
+        prices: [], compareAts: []
       };
     }
     map[key].qty += i.qty || 1;
     map[key].revenue += i.price || 0;
-    if (i.price > 0) map[key].prices.push(i.price);
-    if (i.compareAt > 0) map[key].compareAts.push(i.compareAt);
+    if (i.price > 0)      map[key].prices.push(i.price);
+    if (i.compareAt > 0)  map[key].compareAts.push(i.compareAt);
   }
-  // Gemiddelde prijs en RRP berekenen
   return Object.values(map)
     .map(p => ({
       ...p,
-      avgPrice: p.prices.length ? p.prices.reduce((s, v) => s + v, 0) / p.prices.length : 0,
-      avgRRP: p.compareAts.length ? p.compareAts.reduce((s, v) => s + v, 0) / p.compareAts.length : 0
+      avgPrice: p.prices.length
+        ? p.prices.reduce((s, v) => s + v, 0) / p.prices.length : 0,
+      avgRRP: p.compareAts.length
+        ? p.compareAts.reduce((s, v) => s + v, 0) / p.compareAts.length : 0
     }))
     .sort((a, b) => b.revenue - a.revenue);
 }
 
-/**
- * conditionBadge(condition)
- * Geeft de CSS-klasse terug voor de conditie-badge.
- */
 function conditionBadge(condition) {
   const c = (condition || '').toLowerCase();
   if (c.includes('new'))       return 'new';
@@ -91,27 +87,19 @@ function conditionBadge(condition) {
   return '';
 }
 
-/**
- * updateProdFilter(items)
- * Vult de merk-dropdown bij met unieke vendors uit de huidige dataset.
- */
 function updateProdFilter(items) {
   const sel = document.getElementById('prodVendorFilter');
   if (!sel) return;
   const vendors = [...new Set(
-    items
-      .filter(i => !INTERNAL_VENDORS.has((i.vendor || '').toLowerCase()) && i.vendor)
-      .map(i => i.vendor)
+    items.filter(i => i.vendor).map(i => i.vendor)
   )].sort();
   const current = sel.value;
   sel.innerHTML = '<option value="all">Alle merken</option>' +
-    vendors.map(v => `<option value="${v}"${v === current ? ' selected' : ''}>${v}</option>`).join('');
+    vendors.map(v =>
+      `<option value="${v}"${v === current ? ' selected' : ''}>${v}</option>`
+    ).join('');
 }
 
-/**
- * setProdTab(tab)
- * Wisselt tussen 'brand' en 'item' tab.
- */
 function setProdTab(tab) {
   _prodTab = tab;
   document.getElementById('ptBrand')?.classList.toggle('on', tab === 'brand');
@@ -128,45 +116,53 @@ function renderProducts() {
   const tag  = document.getElementById('prodTag');
   if (!body) return;
 
-  // Kwartaal-tag bijwerken
-  if (tag && window.S) tag.textContent = S.quarter;
+  // Welke kwartalen zijn geladen voor dit jaar?
+  const allForYear = getAllLineItems();
+  const quarters = [...new Set(allForYear.map(i => i.quarter))].sort();
+  if (tag) tag.textContent = quarters.length ? quarters.join(' · ') : S.year;
 
-  // Alle items voor dit kwartaal (zonder vendor-filter voor stats)
-  const allItems = (window.S && Array.isArray(S.lineItems))
-    ? S.lineItems.filter(i => i.quarter === S.quarter && !INTERNAL_VENDORS.has((i.vendor || '').toLowerCase()))
-    : [];
+  // Alle items (zonder interne vendors), voor stats
+  const allItems = allForYear.filter(
+    i => !INTERNAL_VENDORS.has((i.vendor || '').toLowerCase())
+  );
 
   // Lege staat
   if (!allItems.length) {
-    body.innerHTML = `<div class="es"><div class="esi">📦</div><div class="est">Geen productdata voor ${window.S ? S.quarter : '—'}</div><div class="ess">Upload je Shopify CSV om productverkopen te zien</div></div>`;
-    document.getElementById('prodCount').textContent     = '—';
-    document.getElementById('prodTopBrand').textContent  = '—';
-    document.getElementById('prodAvgPrice').textContent  = '—';
-    document.getElementById('prodRevTotal').textContent  = '—';
+    body.innerHTML = `
+      <div class="es">
+        <div class="esi">📦</div>
+        <div class="est">Geen productdata voor ${S.year}</div>
+        <div class="ess">Upload je Shopify CSV om productverkopen te zien</div>
+      </div>`;
+    ['prodCount','prodTopBrand','prodAvgPrice','prodRevTotal'].forEach(id => {
+      const el = document.getElementById(id);
+      if (el) el.textContent = '—';
+    });
     updateProdFilter([]);
     return;
   }
 
-  // Vendor-filter bijwerken op basis van alle items
+  // Vendor-filter vullen op basis van alle items
   updateProdFilter(allItems);
 
   // Gefilterde items (vendor-dropdown)
-  const items = getFilteredItems().filter(i => !INTERNAL_VENDORS.has((i.vendor || '').toLowerCase()));
+  const items = getFilteredItems();
 
-  // ── Stats bovenaan ──
-  const totalItems   = allItems.length;
-  const totalRev     = items.reduce((s, i) => s + (i.price || 0), 0);
-  const avgPrice     = items.length ? totalRev / items.length : 0;
-  const brands       = aggregateByBrand(allItems);
-  const topBrand     = brands[0];
+  // ── Stats ──
+  const totalRev  = items.reduce((s, i) => s + (i.price || 0), 0);
+  const avgPrice  = items.length ? totalRev / items.length : 0;
+  const brands    = aggregateByBrand(allItems);
+  const topBrand  = brands[0];
 
-  document.getElementById('prodCount').textContent    = totalItems;
-  document.getElementById('prodCountSub').textContent = `${totalItems} items · ${S.quarter}`;
-  document.getElementById('prodTopBrand').textContent = topBrand ? topBrand.vendor : '—';
-  document.getElementById('prodTopBrandSub').textContent = topBrand ? `€${fmt(Math.round(topBrand.revenue))} · ${topBrand.qty}×` : '—';
-  document.getElementById('prodAvgPrice').textContent = items.length ? `€${fmt(Math.round(avgPrice))}` : '—';
-  document.getElementById('prodRevTotal').textContent = `€${fmt(Math.round(totalRev))}`;
-  document.getElementById('prodRevSub').textContent   = `${items.length} items · Shopify`;
+  document.getElementById('prodCount').textContent      = allItems.length;
+  document.getElementById('prodCountSub').textContent   = `${allItems.length} items · ${S.year}`;
+  document.getElementById('prodTopBrand').textContent   = topBrand ? topBrand.vendor : '—';
+  document.getElementById('prodTopBrandSub').textContent = topBrand
+    ? `€${fmt(Math.round(topBrand.revenue))} · ${topBrand.qty}×` : '—';
+  document.getElementById('prodAvgPrice').textContent   = items.length
+    ? `€${fmt(Math.round(avgPrice))}` : '—';
+  document.getElementById('prodRevTotal').textContent   = `€${fmt(Math.round(totalRev))}`;
+  document.getElementById('prodRevSub').textContent     = `${items.length} items · Shopify`;
 
   // ── Tab: Per merk ──
   if (_prodTab === 'brand') {
@@ -184,7 +180,9 @@ function renderProducts() {
       bData.map(b => `
         <div class="brand-bar">
           <span class="brand-name">${b.vendor}</span>
-          <div class="brand-track"><div class="brand-fill" style="width:${Math.round(b.revenue / maxRev * 100)}%"></div></div>
+          <div class="brand-track">
+            <div class="brand-fill" style="width:${Math.round(b.revenue / maxRev * 100)}%"></div>
+          </div>
           <span class="bh4 brand-qty">${b.qty}×</span>
           <span class="brand-rev">€${fmt(Math.round(b.revenue))}</span>
         </div>`).join('');
@@ -204,8 +202,9 @@ function renderProducts() {
         <span style="text-align:right">Omzet</span>
       </div>` +
       pData.map((p, i) => {
-        const badge = conditionBadge(p.condition);
-        const discPct = p.avgRRP > 0 ? Math.round((1 - p.avgPrice / p.avgRRP) * 100) : 0;
+        const badge   = conditionBadge(p.condition);
+        const discPct = p.avgRRP > 0
+          ? Math.round((1 - p.avgPrice / p.avgRRP) * 100) : 0;
         return `
           <div class="prod-row${i === 0 ? ' prod-top-1' : ''}">
             <span class="prod-rank">${i + 1}</span>
@@ -213,8 +212,12 @@ function renderProducts() {
               <div class="prod-title" title="${p.title}">${p.title}</div>
               <div class="prod-sub">
                 <span>${p.vendor}</span>
-                ${badge ? `<span class="prod-badge ${badge}">${p.condition}</span>` : ''}
-                ${discPct > 0 ? `<span style="color:var(--dn);font-size:10.5px;font-weight:600">−${discPct}% v/RRP</span>` : ''}
+                ${badge
+                  ? `<span class="prod-badge ${badge}">${p.condition}</span>`
+                  : ''}
+                ${discPct > 0
+                  ? `<span style="color:var(--dn);font-size:10.5px;font-weight:600">−${discPct}% v/RRP</span>`
+                  : ''}
               </div>
             </div>
             <span class="prod-avgprice ph4">€${fmt(Math.round(p.avgPrice))}</span>
