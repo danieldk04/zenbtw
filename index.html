@@ -1669,25 +1669,22 @@ async function submitWaitlist(e){
   }catch(err){}
   // Brevo — voeg toe aan lijst + start drip automatisering
   // STAP: vervang JOUW_BREVO_API_KEY hieronder na aanmaken account op brevo.com
-  const BREVO_KEY='JOUW_BREVO_API_KEY';
-  if(BREVO_KEY!=='JOUW_BREVO_API_KEY'){
-    try{
-      await fetch('https://api.brevo.com/v3/contacts',{
-        method:'POST',
-        headers:{
-          'accept':'application/json',
-          'content-type':'application/json',
-          'api-key':BREVO_KEY
-        },
-        body:JSON.stringify({
-          email,
-          attributes:{BRON:'zenbtw-waitlist',SIGNUP_DATE:new Date().toISOString().split('T')[0]},
-          listIds:[2], // lijst ID 2 = ZenBTW Waitlist (aanpassen na aanmaken in Brevo)
-          updateEnabled:true
-        })
-      });
-    }catch(err){}
-  }
+  try{
+    await fetch('https://api.brevo.com/v3/contacts',{
+      method:'POST',
+      headers:{
+        'accept':'application/json',
+        'content-type':'application/json',
+        'api-key':'xkeysib-4bea0afdead02cd8695e215f688d9a0ee529de8ef59'
+      },
+      body:JSON.stringify({
+        email,
+        attributes:{BRON:'zenbtw-waitlist',SIGNUP_DATE:new Date().toISOString().split('T')[0]},
+        listIds:[3],
+        updateEnabled:true
+      })
+    });
+  }catch(err){}
   // Toon successtatus
   document.getElementById('waitlistFormWrap').style.display='none';
   document.getElementById('waitlistSuccess').style.display='block';
