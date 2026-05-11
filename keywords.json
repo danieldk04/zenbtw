@@ -1,13 +1,6 @@
 {
   "queue": [
     {
-      "keyword": "oss registratie belastingdienst stappenplan",
-      "slug": "oss-registratie-belastingdienst",
-      "status": "pending",
-      "priority": 2,
-      "notes": "Informationeel, hoge conversie intent"
-    },
-    {
       "keyword": "etsy verkoper belastingaangifte nederland",
       "slug": "etsy-verkoper-belastingaangifte",
       "status": "pending",
@@ -73,6 +66,15 @@
       "notes": "Hoge zoekvolume, directe match met onze doelgroep",
       "publishedDate": "2026-05-09",
       "outputFile": "blog/shopify-btw-nederland-2026.html"
+    },
+    {
+      "keyword": "oss registratie belastingdienst stappenplan",
+      "slug": "oss-registratie-belastingdienst",
+      "status": "published",
+      "priority": 2,
+      "notes": "Informationeel, hoge conversie intent",
+      "publishedDate": "2026-05-11",
+      "outputFile": "blog/oss-registratie-belastingdienst.html"
     }
   ],
   "settings": {
