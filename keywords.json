@@ -1,13 +1,6 @@
 {
   "queue": [
     {
-      "keyword": "etsy verkoper belastingaangifte nederland",
-      "slug": "etsy-verkoper-belastingaangifte",
-      "status": "pending",
-      "priority": 3,
-      "notes": "Long-tail, hoge intentie"
-    },
-    {
       "keyword": "kor vrijstelling 2026 voorwaarden",
       "slug": "kor-vrijstelling-2026",
       "status": "pending",
@@ -75,6 +68,15 @@
       "notes": "Informationeel, hoge conversie intent",
       "publishedDate": "2026-05-11",
       "outputFile": "blog/oss-registratie-belastingdienst.html"
+    },
+    {
+      "keyword": "etsy verkoper belastingaangifte nederland",
+      "slug": "etsy-verkoper-belastingaangifte",
+      "status": "published",
+      "priority": 3,
+      "notes": "Long-tail, hoge intentie",
+      "publishedDate": "2026-05-14",
+      "outputFile": "blog/etsy-verkoper-belastingaangifte.html"
     }
   ],
   "settings": {
