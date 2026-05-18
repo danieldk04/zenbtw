@@ -1,13 +1,6 @@
 {
   "queue": [
     {
-      "keyword": "kor vrijstelling 2026 voorwaarden",
-      "slug": "kor-vrijstelling-2026",
-      "status": "pending",
-      "priority": 4,
-      "notes": "Evergreen, wordt jaarlijks gezocht"
-    },
-    {
       "keyword": "marketplace verkoper btw aangifte",
       "slug": "marketplace-verkoper-btw-aangifte",
       "status": "pending",
@@ -77,6 +70,15 @@
       "notes": "Long-tail, hoge intentie",
       "publishedDate": "2026-05-14",
       "outputFile": "blog/etsy-verkoper-belastingaangifte.html"
+    },
+    {
+      "keyword": "kor vrijstelling 2026 voorwaarden",
+      "slug": "kor-vrijstelling-2026",
+      "status": "published",
+      "priority": 4,
+      "notes": "Evergreen, wordt jaarlijks gezocht",
+      "publishedDate": "2026-05-18",
+      "outputFile": "blog/kor-vrijstelling-2026.html"
     }
   ],
   "settings": {
