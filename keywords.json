@@ -1,13 +1,6 @@
 {
   "queue": [
     {
-      "keyword": "marketplace verkoper btw aangifte",
-      "slug": "marketplace-verkoper-btw-aangifte",
-      "status": "pending",
-      "priority": 5,
-      "notes": "Breed keyword, goede top-of-funnel"
-    },
-    {
       "keyword": "dac7 belastingdienst rapportage 2026",
       "slug": "dac7-belastingdienst-rapportage",
       "status": "pending",
@@ -79,6 +72,15 @@
       "notes": "Evergreen, wordt jaarlijks gezocht",
       "publishedDate": "2026-05-18",
       "outputFile": "blog/kor-vrijstelling-2026.html"
+    },
+    {
+      "keyword": "marketplace verkoper btw aangifte",
+      "slug": "marketplace-verkoper-btw-aangifte",
+      "status": "published",
+      "priority": 5,
+      "notes": "Breed keyword, goede top-of-funnel",
+      "publishedDate": "2026-05-21",
+      "outputFile": "blog/marketplace-verkoper-btw-aangifte.html"
     }
   ],
   "settings": {
