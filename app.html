@@ -423,12 +423,6 @@ input:checked + .tsl:before{transform:translateX(17px)}
 .sec-badge{display:inline-flex;align-items:center;gap:5px;padding:4px 9px;background:#e8f5ee;border:1px solid #b2cfbf;border-radius:100px;font-size:10px;font-weight:600;color:var(--acm);font-family:'JetBrains Mono',monospace;white-space:nowrap}
 .sec-badge .sec-dot{width:7px;height:7px;border-radius:50%;background:var(--ac);flex-shrink:0}
 
-/* ── ONBOARDING WIZARD ── */
-.onboard-steps{display:flex;flex-direction:column;gap:9px;margin-bottom:20px;text-align:left}
-.onboard-step{display:flex;align-items:center;gap:12px;padding:12px 14px;background:var(--s2);border-radius:var(--rs);border:1px solid var(--br)}
-.onboard-step-n{width:26px;height:26px;background:var(--ac);color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:12px;flex-shrink:0}
-.onboard-step-t{font-weight:600;font-size:13px;margin-bottom:2px}
-.onboard-step-s{font-size:11px;color:var(--tx3)}
 .demo-btn{width:100%;padding:13px 20px;background:var(--ac);color:#fff;border:none;border-radius:var(--rs);font-family:'Plus Jakarta Sans',sans-serif;font-size:14px;font-weight:700;cursor:pointer;transition:all .15s;margin-bottom:8px}
 .demo-btn:hover{background:#143d28;transform:translateY(-1px);box-shadow:var(--shm)}
 
@@ -626,6 +620,47 @@ input:checked + .tsl:before{transform:translateX(17px)}
 .maand-lbl{font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--tx4);text-align:center}
 .maand-amt{font-family:'JetBrains Mono',monospace;font-size:8.5px;color:var(--tx3);text-align:center}
 
+/* ══════════════════════════════════════
+   ONBOARDING GATE
+══════════════════════════════════════ */
+.ob-overlay{position:fixed;inset:0;z-index:9999;background:var(--bg);display:none;align-items:center;justify-content:center;padding:20px;overflow-y:auto}
+.ob-overlay.on{display:flex}
+.ob-card{background:var(--wh);border:1.5px solid var(--br);border-radius:20px;padding:36px 40px 32px;max-width:460px;width:100%;box-shadow:0 16px 48px rgba(0,0,0,.10)}
+.ob-header{text-align:center;margin-bottom:28px}
+.ob-logo-row{display:flex;align-items:center;justify-content:center;gap:10px;margin-bottom:18px}
+.ob-logo-icon{width:36px;height:36px;background:var(--ac);border-radius:9px;display:flex;align-items:center;justify-content:center;color:#fff;font-family:'Fraunces',serif;font-size:18px;font-weight:700}
+.ob-logo-name{font-family:'Fraunces',serif;font-size:22px;font-weight:700;letter-spacing:-.3px;color:var(--tx)}
+.ob-logo-name em{color:var(--acm);font-style:normal}
+.ob-header h1{font-family:'Fraunces',serif;font-size:22px;font-weight:700;color:var(--tx);letter-spacing:-.02em;margin-bottom:8px;line-height:1.25}
+.ob-header p{font-size:14px;color:var(--tx3);line-height:1.6;max-width:340px;margin:0 auto}
+.ob-platforms{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:16px}
+.ob-plat-btn{padding:12px 8px;border:2px solid var(--br);border-radius:12px;background:var(--wh);cursor:pointer;font-family:inherit;transition:all .15s;text-align:center}
+.ob-plat-btn:hover{border-color:var(--acm);background:var(--acl)}
+.ob-plat-btn.sel{border-color:var(--ac);background:var(--acl)}
+.ob-plat-icon{font-size:22px;display:block;margin-bottom:4px}
+.ob-plat-name{font-size:13px;font-weight:700;color:var(--tx2)}
+.ob-plat-btn.sel .ob-plat-name{color:var(--ac)}
+.ob-field{width:100%;padding:11px 14px;border:1.5px solid var(--br);border-radius:var(--rs);font-family:inherit;font-size:14px;color:var(--tx);background:var(--wh);outline:none;transition:border-color .15s;margin-bottom:4px}
+.ob-field:focus{border-color:var(--ac)}
+.ob-field.err{border-color:var(--dn)}
+.ob-err-txt{font-size:12px;color:var(--dn);margin-bottom:10px;display:none}
+.ob-plat-err{font-size:12px;color:var(--dn);margin-bottom:10px;text-align:center;display:none}
+.ob-submit{width:100%;padding:13px;background:var(--ac);color:#fff;border:none;border-radius:10px;font-family:inherit;font-size:15px;font-weight:700;cursor:pointer;transition:all .18s;margin-top:6px}
+.ob-submit:hover{background:var(--acm);transform:translateY(-1px);box-shadow:0 6px 20px rgba(26,71,49,.3)}
+.ob-privacy{font-size:11.5px;color:var(--tx4);text-align:center;margin-top:10px}
+.ob-step2-head{text-align:center;margin-bottom:24px}
+.ob-step2-head h2{font-family:'Fraunces',serif;font-size:20px;font-weight:700;color:var(--tx);letter-spacing:-.02em;margin-bottom:6px}
+.ob-step2-head p{font-size:13.5px;color:var(--tx3)}
+.ob-instruction{background:var(--acl);border:1px solid #b2cfbf;border-radius:12px;padding:18px 20px;margin-bottom:20px}
+.ob-instruction-platform{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--acm);margin-bottom:8px}
+.ob-instruction-steps{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:8px}
+.ob-instruction-steps li{display:flex;align-items:flex-start;gap:10px;font-size:13.5px;color:var(--tx2);line-height:1.5}
+.ob-instruction-steps li .ob-step-num{min-width:20px;height:20px;border-radius:50%;background:var(--ac);color:#fff;font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px}
+.ob-instruction-steps code{background:rgba(26,71,49,.1);color:var(--ac);padding:1px 5px;border-radius:4px;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600}
+.ob-highlight-zone{animation:obPulse 1.5s ease-in-out 3}
+@keyframes obPulse{0%,100%{box-shadow:0 0 0 0 rgba(26,71,49,.0)}50%{box-shadow:0 0 0 6px rgba(26,71,49,.25)}}
+@media(max-width:480px){.ob-card{padding:24px 20px 20px}.ob-header h1{font-size:19px}}
+
 </style>
 <script defer src="https://cloud.umami.is/script.js" data-website-id="9cb58ff4-cf6e-4773-8dd5-f2f0b6ad5510"></script>
 <!-- Meta Pixel Code -->
@@ -648,6 +683,60 @@ src="https://www.facebook.com/tr?id=964378096043237&ev=PageView&noscript=1"
 </head>
 <body>
 <script>fbq('track', 'CompleteRegistration');</script>
+
+<!-- ══ ONBOARDING GATE ══ -->
+<div id="ob-overlay" class="ob-overlay">
+
+  <!-- Stap 1: Email + platform -->
+  <div id="ob-step1" class="ob-card">
+    <div class="ob-header">
+      <div class="ob-logo-row">
+        <div class="ob-logo-icon">Z</div>
+        <span class="ob-logo-name">Zen<em>BTW</em></span>
+      </div>
+      <h1>Bereken gratis je BTW-status</h1>
+      <p>Kies je platform en vul je e-mail in — we laten je direct zien waar je staat.</p>
+    </div>
+    <div style="font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--tx4);margin-bottom:8px">Waar verkoop je?</div>
+    <div class="ob-platforms">
+      <button class="ob-plat-btn" id="obp-vinted" onclick="obSelectPlatform('vinted')">
+        <span class="ob-plat-icon">👗</span>
+        <span class="ob-plat-name">Vinted</span>
+      </button>
+      <button class="ob-plat-btn" id="obp-etsy" onclick="obSelectPlatform('etsy')">
+        <span class="ob-plat-icon">🏪</span>
+        <span class="ob-plat-name">Etsy</span>
+      </button>
+      <button class="ob-plat-btn" id="obp-shopify" onclick="obSelectPlatform('shopify')">
+        <span class="ob-plat-icon">🛍️</span>
+        <span class="ob-plat-name">Shopify</span>
+      </button>
+    </div>
+    <div id="ob-plat-err" class="ob-plat-err">Kies eerst je platform.</div>
+    <input type="email" id="ob-email" class="ob-field" placeholder="jouw@email.nl" onkeydown="if(event.key==='Enter')obSubmit()">
+    <div id="ob-email-err" class="ob-err-txt">Voer een geldig e-mailadres in.</div>
+    <button class="ob-submit" onclick="obSubmit()">Bekijk mijn BTW-status →</button>
+    <p class="ob-privacy">Geen spam. Alleen BTW-updates. Altijd uitschrijven.</p>
+  </div>
+
+  <!-- Stap 2: Instructie per platform -->
+  <div id="ob-step2" class="ob-card" style="display:none">
+    <div class="ob-step2-head">
+      <div class="ob-logo-row">
+        <div class="ob-logo-icon">Z</div>
+        <span class="ob-logo-name">Zen<em>BTW</em></span>
+      </div>
+      <h2>Eén stap: haal je verkoopdata op</h2>
+      <p>Download je export en upload hem in het dashboard — duurt 30 seconden.</p>
+    </div>
+    <div id="ob-instruction" class="ob-instruction"></div>
+    <button class="ob-submit" onclick="obFinish()">Open mijn dashboard →</button>
+    <p class="ob-privacy">Je data wordt alleen in jouw browser verwerkt — verlaat nooit onze server.</p>
+  </div>
+
+</div>
+<!-- ══ /ONBOARDING GATE ══ -->
+
 <div class="shell">
 <nav class="nav">
   <div class="nav-logo" style="padding:12px 18px 16px;display:flex;justify-content:center;align-items:center">
@@ -1263,19 +1352,31 @@ src="https://www.facebook.com/tr?id=964378096043237&ev=PageView&noscript=1"
 </div>
 
 <!-- ONBOARDING WIZARD -->
-<div class="mo" id="onboardMo" style="z-index:300;background:rgba(20,16,12,.7);backdrop-filter:blur(10px)">
-  <div class="md" style="max-width:460px;text-align:center">
-    <div style="font-size:52px;margin-bottom:6px">🧾</div>
-    <div class="mdt" style="font-size:21px;margin-bottom:3px">Welkom bij ZENBTW</div>
-    <div style="font-size:12.5px;color:var(--tx3);margin-bottom:18px;line-height:1.6">BTW-dashboard voor Etsy, Shopify en Vinted verkopers.<br>In 3 stappen klaar:</div>
-    <div class="onboard-steps">
-      <div class="onboard-step"><div class="onboard-step-n">1</div><div><div class="onboard-step-t">⚙️ Instellingen</div><div class="onboard-step-s">Vul je bedrijfsnaam, BTW- en KVK-nummer in</div></div></div>
-      <div class="onboard-step"><div class="onboard-step-n">2</div><div><div class="onboard-step-t">📂 Upload CSV of HTML</div><div class="onboard-step-s">Sleep je export van Etsy, Shopify of Vinted naar het dashboard</div></div></div>
-      <div class="onboard-step"><div class="onboard-step-n">3</div><div><div class="onboard-step-t">📊 Check je KOR-status</div><div class="onboard-step-s">Zie direct of je de €10.000 OSS-drempel nadert</div></div></div>
+<div class="mo" id="onboardMo" style="z-index:300;background:rgba(20,16,12,.72);backdrop-filter:blur(8px)">
+  <div class="md" style="max-width:420px;text-align:center;padding:32px 32px 28px">
+    <div style="display:flex;align-items:center;justify-content:center;gap:9px;margin-bottom:20px">
+      <div style="width:32px;height:32px;background:var(--ac);border-radius:8px;display:flex;align-items:center;justify-content:center;color:#fff;font-family:'Fraunces',serif;font-size:16px;font-weight:700;flex-shrink:0">Z</div>
+      <span style="font-family:'Fraunces',serif;font-size:20px;font-weight:700;letter-spacing:-.3px;color:var(--tx)">Zen<em style="color:var(--acm);font-style:normal">BTW</em></span>
     </div>
-    <button class="demo-btn" onclick="loadDemoData()">🚀 Probeer met Demo Data</button>
-    <button class="mbc" style="width:100%;padding:11px;font-size:13px" onclick="closeOnboard()">Ik upload mijn eigen data →</button>
-    <div style="margin-top:14px;font-size:10px;color:var(--tx4);display:flex;align-items:center;justify-content:center;gap:5px"><span>🔒</span>Alle data blijft lokaal in uw browser — niets wordt automatisch verstuurd</div>
+    <div class="mdt" style="font-size:19px;margin-bottom:6px;letter-spacing:-.02em">Welkom bij ZenBTW</div>
+    <div style="font-size:13px;color:var(--tx3);margin-bottom:22px;line-height:1.6">Upload je Etsy-, Shopify- of Vinted-export<br>en zie in 10 seconden je BTW-status.</div>
+    <div style="display:flex;flex-direction:column;gap:7px;margin-bottom:22px;text-align:left">
+      <div style="display:flex;align-items:center;gap:11px;padding:10px 13px;background:var(--s2);border-radius:9px;border:1px solid var(--br)">
+        <div style="width:22px;height:22px;background:var(--ac);color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:11px;flex-shrink:0">1</div>
+        <div><div style="font-weight:600;font-size:13px">📂 Upload je verkoopdata</div><div style="font-size:11.5px;color:var(--tx3);margin-top:1px">CSV van Etsy of Shopify, of HTML van Vinted</div></div>
+      </div>
+      <div style="display:flex;align-items:center;gap:11px;padding:10px 13px;background:var(--s2);border-radius:9px;border:1px solid var(--br)">
+        <div style="width:22px;height:22px;background:var(--ac);color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:11px;flex-shrink:0">2</div>
+        <div><div style="font-weight:600;font-size:13px">📊 Zie je KOR-status</div><div style="font-size:11.5px;color:var(--tx3);margin-top:1px">Hoe ver zit je van de €10.000 OSS-drempel?</div></div>
+      </div>
+      <div style="display:flex;align-items:center;gap:11px;padding:10px 13px;background:var(--s2);border-radius:9px;border:1px solid var(--br)">
+        <div style="width:22px;height:22px;background:var(--ac);color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:11px;flex-shrink:0">3</div>
+        <div><div style="font-weight:600;font-size:13px">📄 Export voor Belastingdienst</div><div style="font-size:11.5px;color:var(--tx3);margin-top:1px">XML, CSV of officieel PDF-rapport (€4,99)</div></div>
+      </div>
+    </div>
+    <button class="demo-btn" onclick="loadDemoData()" style="margin-bottom:8px">🚀 Probeer met demo data</button>
+    <button onclick="closeOnboard()" style="width:100%;padding:11px;background:transparent;border:1.5px solid var(--br);border-radius:9px;font-family:inherit;font-size:13px;font-weight:600;color:var(--tx2);cursor:pointer;transition:all .15s" onmouseover="this.style.background='var(--s2)'" onmouseout="this.style.background='transparent'">Ik upload mijn eigen data →</button>
+    <div style="margin-top:13px;font-size:10.5px;color:var(--tx4);display:flex;align-items:center;justify-content:center;gap:5px">🔒 Data verwerkt volledig in jouw browser — verlaat nooit onze server</div>
   </div>
 </div>
 
@@ -1820,9 +1921,12 @@ function updateNavBadges(){
 
 function updateOnboarding(){
   const b=document.getElementById('onboardBanner');if(!b)return;
+  // Niet tonen als nieuwe overlay actief is of al dismissed
+  if(document.getElementById('ob-overlay')?.classList.contains('on'))return;
+  if(localStorage.getItem('zen_onboard_dismissed'))return;
   const hasData=S.totalOrders>0||Object.keys(S.quarterHistory||{}).some(q=>S.quarterHistory[q]?.totalOrders>0);
   if(hasData){b.style.display='none';}
-  else if(b.style.display==='none'&&!localStorage.getItem('zen_onboard_dismissed')){b.style.display='block';}
+  else if(b.style.display==='none'){b.style.display='block';}
 }
 // Sla dismiss-state op zodat banner niet terugkomt in dezelfde sessie
 document.getElementById('onboardBanner')?.querySelectorAll('button').forEach(btn=>{
@@ -2741,10 +2845,11 @@ function initApp(){
     });
   });
 
-  // Eerste bezoek: toon onboarding wizard
+  // Eerste bezoek: toon onboarding wizard (niet als nieuwe overlay al actief is)
   const hasData=localStorage.getItem('ktx_s');
   const hasVisited=localStorage.getItem('ktx_visited');
-  if(!hasVisited&&!hasData){
+  const obActive=document.getElementById('ob-overlay')?.classList.contains('on');
+  if(!hasVisited&&!hasData&&!obActive){
     document.getElementById('onboardMo').classList.add('on');
   }
 }
@@ -3007,6 +3112,126 @@ document.addEventListener('keydown',function(e){
 </script>
 <script src="js/products.js"></script>
 <script src="js/marge.js"></script>
+<script>
+/* ── ONBOARDING GATE ── */
+(function(){
+  // Sla overlay over voor bestaande/terugkerende gebruikers
+  if(localStorage.getItem('zenbtw_onboarded')==='1')return;
+  if(localStorage.getItem('ktx_visited')==='1')return;
+  if(localStorage.getItem('ktx_s'))return;
+  var el=document.getElementById('ob-overlay');
+  if(el){el.classList.add('on');document.body.style.overflow='hidden';}
+})();
+
+var _obPlatform=null;
+
+function obSelectPlatform(p){
+  _obPlatform=p;
+  ['vinted','etsy','shopify'].forEach(function(x){
+    document.getElementById('obp-'+x).classList.toggle('sel',x===p);
+  });
+  document.getElementById('ob-plat-err').style.display='none';
+}
+
+function obSubmit(){
+  var emailEl=document.getElementById('ob-email');
+  var email=emailEl.value.trim();
+  var emailErr=document.getElementById('ob-email-err');
+  var platErr=document.getElementById('ob-plat-err');
+  var valid=true;
+  if(!_obPlatform){platErr.style.display='block';valid=false;}
+  if(!email||!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){
+    emailEl.classList.add('err');emailErr.style.display='block';valid=false;
+  } else {
+    emailEl.classList.remove('err');emailErr.style.display='none';
+  }
+  if(!valid)return;
+
+  // Sla op in localStorage
+  localStorage.setItem('zenbtw_ob_email',email);
+  localStorage.setItem('zenbtw_platform',_obPlatform);
+
+  // Brevo — voeg toe aan waitlist #3 met platform attribuut
+  fetch('https://api.brevo.com/v3/contacts',{
+    method:'POST',
+    headers:{'accept':'application/json','content-type':'application/json','api-key':'xkeysib-4bea0afdead02cd8695e215f688d9a0ee529de8ef59'},
+    body:JSON.stringify({email:email,attributes:{BRON:'zenbtw-app-onboarding',PLATFORM:_obPlatform,SIGNUP_DATE:new Date().toISOString().split('T')[0]},listIds:[3],updateEnabled:true})
+  }).catch(function(){});
+
+  // Tracking
+  if(typeof fbq!=='undefined')fbq('track','Lead');
+  if(typeof umami!=='undefined')umami.track('submit-pro-email',{platform:_obPlatform});
+
+  // Toon stap 2 met platform-instructie
+  var instr={
+    vinted:{
+      label:'👗 Vinted',
+      steps:[
+        'Ga naar je <strong>Profiel</strong> → <strong>Instellingen</strong>',
+        'Klik op <strong>Privacyinstellingen</strong> → <strong>Manage account data</strong>',
+        'Klik <strong>Request data</strong> — je ontvangt een e-mail met downloadlink',
+        'Download het bestand en upload <code>transactions.csv</code> of <code>orders/index.html</code> hieronder'
+      ]
+    },
+    etsy:{
+      label:'🏪 Etsy',
+      steps:[
+        'Ga naar <strong>Shop Manager</strong> → <strong>Orders & Bezorgingen</strong>',
+        'Klik rechtsboven op <strong>Bestellingen exporteren</strong>',
+        'Kies het gewenste tijdvak en klik <strong>Downloaden als CSV</strong>',
+        'Upload het bestand <code>EtsySoldOrders.csv</code> hieronder'
+      ]
+    },
+    shopify:{
+      label:'🛍️ Shopify',
+      steps:[
+        'Ga naar <strong>Bestellingen</strong> in je Shopify-admin',
+        'Klik rechtsboven op <strong>Exporteren</strong>',
+        'Kies <strong>Alle bestellingen</strong> en formaat <strong>CSV voor Excel</strong>',
+        'Upload het bestand <code>orders_export.csv</code> hieronder'
+      ]
+    }
+  };
+  var d=instr[_obPlatform];
+  var html='<div class="ob-instruction-platform">'+d.label+'</div><ol class="ob-instruction-steps">';
+  d.steps.forEach(function(s,i){html+='<li><span class="ob-step-num">'+(i+1)+'</span><span>'+s+'</span></li>';});
+  html+='</ol>';
+  document.getElementById('ob-instruction').innerHTML=html;
+  document.getElementById('ob-step1').style.display='none';
+  document.getElementById('ob-step2').style.display='block';
+}
+
+function obFinish(){
+  localStorage.setItem('zenbtw_onboarded','1');
+  localStorage.setItem('ktx_visited','1');
+  localStorage.setItem('zen_onboard_dismissed','1');
+  document.getElementById('ob-overlay').classList.remove('on');
+  document.body.style.overflow='';
+  // Verberg eventuele achtergrond-elementen die achter de overlay actief werden
+  var banner=document.getElementById('onboardBanner');
+  if(banner)banner.style.display='none';
+  var modal=document.getElementById('onboardMo');
+  if(modal)modal.classList.remove('on');
+
+  // Tracking
+  if(typeof umami!=='undefined')umami.track('onboarding-complete',{platform:_obPlatform});
+
+  // Scroll naar & highlight de juiste upload-zone
+  var zoneMap={vinted:'vZ',etsy:'eZ',shopify:'sZ'};
+  var zid=_obPlatform?zoneMap[_obPlatform]:null;
+  if(zid){
+    var zone=document.getElementById(zid);
+    if(zone){
+      setTimeout(function(){
+        zone.scrollIntoView({behavior:'smooth',block:'center'});
+        zone.classList.add('ob-highlight-zone');
+        setTimeout(function(){zone.classList.remove('ob-highlight-zone');},5000);
+      },300);
+    }
+  }
+}
+/* ── /ONBOARDING GATE ── */
+</script>
 <script>
 if('serviceWorker' in navigator){
   window.addEventListener('load',()=>{
