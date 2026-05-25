@@ -1,13 +1,6 @@
 {
   "queue": [
     {
-      "keyword": "dac7 belastingdienst rapportage 2026",
-      "slug": "dac7-belastingdienst-rapportage",
-      "status": "pending",
-      "priority": 6,
-      "notes": "Actueel onderwerp, angst-gebaseerde zoekopdracht"
-    },
-    {
       "keyword": "vinted ondernemer btw registratie",
       "slug": "vinted-ondernemer-btw-registratie",
       "status": "pending",
@@ -81,6 +74,15 @@
       "notes": "Breed keyword, goede top-of-funnel",
       "publishedDate": "2026-05-21",
       "outputFile": "blog/marketplace-verkoper-btw-aangifte.html"
+    },
+    {
+      "keyword": "dac7 belastingdienst rapportage 2026",
+      "slug": "dac7-belastingdienst-rapportage",
+      "status": "published",
+      "priority": 6,
+      "notes": "Actueel onderwerp, angst-gebaseerde zoekopdracht",
+      "publishedDate": "2026-05-25",
+      "outputFile": "blog/dac7-belastingdienst-rapportage.html"
     }
   ],
   "settings": {
