@@ -1971,14 +1971,16 @@ async function submitLM(){
         sender:{name:'Daniel – ZenBTW', email:'noreply@zenbtw.nl'},
         to:[{email:email}],
         replyTo:{email:'kortaxmonitor@gmail.com'},
-        subject:'Je BTW Survival Gids 2026 staat klaar 📋',
+        subject:'Je BTW Survival Gids 2026 staat klaar',
         htmlContent: emailHtml
       })
     });
     var mailData = await mailRes.json().catch(function(){return{};});
-    console.log('[ZenBTW] Brevo SMTP:', mailRes.status, mailData);
+    console.log('[ZenBTW] Brevo SMTP:', mailRes.status, JSON.stringify(mailData));
     if(!mailRes.ok){
-      console.warn('[ZenBTW] SMTP fout — code:', mailData.code, '— bericht:', mailData.message);
+      // Toon debug info zichtbaar in de popup (tijdelijk)
+      var dbg = document.getElementById('lm-success');
+      if(dbg) dbg.insertAdjacentHTML('beforeend','<p style="font-size:11px;color:#dc2626;margin-top:12px;word-break:break-all">SMTP fout '+mailRes.status+': '+JSON.stringify(mailData)+'</p>');
     }
   }catch(e){ console.warn('[ZenBTW] SMTP error:', e); }
 
