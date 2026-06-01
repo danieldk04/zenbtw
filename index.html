@@ -1786,10 +1786,10 @@ if('serviceWorker' in navigator){
 <script>
 (function(){
   // Toon popup na 10 seconden, maar niet als al gezien of al ingeschreven
-  if(localStorage.getItem('zen_lm_done')==='1') return;
-  if(localStorage.getItem('zen_lm_dismissed')==='1') return;
-  if(localStorage.getItem('ktx_visited')==='1') return;
-  if(localStorage.getItem('zenbtw_onboarded')==='1') return;
+  if(localStorage.getItem('zen_lm_done')==='1' && !location.search.includes('test_lm')) return;
+  if(localStorage.getItem('zen_lm_dismissed')==='1' && !location.search.includes('test_lm')) return;
+  if(localStorage.getItem('ktx_visited')==='1' && !location.search.includes('test_lm')) return;
+  if(localStorage.getItem('zenbtw_onboarded')==='1' && !location.search.includes('test_lm')) return;
   setTimeout(function(){
     var el = document.getElementById('lm-overlay');
     if(el){ el.classList.add('on'); document.body.style.overflow='hidden'; }
@@ -1886,7 +1886,7 @@ async function submitLM(){
       method:'POST',
       headers:{'accept':'application/json','content-type':'application/json','api-key':BREVO_KEY},
       body:JSON.stringify({
-        sender:{name:'Daniel – ZenBTW', email:'kortaxmonitor@gmail.com'},
+        sender:{name:'Daniel – ZenBTW', email:'noreply@zenbtw.nl'},
         to:[{email:email}],
         replyTo:{email:'kortaxmonitor@gmail.com'},
         subject:'Je BTW Survival Gids 2026 staat klaar 📋',
