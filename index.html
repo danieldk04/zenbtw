@@ -1837,45 +1837,127 @@ async function submitLM(){
     '<!DOCTYPE html><html lang="nl"><head><meta charset="UTF-8">',
     '<meta name="viewport" content="width=device-width,initial-scale=1">',
     '<title>BTW Survival Gids 2026</title></head>',
-    '<body style="margin:0;padding:0;background:#faf9f7;font-family:Arial,sans-serif">',
-    '<table width="100%" cellpadding="0" cellspacing="0" style="background:#faf9f7;padding:32px 16px">',
-    '<tr><td align="center">',
-    '<table width="560" cellpadding="0" cellspacing="0" style="max-width:560px;background:#fff;border-radius:16px;border:1px solid #e5e0d8;overflow:hidden">',
-    // Header
-    '<tr><td style="background:linear-gradient(135deg,#1a4731,#2d6b48);padding:28px 32px">',
-    '<table cellpadding="0" cellspacing="0"><tr>',
-    '<td style="width:34px;height:34px;background:rgba(255,255,255,.15);border-radius:8px;text-align:center;vertical-align:middle;font-family:Georgia,serif;font-size:16px;font-weight:bold;color:#fff">Z</td>',
-    '<td style="padding-left:10px;font-family:Georgia,serif;font-size:18px;font-weight:bold;color:#fff">ZenBTW</td>',
-    '</tr></table>',
-    '<h1 style="color:#fff;font-family:Georgia,serif;font-size:22px;margin:16px 0 8px;line-height:1.3">Je BTW Survival Gids staat klaar &#x1F4CB;</h1>',
-    '<p style="color:rgba(255,255,255,.85);font-size:14px;margin:0;line-height:1.6">Alles wat je moet weten over DAC7, KOR en wat je nu moet doen.</p>',
-    '</td></tr>',
-    // Body
-    '<tr><td style="padding:28px 32px">',
-    '<p style="font-size:14px;color:#3d3830;line-height:1.75;margin:0 0 20px">Hallo,<br><br>Goed dat je je hebt aangemeld. Hieronder staat alles wat in jouw gratis gids zit:</p>',
-    // Items
-    '<table width="100%" cellpadding="0" cellspacing="0">',
-    '<tr><td style="padding:10px 12px;background:#f5f2ee;border-radius:8px;font-size:13.5px;color:#3d3830;margin-bottom:8px;display:block">&#x1F6A8; <strong>DAC7</strong> &mdash; wat de Belastingdienst al weet over jouw Vinted/Etsy verkopen</td></tr>',
-    '<tr><td style="height:6px"></td></tr>',
-    '<tr><td style="padding:10px 12px;background:#f5f2ee;border-radius:8px;font-size:13.5px;color:#3d3830">&#x1F4CA; <strong>KOR &amp; OSS drempels</strong> &mdash; wanneer ben jij BTW-plichtig in 2026?</td></tr>',
-    '<tr><td style="height:6px"></td></tr>',
-    '<tr><td style="padding:10px 12px;background:#f5f2ee;border-radius:8px;font-size:13.5px;color:#3d3830">&#x2705; <strong>5-stappen actiechecklist</strong> &mdash; wat je vandaag nog kunt regelen</td></tr>',
-    '<tr><td style="height:6px"></td></tr>',
-    '<tr><td style="padding:10px 12px;background:#f5f2ee;border-radius:8px;font-size:13.5px;color:#3d3830">&#x1F4C4; <strong>Modelbrief Belastingdienst</strong> &mdash; klaar om te kopi&euml;ren en te sturen</td></tr>',
-    '</table>',
-    // CTA
-    '<table width="100%" cellpadding="0" cellspacing="0" style="margin:24px 0">',
-    '<tr><td align="center">',
-    '<a href="https://zenbtw.nl/btw-survival-gids" style="display:inline-block;background:#1a4731;color:#fff;text-decoration:none;padding:14px 32px;border-radius:10px;font-size:15px;font-weight:bold;font-family:Arial,sans-serif">&#x1F449; Open je BTW Survival Gids 2026</a>',
+    '<body style="margin:0;padding:0;background:#f0ede8;font-family:Arial,Helvetica,sans-serif;-webkit-font-smoothing:antialiased">',
+
+    // Outer wrapper
+    '<table width="100%" cellpadding="0" cellspacing="0" border="0" style="background:#f0ede8">',
+    '<tr><td align="center" style="padding:32px 16px">',
+
+    // Card
+    '<table width="560" cellpadding="0" cellspacing="0" border="0" style="max-width:560px;width:100%">',
+
+    // ── HEADER ──
+    '<tr><td style="background:#1a4731;border-radius:16px 16px 0 0;padding:32px 36px 28px">',
+
+    // Logo row
+    '<table cellpadding="0" cellspacing="0" border="0"><tr>',
+    '<td style="width:36px;height:36px;background:rgba(255,255,255,.18);border-radius:9px;text-align:center;vertical-align:middle">',
+    '<span style="font-family:Georgia,Times New Roman,serif;font-size:17px;font-weight:bold;color:#ffffff;line-height:36px;display:block">Z</span>',
+    '</td>',
+    '<td style="padding-left:10px;vertical-align:middle">',
+    '<span style="font-family:Georgia,Times New Roman,serif;font-size:19px;font-weight:bold;color:#ffffff;letter-spacing:-0.3px">Zen</span>',
+    '<span style="font-family:Georgia,Times New Roman,serif;font-size:19px;font-weight:bold;color:#7dd3a8;letter-spacing:-0.3px">BTW</span>',
     '</td></tr></table>',
-    '<p style="font-size:13px;color:#6b6460;line-height:1.65;margin:0 0 8px">Wil je ook direct je exacte BTW-status berekenen? Upload je Etsy CSV, Shopify export of Vinted HTML in het ZenBTW Dashboard &mdash; gratis, in 10 seconden.</p>',
-    '<a href="https://zenbtw.nl/app.html" style="font-size:13px;color:#1a4731;font-weight:bold;text-decoration:none">&rarr; Open ZenBTW Dashboard</a>',
+
+    // Alert badge
+    '<table cellpadding="0" cellspacing="0" border="0" style="margin-top:20px"><tr>',
+    '<td style="background:rgba(239,68,68,.2);border:1px solid rgba(239,68,68,.4);border-radius:20px;padding:4px 12px">',
+    '<span style="font-size:11px;font-weight:bold;color:#fca5a5;letter-spacing:0.04em">&#x26A0;&#xFE0F; DAC7 IS ACTIEF SINDS 2024</span>',
+    '</td></tr></table>',
+
+    // Headline
+    '<h1 style="margin:14px 0 8px;font-family:Georgia,Times New Roman,serif;font-size:24px;font-weight:bold;color:#ffffff;line-height:1.25;letter-spacing:-0.5px">',
+    'Je BTW Survival Gids<br>staat klaar &#x1F4CB;',
+    '</h1>',
+    '<p style="margin:0;font-size:14px;color:#a7f3ca;line-height:1.65">',
+    'Alles over DAC7, KOR en wat je n&uacute; moet doen &mdash; in gewoon Nederlands.',
+    '</p>',
     '</td></tr>',
-    // Footer
-    '<tr><td style="padding:16px 32px;background:#f5f2ee;border-top:1px solid #e5e0d8;text-align:center;font-size:11px;color:#9c9490">',
-    '&copy; 2026 ZenBTW &nbsp;&middot;&nbsp; <a href="https://zenbtw.nl/privacy.html" style="color:#9c9490">Privacy</a><br>',
-    'Je ontvangt dit omdat je je hebt aangemeld op zenbtw.nl. <a href="https://zenbtw.nl" style="color:#9c9490">Uitschrijven</a>',
+
+    // ── BODY ──
+    '<tr><td style="background:#ffffff;padding:32px 36px">',
+
+    // Intro
+    '<p style="margin:0 0 22px;font-size:15px;color:#3d3830;line-height:1.75">',
+    'Hallo,<br><br>',
+    'Slim dat je dit hebt aangevraagd. Hieronder staat precies wat er in jouw gids zit &mdash; open hem via de groene knop.',
+    '</p>',
+
+    // Items
+    '<table width="100%" cellpadding="0" cellspacing="0" border="0">',
+
+    // Item 1
+    '<tr><td style="background:#f0faf4;border-left:3px solid #1a4731;border-radius:0 8px 8px 0;padding:12px 14px">',
+    '<table cellpadding="0" cellspacing="0" border="0"><tr>',
+    '<td style="font-size:18px;vertical-align:top;padding-right:10px;line-height:1">&#x1F6A8;</td>',
+    '<td><p style="margin:0;font-size:13.5px;color:#1a4731;line-height:1.5"><strong>DAC7 uitgelegd</strong></p>',
+    '<p style="margin:3px 0 0;font-size:12.5px;color:#2d6b48;line-height:1.5">Wat de Belastingdienst al weet over jouw Vinted/Etsy verkopen</p></td>',
+    '</tr></table></td></tr>',
+    '<tr><td style="height:7px"></td></tr>',
+
+    // Item 2
+    '<tr><td style="background:#f0faf4;border-left:3px solid #1a4731;border-radius:0 8px 8px 0;padding:12px 14px">',
+    '<table cellpadding="0" cellspacing="0" border="0"><tr>',
+    '<td style="font-size:18px;vertical-align:top;padding-right:10px;line-height:1">&#x1F4CA;</td>',
+    '<td><p style="margin:0;font-size:13.5px;color:#1a4731;line-height:1.5"><strong>KOR &amp; OSS drempels</strong></p>',
+    '<p style="margin:3px 0 0;font-size:12.5px;color:#2d6b48;line-height:1.5">Wanneer ben jij BTW-plichtig in 2026?</p></td>',
+    '</tr></table></td></tr>',
+    '<tr><td style="height:7px"></td></tr>',
+
+    // Item 3
+    '<tr><td style="background:#f0faf4;border-left:3px solid #1a4731;border-radius:0 8px 8px 0;padding:12px 14px">',
+    '<table cellpadding="0" cellspacing="0" border="0"><tr>',
+    '<td style="font-size:18px;vertical-align:top;padding-right:10px;line-height:1">&#x2705;</td>',
+    '<td><p style="margin:0;font-size:13.5px;color:#1a4731;line-height:1.5"><strong>5-stappen actiechecklist</strong></p>',
+    '<p style="margin:3px 0 0;font-size:12.5px;color:#2d6b48;line-height:1.5">Wat je vandaag nog kunt regelen om problemen te voorkomen</p></td>',
+    '</tr></table></td></tr>',
+    '<tr><td style="height:7px"></td></tr>',
+
+    // Item 4
+    '<tr><td style="background:#f0faf4;border-left:3px solid #1a4731;border-radius:0 8px 8px 0;padding:12px 14px">',
+    '<table cellpadding="0" cellspacing="0" border="0"><tr>',
+    '<td style="font-size:18px;vertical-align:top;padding-right:10px;line-height:1">&#x1F4C4;</td>',
+    '<td><p style="margin:0;font-size:13.5px;color:#1a4731;line-height:1.5"><strong>Modelbrief Belastingdienst</strong></p>',
+    '<p style="margin:3px 0 0;font-size:12.5px;color:#2d6b48;line-height:1.5">Klaar om te kopi&euml;ren &mdash; als je een brief krijgt</p></td>',
+    '</tr></table></td></tr>',
+    '</table>',
+
+    // CTA button
+    '<table width="100%" cellpadding="0" cellspacing="0" border="0" style="margin:26px 0 20px">',
+    '<tr><td align="center">',
+    '<a href="https://zenbtw.nl/btw-survival-gids" style="display:inline-block;background:#1a4731;color:#ffffff;text-decoration:none;padding:15px 36px;border-radius:11px;font-size:15px;font-weight:bold;font-family:Arial,Helvetica,sans-serif;letter-spacing:0.01em">',
+    '&#x1F449;&nbsp; Open mijn BTW Survival Gids',
+    '</a>',
+    '</td></tr></table>',
+
+    // Divider
+    '<table width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td style="height:1px;background:#e8e3db"></td></tr></table>',
+
+    // Secondary CTA
+    '<table cellpadding="0" cellspacing="0" border="0" style="margin-top:20px"><tr>',
+    '<td style="width:40px;height:40px;background:#f0faf4;border-radius:10px;text-align:center;vertical-align:middle;font-size:20px">&#x1F4CA;</td>',
+    '<td style="padding-left:14px;vertical-align:middle">',
+    '<p style="margin:0;font-size:13px;color:#3d3830;line-height:1.5"><strong style="color:#12100e">Direct je BTW-status berekenen?</strong></p>',
+    '<p style="margin:2px 0 0;font-size:12.5px;color:#7a7068;line-height:1.5">Upload je CSV in ZenBTW &mdash; gratis, in 10 seconden.</p>',
+    '<a href="https://zenbtw.nl/app.html" style="font-size:12.5px;color:#1a4731;font-weight:bold;text-decoration:none">&rarr; Open ZenBTW Dashboard</a>',
+    '</td></tr></table>',
+
     '</td></tr>',
+
+    // ── FOOTER ──
+    '<tr><td style="background:#f5f2ee;border-radius:0 0 16px 16px;padding:18px 36px;border-top:1px solid #e5e0d8">',
+    '<table width="100%" cellpadding="0" cellspacing="0" border="0"><tr>',
+    '<td style="font-size:11.5px;color:#9c9490;line-height:1.6">',
+    '&copy; 2026 <strong style="color:#7a7068">ZenBTW</strong> &nbsp;&middot;&nbsp; ',
+    '<a href="https://zenbtw.nl/privacy.html" style="color:#9c9490;text-decoration:none">Privacy</a> &nbsp;&middot;&nbsp; ',
+    '<a href="https://zenbtw.nl" style="color:#9c9490;text-decoration:none">Uitschrijven</a><br>',
+    '<span style="color:#b5ada5">Je ontvangt dit omdat je je hebt aangemeld op zenbtw.nl</span>',
+    '</td>',
+    '<td align="right" style="vertical-align:top">',
+    '<span style="font-family:Georgia,serif;font-size:22px;font-weight:bold;color:#d4cec5">Z</span>',
+    '</td></tr></table>',
+    '</td></tr>',
+
     '</table>',
     '</td></tr></table>',
     '</body></html>'
