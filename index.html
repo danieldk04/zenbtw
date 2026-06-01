@@ -1814,11 +1814,13 @@ async function submitLM(){
   var btn = document.getElementById('lm-submit');
   btn.disabled=true; btn.textContent='Bezig…';
 
+  var BREVO_KEY = 'xkeysib-4bea0afdead02cd8695e215f688d9a0ee529de8ef59';
+
   // 1) Brevo — voeg toe aan lijst #3
   try{
-    await fetch('https://api.brevo.com/v3/contacts',{
+    var contactRes = await fetch('https://api.brevo.com/v3/contacts',{
       method:'POST',
-      headers:{'accept':'application/json','content-type':'application/json','api-key':'xkeysib-4bea0afdead02cd8695e215f688d9a0ee529de8ef59'},
+      headers:{'accept':'application/json','content-type':'application/json','api-key':BREVO_KEY},
       body:JSON.stringify({
         email,
         attributes:{BRON:'leadmagnet-popup',SIGNUP_DATE:new Date().toISOString().split('T')[0]},
@@ -1826,21 +1828,77 @@ async function submitLM(){
         updateEnabled:true
       })
     });
-  }catch(e){}
+    var contactData = await contactRes.json().catch(function(){return{};});
+    console.log('[ZenBTW] Brevo contact:', contactRes.status, contactData);
+  }catch(e){ console.warn('[ZenBTW] Contact error:', e); }
 
-  // 2) Brevo — stuur transactionele e-mail met gids
+  // 2) Brevo — stuur transactionele e-mail
+  var emailHtml = [
+    '<!DOCTYPE html><html lang="nl"><head><meta charset="UTF-8">',
+    '<meta name="viewport" content="width=device-width,initial-scale=1">',
+    '<title>BTW Survival Gids 2026</title></head>',
+    '<body style="margin:0;padding:0;background:#faf9f7;font-family:Arial,sans-serif">',
+    '<table width="100%" cellpadding="0" cellspacing="0" style="background:#faf9f7;padding:32px 16px">',
+    '<tr><td align="center">',
+    '<table width="560" cellpadding="0" cellspacing="0" style="max-width:560px;background:#fff;border-radius:16px;border:1px solid #e5e0d8;overflow:hidden">',
+    // Header
+    '<tr><td style="background:linear-gradient(135deg,#1a4731,#2d6b48);padding:28px 32px">',
+    '<table cellpadding="0" cellspacing="0"><tr>',
+    '<td style="width:34px;height:34px;background:rgba(255,255,255,.15);border-radius:8px;text-align:center;vertical-align:middle;font-family:Georgia,serif;font-size:16px;font-weight:bold;color:#fff">Z</td>',
+    '<td style="padding-left:10px;font-family:Georgia,serif;font-size:18px;font-weight:bold;color:#fff">ZenBTW</td>',
+    '</tr></table>',
+    '<h1 style="color:#fff;font-family:Georgia,serif;font-size:22px;margin:16px 0 8px;line-height:1.3">Je BTW Survival Gids staat klaar &#x1F4CB;</h1>',
+    '<p style="color:rgba(255,255,255,.85);font-size:14px;margin:0;line-height:1.6">Alles wat je moet weten over DAC7, KOR en wat je nu moet doen.</p>',
+    '</td></tr>',
+    // Body
+    '<tr><td style="padding:28px 32px">',
+    '<p style="font-size:14px;color:#3d3830;line-height:1.75;margin:0 0 20px">Hallo,<br><br>Goed dat je je hebt aangemeld. Hieronder staat alles wat in jouw gratis gids zit:</p>',
+    // Items
+    '<table width="100%" cellpadding="0" cellspacing="0">',
+    '<tr><td style="padding:10px 12px;background:#f5f2ee;border-radius:8px;font-size:13.5px;color:#3d3830;margin-bottom:8px;display:block">&#x1F6A8; <strong>DAC7</strong> &mdash; wat de Belastingdienst al weet over jouw Vinted/Etsy verkopen</td></tr>',
+    '<tr><td style="height:6px"></td></tr>',
+    '<tr><td style="padding:10px 12px;background:#f5f2ee;border-radius:8px;font-size:13.5px;color:#3d3830">&#x1F4CA; <strong>KOR &amp; OSS drempels</strong> &mdash; wanneer ben jij BTW-plichtig in 2026?</td></tr>',
+    '<tr><td style="height:6px"></td></tr>',
+    '<tr><td style="padding:10px 12px;background:#f5f2ee;border-radius:8px;font-size:13.5px;color:#3d3830">&#x2705; <strong>5-stappen actiechecklist</strong> &mdash; wat je vandaag nog kunt regelen</td></tr>',
+    '<tr><td style="height:6px"></td></tr>',
+    '<tr><td style="padding:10px 12px;background:#f5f2ee;border-radius:8px;font-size:13.5px;color:#3d3830">&#x1F4C4; <strong>Modelbrief Belastingdienst</strong> &mdash; klaar om te kopi&euml;ren en te sturen</td></tr>',
+    '</table>',
+    // CTA
+    '<table width="100%" cellpadding="0" cellspacing="0" style="margin:24px 0">',
+    '<tr><td align="center">',
+    '<a href="https://zenbtw.nl/btw-survival-gids" style="display:inline-block;background:#1a4731;color:#fff;text-decoration:none;padding:14px 32px;border-radius:10px;font-size:15px;font-weight:bold;font-family:Arial,sans-serif">&#x1F449; Open je BTW Survival Gids 2026</a>',
+    '</td></tr></table>',
+    '<p style="font-size:13px;color:#6b6460;line-height:1.65;margin:0 0 8px">Wil je ook direct je exacte BTW-status berekenen? Upload je Etsy CSV, Shopify export of Vinted HTML in het ZenBTW Dashboard &mdash; gratis, in 10 seconden.</p>',
+    '<a href="https://zenbtw.nl/app.html" style="font-size:13px;color:#1a4731;font-weight:bold;text-decoration:none">&rarr; Open ZenBTW Dashboard</a>',
+    '</td></tr>',
+    // Footer
+    '<tr><td style="padding:16px 32px;background:#f5f2ee;border-top:1px solid #e5e0d8;text-align:center;font-size:11px;color:#9c9490">',
+    '&copy; 2026 ZenBTW &nbsp;&middot;&nbsp; <a href="https://zenbtw.nl/privacy.html" style="color:#9c9490">Privacy</a><br>',
+    'Je ontvangt dit omdat je je hebt aangemeld op zenbtw.nl. <a href="https://zenbtw.nl" style="color:#9c9490">Uitschrijven</a>',
+    '</td></tr>',
+    '</table>',
+    '</td></tr></table>',
+    '</body></html>'
+  ].join('');
+
   try{
-    await fetch('https://api.brevo.com/v3/smtp/email',{
+    var mailRes = await fetch('https://api.brevo.com/v3/smtp/email',{
       method:'POST',
-      headers:{'accept':'application/json','content-type':'application/json','api-key':'xkeysib-4bea0afdead02cd8695e215f688d9a0ee529de8ef59'},
+      headers:{'accept':'application/json','content-type':'application/json','api-key':BREVO_KEY},
       body:JSON.stringify({
-        sender:{name:'Daniel – ZenBTW',email:'danieldekoning66@gmail.com'},
-        to:[{email}],
-        subject:'📋 Jouw BTW Survival Gids 2026 — speciaal voor jou',
-        htmlContent:`<!DOCTYPE html><html lang="nl"><head><meta charset="UTF-8"><style>body{font-family:Inter,Arial,sans-serif;background:#faf9f7;margin:0;padding:0;color:#12100e}.wrap{max-width:560px;margin:0 auto;padding:32px 16px}.card{background:#fff;border-radius:16px;padding:32px;border:1px solid #e5e0d8}.logo-row{display:flex;align-items:center;gap:8px;margin-bottom:24px}.logo-box{width:32px;height:32px;background:#1a4731;border-radius:8px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:15px;font-weight:800;font-family:Georgia,serif}h1{font-family:Georgia,serif;font-size:22px;color:#12100e;margin:0 0 10px;line-height:1.3}p{font-size:14px;line-height:1.7;color:#3d3830;margin:0 0 16px}.item{display:flex;gap:10px;padding:10px 12px;background:#f5f2ee;border-radius:8px;margin-bottom:8px;font-size:13.5px;color:#3d3830}.item-icon{flex-shrink:0}.cta{display:block;background:#1a4731;color:#fff !important;padding:14px 24px;border-radius:10px;text-align:center;text-decoration:none;font-weight:700;font-size:15px;margin:20px 0}.footer{text-align:center;font-size:11px;color:#9c9490;margin-top:20px}a{color:#1a4731}</style></head><body><div class="wrap"><div class="card"><div class="logo-row"><div class="logo-box">Z</div><strong style="font-family:Georgia,serif;font-size:17px">Zen<em style="color:#2d7a50;font-style:normal">BTW</em></strong></div><h1>Je BTW Survival Gids staat klaar 📋</h1><p>Hallo,<br><br>Hier is de <strong>BTW Survival Gids 2026</strong> die je hebt aangevraagd. Hij bevat alles wat je moet weten over DAC7, de KOR-drempel en wat je nu concreet moet doen.</p><div class="item"><span class="item-icon">🚨</span><span><strong>DAC7</strong> — wat de Belastingdienst al weet over jouw Vinted/Etsy verkopen</span></div><div class="item"><span class="item-icon">📊</span><span><strong>KOR & OSS drempels</strong> — wanneer ben jij BTW-plichtig in 2026?</span></div><div class="item"><span class="item-icon">✅</span><span><strong>5-stappen checklist</strong> — wat je vandaag nog kunt regelen</span></div><div class="item"><span class="item-icon">📄</span><span><strong>Modelbrief Belastingdienst</strong> — klaar om te kopiëren</span></div><a class="cta" href="https://zenbtw.nl/btw-survival-gids">👉 Open je BTW Survival Gids 2026</a><p style="font-size:13px;color:#6b6460">Wil je ook direct je exacte BTW-status berekenen? Upload je CSV in het ZenBTW Dashboard — gratis, in 10 seconden.</p><a href="https://zenbtw.nl/app.html" style="font-size:13px;color:#1a4731;font-weight:600">→ Open ZenBTW Dashboard</a><div class="footer"><p style="margin:0">© 2026 ZenBTW · <a href="https://zenbtw.nl/privacy.html">Privacy</a> · Je ontvangt dit omdat je je hebt aangemeld op zenbtw.nl.<br>Uitschrijven? <a href="https://zenbtw.nl">Klik hier</a></p></div></div></div></body></html>`
+        sender:{name:'Daniel – ZenBTW', email:'danieldekoning66@gmail.com'},
+        to:[{email:email}],
+        replyTo:{email:'danieldekoning66@gmail.com'},
+        subject:'Je BTW Survival Gids 2026 staat klaar 📋',
+        htmlContent: emailHtml
       })
     });
-  }catch(e){}
+    var mailData = await mailRes.json().catch(function(){return{};});
+    console.log('[ZenBTW] Brevo SMTP:', mailRes.status, mailData);
+    if(!mailRes.ok){
+      console.warn('[ZenBTW] SMTP fout — code:', mailData.code, '— bericht:', mailData.message);
+    }
+  }catch(e){ console.warn('[ZenBTW] SMTP error:', e); }
 
   // 3) Tracking
   if(typeof fbq!=='undefined') fbq('track','Lead',{content_name:'btw-survival-gids'});
