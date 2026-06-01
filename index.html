@@ -1661,7 +1661,7 @@ async function submitWaitlist(e){
   }catch(err){}
   // Formspree backup
   try{
-    await fetch('https://formspree.io/kortax@gmail.com',{
+    await fetch('https://formspree.io/kortaxmonitor@gmail.com',{
       method:'POST',
       headers:{'Content-Type':'application/json','Accept':'application/json'},
       body:JSON.stringify({email,bron:'zenbtw-waitlist',datum:new Date().toISOString()})
@@ -1886,9 +1886,9 @@ async function submitLM(){
       method:'POST',
       headers:{'accept':'application/json','content-type':'application/json','api-key':BREVO_KEY},
       body:JSON.stringify({
-        sender:{name:'Daniel – ZenBTW', email:'kortax@gmail.com'},
+        sender:{name:'Daniel – ZenBTW', email:'kortaxmonitor@gmail.com'},
         to:[{email:email}],
-        replyTo:{email:'kortax@gmail.com'},
+        replyTo:{email:'kortaxmonitor@gmail.com'},
         subject:'Je BTW Survival Gids 2026 staat klaar 📋',
         htmlContent: emailHtml
       })
