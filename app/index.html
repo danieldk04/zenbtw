@@ -740,35 +740,42 @@ src="https://www.facebook.com/tr?id=964378096043237&ev=PageView&noscript=1"
 <div class="shell">
 <nav class="nav">
   <div class="nav-logo" style="padding:12px 18px 16px;display:flex;justify-content:center;align-items:center">
-    <picture>
-      <source srcset="./logo.webp" type="image/webp">
-      <img src="/logo.webp" alt="ZenBTW Logo" style="width:100%;max-width:170px;height:auto;display:block;border-radius:4px;object-fit:contain" width="170" height="93" fetchpriority="high">
-    </picture>
+    <a href="/">
+      <picture>
+        <source srcset="/logo.webp" type="image/webp">
+        <img src="/logo.webp" alt="ZenBTW" style="width:100%;max-width:170px;height:auto;display:block;border-radius:4px;object-fit:contain" width="170" height="93" fetchpriority="high">
+      </picture>
+    </a>
   </div>
   <div style="padding:8px 18px 14px;border-bottom:1px solid var(--br);margin-bottom:8px">
     <div class="sec-badge"><div class="sec-dot"></div>Client-side encrypted</div>
-    <div style="font-size:10px;color:var(--tx4);margin-top:5px;line-height:1.5">Uw data verlaat deze browser niet (behalve naar uw eigen Google Sheet).</div>
+    <div data-i18n="privacy-note" style="font-size:10px;color:var(--tx4);margin-top:5px;line-height:1.5">Uw data verlaat deze browser niet.</div>
+    <!-- Language toggle -->
+    <div style="display:flex;gap:4px;margin-top:8px">
+      <button onclick="setLang('nl')" id="lang-nl" style="flex:1;padding:4px 8px;border-radius:6px;border:1.5px solid var(--ac);background:var(--ac);color:#fff;font-size:11px;font-weight:700;cursor:pointer">🇳🇱 NL</button>
+      <button onclick="setLang('en')" id="lang-en" style="flex:1;padding:4px 8px;border-radius:6px;border:1.5px solid var(--br);background:transparent;color:var(--tx3);font-size:11px;font-weight:700;cursor:pointer">🇬🇧 EN</button>
+    </div>
   </div>
-  <div class="ns"><div class="nsl">Overzicht</div>
-    <div class="ni on" id="nDash" onclick="sv('dashboard')">📊 Dashboard</div>
-    <div class="ni" id="nTx" onclick="sv('transacties')">🧾 Transacties</div>
-    <div class="ni" id="nProd" onclick="sv('producten')">📦 Producten</div>
-    <div class="ni" id="nMarge" onclick="sv('marge')">💰 Marge</div>
-    <div class="ni" id="nLanden" onclick="sv('landen')">🌍 Landen</div>
-    <div class="ni" id="nJaar" onclick="sv('jaaroverzicht')">📅 Jaaroverzicht</div>
+  <div class="ns"><div class="nsl" data-i18n="nav-overview">Overzicht</div>
+    <div class="ni on" id="nDash" onclick="sv('dashboard')">📊 <span data-i18n="nav-dashboard">Dashboard</span></div>
+    <div class="ni" id="nTx" onclick="sv('transacties')">🧾 <span data-i18n="nav-transactions">Transacties</span></div>
+    <div class="ni" id="nProd" onclick="sv('producten')">📦 <span data-i18n="nav-products">Producten</span></div>
+    <div class="ni" id="nMarge" onclick="sv('marge')">💰 <span data-i18n="nav-margin">Marge</span></div>
+    <div class="ni" id="nLanden" onclick="sv('landen')">🌍 <span data-i18n="nav-countries">Landen</span></div>
+    <div class="ni" id="nJaar" onclick="sv('jaaroverzicht')">📅 <span data-i18n="nav-annual">Jaaroverzicht</span></div>
   </div>
-  <div class="ns" style="margin-top:10px"><div class="nsl">Aangifte</div>
+  <div class="ns" style="margin-top:10px"><div class="nsl" data-i18n="nav-filing">Aangifte</div>
     <div class="ni" onclick="exportXML()">📄 XML Export</div>
     <div class="ni" onclick="exportCSVFile()">📊 CSV Export</div>
-    <div class="ni" onclick="printRapport()">🖨️ PDF Bijlage</div>
+    <div class="ni" onclick="printRapport()">🖨️ <span data-i18n="nav-pdf">PDF Bijlage</span></div>
   </div>
-  <div class="ns" style="margin-top:10px"><div class="nsl">Tools</div>
-    <div class="ni" id="nOSS" onclick="sv('oss')">✅ OSS Registratie</div>
-    <div class="ni" id="nAlert" onclick="sv('alerts')">🔔 Meldingen<span class="nav-badge" id="navAlertBadge" style="display:none">!</span></div>
-    <div class="ni" id="nHelp" onclick="sv('help')">❓ Help & Uitleg</div>
-    <div class="ni" onclick="openSettings()">⚙️ Bedrijfsgegevens</div>
+  <div class="ns" style="margin-top:10px"><div class="nsl" data-i18n="nav-tools">Tools</div>
+    <div class="ni" id="nOSS" onclick="sv('oss')">✅ <span data-i18n="nav-oss">OSS Registratie</span></div>
+    <div class="ni" id="nAlert" onclick="sv('alerts')">🔔 <span data-i18n="nav-alerts">Meldingen</span><span class="nav-badge" id="navAlertBadge" style="display:none">!</span></div>
+    <div class="ni" id="nHelp" onclick="sv('help')">❓ <span data-i18n="nav-help">Help & Uitleg</span></div>
+    <div class="ni" onclick="openSettings()">⚙️ <span data-i18n="nav-settings">Bedrijfsgegevens</span></div>
   </div>
-  <div class="nb" style="padding-bottom:10px"><a href="/" style="display:flex;align-items:center;gap:6px;padding:8px 10px;border-radius:var(--rx);font-size:12px;font-weight:600;color:var(--tx3);text-decoration:none;transition:all .15s;margin-bottom:8px" onmouseover="this.style.background='var(--s2)';this.style.color='var(--tx2)'" onmouseout="this.style.background='';this.style.color='var(--tx3)'">← Terug naar home</a></div>
+  <div class="nb" style="padding-bottom:10px"><a href="/" data-i18n="nav-home" style="display:flex;align-items:center;gap:6px;padding:8px 10px;border-radius:var(--rx);font-size:12px;font-weight:600;color:var(--tx3);text-decoration:none;transition:all .15s;margin-bottom:8px" onmouseover="this.style.background='var(--s2)';this.style.color='var(--tx2)'" onmouseout="this.style.background='';this.style.color='var(--tx3)'">← Terug naar home</a></div>
   <div class="nb"><div class="nq">
     <select id="yearSel" onchange="changeYear(this.value)" style="width:100%;margin-bottom:7px;padding:5px 7px;border:1px solid var(--br);border-radius:var(--rx);background:var(--wh);font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:500;color:var(--tx2);cursor:pointer;outline:none">
       <option value="2024">2024</option>
@@ -801,7 +808,7 @@ src="https://www.facebook.com/tr?id=964378096043237&ev=PageView&noscript=1"
 <div class="mob-topbar" id="mobTopbar">
   <div class="mtb-left">
     <picture>
-      <source srcset="./logo.webp" type="image/webp">
+      <source srcset="/logo.webp" type="image/webp">
       <img src="/logo.webp" alt="ZenBTW Logo" style="height:30px;width:auto;display:block;border-radius:4px;object-fit:contain" width="55" height="30" fetchpriority="high">
     </picture>
     <div class="mtb-info">
@@ -829,7 +836,7 @@ src="https://www.facebook.com/tr?id=964378096043237&ev=PageView&noscript=1"
   <div class="mob-drawer-hd">
     <div class="mob-drawer-logo">
       <picture>
-        <source srcset="./logo.webp" type="image/webp">
+        <source srcset="/logo.webp" type="image/webp">
         <img src="/logo.webp" alt="ZenBTW" style="height:28px;width:auto;display:block;border-radius:4px" width="51" height="28">
       </picture>
       <span style="font-family:'Fraunces',serif;font-size:16px;font-weight:700;letter-spacing:-.3px">Zen<span style="color:var(--acm)">BTW</span></span>
@@ -919,7 +926,7 @@ src="https://www.facebook.com/tr?id=964378096043237&ev=PageView&noscript=1"
 
 <!-- DASHBOARD -->
 <div class="vw on" id="vwdashboard">
-  <div class="prh"><div><picture><source srcset="./logo.webp" type="image/webp"><img src="/logo.webp" alt="ZenBTW Logo" style="height:44px;width:auto;display:block;border-radius:4px;object-fit:contain" width="80" height="44"></picture><div style="font-size:12px;color:var(--tx3);margin-top:3px">OSS BTW-rapport bijlage · Belastingdienst</div></div><div class="phm"><div id="phC" style="font-weight:700;color:var(--tx)">—</div><div id="phB">—</div><div id="phKvk" style="font-size:10px;color:var(--tx4)">KVK —</div><div id="phP">Q1 2025</div><div id="phD"></div></div></div>
+  <div class="prh"><div><picture><source srcset="/logo.webp" type="image/webp"><img src="/logo.webp" alt="ZenBTW Logo" style="height:44px;width:auto;display:block;border-radius:4px;object-fit:contain" width="80" height="44"></picture><div style="font-size:12px;color:var(--tx3);margin-top:3px">OSS BTW-rapport bijlage · Belastingdienst</div></div><div class="phm"><div id="phC" style="font-weight:700;color:var(--tx)">—</div><div id="phB">—</div><div id="phKvk" style="font-size:10px;color:var(--tx4)">KVK —</div><div id="phP">Q1 2025</div><div id="phD"></div></div></div>
   <div class="ph">
     <div><div class="pe" id="ey">Q1 2025 · Geen data</div><div class="pt">ZENBTW Dashboard</div></div>
     <div class="ha mob-hide"><button class="btn bs" onclick="openSettings()">⚙️ Instellingen</button><button class="btn bp sync-hidden" id="syncBtn" onclick="syncToGoogle()">☁️ Cloud Backup</button><button class="btn bs" onclick="printRapport()">🖨️ PDF</button><button class="btn bp" onclick="exportXML()" id="xBtn" disabled>📄 Aangifte exporteren</button></div>
@@ -3321,9 +3328,14 @@ function showFeedbackBtn(){
   if(btn) btn.classList.add('visible');
 }
 
-// Show after 20s or when anchor #feedback is visited
+// Show after 20s or when anchor #feedback is in URL
 setTimeout(showFeedbackBtn, 20000);
-if(location.hash === '#feedback'){ setTimeout(function(){ showFeedbackBtn(); openFeedback(); }, 500); }
+window.addEventListener('load', function(){
+  if(location.hash === '#feedback' || new URLSearchParams(location.search).get('feedback')){
+    showFeedbackBtn();
+    setTimeout(openFeedback, 600);
+  }
+});
 
 function openFeedback(){
   document.getElementById('fb-overlay').classList.add('on');
@@ -3400,6 +3412,92 @@ if('serviceWorker' in navigator){
     navigator.serviceWorker.register('/sw.js').catch(()=>{});
   });
 }
+</script>
+
+<!-- ══ i18n LANGUAGE SYSTEM ══ -->
+<script>
+var I18N = {
+  nl: {
+    'privacy-note': 'Uw data verlaat deze browser niet.',
+    'nav-overview': 'Overzicht',
+    'nav-dashboard': 'Dashboard',
+    'nav-transactions': 'Transacties',
+    'nav-products': 'Producten',
+    'nav-margin': 'Marge',
+    'nav-countries': 'Landen',
+    'nav-annual': 'Jaaroverzicht',
+    'nav-filing': 'Aangifte',
+    'nav-pdf': 'PDF Bijlage',
+    'nav-tools': 'Tools',
+    'nav-oss': 'OSS Registratie',
+    'nav-alerts': 'Meldingen',
+    'nav-help': 'Help & Uitleg',
+    'nav-settings': 'Bedrijfsgegevens',
+    'nav-home': '← Terug naar home',
+  },
+  en: {
+    'privacy-note': 'Your data never leaves this browser.',
+    'nav-overview': 'Overview',
+    'nav-dashboard': 'Dashboard',
+    'nav-transactions': 'Transactions',
+    'nav-products': 'Products',
+    'nav-margin': 'Margin',
+    'nav-countries': 'Countries',
+    'nav-annual': 'Annual Overview',
+    'nav-filing': 'Filing',
+    'nav-pdf': 'PDF Report',
+    'nav-tools': 'Tools',
+    'nav-oss': 'OSS Registration',
+    'nav-alerts': 'Alerts',
+    'nav-help': 'Help & Guide',
+    'nav-settings': 'Business Details',
+    'nav-home': '← Back to home',
+  }
+};
+
+function setLang(lang){
+  window._lang = lang;
+  localStorage.setItem('zen_lang', lang);
+
+  // Update toggle buttons
+  var nlBtn = document.getElementById('lang-nl');
+  var enBtn = document.getElementById('lang-en');
+  if(nlBtn && enBtn){
+    if(lang === 'en'){
+      nlBtn.style.cssText = 'flex:1;padding:4px 8px;border-radius:6px;border:1.5px solid var(--br);background:transparent;color:var(--tx3);font-size:11px;font-weight:700;cursor:pointer';
+      enBtn.style.cssText = 'flex:1;padding:4px 8px;border-radius:6px;border:1.5px solid var(--ac);background:var(--ac);color:#fff;font-size:11px;font-weight:700;cursor:pointer';
+    } else {
+      nlBtn.style.cssText = 'flex:1;padding:4px 8px;border-radius:6px;border:1.5px solid var(--ac);background:var(--ac);color:#fff;font-size:11px;font-weight:700;cursor:pointer';
+      enBtn.style.cssText = 'flex:1;padding:4px 8px;border-radius:6px;border:1.5px solid var(--br);background:transparent;color:var(--tx3);font-size:11px;font-weight:700;cursor:pointer';
+    }
+  }
+
+  // Apply translations to all data-i18n elements
+  var t = I18N[lang] || I18N.nl;
+  document.querySelectorAll('[data-i18n]').forEach(function(el){
+    var key = el.getAttribute('data-i18n');
+    if(t[key]) el.textContent = t[key];
+  });
+
+  // Show/hide English banner
+  var banner = document.getElementById('en-notice');
+  if(banner) banner.style.display = lang === 'en' ? 'block' : 'none';
+
+  // Show feedback button for EN users immediately
+  if(lang === 'en') showFeedbackBtn();
+
+  if(typeof umami !== 'undefined') umami.track('lang-switch', {lang: lang});
+}
+
+// Init on load
+(function(){
+  var saved = localStorage.getItem('zen_lang');
+  // Auto-detect: if coming from /en or browser is English
+  var fromEn = document.referrer.includes('/en') || (navigator.language && !navigator.language.startsWith('nl') && !saved);
+  var lang = saved || (fromEn ? 'en' : 'nl');
+  window._lang = lang;
+  if(lang === 'en') setLang('en');
+})();
 </script>
 </body>
 </html>
