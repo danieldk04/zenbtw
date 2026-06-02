@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Uitschrijven — ZenBTW</title>
+<meta name="robots" content="noindex,nofollow">
+<link rel="icon" href="/logo.webp">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Inter',system-ui,sans-serif;background:#faf9f7;color:#12100e;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:24px;-webkit-font-smoothing:antialiased}
+.card{background:#fff;border:1.5px solid #e5e0d8;border-radius:20px;padding:40px 36px;max-width:420px;width:100%;text-align:center;box-shadow:0 4px 24px rgba(26,71,49,.07)}
+.logo{display:flex;align-items:center;justify-content:center;gap:8px;margin-bottom:28px;text-decoration:none}
+.logo-box{width:32px;height:32px;background:#1a4731;border-radius:8px;display:flex;align-items:center;justify-content:center;color:#fff;font-family:'Fraunces',serif;font-size:15px;font-weight:700}
+.logo-name{font-family:'Fraunces',serif;font-size:19px;font-weight:700;color:#12100e}
+.logo-name em{color:#2d7a50;font-style:normal}
+.icon{font-size:40px;margin-bottom:14px}
+h1{font-family:'Fraunces',serif;font-size:22px;font-weight:700;color:#12100e;margin-bottom:8px;letter-spacing:-.02em}
+.sub{font-size:14px;color:#6b6460;line-height:1.65;margin-bottom:6px}
+.email-display{font-size:13px;font-weight:600;color:#1a4731;background:#e8f5ee;padding:6px 14px;border-radius:20px;display:inline-block;margin:8px 0 20px}
+.btn{width:100%;padding:13px;border:none;border-radius:10px;font-family:'Inter',sans-serif;font-size:14px;font-weight:700;cursor:pointer;transition:all .18s}
+.btn-unsub{background:#1a4731;color:#fff;margin-bottom:8px}
+.btn-unsub:hover{background:#153b27}
+.btn-unsub:disabled{opacity:.5;cursor:not-allowed}
+.btn-back{background:transparent;border:1.5px solid #e5e0d8;color:#6b6460}
+.btn-back:hover{background:#f5f2ee}
+#state-done{display:none}
+#state-error{display:none;margin-top:12px;font-size:12.5px;color:#dc2626;background:#fee2e2;padding:10px 14px;border-radius:8px}
+.back-link{margin-top:20px;font-size:12.5px;color:#9c9490}
+.back-link a{color:#1a4731;text-decoration:none;font-weight:600}
+</style>
+</head>
+<body>
+
+<div class="card">
+  <a class="logo" href="/">
+    <div class="logo-box">Z</div>
+    <span class="logo-name">Zen<em>BTW</em></span>
+  </a>
+
+  <!-- Staat: bevestiging vragen -->
+  <div id="state-confirm">
+    <div class="icon">📬</div>
+    <h1>Uitschrijven</h1>
+    <p class="sub">Je staat op het punt om je uit te schrijven van de ZenBTW e-mails.</p>
+    <div class="email-display" id="email-label">laden…</div>
+    <button class="btn btn-unsub" id="unsub-btn" onclick="doUnsubscribe()">Ja, schrijf mij uit</button>
+    <button class="btn btn-back" onclick="window.location.href='/'">Nee, ga terug</button>
+    <div id="state-error">Er ging iets mis. Probeer het opnieuw of mail naar kortaxmonitor@gmail.com.</div>
+  </div>
+
+  <!-- Staat: succesvol uitgeschreven -->
+  <div id="state-done">
+    <div class="icon">✅</div>
+    <h1>Uitgeschreven</h1>
+    <p class="sub">Je ontvangt geen e-mails meer van ZenBTW.</p>
+    <p class="sub" style="margin-top:8px">Je BTW-data in het dashboard blijft gewoon beschikbaar — die staat lokaal in je browser.</p>
+  </div>
+
+  <p class="back-link"><a href="/">← Terug naar ZenBTW</a></p>
+</div>
+
+<script>
+var BREVO_KEY = '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';
+
+// Lees e-mailadres uit URL parameter
+var params = new URLSearchParams(window.location.search);
+var email  = params.get('e') || params.get('email') || '';
+
+if(email){
+  document.getElementById('email-label').textContent = email;
+} else {
+  document.getElementById('email-label').textContent = 'onbekend e-mailadres';
+  document.getElementById('unsub-btn').disabled = true;
+}
+
+async function doUnsubscribe(){
+  var btn = document.getElementById('unsub-btn');
+  btn.disabled = true;
+  btn.textContent = 'Bezig…';
+  document.getElementById('state-error').style.display = 'none';
+
+  try{
+    // Markeer als globally blacklisted (uitgeschreven) in Brevo
+    var res = await fetch('https://api.brevo.com/v3/contacts/' + encodeURIComponent(email), {
+      method: 'PUT',
+      headers: {
+        'accept': 'application/json',
+        'content-type': 'application/json',
+        'api-key': BREVO_KEY
+      },
+      body: JSON.stringify({ emailBlacklisted: true })
+    });
+
+    if(res.ok || res.status === 204){
+      document.getElementById('state-confirm').style.display = 'none';
+      document.getElementById('state-done').style.display = 'block';
+    } else {
+      var d = await res.json().catch(function(){return{};});
+      console.warn('Brevo unsub error:', res.status, d);
+      document.getElementById('state-error').style.display = 'block';
+      btn.disabled = false;
+      btn.textContent = 'Ja, schrijf mij uit';
+    }
+  } catch(e){
+    document.getElementById('state-error').style.display = 'block';
+    btn.disabled = false;
+    btn.textContent = 'Ja, schrijf mij uit';
+  }
+}
+</script>
+</body>
+</html>
