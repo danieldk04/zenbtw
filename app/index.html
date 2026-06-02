@@ -841,72 +841,72 @@ src="https://www.facebook.com/tr?id=964378096043237&ev=PageView&noscript=1"
       </picture>
       <span style="font-family:'Fraunces',serif;font-size:16px;font-weight:700;letter-spacing:-.3px">Zen<span style="color:var(--acm)">BTW</span></span>
     </div>
-    <button class="mob-drawer-close" onclick="closeDrawer()" aria-label="Menu sluiten">✕</button>
+    <button class="mob-drawer-close" onclick="closeDrawer()" aria-label="Sluiten">✕</button>
   </div>
 
   <!-- Overzicht -->
   <div class="mob-drawer-section">
-    <div class="mob-drawer-label">Overzicht</div>
+    <div class="mob-drawer-label" data-i18n="nav-overview">Overzicht</div>
     <button class="mob-drawer-item on" id="mniDash" onclick="sv('dashboard');closeDrawer()">
-      <span class="di">📊</span>Dashboard
+      <span class="di">📊</span><span data-i18n="nav-dashboard">Dashboard</span>
     </button>
     <button class="mob-drawer-item" id="mniTx" onclick="sv('transacties');closeDrawer()">
-      <span class="di">🧾</span>Transacties
+      <span class="di">🧾</span><span data-i18n="nav-transactions">Transacties</span>
     </button>
     <button class="mob-drawer-item" id="mniProd" onclick="sv('producten');closeDrawer()">
-      <span class="di">📦</span>Producten
+      <span class="di">📦</span><span data-i18n="nav-products">Producten</span>
     </button>
     <button class="mob-drawer-item" id="mniMarge" onclick="sv('marge');closeDrawer()">
-      <span class="di">💰</span>Marge
+      <span class="di">💰</span><span data-i18n="nav-margin">Marge</span>
     </button>
     <button class="mob-drawer-item" id="mniLanden" onclick="sv('landen');closeDrawer()">
-      <span class="di">🌍</span>Landen
+      <span class="di">🌍</span><span data-i18n="nav-countries">Landen</span>
     </button>
     <button class="mob-drawer-item" id="mniJaar" onclick="sv('jaaroverzicht');closeDrawer()">
-      <span class="di">📅</span>Jaaroverzicht
+      <span class="di">📅</span><span data-i18n="nav-annual">Jaaroverzicht</span>
     </button>
   </div>
 
   <!-- Aangifte -->
   <div class="mob-drawer-section">
-    <div class="mob-drawer-label">Aangifte</div>
+    <div class="mob-drawer-label" data-i18n="nav-filing">Aangifte</div>
     <button class="mob-drawer-item" onclick="exportXML();closeDrawer()">
-      <span class="di">📄</span>XML exporteren
+      <span class="di">📄</span><span data-i18n="mob-xml">XML exporteren</span>
     </button>
     <button class="mob-drawer-item" onclick="exportCSVFile();closeDrawer()">
-      <span class="di">📊</span>CSV rapport
+      <span class="di">📊</span><span data-i18n="mob-csv">CSV rapport</span>
     </button>
     <button class="mob-drawer-item" onclick="printRapport();closeDrawer()">
-      <span class="di">🖨️</span>PDF afdrukken
+      <span class="di">🖨️</span><span data-i18n="mob-pdf">PDF afdrukken</span>
     </button>
   </div>
 
   <!-- Tools -->
   <div class="mob-drawer-section">
-    <div class="mob-drawer-label">Tools</div>
+    <div class="mob-drawer-label" data-i18n="nav-tools">Tools</div>
     <button class="mob-drawer-item" id="mniOSS" onclick="sv('oss');closeDrawer()">
-      <span class="di">✅</span>OSS Registratie
+      <span class="di">✅</span><span data-i18n="nav-oss">OSS Registratie</span>
     </button>
     <button class="mob-drawer-item" id="mniAlert" onclick="sv('alerts');closeDrawer()">
-      <span class="di">🔔</span>Meldingen
+      <span class="di">🔔</span><span data-i18n="nav-alerts">Meldingen</span>
     </button>
     <button class="mob-drawer-item" id="mniHelp" onclick="sv('help');closeDrawer()">
-      <span class="di">❓</span>Help & Uitleg
+      <span class="di">❓</span><span data-i18n="nav-help">Help & Uitleg</span>
     </button>
     <button class="mob-drawer-item" onclick="openSettings();closeDrawer()">
-      <span class="di">⚙️</span>Bedrijfsgegevens
+      <span class="di">⚙️</span><span data-i18n="nav-settings">Bedrijfsgegevens</span>
     </button>
     <button class="mob-drawer-item" onclick="syncToGoogle();closeDrawer()">
-      <span class="di">☁️</span>Cloud Backup
+      <span class="di">☁️</span><span data-i18n="mob-cloud">Cloud Backup</span>
     </button>
     <button class="mob-drawer-item" onclick="downloadBackup();closeDrawer()">
-      <span class="di">💾</span>Backup downloaden
+      <span class="di">💾</span><span data-i18n="mob-backup">Backup downloaden</span>
     </button>
   </div>
 
   <!-- Kwartaalkiezer -->
   <div class="mob-drawer-q">
-    <div class="mob-drawer-q-label">Kwartaal</div>
+    <div class="mob-drawer-q-label" data-i18n="quarter-label">Kwartaal</div>
     <select class="mob-qs-year" id="yearSelMore" onchange="changeYear(this.value)">
       <option value="2024">2024</option>
       <option value="2025">2025</option>
@@ -920,7 +920,7 @@ src="https://www.facebook.com/tr?id=964378096043237&ev=PageView&noscript=1"
       <button class="qb" id="mqb3" onclick="setQ(this,'Q3');syncMobQuarter(this)">Q3</button>
       <button class="qb" id="mqb4" onclick="setQ(this,'Q4');syncMobQuarter(this)">Q4</button>
     </div>
-    <a href="/" style="display:flex;align-items:center;gap:6px;margin-top:14px;font-size:12.5px;color:var(--tx3);text-decoration:none;font-weight:500">← Terug naar home</a>
+    <a href="/" data-i18n="nav-home" style="display:flex;align-items:center;gap:6px;margin-top:14px;font-size:12.5px;color:var(--tx3);text-decoration:none;font-weight:500">← Terug naar home</a>
   </div>
 </div>
 
@@ -965,7 +965,7 @@ src="https://www.facebook.com/tr?id=964378096043237&ev=PageView&noscript=1"
       <div style="padding:6px 16px 14px" id="maandGrafiekBody"></div>
     </div>
   </div>
-  <div class="fxbar" id="fxB">💱 Wisselkoers: <span id="fxI">—</span> · ECB kwartaalkoers</div>
+  <div class="fxbar" id="fxB"><span data-i18n="fx-label">💱 Wisselkoers: </span><span id="fxI">—</span><span data-i18n="fx-suffix"> · ECB kwartaalkoers</span></div>
   <div class="trust-bar">
     <span><span data-i18n="bar-privacy">🔒 Privacy: Data verlaat NOOIT uw browser.</span></span>
     <span><span data-i18n="bar-oss">🇪🇺 OSS-Proof: Berekend volgens de laatste EU BTW-richtlijnen.</span></span>
@@ -1196,13 +1196,13 @@ src="https://www.facebook.com/tr?id=964378096043237&ev=PageView&noscript=1"
 
 <!-- JAAROVERZICHT -->
 <div class="vw" id="vwjaaroverzicht">
-  <div class="ph"><div><div class="pe" id="jaarHdr">Jaaroverzicht 2025</div><div class="pt">Alle kwartalen</div></div><div class="ha"><button class="btn bs" onclick="exportJaar()">📊 Export jaar</button></div></div>
+  <div class="ph"><div><div class="pe" id="jaarHdr">Jaaroverzicht 2025</div><div class="pt" data-i18n="year-all-quarters">Alle kwartalen</div></div><div class="ha"><button class="btn bs" onclick="exportJaar()" data-i18n="year-export-btn">📊 Export jaar</button></div></div>
   <div id="korBlockWarn" style="display:none;margin-bottom:14px;padding:13px 16px;background:var(--dnl);border:1px solid #f5c2bc;border-radius:var(--rs);gap:12px;align-items:flex-start">
     <span style="font-size:20px;flex-shrink:0">🛑</span>
     <div><div style="font-size:13px;font-weight:700;color:var(--dn);margin-bottom:3px">KOR niet meer mogelijk dit jaar</div><div style="font-size:12px;color:var(--tx2);line-height:1.6">Q1 cross-border EU omzet overschrijdt €20.000 — de jaarlijkse KOR-drempel van €10.000 is ruimschoots overschreden. U bent verplicht OSS-aangifte te doen voor <strong>alle resterende kwartalen</strong> van dit jaar. Geen uitzonderingen mogelijk.</div></div>
   </div>
   <div class="ygrid" id="ygrid"></div>
-  <div class="card"><div class="ch"><div><div class="ct">Jaartotaal — voor IB-aangifte</div><div class="cst" id="jaarSub">Totale omzet 2025 alle kwartalen</div></div></div><div class="cb" id="jdetail"><div class="es"><div class="esi">📅</div><div class="est">Laad data per kwartaal</div><div class="ess">Upload CSV's voor Q1 t/m Q4</div></div></div></div>
+  <div class="card"><div class="ch"><div><div class="ct" data-i18n="year-total-title">Jaartotaal — voor IB-aangifte</div><div class="cst" id="jaarSub">Totale omzet 2025 alle kwartalen</div></div></div><div class="cb" id="jdetail"><div class="es"><div class="esi">📅</div><div class="est">Laad data per kwartaal</div><div class="ess">Upload CSV's voor Q1 t/m Q4</div></div></div></div>
 </div>
 
 <!-- OSS CHECKLIST -->
@@ -1226,7 +1226,7 @@ src="https://www.facebook.com/tr?id=964378096043237&ev=PageView&noscript=1"
 
 <!-- ALERTS -->
 <div class="vw" id="vwalerts">
-  <div class="ph"><div><div class="pe">Meldingen</div><div class="pt">E-mailalerts instellen</div></div></div>
+  <div class="ph"><div><div class="pe" data-i18n="alerts-title">Meldingen</div><div class="pt" data-i18n="alerts-sub">E-mailalerts instellen</div></div></div>
   <div class="als">
     <div class="alrow"><div><div class="all">🔔 BTW-drempel waarschuwing</div><div class="als-sub">Ontvang een e-mail als je de drempel nadert</div></div><label class="tog"><input type="checkbox" id="alTog" onchange="saveAl()"><span class="tsl"></span></label></div>
     <input class="alei" type="email" id="alEmail" placeholder="jouw@emailadres.nl" oninput="saveAl()">
@@ -2782,7 +2782,10 @@ async function syncToGoogle() {
 
 // ── MOBILE NAV ──
 // ── MOBILE DRAWER ──
-const VIEW_LABELS={dashboard:'Dashboard',transacties:'Transacties',producten:'Producten',marge:'Marge',landen:'Landen',jaaroverzicht:'Jaaroverzicht',oss:'OSS',alerts:'Meldingen',help:'Help'};
+const VIEW_LABELS_NL={dashboard:'Dashboard',transacties:'Transacties',producten:'Producten',marge:'Marge',landen:'Landen',jaaroverzicht:'Jaaroverzicht',oss:'OSS',alerts:'Meldingen',help:'Help'};
+const VIEW_LABELS_EN={dashboard:'Dashboard',transacties:'Transactions',producten:'Products',marge:'Margin',landen:'Countries',jaaroverzicht:'Annual Overview',oss:'OSS',alerts:'Alerts',help:'Help'};
+function getViewLabel(v){return(window._lang==='en'?VIEW_LABELS_EN:VIEW_LABELS_NL)[v]||v;}
+const VIEW_LABELS=VIEW_LABELS_NL;
 function mniActive(view){
   // Markeer actief item in drawer
   document.querySelectorAll('.mob-drawer-item').forEach(n=>n.classList.remove('on'));
@@ -2791,7 +2794,7 @@ function mniActive(view){
   if(el)el.classList.add('on');
   // Update view badge in topbar
   const badge=document.getElementById('mtbView');
-  if(badge)badge.textContent=VIEW_LABELS[view]||'';
+  if(badge)badge.textContent=getViewLabel(view);
 }
 function toggleDrawer(){
   const d=document.getElementById('mobDrawer');
@@ -3509,6 +3512,19 @@ var I18N = {
     'btn-settings':       '⚙️ Instellingen',
     'btn-pdf':            '🖨️ PDF',
     'btn-export':         '📄 Aangifte exporteren',
+    'mob-xml':            'XML exporteren',
+    'mob-csv':            'CSV rapport',
+    'mob-pdf':            'PDF afdrukken',
+    'mob-cloud':          'Cloud Backup',
+    'mob-backup':         'Backup downloaden',
+    'quarter-label':      'Kwartaal',
+    'fx-label':           '💱 Wisselkoers: ',
+    'fx-suffix':          ' · ECB kwartaalkoers',
+    'year-all-quarters':  'Alle kwartalen',
+    'year-export-btn':    '📊 Export jaar',
+    'year-total-title':   'Jaartotaal — voor IB-aangifte',
+    'alerts-title':       'Meldingen',
+    'alerts-sub':         'E-mailalerts instellen',
   },
   en: {
     'privacy-note':       'Your data never leaves this browser.',
@@ -3550,6 +3566,19 @@ var I18N = {
     'btn-settings':       '⚙️ Settings',
     'btn-pdf':            '🖨️ PDF',
     'btn-export':         '📄 Export filing',
+    'mob-xml':            'Export XML',
+    'mob-csv':            'CSV report',
+    'mob-pdf':            'Print PDF',
+    'mob-cloud':          'Cloud Backup',
+    'mob-backup':         'Download backup',
+    'quarter-label':      'Quarter',
+    'fx-label':           '💱 Exchange rate: ',
+    'fx-suffix':          ' · ECB quarterly rate',
+    'year-all-quarters':  'All quarters',
+    'year-export-btn':    '📊 Export year',
+    'year-total-title':   'Annual total — for tax filing',
+    'alerts-title':       'Alerts',
+    'alerts-sub':         'Set up email alerts',
   }
 };
 
