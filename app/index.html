@@ -1228,23 +1228,23 @@ src="https://www.facebook.com/tr?id=964378096043237&ev=PageView&noscript=1"
 <div class="vw" id="vwalerts">
   <div class="ph"><div><div class="pe" data-i18n="alerts-title">Meldingen</div><div class="pt" data-i18n="alerts-sub">E-mailalerts instellen</div></div></div>
   <div class="als">
-    <div class="alrow"><div><div class="all">🔔 BTW-drempel waarschuwing</div><div class="als-sub">Ontvang een e-mail als je de drempel nadert</div></div><label class="tog"><input type="checkbox" id="alTog" onchange="saveAl()"><span class="tsl"></span></label></div>
-    <input class="alei" type="email" id="alEmail" placeholder="jouw@emailadres.nl" oninput="saveAl()">
-    <div class="althr"><div class="altl">Waarschuw mij bij:</div>
+    <div class="alrow"><div><div class="all" data-i18n="alert-threshold-title">🔔 BTW-drempel waarschuwing</div><div class="als-sub" data-i18n="alert-threshold-sub">Ontvang een e-mail als je de drempel nadert</div></div><label class="tog"><input type="checkbox" id="alTog" onchange="saveAl()"><span class="tsl"></span></label></div>
+    <input class="alei" type="email" id="alEmail" placeholder="your@email.com" oninput="saveAl()">
+    <div class="althr"><div class="altl" data-i18n="alert-warn-at">Waarschuw mij bij:</div>
       <div class="althbtns"><button class="thb on" id="th60" onclick="setTh(60)">60%</button><button class="thb" id="th75" onclick="setTh(75)">75%</button><button class="thb" id="th90" onclick="setTh(90)">90%</button><button class="thb" id="th100" onclick="setTh(100)">100%</button></div>
     </div>
-    <div class="alsv" id="alSv">✓ Instellingen opgeslagen in je browser</div>
+    <div class="alsv" id="alSv" data-i18n="alert-saved">✓ Instellingen opgeslagen in je browser</div>
   </div>
   <div class="als" style="margin-top:16px">
-    <div class="alrow"><div><div class="all">📊 Google Sheets synchronisatie</div><div class="als-sub">Stuur kwartaaldata automatisch naar je spreadsheet na elke upload</div></div></div>
+    <div class="alrow"><div><div class="all" data-i18n="alert-sheets-title">📊 Google Sheets synchronisatie</div><div class="als-sub" data-i18n="alert-sheets-sub">Stuur kwartaaldata automatisch naar je spreadsheet na elke upload</div></div></div>
     <input class="alei" type="url" id="alSheets" placeholder="https://script.google.com/macros/s/..." oninput="saveAl()">
-    <button style="margin-top:8px;padding:8px 14px;background:var(--ac);color:#fff;border:none;border-radius:var(--rs);font-size:12px;font-weight:600;cursor:pointer" onclick="syncToSheets()">Nu synchroniseren</button>
+    <button style="margin-top:8px;padding:8px 14px;background:var(--ac);color:#fff;border:none;border-radius:var(--rs);font-size:12px;font-weight:600;cursor:pointer" onclick="syncToSheets()" data-i18n="alert-sync-btn">Nu synchroniseren</button>
   </div>
-  <div class="card" style="margin-top:16px;margin-bottom:12px"><div class="ch"><div><div class="ct">Hoe werkt het?</div></div></div>
+  <div class="card" style="margin-top:16px;margin-bottom:12px"><div class="ch"><div><div class="ct" data-i18n="alert-how-title">Hoe werkt het?</div></div></div>
     <div class="cb" style="padding:0">
-      <div class="srow"><div class="srl">Browser notificatie</div><div class="srv">Bij drempeloverschrijding</div></div>
-      <div class="srow"><div class="srl">E-mail alert</div><div class="srv">Via EmailJS · automatisch bij upload</div></div>
-      <div class="srow"><div class="srl">Google Sheets</div><div class="srv">Plak je Apps Script URL hierboven</div></div>
+      <div class="srow"><div class="srl" data-i18n="alert-how-1">Browser notificatie</div><div class="srv" data-i18n="alert-how-1v">Bij drempeloverschrijding</div></div>
+      <div class="srow"><div class="srl" data-i18n="alert-how-2">E-mail alert</div><div class="srv" data-i18n="alert-how-2v">Via EmailJS · automatisch bij upload</div></div>
+      <div class="srow"><div class="srl" data-i18n="alert-how-3">Google Sheets</div><div class="srv" data-i18n="alert-how-3v">Plak je Apps Script URL hierboven</div></div>
     </div>
   </div>
 </div>
@@ -1252,21 +1252,21 @@ src="https://www.facebook.com/tr?id=964378096043237&ev=PageView&noscript=1"
 <!-- PRODUCTEN VIEW -->
 <div class="vw" id="vwproducten">
   <div class="ph">
-    <div><div class="pe">Producten · Shopify</div><div class="pt">Productanalyse</div></div>
+    <div><div class="pe" data-i18n="prod-header">Producten · Shopify</div><div class="pt" data-i18n="prod-sub">Productanalyse</div></div>
     <div class="ha mob-hide" style="gap:8px">
       <button class="btn bs" onclick="exportProductsCSV()" style="font-size:12px;padding:7px 12px">📤 Exporteren</button>
       <select id="prodVendorFilter" onchange="renderProducts()" class="btn bs" style="font-size:12px;padding:7px 12px;cursor:pointer"></select>
     </div>
   </div>
   <div class="sg">
-    <div class="sc"><div class="st"><div class="sl">Unieke producten</div><div class="si g">📦</div></div><div class="sv g" id="prodCount">—</div><div class="sd" id="prodCountSub">Upload Shopify CSV</div></div>
-    <div class="sc"><div class="st"><div class="sl">Best verkopend merk</div><div class="si a">🏆</div></div><div class="sv a" id="prodTopBrand">—</div><div class="sd" id="prodTopBrandSub">op omzet</div></div>
-    <div class="sc"><div class="st"><div class="sl">Gemiddelde prijs</div><div class="si">💶</div></div><div class="sv" id="prodAvgPrice">—</div><div class="sd">per verkocht item</div></div>
+    <div class="sc"><div class="st"><div class="sl" data-i18n="prod-unique">Unieke producten</div><div class="si g">📦</div></div><div class="sv g" id="prodCount">—</div><div class="sd" id="prodCountSub">Upload Shopify CSV</div></div>
+    <div class="sc"><div class="st"><div class="sl" data-i18n="prod-top-brand">Best verkopend merk</div><div class="si a">🏆</div></div><div class="sv a" id="prodTopBrand">—</div><div class="sd" id="prodTopBrandSub">op omzet</div></div>
+    <div class="sc"><div class="st"><div class="sl" data-i18n="prod-avg-price">Gemiddelde prijs</div><div class="si">💶</div></div><div class="sv" id="prodAvgPrice">—</div><div class="sd">per verkocht item</div></div>
     <div class="sc"><div class="st"><div class="sl" data-i18n="stat-revenue">Totale omzet</div><div class="si r">💰</div></div><div class="sv r" id="prodRevTotal">—</div><div class="sd" id="prodRevSub">via Shopify</div></div>
   </div>
   <div class="prod-tabs">
-    <button class="prod-tab on" id="ptBrand" onclick="setProdTab('brand')">🏷️ Per merk</button>
-    <button class="prod-tab" id="ptItem" onclick="setProdTab('item')">📋 Per product</button>
+    <button class="prod-tab on" id="ptBrand" onclick="setProdTab('brand')" data-i18n="prod-tab-brand">🏷️ Per merk</button>
+    <button class="prod-tab" id="ptItem" onclick="setProdTab('item')" data-i18n="prod-tab-item">📋 Per product</button>
   </div>
   <div class="card">
     <div class="ch">
@@ -3028,7 +3028,7 @@ function syncToSheets(){
       <div id="proForm">
         <p style="font-size:12.5px;color:var(--tx3);margin-bottom:12px;text-align:center">Laat je e-mail achter — we sturen je als eerste de PRO-toegang zodra die live gaat. <strong>30 dagen gratis.</strong></p>
         <div class="pro-input-wrap">
-          <input class="pro-input" type="email" id="proEmail" placeholder="jouw@emailadres.nl" autocomplete="email" onkeydown="if(event.key==='Enter')submitProEmail()">
+          <input class="pro-input" type="email" id="proEmail" placeholder="your@email.com" id="alEmail" autocomplete="email" onkeydown="if(event.key==='Enter')submitProEmail()">
           <button class="pro-submit" onclick="submitProEmail()" data-umami-event="submit-pro-email">Reserveer mijn PRO-plek →</button>
         </div>
         <p id="proEmailErr" style="display:none;margin-top:8px;font-size:12px;color:var(--dn);font-family:'JetBrains Mono',monospace">Vul een geldig e-mailadres in.</p>
@@ -3544,6 +3544,27 @@ var I18N = {
     'marge-avg':          'Gem. marge',
     'marge-card-title':   'Marge per product',
     'marge-card-sub':     'Vul inkoopprijzen in voor brutowinst-berekening',
+    'prod-header':        'Producten · Shopify',
+    'prod-sub':           'Productanalyse',
+    'prod-unique':        'Unieke producten',
+    'prod-top-brand':     'Best verkopend merk',
+    'prod-avg-price':     'Gemiddelde prijs',
+    'prod-tab-brand':     '🏷️ Per merk',
+    'prod-tab-item':      '📋 Per product',
+    'alert-threshold-title': '🔔 BTW-drempel waarschuwing',
+    'alert-threshold-sub':   'Ontvang een e-mail als je de drempel nadert',
+    'alert-warn-at':      'Waarschuw mij bij:',
+    'alert-saved':        '✓ Instellingen opgeslagen in je browser',
+    'alert-sheets-title': '📊 Google Sheets synchronisatie',
+    'alert-sheets-sub':   'Stuur kwartaaldata automatisch naar je spreadsheet na elke upload',
+    'alert-sync-btn':     'Nu synchroniseren',
+    'alert-how-title':    'Hoe werkt het?',
+    'alert-how-1':        'Browser notificatie',
+    'alert-how-1v':       'Bij drempeloverschrijding',
+    'alert-how-2':        'E-mail alert',
+    'alert-how-2v':       'Via EmailJS · automatisch bij upload',
+    'alert-how-3':        'Google Sheets',
+    'alert-how-3v':       'Plak je Apps Script URL hierboven',
   },
   en: {
     'privacy-note':       'Your data never leaves this browser.',
@@ -3605,6 +3626,27 @@ var I18N = {
     'marge-avg':          'Avg. margin',
     'marge-card-title':   'Margin per product',
     'marge-card-sub':     'Enter cost prices to calculate gross profit',
+    'prod-header':        'Products · Shopify',
+    'prod-sub':           'Product analysis',
+    'prod-unique':        'Unique products',
+    'prod-top-brand':     'Top selling brand',
+    'prod-avg-price':     'Average price',
+    'prod-tab-brand':     '🏷️ By brand',
+    'prod-tab-item':      '📋 By product',
+    'alert-threshold-title': '🔔 VAT threshold warning',
+    'alert-threshold-sub':   'Receive an email when you approach the threshold',
+    'alert-warn-at':      'Alert me at:',
+    'alert-saved':        '✓ Settings saved in your browser',
+    'alert-sheets-title': '📊 Google Sheets sync',
+    'alert-sheets-sub':   'Automatically send quarterly data to your spreadsheet after each upload',
+    'alert-sync-btn':     'Sync now',
+    'alert-how-title':    'How does it work?',
+    'alert-how-1':        'Browser notification',
+    'alert-how-1v':       'When threshold is reached',
+    'alert-how-2':        'Email alert',
+    'alert-how-2v':       'Via EmailJS · automatic on upload',
+    'alert-how-3':        'Google Sheets',
+    'alert-how-3v':       'Paste your Apps Script URL above',
   }
 };
 
