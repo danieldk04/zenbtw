@@ -3729,7 +3729,8 @@ function setLang(lang){
   // URL param beats everything; then saved choice; then referrer signal; else NL
   var lang = urlLang || saved || (fromEn ? 'en' : 'nl');
   window._lang = lang;
-  if(urlLang) localStorage.setItem('zen_lang', urlLang); // persist URL choice
+  // URL param does NOT persist to localStorage — only the manual sidebar toggle does
+  // This prevents test URLs like ?lang=en from permanently changing the language
   function applyOnReady(){
     setLang(lang);
     // Also re-run after app data loads (render functions need _lang set)
