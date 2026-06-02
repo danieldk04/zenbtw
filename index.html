@@ -156,10 +156,11 @@ a{text-decoration:none}
   color:var(--tx);flex-shrink:0
 }
 .nav-logo-img{
-  max-height:52px;width:auto;
-  border-radius:8px;
+  width:36px;height:36px;
+  border-radius:0;
   object-fit:contain;
-  box-shadow:0 3px 10px rgba(26,71,49,.22)
+  background:none;
+  box-shadow:none
 }
 .nav-wordmark{
   font-family:'Fraunces',serif;
@@ -242,7 +243,7 @@ a{text-decoration:none}
 .badge-dot{
   width:7px;height:7px;border-radius:50%;
   background:var(--ac);flex-shrink:0;
-  animation:pulse 2.4s ease-in-out infinite
+
 }
 @keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.3;transform:scale(.85)}}
 
@@ -266,11 +267,11 @@ a{text-decoration:none}
 }
 .hero-plat{
   display:inline-flex;align-items:center;gap:6px;
-  padding:5px 13px;
-  background:var(--wh);border:1.5px solid var(--br);
+  padding:4px 11px;
+  background:transparent;border:1px solid var(--br);
   border-radius:100px;
-  font-size:13px;font-weight:700;color:var(--tx2);
-  box-shadow:var(--sh)
+  font-size:13px;font-weight:500;color:var(--tx3);
+  cursor:default;user-select:none
 }
 
 /* Sub */
@@ -451,12 +452,10 @@ a{text-decoration:none}
   box-shadow:0 10px 32px rgba(0,0,0,.16);
   padding:12px 16px;
   display:flex;align-items:center;gap:11px;
-  border:1px solid var(--br);
-  animation:levitate 4s ease-in-out infinite
+  border:1px solid var(--br)
 }
-@keyframes levitate{0%,100%{transform:translateY(0)}50%{transform:translateY(-7px)}}
-.float-top{top:16%;left:-28px;animation-delay:0s}
-.float-bot{bottom:14%;right:-20px;animation-delay:1.8s}
+.float-top{top:16%;left:-28px}
+.float-bot{bottom:14%;right:-20px}
 .float-icon{font-size:22px;flex-shrink:0}
 .float-title{font-size:13.5px;font-weight:800;color:var(--tx)}
 .float-sub{font-size:11.5px;color:var(--tx3);margin-top:2px}
@@ -479,12 +478,11 @@ a{text-decoration:none}
 }
 .plat-chip{
   display:inline-flex;align-items:center;gap:8px;
-  padding:8px 18px;
-  background:var(--bg);border:1.5px solid var(--br);
-  border-radius:100px;font-size:14px;font-weight:700;
-  color:var(--tx2);transition:all .16s
+  padding:7px 16px;
+  background:transparent;border:1px solid rgba(26,71,49,.2);
+  border-radius:100px;font-size:14px;font-weight:500;
+  color:rgba(26,71,49,.7);cursor:default;user-select:none
 }
-.plat-chip:hover{border-color:var(--ac);color:var(--ac);background:var(--acl)}
 
 /* ══════════════════════════════════════
    TRUST BALK
@@ -831,9 +829,6 @@ details.faq-item summary:hover{color:var(--acm)}
 .hero-proof{animation:slideup .55s .4s ease both}
 .kor-preview{animation:slideup .55s .46s ease both}
 .browser{animation:floatin .7s .25s ease both}
-.float-top{animation:levitate 4s .2s ease-in-out infinite}
-.float-bot{animation:levitate 4s 2s ease-in-out infinite}
-@keyframes levitate{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
 
 /* ══════════════════════════════════════
    RESPONSIVE — TABLET ≤ 1060px
@@ -1066,10 +1061,14 @@ src="https://www.facebook.com/tr?id=964378096043237&ev=PageView&noscript=1"
 <!-- ══════════════ NAV ══════════════ -->
 <nav class="nav">
   <a href="/" class="nav-logo">
-    <picture>
-      <source srcset="./logo.webp" type="image/webp">
-      <img src="./logo.webp" alt="ZenBTW Logo" class="nav-logo-img" width="135" height="74" fetchpriority="high">
-    </picture>
+    <svg width="34" height="34" viewBox="0 0 100 100" aria-label="ZenBTW" role="img" style="flex-shrink:0">
+      <path d="M50 8 L88 20 L88 55 Q88 78 50 92 Q12 78 12 55 L12 20 Z" fill="#1a4731"/>
+      <rect x="27" y="54" width="10" height="18" fill="white" rx="2"/>
+      <rect x="41" y="42" width="10" height="30" fill="white" rx="2"/>
+      <rect x="55" y="32" width="10" height="40" fill="white" rx="2"/>
+      <path d="M24 56 Q52 36 74 26" stroke="white" stroke-width="4" fill="none" stroke-linecap="round"/>
+      <path d="M70 20 L80 28 L68 30 Z" fill="white"/>
+    </svg>
     <span class="nav-wordmark">Zen<em>BTW</em></span>
   </a>
   <div class="nav-links">
@@ -1081,9 +1080,9 @@ src="https://www.facebook.com/tr?id=964378096043237&ev=PageView&noscript=1"
   </div>
   <div style="display:flex;align-items:center;gap:10px;flex-shrink:0">
     <div style="display:flex;align-items:center;gap:4px;padding:6px 10px;border:1.5px solid var(--br);border-radius:8px;font-size:13px;font-weight:600">
-      <a href="/" style="color:var(--ac)">🇳🇱 NL</a>
+      <a href="/" style="color:var(--ac)">NL</a>
       <span style="color:var(--br2)">|</span>
-      <a href="/en" style="color:var(--tx3)" data-umami-event="nav-switch-en">🇬🇧 EN</a>
+      <a href="/en" style="color:var(--tx3)" data-umami-event="nav-switch-en">EN</a>
     </div>
     <a href="/app" class="nav-cta" data-umami-event="start-nu">
       Check mijn status <span class="nav-cta-arrow">→</span>
@@ -1114,7 +1113,8 @@ src="https://www.facebook.com/tr?id=964378096043237&ev=PageView&noscript=1"
     </div>
 
     <p class="hero-sub">
-      Upload je <strong>Etsy, Shopify of Vinted</strong> export en zie binnen 3 seconden of je actie moet ondernemen. 100% veilig &amp; anoniem.
+      <strong style="color:var(--ac);font-size:14px;display:block;margin-bottom:6px">🔒 Verwerkt volledig in jouw browser — je data verlaat je computer nooit.</strong>
+      Koppel je <strong>Etsy, Shopify of Vinted</strong> export en zie binnen 3 seconden of je actie moet ondernemen.
     </p>
 
     <div class="hero-btns">
@@ -1154,9 +1154,6 @@ src="https://www.facebook.com/tr?id=964378096043237&ev=PageView&noscript=1"
 
   <!-- RECHTS: screenshot -->
   <div class="hero-right">
-    <div class="hero-ring hero-ring-1"></div>
-    <div class="hero-ring hero-ring-2"></div>
-
     <!-- Floating badge boven links -->
     <div class="float float-top">
       <span class="float-icon">✅</span>
