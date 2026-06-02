@@ -1282,7 +1282,7 @@ src="https://www.facebook.com/tr?id=964378096043237&ev=PageView&noscript=1"
 <!-- MARGE -->
 <div class="vw" id="vwmarge">
   <div class="ph">
-    <div><div class="pe">Marge · Inkoopprijs</div><div class="pt">Brutowinst per product</div></div>
+    <div><div class="pe" data-i18n="marge-header">Marge · Inkoopprijs</div><div class="pt" data-i18n="marge-sub">Brutowinst per product</div></div>
     <div class="ha mob-hide" style="gap:8px">
       <button class="btn bs" onclick="exportMargeCSV()" style="font-size:12px;padding:7px 12px">📤 Exporteren</button>
       <label class="btn bs" style="cursor:pointer;font-size:12px;padding:7px 12px">
@@ -1294,9 +1294,9 @@ src="https://www.facebook.com/tr?id=964378096043237&ev=PageView&noscript=1"
   <!-- Stats -->
   <div class="sg">
     <div class="sc"><div class="st"><div class="sl" data-i18n="stat-revenue">Totale omzet</div><div class="si g">💶</div></div><div class="sv g" id="margeRevTotal">—</div><div class="sd" id="margeRevSub">Shopify producten</div></div>
-    <div class="sc"><div class="st"><div class="sl">Totale inkoop</div><div class="si">🏷️</div></div><div class="sv" id="margeInkoopTotal">—</div><div class="sd" id="margeInkoopSub">Ingevulde inkoopprijzen</div></div>
-    <div class="sc"><div class="st"><div class="sl">Brutowinst</div><div class="si a">📈</div></div><div class="sv a" id="margeBruto">—</div><div class="sd" id="margeBrutoSub">Omzet min inkoop</div></div>
-    <div class="sc"><div class="st"><div class="sl">Gem. marge</div><div class="si r">%</div></div><div class="sv r" id="margeGem">—</div><div class="sd">Over bekende producten</div></div>
+    <div class="sc"><div class="st"><div class="sl" data-i18n="marge-total-cost">Totale inkoop</div><div class="si">🏷️</div></div><div class="sv" id="margeInkoopTotal">—</div><div class="sd" id="margeInkoopSub">Ingevulde inkoopprijzen</div></div>
+    <div class="sc"><div class="st"><div class="sl" data-i18n="marge-gross">Brutowinst</div><div class="si a">📈</div></div><div class="sv a" id="margeBruto">—</div><div class="sd" id="margeBrutoSub">Omzet min inkoop</div></div>
+    <div class="sc"><div class="st"><div class="sl" data-i18n="marge-avg">Gem. marge</div><div class="si r">%</div></div><div class="sv r" id="margeGem">—</div><div class="sd">Over bekende producten</div></div>
   </div>
   <!-- Import hint -->
   <div id="margeImportHint" style="display:none;margin-bottom:14px;padding:11px 15px;background:var(--acl);border:1px solid var(--ac);border-radius:var(--rs);font-size:12.5px;color:var(--acm)">
@@ -1304,7 +1304,7 @@ src="https://www.facebook.com/tr?id=964378096043237&ev=PageView&noscript=1"
   </div>
   <div class="card">
     <div class="ch">
-      <div><div class="ct" id="margeCardTitle">Marge per product</div><div class="cst" id="margeCardSub">Vul inkoopprijzen in voor brutowinst-berekening</div></div>
+      <div><div class="ct" id="margeCardTitle" data-i18n="marge-card-title">Marge per product</div><div class="cst" id="margeCardSub" data-i18n="marge-card-sub">Vul inkoopprijzen in voor brutowinst-berekening</div></div>
       <button class="btn bs" onclick="document.getElementById('margeImportHint').style.display=document.getElementById('margeImportHint').style.display==='none'?'block':'none'" style="font-size:11.5px;padding:5px 10px">CSV uitleg</button>
     </div>
     <div class="marge-search-wrap" id="margeSearchWrap" style="display:none;padding:12px 16px 0">
@@ -2283,16 +2283,18 @@ function renderTx(){
   const el=document.getElementById('txBody');const sub=document.getElementById('txSub');
   const mg=buildMg();const hasCC=Object.keys(S.countries).length>0;const hasRaw=S.rawOrders.length>0;const hasMg=Object.keys(mg).length>0;const qTx=S.transactions.filter(t=>t.quarter===S.quarter);const hasTx=qTx.length>0;
   const vw=document.getElementById('vintedWarn');if(vw)vw.classList.toggle('on',hasRaw);
-  if(!hasMg&&!hasTx){el.innerHTML='<div class="es"><div class="esi">🧾</div><div class="est">Geen transacties</div><div class="ess">Upload CSV op dashboard</div></div>';return;}
+  const en=window._lang==='en';
+  if(!hasMg&&!hasTx){el.innerHTML=`<div class="es"><div class="esi">🧾</div><div class="est">${en?'No transactions':'Geen transacties'}</div><div class="ess">${en?'Upload a CSV on the dashboard':'Upload CSV op dashboard'}</div></div>`;return;}
   sub.textContent=S.totalOrders+' orders · '+S.quarter;
   let html='';
   if(hasMg){
     let rows='';
+    const thC=en?'Country':'Land';const thO='Orders';const thR=en?'Revenue':'Omzet';const thV='VAT';const thS='Status';
     for(const[cc,d]of Object.entries(mg).sort((a,b)=>b[1].revenue-a[1].revenue)){
       const info=CI(cc);const isEU=!!EU[cc];const bw=isEU&&cc!=='NL'?d.revenue*(EU[cc]?.r||0):0;
       rows+=`<tr><td><div class="cc"><span class="cf">${info.f}</span><div><div class="cn">${info.n}</div><div class="csb">${cc}</div></div></div></td><td class="am">${d.orders}</td><td class="am">€${fmt(Math.round(d.revenue))}</td><td class="am ${bw>0?'bw':''}">${bw>0?'€'+fmt(Math.round(bw)):'—'}</td><td style="text-align:center"><span class="sp ${cc==='NL'?'kor':isEU?'oss':'kor'}" ${!isEU&&cc!=='NL'?'style="background:var(--s2);color:var(--tx4);border-color:var(--br)"':''}><span class="dot"></span>${cc==='NL'?'KOR':isEU?'OSS':'Non-EU'}</span></td></tr>`;
     }
-    html+=`<table class="dt"><thead><tr><th>Land</th><th class="r">Orders</th><th class="r">Omzet</th><th class="r">BTW</th><th class="c">Status</th></tr></thead><tbody>${rows}</tbody></table>`;
+    html+=`<table class="dt"><thead><tr><th>${thC}</th><th class="r">${thO}</th><th class="r">${thR}</th><th class="r">${thV}</th><th class="c">${thS}</th></tr></thead><tbody>${rows}</tbody></table>`;
   }
   if(hasRaw){
     const si=getSortedRawIndices();
@@ -2302,34 +2304,34 @@ function renderTx(){
       const o=S.rawOrders[i];const info=CI(o.country);const isEU=!!EU[o.country]&&o.country!=='NL';const bw=isEU?o.amount*(EU[o.country].r||0):0;
       return`<div class="ro-row" data-ridx="${i}">
         <input type="checkbox" class="ro-row-cb" data-ridx="${i}" onchange="onRawCbChange(this)">
-        <input type="date" class="ro-date-in" value="${o.date||''}" onchange="setOrderDate(${i},this.value)" title="Orderdatum">
-        <select class="ro-cc-sel" onchange="setOrderCountry(${i},this.value)" title="Land aanpassen">${countryOptions(o.country)}</select>
-        <span class="ro-amt">€${fmt(o.amount.toFixed(2))}${isEU?'<br><span style="font-size:10px;color:var(--dn);font-weight:400">BTW €'+fmt(bw.toFixed(2))+'</span>':''}</span>
-        <button onclick="delRawOrder(${i})" title="Verwijderen" style="background:none;border:none;cursor:pointer;color:var(--tx4);font-size:15px;padding:4px 6px;min-height:36px;border-radius:var(--rx);-webkit-tap-highlight-color:transparent" onmouseover="this.style.color='var(--dn)'" onmouseout="this.style.color='var(--tx4)'">🗑️</button>
+        <input type="date" class="ro-date-in" value="${o.date||''}" onchange="setOrderDate(${i},this.value)" title="${en?'Order date':'Orderdatum'}">
+        <select class="ro-cc-sel" onchange="setOrderCountry(${i},this.value)" title="${en?'Change country':'Land aanpassen'}">${countryOptions(o.country)}</select>
+        <span class="ro-amt">€${fmt(o.amount.toFixed(2))}${isEU?'<br><span style="font-size:10px;color:var(--dn);font-weight:400">VAT €'+fmt(bw.toFixed(2))+'</span>':''}</span>
+        <button onclick="delRawOrder(${i})" title="${en?'Delete':'Verwijderen'}" style="background:none;border:none;cursor:pointer;color:var(--tx4);font-size:15px;padding:4px 6px;min-height:36px;border-radius:var(--rx);-webkit-tap-highlight-color:transparent" onmouseover="this.style.color='var(--dn)'" onmouseout="this.style.color='var(--tx4)'">🗑️</button>
       </div>`;
     }).join('');
     html+=`<div class="ro-section">
       <div class="ro-header">
         <span class="ro-header-title">👗 Vinted HTML — ${S.rawOrders.length} ${OW(S.rawOrders.length)}</span>
-        <span class="ro-hint">💡 Tip: gebruik de bulk-toewijzer om orders met dezelfde verzendmethode in één keer het juiste land te geven</span>
+        <span class="ro-hint">💡 ${en?'Tip: use the bulk assignor to set the correct country for orders with the same shipping method at once':'Tip: gebruik de bulk-toewijzer om orders met dezelfde verzendmethode in één keer het juiste land te geven'}</span>
       </div>
       <div class="ro-select-all-row" onclick="toggleAllRaw(event)">
         <input type="checkbox" id="rawSelAll" onclick="event.stopPropagation();toggleAllRaw(event)">
-        <span>Alles selecteren (${S.rawOrders.length} orders)</span>
+        <span>${en?'Select all':'Alles selecteren'} (${S.rawOrders.length} orders)</span>
       </div>
       <div class="ro-sort-hd">
-        <span class="${siCls('date')}" onclick="sortRawBy('date')">Datum ${siIcon('date')}</span>
+        <span class="${siCls('date')}" onclick="sortRawBy('date')">${en?'Date':'Datum'} ${siIcon('date')}</span>
         <span class="ro-sort-spacer"></span>
-        <span class="${siCls('country')}" onclick="sortRawBy('country')">Land ${siIcon('country')}</span>
+        <span class="${siCls('country')}" onclick="sortRawBy('country')">${en?'Country':'Land'} ${siIcon('country')}</span>
         <span class="ro-sort-spacer"></span>
-        <span class="${siCls('amount')}" onclick="sortRawBy('amount')">Bedrag ${siIcon('amount')}</span>
+        <span class="${siCls('amount')}" onclick="sortRawBy('amount')">${en?'Amount':'Bedrag'} ${siIcon('amount')}</span>
       </div>
       ${rawRows}
     </div>`;
   }
   if(hasTx){
-    const txRows=qTx.map(t=>`<tr><td>${t.date}</td><td>${t.type}</td><td class="am">€${fmt(t.amount.toFixed(2))}</td><td style="text-align:center"><button onclick="deleteTx(${t.id})" title="Verwijderen" style="background:none;border:none;cursor:pointer;color:var(--tx4);font-size:15px;padding:4px 8px;min-height:36px;border-radius:var(--rx);-webkit-tap-highlight-color:transparent" onmouseover="this.style.color='var(--dn)'" onmouseout="this.style.color='var(--tx4)'">🗑️</button></td></tr>`).join('');
-    html+=`<div class="ro-section"><div class="ro-header"><span class="ro-header-title">✏️ Handmatige invoer — ${qTx.length} ${OW(qTx.length)}</span></div><table class="dt"><thead><tr><th>Datum</th><th>Type</th><th class="r">Bedrag</th><th class="c">Actie</th></tr></thead><tbody>${txRows}</tbody></table></div>`;
+    const txRows=qTx.map(t=>`<tr><td>${t.date}</td><td>${t.type}</td><td class="am">€${fmt(t.amount.toFixed(2))}</td><td style="text-align:center"><button onclick="deleteTx(${t.id})" title="${en?'Delete':'Verwijderen'}" style="background:none;border:none;cursor:pointer;color:var(--tx4);font-size:15px;padding:4px 8px;min-height:36px;border-radius:var(--rx);-webkit-tap-highlight-color:transparent" onmouseover="this.style.color='var(--dn)'" onmouseout="this.style.color='var(--tx4)'">🗑️</button></td></tr>`).join('');
+    html+=`<div class="ro-section"><div class="ro-header"><span class="ro-header-title">✏️ ${en?'Manual entries':'Handmatige invoer'} — ${qTx.length} ${OW(qTx.length)}</span></div><table class="dt"><thead><tr><th>${en?'Date':'Datum'}</th><th>${en?'Type':'Type'}</th><th class="r">${en?'Amount':'Bedrag'}</th><th class="c">${en?'Action':'Actie'}</th></tr></thead><tbody>${txRows}</tbody></table></div>`;
   }
   el.innerHTML=html;
 }
@@ -2338,17 +2340,17 @@ function renderTx(){
 function renderLanden(){
   const el=document.getElementById('landenCards');
   const mg=buildYearMg();const eu=Object.entries(mg).filter(([cc])=>cc!=='NL'&&EU[cc]&&mg[cc].revenue>0);
-  const nl=mg['NL'];
-  if(!eu.length&&!nl){el.innerHTML='<div class="sc" style="grid-column:1/-1"><div class="es"><div class="esi">🌍</div><div class="est">Geen EU-landen</div><div class="ess">Upload CSV op dashboard</div></div></div>';return;}
+  const nl=mg['NL'];const en=window._lang==='en';
+  if(!eu.length&&!nl){el.innerHTML=`<div class="sc" style="grid-column:1/-1"><div class="es"><div class="esi">🌍</div><div class="est">${en?'No EU countries':'Geen EU-landen'}</div><div class="ess">${en?'Upload a CSV on the dashboard':'Upload CSV op dashboard'}</div></div></div>`;return;}
   const wb=eu.map(([cc,d])=>({cc,d,bw:d.revenue*(EU[cc].r||0)}));const tot=wb.reduce((s,x)=>s+x.bw,0);
   let html='';
   if(eu.length){
-    html+=`<div style="grid-column:1/-1;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:var(--tx4);padding:2px 0 4px">🌍 Cross-border EU — OSS-aangifte vereist</div>`;
-    html+=wb.sort((a,b)=>b.bw-a.bw).map(({cc,d,bw})=>{const info=EU[cc];const pct=tot>0?Math.round(bw/tot*100):0;return`<div class="sc"><div class="st"><div class="sl">${info.n}</div><span style="font-size:19px">${info.f}</span></div><div class="sv" style="font-size:20px;margin-bottom:2px">€${fmt(Math.round(bw))}</div><div class="sd">BTW · ${Math.round(info.r*100)}% tarief</div><div style="margin-top:9px;height:4px;background:var(--br);border-radius:100px;overflow:hidden"><div style="height:100%;width:${pct}%;background:var(--dn);border-radius:100px"></div></div><div class="sd" style="margin-top:4px">${pct}% · ${d.orders} ${OW(d.orders)} · €${fmt(Math.round(d.revenue))} omzet</div></div>`;}).join('');
+    html+=`<div style="grid-column:1/-1;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:var(--tx4);padding:2px 0 4px">🌍 ${en?'Cross-border EU — OSS filing required':'Cross-border EU — OSS-aangifte vereist'}</div>`;
+    html+=wb.sort((a,b)=>b.bw-a.bw).map(({cc,d,bw})=>{const info=EU[cc];const pct=tot>0?Math.round(bw/tot*100):0;return`<div class="sc"><div class="st"><div class="sl">${info.n}</div><span style="font-size:19px">${info.f}</span></div><div class="sv" style="font-size:20px;margin-bottom:2px">€${fmt(Math.round(bw))}</div><div class="sd">${en?'VAT':'BTW'} · ${Math.round(info.r*100)}% ${en?'rate':'tarief'}</div><div style="margin-top:9px;height:4px;background:var(--br);border-radius:100px;overflow:hidden"><div style="height:100%;width:${pct}%;background:var(--dn);border-radius:100px"></div></div><div class="sd" style="margin-top:4px">${pct}% · ${d.orders} ${OW(d.orders)} · €${fmt(Math.round(d.revenue))} ${en?'revenue':'omzet'}</div></div>`;}).join('');
   }
   if(nl){
-    html+=`<div style="grid-column:1/-1;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:var(--tx4);padding:${eu.length?'14px':'2px'} 0 4px">🏠 Binnenland — KOR (geen OSS vereist)</div>`;
-    html+=`<div class="sc" style="border-color:var(--br);opacity:.85"><div class="st"><div class="sl">Nederland</div><span style="font-size:19px">🇳🇱</span></div><div class="sv" style="font-size:20px;margin-bottom:2px">€${fmt(Math.round(nl.revenue))}</div><div class="sd">BTW via reguliere NL-aangifte · 21%</div><div style="margin-top:9px;padding:6px 8px;background:var(--acl);border-radius:var(--rx);font-size:10.5px;color:var(--acm)">✓ KOR — telt <strong>niet</strong> mee voor de €10.000 OSS-drempel</div><div class="sd" style="margin-top:6px">${nl.orders} ${OW(nl.orders)} · €${fmt(Math.round(nl.revenue))} omzet</div></div>`;
+    html+=`<div style="grid-column:1/-1;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:var(--tx4);padding:${eu.length?'14px':'2px'} 0 4px">🏠 ${en?'Domestic — KOR (no OSS required)':'Binnenland — KOR (geen OSS vereist)'}</div>`;
+    html+=`<div class="sc" style="border-color:var(--br);opacity:.85"><div class="st"><div class="sl">${en?'Netherlands':'Nederland'}</div><span style="font-size:19px">🇳🇱</span></div><div class="sv" style="font-size:20px;margin-bottom:2px">€${fmt(Math.round(nl.revenue))}</div><div class="sd">${en?'VAT via regular NL filing · 21%':'BTW via reguliere NL-aangifte · 21%'}</div><div style="margin-top:9px;padding:6px 8px;background:var(--acl);border-radius:var(--rx);font-size:10.5px;color:var(--acm)">✓ KOR — ${en?'does <strong>not</strong> count towards the €10,000 OSS threshold':'telt <strong>niet</strong> mee voor de €10.000 OSS-drempel'}</div><div class="sd" style="margin-top:6px">${nl.orders} ${OW(nl.orders)} · €${fmt(Math.round(nl.revenue))} ${en?'revenue':'omzet'}</div></div>`;
   }
   el.innerHTML=html;
 }
@@ -2362,17 +2364,17 @@ function renderYGrid(){
   const maxR=Math.max(...Qs.map(qRev),1);
   el.innerHTML=Qs.map((q,idx)=>{
     const d=S.quarterHistory[q];const cur=q===S.quarter;const r=qRev(q);const bw=qBtwFull(q);
-    const blocked=korBlocked&&idx>0;
+    const blocked=korBlocked&&idx>0;const en=window._lang==='en';const curLbl=en?' · current':' · huidig';
     if(blocked){
       return`<div class="yqc yqc-blocked${cur?' cur':''}">
-        <div class="yql">${q}${cur?' · huidig':''}</div>
-        <div class="yqr" style="font-size:13px;line-height:1.3;color:var(--dn)">🛑 KOR NIET<br>MEER MOGELIJK</div>
-        <div class="yqb" style="color:var(--dn)">OSS-aangifte verplicht</div>
+        <div class="yql">${q}${cur?curLbl:''}</div>
+        <div class="yqr" style="font-size:13px;line-height:1.3;color:var(--dn)">🛑 ${en?'KOR<br>EXCEEDED':'KOR NIET<br>MEER MOGELIJK'}</div>
+        <div class="yqb" style="color:var(--dn)">${en?'OSS filing required':'OSS-aangifte verplicht'}</div>
         <div class="yqo">${d?.totalOrders||0} orders</div>
         <div class="ybar"><div class="ybarfill" style="width:100%;background:var(--dn)"></div></div>
       </div>`;
     }
-    return`<div class="yqc${cur?' cur':''}"><div class="yql">${q}${cur?' · huidig':''}</div><div class="yqr">€${fmt(Math.round(r))}</div><div class="yqb">BTW: €${fmt(Math.round(bw))}</div><div class="yqo">${d?.totalOrders||0} orders</div><div class="ybar"><div class="ybarfill" style="width:${Math.round(r/maxR*100)}%"></div></div></div>`;
+    return`<div class="yqc${cur?' cur':''}"><div class="yql">${q}${cur?curLbl:''}</div><div class="yqr">€${fmt(Math.round(r))}</div><div class="yqb">${en?'VAT':'BTW'}: €${fmt(Math.round(bw))}</div><div class="yqo">${d?.totalOrders||0} orders</div><div class="ybar"><div class="ybarfill" style="width:${Math.round(r/maxR*100)}%"></div></div></div>`;
   }).join('');
   // Waarschuwing tonen boven het grid
   const warn=document.getElementById('korBlockWarn');
@@ -2382,7 +2384,8 @@ function renderYGrid(){
 function renderJDetail(){
   const el=document.getElementById('jdetail');const y=S.year;const Qs=['Q1','Q2','Q3','Q4'].map(q=>q+' '+y);
   const ld=Qs.filter(q=>S.quarterHistory[q]||(q===S.quarter&&calcTotal()>0));
-  if(!ld.length){el.innerHTML='<div class="es"><div class="esi">📅</div><div class="est">Geen kwartaaldata voor '+y+'</div><div class="ess">Upload CSV\'s per kwartaal om het jaaroverzicht te vullen</div></div>';return;}
+  const en=window._lang==='en';
+  if(!ld.length){el.innerHTML=`<div class="es"><div class="esi">📅</div><div class="est">${en?'No data for '+y:'Geen kwartaaldata voor '+y}</div><div class="ess">${en?'Upload CSVs per quarter to fill the annual overview':'Upload CSV\'s per kwartaal om het jaaroverzicht te vullen'}</div></div>`;return;}
   const qR=q=>q===S.quarter?calcTotal():(S.quarterHistory[q]?.revenue||0);
   const qO=q=>q===S.quarter?S.totalOrders:(S.quarterHistory[q]?.totalOrders||0);
   const tR=ld.reduce((s,q)=>s+qR(q),0);
@@ -2402,18 +2405,18 @@ function renderJDetail(){
   const hasPrev=prevRevTotal>0;
   const growthPct=hasPrev?Math.round((tR-prevRevTotal)/prevRevTotal*100):null;
   const growthPos=growthPct===null?null:growthPct>=0;
-  const yearCompHtml=hasPrev?`<div style="padding:10px 16px;background:var(--s2);border-bottom:1px solid var(--br);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px"><div style="font-size:11.5px;color:var(--tx3);font-weight:500">📊 Vergelijking met ${prevYear}</div><div style="display:flex;gap:20px;align-items:center;flex-wrap:wrap"><div style="text-align:center"><div style="font-size:10.5px;color:var(--tx4);margin-bottom:1px">${prevYear}</div><div style="font-family:'JetBrains Mono',monospace;font-size:13px;font-weight:600;color:var(--tx2)">€${fmt(Math.round(prevRevTotal))}</div><div style="font-size:10px;color:var(--tx4)">${prevOrdersTotal} orders</div></div><div style="font-size:18px;color:var(--tx4)">→</div><div style="text-align:center"><div style="font-size:10.5px;color:var(--tx4);margin-bottom:1px">${y}</div><div style="font-family:'JetBrains Mono',monospace;font-size:13px;font-weight:600;color:var(--tx)">€${fmt(Math.round(tR))}</div><div style="font-size:10px;color:var(--tx4)">${tO} orders</div></div><div style="padding:4px 10px;border-radius:6px;background:${growthPos?'var(--acl)':'var(--dnl)'};color:${growthPos?'var(--acm)':'var(--dn)'};font-size:12px;font-weight:700;font-family:'JetBrains Mono',monospace">${growthPos?'▲':'▼'} ${Math.abs(growthPct)}%</div></div></div>`:''
+  const yearCompHtml=hasPrev?`<div style="padding:10px 16px;background:var(--s2);border-bottom:1px solid var(--br);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px"><div style="font-size:11.5px;color:var(--tx3);font-weight:500">📊 ${en?'Comparison with '+prevYear:'Vergelijking met '+prevYear}</div><div style="display:flex;gap:20px;align-items:center;flex-wrap:wrap"><div style="text-align:center"><div style="font-size:10.5px;color:var(--tx4);margin-bottom:1px">${prevYear}</div><div style="font-family:'JetBrains Mono',monospace;font-size:13px;font-weight:600;color:var(--tx2)">€${fmt(Math.round(prevRevTotal))}</div><div style="font-size:10px;color:var(--tx4)">${prevOrdersTotal} orders</div></div><div style="font-size:18px;color:var(--tx4)">→</div><div style="text-align:center"><div style="font-size:10.5px;color:var(--tx4);margin-bottom:1px">${y}</div><div style="font-family:'JetBrains Mono',monospace;font-size:13px;font-weight:600;color:var(--tx)">€${fmt(Math.round(tR))}</div><div style="font-size:10px;color:var(--tx4)">${tO} orders</div></div><div style="padding:4px 10px;border-radius:6px;background:${growthPos?'var(--acl)':'var(--dnl)'};color:${growthPos?'var(--acm)':'var(--dn)'};font-size:12px;font-weight:700;font-family:'JetBrains Mono',monospace">${growthPos?'▲':'▼'} ${Math.abs(growthPct)}%</div></div></div>`:''
   el.innerHTML=yearCompHtml+
     // KOR progressiebalk
     `<div style="padding:14px 16px 12px;border-bottom:1px solid var(--br)">
       <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:7px">
-        <span style="font-size:12.5px;font-weight:600;color:var(--tx)">KOR-drempel ${y}</span>
+        <span style="font-size:12.5px;font-weight:600;color:var(--tx)">${en?'OSS threshold '+y:'KOR-drempel '+y}</span>
         <span style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;color:${korClr}">€${fmt(Math.round(tCB))} / €${fmt(S.korLimit)} <span style="font-weight:400;color:var(--tx3)">(${korPct}%)</span></span>
       </div>
       <div style="height:8px;background:var(--br);border-radius:100px;overflow:hidden">
         <div style="height:100%;width:${korPct}%;background:${korBg};border-radius:100px;transition:width .6s cubic-bezier(.16,1,.3,1)"></div>
       </div>
-      <div style="font-size:11px;color:var(--tx3);margin-top:5px">${korStatus==='danger'?'🚨 Drempel overschreden — OSS-aangifte verplicht':korStatus==='warn'?'⚠ Let op: je nadert de KOR-drempel':'✅ Onder de KOR-drempel — geen OSS-aangifte vereist'}</div>
+      <div style="font-size:11px;color:var(--tx3);margin-top:5px">${korStatus==='danger'?(en?'🚨 Threshold exceeded — OSS filing required':'🚨 Drempel overschreden — OSS-aangifte verplicht'):korStatus==='warn'?(en?'⚠ Warning: approaching the OSS threshold':'⚠ Let op: je nadert de KOR-drempel'):(en?'✅ Below the OSS threshold — no filing required':'✅ Onder de KOR-drempel — geen OSS-aangifte vereist')}</div>
     </div>`+
     // Kwartaal bars
     `<div style="padding:12px 16px;border-bottom:1px solid var(--br);display:grid;grid-template-columns:repeat(4,1fr);gap:12px;align-items:end">
@@ -2429,16 +2432,15 @@ function renderJDetail(){
       }).join('')}
     </div>`+
     // Tabel
-    `<div class="table-scroll-wrap"><table class="dt"><thead><tr><th>Kwartaal</th><th class="r">Omzet</th><th class="r">Cross-border EU</th><th class="r">BTW</th><th class="r">Orders</th></tr></thead><tbody>
-    ${ld.map(q=>{const bw=qBtwFull(q);const cb=qCBFull(q);const isCur=q===S.quarter;return`<tr${isCur?' style="background:var(--acl)"':''}><td><strong>${q}</strong>${isCur?' <span style="font-size:10px;color:var(--acm);font-family:\'JetBrains Mono\',monospace">← huidig</span>':''}</td><td class="am">€${fmt(Math.round(qR(q)))}</td><td class="am">€${fmt(Math.round(cb))}</td><td class="am bw">€${fmt(Math.round(bw))}</td><td class="am">${qO(q)}</td></tr>`;}).join('')}
-    <tr style="border-top:2px solid var(--br);background:var(--s2)"><td><strong>Jaartotaal ${y}</strong></td><td class="am"><strong>€${fmt(Math.round(tR))}</strong></td><td class="am"><strong>€${fmt(Math.round(tCB))}</strong></td><td class="am bw"><strong>€${fmt(Math.round(tB))}</strong></td><td class="am"><strong>${tO}</strong></td></tr>
+    `<div class="table-scroll-wrap"><table class="dt"><thead><tr><th>${en?'Quarter':'Kwartaal'}</th><th class="r">${en?'Revenue':'Omzet'}</th><th class="r">Cross-border EU</th><th class="r">${en?'VAT':'BTW'}</th><th class="r">Orders</th></tr></thead><tbody>
+    ${ld.map(q=>{const bw=qBtwFull(q);const cb=qCBFull(q);const isCur=q===S.quarter;return`<tr${isCur?' style="background:var(--acl)"':''}><td><strong>${q}</strong>${isCur?` <span style="font-size:10px;color:var(--acm);font-family:'JetBrains Mono',monospace">← ${en?'current':'huidig'}</span>`:''}</td><td class="am">€${fmt(Math.round(qR(q)))}</td><td class="am">€${fmt(Math.round(cb))}</td><td class="am bw">€${fmt(Math.round(bw))}</td><td class="am">${qO(q)}</td></tr>`;}).join('')}
+    <tr style="border-top:2px solid var(--br);background:var(--s2)"><td><strong>${en?'Year total '+y:'Jaartotaal '+y}</strong></td><td class="am"><strong>€${fmt(Math.round(tR))}</strong></td><td class="am"><strong>€${fmt(Math.round(tCB))}</strong></td><td class="am bw"><strong>€${fmt(Math.round(tB))}</strong></td><td class="am"><strong>${tO}</strong></td></tr>
     </tbody></table></div>`+
-    // IB-aangifte samenvatting
     `<div style="margin:14px 0 2px;padding:13px 16px;background:var(--acl);border:1px solid #b2cfbf;border-radius:var(--rs);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px">
       <div>
-        <div style="font-size:12px;font-weight:700;color:var(--acm);margin-bottom:2px">📋 IB-aangifte ${y}</div>
-        <div style="font-size:11.5px;color:var(--tx2)">Totale omzet: <strong>€${fmt(Math.round(tR))}</strong> · BTW: <strong>€${fmt(Math.round(tB))}</strong> · Orders: <strong>${tO}</strong></div>
-        <div style="font-size:11px;color:var(--tx3);margin-top:2px">Gebruik de totale omzet voor Box 1 inkomstenbelasting</div>
+        <div style="font-size:12px;font-weight:700;color:var(--acm);margin-bottom:2px">📋 ${en?'Tax summary '+y:'IB-aangifte '+y}</div>
+        <div style="font-size:11.5px;color:var(--tx2)">${en?'Total revenue':'Totale omzet'}: <strong>€${fmt(Math.round(tR))}</strong> · ${en?'VAT':'BTW'}: <strong>€${fmt(Math.round(tB))}</strong> · Orders: <strong>${tO}</strong></div>
+        <div style="font-size:11px;color:var(--tx3);margin-top:2px">${en?'Use the total revenue figure for your income tax return':'Gebruik de totale omzet voor Box 1 inkomstenbelasting'}</div>
       </div>
       <button class="btn bp" onclick="exportJaar()" style="font-size:12px;padding:8px 14px;white-space:nowrap">📊 Export CSV</button>
     </div>`;
@@ -2452,25 +2454,35 @@ function exportJaar(){
 
 // OSS CHECKLIST
 const ossSteps=[
-  {id:'kvk',t:'KVK-inschrijving',s:'Sta geregistreerd bij de Kamer van Koophandel'},
-  {id:'btwnr',t:'BTW-nummer aanvragen',s:'Via KvK of direct bij Belastingdienst'},
-  {id:'oss_reg',t:'OSS-registratie',s:'Mijn Belastingdienst Zakelijk → BTW → E-commerce'},
-  {id:'drempel',t:'Drempelcontrole',s:'>€10.000 cross-border EU verkopen in kalenderjaar?'},
-  {id:'marge',t:'Margeregeling beoordelen',s:'Tweedehands goederen? Controleer of margeregeling van toepassing is'},
-  {id:'tarieven',t:'BTW-tarieven controleren',s:'Controleer per land het juiste tarief voor jouw productcategorie'},
-  {id:'platform',t:'Platform-instellingen aanpassen',s:'Etsy/Shopify: schakel BTW in per EU-land of gebruik BTW-incl. prijzen'},
-  {id:'factuur',t:'Factuurtemplate aanpassen',s:'Voeg OSS VAT-ID, klantsland en BTW-bedrag toe aan factuur'},
-  {id:'admin',t:'Administratie opzetten',s:'Per order: land, bedrag, tarief bijhouden. Bewaarplicht: 10 jaar'},
-  {id:'melding',t:'Eerste kwartaalmelding',s:'Via OSS-portaal vóór deadline (30 dagen na kwartaalafloop)'}
+  {id:'kvk',   nl:{t:'KVK-inschrijving',s:'Sta geregistreerd bij de Kamer van Koophandel'},
+               en:{t:'Business registration',s:'Register with the Dutch Chamber of Commerce (KVK)'}},
+  {id:'btwnr', nl:{t:'BTW-nummer aanvragen',s:'Via KvK of direct bij Belastingdienst'},
+               en:{t:'Apply for VAT number',s:'Via KVK or directly with the tax authority'}},
+  {id:'oss_reg',nl:{t:'OSS-registratie',s:'Mijn Belastingdienst Zakelijk → BTW → E-commerce'},
+               en:{t:'OSS registration',s:'Your national tax portal → VAT → E-commerce'}},
+  {id:'drempel',nl:{t:'Drempelcontrole',s:'>€10.000 cross-border EU verkopen in kalenderjaar?'},
+               en:{t:'Threshold check',s:'>€10,000 cross-border EU sales in a calendar year?'}},
+  {id:'marge', nl:{t:'Margeregeling beoordelen',s:'Tweedehands goederen? Controleer of margeregeling van toepassing is'},
+               en:{t:'Margin scheme assessment',s:'Selling second-hand goods? Check if margin scheme applies'}},
+  {id:'tarieven',nl:{t:'BTW-tarieven controleren',s:'Controleer per land het juiste tarief voor jouw productcategorie'},
+               en:{t:'Check VAT rates',s:'Verify the correct rate per country for your product category'}},
+  {id:'platform',nl:{t:'Platform-instellingen aanpassen',s:'Etsy/Shopify: schakel BTW in per EU-land of gebruik BTW-incl. prijzen'},
+               en:{t:'Update platform settings',s:'Etsy/Shopify: enable VAT per EU country or use VAT-inclusive prices'}},
+  {id:'factuur',nl:{t:'Factuurtemplate aanpassen',s:'Voeg OSS VAT-ID, klantsland en BTW-bedrag toe aan factuur'},
+               en:{t:'Update invoice template',s:'Add OSS VAT-ID, buyer country and VAT amount to invoices'}},
+  {id:'admin', nl:{t:'Administratie opzetten',s:'Per order: land, bedrag, tarief bijhouden. Bewaarplicht: 10 jaar'},
+               en:{t:'Set up record keeping',s:'Per order: track country, amount, rate. Retention: 10 years'}},
+  {id:'melding',nl:{t:'Eerste kwartaalmelding',s:'Via OSS-portaal vóór deadline (30 dagen na kwartaalafloop)'},
+               en:{t:'First quarterly filing',s:'Via OSS portal before deadline (30 days after quarter end)'}}
 ];
 function renderOSS(){
   const el=document.getElementById('ossGrid');const done=ossSteps.filter(s=>OSSck[s.id]).length;
+  const en=window._lang==='en';
   document.getElementById('ossBar').style.width=(done/ossSteps.length*100)+'%';
-  document.getElementById('ossProgressT').textContent=done+' / '+ossSteps.length+' stappen';
-  el.innerHTML=ossSteps.map(s=>`<div class="cli${OSSck[s.id]?' ck':''}" onclick="togOSS('${s.id}')"><div class="clb">${OSSck[s.id]?'✓':''}</div><div><div class="clt">${s.t}</div><div class="cls">${s.s}</div></div></div>`).join('');
-  // Update print section
+  document.getElementById('ossProgressT').textContent=done+' / '+ossSteps.length+' '+(en?'steps':'stappen');
+  el.innerHTML=ossSteps.map(s=>{const lbl=en?s.en:s.nl;return`<div class="cli${OSSck[s.id]?' ck':''}" onclick="togOSS('${s.id}')"><div class="clb">${OSSck[s.id]?'✓':''}</div><div><div class="clt">${lbl.t}</div><div class="cls">${lbl.s}</div></div></div>`;}).join('');
   const pg=document.getElementById('printOssGrid');
-  if(pg)pg.innerHTML=ossSteps.map(s=>`<div class="print-oss-item${OSSck[s.id]?' done':''}">${OSSck[s.id]?'✓ ':'○ '}<strong>${s.t}</strong></div>`).join('');
+  if(pg)pg.innerHTML=ossSteps.map(s=>{const lbl=en?s.en:s.nl;return`<div class="print-oss-item${OSSck[s.id]?' done':''}">${OSSck[s.id]?'✓ ':'○ '}<strong>${lbl.t}</strong></div>`;}).join('');
 }
 function togOSS(id){OSSck[id]=!OSSck[id];idbPut('ktx_oss',OSSck).catch(()=>{});localStorage.setItem('ktx_oss',JSON.stringify(OSSck));renderOSS();}
 
@@ -3525,6 +3537,13 @@ var I18N = {
     'year-total-title':   'Jaartotaal — voor IB-aangifte',
     'alerts-title':       'Meldingen',
     'alerts-sub':         'E-mailalerts instellen',
+    'marge-header':       'Marge · Inkoopprijs',
+    'marge-sub':          'Brutowinst per product',
+    'marge-total-cost':   'Totale inkoop',
+    'marge-gross':        'Brutowinst',
+    'marge-avg':          'Gem. marge',
+    'marge-card-title':   'Marge per product',
+    'marge-card-sub':     'Vul inkoopprijzen in voor brutowinst-berekening',
   },
   en: {
     'privacy-note':       'Your data never leaves this browser.',
@@ -3579,6 +3598,13 @@ var I18N = {
     'year-total-title':   'Annual total — for tax filing',
     'alerts-title':       'Alerts',
     'alerts-sub':         'Set up email alerts',
+    'marge-header':       'Margin · Cost price',
+    'marge-sub':          'Gross profit per product',
+    'marge-total-cost':   'Total cost',
+    'marge-gross':        'Gross profit',
+    'marge-avg':          'Avg. margin',
+    'marge-card-title':   'Margin per product',
+    'marge-card-sub':     'Enter cost prices to calculate gross profit',
   }
 };
 
