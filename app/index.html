@@ -3341,8 +3341,8 @@ function obFinish(){
 </style>
 
 <!-- Floating button -->
-<button id="fb-btn" onclick="openFeedback()" data-umami-event="feedback-open">
-  💬 Give feedback
+<button id="fb-btn" onclick="openFeedback()" data-umami-event="feedback-open" data-i18n="fb-btn-label">
+  💬 Geef feedback
 </button>
 
 <!-- Feedback modal -->
@@ -3351,8 +3351,8 @@ function obFinish(){
     <div id="fb-form">
       <div class="fb-head">
         <div>
-          <div class="fb-title">Your honest opinion 🙏</div>
-          <div class="fb-sub">What works? What doesn't? What's missing?</div>
+          <div class="fb-title" data-i18n="fb-title">Jouw eerlijke mening 🙏</div>
+          <div class="fb-sub" data-i18n="fb-sub">Wat werkt? Wat niet? Wat mist er?</div>
         </div>
         <button class="fb-close" onclick="closeFeedback()">×</button>
       </div>
@@ -3363,25 +3363,25 @@ function obFinish(){
         <button class="fb-star" data-v="4" onclick="setRating(4)">⭐</button>
         <button class="fb-star" data-v="5" onclick="setRating(5)">⭐</button>
       </div>
-      <span class="fb-label">What's your feedback?</span>
-      <textarea class="fb-textarea" id="fb-text" placeholder="Be as specific as you like — what confused you, what worked great, what's missing..."></textarea>
+      <span class="fb-label" data-i18n="fb-label">Jouw feedback:</span>
+      <textarea class="fb-textarea" id="fb-text" data-i18n-placeholder="fb-placeholder"></textarea>
       <div class="fb-meta">
-        <input class="fb-input" id="fb-email" type="email" placeholder="your@email.com (optional)">
+        <input class="fb-input" id="fb-email" type="email" data-i18n-placeholder="fb-email-placeholder">
         <select class="fb-input" id="fb-platform">
-          <option value="">Platform...</option>
+          <option value="" data-i18n="fb-platform-default">Platform...</option>
           <option>Etsy</option>
           <option>Vinted</option>
           <option>Shopify</option>
-          <option>Other</option>
+          <option data-i18n="fb-platform-other">Anders</option>
         </select>
       </div>
-      <button class="fb-submit" id="fb-submit-btn" onclick="submitFeedback()">Send feedback →</button>
-      <p class="fb-privacy">🔒 Your data is never shared. Used only to improve ZenBTW.</p>
+      <button class="fb-submit" id="fb-submit-btn" onclick="submitFeedback()" data-i18n="fb-submit">Verstuur feedback →</button>
+      <p class="fb-privacy" data-i18n="fb-privacy">🔒 Jouw data wordt nooit gedeeld. Alleen gebruikt om ZenBTW te verbeteren.</p>
     </div>
     <div id="fb-done">
       <div class="fb-done-icon">🎉</div>
-      <div class="fb-done-title">Thank you!</div>
-      <div class="fb-done-sub">Your feedback goes directly to the founder. We read every single one and use it to improve ZenBTW.</div>
+      <div class="fb-done-title" data-i18n="fb-done-title">Bedankt!</div>
+      <div class="fb-done-sub" data-i18n="fb-done-sub">Je feedback gaat direct naar de oprichter. We lezen alles en gebruiken het om ZenBTW te verbeteren.</div>
     </div>
   </div>
 </div>
@@ -3565,6 +3565,18 @@ var I18N = {
     'alert-how-2v':       'Via EmailJS · automatisch bij upload',
     'alert-how-3':        'Google Sheets',
     'alert-how-3v':       'Plak je Apps Script URL hierboven',
+    'fb-btn-label':       '💬 Geef feedback',
+    'fb-title':           'Jouw eerlijke mening 🙏',
+    'fb-sub':             'Wat werkt? Wat niet? Wat mist er?',
+    'fb-label':           'Jouw feedback:',
+    'fb-placeholder':     'Wees zo specifiek als je wilt — wat was verwarrend, wat werkte goed, wat mist er...',
+    'fb-email-placeholder':'jouw@email.nl (optioneel)',
+    'fb-platform-default':'Platform...',
+    'fb-platform-other':  'Anders',
+    'fb-submit':          'Verstuur feedback →',
+    'fb-privacy':         '🔒 Jouw data wordt nooit gedeeld. Alleen gebruikt om ZenBTW te verbeteren.',
+    'fb-done-title':      'Bedankt!',
+    'fb-done-sub':        'Je feedback gaat direct naar de oprichter. We lezen alles en gebruiken het om ZenBTW te verbeteren.',
   },
   en: {
     'privacy-note':       'Your data never leaves this browser.',
@@ -3647,6 +3659,18 @@ var I18N = {
     'alert-how-2v':       'Via EmailJS · automatic on upload',
     'alert-how-3':        'Google Sheets',
     'alert-how-3v':       'Paste your Apps Script URL above',
+    'fb-btn-label':       '💬 Give feedback',
+    'fb-title':           'Your honest opinion 🙏',
+    'fb-sub':             'What works? What doesn\'t? What\'s missing?',
+    'fb-label':           'Your feedback:',
+    'fb-placeholder':     'Be as specific as you like — what confused you, what worked great, what\'s missing...',
+    'fb-email-placeholder':'your@email.com (optional)',
+    'fb-platform-default':'Platform...',
+    'fb-platform-other':  'Other',
+    'fb-submit':          'Send feedback →',
+    'fb-privacy':         '🔒 Your data is never shared. Used only to improve ZenBTW.',
+    'fb-done-title':      'Thank you!',
+    'fb-done-sub':        'Your feedback goes directly to the founder. We read every single one and use it to improve ZenBTW.',
   }
 };
 
@@ -3671,6 +3695,11 @@ function setLang(lang){
     var key = el.getAttribute('data-i18n');
     if(tr[key]) el.textContent = tr[key];
   });
+  // Apply placeholder translations
+  document.querySelectorAll('[data-i18n-placeholder]').forEach(function(el){
+    var key = el.getAttribute('data-i18n-placeholder');
+    if(tr[key]) el.placeholder = tr[key];
+  });
 
   // Quarter label prefix
   var yrLbl = document.getElementById('yrLbl');
@@ -3694,9 +3723,10 @@ function setLang(lang){
 (function(){
   var urlLang = new URLSearchParams(location.search).get('lang');
   var saved = localStorage.getItem('zen_lang');
-  var fromEn = document.referrer.includes('/en') ||
-               (!saved && navigator.language && !navigator.language.startsWith('nl'));
-  // URL param beats everything; then localStorage; then auto-detect
+  // Auto EN only when explicitly signalled: URL param or came from /en page
+  // Browser language alone does NOT switch — Dutch users often have English browsers
+  var fromEn = document.referrer.includes('/en');
+  // URL param beats everything; then saved choice; then referrer signal; else NL
   var lang = urlLang || saved || (fromEn ? 'en' : 'nl');
   window._lang = lang;
   if(urlLang) localStorage.setItem('zen_lang', urlLang); // persist URL choice
