@@ -3595,15 +3595,24 @@ function setLang(lang){
 
 // Init on load
 (function(){
+  var urlLang = new URLSearchParams(location.search).get('lang');
   var saved = localStorage.getItem('zen_lang');
   var fromEn = document.referrer.includes('/en') ||
-               (new URLSearchParams(location.search).get('lang') === 'en') ||
                (!saved && navigator.language && !navigator.language.startsWith('nl'));
-  var lang = saved || (fromEn ? 'en' : 'nl');
+  // URL param beats everything; then localStorage; then auto-detect
+  var lang = urlLang || saved || (fromEn ? 'en' : 'nl');
   window._lang = lang;
-  // Apply after DOM ready
-  document.addEventListener('DOMContentLoaded', function(){ if(lang !== 'nl') setLang(lang); });
-  if(document.readyState !== 'loading' && lang !== 'nl') setLang(lang);
+  if(urlLang) localStorage.setItem('zen_lang', urlLang); // persist URL choice
+  function applyOnReady(){
+    setLang(lang);
+    // Also re-run after app data loads (render functions need _lang set)
+    setTimeout(function(){ setLang(lang); }, 1200);
+  }
+  if(document.readyState === 'loading'){
+    document.addEventListener('DOMContentLoaded', applyOnReady);
+  } else {
+    applyOnReady();
+  }
 })();
 </script>
 </body>
