@@ -1956,26 +1956,31 @@ function updBanner() {
   document.getElementById('kP').textContent = Math.round(pct) + '%';
 
   // Logica voor teksten en status (drempel op jaarbasis)
+  const _en = window._lang === 'en';
   if (!tot) {
     b.className = 'kb safe';
-    document.getElementById('kT').textContent = 'Upload je CSV om te beginnen';
-    document.getElementById('kS').textContent = 'ZENBTW berekent automatisch je BTW-plicht';
-    document.getElementById('ey').textContent = S.quarter + ' · Geen data';
+    document.getElementById('kT').textContent = _en ? 'Upload your CSV to get started' : 'Upload je CSV om te beginnen';
+    document.getElementById('kS').textContent = _en ? 'ZenBTW automatically calculates your VAT liability per EU country' : 'ZENBTW berekent automatisch je BTW-plicht';
+    document.getElementById('ey').textContent = S.quarter + (_en ? ' · No data' : ' · Geen data');
   } else if (pct >= 100) {
     b.className = 'kb danger';
-    document.getElementById('kT').textContent = '🚨 KOR-drempel overschreden — OSS-aangifte verplicht';
-    document.getElementById('kS').textContent = 'Jaar ' + S.year + ' cross-border EU: €' + fmt(Math.round(yearCB)) + ' > €' + fmt(S.korLimit);
-    document.getElementById('ey').textContent = S.quarter + ' · ⚠ OSS VERPLICHT';
+    document.getElementById('kT').textContent = _en ? '🚨 OSS threshold exceeded — VAT filing required' : '🚨 KOR-drempel overschreden — OSS-aangifte verplicht';
+    document.getElementById('kS').textContent = (_en ? 'Year ' : 'Jaar ') + S.year + ' cross-border EU: €' + fmt(Math.round(yearCB)) + ' > €' + fmt(S.korLimit);
+    document.getElementById('ey').textContent = S.quarter + (_en ? ' · ⚠ OSS REQUIRED' : ' · ⚠ OSS VERPLICHT');
   } else if (pct >= 60) {
     b.className = 'kb warn';
-    document.getElementById('kT').textContent = 'KOR-drempel ' + Math.round(pct) + '% — nog €' + fmt(Math.round(rem)) + ' ruimte';
-    document.getElementById('kS').textContent = 'Jaar ' + S.year + ' cross-border EU: €' + fmt(Math.round(yearCB)) + ' van €' + fmt(S.korLimit);
-    document.getElementById('ey').textContent = S.quarter + ' · KOR actief';
+    document.getElementById('kT').textContent = _en
+      ? 'OSS threshold ' + Math.round(pct) + '% — €' + fmt(Math.round(rem)) + ' remaining'
+      : 'KOR-drempel ' + Math.round(pct) + '% — nog €' + fmt(Math.round(rem)) + ' ruimte';
+    document.getElementById('kS').textContent = (_en ? 'Year ' : 'Jaar ') + S.year + ' cross-border EU: €' + fmt(Math.round(yearCB)) + (_en ? ' of ' : ' van ') + '€' + fmt(S.korLimit);
+    document.getElementById('ey').textContent = S.quarter + (_en ? ' · KOR active' : ' · KOR actief');
   } else {
     b.className = 'kb safe';
-    document.getElementById('kT').textContent = 'KOR actief — €' + fmt(Math.round(rem)) + ' ruimte';
-    document.getElementById('kS').textContent = 'Jaar ' + S.year + ' cross-border EU: €' + fmt(Math.round(yearCB)) + ' van €' + fmt(S.korLimit);
-    document.getElementById('ey').textContent = S.quarter + ' · KOR actief';
+    document.getElementById('kT').textContent = _en
+      ? 'KOR active — €' + fmt(Math.round(rem)) + ' remaining'
+      : 'KOR actief — €' + fmt(Math.round(rem)) + ' ruimte';
+    document.getElementById('kS').textContent = (_en ? 'Year ' : 'Jaar ') + S.year + ' cross-border EU: €' + fmt(Math.round(yearCB)) + (_en ? ' of ' : ' van ') + '€' + fmt(S.korLimit);
+    document.getElementById('ey').textContent = S.quarter + (_en ? ' · KOR active' : ' · KOR actief');
   }
 
   // Actieplan bij drempeloverschrijding
@@ -2001,10 +2006,21 @@ function updUitleg(pct, rem, yearCB, tot) {
 
   const lim = fmt(S.korLimit);
   const cur = fmt(Math.round(yearCB));
+  const en = window._lang === 'en';
 
   if (pct >= 100) {
     el.className = 'ku danger';
-    el.innerHTML = `
+    el.innerHTML = en ? `
+      <div class="ku-title">🔴 What does this mean for you?</div>
+      <p class="ku-body">
+        Your cross-border EU revenue in <strong>${S.year}</strong> is <strong>€${cur}</strong>
+        — that's above the OSS threshold of <strong>€${lim}</strong>.
+        You are now required to charge VAT per EU country and file quarterly OSS returns.
+      </p>
+      <div class="ku-footer">
+        💡 Use <strong>"Export filing"</strong> to generate your XML file for the tax authority.
+        Deadline: within 30 days after the end of each quarter.
+      </div>` : `
       <div class="ku-title">🔴 Wat betekent dit voor jou?</div>
       <p class="ku-body">
         Je grensoverschrijdende EU-omzet in <strong>${S.year}</strong> is <strong>€${cur}</strong>
@@ -2017,7 +2033,21 @@ function updUitleg(pct, rem, yearCB, tot) {
       </div>`;
   } else if (pct >= 60) {
     el.className = 'ku warn';
-    el.innerHTML = `
+    el.innerHTML = en ? `
+      <div class="ku-title">⚠️ Prepare now — OSS threshold approaching</div>
+      <p class="ku-body">
+        You're at <strong>${Math.round(pct)}%</strong> of the OSS threshold.
+        You have <strong>€${fmt(Math.round(rem))}</strong> remaining in ${S.year}.
+      </p>
+      <ol class="ku-steps">
+        <li>Estimate whether your expected revenue will hit the threshold before year-end</li>
+        <li>Consider raising your EU prices by ~21% so VAT is already included</li>
+        <li>Register for <strong>OSS</strong> via your national tax authority's online portal</li>
+        <li>Keep your quarterly data — you'll need it for your first OSS filing</li>
+      </ol>
+      <div class="ku-footer">
+        🔔 Set up an email alert via <strong>⚙️ Settings → Alerts</strong> to get notified automatically when you approach the threshold.
+      </div>` : `
       <div class="ku-title">⚠️ Bereid je voor — OSS-drempel in zicht</div>
       <p class="ku-body">
         Je zit op <strong>${Math.round(pct)}%</strong> van de KOR-drempel.
@@ -2034,7 +2064,20 @@ function updUitleg(pct, rem, yearCB, tot) {
       </div>`;
   } else {
     el.className = 'ku safe';
-    el.innerHTML = `
+    el.innerHTML = en ? `
+      <div class="ku-title">✅ You're within the KOR — no VAT obligation</div>
+      <p class="ku-body">
+        As long as your cross-border EU sales stay below <strong>€${lim}/year</strong>,
+        you don't need to charge VAT to EU customers and don't need to file OSS returns.
+      </p>
+      <ul class="ku-list">
+        <li><span>✅</span><span>No OSS filing required</span></li>
+        <li><span>✅</span><span>No VAT on EU orders — your listing price is the final price</span></li>
+        <li><span>🔔</span><span>ZenBTW will alert you automatically when you reach 60%</span></li>
+      </ul>
+      <div class="ku-footer">
+        📊 Current cross-border EU revenue: <strong>€${cur}</strong> of <strong>€${lim}</strong> (year ${S.year}).
+      </div>` : `
       <div class="ku-title">✅ Je valt onder de KOR — geen BTW-plicht</div>
       <p class="ku-body">
         Zolang je grensoverschrijdende EU-verkopen onder <strong>€${lim}/jaar</strong> blijven,
@@ -2062,14 +2105,15 @@ function updStats() {
   const totIntl = (S.intlOrders || 0) + rawIntl;
   const totOrders = S.totalOrders || 0;
 
+  const _enS = window._lang === 'en';
   document.getElementById('sR').textContent = '€' + fmt(Math.round(calcTotal()));
-  document.getElementById('sRs').textContent = totOrders > 0 ? totOrders + ' orders' : 'Geen data';
+  document.getElementById('sRs').textContent = totOrders > 0 ? totOrders + ' orders' : (_enS ? 'No data' : 'Geen data');
   document.getElementById('sB').textContent = '€' + fmt(Math.round(bw));
-  document.getElementById('sBs').textContent = eu > 0 ? 'OSS · ' + eu + ' landen' : 'Geen OSS-plicht';
+  document.getElementById('sBs').textContent = eu > 0 ? 'OSS · ' + eu + (_enS ? ' countries' : ' landen') : (_enS ? 'No OSS obligation' : 'Geen OSS-plicht');
   document.getElementById('sO').textContent = totIntl;
-  document.getElementById('sOs').textContent = totOrders > 0 
-    ? 'van ' + totOrders + ' (' + Math.round(totIntl / Math.max(totOrders, 1) * 100) + '%)' 
-    : 'van 0 totaal';
+  document.getElementById('sOs').textContent = totOrders > 0
+    ? (_enS ? 'of ' : 'van ') + totOrders + ' (' + Math.round(totIntl / Math.max(totOrders, 1) * 100) + '%)'
+    : (_enS ? 'of 0 total' : 'van 0 totaal');
   document.getElementById('sC').textContent = eu;
 }
 
@@ -2104,15 +2148,20 @@ function calcYearCB(){return['Q1','Q2','Q3','Q4'].map(q=>q+' '+S.year).reduce((s
 function renderTable(){
   const el=document.getElementById('tBody');
   const mg=buildMg();
-  if(!Object.keys(mg).length){el.innerHTML='<div class="es"><div class="esi">📂</div><div class="est">Geen data</div><div class="ess">Upload Etsy, Shopify of Vinted CSV/HTML</div></div>';return;}
+  const en=window._lang==='en';
+  if(!Object.keys(mg).length){el.innerHTML=`<div class="es"><div class="esi">📂</div><div class="est">${en?'No data loaded':'Geen data'}</div><div class="ess">${en?'Upload Etsy, Shopify or Vinted CSV/HTML':'Upload Etsy, Shopify of Vinted CSV/HTML'}</div></div>`;return;}
   let rows='',tbw=0;
-  if(mg['NL']){const d=mg['NL'];rows+=`<tr><td data-l="Land"><div class="cc"><span class="cf">🇳🇱</span><div><div class="cn">Nederland</div><div class="csb">${d.orders} ${OW(d.orders)} · binnenland</div></div></div></td><td data-l="BTW%"><span class="rc">21%</span></td><td data-l="Omzet" class="am nl">€${fmt(Math.round(d.revenue))}</td><td data-l="BTW" class="am nl">—</td><td data-l="Status" style="text-align:center"><span class="sp kor"><span class="dot"></span>KOR</span></td></tr>`;}
+  const domestic=en?'domestic':'binnenland';
+  const ossLbl=en?'OSS liable':'OSS-plichtig';
+  const nonEU=en?'outside EU':'buiten EU';
+  if(mg['NL']){const d=mg['NL'];rows+=`<tr><td data-l="${en?'Country':'Land'}"><div class="cc"><span class="cf">🇳🇱</span><div><div class="cn">${en?'Netherlands':'Nederland'}</div><div class="csb">${d.orders} ${OW(d.orders)} · ${domestic}</div></div></div></td><td data-l="VAT%"><span class="rc">21%</span></td><td data-l="${en?'Revenue':'Omzet'}" class="am nl">€${fmt(Math.round(d.revenue))}</td><td data-l="VAT" class="am nl">—</td><td data-l="Status" style="text-align:center"><span class="sp kor"><span class="dot"></span>KOR</span></td></tr>`;}
   for(const[cc,d]of Object.entries(mg).filter(([c])=>c!=='NL').sort((a,b)=>b[1].revenue-a[1].revenue)){
     const info=CI(cc);const isEU=!!EU[cc];const bw=isEU?d.revenue*EU[cc].r:0;tbw+=bw;
-    rows+=`<tr><td data-l="Land"><div class="cc"><span class="cf">${info.f}</span><div><div class="cn">${info.n}</div><div class="csb">${d.orders} ${OW(d.orders)}${isEU?' · OSS-plichtig':' · buiten EU'}</div></div></div></td><td data-l="BTW%"><span class="rc">${isEU?Math.round(EU[cc].r*100)+'%':'n.v.t.'}</span></td><td data-l="Omzet" class="am">€${fmt(Math.round(d.revenue))}</td><td data-l="BTW" class="am bw">${isEU?'€'+fmt(Math.round(bw)):'—'}</td><td data-l="Status" style="text-align:center"><span class="sp ${isEU?'oss':'kor'}"><span class="dot"></span>${isEU?'OSS':'Non-EU'}</span></td></tr>`;
+    rows+=`<tr><td data-l="${en?'Country':'Land'}"><div class="cc"><span class="cf">${info.f}</span><div><div class="cn">${info.n}</div><div class="csb">${d.orders} ${OW(d.orders)}${isEU?' · '+ossLbl:' · '+nonEU}</div></div></div></td><td data-l="VAT%"><span class="rc">${isEU?Math.round(EU[cc].r*100)+'%':(en?'n/a':'n.v.t.')}</span></td><td data-l="${en?'Revenue':'Omzet'}" class="am">€${fmt(Math.round(d.revenue))}</td><td data-l="VAT" class="am bw">${isEU?'€'+fmt(Math.round(bw)):'—'}</td><td data-l="Status" style="text-align:center"><span class="sp ${isEU?'oss':'kor'}"><span class="dot"></span>${isEU?'OSS':'Non-EU'}</span></td></tr>`;
   }
-  if(S.correcties.length){const ct=S.correcties.reduce((s,c)=>s+c.bedrag,0);rows+=`<tr style="background:var(--wnl)"><td colspan="3" style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--wn);padding:7px 0">📝 Correcties: ${S.correcties.length} item(s)</td><td class="am" style="color:var(--wn)">€${fmt(Math.round(ct))}</td><td></td></tr>`;}
-  el.innerHTML=`<table class="dt dt-stack"><thead><tr><th>Land</th><th>BTW%</th><th class="r">Omzet</th><th class="r">BTW</th><th class="c">Status</th></tr></thead><tbody>${rows}</tbody></table><div class="tf"><div class="tfl"><span class="sp oss"><span class="dot"></span>OSS</span><span class="sp kor"><span class="dot"></span>KOR</span></div><div class="tft">Totaal BTW: <strong>€${fmt(Math.round(tbw))}</strong></div></div>`;
+  if(S.correcties.length){const ct=S.correcties.reduce((s,c)=>s+c.bedrag,0);rows+=`<tr style="background:var(--wnl)"><td colspan="3" style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--wn);padding:7px 0">📝 ${en?'Adjustments':'Correcties'}: ${S.correcties.length} item(s)</td><td class="am" style="color:var(--wn)">€${fmt(Math.round(ct))}</td><td></td></tr>`;}
+  const thCountry=en?'Country':'Land'; const thRevenue=en?'Revenue':'Omzet'; const thVat=en?'VAT':'BTW'; const thTotal=en?'Total VAT':'Totaal BTW';
+  el.innerHTML=`<table class="dt dt-stack"><thead><tr><th>${thCountry}</th><th>VAT%</th><th class="r">${thRevenue}</th><th class="r">${thVat}</th><th class="c">Status</th></tr></thead><tbody>${rows}</tbody></table><div class="tf"><div class="tfl"><span class="sp oss"><span class="dot"></span>OSS</span><span class="sp kor"><span class="dot"></span>KOR</span></div><div class="tft">${thTotal}: <strong>€${fmt(Math.round(tbw))}</strong></div></div>`;
 }
 
 function renderPlat(){
@@ -2132,9 +2181,10 @@ function updSide(){
   document.getElementById('srQu').textContent=S.quarter;
   document.getElementById('phP').textContent=S.quarter;
   document.getElementById('tTag').textContent=S.quarter;
-  document.getElementById('angSt').textContent=S.quarter+' · OSS-portal NL';
-  const jh=document.getElementById('jaarHdr');if(jh)jh.textContent='Jaaroverzicht '+S.year;
-  const js=document.getElementById('jaarSub');if(js)js.textContent='Totale omzet '+S.year+' alle kwartalen';
+  const _enU=window._lang==='en';
+  document.getElementById('angSt').textContent=S.quarter+(_enU?' · OSS portal NL':' · OSS-portal NL');
+  const jh=document.getElementById('jaarHdr');if(jh)jh.textContent=(_enU?'Annual Overview ':'Jaaroverzicht ')+S.year;
+  const js=document.getElementById('jaarSub');if(js)js.textContent=(_enU?'Total revenue '+S.year+' all quarters':'Totale omzet '+S.year+' alle kwartalen');
 }
 
 function updDL(){
@@ -2143,7 +2193,8 @@ function updDL(){
   const[dy,dm,dd,dlbl]=dls[qn-1]||dls[0];
   const dl=new Date(dy,dm,dd);const days=Math.ceil((dl-new Date())/86400000);
   const bg=document.getElementById('dBg');const dll=document.getElementById('dDl');const ql=document.getElementById('dQl');
-  if(bg)bg.textContent=days>0?days+' d':'Verlopen';if(dll)dll.textContent=dlbl+' '+dy;if(ql)ql.textContent='Q'+qn;
+  const _enD=window._lang==='en';
+  if(bg)bg.textContent=days>0?days+' d':(_enD?'Expired':'Verlopen');if(dll)dll.textContent=dlbl+' '+dy;if(ql)ql.textContent='Q'+qn;
 }
 
 function updProg(){
@@ -2156,8 +2207,9 @@ function updProg(){
   const start=starts[qn-1]||starts[0];const wk=Math.max(1,(now-start)/(1000*60*60*24*7));const rate=cb/wk;
   const remYear=S.korLimit-yearCB;const proj=yearCB+rate*(13-wk);
   const pb=document.getElementById('progB');const pt=document.getElementById('progT');
-  if(proj>S.korLimit&&yearCB<S.korLimit){const w=Math.ceil(remYear/rate);pt.innerHTML=`Op huidig tempo (€${fmt(Math.round(rate))}/week) bereik je de KOR-jaargrens over <strong>ca. ${w} ${OW(w)}</strong>. Bereid je OSS-registratie voor.`;pb.classList.add('on');}
-  else if(proj>S.korLimit*.8){pt.innerHTML=`Prognose op jaarbasis: <strong>€${fmt(Math.round(proj))}</strong> cross-border omzet in ${S.year}. Je nadert de KOR-grens van €${fmt(S.korLimit)}.`;pb.classList.add('on');}
+  const _enP=window._lang==='en';
+  if(proj>S.korLimit&&yearCB<S.korLimit){const w=Math.ceil(remYear/rate);pt.innerHTML=_enP?`At current pace (€${fmt(Math.round(rate))}/week) you'll hit the OSS threshold in <strong>~${w} week${w!==1?'s':''}</strong>. Prepare your OSS registration.`:`Op huidig tempo (€${fmt(Math.round(rate))}/week) bereik je de KOR-jaargrens over <strong>ca. ${w} ${OW(w)}</strong>. Bereid je OSS-registratie voor.`;pb.classList.add('on');}
+  else if(proj>S.korLimit*.8){pt.innerHTML=_enP?`Annual forecast: <strong>€${fmt(Math.round(proj))}</strong> cross-border revenue in ${S.year}. You're approaching the OSS threshold of €${fmt(S.korLimit)}.`:`Prognose op jaarbasis: <strong>€${fmt(Math.round(proj))}</strong> cross-border omzet in ${S.year}. Je nadert de KOR-grens van €${fmt(S.korLimit)}.`;pb.classList.add('on');}
   else pb.classList.remove('on');
 }
 
