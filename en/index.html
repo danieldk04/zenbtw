@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>ZenBTW — Free EU VAT Tool for Etsy, Vinted & Shopify Sellers</title>
+<meta name="description" content="Track your EU VAT obligation as a marketplace seller. Free, private, instant. Works for Etsy, Vinted and Shopify. No account needed.">
+<meta property="og:title" content="ZenBTW — Free EU VAT Tool for Marketplace Sellers">
+<meta property="og:description" content="Are you selling on Etsy, Vinted or Shopify? Upload your export and see your EU VAT status in seconds. Free & private.">
+<meta property="og:url" content="https://zenbtw.nl/en">
+<meta property="og:image" content="https://zenbtw.nl/logo.webp">
+<link rel="canonical" href="https://zenbtw.nl/en">
+<link rel="icon" type="image/webp" href="/logo.webp">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,700;9..144,800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<script defer src="https://cloud.umami.is/script.js" data-website-id="9cb58ff4-cf6e-4773-8dd5-f2f0b6ad5510"></script>
+
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --ac:#1a4731;--acm:#2d7a50;--acd:#123320;--acl:#e8f5ee;--acll:#f0faf4;
+  --tx:#12100e;--tx2:#3d3830;--tx3:#6b6460;--tx4:#9c9490;
+  --bg:#faf9f7;--wh:#fff;--br:#e5e0d8;--br2:#d4cec5;
+  --s1:#f5f2ee;--s2:#efeae3;
+  --nav-h:72px;
+}
+html{scroll-behavior:smooth}
+body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--bg);color:var(--tx);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+a{text-decoration:none}
+img{display:block;max-width:100%}
+
+/* ── NAV ── */
+.nav{position:fixed;top:0;left:0;right:0;z-index:500;height:var(--nav-h);background:rgba(247,246,243,.94);backdrop-filter:blur(20px);border-bottom:1.5px solid var(--br);box-shadow:0 2px 12px rgba(0,0,0,.05);display:flex;align-items:center;padding:0 clamp(20px,4vw,56px);justify-content:space-between;gap:24px}
+.nav-logo{display:flex;align-items:center;gap:13px;color:var(--tx);flex-shrink:0}
+.nav-logo-img{max-height:52px;width:auto;border-radius:8px;object-fit:contain;box-shadow:0 3px 10px rgba(26,71,49,.22)}
+.nav-wordmark{font-family:'Fraunces',serif;font-size:24px;font-weight:700;letter-spacing:-.5px}
+.nav-wordmark em{color:var(--acm);font-style:normal}
+.nav-links{display:flex;align-items:center;gap:4px;flex:1;justify-content:center}
+.nav-link{padding:9px 16px;font-size:15px;font-weight:600;color:var(--tx2);border-radius:10px;transition:all .15s}
+.nav-link:hover{color:var(--ac);background:var(--acl)}
+.nav-right{display:flex;align-items:center;gap:10px;flex-shrink:0}
+.lang-switch{display:flex;align-items:center;gap:4px;padding:6px 10px;border:1.5px solid var(--br);border-radius:8px;font-size:13px;font-weight:600}
+.lang-switch a{color:var(--tx3);transition:color .15s}
+.lang-switch a.active{color:var(--ac)}
+.lang-switch span{color:var(--br2)}
+.nav-cta{display:flex;align-items:center;gap:8px;padding:11px 22px;background:var(--ac);color:#fff;border-radius:11px;font-size:15px;font-weight:700;transition:all .18s;white-space:nowrap}
+.nav-cta:hover{background:var(--acd)}
+.nav-cta-arrow{transition:transform .2s}
+.nav-cta:hover .nav-cta-arrow{transform:translateX(4px)}
+
+/* ── HERO ── */
+.hero{padding-top:calc(var(--nav-h) + 60px);padding-bottom:80px;padding-left:clamp(24px,5vw,80px);padding-right:clamp(24px,5vw,80px);max-width:1200px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center}
+.hero-badge{display:inline-flex;align-items:center;gap:8px;background:var(--acl);color:var(--ac);font-size:12.5px;font-weight:700;padding:6px 14px;border-radius:20px;margin-bottom:20px;letter-spacing:.02em}
+.badge-dot{width:7px;height:7px;background:var(--acm);border-radius:50%;animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+.hero h1{font-family:'Fraunces',serif;font-size:clamp(32px,4.5vw,52px);font-weight:800;line-height:1.1;letter-spacing:-.04em;color:var(--tx);margin-bottom:16px}
+.hero h1 em{color:var(--acm);font-style:normal}
+.hero-platforms{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:18px}
+.hero-plat{padding:5px 12px;background:var(--s2);border-radius:20px;font-size:13px;font-weight:600;color:var(--tx2)}
+.hero-sub{font-size:17px;color:var(--tx3);line-height:1.7;margin-bottom:28px;max-width:500px}
+.hero-btns{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:14px}
+.btn-primary{display:inline-flex;align-items:center;gap:8px;padding:14px 28px;background:var(--ac);color:#fff;border-radius:12px;font-size:16px;font-weight:700;transition:all .18s}
+.btn-primary:hover{background:var(--acd);transform:translateY(-2px);box-shadow:0 12px 34px rgba(26,71,49,.35)}
+.btn-ghost{display:inline-flex;align-items:center;gap:8px;padding:14px 22px;border:2px solid var(--br2);border-radius:12px;font-size:15px;font-weight:600;color:var(--tx2);transition:all .18s}
+.btn-ghost:hover{border-color:var(--ac);color:var(--ac);background:var(--acl)}
+.cta-microcopy{font-size:13px;color:var(--tx4);margin-bottom:10px}
+.unsure-link{font-size:13px;color:var(--tx3)}
+.unsure-link a{color:var(--ac);font-weight:600}
+.hero-proof{display:flex;flex-wrap:wrap;gap:0;margin-top:24px}
+.proof-item{font-size:13px;color:var(--tx3);font-weight:500;padding-right:16px;margin-right:16px;border-right:1px solid var(--br)}
+.proof-item:last-child{border-right:none;margin-right:0;padding-right:0}
+
+/* ── HERO VISUAL ── */
+.hero-right{position:relative}
+.hero-ring{position:absolute;border-radius:50%;border:1.5px solid var(--acl);pointer-events:none}
+.hero-ring-1{width:380px;height:380px;top:-40px;left:-40px;animation:ringPulse 4s ease-in-out infinite}
+.hero-ring-2{width:480px;height:480px;top:-90px;left:-90px;animation:ringPulse 4s ease-in-out infinite .8s}
+@keyframes ringPulse{0%,100%{opacity:.4;transform:scale(1)}50%{opacity:.8;transform:scale(1.02)}}
+.browser{background:var(--wh);border:1.5px solid var(--br);border-radius:16px;overflow:hidden;box-shadow:0 20px 60px rgba(26,71,49,.14);position:relative;z-index:1}
+.browser-bar{background:var(--s1);padding:10px 14px;display:flex;align-items:center;gap:10px;border-bottom:1px solid var(--br)}
+.dots{display:flex;gap:6px}
+.dots span{width:10px;height:10px;border-radius:50%;background:var(--br2)}
+.dots span:nth-child(1){background:#ff5f57}
+.dots span:nth-child(2){background:#febc2e}
+.dots span:nth-child(3){background:#28c840}
+.browser-url{flex:1;background:var(--wh);border-radius:6px;padding:4px 10px;font-size:12px;color:var(--tx3)}
+.browser-img{width:100%;display:block}
+.float{position:absolute;background:var(--wh);border:1.5px solid var(--br);border-radius:12px;padding:10px 14px;display:flex;align-items:center;gap:10px;box-shadow:0 8px 24px rgba(0,0,0,.1);z-index:2;min-width:160px}
+.float-top{top:-18px;right:-16px;animation:floatBob 3s ease-in-out infinite}
+.float-bottom{bottom:-18px;left:-16px;animation:floatBob 3s ease-in-out infinite .6s}
+@keyframes floatBob{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+.float-icon{font-size:20px}
+.float-title{font-size:12px;font-weight:700;color:var(--tx)}
+.float-sub{font-size:11px;color:var(--tx3)}
+
+/* ── HOW IT WORKS ── */
+.how{padding:clamp(72px,9vw,110px) clamp(24px,5vw,80px);background:var(--wh);border-top:1.5px solid var(--br)}
+.how-inner{max-width:960px;margin:0 auto}
+.section-label{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--acm);margin-bottom:10px}
+.section-title{font-family:'Fraunces',serif;font-size:clamp(26px,3.5vw,38px);font-weight:800;letter-spacing:-.03em;color:var(--tx);margin-bottom:14px}
+.section-sub{font-size:16px;color:var(--tx3);line-height:1.7;max-width:540px;margin-bottom:52px}
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:32px}
+.step{padding:28px;background:var(--bg);border:1.5px solid var(--br);border-radius:16px}
+.step-num{width:36px;height:36px;background:var(--ac);color:#fff;border-radius:10px;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:14px;margin-bottom:14px}
+.step h3{font-family:'Fraunces',serif;font-size:17px;font-weight:700;color:var(--tx);margin-bottom:6px}
+.step p{font-size:14px;color:var(--tx3);line-height:1.65}
+
+/* ── VAT EXPLAINER ── */
+.vat-section{padding:clamp(72px,9vw,110px) clamp(24px,5vw,80px);background:var(--bg);border-top:1.5px solid var(--br)}
+.vat-inner{max-width:960px;margin:0 auto}
+.vat-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:40px}
+.vat-card{padding:28px;border-radius:16px;border:1.5px solid var(--br)}
+.vat-card.oss{background:linear-gradient(135deg,var(--acl),var(--acll));border-color:#a7f3ca}
+.vat-card.kor{background:var(--wh)}
+.vat-threshold{font-family:'Fraunces',serif;font-size:36px;font-weight:800;color:var(--ac);letter-spacing:-.04em;margin-bottom:4px}
+.vat-label{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--acm);margin-bottom:12px}
+.vat-card h3{font-size:16px;font-weight:700;color:var(--tx);margin-bottom:8px}
+.vat-card p{font-size:14px;color:var(--tx2);line-height:1.65}
+.vat-card ul{list-style:none;display:flex;flex-direction:column;gap:7px;margin-top:12px}
+.vat-card ul li{font-size:13.5px;color:var(--tx2);display:flex;align-items:flex-start;gap:8px}
+.vat-card ul li::before{content:'✓';color:var(--acm);font-weight:700;flex-shrink:0}
+
+/* ── FEATURES ── */
+.features{padding:clamp(72px,9vw,110px) clamp(24px,5vw,80px);background:var(--wh);border-top:1.5px solid var(--br)}
+.features-inner{max-width:960px;margin:0 auto}
+.features-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:40px}
+.feat{padding:24px}
+.feat-icon{font-size:28px;margin-bottom:12px}
+.feat h3{font-size:15px;font-weight:700;color:var(--tx);margin-bottom:6px}
+.feat p{font-size:13.5px;color:var(--tx3);line-height:1.65}
+
+/* ── FEEDBACK CTA ── */
+.feedback-cta{padding:clamp(60px,8vw,100px) clamp(24px,5vw,80px);background:var(--ac)}
+.feedback-cta-inner{max-width:680px;margin:0 auto;text-align:center}
+.feedback-cta h2{font-family:'Fraunces',serif;font-size:clamp(26px,3.5vw,38px);font-weight:800;color:#fff;margin-bottom:12px;letter-spacing:-.03em}
+.feedback-cta p{font-size:16px;color:rgba(255,255,255,.8);line-height:1.7;margin-bottom:28px}
+.feedback-cta-btns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+.btn-white{display:inline-flex;align-items:center;gap:8px;padding:14px 28px;background:#fff;color:var(--ac);border-radius:12px;font-size:15px;font-weight:700;transition:all .18s}
+.btn-white:hover{background:var(--acl);transform:translateY(-2px)}
+.btn-outline-white{display:inline-flex;align-items:center;gap:8px;padding:14px 22px;border:2px solid rgba(255,255,255,.4);color:#fff;border-radius:12px;font-size:14px;font-weight:600;transition:all .18s}
+.btn-outline-white:hover{border-color:#fff;background:rgba(255,255,255,.1)}
+
+/* ── FAQ ── */
+.faq{padding:clamp(72px,9vw,110px) clamp(24px,5vw,80px);background:var(--bg);border-top:1.5px solid var(--br)}
+.faq-inner{max-width:720px;margin:0 auto}
+.faq-header{text-align:center;margin-bottom:44px}
+details.faq-item{border-bottom:1px solid var(--br)}
+details.faq-item:first-of-type{border-top:1px solid var(--br)}
+details.faq-item summary{display:flex;justify-content:space-between;align-items:center;padding:18px 4px;cursor:pointer;font-size:15.5px;font-weight:600;color:var(--tx);list-style:none;gap:16px}
+details.faq-item summary::-webkit-details-marker{display:none}
+details.faq-item summary::after{content:'+';font-size:22px;font-weight:300;color:var(--tx3);flex-shrink:0}
+details.faq-item[open] summary::after{content:'−'}
+details.faq-item summary:hover{color:var(--acm)}
+.faq-body{padding:0 4px 18px;font-size:14.5px;color:var(--tx2);line-height:1.75}
+
+/* ── FOOTER ── */
+footer{border-top:1px solid var(--br);padding:28px clamp(24px,5vw,80px);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px;background:var(--wh)}
+.footer-logo{display:flex;align-items:center;gap:10px}
+.footer-logo img{height:28px;width:auto;border-radius:5px}
+.footer-wordmark{font-family:'Fraunces',serif;font-size:16px;font-weight:700}
+.footer-wordmark em{color:var(--acm);font-style:normal}
+.footer-links{display:flex;gap:18px;flex-wrap:wrap}
+.footer-links a{font-size:12.5px;color:var(--tx3);font-weight:500}
+.footer-links a:hover{color:var(--ac)}
+.footer-copy{font-size:12px;color:var(--tx4)}
+
+/* ── RESPONSIVE ── */
+@media(max-width:768px){
+  .hero{grid-template-columns:1fr;gap:40px}
+  .hero-right{display:none}
+  .steps,.vat-grid,.features-grid{grid-template-columns:1fr}
+  .nav-links{display:none}
+  .hero h1{font-size:30px}
+}
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <a href="/en" class="nav-logo">
+    <picture>
+      <img src="/logo.webp" alt="ZenBTW" class="nav-logo-img" width="52" height="52">
+    </picture>
+    <span class="nav-wordmark">Zen<em>BTW</em></span>
+  </a>
+  <div class="nav-links">
+    <a href="#how" class="nav-link">How it works</a>
+    <a href="#vat" class="nav-link">EU VAT rules</a>
+    <a href="#faq" class="nav-link">FAQ</a>
+  </div>
+  <div class="nav-right">
+    <div class="lang-switch">
+      <a href="/">🇳🇱 NL</a>
+      <span>|</span>
+      <a href="/en" class="active">🇬🇧 EN</a>
+    </div>
+    <a href="/app" class="nav-cta" data-umami-event="en-nav-cta">
+      Try free <span class="nav-cta-arrow">→</span>
+    </a>
+  </div>
+</nav>
+
+<!-- ── HERO ── -->
+<section class="hero">
+  <div class="hero-left">
+    <div class="hero-badge">
+      <span class="badge-dot"></span>
+      Free forever · No account needed
+    </div>
+    <h1>EU VAT getting<br>complicated? <em>We fix that.</em></h1>
+    <div class="hero-platforms">
+      <span class="hero-plat">🏪 Etsy</span>
+      <span class="hero-plat">🛍️ Shopify</span>
+      <span class="hero-plat">👗 Vinted</span>
+    </div>
+    <p class="hero-sub">Upload your marketplace export and see your EU VAT status in seconds. Know exactly when you hit the €10,000 OSS threshold — before the tax authority knows it first.</p>
+    <div class="hero-btns">
+      <a href="/app" class="btn-primary" data-umami-event="en-hero-cta">Check my VAT status →</a>
+      <a href="#how" class="btn-ghost">How does it work?</a>
+    </div>
+    <p class="cta-microcopy">No signup · Your data never leaves your browser · 100% free</p>
+    <p class="unsure-link">Not sure if you have a VAT obligation? <a href="/kor-calculator" data-umami-event="en-hero-calc">Do the free 30-sec check →</a></p>
+    <div class="hero-proof">
+      <span class="proof-item">🔒 Client-side only</span>
+      <span class="proof-item">🇪🇺 All 27 EU rates</span>
+      <span class="proof-item">⚡ Free forever</span>
+      <span class="proof-item">👥 1,200+ sellers</span>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="hero-ring hero-ring-1"></div>
+    <div class="hero-ring hero-ring-2"></div>
+    <div class="float float-top">
+      <span class="float-icon">✅</span>
+      <div>
+        <div class="float-title">OSS filing ready</div>
+        <div class="float-sub">Q1 2025 · April 30</div>
+      </div>
+    </div>
+    <div class="browser">
+      <div class="browser-bar">
+        <div class="dots"><span></span><span></span><span></span></div>
+        <div class="browser-url">zenbtw.nl/app</div>
+      </div>
+      <img src="/screen-dashboard.png" alt="ZenBTW dashboard" class="browser-img" width="600" height="400" loading="lazy">
+    </div>
+    <div class="float float-bottom">
+      <span class="float-icon">🚨</span>
+      <div>
+        <div class="float-title">OSS threshold reached</div>
+        <div class="float-sub">€10,240 cross-border sales</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── HOW IT WORKS ── -->
+<section class="how" id="how">
+  <div class="how-inner">
+    <div class="section-label">How it works</div>
+    <h2 class="section-title">From export to VAT status<br>in under 10 seconds</h2>
+    <p class="section-sub">No manual data entry. No spreadsheets. Just upload your platform export and ZenBTW does the rest.</p>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <h3>Export your sales data</h3>
+        <p>Download your CSV from Etsy or Shopify, or save your sales page as HTML from Vinted. Takes about 30 seconds.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <h3>Upload &amp; analyse</h3>
+        <p>Drop the file into ZenBTW. It reads your transactions, calculates cross-border EU revenue, and applies the correct VAT rate per country.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <h3>Know exactly where you stand</h3>
+        <p>See your OSS threshold progress, quarter-by-quarter breakdown, and a ready-to-submit export for the tax authority.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── EU VAT EXPLAINER ── -->
+<section class="vat-section" id="vat">
+  <div class="vat-inner">
+    <div class="section-label">EU VAT rules explained</div>
+    <h2 class="section-title">Two thresholds every<br>marketplace seller must know</h2>
+    <p class="section-sub">Whether you're in the Netherlands, UK, or anywhere else — if you sell to EU customers, these rules apply to you.</p>
+    <div class="vat-grid">
+      <div class="vat-card oss">
+        <div class="vat-label">OSS — One Stop Shop</div>
+        <div class="vat-threshold">€10,000</div>
+        <h3>EU cross-border sales threshold</h3>
+        <p>If your combined sales to customers in other EU countries exceed €10,000 in a calendar year, you must register for OSS and charge the VAT rate of the buyer's country.</p>
+        <ul>
+          <li>Applies to all EU sellers</li>
+          <li>Cumulative across all platforms</li>
+          <li>ZenBTW tracks this per country, per quarter</li>
+        </ul>
+      </div>
+      <div class="vat-card kor">
+        <div class="vat-label">KOR — Dutch Small Business Exemption</div>
+        <div class="vat-threshold">€20,000</div>
+        <h3>Dutch VAT exemption threshold</h3>
+        <p>Dutch sellers with total annual turnover under €20,000 can apply for the KOR exemption — meaning no VAT to charge, no VAT returns to file.</p>
+        <ul>
+          <li>Dutch-registered businesses only</li>
+          <li>Includes all platforms combined</li>
+          <li>Similar schemes exist in BE, DE, FR and others</li>
+        </ul>
+      </div>
+    </div>
+    <div style="margin-top:20px;padding:16px 20px;background:var(--s1);border-radius:12px;border:1px solid var(--br);font-size:14px;color:var(--tx3)">
+      ⚠️ <strong style="color:var(--tx2)">Not based in the Netherlands?</strong> The OSS threshold (€10,000) still applies to you if you sell across EU borders. ZenBTW calculates this correctly regardless of your country. The KOR section will simply not apply.
+    </div>
+  </div>
+</section>
+
+<!-- ── FEATURES ── -->
+<section class="features" id="features">
+  <div class="features-inner">
+    <div class="section-label">Features</div>
+    <h2 class="section-title">Everything in one place</h2>
+    <div class="features-grid">
+      <div class="feat">
+        <div class="feat-icon">🔒</div>
+        <h3>100% private</h3>
+        <p>Your sales data is processed entirely in your browser. Nothing is ever sent to a server. Not even anonymised.</p>
+      </div>
+      <div class="feat">
+        <div class="feat-icon">🇪🇺</div>
+        <h3>All 27 EU VAT rates</h3>
+        <p>Automatically applies the correct VAT rate for each EU country your buyers are in — always up to date.</p>
+      </div>
+      <div class="feat">
+        <div class="feat-icon">📊</div>
+        <h3>Quarter-by-quarter breakdown</h3>
+        <p>See exactly how your OSS threshold progresses through the year, broken down by quarter and by country.</p>
+      </div>
+      <div class="feat">
+        <div class="feat-icon">📁</div>
+        <h3>Export for tax filing</h3>
+        <p>Generate a ready-to-submit XML, CSV or PDF report — exactly the format your tax authority needs.</p>
+      </div>
+      <div class="feat">
+        <div class="feat-icon">⚡</div>
+        <h3>Works in seconds</h3>
+        <p>No manual entry. Upload your CSV or HTML export from Etsy, Shopify or Vinted and results appear instantly.</p>
+      </div>
+      <div class="feat">
+        <div class="feat-icon">💶</div>
+        <h3>Free forever</h3>
+        <p>The core tool is completely free. No credit card, no trial period, no hidden fees. PRO features optional.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── FEEDBACK CTA ── -->
+<section class="feedback-cta">
+  <div class="feedback-cta-inner">
+    <h2>Try it — and tell us what you think</h2>
+    <p>ZenBTW is built for Dutch sellers but works for all EU marketplace sellers. We're actively improving it. Your feedback — good or bad — directly shapes what we build next.</p>
+    <div class="feedback-cta-btns">
+      <a href="/app" class="btn-white" data-umami-event="en-feedback-cta-try">Try the dashboard →</a>
+      <a href="/app#feedback" class="btn-outline-white" data-umami-event="en-feedback-cta-feedback">💬 Leave feedback</a>
+    </div>
+  </div>
+</section>
+
+<!-- ── FAQ ── -->
+<section class="faq" id="faq">
+  <div class="faq-inner">
+    <div class="faq-header">
+      <div class="section-label">FAQ</div>
+      <h2 class="section-title">Common questions</h2>
+    </div>
+    <details class="faq-item" open>
+      <summary>Does this work if I'm not based in the Netherlands?</summary>
+      <div class="faq-body">Yes. The OSS threshold (€10,000) applies to all EU-based sellers who sell cross-border within the EU. ZenBTW calculates this correctly for any EU country. The KOR section is Dutch-specific — if you're not Dutch, it simply won't apply to you, but everything else works fine.</div>
+    </details>
+    <details class="faq-item">
+      <summary>I'm a UK seller selling on Etsy to EU customers. Does this apply to me?</summary>
+      <div class="faq-body">Partially. As a UK seller, you don't fall under EU VAT law the same way — but if you sell above €150 per transaction to EU buyers, EU VAT rules apply at point of sale (usually handled by Etsy). For lower-value goods, it depends on your specific setup. ZenBTW can help you understand your EU cross-border sales volume and identify when thresholds are approaching.</div>
+    </details>
+    <details class="faq-item">
+      <summary>Is my sales data safe?</summary>
+      <div class="faq-body">100%. ZenBTW runs entirely in your browser. Your CSV or HTML file is never uploaded to any server — it's parsed locally on your device. We literally cannot see your data.</div>
+    </details>
+    <details class="faq-item">
+      <summary>Which platforms are supported?</summary>
+      <div class="faq-body">Currently: Etsy (CSV export), Shopify (CSV export) and Vinted (HTML export from your sales page). More platforms are being added based on user feedback — which is exactly why we want you to try it and let us know what's missing.</div>
+    </details>
+    <details class="faq-item">
+      <summary>The interface is partly in Dutch — will you translate it?</summary>
+      <div class="faq-body">Yes, this is on our roadmap. The core calculations and data processing work the same regardless of language. We're currently gathering feedback from international users to prioritise what to translate first. Use the feedback button in the dashboard to let us know what matters most to you.</div>
+    </details>
+  </div>
+</section>
+
+<footer>
+  <a href="/en" class="footer-logo">
+    <img src="/logo.webp" alt="ZenBTW" width="28" height="28">
+    <span class="footer-wordmark">Zen<em>BTW</em></span>
+  </a>
+  <div class="footer-links">
+    <a href="/en">Home</a>
+    <a href="/app">Dashboard</a>
+    <a href="/kor-calculator">VAT Check</a>
+    <a href="/">🇳🇱 Dutch version</a>
+    <a href="/privacy">Privacy</a>
+  </div>
+  <span class="footer-copy">© 2026 ZenBTW · EU VAT tool for marketplace sellers</span>
+</footer>
+
+</body>
+</html>

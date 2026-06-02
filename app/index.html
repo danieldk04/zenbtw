@@ -3232,10 +3232,172 @@ function obFinish(){
 }
 /* ── /ONBOARDING GATE ── */
 </script>
+
+<!-- ══ FEEDBACK WIDGET ══ -->
+<style>
+#fb-btn{position:fixed;bottom:24px;right:24px;z-index:6000;display:flex;align-items:center;gap:8px;padding:11px 18px;background:#1a4731;color:#fff;border:none;border-radius:50px;font-family:inherit;font-size:14px;font-weight:700;cursor:pointer;box-shadow:0 4px 20px rgba(26,71,49,.35);transition:all .2s;opacity:0;pointer-events:none}
+#fb-btn.visible{opacity:1;pointer-events:all}
+#fb-btn:hover{background:#153b27;transform:translateY(-2px);box-shadow:0 8px 28px rgba(26,71,49,.45)}
+#fb-overlay{position:fixed;inset:0;z-index:7000;background:rgba(18,16,14,.5);backdrop-filter:blur(4px);display:none;align-items:flex-end;justify-content:flex-end;padding:24px}
+#fb-overlay.on{display:flex}
+#fb-card{background:#fff;border-radius:20px;padding:28px;width:360px;max-width:100%;box-shadow:0 24px 64px rgba(0,0,0,.2);animation:fbSlide .3s cubic-bezier(.22,1,.36,1)}
+@keyframes fbSlide{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+.fb-head{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:16px}
+.fb-title{font-size:17px;font-weight:700;color:#12100e;line-height:1.3}
+.fb-sub{font-size:13px;color:#6b6460;margin-top:3px}
+.fb-close{background:none;border:none;font-size:20px;cursor:pointer;color:#9c9490;padding:0;line-height:1;flex-shrink:0;margin-left:8px}
+.fb-stars{display:flex;gap:6px;margin-bottom:16px}
+.fb-star{font-size:28px;cursor:pointer;transition:transform .1s;filter:grayscale(1);opacity:.4;background:none;border:none;padding:0;line-height:1}
+.fb-star.active,.fb-star:hover{filter:none;opacity:1;transform:scale(1.15)}
+.fb-label{font-size:12px;font-weight:600;color:#6b6460;margin-bottom:6px;display:block}
+.fb-textarea{width:100%;padding:11px 13px;border:1.5px solid #e5e0d8;border-radius:10px;font-family:inherit;font-size:13.5px;color:#12100e;resize:none;height:90px;outline:none;transition:border-color .15s;margin-bottom:12px}
+.fb-textarea:focus{border-color:#1a4731}
+.fb-textarea::placeholder{color:#a89f95}
+.fb-meta{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:14px}
+.fb-input{width:100%;padding:9px 12px;border:1.5px solid #e5e0d8;border-radius:8px;font-family:inherit;font-size:13px;color:#12100e;outline:none;transition:border-color .15s}
+.fb-input:focus{border-color:#1a4731}
+.fb-submit{width:100%;padding:13px;background:#1a4731;color:#fff;border:none;border-radius:10px;font-family:inherit;font-size:14px;font-weight:700;cursor:pointer;transition:all .18s}
+.fb-submit:hover{background:#153b27}
+.fb-submit:disabled{opacity:.5;cursor:not-allowed}
+.fb-privacy{font-size:11px;color:#a89f95;text-align:center;margin-top:8px}
+#fb-done{display:none;text-align:center;padding:12px 0}
+.fb-done-icon{font-size:40px;margin-bottom:10px}
+.fb-done-title{font-size:17px;font-weight:700;color:#1a4731;margin-bottom:6px}
+.fb-done-sub{font-size:13px;color:#6b6460;line-height:1.6}
+</style>
+
+<!-- Floating button -->
+<button id="fb-btn" onclick="openFeedback()" data-umami-event="feedback-open">
+  💬 Give feedback
+</button>
+
+<!-- Feedback modal -->
+<div id="fb-overlay">
+  <div id="fb-card">
+    <div id="fb-form">
+      <div class="fb-head">
+        <div>
+          <div class="fb-title">Your honest opinion 🙏</div>
+          <div class="fb-sub">What works? What doesn't? What's missing?</div>
+        </div>
+        <button class="fb-close" onclick="closeFeedback()">×</button>
+      </div>
+      <div class="fb-stars" id="fb-stars">
+        <button class="fb-star" data-v="1" onclick="setRating(1)">⭐</button>
+        <button class="fb-star" data-v="2" onclick="setRating(2)">⭐</button>
+        <button class="fb-star" data-v="3" onclick="setRating(3)">⭐</button>
+        <button class="fb-star" data-v="4" onclick="setRating(4)">⭐</button>
+        <button class="fb-star" data-v="5" onclick="setRating(5)">⭐</button>
+      </div>
+      <span class="fb-label">What's your feedback?</span>
+      <textarea class="fb-textarea" id="fb-text" placeholder="Be as specific as you like — what confused you, what worked great, what's missing..."></textarea>
+      <div class="fb-meta">
+        <input class="fb-input" id="fb-email" type="email" placeholder="your@email.com (optional)">
+        <select class="fb-input" id="fb-platform">
+          <option value="">Platform...</option>
+          <option>Etsy</option>
+          <option>Vinted</option>
+          <option>Shopify</option>
+          <option>Other</option>
+        </select>
+      </div>
+      <button class="fb-submit" id="fb-submit-btn" onclick="submitFeedback()">Send feedback →</button>
+      <p class="fb-privacy">🔒 Your data is never shared. Used only to improve ZenBTW.</p>
+    </div>
+    <div id="fb-done">
+      <div class="fb-done-icon">🎉</div>
+      <div class="fb-done-title">Thank you!</div>
+      <div class="fb-done-sub">Your feedback goes directly to the founder. We read every single one and use it to improve ZenBTW.</div>
+    </div>
+  </div>
+</div>
+
+<script>
+var _fbRating = 0;
+var BREVO_KEY = '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';
+
+function showFeedbackBtn(){
+  var btn = document.getElementById('fb-btn');
+  if(btn) btn.classList.add('visible');
+}
+
+// Show after 20s or when anchor #feedback is visited
+setTimeout(showFeedbackBtn, 20000);
+if(location.hash === '#feedback'){ setTimeout(function(){ showFeedbackBtn(); openFeedback(); }, 500); }
+
+function openFeedback(){
+  document.getElementById('fb-overlay').classList.add('on');
+  document.body.style.overflow = 'hidden';
+  if(typeof umami !== 'undefined') umami.track('feedback-opened');
+}
+function closeFeedback(){
+  document.getElementById('fb-overlay').classList.remove('on');
+  document.body.style.overflow = '';
+}
+function setRating(v){
+  _fbRating = v;
+  document.querySelectorAll('.fb-star').forEach(function(s){
+    s.classList.toggle('active', parseInt(s.dataset.v) <= v);
+  });
+}
+
+async function submitFeedback(){
+  var text = document.getElementById('fb-text').value.trim();
+  var email = document.getElementById('fb-email').value.trim();
+  var platform = document.getElementById('fb-platform').value;
+  if(!text && !_fbRating){ return; }
+
+  var btn = document.getElementById('fb-submit-btn');
+  btn.disabled = true; btn.textContent = 'Sending…';
+
+  var stars = _fbRating ? '⭐'.repeat(_fbRating) + ' (' + _fbRating + '/5)' : 'No rating';
+  var body = '<b>Rating:</b> ' + stars + '<br><br>'
+    + '<b>Feedback:</b><br>' + (text || '(no text)') + '<br><br>'
+    + '<b>Platform:</b> ' + (platform || 'Not specified') + '<br>'
+    + '<b>Email:</b> ' + (email || 'Not provided') + '<br>'
+    + '<b>Page:</b> ' + location.href;
+
+  try{
+    await fetch('https://api.brevo.com/v3/smtp/email',{
+      method:'POST',
+      headers:{'accept':'application/json','content-type':'application/json','api-key':BREVO_KEY},
+      body:JSON.stringify({
+        sender:{name:'ZenBTW Feedback',email:'noreply@zenbtw.nl'},
+        to:[{email:'kortaxmonitor@gmail.com',name:'Daniel'}],
+        replyTo: email ? {email:email} : {email:'noreply@zenbtw.nl'},
+        subject: stars + ' — ZenBTW feedback' + (platform ? ' · ' + platform : ''),
+        htmlContent: '<div style="font-family:Arial,sans-serif;font-size:14px;line-height:1.7;color:#12100e;max-width:560px">' + body + '</div>'
+      })
+    });
+  }catch(e){}
+
+  if(email){
+    try{
+      await fetch('https://api.brevo.com/v3/contacts',{
+        method:'POST',
+        headers:{'accept':'application/json','content-type':'application/json','api-key':BREVO_KEY},
+        body:JSON.stringify({email:email,attributes:{BRON:'app-feedback',PLATFORM:platform},listIds:[3],updateEnabled:true})
+      });
+    }catch(e){}
+  }
+
+  if(typeof umami !== 'undefined') umami.track('feedback-submitted',{rating:_fbRating,platform:platform});
+
+  document.getElementById('fb-form').style.display = 'none';
+  document.getElementById('fb-done').style.display = 'block';
+  setTimeout(closeFeedback, 3500);
+}
+
+// Close on backdrop click
+document.getElementById('fb-overlay').addEventListener('click',function(e){
+  if(e.target===this) closeFeedback();
+});
+</script>
+
 <script>
 if('serviceWorker' in navigator){
   window.addEventListener('load',()=>{
-    navigator.serviceWorker.register('sw.js').catch(()=>{});
+    navigator.serviceWorker.register('/sw.js').catch(()=>{});
   });
 }
 </script>
