@@ -741,10 +741,14 @@ src="https://www.facebook.com/tr?id=964378096043237&ev=PageView&noscript=1"
 <nav class="nav">
   <div class="nav-logo" style="padding:12px 18px 16px;display:flex;justify-content:center;align-items:center">
     <a href="/">
-      <picture>
-        <source srcset="/logo.webp" type="image/webp">
-        <img src="/logo.webp" alt="ZenBTW" style="width:100%;max-width:170px;height:auto;display:block;border-radius:4px;object-fit:contain" width="170" height="93" fetchpriority="high">
-      </picture>
+      <svg width="34" height="34" viewBox="0 0 100 100" aria-label="ZenBTW" role="img" style="flex-shrink:0;display:block">
+        <path d="M50 8 L88 20 L88 55 Q88 78 50 92 Q12 78 12 55 L12 20 Z" fill="#1a4731"/>
+        <rect x="27" y="54" width="10" height="18" fill="white" rx="2"/>
+        <rect x="41" y="42" width="10" height="30" fill="white" rx="2"/>
+        <rect x="55" y="32" width="10" height="40" fill="white" rx="2"/>
+        <path d="M24 56 Q52 36 74 26" stroke="white" stroke-width="4" fill="none" stroke-linecap="round"/>
+        <path d="M70 20 L80 28 L68 30 Z" fill="white"/>
+      </svg>
     </a>
   </div>
   <div style="padding:8px 18px 14px;border-bottom:1px solid var(--br);margin-bottom:8px">
@@ -1419,7 +1423,8 @@ let S = {
   company: '',
   btwnr: '',
   kvk: '',
-  korLimit: 10000,
+  korLimit: 20000,   // KOR-drempel: totale jaaromzet (NL + EU) — standaard €20.000
+  ossLimit: 10000,   // OSS-drempel: cross-border EU omzet — wettelijk vastgesteld op €10.000
   usdRate: .920,
   gbpRate: 1.170,
   countries: {},
@@ -1944,69 +1949,130 @@ document.getElementById('onboardBanner')?.querySelectorAll('button').forEach(btn
 });
 
 function updBanner() {
-  const cb = calcCB();                                        // huidig kwartaal
-  const yearCB = calcYearCB();                               // jaartotaal (alle kwartalen)
-  const pct = Math.min(yearCB / S.korLimit * 100, 100);
-  const rem = Math.max(S.korLimit - yearCB, 0);
+  const en = window._lang === 'en';
+  const tot = calcTotal();                                     // huidig kwartaal totaal
+  const yearCB  = calcYearCB();                               // jaar cross-border EU (OSS-drempel)
+  const yearTot = calcYearTotal();                            // jaar totale omzet (KOR-drempel)
+  const ossLimit = S.ossLimit || 10000;                       // wettelijk: €10.000
+  const korLimit = S.korLimit || 20000;                       // KOR-vrijstelling: €20.000
+
+  // OSS-drempel: cross-border EU vs €10.000
+  const ossPct = Math.min(yearCB / ossLimit * 100, 100);
+  const ossRem = Math.max(ossLimit - yearCB, 0);
+  // KOR-drempel: totale omzet vs €20.000
+  const korPct = Math.min(yearTot / korLimit * 100, 100);
+  const korRem = Math.max(korLimit - yearTot, 0);
+
   const b = document.getElementById('kB');
-  const tot = calcTotal();
 
-  // Update visuele balk
-  document.getElementById('kF').style.width = pct + '%';
-  document.getElementById('kP').textContent = Math.round(pct) + '%';
+  // Visuele balk toont OSS-drempel (meest actiegedreven)
+  document.getElementById('kF').style.width = ossPct + '%';
+  document.getElementById('kP').textContent = Math.round(ossPct) + '%';
 
-  // Logica voor teksten en status (drempel op jaarbasis)
-  const _en = window._lang === 'en';
+  // Status bepalen: twee onafhankelijke drempels
+  const ossExceeded = yearCB >= ossLimit;
+  const korExceeded = yearTot >= korLimit;
+
   if (!tot) {
     b.className = 'kb safe';
-    document.getElementById('kT').textContent = _en ? 'Upload your CSV to get started' : 'Upload je CSV om te beginnen';
-    document.getElementById('kS').textContent = _en ? 'ZenBTW automatically calculates your VAT liability per EU country' : 'ZENBTW berekent automatisch je BTW-plicht';
-    document.getElementById('ey').textContent = S.quarter + (_en ? ' · No data' : ' · Geen data');
-  } else if (pct >= 100) {
+    document.getElementById('kT').textContent = en ? 'Upload your CSV to get started' : 'Upload je CSV om te beginnen';
+    document.getElementById('kS').textContent = en ? 'ZenBTW calculates your OSS threshold (€10,000) and KOR status (€20,000)' : 'ZenBTW berekent je OSS-drempel (€10.000) en KOR-status (€20.000)';
+    document.getElementById('ey').textContent = S.quarter + (en ? ' · No data' : ' · Geen data');
+  } else if (korExceeded) {
+    // KOR overschreden: BTW-plichtig voor NL
     b.className = 'kb danger';
-    document.getElementById('kT').textContent = _en ? '🚨 OSS threshold exceeded — VAT filing required' : '🚨 KOR-drempel overschreden — OSS-aangifte verplicht';
-    document.getElementById('kS').textContent = (_en ? 'Year ' : 'Jaar ') + S.year + ' cross-border EU: €' + fmt(Math.round(yearCB)) + ' > €' + fmt(S.korLimit);
-    document.getElementById('ey').textContent = S.quarter + (_en ? ' · ⚠ OSS REQUIRED' : ' · ⚠ OSS VERPLICHT');
-  } else if (pct >= 60) {
+    document.getElementById('kT').textContent = en ? '🚨 KOR threshold exceeded — Dutch VAT registration required' : '🚨 KOR-grens overschreden — BTW-registratie vereist';
+    document.getElementById('kS').textContent = (en ? 'Total revenue ' : 'Totale omzet ') + S.year + ': €' + fmt(Math.round(yearTot)) + ' > €' + fmt(korLimit) + (en ? ' (KOR limit)' : ' (KOR-grens)');
+    document.getElementById('ey').textContent = S.quarter + (en ? ' · ⚠ KOR EXCEEDED' : ' · ⚠ KOR VERLOPEN');
+  } else if (ossExceeded) {
+    // OSS overschreden: buitenlandse BTW verplicht, maar KOR kan nog actief zijn
+    b.className = 'kb danger';
+    document.getElementById('kT').textContent = en ? '🚨 OSS threshold exceeded — foreign VAT filing required' : '🚨 OSS-drempel overschreden — buitenlandse BTW-aangifte verplicht';
+    document.getElementById('kS').textContent = (en ? 'Cross-border EU ' : 'Cross-border EU ') + S.year + ': €' + fmt(Math.round(yearCB)) + ' > €' + fmt(ossLimit) + (en ? ' · KOR: €' : ' · KOR: €') + fmt(Math.round(yearTot)) + (en ? ' of €' : ' van €') + fmt(korLimit);
+    document.getElementById('ey').textContent = S.quarter + (en ? ' · ⚠ OSS REQUIRED' : ' · ⚠ OSS VERPLICHT');
+  } else if (ossPct >= 60 || korPct >= 75) {
     b.className = 'kb warn';
-    document.getElementById('kT').textContent = _en
-      ? 'OSS threshold ' + Math.round(pct) + '% — €' + fmt(Math.round(rem)) + ' remaining'
-      : 'KOR-drempel ' + Math.round(pct) + '% — nog €' + fmt(Math.round(rem)) + ' ruimte';
-    document.getElementById('kS').textContent = (_en ? 'Year ' : 'Jaar ') + S.year + ' cross-border EU: €' + fmt(Math.round(yearCB)) + (_en ? ' of ' : ' van ') + '€' + fmt(S.korLimit);
-    document.getElementById('ey').textContent = S.quarter + (_en ? ' · KOR active' : ' · KOR actief');
+    if (ossPct >= korPct) {
+      document.getElementById('kT').textContent = en
+        ? 'OSS threshold ' + Math.round(ossPct) + '% — €' + fmt(Math.round(ossRem)) + ' remaining cross-border'
+        : 'OSS-drempel ' + Math.round(ossPct) + '% — nog €' + fmt(Math.round(ossRem)) + ' cross-border ruimte';
+    } else {
+      document.getElementById('kT').textContent = en
+        ? 'KOR threshold ' + Math.round(korPct) + '% — €' + fmt(Math.round(korRem)) + ' total remaining'
+        : 'KOR-drempel ' + Math.round(korPct) + '% — nog €' + fmt(Math.round(korRem)) + ' totale ruimte';
+    }
+    document.getElementById('kS').textContent = (en ? 'Cross-border EU: €' : 'Cross-border EU: €') + fmt(Math.round(yearCB)) + (en ? ' of €' : ' van €') + fmt(ossLimit) + ' · ' + (en ? 'Total: €' : 'Totaal: €') + fmt(Math.round(yearTot)) + (en ? ' of €' : ' van €') + fmt(korLimit);
+    document.getElementById('ey').textContent = S.quarter + (en ? ' · KOR active' : ' · KOR actief');
   } else {
     b.className = 'kb safe';
-    document.getElementById('kT').textContent = _en
-      ? 'KOR active — €' + fmt(Math.round(rem)) + ' remaining'
-      : 'KOR actief — €' + fmt(Math.round(rem)) + ' ruimte';
-    document.getElementById('kS').textContent = (_en ? 'Year ' : 'Jaar ') + S.year + ' cross-border EU: €' + fmt(Math.round(yearCB)) + (_en ? ' of ' : ' van ') + '€' + fmt(S.korLimit);
-    document.getElementById('ey').textContent = S.quarter + (_en ? ' · KOR active' : ' · KOR actief');
+    document.getElementById('kT').textContent = en
+      ? 'KOR active — within both thresholds'
+      : 'KOR actief — beide drempels binnen limiet';
+    document.getElementById('kS').textContent = (en ? 'Cross-border EU: €' : 'Cross-border EU: €') + fmt(Math.round(yearCB)) + (en ? ' of €' : ' van €') + fmt(ossLimit) + ' · ' + (en ? 'Total: €' : 'Totaal: €') + fmt(Math.round(yearTot)) + (en ? ' of €' : ' van €') + fmt(korLimit);
+    document.getElementById('ey').textContent = S.quarter + (en ? ' · KOR active' : ' · KOR actief');
   }
 
-  // Actieplan bij drempeloverschrijding
-  const ap=document.getElementById('ossAP');if(ap)ap.style.display=(pct>=100&&tot)?'block':'none';
+  // Actieplan bij OSS overschrijding
+  const ap=document.getElementById('ossAP');if(ap)ap.style.display=((ossExceeded||korExceeded)&&tot)?'block':'none';
   // Margeregeling waarschuwing
   const mw=document.getElementById('margeWarn');if(mw)mw.style.display=(S.marge&&tot)?'block':'none';
-  // Uitleg kaart
-  updUitleg(pct,rem,yearCB,tot);
+  // Uitleg kaart — geef beide drempelwaarden mee
+  updUitleg(ossPct, ossRem, yearCB, tot, korPct, korRem, yearTot, ossLimit, korLimit);
 
-  // --- AUTOMATISCHE EMAIL ALERT ---
-  const afgerondPct = Math.round(pct);
+  // Automatische email alert (op OSS-drempel)
+  const afgerondPct = Math.round(ossPct);
   if(AL.enabled && AL.email && calcTotal()>0 && afgerondPct>=AL.threshold && afgerondPct!==AL.lastAlertSent){
     stuurEmailAlert(afgerondPct);
   }
 }
 
 // ── KOR/OSS UITLEG KAART ──────────────────────────────────────────────────
-function updUitleg(pct, rem, yearCB, tot) {
+function updUitleg(ossPct, ossRem, yearCB, tot, korPct, korRem, yearTot, ossLimit, korLimit) {
+  // Backwards compat: old callers pass (pct, rem, yearCB, tot)
+  if(korPct === undefined){
+    ossLimit = S.ossLimit||10000; korLimit = S.korLimit||20000;
+    korPct = Math.min((arguments[2]||0)/korLimit*100,100);
+    korRem = Math.max(korLimit-(arguments[2]||0),0);
+    yearTot = arguments[2]||0;
+  }
   const el = document.getElementById('korUitleg');
   if (!el) return;
   if (!tot) { el.style.display = 'none'; return; }
   el.style.display = '';
 
-  const lim = fmt(S.korLimit);
-  const cur = fmt(Math.round(yearCB));
+  const ossLimFmt = fmt(ossLimit);
+  const korLimFmt = fmt(korLimit);
+  const curCB  = fmt(Math.round(yearCB));
+  const curTot = fmt(Math.round(yearTot));
   const en = window._lang === 'en';
+  const pct = ossPct; // alias for existing logic below
+
+  if (korPct >= 100) {
+    // KOR-grens overschreden — NL BTW-registratie verplicht
+    el.className = 'ku danger';
+    el.innerHTML = en ? `
+      <div class="ku-title">🔴 KOR limit exceeded — Dutch VAT registration required</div>
+      <p class="ku-body">
+        Your total revenue in <strong>${S.year}</strong> is <strong>€${curTot}</strong>
+        — above the KOR limit of <strong>€${korLimFmt}</strong>.
+        You must register for Dutch VAT and charge 21% BTW on all Dutch sales.
+      </p>
+      <div class="ku-footer">
+        💡 Also check your cross-border EU sales (€${curCB} of €${ossLimFmt}).
+        ${ossPct>=100 ? 'OSS filing is also required.' : 'You are still below the OSS threshold.'}
+      </div>` : `
+      <div class="ku-title">🔴 KOR-grens overschreden — BTW-registratie vereist</div>
+      <p class="ku-body">
+        Je totale omzet in <strong>${S.year}</strong> is <strong>€${curTot}</strong>
+        — dat is boven de KOR-grens van <strong>€${korLimFmt}</strong>.
+        Je moet je registreren voor de Nederlandse BTW en 21% BTW berekenen op alle NL-verkopen.
+      </p>
+      <div class="ku-footer">
+        💡 Check ook je cross-border EU-omzet (€${curCB} van €${ossLimFmt}).
+        ${ossPct>=100 ? 'OSS-aangifte is ook verplicht.' : 'Je zit nog onder de OSS-drempel.'}
+      </div>`;
+    return;
+  }
 
   if (pct >= 100) {
     el.className = 'ku danger';
@@ -2144,6 +2210,9 @@ function buildYearMg(){
 function qBtwFull(q){if(q===S.quarter)return calcBtw();const d=S.quarterHistory[q];if(!d)return 0;return calcBtwData(d.countries)+(d.rawOrders||[]).filter(o=>o.country!=='NL'&&EU[o.country]).reduce((s,o)=>s+o.amount*(EU[o.country]?.r||0),0);}
 function qCBFull(q){if(q===S.quarter)return calcCB();const d=S.quarterHistory[q];if(!d)return 0;return Object.entries(d.countries).filter(([cc])=>cc!=='NL'&&EU[cc]).reduce((s,[,x])=>s+x.revenue,0)+(d.rawOrders||[]).filter(o=>o.country!=='NL'&&EU[o.country]).reduce((s,o)=>s+o.amount,0);}
 function calcYearCB(){return['Q1','Q2','Q3','Q4'].map(q=>q+' '+S.year).reduce((s,q)=>s+qCBFull(q),0);}
+// Totale jaaromzet (alle landen incl. NL) — voor KOR-drempel (€20.000)
+function qRevFull(q){if(q===S.quarter)return calcTotal();const d=S.quarterHistory[q];if(!d)return 0;return(d.revenue||0)+(d.rawOrders||[]).reduce((s,o)=>s+o.amount,0);}
+function calcYearTotal(){return['Q1','Q2','Q3','Q4'].map(q=>q+' '+S.year).reduce((s,q)=>s+qRevFull(q),0);}
 
 function renderTable(){
   const el=document.getElementById('tBody');
