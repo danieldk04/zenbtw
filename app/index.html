@@ -2032,7 +2032,7 @@ function updateMobTopbar(){
 function render(){
   // State-sync: als S.countries leeg is maar quarterHistory heeft data, herstel automatisch
   const _qh=S.quarterHistory[S.quarter];
-  if(_qh&&!Object.keys(S.countries).length&&!S.rawOrders.length&&(Object.keys(_qh.countries||{}).length||(_qh.rawOrders||[]).length)){restoreQ();}
+  if(_qh&&!Object.keys(S.countries).length&&Object.keys(_qh.countries||{}).length){restoreQ();}
   updateMobTopbar();
   updBanner();
   updStats();
