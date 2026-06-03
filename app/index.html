@@ -1828,15 +1828,18 @@ function parseVintedHTML(html){
   const doc=new DOMParser().parseFromString(html,'text/html');
   const cells=doc.querySelectorAll('div.cell[itemscope]');
   if(!cells.length)return{ok:false,msg:'Geen orders gevonden in HTML — controleer of je het juiste bestand hebt geselecteerd (orders/index.html)'};
-  // detecteer eigen gebruikersnaam: meest voorkomende seller
+  // Detecteer platform-TLD uit canonical link of meta tags in het HTML-bestand
+  const canonical=doc.querySelector('link[rel="canonical"]')?.href||doc.querySelector('meta[property="og:url"]')?.content||'';
+  const tldM=canonical.match(/vinted\.([\w]+)/);
+  const platformTld=tldM?.[1]||'';
+  // Detecteer eigen gebruikersnaam: meest voorkomende seller
   const sc={};
   cells.forEach(c=>{const s=(c.querySelector('[itemprop="seller"]')?.textContent||'').trim();if(s)sc[s]=(sc[s]||0)+1;});
   const ownUser=Object.entries(sc).sort((a,b)=>b[1]-a[1])[0]?.[0]||'';
-  log('Vinted HTML: <span class="ok">'+cells.length+' orders · Gebruiker: <strong>'+ownUser+'</strong></span>');
-  log('<span class="wn">⚠ Geen landgegevens in HTML — standaard NL. Pas land aan in Transacties-tab voor juiste BTW-splitsing.</span>');
+  log('Vinted HTML: <span class="ok">'+cells.length+' orders · Gebruiker: <strong>'+ownUser+'</strong></span>'+(platformTld?' · Platform: vinted.'+platformTld:''));
   function isSold(st){const s=st.toLowerCase();return s.includes('completed')||s.includes('accepted')||s.includes('delivered')||s.includes('geleverd');}
   function parseDate(raw){const m=(raw||'').trim().match(/(\d{4}-\d{2}-\d{2})/);return m?m[1]:'';}
-  const orders=[];let rev=0,skip=0,uid=Date.now();
+  const orders=[];let rev=0,skip=0,provisional=0,uid=Date.now();
   cells.forEach((c,idx)=>{
     const seller=(c.querySelector('[itemprop="seller"]')?.textContent||'').trim();
     if(ownUser&&seller!==ownUser){skip++;return;}
@@ -1845,16 +1848,31 @@ function parseVintedHTML(html){
     const vt=(c.querySelector('[itemprop="order_value"]')?.textContent||'0').trim();
     const m=vt.match(/([\d.,]+)\s*([A-Z]{3})?/);
     if(!m){skip++;return;}
-    const amt=applyFx(parseFloat(m[1].replace(',','.'))||0,m[2]||'EUR');
+    const currency=m[2]||'EUR';
+    const amt=applyFx(parseFloat(m[1].replace(',','.'))||0,currency);
     if(amt<=0){skip++;return;}
     const date=parseDate(c.querySelector('[itemprop="order_purchased"]')?.textContent);
-    orders.push({id:uid+'_'+idx,date,amount:amt,country:'NL',platform:'vinted_html'});
+    const cellText=c.textContent||'';
+    // Heuristische landbepaling
+    const inferred=inferCountryFromVintedOrder(currency,cellText,platformTld);
+    if(inferred.confidence<100)provisional++;
+    orders.push({
+      id:uid+'_'+idx,date,amount:amt,
+      country:inferred.cc,
+      platform:'vinted_html',
+      provisional:inferred.confidence<100,
+      confidence:inferred.confidence,
+      inferReason:inferred.reason
+    });
     rev+=amt;
   });
   if(skip>0)log('<span class="wn">⚠ '+skip+' overgeslagen (aankopen of geannuleerd)</span>');
   if(!orders.length)return{ok:false,msg:'Geen verkoopdata gevonden — controleer of dit jouw verkopen zijn (niet aankopen)'};
-  log('<span class="ok">✓ '+orders.length+' verkopen · €'+Math.round(rev)+' · pas land aan in Transacties</span>');
-  return{ok:true,orders,totalRevenue:rev,totalOrders:orders.length,intlOrders:0};
+  const confirmed=orders.length-provisional;
+  log('<span class="ok">✓ '+orders.length+' verkopen · €'+Math.round(rev)+'</span>');
+  if(provisional>0)log('<span class="wn">⚠ '+provisional+' orders: land heuristisch bepaald (VOORLOPIG) — controleer in review</span>');
+  if(confirmed===orders.length)log('<span class="ok">✓ Alle landen bepaald via valuta of verzendmethode</span>');
+  return{ok:true,orders,totalRevenue:rev,totalOrders:orders.length,intlOrders:0,provisionalCount:provisional};
 }
 
 function hu(e,plat){
