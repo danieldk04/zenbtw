@@ -2024,6 +2024,33 @@ function updBanner() {
   // Uitleg kaart — geef beide drempelwaarden mee
   updUitleg(ossPct, ossRem, yearCB, tot, korPct, korRem, korBasis, ossLimit, korLimit);
 
+  // EU-KOR (EU SME Scheme): totale EU-brede jaaromzet bewaking
+  const euKorLimit = S.euKorLimit || 100000;
+  const euKorTotal = calcYearTotal();
+  const euKorBanner = document.getElementById('euKorBanner');
+  if(euKorBanner && tot){
+    const euKorPct = Math.round(euKorTotal / euKorLimit * 100);
+    const euKorRem = Math.max(0, euKorLimit - euKorTotal);
+    const en = window._lang === 'en';
+    if(euKorTotal >= euKorLimit){
+      euKorBanner.style.display = 'block';
+      euKorBanner.className = 'eu-kor-banner danger';
+      euKorBanner.innerHTML = en
+        ? '<strong>🚨 EU SME Scheme limit exceeded (€100,000)</strong> — Your total EU-wide revenue has exceeded the annual threshold. You can no longer apply the EU-KOR exemption in any EU member state. Contact your tax advisor.'
+        : '<strong>🚨 EU-KOR grens overschreden (€100.000)</strong> — Uw totale EU-brede omzet overschrijdt de jaargrens. De EU-KOR-vrijstelling vervalt onmiddellijk in alle lidstaten. Raadpleeg uw belastingadviseur.';
+    } else if(euKorPct >= 75){
+      euKorBanner.style.display = 'block';
+      euKorBanner.className = 'eu-kor-banner warn';
+      euKorBanner.innerHTML = en
+        ? '<strong>⚠ EU SME Scheme: '+euKorPct+'%</strong> — Total EU revenue €'+fmt(Math.round(euKorTotal))+' of €'+fmt(euKorLimit)+'. €'+fmt(Math.round(euKorRem))+' remaining before the EU-wide limit.'
+        : '<strong>⚠ EU-KOR: '+euKorPct+'%</strong> — Totale EU-omzet €'+fmt(Math.round(euKorTotal))+' van €'+fmt(euKorLimit)+'. Nog €'+fmt(Math.round(euKorRem))+' tot de EU-brede grens.';
+    } else {
+      euKorBanner.style.display = 'none';
+    }
+  } else if(euKorBanner){
+    euKorBanner.style.display = 'none';
+  }
+
   // Automatische email alert (op OSS-drempel)
   const afgerondPct = Math.round(ossPct);
   if(AL.enabled && AL.email && calcTotal()>0 && afgerondPct>=AL.threshold && afgerondPct!==AL.lastAlertSent){
