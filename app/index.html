@@ -1847,9 +1847,10 @@ function parseVintedHTML(html){
   cells.forEach(c=>{const s=(c.querySelector('[itemprop="seller"]')?.textContent||'').trim();if(s)sc[s]=(sc[s]||0)+1;});
   const ownUser=Object.entries(sc).sort((a,b)=>b[1]-a[1])[0]?.[0]||'';
   log('Vinted HTML: <span class="ok">'+cells.length+' orders · Gebruiker: <strong>'+ownUser+'</strong></span>'+(platformTld?' · Platform: vinted.'+platformTld:''));
-  function isSold(st){const s=st.toLowerCase();return s.includes('completed')||s.includes('accepted')||s.includes('delivered')||s.includes('geleverd');}
+  function isSold(st){const s=st.toLowerCase();return s.includes('completed')||s.includes('accepted')||s.includes('delivered')||s.includes('geleverd')||s.includes('shipped')||s.includes('verzonden')||s.includes('afgerond')||s.includes('voltooid');}
   function parseDate(raw){const m=(raw||'').trim().match(/(\d{4}-\d{2}-\d{2})/);return m?m[1]:'';}
   const orders=[];let rev=0,skip=0,provisional=0,uid=Date.now();
+  // Eerste pass: met seller-filter (verkooporders van eigen account)
   cells.forEach((c,idx)=>{
     const seller=(c.querySelector('[itemprop="seller"]')?.textContent||'').trim();
     if(ownUser&&seller!==ownUser){skip++;return;}
@@ -1863,19 +1864,35 @@ function parseVintedHTML(html){
     if(amt<=0){skip++;return;}
     const date=parseDate(c.querySelector('[itemprop="order_purchased"]')?.textContent);
     const cellText=c.textContent||'';
-    // Heuristische landbepaling
     const inferred=inferCountryFromVintedOrder(currency,cellText,platformTld);
     if(inferred.confidence<100)provisional++;
-    orders.push({
-      id:uid+'_'+idx,date,amount:amt,
-      country:inferred.cc,
-      platform:'vinted_html',
-      provisional:inferred.confidence<100,
-      confidence:inferred.confidence,
-      inferReason:inferred.reason
-    });
+    orders.push({id:uid+'_'+idx,date,amount:amt,country:inferred.cc,platform:'vinted_html',provisional:inferred.confidence<100,confidence:inferred.confidence,inferReason:inferred.reason});
     rev+=amt;
   });
+  // Als geen orders gevonden na seller-filter: debug-log eerste cel en probeer zonder seller-filter
+  if(!orders.length&&cells.length){
+    const c0=cells[0];
+    const dbgSeller=(c0.querySelector('[itemprop="seller"]')?.textContent||'—').trim();
+    const dbgStatus=(c0.querySelector('[itemprop="status"]')?.textContent||'—').trim();
+    const dbgAmt=(c0.querySelector('[itemprop="order_value"]')?.textContent||'—').trim();
+    log('<span class="wn">⚠ Eerste order — seller: "'+dbgSeller+'" · status: "'+dbgStatus+'" · bedrag: "'+dbgAmt+'" · ownUser: "'+ownUser+'"</span>');
+    // Fallback: geen seller-filter, alle verkopen ongeacht seller-veld
+    cells.forEach((c,idx)=>{
+      const st=(c.querySelector('[itemprop="status"]')?.textContent||'').trim();
+      if(!isSold(st))return;
+      const vt=(c.querySelector('[itemprop="order_value"]')?.textContent||'0').trim();
+      const m=vt.match(/([\d.,]+)\s*([A-Z]{3})?/);if(!m)return;
+      const currency=m[2]||'EUR';
+      const amt=applyFx(parseFloat(m[1].replace(',','.'))||0,currency);if(amt<=0)return;
+      const date=parseDate(c.querySelector('[itemprop="order_purchased"]')?.textContent);
+      const cellText=c.textContent||'';
+      const inferred=inferCountryFromVintedOrder(currency,cellText,platformTld);
+      if(inferred.confidence<100)provisional++;
+      orders.push({id:uid+'_'+idx,date,amount:amt,country:inferred.cc,platform:'vinted_html',provisional:inferred.confidence<100,confidence:inferred.confidence,inferReason:inferred.reason});
+      rev+=amt;
+    });
+    if(orders.length)log('<span class="wn">ℹ Seller-filter overgeslagen — '+orders.length+' orders gevonden via status-filter</span>');
+  }
   if(skip>0)log('<span class="wn">⚠ '+skip+' overgeslagen (aankopen of geannuleerd)</span>');
   if(!orders.length)return{ok:false,msg:'Geen verkoopdata gevonden — controleer of dit jouw verkopen zijn (niet aankopen)'};
   const confirmed=orders.length-provisional;
