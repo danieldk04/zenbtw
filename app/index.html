@@ -1423,8 +1423,9 @@ let S = {
   company: '',
   btwnr: '',
   kvk: '',
-  korLimit: 20000,   // KOR-drempel: totale jaaromzet (NL + EU) — standaard €20.000
-  ossLimit: 10000,   // OSS-drempel: cross-border EU omzet — wettelijk vastgesteld op €10.000
+  korLimit: 20000,    // KOR-drempel: NL-omzet + sub-€10k EU — standaard €20.000
+  ossLimit: 10000,    // OSS-drempel: cross-border EU omzet — wettelijk vastgesteld op €10.000
+  euKorLimit: 100000, // EU-KOR (EU SME Scheme): totale EU-brede omzet — wettelijk max €100.000
   usdRate: .920,
   gbpRate: 1.170,
   countries: {},
