@@ -1942,12 +1942,23 @@ function hu(e,plat){
   const f=e.target.files[0];if(!f)return;
   const z=document.getElementById(plat==='etsy'?'eZ':plat==='shopify'?'sZ':'vZ');
   clearLog();showLog();S.hasFx=false;
-  // Vinted ZIP: lees bestand DIRECT als ArrayBuffer (synchroon gestart) zodat de file-referentie nog geldig is
+  // Vinted ZIP: lees bestand als ArrayBuffer — probeer native f.arrayBuffer() én FileReader als fallback
   if(plat==='vinted'&&/\.zip$/i.test(f.name)){
-    const zr=new FileReader();
-    zr.onerror=()=>{z.className='uz er';z.querySelector('.ui').textContent='❌';z.querySelector('.ut').textContent='Leesfout';log('<span class="er">✗ ZIP kan niet worden gelezen — zorg dat het bestand lokaal staat (niet in OneDrive of netwerk) en probeer opnieuw</span>');};
-    zr.onload=ev=>handleVintedZip(ev.target.result,f.name,z);
-    zr.readAsArrayBuffer(f);
+    const _zipErr=()=>{z.className='uz er';z.querySelector('.ui').textContent='❌';z.querySelector('.ut').textContent='Leesfout';
+      log('<span class="er">✗ ZIP kan niet worden gelezen.</span>');
+      log('<span class="wn">💡 Oplossing 1: Pak het ZIP-bestand uit en sleep het <strong>index.html</strong> bestand (uit de map "orders") direct naar dit uploadveld.</span>');
+      log('<span class="wn">💡 Oplossing 2: Staat het bestand in OneDrive? Klik dan rechts op het bestand → "Altijd op dit apparaat bewaren", dan opnieuw uploaden.</span>');
+    };
+    const _doZip=ab=>handleVintedZip(ab,f.name,z);
+    // Probeer eerst native Blob.arrayBuffer() (andere code-pad dan FileReader)
+    if(typeof f.arrayBuffer==='function'){
+      f.arrayBuffer().then(_doZip).catch(()=>{
+        // Fallback: FileReader
+        const zr=new FileReader();zr.onerror=_zipErr;zr.onload=ev=>_doZip(ev.target.result);zr.readAsArrayBuffer(f);
+      });
+    }else{
+      const zr=new FileReader();zr.onerror=_zipErr;zr.onload=ev=>_doZip(ev.target.result);zr.readAsArrayBuffer(f);
+    }
     return;
   }
   const reader=new FileReader();
