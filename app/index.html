@@ -2985,11 +2985,17 @@ function saveSettings(){
   render();
 }
 
+function _updUploadZones(){
+  const pm={eZ:'etsy',sZ:'shopify',vZ:'vinted'};const ic={eZ:'🏪',sZ:'🛍️',vZ:'👗'};const tt={eZ:'Etsy CSV',sZ:'Shopify CSV',vZ:'Vinted CSV'};
+  ['eZ','sZ','vZ'].forEach(id=>{const z=document.getElementById(id);if(!z)return;const pd=S.platforms&&S.platforms[pm[id]];
+    if(pd){z.className='uz ok';z.querySelector('.ui').textContent='✅';z.querySelector('.ut').textContent=pd.orders+' orders';z.querySelector('.us').textContent='€'+fmt(Math.round(pd.revenue));}
+    else{z.className='uz';z.querySelector('.ui').textContent=ic[id];z.querySelector('.ut').textContent=tt[id];if(z.querySelector('.us'))z.querySelector('.us').textContent='';}});
+}
 function changeYear(y){
   saveQ();S.year=y;S.quarter='Q1 '+y;
   document.getElementById('yrLbl').textContent='Kwartaal '+y;
   document.querySelectorAll('.qb').forEach((b,i)=>b.classList.toggle('on',i===0));
-  restoreQ();saveS();render();
+  restoreQ();_updUploadZones();saveS();render();
 }
 function setQ(el,q){
   saveQ();
