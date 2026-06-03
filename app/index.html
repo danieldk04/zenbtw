@@ -2399,7 +2399,7 @@ function qBtwFull(q){if(q===S.quarter)return calcBtw();const d=S.quarterHistory[
 function qCBFull(q){if(q===S.quarter)return calcCB();const d=S.quarterHistory[q];if(!d)return 0;return Object.entries(d.countries).filter(([cc])=>cc!=='NL'&&EU[cc]).reduce((s,[,x])=>s+x.revenue,0)+(d.rawOrders||[]).filter(o=>o.country!=='NL'&&EU[o.country]).reduce((s,o)=>s+o.amount,0);}
 function calcYearCB(){return['Q1','Q2','Q3','Q4'].map(q=>q+' '+S.year).reduce((s,q)=>s+qCBFull(q),0);}
 // Totale jaaromzet (alle landen incl. NL) — voor KOR-drempel (€20.000)
-function qRevFull(q){if(q===S.quarter)return calcTotal();const d=S.quarterHistory[q];if(!d)return 0;return(d.revenue||0)+(d.rawOrders||[]).reduce((s,o)=>s+o.amount,0);}
+function qRevFull(q){if(q===S.quarter)return calcTotal();const d=S.quarterHistory[q];if(!d)return 0;return Object.values(d.countries||{}).reduce((s,c)=>s+c.revenue,0)+(d.rawOrders||[]).reduce((s,o)=>s+o.amount,0);}
 function calcYearTotal(){return['Q1','Q2','Q3','Q4'].map(q=>q+' '+S.year).reduce((s,q)=>s+qRevFull(q),0);}
 
 function renderTable(){
