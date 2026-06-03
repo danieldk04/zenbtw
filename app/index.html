@@ -1991,7 +1991,7 @@ function updBanner() {
     // OSS overschreden: buitenlandse BTW verplicht, maar KOR kan nog actief zijn
     b.className = 'kb danger';
     document.getElementById('kT').textContent = en ? '🚨 OSS threshold exceeded — foreign VAT filing required' : '🚨 OSS-drempel overschreden — buitenlandse BTW-aangifte verplicht';
-    document.getElementById('kS').textContent = (en ? 'Cross-border EU ' : 'Cross-border EU ') + S.year + ': €' + fmt(Math.round(yearCB)) + ' > €' + fmt(ossLimit) + (en ? ' · KOR: €' : ' · KOR: €') + fmt(Math.round(yearTot)) + (en ? ' of €' : ' van €') + fmt(korLimit);
+    document.getElementById('kS').textContent = (en ? 'Cross-border EU ' : 'Cross-border EU ') + S.year + ': €' + fmt(Math.round(yearCB)) + ' > €' + fmt(ossLimit) + (en ? ' · KOR basis: €' : ' · KOR-basis: €') + fmt(Math.round(korBasis)) + (en ? ' of €' : ' van €') + fmt(korLimit);
     document.getElementById('ey').textContent = S.quarter + (en ? ' · ⚠ OSS REQUIRED' : ' · ⚠ OSS VERPLICHT');
   } else if (ossPct >= 60 || korPct >= 75) {
     b.className = 'kb warn';
