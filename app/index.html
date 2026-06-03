@@ -2174,6 +2174,21 @@ function updBanner() {
     euKorBanner.style.display = 'none';
   }
 
+  // KOR uitsluitingstermijn
+  const korExclEl = document.getElementById('korExclBanner');
+  if(korExclEl){
+    const excl = S.korExcludedUntil ? parseInt(S.korExcludedUntil) : null;
+    const _en2 = window._lang === 'en';
+    if(excl && parseInt(S.year) <= excl){
+      korExclEl.style.display = 'block';
+      korExclEl.innerHTML = _en2
+        ? `<strong>⏸ KOR exclusion period active until ${excl}</strong> — You are excluded from the KOR (Small Business Scheme) until the end of ${excl}. Dutch VAT (21%) applies to all NL sales. <a href="https://mijn.belastingdienst.nl/" target="_blank" rel="noopener">Mijn Belastingdienst Zakelijk →</a>`
+        : `<strong>⏸ KOR-uitsluitingstermijn actief t/m ${excl}</strong> — Je bent uitgesloten van de KOR tot en met einde ${excl}. Op alle NL-verkopen geldt BTW-plicht (21%). <a href="https://mijn.belastingdienst.nl/" target="_blank" rel="noopener">Mijn Belastingdienst Zakelijk →</a>`;
+    } else {
+      korExclEl.style.display = 'none';
+    }
+  }
+
   // Automatische email alert (op OSS-drempel)
   const afgerondPct = Math.round(ossPct);
   if(AL.enabled && AL.email && calcTotal()>0 && afgerondPct>=AL.threshold && afgerondPct!==AL.lastAlertSent){
