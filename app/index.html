@@ -1894,7 +1894,12 @@ function parseVintedHTML(html){
     if(orders.length)log('<span class="wn">ℹ Seller-filter overgeslagen — '+orders.length+' orders gevonden via status-filter</span>');
   }
   if(skip>0)log('<span class="wn">⚠ '+skip+' overgeslagen (aankopen of geannuleerd)</span>');
-  if(!orders.length)return{ok:false,msg:'Geen verkoopdata gevonden — controleer of dit jouw verkopen zijn (niet aankopen)'};
+  if(!orders.length){
+    // Log unieke status-waarden voor debugging
+    const statuses=[...new Set([...cells].map(c=>(c.querySelector('[itemprop="status"]')?.textContent||'').trim()).filter(Boolean))];
+    if(statuses.length)log('<span class="wn">⚠ Status-waarden gevonden: '+statuses.slice(0,5).join(', ')+'</span>');
+    return{ok:false,msg:'Geen verkoopdata gevonden — controleer of dit jouw verkopen zijn (niet aankopen)'};
+  }
   const confirmed=orders.length-provisional;
   log('<span class="ok">✓ '+orders.length+' verkopen · €'+Math.round(rev)+'</span>');
   if(provisional>0)log('<span class="wn">⚠ '+provisional+' orders: land heuristisch bepaald (VOORLOPIG) — controleer in review</span>');
