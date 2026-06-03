@@ -2020,7 +2020,7 @@ function updBanner() {
   // Margeregeling waarschuwing
   const mw=document.getElementById('margeWarn');if(mw)mw.style.display=(S.marge&&tot)?'block':'none';
   // Uitleg kaart — geef beide drempelwaarden mee
-  updUitleg(ossPct, ossRem, yearCB, tot, korPct, korRem, yearTot, ossLimit, korLimit);
+  updUitleg(ossPct, ossRem, yearCB, tot, korPct, korRem, korBasis, ossLimit, korLimit);
 
   // Automatische email alert (op OSS-drempel)
   const afgerondPct = Math.round(ossPct);
