@@ -2004,7 +2004,7 @@ function updBanner() {
         ? 'KOR threshold ' + Math.round(korPct) + '% — €' + fmt(Math.round(korRem)) + ' total remaining'
         : 'KOR-drempel ' + Math.round(korPct) + '% — nog €' + fmt(Math.round(korRem)) + ' totale ruimte';
     }
-    document.getElementById('kS').textContent = (en ? 'Cross-border EU: €' : 'Cross-border EU: €') + fmt(Math.round(yearCB)) + (en ? ' of €' : ' van €') + fmt(ossLimit) + ' · ' + (en ? 'Total: €' : 'Totaal: €') + fmt(Math.round(yearTot)) + (en ? ' of €' : ' van €') + fmt(korLimit);
+    document.getElementById('kS').textContent = (en ? 'Cross-border EU: €' : 'Cross-border EU: €') + fmt(Math.round(yearCB)) + (en ? ' of €' : ' van €') + fmt(ossLimit) + ' · ' + (en ? 'KOR basis: €' : 'KOR-basis: €') + fmt(Math.round(korBasis)) + (en ? ' of €' : ' van €') + fmt(korLimit);
     document.getElementById('ey').textContent = S.quarter + (en ? ' · KOR active' : ' · KOR actief');
   } else {
     b.className = 'kb safe';
