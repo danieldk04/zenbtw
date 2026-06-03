@@ -1875,10 +1875,45 @@ function parseVintedHTML(html){
   return{ok:true,orders,totalRevenue:rev,totalOrders:orders.length,intlOrders:0,provisionalCount:provisional};
 }
 
+/**
+ * Verwerkt een Vinted GDPR ZIP-archief.
+ * Het ZIP-bestand bevat de map 'orders/' met daarin index.html.
+ * Alle HTML-bestanden onder orders/ worden gemerged en geparsed.
+ */
+async function handleVintedZip(f,z){
+  try{
+    if(typeof JSZip==='undefined'){z.className='uz er';z.querySelector('.ui').textContent='❌';z.querySelector('.ut').textContent='JSZip niet geladen';log('<span class="er">✗ JSZip bibliotheek niet beschikbaar. Herlaad de pagina.</span>');return;}
+    log('ZIP: bezig met uitpakken van <strong>'+f.name+'</strong>...');
+    const zip=await JSZip.loadAsync(f);
+    // Zoek HTML-bestanden in de orders/ map
+    const htmlFiles=Object.keys(zip.files).filter(n=>/^orders\/.*\.html?$/i.test(n)||/^orders\/index\.html?$/i.test(n));
+    if(!htmlFiles.length){
+      // Fallback: elk HTML-bestand in de root of orders/
+      const anyHtml=Object.keys(zip.files).filter(n=>/\.html?$/i.test(n)&&!zip.files[n].dir);
+      if(!anyHtml.length){z.className='uz er';z.querySelector('.ui').textContent='❌';z.querySelector('.ut').textContent='Geen HTML in ZIP';log('<span class="er">✗ Geen orders/index.html gevonden in ZIP. Controleer het archief.</span>');return;}
+      htmlFiles.push(...anyHtml);
+    }
+    log('ZIP: '+htmlFiles.length+' HTML-bestand(en) gevonden: '+htmlFiles.join(', '));
+    // Parse elk gevonden HTML-bestand en merge resultaten
+    let allOrders=[],totalRev=0,totalProvisional=0;
+    for(const fn of htmlFiles){
+      const html=await zip.files[fn].async('text');
+      const r=parseVintedHTML(html);
+      if(r.ok&&r.orders){allOrders=allOrders.concat(r.orders);totalRev+=r.totalRevenue;totalProvisional+=(r.provisionalCount||0);}
+    }
+    if(!allOrders.length){z.className='uz er';z.querySelector('.ui').textContent='❌';z.querySelector('.ut').textContent='Geen verkoopdata';log('<span class="er">✗ Geen verkooporders gevonden in het ZIP-archief.</span>');return;}
+    log('<span class="ok">✓ ZIP verwerkt: '+allOrders.length+' orders · €'+Math.round(totalRev)+'</span>');
+    const merged={ok:true,orders:allOrders,totalRevenue:totalRev,totalOrders:allOrders.length,intlOrders:0,provisionalCount:totalProvisional};
+    showReviewModal('vinted',f.name,merged,true);
+  }catch(err){z.className='uz er';z.querySelector('.ui').textContent='❌';z.querySelector('.ut').textContent='ZIP-fout';log('<span class="er">✗ ZIP-verwerkingsfout: '+err.message+'</span>');}
+}
+
 function hu(e,plat){
   const f=e.target.files[0];if(!f)return;
   const z=document.getElementById(plat==='etsy'?'eZ':plat==='shopify'?'sZ':'vZ');
   clearLog();showLog();S.hasFx=false;
+  // Vinted ZIP-archief: async afhandelen via JSZip
+  if(plat==='vinted'&&/\.zip$/i.test(f.name)){handleVintedZip(f,z);return;}
   const reader=new FileReader();
   reader.onerror=()=>{z.className='uz er';z.querySelector('.ui').textContent='❌';z.querySelector('.ut').textContent='Leesfout';log('<span class="er">✗ Bestand kon niet worden gelezen</span>');};
   reader.onload=function(ev){
