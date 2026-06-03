@@ -2541,8 +2541,9 @@ function renderTx(){
   const mg=buildMg();const hasCC=Object.keys(S.countries).length>0;const hasRaw=S.rawOrders.length>0;const hasMg=Object.keys(mg).length>0;const qTx=S.transactions.filter(t=>t.quarter===S.quarter);const hasTx=qTx.length>0;
   const vw=document.getElementById('vintedWarn');if(vw)vw.classList.toggle('on',hasRaw);
   const en=window._lang==='en';
+  // Altijd subtitle updaten — voorkomt stale tekst bij kwartaalwissel
+  sub.textContent=(S.totalOrders>0||hasMg)?(S.totalOrders+' orders · '+S.quarter):(en?'Upload a CSV':'Upload een CSV');
   if(!hasMg&&!hasTx){el.innerHTML=`<div class="es"><div class="esi">🧾</div><div class="est">${en?'No transactions':'Geen transacties'}</div><div class="ess">${en?'Upload a CSV on the dashboard':'Upload CSV op dashboard'}</div></div>`;return;}
-  sub.textContent=S.totalOrders+' orders · '+S.quarter;
   let html='';
   if(hasMg){
     let rows='';
