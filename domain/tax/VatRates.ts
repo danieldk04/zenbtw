@@ -27,12 +27,30 @@ export function getVatRate(countryCode: string): CountryVatRate | null {
   return EU_TOP_10_VAT_RATES[countryCode.toUpperCase()] ?? null;
 }
 
+/** Bereken BTW-bedrag op basis van een bedrag EXCLUSIEF BTW (optellen). */
 export function calculateVatAmount(amountExclVat: number, countryCode: string): number {
   const country = getVatRate(countryCode);
   if (!country) return 0;
   return amountExclVat * (country.digitalServicesRate / 100);
 }
 
+/**
+ * Extraheer BTW uit een BRUTO consumentenprijs (incl. BTW).
+ * Formule conform deep research: bruto × (tarief / (100 + tarief))
+ * Marktplaatsprijzen (Vinted, eBay, Shopify) zijn altijd consumentenprijzen = bruto.
+ */
+export function extractVatFromGross(grossAmountEur: number, countryCode: string): number {
+  const country = getVatRate(countryCode);
+  if (!country) return 0;
+  const rate = country.digitalServicesRate;
+  return grossAmountEur * (rate / (100 + rate));
+}
+
+/**
+ * Splits bruto transactiebedragen per land in net/BTW/bruto.
+ * amountEur wordt behandeld als BRUTO (consumentenprijs incl. BTW),
+ * conform de werkelijkheid van marktplaats-exports.
+ */
 export function splitVatByCountry(
   transactions: Array<{ amountEur: number; countryCode: string }>
 ): Record<string, { net: number; vat: number; gross: number; country: CountryVatRate }> {
@@ -46,10 +64,12 @@ export function splitVatByCountry(
       result[tx.countryCode] = { net: 0, vat: 0, gross: 0, country };
     }
 
-    const vatAmount = calculateVatAmount(tx.amountEur, tx.countryCode);
-    result[tx.countryCode].net += tx.amountEur;
-    result[tx.countryCode].vat += vatAmount;
-    result[tx.countryCode].gross += tx.amountEur + vatAmount;
+    const vat = extractVatFromGross(tx.amountEur, tx.countryCode);
+    const net = tx.amountEur - vat;
+
+    result[tx.countryCode].gross += tx.amountEur;
+    result[tx.countryCode].vat += vat;
+    result[tx.countryCode].net += net;
   }
 
   return result;
