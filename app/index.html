@@ -2370,7 +2370,7 @@ function renderTx(){
     const siIcon=col=>{if(_rawSort.col!==col)return'<span class="sort-icon">⇅</span>';return _rawSort.dir==='asc'?'<span class="sort-icon">↑</span>':'<span class="sort-icon">↓</span>';};
     const siCls=col=>'ro-sort-col'+(_rawSort.col===col?' active':'');
     const rawRows=si.map(i=>{
-      const o=S.rawOrders[i];const info=CI(o.country);const isEU=!!EU[o.country]&&o.country!=='NL';const bw=isEU?o.amount*(EU[o.country].r||0):0;
+      const o=S.rawOrders[i];const info=CI(o.country);const isEU=!!EU[o.country]&&o.country!=='NL';const bw=isEU?o.amount*((EU[o.country].r||0)/(1+(EU[o.country].r||0))):0;
       return`<div class="ro-row" data-ridx="${i}">
         <input type="checkbox" class="ro-row-cb" data-ridx="${i}" onchange="onRawCbChange(this)">
         <input type="date" class="ro-date-in" value="${o.date||''}" onchange="setOrderDate(${i},this.value)" title="${en?'Order date':'Orderdatum'}">
