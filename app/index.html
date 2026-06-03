@@ -1775,6 +1775,55 @@ function parseVinted(text){
   return{ok:true,byQuarter:byQ,totalRevenue:rev,totalOrders:tot,intlOrders:io,lineItems:vintedItems};
 }
 
+/**
+ * Heuristische landbepaling voor Vinted HTML-exports.
+ * Analyseert valuta, verzendmethode en platform-TLD om het bestemmingsland
+ * te schatten. Geeft {cc, confidence, reason} terug.
+ * Confidence 0 = onbekend (valt terug op NL).
+ */
+function inferCountryFromVintedOrder(currency, cellText, platformTld){
+  const c=(currency||'').toUpperCase().trim();
+  const t=(cellText||'').toLowerCase();
+  // 1. Valuta — sterkste signaal (valuta is uniek per land)
+  if(c==='PLN')return{cc:'PL',confidence:99,reason:'PLN valuta'};
+  if(c==='GBP')return{cc:'GB',confidence:99,reason:'GBP valuta'};
+  if(c==='SEK')return{cc:'SE',confidence:97,reason:'SEK valuta'};
+  if(c==='DKK')return{cc:'DK',confidence:97,reason:'DKK valuta'};
+  if(c==='HUF')return{cc:'HU',confidence:97,reason:'HUF valuta'};
+  if(c==='CZK')return{cc:'CZ',confidence:97,reason:'CZK valuta'};
+  if(c==='RON')return{cc:'RO',confidence:97,reason:'RON valuta'};
+  if(c==='BGN')return{cc:'BG',confidence:97,reason:'BGN valuta'};
+  if(c==='HRK'||c==='EUR'&&/hrvatska|hrvatska/.test(t))return{cc:'HR',confidence:90,reason:'Kroatisch signaal'};
+  // 2. Verzendmethode — uit tekst van de orderregel
+  if(/chronopost|colissimo/.test(t))return{cc:'FR',confidence:95,reason:'Chronopost/Colissimo'};
+  if(/correos/.test(t))return{cc:'ES',confidence:92,reason:'Correos verzending'};
+  if(/bpost/.test(t))return{cc:'BE',confidence:92,reason:'bpost verzending'};
+  if(/inpost/.test(t))return{cc:'PL',confidence:90,reason:'InPost verzending'};
+  if(/dhl paket|hermes paket|dpd germany/.test(t))return{cc:'DE',confidence:88,reason:'DHL/Hermes DE'};
+  if(/postnl|homerr/.test(t))return{cc:'NL',confidence:87,reason:'PostNL/Homerr'};
+  if(/mondial relay/.test(t))return{cc:'FR',confidence:75,reason:'Mondial Relay (FR/ES/BE)'};
+  if(/poste italiane|sda express/.test(t))return{cc:'IT',confidence:90,reason:'Poste Italiane'};
+  if(/ctt expresso|ctt\.pt/.test(t))return{cc:'PT',confidence:90,reason:'CTT Portugal'};
+  // 3. Platform-TLD — uit URL-patronen in de HTML
+  const tld=(platformTld||'').toLowerCase();
+  if(tld==='fr')return{cc:'FR',confidence:90,reason:'vinted.fr platform'};
+  if(tld==='de')return{cc:'DE',confidence:90,reason:'vinted.de platform'};
+  if(tld==='pl')return{cc:'PL',confidence:88,reason:'vinted.pl platform'};
+  if(tld==='be')return{cc:'BE',confidence:87,reason:'vinted.be platform'};
+  if(tld==='es')return{cc:'ES',confidence:87,reason:'vinted.es platform'};
+  if(tld==='it')return{cc:'IT',confidence:87,reason:'vinted.it platform'};
+  if(tld==='nl')return{cc:'NL',confidence:85,reason:'vinted.nl platform'};
+  if(tld==='lu')return{cc:'LU',confidence:85,reason:'vinted.lu platform'};
+  if(tld==='pt')return{cc:'PT',confidence:85,reason:'vinted.pt platform'};
+  if(tld==='at')return{cc:'AT',confidence:85,reason:'vinted.at platform'};
+  if(tld==='lt')return{cc:'LT',confidence:85,reason:'vinted.lt platform'};
+  if(tld==='lv')return{cc:'LV',confidence:85,reason:'vinted.lv platform'};
+  if(tld==='sk')return{cc:'SK',confidence:85,reason:'vinted.sk platform'};
+  if(tld==='cz')return{cc:'CZ',confidence:85,reason:'vinted.cz platform'};
+  // Geen signaal gevonden
+  return{cc:'NL',confidence:0,reason:'geen signaal'};
+}
+
 function parseVintedHTML(html){
   const doc=new DOMParser().parseFromString(html,'text/html');
   const cells=doc.querySelectorAll('div.cell[itemscope]');
