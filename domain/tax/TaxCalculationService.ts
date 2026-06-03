@@ -14,6 +14,8 @@ export interface OssQuarterSummary {
   vatByCountry: Record<string, { net: number; vat: number; gross: number; country: { code: string; name: string; standardRate: number; digitalServicesRate: number } }>;
   totalNet: number;
   totalVat: number;
+  euDistanceSalesTotal: number; // Cumulatieve EU-afstandsverkopen (basis voor €10k-drempel)
+  ossThresholdExceeded: boolean; // true zodra EU-afstandsverkopen > €10.000
 }
 
 export interface TaxSummary {
