@@ -4,7 +4,7 @@
  * and VAT splitting for EU Top 10 countries.
  */
 
-import { evaluateKorThreshold, ThresholdResult } from './KorThreshold';
+import { evaluateKorThreshold, ThresholdResult, OSS_EU_THRESHOLD } from './KorThreshold';
 import { splitVatByCountry } from './VatRates';
 import type { Transaction } from '../transactions/Transaction';
 
