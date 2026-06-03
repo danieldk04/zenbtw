@@ -2003,6 +2003,20 @@ function confirmImport(){
     S.lineItems.push(...r.lineItems);
   }
   restoreQ();
+  // Als huidig kwartaal geen data heeft maar geïmporteerde data wél, navigeer naar kwartaal met meeste data
+  if(!Object.keys(S.countries).length&&!S.rawOrders.length){
+    const importedQs=isHtml?null:r.byQuarter;
+    if(importedQs){
+      const bestQ=Object.entries(importedQs).reduce((best,[q,d])=>(!best||d.totalRevenue>(importedQs[best]?.totalRevenue||0))?q:best,null);
+      if(bestQ&&bestQ!==S.quarter&&S.quarterHistory[bestQ]){
+        S.year=bestQ.split(' ')[1];S.quarter=bestQ;
+        const yl=document.getElementById('yrLbl');if(yl)yl.textContent='Kwartaal '+S.year;
+        const ys=document.getElementById('yearSel');if(ys)ys.value=S.year;
+        document.querySelectorAll('.qb').forEach(b=>b.classList.toggle('on',b.textContent===S.quarter.split(' ')[0]));
+        restoreQ();
+      }
+    }
+  }
   z.className='uz ok';z.querySelector('.ui').textContent='✅';z.querySelector('.ut').textContent=r.totalOrders+' orders';z.querySelector('.us').textContent='€'+fmt(Math.round(r.totalRevenue));
   if(isHtml&&r.orders){log('<span class="wn">⚠️ Vinted HTML geladen: landgegevens ontbreken. Ga naar <strong>Transacties</strong> en klik per order op het land om het EU-land van de koper in te stellen.</span>');sv('transacties');}
   if(S.hasFx){const fb=document.getElementById('fxB');fb.className='fxbar on';document.getElementById('fxI').textContent='USD×'+S.usdRate+' · GBP×'+S.gbpRate;}
