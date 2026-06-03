@@ -1916,7 +1916,9 @@ async function handleVintedZip(f,z){
   try{
     if(typeof JSZip==='undefined'){z.className='uz er';z.querySelector('.ui').textContent='❌';z.querySelector('.ut').textContent='JSZip niet geladen';log('<span class="er">✗ JSZip bibliotheek niet beschikbaar. Herlaad de pagina.</span>');return;}
     log('ZIP: bezig met uitpakken van <strong>'+f.name+'</strong>...');
-    const zip=await JSZip.loadAsync(f);
+    // Lees bestand volledig in als ArrayBuffer vóór async verwerking (voorkomt 'permission' fout bij File objects)
+    const ab=await new Promise((res,rej)=>{const fr=new FileReader();fr.onload=e=>res(e.target.result);fr.onerror=()=>rej(new Error('Bestand onleesbaar: '+fr.error?.message));fr.readAsArrayBuffer(f);});
+    const zip=await JSZip.loadAsync(ab);
     // Zoek HTML-bestanden in de orders/ map
     const htmlFiles=Object.keys(zip.files).filter(n=>/^orders\/.*\.html?$/i.test(n)||/^orders\/index\.html?$/i.test(n));
     if(!htmlFiles.length){
