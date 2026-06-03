@@ -68,16 +68,32 @@ export default function DashboardPage() {
           <div className="animate-pulse h-48 bg-white rounded-lg border" />
         )}
 
+        {/* OSS-drempel status banner */}
+        {summary && (
+          <div className={`rounded-md border px-4 py-3 text-sm ${
+            summary.ossQuarter.ossThresholdExceeded
+              ? 'bg-amber-50 border-amber-300 text-amber-800'
+              : 'bg-green-50 border-green-200 text-green-800'
+          }`}>
+            <span className="font-semibold">EU-afstandsverkopen:</span>{' '}
+            €{summary.ossQuarter.euDistanceSalesTotal.toLocaleString('nl-NL', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} / €10.000
+            {summary.ossQuarter.ossThresholdExceeded
+              ? ' — OSS-drempel overschreden. Buitenlandse EU-omzet wordt via OSS aangegeven.'
+              : ' — Onder de €10.000-drempel. Buitenlandse EU-omzet telt mee voor de Nederlandse KOR-teller.'}
+          </div>
+        )}
+
         {summary && Object.keys(summary.ossQuarter.vatByCountry).length > 0 && (
           <div>
-            <h2 className="text-lg font-semibold mb-2">OSS BTW per Land (rollend jaar)</h2>
+            <h2 className="text-lg font-semibold mb-2">OSS BTW per Land</h2>
             <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3">
               {Object.entries(summary.ossQuarter.vatByCountry).map(([code, data]) => (
                 <div key={code} className="bg-white dark:bg-gray-900 rounded-lg border p-3 text-sm">
                   <p className="font-semibold">{code} — {data.country.name}</p>
                   <p className="text-muted-foreground text-xs">{data.country.digitalServicesRate}% BTW</p>
                   <p className="mt-1 font-medium">€{data.vat.toFixed(2)}</p>
-                  <p className="text-xs text-muted-foreground">BTW afdracht</p>
+                  <p className="text-xs text-muted-foreground">BTW afdracht (uit bruto)</p>
+                  <p className="text-xs text-muted-foreground">Netto: €{data.net.toFixed(2)}</p>
                 </div>
               ))}
             </div>
