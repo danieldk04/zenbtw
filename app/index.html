@@ -2682,7 +2682,7 @@ function exportCSVFile(){
   if(!calcTotal()){alert('Upload eerst een CSV.');return;}
   const bw=calcBtw();let csv=`ZENBTW rapport · ${S.company||'—'} · ${S.quarter}\nGegenereerd: ${new Date().toLocaleDateString('nl-NL')}\n\nLand,ISO,BTW%,Omzet,BTW,Orders,Status\n`;
   if(S.countries['NL'])csv+=`Nederland,NL,21%,${S.countries['NL'].revenue.toFixed(2)},0.00,${S.countries['NL'].orders},KOR\n`;
-  for(const[cc,d]of Object.entries(S.countries).filter(([c])=>c!=='NL').sort((a,b)=>b[1].revenue-a[1].revenue)){const i=EU[cc]||CI(cc);csv+=`"${i.n}",${cc},${EU[cc]?Math.round(EU[cc].r*100)+'%':'n.v.t.'},${d.revenue.toFixed(2)},${EU[cc]?(d.revenue*EU[cc].r).toFixed(2):'0.00'},${d.orders},${EU[cc]?'OSS':'Non-EU'}\n`;}
+  for(const[cc,d]of Object.entries(S.countries).filter(([c])=>c!=='NL').sort((a,b)=>b[1].revenue-a[1].revenue)){const i=EU[cc]||CI(cc);csv+=`"${i.n}",${cc},${EU[cc]?Math.round(EU[cc].r*100)+'%':'n.v.t.'},${d.revenue.toFixed(2)},${EU[cc]?(d.revenue*(EU[cc].r/(1+EU[cc].r))).toFixed(2):'0.00'},${d.orders},${EU[cc]?'OSS':'Non-EU'}\n`;}
   if(S.correcties.length){csv+=`\nCorrecties:\n`;S.correcties.forEach(c=>csv+=`${EU[c.land]?.n||c.land},,,,${c.bedrag.toFixed(2)},,${c.date}\n`);}
   csv+=`\nTotaal BTW,,,,${bw.toFixed(2)},\n`;
   dl(`ZENBTW_${S.quarter.replace(' ','_')}.csv`,csv,'text/csv;charset=utf-8');
