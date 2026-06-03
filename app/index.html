@@ -2559,10 +2559,12 @@ function renderTx(){
     const siCls=col=>'ro-sort-col'+(_rawSort.col===col?' active':'');
     const rawRows=si.map(i=>{
       const o=S.rawOrders[i];const info=CI(o.country);const isEU=!!EU[o.country]&&o.country!=='NL';const bw=isEU?o.amount*((EU[o.country].r||0)/(1+(EU[o.country].r||0))):0;
-      return`<div class="ro-row" data-ridx="${i}">
+      const provBadge=o.provisional?`<span class="prov-badge" title="${o.inferReason||'Heuristisch bepaald — controleer land'}">⚑ ~${o.confidence||'?'}%</span>`:'';
+      return`<div class="ro-row${o.provisional?' prov-row':''}" data-ridx="${i}">
         <input type="checkbox" class="ro-row-cb" data-ridx="${i}" onchange="onRawCbChange(this)">
         <input type="date" class="ro-date-in" value="${o.date||''}" onchange="setOrderDate(${i},this.value)" title="${en?'Order date':'Orderdatum'}">
         <select class="ro-cc-sel" onchange="setOrderCountry(${i},this.value)" title="${en?'Change country':'Land aanpassen'}">${countryOptions(o.country)}</select>
+        ${provBadge}
         <span class="ro-amt">€${fmt(o.amount.toFixed(2))}${isEU?'<br><span style="font-size:10px;color:var(--dn);font-weight:400">VAT €'+fmt(bw.toFixed(2))+'</span>':''}</span>
         <button onclick="delRawOrder(${i})" title="${en?'Delete':'Verwijderen'}" style="background:none;border:none;cursor:pointer;color:var(--tx4);font-size:15px;padding:4px 6px;min-height:36px;border-radius:var(--rx);-webkit-tap-highlight-color:transparent" onmouseover="this.style.color='var(--dn)'" onmouseout="this.style.color='var(--tx4)'">🗑️</button>
       </div>`;
