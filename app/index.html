@@ -3366,9 +3366,18 @@ function applyBulkCountry(){
   if(!checked.length)return;
   checked.forEach(cb=>{
     const i=parseInt(cb.dataset.ridx);
-    if(!isNaN(i)&&i>=0&&i<S.rawOrders.length)S.rawOrders[i].country=cc;
+    if(!isNaN(i)&&i>=0&&i<S.rawOrders.length){S.rawOrders[i].country=cc;S.rawOrders[i].provisional=false;}
   });
   saveQ();render();clearBulkSelection();
+}
+function selectProvisionalOnly(){
+  document.querySelectorAll('.ro-row-cb').forEach(cb=>{
+    const i=parseInt(cb.dataset.ridx);
+    const isProv=!isNaN(i)&&i>=0&&i<S.rawOrders.length&&!!S.rawOrders[i].provisional;
+    cb.checked=isProv;
+    cb.closest('.ro-row')?.classList.toggle('bulk-selected',isProv);
+  });
+  updateBulkBar();
 }
 function clearBulkSelection(){
   document.querySelectorAll('.ro-row-cb').forEach(cb=>{
