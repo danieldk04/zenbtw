@@ -1949,7 +1949,7 @@ function hu(e,plat){
   // Vinted ZIP-archief: async afhandelen via JSZip
   if(plat==='vinted'&&/\.zip$/i.test(f.name)){handleVintedZip(f,z);return;}
   const reader=new FileReader();
-  reader.onerror=()=>{z.className='uz er';z.querySelector('.ui').textContent='❌';z.querySelector('.ut').textContent='Leesfout';log('<span class="er">✗ Bestand kon niet worden gelezen</span>');};
+  reader.onerror=()=>{z.className='uz er';z.querySelector('.ui').textContent='❌';z.querySelector('.ut').textContent='Leesfout';log('<span class="er">✗ Bestand kan niet worden gelezen — sla het bestand eerst op je bureaublad op (niet in OneDrive of een map met synchronisatie)</span>');};
   reader.onload=function(ev){
     try{
     const isHtml=/\.html?$/i.test(f.name);
