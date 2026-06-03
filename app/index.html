@@ -1974,7 +1974,7 @@ function updBanner() {
 
   // Status bepalen: twee onafhankelijke drempels
   const ossExceeded = yearCB >= ossLimit;
-  const korExceeded = yearTot >= korLimit;
+  const korExceeded = korBasis >= korLimit;
 
   if (!tot) {
     b.className = 'kb safe';
