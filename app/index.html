@@ -2577,6 +2577,7 @@ function renderTx(){
       <div class="ro-select-all-row" onclick="toggleAllRaw(event)">
         <input type="checkbox" id="rawSelAll" onclick="event.stopPropagation();toggleAllRaw(event)">
         <span>${en?'Select all':'Alles selecteren'} (${S.rawOrders.length} orders)</span>
+        ${S.rawOrders.some(o=>o.provisional)?`<button onclick="event.stopPropagation();selectProvisionalOnly()" style="margin-left:auto;background:var(--wnl);border:1px solid var(--focus);color:#78350f;font-size:11px;font-weight:700;padding:3px 10px;border-radius:20px;cursor:pointer;flex-shrink:0">${en?'⚑ Select provisional only':'⚑ Selecteer alleen voorlopig'} (${S.rawOrders.filter(o=>o.provisional).length})</button>`:''}
       </div>
       <div class="ro-sort-hd">
         <span class="${siCls('date')}" onclick="sortRawBy('date')">${en?'Date':'Datum'} ${siIcon('date')}</span>
