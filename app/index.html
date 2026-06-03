@@ -2587,7 +2587,7 @@ function printRapport(){
       ['BTW verschuldigd (OSS)','€'+fmt(Math.round(bw))],
       ...euRows.map(([cc,d])=>[
         (EU[cc].f||'')+' '+EU[cc].n+' ('+Math.round(EU[cc].r*100)+'%)',
-        '€'+fmt(Math.round(d.revenue))+' · BTW €'+fmt(Math.round(d.revenue*EU[cc].r))
+        '€'+fmt(Math.round(d.revenue))+' · BTW €'+fmt(Math.round(d.revenue*(EU[cc].r/(1+EU[cc].r))))
       ])
     ];
     body.innerHTML=rows.map(([l,v])=>`<div class="print-rapport-row"><span>${l}</span><span><strong>${v}</strong></span></div>`).join('');
