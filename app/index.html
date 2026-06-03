@@ -2207,7 +2207,7 @@ function buildYearMg(){
   return mg;
 }
 // BTW + cross-border helpers that include rawOrders for any quarter
-function qBtwFull(q){if(q===S.quarter)return calcBtw();const d=S.quarterHistory[q];if(!d)return 0;return calcBtwData(d.countries)+(d.rawOrders||[]).filter(o=>o.country!=='NL'&&EU[o.country]).reduce((s,o)=>s+o.amount*(EU[o.country]?.r||0),0);}
+function qBtwFull(q){if(q===S.quarter)return calcBtw();const d=S.quarterHistory[q];if(!d)return 0;return calcBtwData(d.countries)+(d.rawOrders||[]).filter(o=>o.country!=='NL'&&EU[o.country]).reduce((s,o)=>s+o.amount*((EU[o.country]?.r||0)/(1+(EU[o.country]?.r||0))),0);}
 function qCBFull(q){if(q===S.quarter)return calcCB();const d=S.quarterHistory[q];if(!d)return 0;return Object.entries(d.countries).filter(([cc])=>cc!=='NL'&&EU[cc]).reduce((s,[,x])=>s+x.revenue,0)+(d.rawOrders||[]).filter(o=>o.country!=='NL'&&EU[o.country]).reduce((s,o)=>s+o.amount,0);}
 function calcYearCB(){return['Q1','Q2','Q3','Q4'].map(q=>q+' '+S.year).reduce((s,q)=>s+qCBFull(q),0);}
 // Totale jaaromzet (alle landen incl. NL) — voor KOR-drempel (€20.000)
