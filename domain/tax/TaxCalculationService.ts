@@ -40,35 +40,62 @@ export class TaxCalculationService {
       (tx) => new Date(tx.date) >= yearStart && tx.status !== 'cancelled'
     );
 
-    // Dutch KOR: only Dutch (NL) turnover counts toward the €20k threshold.
-    // Foreign EU sales do NOT count for the Dutch KOR (confirmed Belastingdienst).
-    // They count toward the EU-KOR threshold (€100k) instead.
-    const yearToDate = ytdTransactions
-      .filter((tx) => !tx.countryCode || tx.countryCode === 'NL')
-      .reduce((sum, tx) => sum + tx.amountEur, 0);
+    // Splits NL-transacties en EU-afstandsverkopen
+    const nlTransactions = ytdTransactions.filter(
+      (tx) => !tx.countryCode || tx.countryCode === 'NL'
+    );
+    const euDistanceTransactions = ytdTransactions
+      .filter((tx) => tx.countryCode && tx.countryCode !== 'NL')
+      .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
 
+    const nlTurnover = nlTransactions.reduce((sum, tx) => sum + tx.amountEur, 0);
+
+    /**
+     * OSS €10.000 splitsingslogica (Artikel 33 EU Btw-richtlijn):
+     *
+     * Zolang de cumulatieve EU-afstandsverkopen ≤ €10.000 zijn, worden deze
+     * behandeld als binnenlandse omzet (NL-regime) en tellen ze mee voor de
+     * Nederlandse KOR-teller van €20.000.
+     *
+     * Zodra de €10.000-grens wordt overschreden, geldt voor het overschrijdende deel
+     * het bestemmingslandprincipe (OSS). De transactie die de grens passeert wordt
+     * gesplitst: het deel tot €10.000 telt mee voor de KOR, de rest gaat naar OSS.
+     */
+    let cumulativeEuSales = 0;
+    let euAmountForKor = 0;
+    const ossItems: Array<{ amountEur: number; countryCode: string }> = [];
+
+    for (const tx of euDistanceTransactions) {
+      const before = cumulativeEuSales;
+      cumulativeEuSales += tx.amountEur;
+
+      if (before >= OSS_EU_THRESHOLD) {
+        // Al voorbij de grens — volledig naar OSS
+        ossItems.push({ amountEur: tx.amountEur, countryCode: tx.countryCode! });
+      } else if (cumulativeEuSales <= OSS_EU_THRESHOLD) {
+        // Volledig onder de grens — telt mee voor NL KOR
+        euAmountForKor += tx.amountEur;
+      } else {
+        // Splitsingstransactie: deel tot €10.000 → KOR, overschot → OSS
+        const korPart = OSS_EU_THRESHOLD - before;
+        const ossPart = tx.amountEur - korPart;
+        euAmountForKor += korPart;
+        ossItems.push({ amountEur: ossPart, countryCode: tx.countryCode! });
+      }
+    }
+
+    // NL KOR-basis = NL-omzet + EU-afstandsverkopen onder €10.000-drempel
+    const yearToDate = nlTurnover + euAmountForKor;
     const yearToDateTotal = ytdTransactions.reduce((sum, tx) => sum + tx.amountEur, 0);
+    const ossThresholdExceeded = cumulativeEuSales > OSS_EU_THRESHOLD;
 
     const threshold = evaluateKorThreshold(yearToDate);
 
-    // OSS: rolling 12-month window for EU transactions
+    // OSS BTW-uitsplitsing op basis van de OSS-items (bruto consumentenprijzen)
     const rollingStart = new Date(now);
     rollingStart.setFullYear(rollingStart.getFullYear() - 1);
 
-    const ossTransactions = transactions.filter(
-      (tx) =>
-        tx.countryCode &&
-        tx.countryCode !== 'NL' && // OSS excludes domestic NL sales
-        new Date(tx.date) >= rollingStart &&
-        tx.status !== 'cancelled'
-    );
-
-    const vatBreakdown = splitVatByCountry(
-      ossTransactions.map((tx) => ({
-        amountEur: tx.amountEur,
-        countryCode: tx.countryCode ?? 'NL',
-      }))
-    );
+    const vatBreakdown = splitVatByCountry(ossItems);
 
     const totalNet = Object.values(vatBreakdown).reduce((s, v) => s + v.net, 0);
     const totalVat = Object.values(vatBreakdown).reduce((s, v) => s + v.vat, 0);
@@ -79,6 +106,8 @@ export class TaxCalculationService {
       vatByCountry: vatBreakdown,
       totalNet,
       totalVat,
+      euDistanceSalesTotal: cumulativeEuSales,
+      ossThresholdExceeded,
     };
 
     return {
