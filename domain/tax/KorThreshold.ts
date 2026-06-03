@@ -3,9 +3,16 @@
  * Encapsulates all threshold-related business rules.
  */
 
-export const KOR_LIMIT = 20_000;       // €20,000 — KOR eligibility ceiling
-export const KOR_BUFFER_START = 18_000; // €18,000 — buffer zone warning trigger
+export const KOR_LIMIT = 20_000;          // €20,000 — KOR eligibility ceiling
+export const KOR_BUFFER_START = 18_000;   // €18,000 — buffer zone warning trigger
 export const KOR_CRITICAL_START = 19_500; // €19,500 — critical alert trigger
+
+// OSS threshold: EU-brede afstandsverkopen ≤ €10.000 → behandeld als binnenlands (NL-regime)
+// Zodra de cumulatieve EU-afstandsverkopen deze grens passeren, verschuift het regime naar OSS.
+export const OSS_EU_THRESHOLD = 10_000;
+
+// EU-KOR (EU SME Scheme): totale EU-omzet mag niet boven €100.000 komen
+export const EU_KOR_LIMIT = 100_000;
 
 export type ThresholdStatus = 'safe' | 'buffer' | 'critical' | 'exceeded';
 
