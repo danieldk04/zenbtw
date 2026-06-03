@@ -1656,7 +1656,7 @@ function parseShopify(text){
   for(const row of rows){ try{
     const nm=row['name']||row['order']||'';if(nm&&seen.has(nm))continue;if(nm)seen.add(nm);
     const date=row['created at']||row['created_at']||row['date']||'';
-    const st=(row['financial status']||'').toLowerCase();if(st&&st!=='paid'&&st!=='partially_paid')continue;
+    const st=(row['financial status']||'').toLowerCase();if(st&&st!=='paid'&&st!=='partially_paid'&&st!=='partially_refunded')continue;
     if(row['cancelled at']&&row['cancelled at'].trim())continue;
     const cur=row['currency']||'EUR';const cc=rc(row['shipping country']||row['billing country']||'')||'NL';
     let amt=applyFx(pm(row['total']||'0'),cur);if(row['refunded amount'])amt-=applyFx(pm(row['refunded amount']),cur);
