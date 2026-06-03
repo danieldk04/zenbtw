@@ -1946,8 +1946,16 @@ function showReviewModal(plat,fname,r,isHtml){
     return`<tr><td><span style="margin-right:6px">${info.f}</span>${info.n}</td><td class="am">${d.orders}</td><td class="am">€${fmt(Math.round(d.revenue))}</td><td style="text-align:center"><span class="sp ${regime==='OSS'?'oss':'kor'}" ${regime==='Non-EU'?'style="background:var(--s2);color:var(--tx4)"':''}><span class="dot"></span>${regime}</span></td></tr>`;
   }).join('');
   const warnEl=document.getElementById('reviewWarn');
-  if(isHtml){warnEl.textContent='⚠ Vinted HTML-export bevat geen landgegevens. Alle orders staan op NL. Pas landen aan in de Transacties-tab na het importeren.';warnEl.style.display='block';}
-  else{warnEl.style.display='none';}
+  if(isHtml){
+    const prov=r.provisionalCount||0;
+    const tot=r.totalOrders||0;
+    if(prov>0){
+      warnEl.innerHTML='⚠ <strong>'+prov+' van '+tot+' orders: land heuristisch bepaald (VOORLOPIG).</strong> ZenBTW heeft het bestemmingsland afgeleid uit valuta, verzendmethode of platform. Controleer en corrigeer in de Transacties-tab waar nodig.';
+    } else {
+      warnEl.textContent='✓ Alle landen bepaald via valuta of verzendmethode. Controleer de tabel ter bevestiging.';
+    }
+    warnEl.style.display='block';
+  } else {warnEl.style.display='none';}
   document.getElementById('reviewContent').innerHTML=`<div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.07em;color:var(--tx4);margin-bottom:6px">Herkende landen & BTW-regime</div><div class="table-scroll-wrap"><table class="dt" style="font-size:12.5px"><thead><tr><th>Land</th><th class="r">Orders</th><th class="r">Omzet</th><th class="c">Regime</th></tr></thead><tbody>${rows}</tbody></table></div><div style="margin-top:10px;font-size:12px;color:var(--tx2)">Totaal: <strong>${r.totalOrders} orders · €${fmt(Math.round(r.totalRevenue))}</strong></div>`;
   modal.classList.add('on');
 }
