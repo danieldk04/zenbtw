@@ -1959,9 +1959,12 @@ function updBanner() {
   // OSS-drempel: cross-border EU vs €10.000
   const ossPct = Math.min(yearCB / ossLimit * 100, 100);
   const ossRem = Math.max(ossLimit - yearCB, 0);
-  // KOR-drempel: totale omzet vs €20.000
-  const korPct = Math.min(yearTot / korLimit * 100, 100);
-  const korRem = Math.max(korLimit - yearTot, 0);
+  // KOR-basis: NL-omzet + EU-afstandsverkopen tot max de OSS-drempel (Artikel 33 EU Btw-richtlijn).
+  // EU-omzet boven de €10.000-drempel telt NIET mee voor de Nederlandse KOR-teller — die omzet
+  // is verschoven naar het bestemmingsland (OSS) en valt buiten de Nederlandse belastingjurisdictie.
+  const korBasis = yearTot - Math.max(0, yearCB - ossLimit);
+  const korPct = Math.min(korBasis / korLimit * 100, 100);
+  const korRem = Math.max(korLimit - korBasis, 0);
 
   const b = document.getElementById('kB');
 
