@@ -177,7 +177,8 @@ export async function parseVintedHtml(file: File): Promise<ParseResult> {
         currency: 'EUR',
         countryCode: 'NL' as string | undefined,
         type: 'sale' as const,
-        vatIncluded: false,
+        // Vinted-exportprijzen zijn consumentenprijzen (bruto incl. BTW)
+        vatIncluded: true,
         source: 'csv' as const,
       };
 
