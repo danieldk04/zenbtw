@@ -443,6 +443,13 @@ input:checked + .tsl:before{transform:translateX(17px)}
 .bulk-apply{background:rgba(255,255,255,.15);border:1.5px solid rgba(255,255,255,.45);color:#fff;font-family:'Plus Jakarta Sans',sans-serif;font-size:12.5px;font-weight:700;padding:6px 16px;border-radius:30px;cursor:pointer;transition:all .15s;min-height:34px}
 .bulk-apply:hover{background:rgba(255,255,255,.25);border-color:#fff}
 .bulk-close{background:none;border:none;color:rgba(255,255,255,.55);font-size:15px;cursor:pointer;padding:2px 0 2px 4px;line-height:1;transition:color .15s;flex-shrink:0}
+/* ── PROVISIONAL BADGE ── */
+.prov-badge{display:inline-flex;align-items:center;gap:3px;font-size:10px;font-weight:700;padding:2px 7px;border-radius:20px;background:#fef3c7;color:#78350f;border:1px solid var(--focus);letter-spacing:.02em;flex-shrink:0;white-space:nowrap}
+.prov-badge.confirmed{background:var(--acl);color:var(--acm);border-color:var(--success)}
+.ro-row.prov-row{background:linear-gradient(90deg,rgba(245,191,79,.07) 0,transparent 60%)}
+/* ── KOR UITSLUITINGSTERMIJN BANNER ── */
+.kor-excl-banner{margin-bottom:12px;padding:12px 16px;background:#fef3c7;border:1.5px solid var(--focus);border-radius:var(--rs);font-size:12px;color:#78350f;line-height:1.5}
+.kor-excl-banner a{color:#78350f;text-decoration:underline}
 .bulk-close:hover{color:#fff}
 .ro-sort-hd{display:flex;align-items:center;padding:7px 18px;background:var(--s2);border-bottom:1px solid var(--br);user-select:none}
 .ro-sort-col{cursor:pointer;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--tx3);padding:3px 6px;border-radius:4px;display:inline-flex;align-items:center;gap:3px;transition:all .12s}
