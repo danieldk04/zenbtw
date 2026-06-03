@@ -2186,6 +2186,23 @@ function updStats() {
     ? (_enS ? 'of ' : 'van ') + totOrders + ' (' + Math.round(totIntl / Math.max(totOrders, 1) * 100) + '%)'
     : (_enS ? 'of 0 total' : 'van 0 totaal');
   document.getElementById('sC').textContent = eu;
+
+  // EU-KOR (EU SME Scheme): totale EU-brede jaaromzet vs €100.000
+  const euKorLimit = S.euKorLimit || 100000;
+  const euKorTotal = calcYearTotal();
+  const euKorPct = Math.min(Math.round(euKorTotal / euKorLimit * 100), 100);
+  const ekEl = document.getElementById('sEK');
+  const ekSub = document.getElementById('sEKs');
+  if(ekEl){
+    ekEl.textContent = euKorPct + '%';
+    ekEl.style.color = euKorTotal >= euKorLimit ? 'var(--dn)' : euKorPct >= 75 ? '#b45309' : '#2d6a4f';
+  }
+  if(ekSub){
+    const rem = Math.max(0, euKorLimit - euKorTotal);
+    ekSub.textContent = _enS
+      ? (euKorTotal >= euKorLimit ? '⚠ EU SME limit exceeded' : '€'+fmt(Math.round(rem))+' remaining · EU-SME')
+      : (euKorTotal >= euKorLimit ? '⚠ EU-KOR grens overschreden' : 'nog €'+fmt(Math.round(rem))+' · EU-SME');
+  }
 }
 
 // ── MERGE HELPER — countries + rawOrders → {cc:{revenue,orders}} ──
