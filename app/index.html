@@ -1985,7 +1985,7 @@ function updBanner() {
     // KOR overschreden: BTW-plichtig voor NL
     b.className = 'kb danger';
     document.getElementById('kT').textContent = en ? '🚨 KOR threshold exceeded — Dutch VAT registration required' : '🚨 KOR-grens overschreden — BTW-registratie vereist';
-    document.getElementById('kS').textContent = (en ? 'Total revenue ' : 'Totale omzet ') + S.year + ': €' + fmt(Math.round(yearTot)) + ' > €' + fmt(korLimit) + (en ? ' (KOR limit)' : ' (KOR-grens)');
+    document.getElementById('kS').textContent = (en ? 'KOR basis ' : 'KOR-basis ') + S.year + ': €' + fmt(Math.round(korBasis)) + ' > €' + fmt(korLimit) + (en ? ' (KOR limit)' : ' (KOR-grens)');
     document.getElementById('ey').textContent = S.quarter + (en ? ' · ⚠ KOR EXCEEDED' : ' · ⚠ KOR VERLOPEN');
   } else if (ossExceeded) {
     // OSS overschreden: buitenlandse BTW verplicht, maar KOR kan nog actief zijn
