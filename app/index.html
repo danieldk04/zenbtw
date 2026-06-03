@@ -1893,8 +1893,8 @@ function confirmImport(){
 // ── CALCS ──
 const calcTotal=()=>Object.values(S.countries).reduce((s,d)=>s+d.revenue,0)+S.rawOrders.reduce((s,o)=>s+o.amount,0)+S.transactions.filter(t=>t.quarter===S.quarter).reduce((s,t)=>s+t.amount,0);
 const calcCB=()=>Object.entries(S.countries).filter(([cc])=>cc!=='NL'&&EU[cc]).reduce((s,[,d])=>s+d.revenue,0)+S.rawOrders.filter(o=>o.country!=='NL'&&EU[o.country]).reduce((s,o)=>s+o.amount,0);
-const calcBtw=()=>Object.entries(S.countries).filter(([cc])=>cc!=='NL'&&EU[cc]).reduce((s,[cc,d])=>s+d.revenue*EU[cc].r,0)+S.rawOrders.filter(o=>o.country!=='NL'&&EU[o.country]).reduce((s,o)=>s+o.amount*(EU[o.country].r||0),0);
-const calcBtwData=c=>Object.entries(c||{}).filter(([cc])=>cc!=='NL'&&EU[cc]).reduce((s,[cc,d])=>s+d.revenue*EU[cc].r,0);
+const calcBtw=()=>Object.entries(S.countries).filter(([cc])=>cc!=='NL'&&EU[cc]).reduce((s,[cc,d])=>s+d.revenue*(EU[cc].r/(1+EU[cc].r)),0)+S.rawOrders.filter(o=>o.country!=='NL'&&EU[o.country]).reduce((s,o)=>s+o.amount*((EU[o.country].r||0)/(1+(EU[o.country].r||0))),0);
+const calcBtwData=c=>Object.entries(c||{}).filter(([cc])=>cc!=='NL'&&EU[cc]).reduce((s,[cc,d])=>s+d.revenue*(EU[cc].r/(1+EU[cc].r)),0);
 
 // ── RENDER ──
 function updateMobTopbar(){
