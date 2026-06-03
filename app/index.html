@@ -2997,21 +2997,20 @@ function setQ(el,q){
   el.classList.add('on');
   S.quarter = q + ' ' + S.year;
   restoreQ();
+  const _platMap={eZ:'etsy',sZ:'shopify',vZ:'vinted'};
+  const _platIc={eZ:'🏪',sZ:'🛍️',vZ:'👗'};const _platTit={eZ:'Etsy CSV',sZ:'Shopify CSV',vZ:'Vinted CSV'};
   ['eZ','sZ','vZ'].forEach(id=>{
-    const z = document.getElementById(id);
-    if(z){
-      z.className = 'uz';
-      const icons = {eZ:'🏪', sZ:'🛍️', vZ:'👗'};
-      const tits = {eZ:'Etsy CSV', sZ:'Shopify CSV', vZ:'Vinted CSV'};
-      z.querySelector('.ui').textContent = icons[id];
-      z.querySelector('.ut').textContent = tits[id];
-    }
+    const z=document.getElementById(id);if(!z)return;
+    const pk=_platMap[id];const pd=S.platforms&&S.platforms[pk];
+    if(pd){z.className='uz ok';z.querySelector('.ui').textContent='✅';z.querySelector('.ut').textContent=pd.orders+' orders';z.querySelector('.us').textContent='€'+fmt(Math.round(pd.revenue));}
+    else{z.className='uz';z.querySelector('.ui').textContent=_platIc[id];z.querySelector('.ut').textContent=_platTit[id];if(z.querySelector('.us'))z.querySelector('.us').textContent='';}
   });
   document.getElementById('fxB').className = 'fxbar';
   ['xBtn','xX','xC'].forEach(id => {
     const e = document.getElementById(id);
     if(e) e.disabled = !calcTotal();
   });
+  saveS();
   clearLog();
   render();
 }
