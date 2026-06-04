@@ -13,6 +13,7 @@ import datetime
 import base64
 import urllib.request
 import urllib.error
+import urllib.parse
 from pathlib import Path
 from pytrends.request import TrendReq
 import anthropic
