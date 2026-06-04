@@ -786,9 +786,11 @@ async function loadAgent(){
 }
 
 // ── Traffic / Umami ───────────────────────────────────────────────────────────
-const UMAMI_TOKEN = 'api_wsNZu7VcO1vuYeLZ8OcdmUjawDtFzrsS';
+const UMAMI_TOKEN = 'REMOVED';
 
 // ── Contacten (Brevo lijst #3) ────────────────────────────────────────────────
+const BREVO_DEFAULT = 'REMOVED';
+
 function saveBrevoKey(){
   const val = document.getElementById('brevo-key-input').value.trim();
   if(!val){ alert('Voer een API key in'); return; }
