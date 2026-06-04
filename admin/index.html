@@ -429,13 +429,23 @@
 
     <!-- ── CONTACTEN ── -->
     <div class="page" id="page-contacts">
+      <div class="card" style="margin-bottom:1.2rem">
+        <div class="card-head"><h3>🔑 Brevo API key (met leesrechten)</h3></div>
+        <div style="display:flex;gap:8px;align-items:center;padding:4px 0">
+          <input type="password" id="brevo-key-input" placeholder="xkeysib-..." style="flex:1;padding:8px 12px;border:1px solid var(--br);border-radius:8px;font-size:13px;font-family:monospace">
+          <button class="btn" onclick="saveBrevoKey()" style="padding:8px 16px;font-size:13px">Opslaan</button>
+        </div>
+        <div style="font-size:11.5px;color:var(--tx3);margin-top:6px">
+          Maak aan op <a href="https://app.brevo.com/settings/keys/api" target="_blank">app.brevo.com → SMTP & API → API keys</a> — zorg dat de key <strong>Contacts (lezen)</strong> permissie heeft.
+        </div>
+      </div>
       <div class="kpi-grid" id="kpi-contacts"></div>
       <div class="card">
         <div class="card-head">
           <h3>📧 Aangemelde e-mailadressen</h3>
           <button class="btn btn-ghost" onclick="loadContacts()" style="padding:6px 12px;font-size:12px">↻ Vernieuwen</button>
         </div>
-        <div id="contacts-table"><div class="empty">Laden...</div></div>
+        <div id="contacts-table"><div class="empty">Voer eerst je Brevo API key in hierboven.</div></div>
       </div>
     </div>
 
