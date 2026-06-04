@@ -449,8 +449,8 @@ async function main() {
   console.log('  Calling Claude API...');
   const client = new Anthropic();
   const message = await client.messages.create({
-    model: 'claude-opus-4-5',
-    max_tokens: 4096,
+    model: 'claude-opus-4-6',
+    max_tokens: 8192,
     messages: [
       {
         role: 'user',
