@@ -48,7 +48,7 @@ export default function DashboardPage() {
       <header className="bg-white dark:bg-gray-900 border-b shadow-sm">
         <div className="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between">
           <div>
-            <h1 className="text-2xl font-bold tracking-tight">KORtax Dashboard</h1>
+            <h1 className="text-2xl font-bold tracking-tight">ZenBTW Dashboard</h1>
             <p className="text-sm text-muted-foreground">Kleineondernemersregeling · BTW-monitor</p>
           </div>
           {summary && (
