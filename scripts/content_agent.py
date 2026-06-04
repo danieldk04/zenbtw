@@ -251,7 +251,8 @@ def build_html_page(blog: dict, query: dict) -> str:
     .cta a {{ color: white; font-weight: 600; }}
     .tag {{ background: #eef2ff; color: #4f46e5; padding: 2px 10px; border-radius: 99px; font-size: 0.8rem; }}
     nav {{ margin-bottom: 2rem; font-size: 0.9rem; }}
-    nav a {{ color: #4f46e5; text-decoration: none; }}
+    nav a {{ color: #4f46e5; text-decoration: none; display:inline-flex;align-items:center;gap:8px; }}
+    nav img {{ height:28px;width:auto;border-radius:6px;object-fit:contain; }}
   </style>
 </head>
 <body>
