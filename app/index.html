@@ -2985,7 +2985,7 @@ function openSettings(){
   document.getElementById('fCo').value=S.company||'';
   document.getElementById('fBt').value=S.btwnr||'';
   document.getElementById('fKv').value=S.kvk||'';
-  document.getElementById('fKo').value=S.korLimit||10000;
+  document.getElementById('fKo').value=S.korLimit||20000;
   const fKorExcl=document.getElementById('fKorExcl');if(fKorExcl)fKorExcl.value=S.korExcludedUntil||'';
   const fm=document.getElementById('fMarge');if(fm){fm.checked=!!S.marge;document.getElementById('margeModalInfo').style.display=S.marge?'block':'none';}
   document.getElementById('fBackupUrl').value=S.backupUrl||'';
