@@ -606,6 +606,7 @@ function go(name){
   document.getElementById('page-'+name).classList.add('active');
   document.getElementById('nav-'+name).classList.add('active');
   document.getElementById('topbar-title').textContent = PAGE_TITLES[name];
+  if(name==='traffic') loadUmami();
 }
 
 // ── Data helpers ──────────────────────────────────────────────────────────────
