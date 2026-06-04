@@ -256,7 +256,7 @@ def build_html_page(blog: dict, query: dict) -> str:
   </style>
 </head>
 <body>
-  <nav><a href="{SITE_URL}">&larr; Terug naar {SITE_NAME}</a></nav>
+  <nav><a href="{SITE_URL}"><img src="{SITE_URL}/logo.webp" alt="{SITE_NAME} Logo">&larr; {SITE_NAME}</a></nav>
 
   <span class="tag">BTW-gids</span>
   <h1>{blog['title']}</h1>
