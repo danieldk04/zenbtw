@@ -403,6 +403,119 @@ def save_data(data: dict):
     DATA_FILE.write_text(json.dumps(data, ensure_ascii=False, indent=2))
 
 
+# ── Sitemap bijwerken ────────────────────────────────────────────────────────
+
+def update_sitemap(slug: str):
+    """Voegt de nieuwe blog-URL toe aan sitemap.xml."""
+    today = datetime.date.today().isoformat()
+    new_url = f"{SITE_URL}/app/blog/{slug}.html"
+    entry = f"""  <url>
+    <loc>{new_url}</loc>
+    <lastmod>{today}</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>"""
+
+    if not SITEMAP_PATH.exists():
+        print(f"[sitemap] sitemap.xml niet gevonden, overslaan")
+        return
+
+    sitemap = SITEMAP_PATH.read_text()
+
+    # Niet toevoegen als URL al bestaat
+    if new_url in sitemap:
+        print(f"[sitemap] URL al aanwezig, geen update nodig")
+        return
+
+    # Voeg toe vóór </urlset>
+    updated = sitemap.replace("</urlset>", f"{entry}\n</urlset>")
+    SITEMAP_PATH.write_text(updated)
+    print(f"[sitemap] {new_url} toegevoegd aan sitemap.xml")
+
+
+# ── Google Indexing API ──────────────────────────────────────────────────────
+
+def get_google_access_token(service_account_json: str) -> str:
+    """Haalt een access token op via Service Account JWT."""
+    import json as _json
+    import hmac
+    import hashlib
+    import struct
+
+    sa = _json.loads(service_account_json)
+    private_key_pem = sa["private_key"]
+    client_email = sa["client_email"]
+
+    now = int(time.time())
+    header = base64.urlsafe_b64encode(b'{"alg":"RS256","typ":"JWT"}').rstrip(b'=').decode()
+    payload_data = {
+        "iss": client_email,
+        "scope": "https://www.googleapis.com/auth/indexing",
+        "aud": "https://oauth2.googleapis.com/token",
+        "exp": now + 3600,
+        "iat": now,
+    }
+    payload = base64.urlsafe_b64encode(json.dumps(payload_data).encode()).rstrip(b'=').decode()
+    signing_input = f"{header}.{payload}".encode()
+
+    # Importeer cryptography voor RSA signing
+    try:
+        from cryptography.hazmat.primitives import hashes, serialization
+        from cryptography.hazmat.primitives.asymmetric import padding
+        private_key = serialization.load_pem_private_key(private_key_pem.encode(), password=None)
+        signature = private_key.sign(signing_input, padding.PKCS1v15(), hashes.SHA256())
+        sig_b64 = base64.urlsafe_b64encode(signature).rstrip(b'=').decode()
+    except ImportError:
+        print("[indexing] cryptography niet beschikbaar, Indexing API overgeslagen")
+        return ""
+
+    jwt_token = f"{header}.{payload}.{sig_b64}"
+
+    # Token ophalen
+    token_data = urllib.parse.urlencode({
+        "grant_type": "urn:ietf:params:oauth:grant-type:jwt-bearer",
+        "assertion": jwt_token,
+    }).encode()
+
+    req = urllib.request.Request(
+        "https://oauth2.googleapis.com/token",
+        data=token_data,
+        headers={"Content-Type": "application/x-www-form-urlencoded"},
+    )
+    with urllib.request.urlopen(req) as resp:
+        return json.loads(resp.read())["access_token"]
+
+
+def submit_to_google_indexing(url: str):
+    """Stuurt URL naar Google Indexing API voor directe indexering."""
+    import urllib.parse
+
+    sa_json = os.environ.get("GOOGLE_SERVICE_ACCOUNT_JSON", "")
+    if not sa_json:
+        print("[indexing] GOOGLE_SERVICE_ACCOUNT_JSON niet ingesteld, overgeslagen")
+        return
+
+    try:
+        token = get_google_access_token(sa_json)
+        if not token:
+            return
+
+        body = json.dumps({"url": url, "type": "URL_UPDATED"}).encode()
+        req = urllib.request.Request(
+            "https://indexing.googleapis.com/v3/urlNotifications:publish",
+            data=body,
+            headers={
+                "Authorization": f"Bearer {token}",
+                "Content-Type": "application/json",
+            },
+        )
+        with urllib.request.urlopen(req) as resp:
+            result = json.loads(resp.read())
+            print(f"[indexing] Ingediend bij Google: {url} → {result.get('urlNotificationMetadata', {}).get('latestUpdate', {}).get('type', 'ok')}")
+    except Exception as e:
+        print(f"[indexing] Fout bij indienen {url}: {e}")
+
+
 # ── Main ──────────────────────────────────────────────────────────────────────
 
 def main():
