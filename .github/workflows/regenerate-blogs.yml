@@ -33,4 +33,5 @@ jobs:
           git config user.email "bot@zenbtw.nl"
           git add blog/
           git diff --staged --quiet || git commit -m "blog: regenerate all blogs with human-like style + fix truncation $(date +%Y-%m-%d)"
+          git pull --rebase origin main
           git push
