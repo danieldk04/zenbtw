@@ -2675,7 +2675,8 @@ function renderLanden(){
 function renderYGrid(){
   const el=document.getElementById('ygrid');const y=S.year;const Qs=['Q1','Q2','Q3','Q4'].map(q=>q+' '+y);
   const q1CB=qCBFull('Q1 '+y);
-  const korBlocked=calcYearCB()>=S.korLimit; // Jaarlijkse cross-border EU ≥ ingestelde KOR-grens
+  const _yCB=calcYearCB();const _yTot=calcYearTotal();const _korBasis=_yTot-Math.max(0,_yCB-(S.ossLimit||10000));
+  const korBlocked=_korBasis>=(S.korLimit||20000); // KOR-basis (yearTot - EU-deel boven OSS) ≥ KOR-grens
   const qRev=q=>q===S.quarter?calcTotal():(S.quarterHistory[q]?.revenue||0);
   const maxR=Math.max(...Qs.map(qRev),1);
   el.innerHTML=Qs.map((q,idx)=>{
