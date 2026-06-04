@@ -3002,7 +3002,7 @@ function saveSettings(){
   S.company = document.getElementById('fCo').value.trim();
   S.btwnr = document.getElementById('fBt').value.trim();
   S.kvk = document.getElementById('fKv').value.trim();
-  S.korLimit = parseInt(document.getElementById('fKo').value) || 10000;
+  S.korLimit = parseInt(document.getElementById('fKo').value) || 20000;
   const _fKorExcl=document.getElementById('fKorExcl');S.korExcludedUntil=_fKorExcl&&_fKorExcl.value?parseInt(_fKorExcl.value)||null:null;
   const fm=document.getElementById('fMarge');if(fm)S.marge=fm.checked;
   S.quarter = document.getElementById('fQu').value;
