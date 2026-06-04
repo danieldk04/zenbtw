@@ -10,6 +10,9 @@ import re
 import json
 import time
 import datetime
+import base64
+import urllib.request
+import urllib.error
 from pathlib import Path
 from pytrends.request import TrendReq
 import anthropic
