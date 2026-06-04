@@ -2107,6 +2107,48 @@ function render(){
   if(document.getElementById('vwmarge')&&document.getElementById('vwmarge').classList.contains('on')) renderMarge();
 }
 
+function calcYearOrders(){
+  return['Q1','Q2','Q3','Q4'].map(q=>q+' '+S.year).reduce((s,q)=>{
+    const qh=S.quarterHistory[q];
+    if(!qh)return s;
+    const cc=Object.values(qh.countries||{}).reduce((t,d)=>t+d.orders,0);
+    const raw=(qh.rawOrders||[]).length;
+    return s+cc+raw;
+  },0)+S.transactions.filter(t=>t.quarter&&t.quarter.endsWith(' '+S.year)).length;
+}
+
+function updDAC7(){
+  const banner=document.getElementById('dac7Banner');
+  const msg=document.getElementById('dac7Msg');
+  if(!banner||!msg)return;
+  const yearTot=calcYearTotal();
+  const yearOrders=calcYearOrders();
+  const DAC7_REVENUE=2000;
+  const DAC7_ORDERS=30;
+  if(!yearTot&&!yearOrders){banner.style.display='none';return;}
+  const hitRevenue=yearTot>=DAC7_REVENUE;
+  const hitOrders=yearOrders>=DAC7_ORDERS;
+  const nearRevenue=yearTot>=DAC7_REVENUE*0.75&&!hitRevenue;
+  const nearOrders=yearOrders>=DAC7_ORDERS*0.75&&!hitOrders;
+  if(hitRevenue||hitOrders){
+    banner.style.display='block';
+    banner.style.borderColor='#f59e0b';
+    const parts=[];
+    if(hitRevenue)parts.push(`je jaaromzet (€${fmt(Math.round(yearTot))}) overschrijdt de €${fmt(DAC7_REVENUE)} rapportagedrempel`);
+    if(hitOrders)parts.push(`je hebt ${yearOrders} verkopen (drempel: ${DAC7_ORDERS})`);
+    msg.textContent=`Het platform waarop je verkoopt (Vinted, Etsy, etc.) is wettelijk verplicht jouw verkoopgegevens te rapporteren aan de Belastingdienst: ${parts.join(' en ')}. Zorg dat je omzet correct is opgegeven in je IB- en BTW-aangifte.`;
+  } else if(nearRevenue||nearOrders){
+    banner.style.display='block';
+    banner.style.borderColor='#fbbf24';
+    const parts=[];
+    if(nearRevenue)parts.push(`omzet €${fmt(Math.round(yearTot))} van €${fmt(DAC7_REVENUE)}`);
+    if(nearOrders)parts.push(`${yearOrders} van ${DAC7_ORDERS} verkopen`);
+    msg.textContent=`Je nadert de DAC7-rapportagedrempel (${parts.join(', ')}). Als je deze overschrijdt, rapporteert het platform je gegevens aan de Belastingdienst.`;
+  } else {
+    banner.style.display='none';
+  }
+}
+
 function updateNavBadges(){
   const pct=Math.min(Math.round(calcYearCB()/(S.ossLimit||10000)*100),100);
   const badge=document.getElementById('navAlertBadge');
