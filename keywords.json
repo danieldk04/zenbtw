@@ -1,0 +1,102 @@
+{
+  "queue": [
+    {
+      "keyword": "kleine ondernemersregeling buitenland verkopen",
+      "slug": "kor-buitenland-verkopen",
+      "status": "pending",
+      "priority": 10,
+      "notes": "Specifiek pijnpunt"
+    }
+  ],
+  "published": [
+    {
+      "keyword": "shopify btw nederland 2026",
+      "slug": "shopify-btw-nederland-2026",
+      "status": "published",
+      "priority": 1,
+      "notes": "Hoge zoekvolume, directe match met onze doelgroep",
+      "publishedDate": "2026-05-09",
+      "outputFile": "blog/shopify-btw-nederland-2026.html"
+    },
+    {
+      "keyword": "oss registratie belastingdienst stappenplan",
+      "slug": "oss-registratie-belastingdienst",
+      "status": "published",
+      "priority": 2,
+      "notes": "Informationeel, hoge conversie intent",
+      "publishedDate": "2026-05-11",
+      "outputFile": "blog/oss-registratie-belastingdienst.html"
+    },
+    {
+      "keyword": "etsy verkoper belastingaangifte nederland",
+      "slug": "etsy-verkoper-belastingaangifte",
+      "status": "published",
+      "priority": 3,
+      "notes": "Long-tail, hoge intentie",
+      "publishedDate": "2026-05-14",
+      "outputFile": "blog/etsy-verkoper-belastingaangifte.html"
+    },
+    {
+      "keyword": "kor vrijstelling 2026 voorwaarden",
+      "slug": "kor-vrijstelling-2026",
+      "status": "published",
+      "priority": 4,
+      "notes": "Evergreen, wordt jaarlijks gezocht",
+      "publishedDate": "2026-05-18",
+      "outputFile": "blog/kor-vrijstelling-2026.html"
+    },
+    {
+      "keyword": "marketplace verkoper btw aangifte",
+      "slug": "marketplace-verkoper-btw-aangifte",
+      "status": "published",
+      "priority": 5,
+      "notes": "Breed keyword, goede top-of-funnel",
+      "publishedDate": "2026-05-21",
+      "outputFile": "blog/marketplace-verkoper-btw-aangifte.html"
+    },
+    {
+      "keyword": "dac7 belastingdienst rapportage 2026",
+      "slug": "dac7-belastingdienst-rapportage",
+      "status": "published",
+      "priority": 6,
+      "notes": "Actueel onderwerp, angst-gebaseerde zoekopdracht",
+      "publishedDate": "2026-05-25",
+      "outputFile": "blog/dac7-belastingdienst-rapportage.html"
+    },
+    {
+      "keyword": "vinted ondernemer btw registratie",
+      "slug": "vinted-ondernemer-btw-registratie",
+      "status": "published",
+      "priority": 7,
+      "notes": "Niche, weinig concurrentie",
+      "publishedDate": "2026-05-28",
+      "outputFile": "blog/vinted-ondernemer-btw-registratie.html"
+    },
+    {
+      "keyword": "btw tarief eu landen overzicht 2026",
+      "slug": "btw-tarief-eu-landen-2026",
+      "status": "published",
+      "priority": 8,
+      "notes": "Reference content, veel links naar toe",
+      "publishedDate": "2026-06-01",
+      "outputFile": "blog/btw-tarief-eu-landen-2026.html"
+    },
+    {
+      "keyword": "shopify dropshipping btw nederland",
+      "slug": "shopify-dropshipping-btw",
+      "status": "published",
+      "priority": 9,
+      "notes": "Groeiend segment",
+      "publishedDate": "2026-06-04",
+      "outputFile": "blog/shopify-dropshipping-btw.html"
+    }
+  ],
+  "settings": {
+    "maxPerRun": 1,
+    "targetLanguage": "nl",
+    "targetCountry": "NL",
+    "brand": "ZenBTW",
+    "siteUrl": "https://zenbtw.nl",
+    "blogDir": "blog"
+  }
+}

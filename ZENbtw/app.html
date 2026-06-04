@@ -1,0 +1,2153 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ZENBTW — Dashboard</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#f7f6f3;--wh:#fff;--s2:#f4f3ef;--br:#e8e5de;--brs:#d4cfc5;--ac:#1a4731;--acl:#e8f0ec;--acm:#2d6a4f;--dn:#c0392b;--dnl:#fdf0ee;--wn:#d97706;--wnl:#fffbeb;--tx:#1a1814;--tx2:#4a4640;--tx3:#8a847a;--tx4:#b8b2a8;--sh:0 1px 3px rgba(0,0,0,.06);--shm:0 4px 12px rgba(0,0,0,.08);--shl:0 12px 32px rgba(0,0,0,.1);--r:12px;--rs:8px;--rx:6px}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--bg);color:var(--tx);font-family:'Plus Jakarta Sans',sans-serif;min-height:100vh;-webkit-font-smoothing:antialiased}
+.shell{display:flex;min-height:100vh}
+.nav{width:230px;background:var(--wh);border-right:1px solid var(--br);padding:24px 0;flex-shrink:0;position:sticky;top:0;height:100vh;display:flex;flex-direction:column;overflow-y:auto}
+.nav-logo{padding:0 18px 20px;border-bottom:1px solid var(--br);margin-bottom:14px;display:flex;align-items:center;gap:10px}
+.li{width:32px;height:32px;background:var(--ac);border-radius:8px;display:flex;align-items:center;justify-content:center;color:#fff;font-family:'Fraunces',serif;font-size:16px;font-weight:700}
+.ln{font-family:'Fraunces',serif;font-size:18px;font-weight:700;letter-spacing:-.3px}
+.ln em{color:var(--acm);font-style:normal}
+.ns{padding:0 10px;margin-bottom:6px}
+.nsl{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.1em;color:var(--tx4);padding:0 8px;margin-bottom:3px}
+.ni{display:flex;align-items:center;gap:8px;padding:8px 10px;border-radius:var(--rx);cursor:pointer;transition:all .15s;font-size:12.5px;font-weight:500;color:var(--tx3)}
+.ni:hover{background:var(--s2);color:var(--tx2)}.ni.on{background:var(--acl);color:var(--ac);font-weight:600}
+.nb{margin-top:auto;padding:14px 10px 0;border-top:1px solid var(--br)}
+.nq{padding:10px;background:var(--s2);border-radius:var(--rs)}
+.nql{font-size:10px;color:var(--tx4);font-weight:600;text-transform:uppercase;letter-spacing:.08em;margin-bottom:6px}
+.qg{display:grid;grid-template-columns:1fr 1fr;gap:4px}
+.qb{padding:5px 4px;border:1px solid var(--br);border-radius:5px;background:var(--wh);font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:500;color:var(--tx3);cursor:pointer;transition:all .15s;text-align:center}
+.qb:hover{border-color:var(--ac);color:var(--ac)}.qb.on{background:var(--ac);border-color:var(--ac);color:#fff}
+.vw{flex:1;padding:32px 36px;display:none}.vw.on{display:block}
+.ph{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:24px}
+.pe{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--tx4);text-transform:uppercase;letter-spacing:.1em;margin-bottom:5px}
+.pt{font-family:'Fraunces',serif;font-size:28px;font-weight:700;letter-spacing:-.5px}
+.ha{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.btn{display:inline-flex;align-items:center;gap:6px;padding:8px 14px;border-radius:var(--rs);font-family:'Plus Jakarta Sans',sans-serif;font-size:12.5px;font-weight:600;cursor:pointer;transition:all .15s;border:none}
+.bp{background:var(--ac);color:#fff;box-shadow:var(--sh)}.bp:hover{background:#143d28;transform:translateY(-1px);box-shadow:var(--shm)}
+.bs{background:var(--wh);color:var(--tx2);border:1px solid var(--br);box-shadow:var(--sh)}.bs:hover{border-color:var(--brs);background:var(--s2)}
+.btn:disabled{opacity:.4;cursor:not-allowed;transform:none!important}
+.kb{border-radius:var(--r);padding:16px 20px;margin-bottom:20px;border:1px solid;display:flex;align-items:flex-start;gap:16px}
+.kb.safe{background:var(--acl);border-color:#b2cfbf}.kb.warn{background:var(--wnl);border-color:#fcd34d}.kb.danger{background:var(--dnl);border-color:#f5c2bc}
+.kd{width:9px;height:9px;border-radius:50%;flex-shrink:0;margin-top:4px;animation:pulse 2s infinite}
+.safe .kd{background:var(--ac)}.warn .kd{background:var(--wn)}.danger .kd{background:var(--dn)}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.35}}
+.kc{flex:1}.kt{font-size:13px;font-weight:700;margin-bottom:2px}.ks{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--tx3)}
+.kp{display:flex;align-items:center;gap:10px;margin-top:8px}
+.kpt{flex:1;height:5px;background:rgba(0,0,0,.08);border-radius:100px;overflow:hidden}
+.kpf{height:100%;border-radius:100px;transition:width 1.2s cubic-bezier(.16,1,.3,1)}
+.safe .kpf{background:var(--ac)}.warn .kpf{background:var(--wn)}.danger .kpf{background:var(--dn)}
+.kpp{font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:500;color:var(--tx3);min-width:32px;text-align:right}
+.kbb{padding:6px 12px;border-radius:var(--rx);font-size:11.5px;font-weight:600;font-family:'Plus Jakarta Sans',sans-serif;cursor:pointer;border:none;transition:all .15s;white-space:nowrap}
+.safe .kbb{background:var(--ac);color:#fff}.warn .kbb{background:var(--wn);color:#fff}.danger .kbb{background:var(--dn);color:#fff}
+.prog{background:var(--wh);border:1px solid var(--br);border-radius:var(--r);padding:12px 18px;margin-bottom:16px;display:none;align-items:center;gap:12px;box-shadow:var(--sh);font-size:12.5px}
+.prog.on{display:flex}
+.sg{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:16px}
+.sc{background:var(--wh);border:1px solid var(--br);border-radius:var(--r);padding:16px 18px;box-shadow:var(--sh)}
+.st{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px}
+.sl{font-size:11px;font-weight:600;color:var(--tx3);text-transform:uppercase;letter-spacing:.06em}
+.si{width:26px;height:26px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:12px}
+.g{color:var(--ac)}.g.si{background:var(--acl)}.r{color:var(--dn)}.r.si{background:var(--dnl)}.a{color:var(--wn)}.a.si{background:var(--wnl)}.b.si{background:#eff6ff}
+.sv{font-family:'Fraunces',serif;font-size:28px;font-weight:700;letter-spacing:-1px;line-height:1;margin-bottom:4px}
+.sd{font-size:11px;color:var(--tx3);font-family:'JetBrains Mono',monospace}.sd.up{color:var(--acm)}
+.ur{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:14px}
+.uz{background:var(--wh);border:1.5px dashed var(--brs);border-radius:var(--r);padding:16px;text-align:center;cursor:pointer;transition:all .2s;position:relative}
+.uz:hover{border-color:var(--ac);background:var(--acl)}.uz.ok{border-style:solid;border-color:var(--ac);background:var(--acl)}.uz.er{border-style:solid;border-color:var(--dn);background:var(--dnl)}
+.uz input[type=file]{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%}
+.ui{font-size:20px;margin-bottom:5px}.ut{font-size:12.5px;font-weight:700;color:var(--tx);margin-bottom:2px}.us{font-size:11px;color:var(--tx3);font-family:'JetBrains Mono',monospace}
+.ubg{display:inline-block;margin-top:6px;font-size:10px;font-family:'JetBrains Mono',monospace;font-weight:500;padding:2px 8px;border-radius:100px}
+.ubg.e{background:rgba(246,96,20,.1);color:#c55010;border:1px solid rgba(246,96,20,.2)}
+.ubg.s{background:rgba(100,160,50,.1);color:#4a7a25;border:1px solid rgba(100,160,50,.2)}
+.ubg.v{background:rgba(0,122,255,.1);color:#0066cc;border:1px solid rgba(0,122,255,.2)}
+.fxbar{background:var(--wh);border:1px solid var(--br);border-radius:var(--rs);padding:9px 14px;margin-bottom:12px;display:none;align-items:center;gap:8px;font-size:11.5px;color:var(--tx3);font-family:'JetBrains Mono',monospace}
+.fxbar.on{display:flex}.fxbar span{color:var(--ac);font-weight:500}
+.plog{margin-bottom:12px;padding:10px 14px;background:var(--wh);border:1px solid var(--br);border-radius:var(--rs);font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--tx3);display:none;line-height:1.8;max-height:80px;overflow-y:auto}
+.plog.on{display:block}.plog .ok{color:var(--acm)}.plog .er{color:var(--dn)}.plog .wn{color:var(--wn)}
+.cg{display:grid;grid-template-columns:1fr 310px;gap:16px;margin-bottom:16px}
+.card{background:var(--wh);border:1px solid var(--br);border-radius:var(--r);box-shadow:var(--sh);overflow:hidden}
+.ch{display:flex;justify-content:space-between;align-items:center;padding:14px 18px;border-bottom:1px solid var(--br)}
+.ct{font-family:'Fraunces',serif;font-size:14.5px;font-weight:600;letter-spacing:-.2px}
+.cst{font-size:11px;color:var(--tx4);font-family:'JetBrains Mono',monospace;margin-top:1px}
+.ctg{font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:500;padding:3px 9px;border-radius:100px;background:var(--acl);color:var(--ac);border:1px solid #c2d9cc}
+.cb{padding:0 18px}
+.dt{width:100%;border-collapse:collapse}
+.dt th{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--tx4);padding:11px 0 9px;text-align:left;border-bottom:1px solid var(--br)}
+.dt th.r{text-align:right}.dt th.c{text-align:center}
+.dt td{padding:12px 0;border-bottom:1px solid #f0ede8;font-size:12.5px;vertical-align:middle}
+.dt tbody tr:last-child td{border-bottom:none}.dt tbody tr:hover td{background:#faf9f7}
+.cc{display:flex;align-items:center;gap:8px}.cf{font-size:18px;line-height:1}
+.cn{font-weight:600;color:var(--tx);font-size:12.5px}.csb{font-size:11px;color:var(--tx4);font-family:'JetBrains Mono',monospace;margin-top:1px}
+.rc{display:inline-flex;align-items:center;font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:500;padding:2px 7px;border-radius:5px;background:var(--s2);color:var(--tx2)}
+.am{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--tx2);text-align:right}.am.bw{color:var(--dn)}.am.nl{color:var(--tx4)}
+.sp{display:inline-flex;align-items:center;gap:4px;padding:2px 7px;border-radius:100px;font-size:10px;font-weight:600;font-family:'JetBrains Mono',monospace}
+.sp.oss{background:var(--dnl);color:var(--dn);border:1px solid #f5c2bc}.sp.kor{background:var(--acl);color:var(--ac);border:1px solid #b2cfbf}
+.sp .dot{width:5px;height:5px;border-radius:50%;background:currentColor}
+.tf{display:flex;justify-content:space-between;align-items:center;padding:11px 0;border-top:1px solid var(--br)}
+.tfl{display:flex;align-items:center;gap:10px;font-size:11px;color:var(--tx3)}
+.tft{font-family:'JetBrains Mono',monospace;font-size:12.5px}.tft strong{color:var(--dn)}
+.es{padding:32px 18px;text-align:center;color:var(--tx4)}.esi{font-size:26px;margin-bottom:8px}.est{font-size:13px;font-weight:600;color:var(--tx3);margin-bottom:3px}.ess{font-size:11px;font-family:'JetBrains Mono',monospace}
+.ss{display:flex;flex-direction:column;gap:12px}
+.pr{padding:11px 0;border-bottom:1px solid #f0ede8;display:flex;align-items:center;gap:10px}.pr:last-child{border-bottom:none}
+.pl{width:32px;height:32px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:800;font-family:'Fraunces',serif;flex-shrink:0}
+.pl.e{background:rgba(246,96,20,.1);color:#c55010}.pl.s{background:rgba(100,160,50,.1);color:#4a7a25}.pl.v{background:rgba(0,122,255,.1);color:#0066cc}
+.pi{flex:1}.pn{font-size:12.5px;font-weight:700;color:var(--tx)}.po{font-size:11px;color:var(--tx4);font-family:'JetBrains Mono',monospace;margin-top:2px}
+.pb{height:3px;background:var(--br);border-radius:100px;margin-top:5px}.pbf{height:100%;border-radius:100px}
+.pbf.e{background:#f66014}.pbf.s{background:#64a032}.pbf.v{background:#007aff}
+.pa{font-family:'JetBrains Mono',monospace;font-size:13px;font-weight:500;color:var(--tx)}
+.eb{padding:16px 18px}
+.db{display:flex;align-items:center;justify-content:space-between;padding:10px 12px;background:var(--s2);border-radius:var(--rs);margin-bottom:12px;border:1px solid var(--br)}
+.dl{font-size:11px;color:var(--tx3);font-family:'JetBrains Mono',monospace}.dv{font-size:12.5px;font-weight:700;color:var(--tx)}
+.dbg{font-size:10px;font-family:'JetBrains Mono',monospace;padding:3px 7px;border-radius:100px;background:var(--wnl);color:var(--wn);border:1px solid #fcd34d}
+.xb{width:100%;padding:10px;border-radius:var(--rs);font-family:'Plus Jakarta Sans',sans-serif;font-size:12.5px;font-weight:700;cursor:pointer;transition:all .15s;display:flex;align-items:center;justify-content:center;gap:7px;margin-bottom:6px;border:none}
+.xb:last-child{margin-bottom:0}.xb.xp{background:var(--ac);color:#fff;box-shadow:var(--sh)}.xb.xp:hover{background:#143d28;transform:translateY(-1px);box-shadow:var(--shm)}
+.xb.xs{background:var(--wh);color:var(--tx2);border:1px solid var(--br)}.xb.xs:hover{border-color:var(--brs);background:var(--s2)}
+.xb:disabled{opacity:.4;cursor:not-allowed;transform:none!important}
+.srow{display:flex;justify-content:space-between;align-items:center;padding:9px 0;border-bottom:1px solid #f0ede8}.srow:last-child{border-bottom:none}
+.srl{font-size:12px;color:var(--tx3)}.srv{font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:500;color:var(--tx)}
+.disc{background:var(--wh);border:1px solid var(--br);border-radius:var(--r);padding:12px 16px;margin-top:16px;display:flex;gap:10px;align-items:flex-start;font-size:11px;color:var(--tx3);line-height:1.65}
+.acc{border:1px solid var(--br);border-radius:var(--rs);overflow:hidden;margin-bottom:8px}
+.acc-hd{display:flex;justify-content:space-between;align-items:center;padding:12px 14px;cursor:pointer;font-weight:600;font-size:13px;background:var(--wh);transition:background .15s;user-select:none;gap:10px}
+.acc-hd:hover{background:var(--s2)}.acc-hd span{flex:1}.acc-ico{transition:transform .2s;font-size:11px;color:var(--tx4);flex-shrink:0}
+.acc.on .acc-hd{background:var(--acl)}.acc.on .acc-ico{transform:rotate(90deg)}
+.acc-bd{display:none;padding:14px 16px;border-top:1px solid var(--br);font-size:12.5px;line-height:1.75;color:var(--tx2);background:var(--wh)}
+.acc.on .acc-bd{display:block}.acc-bd strong{color:var(--tx)}.acc-bd code{font-family:'JetBrains Mono',monospace;font-size:11px;background:var(--s2);padding:1px 5px;border-radius:4px}
+.acc-bd ol,.acc-bd ul{padding-left:18px;margin:6px 0}.acc-bd li{margin-bottom:4px}
+.acc-bd .step{display:flex;gap:8px;align-items:flex-start;margin-bottom:8px}.acc-bd .step-n{width:20px;height:20px;border-radius:50%;background:var(--ac);color:#fff;font-size:10px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px}
+.vinted-warn{display:none;background:var(--wnl);border:1px solid #e6a817;border-radius:var(--rs);padding:11px 14px;margin-bottom:14px;font-size:12.5px;color:#92400e;font-weight:500;gap:10px;align-items:flex-start;line-height:1.55}
+.vinted-warn.on{display:flex}
+/* CORRECTIE */
+.corr{background:var(--wh);border:1px solid var(--br);border-radius:var(--r);padding:16px 18px;margin-bottom:14px;display:none}
+.corr.on{display:block}
+.corrt{font-family:'Fraunces',serif;font-size:13.5px;font-weight:600;margin-bottom:10px}
+.corrr{display:grid;grid-template-columns:1fr 1fr auto;gap:7px;align-items:center;margin-bottom:6px}
+.ci{padding:8px 10px;border:1px solid var(--br);border-radius:var(--rx);font-family:'JetBrains Mono',monospace;font-size:12px;background:var(--s2);color:var(--tx);outline:none;transition:border-color .2s;width:100%}
+.ci:focus{border-color:var(--ac);background:var(--wh)}
+.cib{padding:8px 12px;border:none;border-radius:var(--rx);background:var(--ac);color:#fff;font-family:'Plus Jakarta Sans',sans-serif;font-size:12px;font-weight:600;cursor:pointer;white-space:nowrap}
+.ci-item{display:flex;justify-content:space-between;align-items:center;padding:5px 9px;background:var(--wnl);border:1px solid #fcd34d;border-radius:var(--rx);margin-bottom:4px;font-family:'JetBrains Mono',monospace;font-size:11px}
+.ci-del{background:none;border:none;color:var(--dn);cursor:pointer;font-size:12px;padding:0 3px}
+/* OSS CHECKLIST */
+.clgrid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.cli{display:flex;align-items:flex-start;gap:9px;padding:11px;background:var(--wh);border:1px solid var(--br);border-radius:var(--rs);cursor:pointer;transition:all .15s}
+.cli:hover{border-color:var(--ac);background:var(--acl)}.cli.ck{background:var(--acl);border-color:#b2cfbf}
+.clb{width:20px;height:20px;border:2px solid var(--brs);border-radius:5px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:11px;margin-top:1px}
+.cli.ck .clb{background:var(--ac);border-color:var(--ac);color:#fff}
+.clt{font-size:12.5px;font-weight:500;color:var(--tx2);line-height:1.4}
+.cls{font-size:11px;color:var(--tx3);margin-top:2px;font-family:'JetBrains Mono',monospace}
+.clpbar{height:5px;background:var(--br);border-radius:100px;overflow:hidden;margin-bottom:14px}
+.clpfill{height:100%;background:var(--ac);border-radius:100px;transition:width .5s ease}
+/* ALERT */
+.als{background:var(--wh);border:1px solid var(--br);border-radius:var(--r);padding:16px 18px;margin-bottom:12px}
+.alrow{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px}
+.all{font-size:13px;font-weight:600;color:var(--tx)}.als-sub{font-size:11px;color:var(--tx3);font-family:'JetBrains Mono',monospace;margin-top:2px}
+.tog{position:relative;width:38px;height:21px;flex-shrink:0}
+.tog input{opacity:0;width:0;height:0}
+.tsl{position:absolute;cursor:pointer;inset:0;background:var(--br);border-radius:21px;transition:.3s}
+.tsl:before{content:'';position:absolute;width:17px;height:17px;left:2px;bottom:2px;background:#fff;border-radius:50%;transition:.3s;box-shadow:0 1px 3px rgba(0,0,0,.2)}
+input:checked + .tsl{background:var(--ac)}
+input:checked + .tsl:before{transform:translateX(17px)}
+.alei{width:100%;padding:8px 11px;border:1px solid var(--br);border-radius:var(--rx);font-family:'JetBrains Mono',monospace;font-size:12px;background:var(--s2);color:var(--tx);outline:none;transition:border-color .2s;margin-top:7px}
+.alei:focus{border-color:var(--ac);background:var(--wh)}
+.althr{margin-top:10px}.altl{font-size:11.5px;font-weight:600;color:var(--tx2);margin-bottom:6px}
+.althbtns{display:flex;gap:6px}
+.thb{padding:5px 11px;border:1px solid var(--br);border-radius:5px;background:var(--wh);font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:500;color:var(--tx3);cursor:pointer;transition:all .15s}
+.thb:hover{border-color:var(--ac);color:var(--ac)}.thb.on{background:var(--ac);border-color:var(--ac);color:#fff}
+.alsv{font-size:11px;color:var(--acm);font-family:'JetBrains Mono',monospace;margin-top:7px;display:none}
+.alsv.on{display:block}
+/* JAAR */
+.ygrid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:16px}
+.yqc{background:var(--wh);border:1px solid var(--br);border-radius:var(--r);padding:14px 16px;box-shadow:var(--sh)}
+.yqc.cur{border-color:var(--ac);background:var(--acl)}
+.yql{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--tx4);text-transform:uppercase;letter-spacing:.08em;margin-bottom:7px}
+.yqr{font-family:'Fraunces',serif;font-size:20px;font-weight:700;letter-spacing:-.5px;margin-bottom:2px}
+.yqb{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--dn)}
+.yqo{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--tx4);margin-top:3px}
+.ybar{height:3px;background:var(--br);border-radius:100px;margin-top:9px;overflow:hidden}
+.ybarfill{height:100%;background:var(--ac);border-radius:100px}
+/* MODAL */
+.mo{position:fixed;inset:0;background:rgba(20,16,12,.4);backdrop-filter:blur(6px);z-index:200;display:none;align-items:center;justify-content:center}.mo.on{display:flex}
+.md{background:var(--wh);border:1px solid var(--br);border-radius:16px;padding:28px;max-width:450px;width:90%;box-shadow:var(--shl);max-height:90vh;overflow-y:auto}
+.mdt{font-family:'Fraunces',serif;font-size:20px;font-weight:700;margin-bottom:4px;letter-spacing:-.3px}.mds{font-size:12px;color:var(--tx3);margin-bottom:18px}
+.fr{display:grid;grid-template-columns:1fr 1fr;gap:10px}.fg{margin-bottom:12px}
+.fl{font-size:11px;font-weight:700;color:var(--tx2);margin-bottom:4px;display:block}
+.fi,.fsl{width:100%;background:var(--s2);border:1px solid var(--br);border-radius:var(--rx);padding:8px 11px;color:var(--tx);font-family:'JetBrains Mono',monospace;font-size:12px;outline:none;transition:border-color .2s}
+.fi:focus,.fsl:focus{border-color:var(--ac);background:var(--wh)}
+.ma{display:flex;gap:10px;margin-top:18px}
+.mbp{flex:1;padding:10px;background:var(--ac);color:#fff;border:none;border-radius:var(--rs);font-family:'Plus Jakarta Sans',sans-serif;font-size:13px;font-weight:700;cursor:pointer;transition:all .15s}.mbp:hover{background:#143d28}
+.mbc{padding:10px 16px;background:transparent;color:var(--tx3);border:1px solid var(--br);border-radius:var(--rs);font-family:'Plus Jakarta Sans',sans-serif;font-size:13px;cursor:pointer;transition:all .15s}.mbc:hover{color:var(--tx);border-color:var(--brs)}
+/* PRINT */
+.prh{display:none;justify-content:space-between;align-items:flex-start;border-bottom:2px solid var(--ac);padding-bottom:16px;margin-bottom:20px}
+.phlo{font-family:'Fraunces',serif;font-size:20px;font-weight:700;color:var(--ac)}
+.phm{text-align:right;font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--tx3);line-height:1.8}
+@media print{
+  body{background:#fff}.shell{display:block}
+  .nav,.ur,.ha,.xb,.disc,.kb .kbb,.plog,.prog,.fxbar,.corr,.als{display:none!important}
+  .vw{display:block!important;padding:0}
+  .card,.sc{box-shadow:none;border:1px solid #ddd;break-inside:avoid}
+  .cg{grid-template-columns:1fr 260px}.sg{grid-template-columns:repeat(4,1fr)}
+  .prh{display:flex!important}
+}
+@keyframes fU{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+
+/* ── MOBILE TOP BAR ── */
+.mob-topbar{display:none;position:fixed;top:0;left:0;right:0;z-index:95;background:var(--wh);border-bottom:1px solid var(--br);box-shadow:0 1px 3px rgba(0,0,0,.05);padding:0 14px;padding-top:env(safe-area-inset-top);height:calc(52px + env(safe-area-inset-top));align-items:center;justify-content:space-between;gap:8px}
+.mtb-left{display:flex;align-items:center;gap:9px;min-width:0;flex:1;overflow:hidden}
+.mtb-logo{width:30px;height:30px;background:var(--ac);border-radius:8px;display:flex;align-items:center;justify-content:center;color:#fff;font-family:'Fraunces',serif;font-size:15px;font-weight:700;flex-shrink:0}
+.mtb-info{display:flex;flex-direction:column;gap:2px;min-width:0;overflow:hidden}
+.mtb-title{font-family:'Fraunces',serif;font-size:15px;font-weight:700;letter-spacing:-.3px;line-height:1;white-space:nowrap}
+.mtb-title em{color:var(--acm);font-style:normal}
+.mtb-q{font-family:'JetBrains Mono',monospace;font-size:9.5px;color:var(--tx4);font-weight:500;text-transform:uppercase;letter-spacing:.07em;white-space:nowrap;line-height:1}
+.mtb-right{display:flex;align-items:center;gap:5px;flex-shrink:0}
+.mtb-yearpick{height:34px;padding:0 8px;border:1px solid var(--br);border-radius:var(--rx);background:var(--s2);font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:500;color:var(--tx2);cursor:pointer;outline:none;min-width:58px}
+.mtb-icbtn{width:38px;height:38px;border:none;border-radius:var(--rx);background:transparent;cursor:pointer;font-size:18px;display:flex;align-items:center;justify-content:center;-webkit-tap-highlight-color:transparent;flex-shrink:0;transition:background .15s}
+.mtb-icbtn:active,.mtb-icbtn:hover{background:var(--s2)}
+
+/* ── MOBILE BOTTOM NAV ── */
+.mob-nav{display:none;position:fixed;bottom:0;left:0;right:0;background:var(--wh);border-top:1px solid var(--br);z-index:100;padding:0 4px;padding-bottom:env(safe-area-inset-bottom)}
+.mob-nav-inner{display:flex;height:58px;align-items:stretch}
+.mni{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;cursor:pointer;border:none;background:none;color:var(--tx3);font-family:'Plus Jakarta Sans',sans-serif;font-size:10px;font-weight:500;border-radius:8px;transition:color .15s;padding:4px 2px;-webkit-tap-highlight-color:transparent;min-height:48px}
+.mni:active{opacity:.6}.mni.on{color:var(--ac)}
+.mni-icon{font-size:20px;line-height:1}.mni-label{line-height:1;letter-spacing:.01em}
+
+/* ── MOBILE MORE MENU ── */
+.mob-more{position:fixed;bottom:calc(64px + env(safe-area-inset-bottom));left:10px;right:10px;background:var(--wh);border:1px solid var(--br);border-radius:16px;box-shadow:var(--shl);z-index:99;display:none;animation:fU .2s ease;overflow:hidden}
+.mob-more.on{display:block}
+.mob-more-item{display:flex;align-items:center;gap:12px;padding:13px 16px;cursor:pointer;font-size:14px;font-weight:500;color:var(--tx2);-webkit-tap-highlight-color:transparent;min-height:50px;border-bottom:1px solid #f0ede8}
+.mob-more-item:last-of-type{border-bottom:none}
+.mob-more-item:active{background:var(--s2)}.mob-more-item.on{color:var(--ac);background:var(--acl)}
+.mob-more-item span{font-size:19px;width:26px;text-align:center;flex-shrink:0}
+.mob-more-overlay{position:fixed;inset:0;z-index:98;display:none}.mob-more-overlay.on{display:block}
+.mob-quarter-strip{padding:10px 14px;background:var(--s2);border-top:1px solid var(--br)}
+.mob-qs-year{width:100%;padding:8px 10px;border:1px solid var(--br);border-radius:var(--rx);background:var(--wh);font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:500;color:var(--tx2);cursor:pointer;outline:none;height:42px;margin-bottom:8px}
+.mob-qs-btns{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:7px}
+.mob-quarter-strip .qb{padding:9px 4px;font-size:12px;min-height:42px}
+
+/* ── TABLE SCROLL ── */
+.table-scroll-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;margin:0 -18px;padding:0 18px}
+.table-scroll-wrap .dt{min-width:480px}
+
+/* ── RAW ORDERS (VINTED HTML) ── */
+.ro-section{border-top:2px solid var(--br);margin-top:4px}
+.ro-header{display:flex;align-items:center;justify-content:space-between;padding:12px 18px 8px;flex-wrap:wrap;gap:4px}
+.ro-header-title{font-family:'Fraunces',serif;font-size:13.5px;font-weight:600;color:var(--tx)}
+.ro-hint{font-size:10.5px;color:var(--wn);font-family:'JetBrains Mono',monospace}
+.ro-row{display:flex;align-items:center;gap:8px;padding:10px 18px;border-bottom:1px solid #f0ede8}
+.ro-row:last-child{border-bottom:none}
+.ro-date-in{font-family:'JetBrains Mono',monospace;font-size:11.5px;color:var(--tx);border:1px solid var(--br);border-radius:var(--rx);padding:7px 8px;background:var(--s2);outline:none;min-height:42px;flex-shrink:0;width:130px;-webkit-tap-highlight-color:transparent}
+.ro-date-in:focus{border-color:var(--ac);background:var(--wh)}
+.ro-cc-sel{font-family:'Plus Jakarta Sans',sans-serif;font-size:12.5px;color:var(--tx);border:1px solid var(--br);border-radius:var(--rx);padding:7px 8px;background:var(--s2);outline:none;min-height:42px;flex:1;min-width:0;cursor:pointer;-webkit-tap-highlight-color:transparent}
+.ro-cc-sel:focus{border-color:var(--ac);background:var(--wh)}
+.ro-amt{font-family:'JetBrains Mono',monospace;font-size:13px;font-weight:600;color:var(--tx);flex-shrink:0;text-align:right;min-width:62px}
+
+/* ── MODAL FX GRID ── */
+.fxgrid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:4px}
+
+/* ── GLOBAL TOUCH TARGETS ── */
+.btn{min-height:40px}.qb{min-height:36px}.kbb{min-height:40px}.thb{min-height:42px}
+.mbp,.mbc{min-height:46px}.cib{min-height:44px}.cli{min-height:46px}.acc-hd{min-height:50px}
+
+/* ── TABLET (≤900px) ── */
+@media(max-width:900px){
+  .nav{display:none}
+  .mob-nav{display:flex}
+  .mob-topbar{display:flex}
+  .vw{padding:16px 16px calc(68px + env(safe-area-inset-bottom));padding-top:calc(52px + env(safe-area-inset-top) + 16px)}
+  .sg{grid-template-columns:repeat(2,1fr);gap:10px}
+  .cg{grid-template-columns:1fr}
+  .ur{grid-template-columns:1fr;gap:10px}
+  .ygrid{grid-template-columns:repeat(2,1fr)}
+  .clgrid{grid-template-columns:1fr}
+  .ph{flex-direction:column;gap:10px;align-items:flex-start;margin-bottom:14px}
+  .mob-hide{display:none}
+  .ha{flex-wrap:wrap;gap:6px}
+  .ha .btn{font-size:12px;padding:8px 12px}
+  .uz{padding:14px 13px;min-height:78px;display:flex;flex-direction:row;align-items:center;gap:13px;text-align:left}
+  .uz .ui{font-size:26px;margin:0;flex-shrink:0}
+  .uz .ut{font-size:13px;margin-bottom:2px}
+  .uz .us{font-size:10.5px}
+  .ubg{margin-top:3px;display:inline-block}
+}
+
+/* ── MODAL BOTTOM SHEET (≤680px) ── */
+@media(max-width:680px){
+  .mo{align-items:flex-end}
+  .md{max-width:100%;width:100%;border-radius:22px 22px 0 0;padding:22px 18px;padding-bottom:calc(24px + env(safe-area-inset-bottom));max-height:90vh}
+  .mdt{font-size:17px}
+}
+
+/* ── SMALL PHONES (≤600px) ── */
+@media(max-width:600px){
+  .vw{padding-left:14px;padding-right:14px}
+  .corrr{grid-template-columns:1fr}
+  .cib{width:100%}
+  .fxbar{flex-wrap:wrap;gap:4px;font-size:11px}
+  .prog{flex-wrap:wrap;font-size:12px;padding:10px 14px}
+  .plog{max-height:100px}
+  .althbtns{flex-wrap:wrap;gap:5px}
+  .thb{flex:1;min-width:52px;text-align:center}
+  .sc{padding:13px 14px}
+  .kb{flex-wrap:wrap;gap:10px;padding:14px 16px}
+  .kbb{align-self:flex-start}
+  .acc-hd{padding:13px 14px}
+  .acc-bd{padding:14px 14px}
+}
+
+/* ── SMALLER PHONES (≤480px) ── */
+@media(max-width:480px){
+  .vw{padding-left:12px;padding-right:12px}
+  .sg{gap:8px}
+  .sc{padding:12px 12px}
+  .sv{font-size:22px}
+  .pt{font-size:20px}
+  .fr{grid-template-columns:1fr}
+  .fxgrid{grid-template-columns:1fr}
+  .srow{flex-wrap:wrap;gap:4px;padding:10px 0}
+  .srow .srv,.srow a{font-size:11px;word-break:break-word}
+  .kp{flex-wrap:wrap}
+  .ro-row{flex-wrap:wrap;gap:7px;padding:10px 12px}
+  .ro-date-in{width:100%;flex-shrink:1}
+  .ro-cc-sel{width:100%;flex:none}
+  .ro-amt{margin-left:auto}
+  #ossAP{padding:12px 14px}
+  #ossAP ol{font-size:12px;line-height:1.85;padding-left:16px}
+  #ossAP>div:first-child{font-size:12.5px}
+  #landenCards{grid-template-columns:1fr}
+  .dt-stack thead{display:none}
+  .dt-stack tbody tr{display:block;background:var(--wh);border:1px solid var(--br);border-radius:var(--rs);margin-bottom:10px;overflow:hidden;box-shadow:var(--sh)}
+  .dt-stack tbody td{display:flex;justify-content:space-between;align-items:center;padding:9px 14px;border-bottom:1px solid #f0ede8!important;font-size:12.5px}
+  .dt-stack tbody td:last-child{border-bottom:none!important}
+  .dt-stack tbody td[data-l]::before{content:attr(data-l);font-size:10px;color:var(--tx3);font-weight:600;text-transform:uppercase;letter-spacing:.05em;flex:0 0 80px;flex-shrink:0}
+  .dt-stack .tf{padding:10px 14px}
+}
+
+/* ── EXTRA SMALL (≤360px) ── */
+@media(max-width:360px){
+  .vw{padding:12px 10px calc(68px + env(safe-area-inset-bottom));padding-top:calc(52px + env(safe-area-inset-top) + 12px)}
+  .sv{font-size:18px}
+  .btn{font-size:11px;padding:7px 9px}
+  .sc{padding:10px 10px}
+  .sg{gap:6px}
+  .kb{padding:11px 12px}
+  .kt{font-size:12px}
+  .ks{font-size:10.5px}
+  .mtb-title{font-size:13.5px}
+  .mtb-yearpick{min-width:52px;font-size:10.5px}
+}
+
+@media print{
+  body{background:#fff!important}.shell{display:block!important}
+  .nav,.ur,.ha,.xb,.disc,.kb .kbb,.plog,.prog,.fxbar,.corr,.als,.mob-nav,.mob-more,.mob-topbar,.ossAP-noprint{display:none!important}
+  .vw{display:block!important;padding:0!important}
+  .card,.sc{box-shadow:none!important;border:1px solid #ddd;break-inside:avoid;page-break-inside:avoid}
+  .cg{grid-template-columns:1fr 260px}.sg{grid-template-columns:repeat(4,1fr)}
+  .prh{display:flex!important}
+  .print-oss{display:block!important}
+  @page{margin:18mm 15mm;size:A4}
+}
+.print-oss{display:none;margin-top:18px;padding-top:14px;border-top:2px solid var(--ac)}
+.print-oss-title{font-family:'Fraunces',serif;font-size:13px;font-weight:700;color:var(--ac);margin-bottom:8px}
+.print-oss-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;font-size:11px}
+.print-oss-item{padding:6px 8px;border:1px solid var(--br);border-radius:4px}
+.print-oss-item.done{background:var(--acl);border-color:#b2cfbf}
+
+/* ── DRAG OVER ── */
+.uz.drag-ov{border-color:var(--ac)!important;background:var(--acl)!important;transform:scale(1.02);transition:transform .15s}
+
+/* ── KOR BLOCKED QUARTER ── */
+.yqc-blocked{border-color:var(--dn)!important;background:var(--dnl)!important}
+.yqc-blocked .ybarfill{background:var(--dn)!important}
+
+/* ── SECURITY BADGE ── */
+.sec-badge{display:inline-flex;align-items:center;gap:5px;padding:4px 9px;background:#e8f5ee;border:1px solid #b2cfbf;border-radius:100px;font-size:10px;font-weight:600;color:var(--acm);font-family:'JetBrains Mono',monospace;white-space:nowrap}
+.sec-badge .sec-dot{width:7px;height:7px;border-radius:50%;background:var(--ac);flex-shrink:0}
+
+/* ── ONBOARDING WIZARD ── */
+.onboard-steps{display:flex;flex-direction:column;gap:9px;margin-bottom:20px;text-align:left}
+.onboard-step{display:flex;align-items:center;gap:12px;padding:12px 14px;background:var(--s2);border-radius:var(--rs);border:1px solid var(--br)}
+.onboard-step-n{width:26px;height:26px;background:var(--ac);color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:12px;flex-shrink:0}
+.onboard-step-t{font-weight:600;font-size:13px;margin-bottom:2px}
+.onboard-step-s{font-size:11px;color:var(--tx3)}
+.demo-btn{width:100%;padding:13px 20px;background:var(--ac);color:#fff;border:none;border-radius:var(--rs);font-family:'Plus Jakarta Sans',sans-serif;font-size:14px;font-weight:700;cursor:pointer;transition:all .15s;margin-bottom:8px}
+.demo-btn:hover{background:#143d28;transform:translateY(-1px);box-shadow:var(--shm)}
+
+/* ── SYNC BTN HIDDEN ── */
+.sync-hidden{display:none!important}
+
+/* ── BULK LAND TOEWIJZER ── */
+.bulk-bar{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);z-index:9999;display:none;align-items:center;gap:10px;background:#1a2e2a;color:#fff;padding:12px 24px;border-radius:50px;box-shadow:0 4px 20px rgba(0,0,0,.25);white-space:nowrap;font-family:'Plus Jakarta Sans',sans-serif;animation:bulkSlideUp .22s cubic-bezier(.16,1,.3,1)}
+.bulk-bar.on{display:flex}
+@keyframes bulkSlideUp{from{opacity:0;transform:translateX(-50%) translateY(12px)}to{opacity:1;transform:translateX(-50%) translateY(0)}}
+.bulk-bar-count{font-size:13px;font-weight:700}
+.bulk-bar-sep{opacity:.35;font-size:12px}
+.bulk-bar-label{font-size:12.5px;opacity:.8}
+.bulk-cc-sel{font-family:'Plus Jakarta Sans',sans-serif;font-size:12.5px;color:#1a2e2a;border:none;border-radius:30px;padding:6px 10px;background:#fff;outline:none;cursor:pointer;min-height:34px;max-width:180px;min-width:110px}
+.bulk-apply{background:rgba(255,255,255,.15);border:1.5px solid rgba(255,255,255,.45);color:#fff;font-family:'Plus Jakarta Sans',sans-serif;font-size:12.5px;font-weight:700;padding:6px 16px;border-radius:30px;cursor:pointer;transition:all .15s;min-height:34px}
+.bulk-apply:hover{background:rgba(255,255,255,.25);border-color:#fff}
+.bulk-close{background:none;border:none;color:rgba(255,255,255,.55);font-size:15px;cursor:pointer;padding:2px 0 2px 4px;line-height:1;transition:color .15s;flex-shrink:0}
+.bulk-close:hover{color:#fff}
+.ro-sort-hd{display:flex;align-items:center;padding:7px 18px;background:var(--s2);border-bottom:1px solid var(--br);user-select:none}
+.ro-sort-col{cursor:pointer;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--tx3);padding:3px 6px;border-radius:4px;display:inline-flex;align-items:center;gap:3px;transition:all .12s}
+.ro-sort-col:hover{background:var(--br);color:var(--tx2)}
+.ro-sort-col.active{color:var(--ac)}
+.sort-icon{font-size:9px;opacity:.45}
+.ro-sort-col.active .sort-icon{opacity:1}
+.ro-sort-spacer{flex:1}
+.ro-select-all-row{display:flex;align-items:center;gap:8px;padding:8px 18px;background:var(--acl);border-bottom:1px solid #c2d9cc;cursor:pointer;transition:background .1s}
+.ro-select-all-row:hover{background:#daeae1}
+.ro-select-all-row input[type=checkbox]{width:15px;height:15px;accent-color:var(--ac);cursor:pointer;flex-shrink:0}
+.ro-select-all-row span{font-size:12px;font-weight:600;color:var(--ac)}
+.ro-row-cb{width:15px;height:15px;accent-color:var(--ac);cursor:pointer;flex-shrink:0;-webkit-tap-highlight-color:transparent}
+.ro-row.bulk-selected{background:#eef5f1}
+
+/* ── PRO RAPPORT KNOP ── */
+.pro-btn{display:flex;align-items:center;gap:8px;width:100%;padding:10px 12px;border-radius:var(--rs);background:linear-gradient(135deg,var(--ac) 0%,var(--acm) 100%);color:#fff;font-family:'Plus Jakarta Sans',sans-serif;font-size:12.5px;font-weight:700;cursor:pointer;border:none;box-shadow:0 4px 14px rgba(26,71,49,.28);transition:all .2s;margin-top:10px;position:relative;overflow:hidden}
+.pro-btn:hover{transform:translateY(-1px);box-shadow:0 6px 20px rgba(26,71,49,.36)}
+.pro-btn:active{transform:translateY(0)}
+.pro-btn-icon{font-size:15px;flex-shrink:0}
+.pro-btn-text{flex:1;text-align:left;line-height:1.25}
+.pro-btn-sub{font-size:10px;font-weight:500;opacity:.82;display:block;margin-top:1px}
+.pro-badge{background:#fff;color:var(--ac);font-size:9.5px;font-weight:800;padding:2px 6px;border-radius:4px;letter-spacing:.04em;flex-shrink:0}
+
+/* ── PRO MODAL ── */
+.pro-overlay{position:fixed;inset:0;background:rgba(15,20,18,.55);backdrop-filter:blur(4px);z-index:9000;display:none;align-items:center;justify-content:center;padding:20px}
+.pro-overlay.on{display:flex}
+.pro-modal{background:var(--wh);border-radius:20px;padding:36px 32px;max-width:440px;width:100%;box-shadow:0 24px 64px rgba(0,0,0,.18);position:relative;animation:modalIn .3s cubic-bezier(.16,1,.3,1)}
+@keyframes modalIn{from{opacity:0;transform:translateY(16px) scale(.97)}to{opacity:1;transform:none}}
+.pro-modal-close{position:absolute;top:14px;right:16px;background:var(--s2);border:none;width:28px;height:28px;border-radius:50%;cursor:pointer;font-size:14px;color:var(--tx3);display:flex;align-items:center;justify-content:center;transition:all .15s}
+.pro-modal-close:hover{background:var(--br);color:var(--tx)}
+.pro-modal-icon{width:52px;height:52px;background:var(--acl);border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:24px;margin-bottom:18px}
+.pro-modal-badge{display:inline-flex;align-items:center;gap:5px;background:var(--acl);color:var(--ac);font-size:10.5px;font-weight:700;padding:3px 9px;border-radius:100px;border:1px solid #b2cfbf;margin-bottom:10px;letter-spacing:.04em}
+.pro-modal h2{font-family:'Fraunces',serif;font-size:22px;font-weight:700;letter-spacing:-.4px;color:var(--tx);margin-bottom:8px;line-height:1.25}
+.pro-modal-body{font-size:13.5px;color:var(--tx2);line-height:1.65;margin-bottom:22px}
+.pro-modal-body strong{color:var(--ac)}
+.pro-input-wrap{display:flex;flex-direction:column;gap:8px}
+.pro-input{width:100%;padding:11px 14px;border:1.5px solid var(--br);border-radius:var(--rs);font-family:'Plus Jakarta Sans',sans-serif;font-size:13.5px;color:var(--tx);background:var(--bg);outline:none;transition:border-color .15s}
+.pro-input:focus{border-color:var(--ac);background:var(--wh)}
+.pro-submit{width:100%;padding:12px;background:var(--ac);color:#fff;border:none;border-radius:var(--rs);font-family:'Plus Jakarta Sans',sans-serif;font-size:13.5px;font-weight:700;cursor:pointer;transition:all .2s;box-shadow:0 4px 14px rgba(26,71,49,.22)}
+.pro-submit:hover{background:var(--acd);transform:translateY(-1px);box-shadow:0 6px 18px rgba(26,71,49,.3)}
+.pro-success{display:none;text-align:center;padding:12px 0 4px}
+.pro-success-icon{font-size:36px;margin-bottom:12px}
+.pro-success h3{font-family:'Fraunces',serif;font-size:18px;font-weight:700;color:var(--tx);margin-bottom:6px}
+.pro-success p{font-size:13px;color:var(--tx3);line-height:1.6}
+.pro-discount{display:inline-block;margin-top:10px;background:var(--acl);color:var(--ac);font-weight:700;font-size:12px;padding:4px 12px;border-radius:100px;border:1px solid #b2cfbf}
+
+</style>
+<script defer src="https://cloud.umami.is/script.js" data-website-id="9cb58ff4-cf6e-4773-8dd5-f2f0b6ad5510"></script>
+</head>
+<body>
+<div class="shell">
+<nav class="nav">
+  <div class="nav-logo" style="padding:12px 18px 16px;display:flex;justify-content:center;align-items:center">
+    <img src="./Gemini_Generated_Image_sy48vgsy48vgsy48.png" alt="ZENBTW" style="width:100%;max-width:170px;height:auto;display:block">
+  </div>
+  <div style="padding:8px 18px 14px;border-bottom:1px solid var(--br);margin-bottom:8px">
+    <div class="sec-badge"><div class="sec-dot"></div>Client-side encrypted</div>
+    <div style="font-size:10px;color:var(--tx4);margin-top:5px;line-height:1.5">Uw data verlaat deze browser niet (behalve naar uw eigen Google Sheet).</div>
+  </div>
+  <div class="ns"><div class="nsl">Overzicht</div>
+    <div class="ni on" id="nDash" onclick="sv('dashboard')">📊 Dashboard</div>
+    <div class="ni" id="nTx" onclick="sv('transacties')">🧾 Transacties</div>
+    <div class="ni" id="nLanden" onclick="sv('landen')">🌍 Landen</div>
+    <div class="ni" id="nJaar" onclick="sv('jaaroverzicht')">📅 Jaaroverzicht</div>
+  </div>
+  <div class="ns" style="margin-top:10px"><div class="nsl">Aangifte</div>
+    <div class="ni" onclick="exportXML()">📄 XML Export</div>
+    <div class="ni" onclick="exportCSVFile()">📊 CSV Export</div>
+    <div class="ni" onclick="window.print()">🖨️ PDF Bijlage</div>
+  </div>
+  <div class="ns" style="margin-top:10px"><div class="nsl">Tools</div>
+    <div class="ni" id="nOSS" onclick="sv('oss')">✅ OSS Registratie</div>
+    <div class="ni" id="nAlert" onclick="sv('alerts')">🔔 Meldingen</div>
+    <div class="ni" id="nHelp" onclick="sv('help')">❓ Help & Uitleg</div>
+    <div class="ni" onclick="openSettings()">⚙️ Bedrijfsgegevens</div>
+  </div>
+  <div class="nb" style="padding-bottom:10px"><a href="index.html" style="display:flex;align-items:center;gap:6px;padding:8px 10px;border-radius:var(--rx);font-size:12px;font-weight:600;color:var(--tx3);text-decoration:none;transition:all .15s;margin-bottom:8px" onmouseover="this.style.background='var(--s2)';this.style.color='var(--tx2)'" onmouseout="this.style.background='';this.style.color='var(--tx3)'">← Terug naar home</a></div>
+  <div class="nb"><div class="nq">
+    <select id="yearSel" onchange="changeYear(this.value)" style="width:100%;margin-bottom:7px;padding:5px 7px;border:1px solid var(--br);border-radius:var(--rx);background:var(--wh);font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:500;color:var(--tx2);cursor:pointer;outline:none">
+      <option value="2024">2024</option>
+      <option value="2025" selected>2025</option>
+      <option value="2026">2026</option>
+      <option value="2027">2027</option>
+    </select>
+    <div class="nql" id="yrLbl">Kwartaal 2025</div>
+    <div class="qg">
+      <button class="qb on" onclick="setQ(this,'Q1')">Q1</button>
+      <button class="qb" onclick="setQ(this,'Q2')">Q2</button>
+      <button class="qb" onclick="setQ(this,'Q3')">Q3</button>
+      <button class="qb" onclick="setQ(this,'Q4')">Q4</button>
+    </div>
+  </div></div>
+  <!-- PRO Rapport Knop -->
+  <div style="padding:0 10px 14px">
+    <button class="pro-btn" onclick="openProModal()" id="proRapportBtn" data-umami-event="click-pro-report">
+      <span class="pro-btn-icon">📄</span>
+      <span class="pro-btn-text">Officieel BTW-Rapport
+        <span class="pro-btn-sub">Genereer PDF voor Belastingdienst</span>
+      </span>
+      <span class="pro-badge">€4,99</span>
+    </button>
+  </div>
+</nav>
+
+<!-- MOBILE TOP BAR -->
+<div class="mob-topbar" id="mobTopbar">
+  <div class="mtb-left">
+    <img src="./Gemini_Generated_Image_sy48vgsy48vgsy48.png" alt="ZENBTW" style="height:32px;width:auto;display:block">
+    <div class="mtb-info">
+      <span class="mtb-title">Zen<em>BTW</em></span>
+      <span class="mtb-q" id="mtbQ">Q1 2025</span>
+    </div>
+  </div>
+  <div class="mtb-right">
+    <select class="mtb-yearpick" id="yearSelMob" onchange="changeYear(this.value)">
+      <option value="2024">2024</option>
+      <option value="2025" selected>2025</option>
+      <option value="2026">2026</option>
+      <option value="2027">2027</option>
+    </select>
+    <button class="mtb-icbtn" onclick="sv('alerts');mniActive('mniAlert')" title="Meldingen">🔔</button>
+    <button class="mtb-icbtn" onclick="openSettings()" title="Instellingen">⚙️</button>
+  </div>
+</div>
+
+<!-- MOBILE BOTTOM NAV -->
+<div class="mob-nav">
+  <div class="mob-nav-inner">
+    <button class="mni on" id="mniDash" onclick="sv('dashboard');mniActive('mniDash')">
+      <span class="mni-icon">📊</span><span class="mni-label">Dashboard</span>
+    </button>
+    <button class="mni" id="mniTx" onclick="sv('transacties');mniActive('mniTx')">
+      <span class="mni-icon">🧾</span><span class="mni-label">Orders</span>
+    </button>
+    <button class="mni" id="mniLanden" onclick="sv('landen');mniActive('mniLanden')">
+      <span class="mni-icon">🌍</span><span class="mni-label">Landen</span>
+    </button>
+    <button class="mni" id="mniMore" onclick="toggleMobMore()">
+      <span class="mni-icon">☰</span><span class="mni-label">Meer</span>
+    </button>
+  </div>
+</div>
+<div class="mob-more-overlay" id="mobMoreOverlay" onclick="closeMobMore()"></div>
+<div class="mob-more" id="mobMore">
+  <div class="mob-more-item" id="mniJaar" onclick="sv('jaaroverzicht');mniActive('mniJaar');closeMobMore()"><span>📅</span>Jaaroverzicht</div>
+  <div class="mob-more-item" id="mniOSS" onclick="sv('oss');mniActive('mniOSS');closeMobMore()"><span>✅</span>OSS Registratie</div>
+  <div class="mob-more-item" id="mniHelp" onclick="sv('help');mniActive('mniHelp');closeMobMore()"><span>❓</span>Help & Uitleg</div>
+  <div class="mob-more-item" onclick="exportXML();closeMobMore()"><span>📄</span>Aangifte exporteren</div>
+  <div class="mob-more-item" onclick="exportCSVFile();closeMobMore()"><span>📊</span>CSV Export</div>
+  <div class="mob-more-item" onclick="syncToGoogle();closeMobMore()"><span>☁️</span>Cloud Backup</div>
+  <div class="mob-more-item" onclick="downloadBackup();closeMobMore()"><span>💾</span>Backup downloaden</div>
+  <div class="mob-quarter-strip">
+    <select class="mob-qs-year" id="yearSelMore" onchange="changeYear(this.value);closeMobMore()">
+      <option value="2024">2024</option>
+      <option value="2025" selected>2025</option>
+      <option value="2026">2026</option>
+      <option value="2027">2027</option>
+    </select>
+    <div class="mob-qs-btns">
+      <button class="qb on" id="mqb1" onclick="setQ(this,'Q1');syncMobQuarter(this)">Q1</button>
+      <button class="qb" id="mqb2" onclick="setQ(this,'Q2');syncMobQuarter(this)">Q2</button>
+      <button class="qb" id="mqb3" onclick="setQ(this,'Q3');syncMobQuarter(this)">Q3</button>
+      <button class="qb" id="mqb4" onclick="setQ(this,'Q4');syncMobQuarter(this)">Q4</button>
+    </div>
+  </div>
+</div>
+
+<!-- DASHBOARD -->
+<div class="vw on" id="vwdashboard">
+  <div class="prh"><div><img src="./Gemini_Generated_Image_sy48vgsy48vgsy48.png" alt="ZENBTW" style="height:44px;width:auto;display:block"><div style="font-size:12px;color:var(--tx3);margin-top:3px">OSS BTW-rapport bijlage · Belastingdienst</div></div><div class="phm"><div id="phC" style="font-weight:700;color:var(--tx)">—</div><div id="phB">—</div><div id="phKvk" style="font-size:10px;color:var(--tx4)">KVK —</div><div id="phP">Q1 2025</div><div id="phD"></div></div></div>
+  <div class="ph">
+    <div><div class="pe" id="ey">Q1 2025 · Geen data</div><div class="pt">ZENBTW Dashboard</div></div>
+    <div class="ha mob-hide"><button class="btn bs" onclick="openSettings()">⚙️ Instellingen</button><button class="btn bp sync-hidden" id="syncBtn" onclick="syncToGoogle()">☁️ Cloud Backup</button><button class="btn bs" onclick="window.print()">🖨️ PDF</button><button class="btn bp" onclick="exportXML()" id="xBtn" disabled>📄 Aangifte exporteren</button></div>
+  </div>
+  <div class="kb safe" id="kB">
+    <div class="kd"></div>
+    <div class="kc">
+      <div class="kt" id="kT">Upload je CSV om te beginnen</div>
+      <div class="ks" id="kS">ZENBTW berekent automatisch je BTW-plicht per EU-land</div>
+      <div class="kp"><div class="kpt"><div class="kpf" id="kF" style="width:0%"></div></div><div class="kpp" id="kP">0%</div></div>
+    </div>
+    <button class="kbb" onclick="sv('alerts')">🔔 Alert</button>
+  </div>
+  <div id="margeWarn" style="display:none;margin-bottom:12px;padding:10px 14px;background:var(--wnl);border:1px solid #fcd34d;border-radius:var(--rs);font-size:12px;color:#92400e">⚠ <strong>Margeregeling actief</strong> — BTW-bedragen zijn indicatief (gebaseerd op omzet, niet winstmarge). Raadpleeg je boekhouder voor de definitieve BTW bij tweedehands goederen.</div>
+  <div id="ossAP" style="display:none;margin-bottom:16px;padding:14px 18px;background:var(--dnl);border:1px solid #f5c2bc;border-radius:var(--rs)">
+    <div style="font-size:13px;font-weight:700;color:var(--dn);margin-bottom:8px">🚨 Actieplan — OSS-aangifte is nu verplicht</div>
+    <ol style="margin:0;padding-left:18px;font-size:12.5px;color:var(--tx2);line-height:2">
+      <li>Stop direct met de <strong>KOR-vrijstelling</strong> op EU-verkopen</li>
+      <li>Registreer je voor <strong>OSS</strong> via Mijn Belastingdienst Zakelijk → BTW → E-commerce</li>
+      <li>Pas je prijzen in Etsy/Shopify/Vinted aan — BTW van het kopersland moet inbegrepen zijn</li>
+      <li>Dien elke kwartaal een <strong>OSS-melding</strong> in vóór de deadline (uiterlijk 30 dagen na kwartaalafloop)</li>
+      <li>Gebruik de <strong>"Aangifte exporteren"</strong> knop hierboven voor je XML-bestand</li>
+    </ol>
+  </div>
+  <div class="prog" id="progB"><span style="font-size:18px">📈</span><span id="progT"></span></div>
+  <div class="sg">
+    <div class="sc"><div class="st"><div class="sl">Totale omzet</div><div class="si g">💶</div></div><div class="sv g" id="sR">€0</div><div class="sd" id="sRs">Geen data</div></div>
+    <div class="sc"><div class="st"><div class="sl">BTW te betalen</div><div class="si r">⚠️</div></div><div class="sv r" id="sB">€0</div><div class="sd" id="sBs">OSS-aangifte</div></div>
+    <div class="sc"><div class="st"><div class="sl">Intl. orders</div><div class="si b">🌍</div></div><div class="sv" id="sO">0</div><div class="sd" id="sOs">van 0 totaal</div></div>
+    <div class="sc"><div class="st"><div class="sl">EU-landen</div><div class="si a">🗺️</div></div><div class="sv a" id="sC">0</div><div class="sd">excl. Nederland</div></div>
+  </div>
+  <div class="fxbar" id="fxB">💱 Wisselkoers: <span id="fxI">—</span> · ECB kwartaalkoers</div>
+  <div class="ur">
+    <div class="uz" id="eZ" data-umami-event="upload-csv"><input type="file" accept=".csv" onchange="hu(event,'etsy')"><div class="ui">🏪</div><div class="ut">Etsy CSV</div><div class="us">Shop Manager → Data downloaden</div><div class="ubg e">EtsySoldOrders.csv</div></div>
+    <div class="uz" id="sZ" data-umami-event="upload-csv"><input type="file" accept=".csv" onchange="hu(event,'shopify')"><div class="ui">🛍️</div><div class="ut">Shopify CSV</div><div class="us">Orders → Exporteren → CSV</div><div class="ubg s">orders_export.csv</div></div>
+    <div class="uz" id="vZ" data-umami-event="upload-csv"><input type="file" accept=".csv,.html,.htm" onchange="hu(event,'vinted')"><div class="ui">👗</div><div class="ut">Vinted CSV of HTML</div><div class="us">Instellingen → Mijn gegevens → Gegevens exporteren</div><div class="ubg v">transactions.csv / orders/index.html</div></div>
+  </div>
+  <div class="plog" id="pL"></div>
+  <div class="corr" id="corrSec">
+    <div class="corrt">📝 Correcties voor volgende aangifte <span style="font-size:10.5px;font-weight:400;color:var(--tx3)">(Belastingdienst: wijzigingen in eerstvolgende melding)</span></div>
+    <div class="corrr"><select class="ci" id="cLand" style="font-size:12px"><option value="">Land kiezen...</option></select><input class="ci" id="cBedrag" type="number" placeholder="Bedrag (€) · pos/neg" step="0.01"><button class="cib" onclick="addCorr()">+ Toevoegen</button></div>
+    <div id="corrList"></div>
+  </div>
+  <div class="cg">
+    <div class="card">
+      <div class="ch"><div><div class="ct">OSS uitsplitsing per land</div><div class="cst">Berekend op basis van geüploade orders</div></div><div class="ctg" id="tTag">Q1 2025</div></div>
+      <div class="table-scroll-wrap"><div class="cb" id="tBody"><div class="es"><div class="esi">📂</div><div class="est">Geen data geladen</div><div class="ess">Upload Etsy, Shopify of Vinted CSV</div></div></div></div>
+    </div>
+    <div class="ss">
+      <div class="card"><div class="ch"><div><div class="ct">Platforms</div><div class="cst">Omzetverdeling</div></div></div><div class="cb" id="pR"><div class="es" style="padding:18px 0"><div class="ess">Geen platforms geladen</div></div></div></div>
+      <div class="card"><div class="ch"><div><div class="ct">Aangifte exporteren</div><div class="cst" id="angSt">Q1 2025</div></div></div>
+        <div class="eb">
+          <div class="db"><div><div class="dl">Deadline <span id="dQl">Q1</span></div><div class="dv" id="dDl">30 april 2025</div></div><div class="dbg" id="dBg">— d</div></div>
+          <button class="xb xp" onclick="exportXML()" id="xX" disabled>📄 XML-aangifte</button>
+          <button class="xb xs" onclick="exportCSVFile()" id="xC" disabled>📊 CSV-rapport</button>
+          <button class="xb xs" onclick="window.print()">🖨️ PDF-bijlage</button>
+        </div>
+      </div>
+      <div class="card"><div class="ch"><div><div class="ct">Bedrijfsgegevens</div></div><div style="display:flex;gap:8px"><button class="btn bs" onclick="openSettings()" style="padding:5px 10px;font-size:11.5px">Wijzigen</button><button class="btn bs" onclick="resetAllData()" style="padding:5px 10px;font-size:11.5px;color:var(--dn);border-color:var(--dn)">Wis alle data</button></div></div>
+        <div class="cb">
+          <div class="srow"><div class="srl">Bedrijf</div><div class="srv" id="srCo">—</div></div>
+          <div class="srow"><div class="srl">BTW-nummer</div><div class="srv" id="srBt">—</div></div>
+          <div class="srow"><div class="srl">KOR-grens</div><div class="srv" id="srKo">€10.000</div></div>
+          <div class="srow"><div class="srl">Kwartaal</div><div class="srv" id="srQu">Q1 2025</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="disc"><span>⚠️</span><div><strong style="color:var(--tx2)">Mededeling:</strong> ZENBTW is een hulpmiddel, geen gecertificeerd belastingadvies. Controleer bij een boekhouder vóór indiening. Data wordt opgeslagen in je browser (IndexedDB).</div></div>
+<div class="print-oss" id="printOssSection">
+  <div class="print-oss-title">OSS Registratie Checklist</div>
+  <div class="print-oss-grid" id="printOssGrid"></div>
+</div>
+</div>
+
+<!-- TRANSACTIES -->
+<div class="vw" id="vwtransacties">
+  <div class="ph"><div><div class="pe">Transacties</div><div class="pt">Alle orders</div></div></div>
+  <div class="vinted-warn" id="vintedWarn"><span style="font-size:18px;flex-shrink:0">⚠️</span><div><strong>Vinted HTML geladen: landgegevens ontbreken.</strong><br>Klik in de tabel hieronder op het vlag-icoon per order om het juiste EU-land van de koper te kiezen. De BTW en KOR-drempel worden dan direct bijgewerkt.</div></div>
+  <div class="card"><div class="ch"><div><div class="ct">Orderoverzicht per land</div><div class="cst" id="txSub">Upload een CSV</div></div></div><div class="table-scroll-wrap"><div class="cb" id="txBody"><div class="es"><div class="esi">🧾</div><div class="est">Geen transacties</div><div class="ess">Upload een CSV op het dashboard</div></div></div></div></div>
+</div>
+
+<!-- HELP -->
+<div class="vw" id="vwhelp">
+  <div class="ph"><div><div class="pe">Help & Uitleg</div><div class="pt">Handleiding ZENBTW</div></div></div>
+
+  <div class="acc on">
+    <div class="acc-hd" onclick="toggleAcc(this)"><span>👗 Vinted HTML Export — Landen ontbreken</span><span class="acc-ico">▶</span></div>
+    <div class="acc-bd">
+      <p>Vinted voegt <strong>geen landgegevens</strong> toe aan de HTML-export. Alle orders worden standaard op <strong>Nederland (🇳🇱 NL)</strong> gezet en tellen daardoor <em>niet</em> mee voor je KOR-drempel.</p>
+      <p style="margin-top:10px"><strong>Zo corrigeer je dit:</strong></p>
+      <div class="step"><div class="step-n">1</div><div>Upload je Vinted HTML-bestand op het Dashboard.</div></div>
+      <div class="step"><div class="step-n">2</div><div>Ga naar <strong>Transacties</strong> in de navigatie.</div></div>
+      <div class="step"><div class="step-n">3</div><div>Je ziet alle Vinted-orders. Klik op het 🏳️-vlag-icoon of de landcode per order.</div></div>
+      <div class="step"><div class="step-n">4</div><div>Kies het <strong>EU-land van de koper</strong> uit de dropdown. BTW en KOR-drempel worden direct bijgewerkt.</div></div>
+      <p style="margin-top:10px;font-size:11.5px;color:var(--tx3)">💡 Tip: Vinted toont het land wél in de app zelf, onder elke verkoop in je bestellingengeschiedenis.</p>
+    </div>
+  </div>
+
+  <div class="acc">
+    <div class="acc-hd" onclick="toggleAcc(this)"><span>📥 Hoe download je je verkoopdata?</span><span class="acc-ico">▶</span></div>
+    <div class="acc-bd">
+      <p style="margin-bottom:12px">Elke download-locatie per platform:</p>
+      <p><strong>👗 Vinted (HTML)</strong></p>
+      <ol><li>Ga naar je <strong>Profiel</strong> → <strong>Instellingen</strong></li><li>Klik op <strong>Privacyinstellingen</strong></li><li>Scroll naar <strong>Manage account data</strong></li><li>Klik <strong>Request data</strong> → je ontvangt een mail met een download-link <em style="color:var(--tx3)">(Let op: het kan een paar uur of een dag duren voordat Vinted de mail stuurt)</em></li><li>Download het <code>.html</code>-bestand en upload dit in ZENBTW</li></ol>
+      <p style="margin-top:12px"><strong>🏪 Etsy (CSV)</strong></p>
+      <p style="font-size:11.5px;color:var(--acm);margin-bottom:8px">💡 ZENBTW rekent vreemde valuta (USD, GBP) automatisch om naar Euro's op basis van de ingestelde dagkoers.</p>
+      <ol><li>Ga naar <strong>Shop Manager</strong> → <strong>Settings</strong></li><li>Klik op <strong>Options</strong> → tabblad <strong>Download Data</strong></li><li>Kies <strong>Orders</strong> en het gewenste kwartaal/jaar</li><li>Klik <strong>Download CSV</strong></li></ol>
+      <p style="margin-top:12px"><strong>🛍️ Shopify (CSV)</strong></p>
+      <p style="font-size:11.5px;color:var(--acm);margin-bottom:8px">💡 ZENBTW rekent vreemde valuta (USD, GBP) automatisch om naar Euro's op basis van de ingestelde dagkoers.</p>
+      <ol><li>Ga naar <strong>Orders</strong> in je Shopify-admin</li><li>Klik rechtsbovenin op <strong>Export</strong></li><li>Kies <strong>All orders</strong> en formaat <strong>CSV for Excel</strong></li><li>Download en upload het bestand in ZENBTW</li></ol>
+    </div>
+  </div>
+
+  <div class="acc">
+    <div class="acc-hd" onclick="toggleAcc(this)"><span>💶 De €10.000 KOR-drempel (OSS)</span><span class="acc-ico">▶</span></div>
+    <div class="acc-bd">
+      <p>ZENBTW bewaakt specifiek de <strong>EU-drempel voor het OSS-systeem</strong>. Wat telt mee:</p>
+      <ul style="margin-top:8px">
+        <li>✅ Verkopen naar <strong>EU-landen</strong> (excl. Nederland)</li>
+        <li>❌ Verkopen naar Nederlandse klanten — telt <em>niet</em> mee voor OSS</li>
+        <li>❌ Verkopen buiten de EU (UK, VS, etc.) — telt <em>niet</em> mee</li>
+      </ul>
+      <p style="margin-top:12px">Zodra je <strong>cross-border EU-omzet €10.000 overschrijdt</strong> in een kalenderjaar, ben je verplicht BTW te berekenen op basis van het <strong>tarief van het land van de koper</strong>.</p>
+      <p style="margin-top:10px">Je meldt dit via het <strong>Union-scheme (OSS)</strong> bij de Belastingdienst. Aanmelden kan via <em>Mijn Belastingdienst Zakelijk</em> → BTW → E-commerce.</p>
+      <p style="margin-top:10px;padding:9px 12px;background:var(--acl);border-radius:var(--rx);font-size:12px;color:var(--acm)"><strong>Let op:</strong> De €10.000 grens geldt per <em>kalenderjaar</em>, niet per kwartaal. ZENBTW toont het jaaroverzicht onder <strong>Jaaroverzicht</strong>.</p>
+    </div>
+  </div>
+
+  <div class="acc">
+    <div class="acc-hd" onclick="toggleAcc(this)"><span>📊 Google Sheets synchronisatie</span><span class="acc-ico">▶</span></div>
+    <div class="acc-bd">
+      <p>ZENBTW kan na elke upload automatisch data naar een Google Sheet sturen.</p>
+      <div class="step"><div class="step-n">1</div><div>Maak een nieuw Google Sheet aan en open <strong>Extensies → Apps Script</strong></div></div>
+      <div class="step"><div class="step-n">2</div><div>Plak het Apps Script (ontvangen van ZENBTW) en klik <strong>Implementeren → Nieuwe implementatie → Web App</strong></div></div>
+      <div class="step"><div class="step-n">3</div><div>Stel in: <em>Uitvoeren als: Ik</em> · <em>Toegang: Iedereen</em>. Kopieer de <code>/exec</code>-URL</div></div>
+      <div class="step"><div class="step-n">4</div><div>Plak de URL in <strong>Meldingen → Google Sheets</strong> en klik <em>Nu synchroniseren</em></div></div>
+      <p style="margin-top:10px;font-size:11.5px;color:var(--tx3)">💡 De sheet krijgt kolommen: Datum · Bedrijf · Kwartaal (bijv. "Q2 2026") · Orders · Omzet · Cross-border EU · BTW · KOR% · KOR-grens · Status</p>
+    </div>
+  </div>
+
+  <div style="margin-top:16px;padding:13px 16px;background:var(--s2);border:1px solid var(--br);border-radius:var(--rs);font-size:11.5px;color:var(--tx3);line-height:1.65;display:flex;gap:10px;align-items:flex-start">
+    <span style="font-size:16px;flex-shrink:0">⚖️</span>
+    <div><strong style="color:var(--tx2)">Disclaimer</strong> — ZENBTW is een rekentool voor administratieve ondersteuning en vervangt geen officieel belastingadvies. Controleer je cijfers altijd bij de Belastingdienst of een erkend belastingadviseur vóór indiening van je BTW-aangifte.</div>
+  </div>
+</div>
+
+<!-- LANDEN -->
+<div class="vw" id="vwlanden">
+  <div class="ph"><div><div class="pe">Landen</div><div class="pt">BTW per EU-land</div></div></div>
+  <div class="sg" id="landenCards"><div class="sc" style="grid-column:1/-1"><div class="es"><div class="esi">🌍</div><div class="est">Geen data</div><div class="ess">Upload CSV op dashboard</div></div></div></div>
+</div>
+
+<!-- JAAROVERZICHT -->
+<div class="vw" id="vwjaaroverzicht">
+  <div class="ph"><div><div class="pe" id="jaarHdr">Jaaroverzicht 2025</div><div class="pt">Alle kwartalen</div></div><div class="ha"><button class="btn bs" onclick="exportJaar()">📊 Export jaar</button></div></div>
+  <div id="korBlockWarn" style="display:none;margin-bottom:14px;padding:13px 16px;background:var(--dnl);border:1px solid #f5c2bc;border-radius:var(--rs);gap:12px;align-items:flex-start">
+    <span style="font-size:20px;flex-shrink:0">🛑</span>
+    <div><div style="font-size:13px;font-weight:700;color:var(--dn);margin-bottom:3px">KOR niet meer mogelijk dit jaar</div><div style="font-size:12px;color:var(--tx2);line-height:1.6">Q1 cross-border EU omzet overschrijdt €20.000 — de jaarlijkse KOR-drempel van €10.000 is ruimschoots overschreden. U bent verplicht OSS-aangifte te doen voor <strong>alle resterende kwartalen</strong> van dit jaar. Geen uitzonderingen mogelijk.</div></div>
+  </div>
+  <div class="ygrid" id="ygrid"></div>
+  <div class="card"><div class="ch"><div><div class="ct">Jaartotaal — voor IB-aangifte</div><div class="cst" id="jaarSub">Totale omzet 2025 alle kwartalen</div></div></div><div class="cb" id="jdetail"><div class="es"><div class="esi">📅</div><div class="est">Laad data per kwartaal</div><div class="ess">Upload CSV's voor Q1 t/m Q4</div></div></div></div>
+</div>
+
+<!-- OSS CHECKLIST -->
+<div class="vw" id="vwoss">
+  <div class="ph"><div><div class="pe">Registratie</div><div class="pt">OSS-aanmelding stappenplan</div></div></div>
+  <div class="card" style="margin-bottom:14px"><div class="ch"><div><div class="ct">Voortgang</div><div class="cst" id="ossProgressT">0 / 8 stappen</div></div></div>
+    <div class="cb" style="padding:18px 0">
+      <div class="clpbar"><div class="clpfill" id="ossBar" style="width:0%"></div></div>
+      <div class="clgrid" id="ossGrid"></div>
+    </div>
+  </div>
+  <div class="card"><div class="ch"><div><div class="ct">Handige links</div></div></div>
+    <div class="cb" style="padding:0">
+      <div class="srow"><div class="srl">OSS registratie</div><a href="https://mijn.belastingdienst.nl" target="_blank" style="font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--ac)">Mijn Belastingdienst →</a></div>
+      <div class="srow"><div class="srl">OSS aangifte doen</div><a href="https://www.belastingdienst.nl/wps/wcm/connect/nl/btw/content/btw-melden-eenloketsysteem" target="_blank" style="font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--ac)">Belastingdienst OSS →</a></div>
+      <div class="srow"><div class="srl">EU BTW-tarieven</div><a href="https://ec.europa.eu/taxation_customs/tedb/" target="_blank" style="font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--ac)">EU Commissie →</a></div>
+      <div class="srow"><div class="srl">KOR informatie</div><a href="https://www.belastingdienst.nl/wps/wcm/connect/nl/btw/content/kor" target="_blank" style="font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--ac)">Belastingdienst KOR →</a></div>
+    </div>
+  </div>
+</div>
+
+<!-- ALERTS -->
+<div class="vw" id="vwalerts">
+  <div class="ph"><div><div class="pe">Meldingen</div><div class="pt">E-mailalerts instellen</div></div></div>
+  <div class="als">
+    <div class="alrow"><div><div class="all">🔔 KOR-drempel waarschuwing</div><div class="als-sub">Ontvang een e-mail als je de drempel nadert</div></div><label class="tog"><input type="checkbox" id="alTog" onchange="saveAl()"><span class="tsl"></span></label></div>
+    <input class="alei" type="email" id="alEmail" placeholder="jouw@emailadres.nl" oninput="saveAl()">
+    <div class="althr"><div class="altl">Waarschuw mij bij:</div>
+      <div class="althbtns"><button class="thb on" id="th60" onclick="setTh(60)">60%</button><button class="thb" id="th75" onclick="setTh(75)">75%</button><button class="thb" id="th90" onclick="setTh(90)">90%</button><button class="thb" id="th100" onclick="setTh(100)">100%</button></div>
+    </div>
+    <div class="alsv" id="alSv">✓ Instellingen opgeslagen in je browser</div>
+  </div>
+  <div class="als" style="margin-top:16px">
+    <div class="alrow"><div><div class="all">📊 Google Sheets synchronisatie</div><div class="als-sub">Stuur kwartaaldata automatisch naar je spreadsheet na elke upload</div></div></div>
+    <input class="alei" type="url" id="alSheets" placeholder="https://script.google.com/macros/s/..." oninput="saveAl()">
+    <button style="margin-top:8px;padding:8px 14px;background:var(--ac);color:#fff;border:none;border-radius:var(--rs);font-size:12px;font-weight:600;cursor:pointer" onclick="syncToSheets()">Nu synchroniseren</button>
+  </div>
+  <div class="card" style="margin-top:16px;margin-bottom:12px"><div class="ch"><div><div class="ct">Hoe werkt het?</div></div></div>
+    <div class="cb" style="padding:0">
+      <div class="srow"><div class="srl">Browser notificatie</div><div class="srv">Bij drempeloverschrijding</div></div>
+      <div class="srow"><div class="srl">E-mail alert</div><div class="srv">Via EmailJS · automatisch bij upload</div></div>
+      <div class="srow"><div class="srl">Google Sheets</div><div class="srv">Plak je Apps Script URL hierboven</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- SETTINGS MODAL -->
+<div class="mo" id="sMo">
+  <div class="md">
+    <div class="mdt">Bedrijfsinstellingen</div><div class="mds">Opgeslagen in je browser (localStorage)</div>
+    <div class="fg"><label class="fl">Bedrijfsnaam</label><input class="fi" id="fCo" type="text" placeholder="Bijv. Revaleur"></div>
+    <div class="fr"><div class="fg"><label class="fl">KVK-nummer</label><input class="fi" id="fKv" type="text" placeholder="12345678"></div><div class="fg"><label class="fl">BTW-nummer</label><input class="fi" id="fBt" type="text" placeholder="NL123456789B01"></div></div>
+    <div class="fr"><div class="fg"><label class="fl">KOR-grens (€)</label><input class="fi" id="fKo" type="number" value="10000"></div><div class="fg"><label class="fl">Kwartaal</label><select class="fsl" id="fQu"><option>Q1 2025</option><option>Q2 2025</option><option>Q3 2025</option><option>Q4 2025</option></select></div></div>
+    <div class="fg" style="margin-top:2px">
+      <label class="fl">Verkooptype</label>
+      <label style="display:flex;align-items:center;gap:9px;cursor:pointer;padding:9px 11px;background:var(--s2);border-radius:var(--rx);border:1px solid var(--br)">
+        <input type="checkbox" id="fMarge" style="width:15px;height:15px;accent-color:var(--ac);flex-shrink:0" onchange="document.getElementById('margeModalInfo').style.display=this.checked?'block':'none'">
+        <span style="font-size:12px;color:var(--tx2)">Ik gebruik de <strong>margeregeling</strong> (tweedehands goederen)</span>
+      </label>
+      <div id="margeModalInfo" style="display:none;margin-top:6px;padding:8px 10px;background:var(--wnl);border:1px solid #fcd34d;border-radius:var(--rx);font-size:11.5px;color:#92400e">⚠ Bij margeregeling betaal je BTW over de <strong>winstmarge</strong>, niet de omzet. ZENBTW toont indicatieve bedragen — de definitieve BTW berekent je boekhouder.</div>
+    </div>
+    <div class="fg"><label class="fl">Wisselkoers naar EUR</label>
+      <div class="fxgrid">
+        <div><label style="font-size:10px;color:var(--tx4);font-family:'JetBrains Mono',monospace">USD → EUR</label><input class="fi" id="fUsd" type="number" step="0.001" value="0.920" style="margin-top:2px"></div>
+        <div><label style="font-size:10px;color:var(--tx4);font-family:'JetBrains Mono',monospace">GBP → EUR</label><input class="fi" id="fGbp" type="number" step="0.001" value="1.170" style="margin-top:2px"></div>
+      </div>
+    </div>
+    <div class="fg" style="margin-top:4px">
+      <label class="fl">☁️ Backup Script URL <span style="font-weight:400;color:var(--tx4)">(optioneel)</span></label>
+      <input class="fi" id="fBackupUrl" type="url" placeholder="https://script.google.com/macros/s/...">
+      <div style="font-size:10.5px;color:var(--tx4);margin-top:5px;line-height:1.5">Plak hier de URL van jouw Google Apps Script Web App. De ☁️ Cloud Backup-knop wordt pas zichtbaar als je een URL hebt ingevuld. <a onclick="sv('help');closeMo()" style="color:var(--ac);cursor:pointer;text-decoration:underline">Hoe maak ik dit aan?</a></div>
+    </div>
+    <div class="ma"><button class="mbp" onclick="saveSettings()">Opslaan</button><button class="mbc" onclick="closeMo()">Annuleren</button></div>
+    <div style="margin-top:14px;padding-top:14px;border-top:1px solid var(--br)">
+      <div class="fl" style="margin-bottom:7px">💾 Gegevensbackup</div>
+      <div style="display:flex;gap:8px">
+        <button onclick="downloadBackup()" style="flex:1;padding:9px 10px;background:var(--ac);color:#fff;border:none;border-radius:var(--rx);font-size:12px;font-weight:600;cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif">⬇ Download backup</button>
+        <label style="flex:1;padding:9px 10px;background:var(--wh);color:var(--tx2);border:1px solid var(--br);border-radius:var(--rx);font-size:12px;font-weight:600;cursor:pointer;text-align:center;font-family:'Plus Jakarta Sans',sans-serif">⬆ Backup herstellen<input type="file" accept=".json" style="display:none" onchange="restoreBackup(event)"></label>
+      </div>
+      <div style="margin-top:6px;font-size:11px;color:var(--tx4)">Backup bevat alle kwartaaldata, orders en instellingen. Herstellen overschrijft je huidige data.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ONBOARDING WIZARD -->
+<div class="mo" id="onboardMo" style="z-index:300;background:rgba(20,16,12,.7);backdrop-filter:blur(10px)">
+  <div class="md" style="max-width:460px;text-align:center">
+    <div style="font-size:52px;margin-bottom:6px">🧾</div>
+    <div class="mdt" style="font-size:21px;margin-bottom:3px">Welkom bij ZENBTW</div>
+    <div style="font-size:12.5px;color:var(--tx3);margin-bottom:18px;line-height:1.6">BTW-dashboard voor Etsy, Shopify en Vinted verkopers.<br>In 3 stappen klaar:</div>
+    <div class="onboard-steps">
+      <div class="onboard-step"><div class="onboard-step-n">1</div><div><div class="onboard-step-t">⚙️ Instellingen</div><div class="onboard-step-s">Vul je bedrijfsnaam, BTW- en KVK-nummer in</div></div></div>
+      <div class="onboard-step"><div class="onboard-step-n">2</div><div><div class="onboard-step-t">📂 Upload CSV of HTML</div><div class="onboard-step-s">Sleep je export van Etsy, Shopify of Vinted naar het dashboard</div></div></div>
+      <div class="onboard-step"><div class="onboard-step-n">3</div><div><div class="onboard-step-t">📊 Check je KOR-status</div><div class="onboard-step-s">Zie direct of je de €10.000 OSS-drempel nadert</div></div></div>
+    </div>
+    <button class="demo-btn" onclick="loadDemoData()">🚀 Probeer met Demo Data</button>
+    <button class="mbc" style="width:100%;padding:11px;font-size:13px" onclick="closeOnboard()">Ik upload mijn eigen data →</button>
+    <div style="margin-top:14px;font-size:10px;color:var(--tx4);display:flex;align-items:center;justify-content:center;gap:5px"><span>🔒</span>Alle data blijft lokaal in uw browser — niets wordt automatisch verstuurd</div>
+  </div>
+</div>
+
+<!-- IMPORT REVIEW MODAL -->
+<div class="mo" id="reviewMo">
+  <div class="md" style="max-width:560px">
+    <div class="mdt">📋 Importeer — controleer je data</div>
+    <div class="mds" id="reviewMds">Valideer de herkende orders vóór opslaan in de database</div>
+    <div id="reviewContent" style="margin-bottom:14px"></div>
+    <div style="padding:10px 13px;background:var(--wnl);border:1px solid #fcd34d;border-radius:var(--rs);font-size:11.5px;color:#92400e;margin-bottom:14px;display:none" id="reviewWarn"></div>
+    <div class="ma">
+      <button class="mbp" onclick="confirmImport()" id="reviewConfirmBtn">✓ Importeren</button>
+      <button class="mbc" onclick="cancelImport()">Annuleren</button>
+    </div>
+  </div>
+</div>
+
+<script>
+// ── EU TARIEVEN ──
+const EU={NL:{r:.21,f:'🇳🇱',n:'Nederland'},DE:{r:.19,f:'🇩🇪',n:'Duitsland'},BE:{r:.21,f:'🇧🇪',n:'België'},FR:{r:.20,f:'🇫🇷',n:'Frankrijk'},IT:{r:.22,f:'🇮🇹',n:'Italië'},ES:{r:.21,f:'🇪🇸',n:'Spanje'},AT:{r:.20,f:'🇦🇹',n:'Oostenrijk'},PL:{r:.23,f:'🇵🇱',n:'Polen'},PT:{r:.23,f:'🇵🇹',n:'Portugal'},SE:{r:.25,f:'🇸🇪',n:'Zweden'},DK:{r:.25,f:'🇩🇰',n:'Denemarken'},FI:{r:.24,f:'🇫🇮',n:'Finland'},IE:{r:.23,f:'🇮🇪',n:'Ierland'},CZ:{r:.21,f:'🇨🇿',n:'Tsjechië'},HU:{r:.27,f:'🇭🇺',n:'Hongarije'},RO:{r:.19,f:'🇷🇴',n:'Roemenië'},SK:{r:.20,f:'🇸🇰',n:'Slowakije'},BG:{r:.20,f:'🇧🇬',n:'Bulgarije'},HR:{r:.25,f:'🇭🇷',n:'Kroatië'},SI:{r:.22,f:'🇸🇮',n:'Slovenië'},LT:{r:.21,f:'🇱🇹',n:'Litouwen'},LV:{r:.21,f:'🇱🇻',n:'Letland'},EE:{r:.22,f:'🇪🇪',n:'Estland'},LU:{r:.17,f:'🇱🇺',n:'Luxemburg'},MT:{r:.18,f:'🇲🇹',n:'Malta'},CY:{r:.19,f:'🇨🇾',n:'Cyprus'},EL:{r:.24,f:'🇬🇷',n:'Griekenland'},GR:{r:.24,f:'🇬🇷',n:'Griekenland'}};
+const NONEU={GB:{f:'🇬🇧',n:'Verenigd Koninkrijk'},US:{f:'🇺🇸',n:'Verenigde Staten'},CA:{f:'🇨🇦',n:'Canada'},AU:{f:'🇦🇺',n:'Australië'},CH:{f:'🇨🇭',n:'Zwitserland'},NO:{f:'🇳🇴',n:'Noorwegen'},MK:{f:'🇲🇰',n:'Noord-Macedonië'},XK:{f:'🇽🇰',n:'Kosovo'},TR:{f:'🇹🇷',n:'Turkije'},UA:{f:'🇺🇦',n:'Oekraïne'},CN:{f:'🇨🇳',n:'China'},JP:{f:'🇯🇵',n:'Japan'},KR:{f:'🇰🇷',n:'Zuid-Korea'},SG:{f:'🇸🇬',n:'Singapore'},NZ:{f:'🇳🇿',n:'Nieuw-Zeeland'},BR:{f:'🇧🇷',n:'Brazilië'},IN:{f:'🇮🇳',n:'India'},MX:{f:'🇲🇽',n:'Mexico'}};
+const CNM={'netherlands':'NL','nederland':'NL','the netherlands':'NL','germany':'DE','deutschland':'DE','duitsland':'DE','belgique':'BE','belgium':'BE','belgië':'BE','france':'FR','frankrijk':'FR','italy':'IT','italië':'IT','italia':'IT','spain':'ES','spanje':'ES','españa':'ES','austria':'AT','oostenrijk':'AT','österreich':'AT','poland':'PL','polen':'PL','polska':'PL','portugal':'PT','sweden':'SE','zweden':'SE','sverige':'SE','denmark':'DK','denemarken':'DK','finland':'FI','ireland':'IE','ierland':'IE','czech republic':'CZ','czechia':'CZ','tsjechië':'CZ','hungary':'HU','hongarije':'HU','romania':'RO','roemenië':'RO','slovakia':'SK','slowakije':'SK','bulgaria':'BG','bulgarije':'BG','croatia':'HR','kroatië':'HR','slovenia':'SI','slovenië':'SI','lithuania':'LT','litouwen':'LT','latvia':'LV','letland':'LV','estonia':'EE','estland':'EE','luxembourg':'LU','luxemburg':'LU','malta':'MT','cyprus':'CY','greece':'EL','griekenland':'EL','united kingdom':'GB','uk':'GB','england':'GB','united states':'US','usa':'US','canada':'CA','australia':'AU','north macedonia':'MK','macedonia':'MK','kosovo':'XK','switzerland':'CH','zwitserland':'CH','norway':'NO','noorwegen':'NO','turkey':'TR','turkije':'TR'};
+const CI=cc=>EU[cc]||NONEU[cc]||{f:'🌐',n:cc};
+const OW=n=>n===1?'order':'orders';
+const fmt=n=>Number(n).toLocaleString('nl-NL');
+
+// ── STATE ──
+let S = {
+  year: '2025',
+  quarter: 'Q1 2025',
+  company: '',
+  btwnr: '',
+  kvk: '',
+  korLimit: 10000,
+  usdRate: .920,
+  gbpRate: 1.170,
+  countries: {},
+  rawOrders: [],
+  transactions: [], // CRUCIAAL: Voeg dit toe voor de losse transacties
+  platforms: {etsy: null, shopify: null, vinted: null},
+  totalOrders: 0,
+  intlOrders: 0,
+  quarterHistory: {},
+  correcties: [],
+  hasFx: false,
+  marge: false,
+  backupUrl: ''
+};let AL={enabled:false,email:'',threshold:60,lastAlertSent:0,sheetsUrl:''};
+let OSSck={};
+
+// ── STORAGE: IndexedDB + localStorage fallback ──
+const DB_NAME='zenbtwDB',DB_VER=1;let _idb=null;
+function openDB(){return new Promise((res,rej)=>{if(_idb)return res(_idb);const req=indexedDB.open(DB_NAME,DB_VER);req.onupgradeneeded=e=>{const db=e.target.result;if(!db.objectStoreNames.contains('kv'))db.createObjectStore('kv');};req.onsuccess=e=>{_idb=e.target.result;res(_idb);};req.onerror=()=>rej(req.error);});}
+function idbPut(key,val){return openDB().then(db=>new Promise((res,rej)=>{const tx=db.transaction('kv','readwrite');tx.objectStore('kv').put(val,key);tx.oncomplete=res;tx.onerror=rej;}));}
+function idbGet(key){return openDB().then(db=>new Promise((res,rej)=>{const req=db.transaction('kv','readonly').objectStore('kv').get(key);req.onsuccess=()=>res(req.result);req.onerror=rej;}));}
+function saveS(){
+  idbPut('ktx_s',S).catch(()=>{});
+  idbPut('ktx_bak_'+S.year,{ts:Date.now(),S:JSON.parse(JSON.stringify(S))}).catch(()=>{}); // auto-backup per jaar
+  try{localStorage.setItem('ktx_s',JSON.stringify(S));}catch(e){}
+}
+function loadS(){
+  return idbGet('ktx_s').then(d=>{
+    if(d)Object.assign(S,d);
+    else{try{const ls=localStorage.getItem('ktx_s');if(ls)Object.assign(S,JSON.parse(ls));}catch(e){}}
+    if(!Array.isArray(S.transactions))S.transactions=[];
+    if(!S.year)S.year=S.quarter.split(' ')[1]||'2025';
+    return Promise.all([idbGet('ktx_al'),idbGet('ktx_oss')]);
+  }).then(([al,oss])=>{
+    if(al)AL=al;else{try{const ls=localStorage.getItem('ktx_al');if(ls)AL=JSON.parse(ls);}catch(e){}}
+    if(oss)OSSck=oss;else{try{const ls=localStorage.getItem('ktx_oss');if(ls)OSSck=JSON.parse(ls);}catch(e){}}
+  }).catch(()=>{
+    try{const d=localStorage.getItem('ktx_s');if(d){Object.assign(S,JSON.parse(d));if(!Array.isArray(S.transactions))S.transactions=[];if(!S.year)S.year=S.quarter.split(' ')[1]||'2025';}}catch(e){}
+    try{const a=localStorage.getItem('ktx_al');if(a)AL=JSON.parse(a);}catch(e){}
+    try{const o=localStorage.getItem('ktx_oss');if(o)OSSck=JSON.parse(o);}catch(e){}
+  });
+}
+function saveQ(){if(!S.quarter)return;S.quarterHistory[S.quarter]={countries:JSON.parse(JSON.stringify(S.countries)),rawOrders:JSON.parse(JSON.stringify(S.rawOrders)),totalOrders:S.totalOrders,intlOrders:S.intlOrders,revenue:calcTotal()};saveS();}
+function restoreQ(){const d=S.quarterHistory[S.quarter];if(d){S.countries=JSON.parse(JSON.stringify(d.countries));S.rawOrders=JSON.parse(JSON.stringify(d.rawOrders||[]));S.totalOrders=d.totalOrders;S.intlOrders=d.intlOrders;S.platforms=JSON.parse(JSON.stringify(d.platforms||{etsy:null,shopify:null,vinted:null}));}else{S.countries={};S.rawOrders=[];S.totalOrders=0;S.intlOrders=0;S.platforms={etsy:null,shopify:null,vinted:null};}}
+
+// ── PARSERS ──
+function dateToQuarter(raw){
+  if(!raw)return null;const s=String(raw).trim();let y,m;
+  // ISO: YYYY-MM-DD
+  const iso=s.match(/^(\d{4})-(\d{2})-\d{2}/);
+  if(iso){y=+iso[1];m=+iso[2];}
+  // 2-cijferig jaar: MM/DD/YY  of  DD/MM/YY (Etsy US gebruikt MM/DD/YY bijv. "01/15/25")
+  else if(s.match(/^\d{1,2}\/\d{1,2}\/\d{2}$/)){
+    const p=s.match(/^(\d{1,2})\/(\d{1,2})\/(\d{2})$/);
+    const a=+p[1],b=+p[2],yr=+p[3];
+    y=yr<50?2000+yr:1900+yr;
+    if(a>12){m=b;}        // eerste getal > 12 → moet dag zijn (DD/MM/YY Europees)
+    else if(b>12){m=a;}   // tweede getal > 12 → moet dag zijn (MM/DD/YY Amerikaans/Etsy)
+    else{m=a;}             // beide ≤12 en onzeker: kies MM/DD (Etsy-standaard)
+  }
+  // 4-cijferig jaar: DD/MM/YYYY of MM/DD/YYYY of DD-MM-YYYY
+  else{
+    const y4=s.match(/^(\d{1,2})[-\/](\d{1,2})[-\/](\d{4})/);
+    if(y4){
+      const a=+y4[1],b=+y4[2];y=+y4[3];
+      if(a>12){m=b;}        // eerste > 12 → dag: DD/MM/YYYY (Europees)
+      else if(b>12){m=a;}   // tweede > 12 → dag: MM/DD/YYYY (Amerikaans/Etsy)
+      else{m=b;}             // onzeker → DD/MM/YYYY (Europese standaard: maand=tweede getal)
+    }
+    else{
+      // Maandnaam-formaat: "Jan 15, 2025" of "15 Jan 2025" of "January 15 2025"
+      const MON={jan:1,feb:2,mar:3,apr:4,may:5,jun:6,jul:7,aug:8,sep:9,oct:10,nov:11,dec:12,
+                 mrt:3,mei:5,okt:10};
+      const mnA=s.match(/^([A-Za-z]{3})[A-Za-z]*[.\s]+(\d{1,2})[,\s]+(\d{4})/);
+      if(mnA&&MON[mnA[1].toLowerCase()]){m=MON[mnA[1].toLowerCase()];y=+mnA[3];}
+      else{const mnB=s.match(/^(\d{1,2})\s+([A-Za-z]{3})[A-Za-z]*[.\s]+(\d{4})/);
+        if(mnB&&MON[mnB[2].toLowerCase()]){m=MON[mnB[2].toLowerCase()];y=+mnB[3];}
+        else{const d=new Date(s);if(!isNaN(d)){y=d.getFullYear();m=d.getMonth()+1;}else return null;}}
+    }
+  }
+  if(!y||!m||m<1||m>12)return null;
+  return'Q'+Math.ceil(m/3)+' '+y;
+}
+function pcsv(text){
+  // Strip UTF-8 BOM
+  const raw=text.replace(/^\uFEFF/,'');
+  const lines=raw.replace(/\r\n/g,'\n').replace(/\r/g,'\n').split('\n');
+  let hi=0;while(hi<lines.length&&!lines[hi].trim())hi++;
+  if(hi>=lines.length)return null;
+  const hraw=lines[hi];
+  // Auto-detect delimiter: vergelijk komma's vs puntkomma's
+  const nC=(hraw.match(/,/g)||[]).length;
+  const nS=(hraw.match(/;/g)||[]).length;
+  const delim=nS>nC?';':',';
+  if(nS>nC)log('<span class="wn">ℹ Puntkomma-delimiter (;) gedetecteerd</span>');
+  // Basis CSV-parser (één delimiter)
+  const pline=(l,d)=>{d=d||delim;const r=[];let c='',q=false;for(let i=0;i<l.length;i++){const ch=l[i];if(ch==='"'){if(q&&l[i+1]==='"'){c+='"';i++;}else q=!q;}else if(ch===d&&!q){r.push(c);c='';}else c+=ch;}r.push(c);return r;};
+  // Etsy outer-quote detectie: Etsy wikkelt iedere rij in extra aanhalingstekens
+  // bijv. `"Sale Date,""Order ID"",..."` → pline geeft 1 veld terug dat de hele rij bevat
+  const testH=pline(hraw);
+  const outerQuoted=testH.length===1&&testH[0].includes(',');
+  if(outerQuoted)log('<span class="wn">ℹ Etsy outer-quote encoding gedetecteerd — automatisch gecorrigeerd</span>');
+  // getRow: haal de velden op uit een regel, met outer-quote unwrapping indien nodig
+  const getRow=l=>{const v=pline(l);if(outerQuoted&&v.length===1&&v[0].includes(','))return pline(v[0],',');return v;};
+  const h=getRow(hraw).map(x=>x.trim().toLowerCase().replace(/['"]/g,'').replace(/^\uFEFF/,''));
+  const rows=[];let parseErrors=0;
+  for(let i=hi+1;i<lines.length;i++){
+    try{
+      const l=lines[i].trim();if(!l)continue;
+      const v=getRow(l);if(v.length<2)continue;
+      const o={};h.forEach((k,j)=>{o[k]=(v[j]||'').trim().replace(/^"|"$/g,'');});
+      rows.push(o);
+    }catch(e){parseErrors++;}
+  }
+  if(parseErrors>0)log('<span class="wn">ℹ '+parseErrors+' regels overgeslagen wegens parseerfout</span>');
+  return{h,rows,delim};
+}
+function rc(raw){if(!raw)return null;const c=raw.trim().toUpperCase();if(EU[c]||NONEU[c])return c;const lo=raw.trim().toLowerCase();if(CNM[lo])return CNM[lo];if(c.length===2)return c;return null;}
+function pm(s){if(!s)return 0;let c=String(s).replace(/[€$£\s]/g,'').replace(/EUR|USD|GBP/gi,'').trim();if(/^\d{1,3}(\.\d{3})*(,\d{1,2})?$/.test(c))c=c.replace(/\./g,'').replace(',','.');else c=c.replace(/,/g,'.');const v=parseFloat(c);return isNaN(v)?0:v;}
+function applyFx(amt,cur){if(!cur)return amt;const c=cur.toUpperCase().trim();if(c==='USD'||c==='$'){S.hasFx=true;return amt*S.usdRate;}if(c==='GBP'||c==='£'){S.hasFx=true;return amt*S.gbpRate;}return amt;}
+
+function parseEtsy(text){
+  const p=pcsv(text);
+  if(!p)return{ok:false,msg:'Bestand kon niet worden gelezen (leeg of onleesbaar)'};
+  if(!p.rows.length){
+    // Header gevonden maar geen datarijen — geef informatieve fout
+    if(p.h.length<=1)return{ok:false,msg:'Slechts 1 kolom gevonden. Controleer of het bestand een komma (,) of puntkomma (;) als scheidingsteken gebruikt — dit wordt normaal automatisch herkend.'};
+    return{ok:false,msg:'Bestand bevat alleen een headerregel, geen orders. Exporteer opnieuw vanuit Etsy Shop Manager → Settings → Options → Download Data.'};
+  }
+  const{h,rows}=p;const hj=h.join(',');
+  // Detecteer Etsy-formaat: orders (ship country aanwezig) of items (listing id aanwezig)
+  const fmt2=hj.includes('ship country')||hj.includes('order id')?'order':hj.includes('listing id')?'item':'unknown';
+  log('Etsy: formaat=<span class="ok">'+fmt2+'</span> · '+rows.length+' rijen · kolommen: '+h.slice(0,4).join(', '));
+  if(fmt2==='unknown'){
+    // Probeer toch te parsen als best-effort
+    log('<span class="wn">⚠ Onbekend Etsy-formaat — probeer best-effort parsing</span>');
+  }
+  const byQ={};let tot=0,rev=0,io=0,skipped=0,noDates=0;
+  for(const row of rows){ try{
+    const date=row['sale date']||row['order date']||row['date']||row['order_date']||'';
+    const cur=row['currency']||row['currency code']||'EUR';
+    const cc=rc(row['ship country']||row['country']||row['ship_country']||'')||'NL';
+    let amt;
+    if(fmt2==='order'||fmt2==='unknown'){
+      // Voorkeur: 'order value' = artikelprijs excl. verzending (Etsy-export standaard)
+      // Fallback: 'item total', 'order total', 'total price'
+      const raw=pm(row['order value']||row['item total']||row['order total']||row['total price']||row['total']||'0');
+      const tax=pm(row['order sales tax']||row['sales tax']||row['tax']||'0');
+      amt=applyFx(Math.max(0,raw-tax),cur);
+    }else{
+      amt=applyFx(pm(row['price']||row['total']||'0'),cur);
+    }
+    if(amt<=0){skipped++;continue;}
+    const q=dateToQuarter(date);
+    if(!q){noDates++;
+      // Datum niet parseerbaar — voeg toe aan huidig kwartaal
+      const qFallback=S.quarter;
+      if(!byQ[qFallback])byQ[qFallback]={countries:{},totalOrders:0,intlOrders:0,totalRevenue:0};
+      if(!byQ[qFallback].countries[cc])byQ[qFallback].countries[cc]={revenue:0,orders:0};
+      byQ[qFallback].countries[cc].revenue+=amt;byQ[qFallback].countries[cc].orders++;byQ[qFallback].totalOrders++;byQ[qFallback].totalRevenue+=amt;
+      tot++;rev+=amt;if(cc!=='NL'&&EU[cc]){io++;byQ[qFallback].intlOrders=(byQ[qFallback].intlOrders||0)+1;}
+      continue;
+    }
+    if(!byQ[q])byQ[q]={countries:{},totalOrders:0,intlOrders:0,totalRevenue:0};
+    if(!byQ[q].countries[cc])byQ[q].countries[cc]={revenue:0,orders:0};
+    byQ[q].countries[cc].revenue+=amt;byQ[q].countries[cc].orders++;byQ[q].totalOrders++;byQ[q].totalRevenue+=amt;
+    tot++;rev+=amt;if(cc!=='NL'&&EU[cc]){io++;byQ[q].intlOrders=(byQ[q].intlOrders||0)+1;}
+  }catch(e){skipped++;}}
+  // Logs na verwerking
+  if(noDates>0)log('<span class="wn">⚠ '+noDates+' orders zonder leesbare datum → ingedeeld bij huidig kwartaal ('+S.quarter+')</span>');
+  if(skipped>0)log('<span class="wn">ℹ '+skipped+' rijen overgeslagen (bedrag = €0 of niet herkend)</span>');
+  if(tot===0){
+    if(rows.length>0)return{ok:false,msg:'Alle '+rows.length+' rijen hebben bedrag €0 of een niet-herkend formaat. Controleer de kolom "Item Total" of "Order Total" in je CSV.'};
+    return{ok:false,msg:'Geen verkooporders gevonden in dit bestand.'};
+  }
+  // Jaar-mismatch waarschuwing: orders in ander jaar dan huidige selectie
+  const yearsFound=[...new Set(Object.keys(byQ).map(q=>q.split(' ')[1]))];
+  if(yearsFound.length>0&&!yearsFound.includes(S.year)){
+    log('<span class="wn">⚠️ '+tot+' orders gevonden in jaar '+(yearsFound.join(' & '))+' — dashboard staat op '+S.year+'. Orders zijn opgeslagen in het Jaaroverzicht.</span>');
+  }else{
+    log('<span class="ok">✓ '+tot+' orders · €'+Math.round(rev)+'</span>');
+  }
+  return{ok:true,byQuarter:byQ,totalRevenue:rev,totalOrders:tot,intlOrders:io};
+}
+function parseShopify(text){
+  const p=pcsv(text);if(!p||!p.rows.length)return{ok:false,msg:'Leeg bestand'};
+  const{rows}=p;const seen=new Set();const byQ={};let tot=0,rev=0,io=0;
+  for(const row of rows){ try{
+    const nm=row['name']||row['order']||'';if(nm&&seen.has(nm))continue;if(nm)seen.add(nm);
+    const date=row['created at']||row['created_at']||row['date']||'';
+    const st=(row['financial status']||'').toLowerCase();if(st&&st!=='paid'&&st!=='partially_paid')continue;
+    if(row['cancelled at']&&row['cancelled at'].trim())continue;
+    const cur=row['currency']||'EUR';const cc=rc(row['shipping country']||row['billing country']||'')||'NL';
+    let amt=applyFx(pm(row['total']||'0'),cur);if(row['refunded amount'])amt-=applyFx(pm(row['refunded amount']),cur);
+    if(amt<=0)continue;
+    const q=dateToQuarter(date)||S.quarter;
+    if(!byQ[q])byQ[q]={countries:{},totalOrders:0,intlOrders:0,totalRevenue:0};
+    if(!byQ[q].countries[cc])byQ[q].countries[cc]={revenue:0,orders:0};
+    byQ[q].countries[cc].revenue+=amt;byQ[q].countries[cc].orders++;byQ[q].totalOrders++;byQ[q].totalRevenue+=amt;
+    tot++;rev+=amt;if(cc!=='NL'&&EU[cc]){io++;byQ[q].intlOrders=(byQ[q].intlOrders||0)+1;}
+  }catch(e){continue;}}
+  log('<span class="ok">✓ '+tot+' orders · €'+Math.round(rev)+'</span>');
+  return{ok:true,byQuarter:byQ,totalRevenue:rev,totalOrders:tot,intlOrders:io};
+}
+function parseVinted(text){
+  const p=pcsv(text);if(!p||!p.rows.length)return{ok:false,msg:'Leeg bestand'};
+  const{h,rows}=p;
+  const hj=h.join(',');
+  log('Vinted: '+rows.length+' rijen · kolommen: <span class="ok">'+h.slice(0,6).join(', ')+'</span>');
+
+  // ── Detect Vinted export type ──
+  // Type A: GDPR data export (vinted.nl/account/data_request)
+  //   Kolommen (NL): id, aanmaakdatum, artikeltitel, prijs, valuta, koperland, status
+  //   Kolommen (EN): id, created_at, item_title, price, currency, buyer_country, status
+  // Type B: Vinted Pro Orders API export
+  //   Kolommen: order_id, created_at, total_price, currency, buyer_country_code, shipment_country_code, status
+  // Type C: Handmatige export / Mijn verkopen pagina
+  //   Kolommen: datum, artikel, bedrag, land, status
+  // Type D: Generieke CSV (onbekend formaat — best-effort)
+
+  const isGDPR = hj.includes('buyer_country') || hj.includes('koperland') || hj.includes('buyer country');
+  const isPro  = hj.includes('shipment_country_code') || hj.includes('buyer_country_code');
+  const isManual = hj.includes('artikel') || hj.includes('item_title') || hj.includes('artikeltitel');
+
+  log('Formaat gedetecteerd: <span class="ok">'+(isGDPR?'GDPR dataexport':isPro?'Vinted Pro API export':isManual?'Handmatige export':'Generiek')+'</span>');
+
+  // Status-filter: alleen verkochte items meenemen
+  // Vinted statussen: sold, completed, shipped, delivered, afgerond, verzonden, verkocht
+  const SOLD_STATUSES = new Set(['sold','completed','shipped','delivered','afgerond','verzonden','verkocht','geleverd','betaald','paid','confirmed']);
+  function isSold(row){
+    const st=(row['status']||row['staat']||row['order_status']||'').toLowerCase().trim();
+    if(!st)return true; // geen statuskolom aanwezig → alles meenemen
+    return SOLD_STATUSES.has(st)||st.includes('sold')||st.includes('complet')||st.includes('afger')||st.includes('verkocht');
+  }
+
+  // Landkolom ophalen — alle bekende varianten
+  function getCountry(row){
+    return rc(
+      row['buyer_country']||row['koperland']||row['buyer country']||
+      row['shipment_country_code']||row['buyer_country_code']||
+      row['ship country']||row['shipping_country']||row['verzendland']||
+      row['country']||row['land']||row['buyer_location']||''
+    );
+  }
+
+  // Bedrag ophalen — alle bekende varianten
+  function getAmount(row){
+    // Pro API: total_price is het totaalbedrag incl. verzending
+    // GDPR export: prijs = verkoopprijs excl. Vinted-kosten
+    // Gebruik item_price / prijs boven total_price want total kan verzendkosten bevatten
+    const raw = pm(
+      row['prijs']||row['item_price']||row['item price']||row['artikelprijs']||
+      row['price']||row['verkoopprijs']||row['selling_price']||
+      row['total_price']||row['total']||row['bedrag']||row['amount']||'0'
+    );
+    const cur = row['valuta']||row['currency']||row['munt']||'EUR';
+    return applyFx(raw, cur);
+  }
+
+  const byQ={};let tot=0,rev=0,io=0,skipped=0;
+  for(const row of rows){ try{
+    if(!isSold(row)){skipped++;continue;}
+    const amt=getAmount(row);if(amt<=0){skipped++;continue;}
+    const cc=getCountry(row)||'NL';
+    const date=row['aanmaakdatum']||row['created_at']||row['datum']||row['date']||'';
+    const q=dateToQuarter(date)||S.quarter;
+    if(!byQ[q])byQ[q]={countries:{},totalOrders:0,intlOrders:0,totalRevenue:0};
+    if(!byQ[q].countries[cc])byQ[q].countries[cc]={revenue:0,orders:0};
+    byQ[q].countries[cc].revenue+=amt;byQ[q].countries[cc].orders++;byQ[q].totalOrders++;byQ[q].totalRevenue+=amt;
+    tot++;rev+=amt;if(cc!=='NL'&&EU[cc]){io++;byQ[q].intlOrders=(byQ[q].intlOrders||0)+1;}
+  }catch(e){skipped++;}}
+
+  if(skipped>0)log('<span class="wn">⚠ '+skipped+' rijen overgeslagen (geannuleerd of €0)</span>');
+  if(tot===0){
+    log('<span class="er">✗ Geen verkoopdata gevonden. Controleer of dit een verkoop-export is (niet een listings-export).</span>');
+    log('Verwachte kolommen: prijs/price + buyer_country/koperland/land');
+    return{ok:false,msg:'Geen verkoopdata gevonden — zie log voor details'};
+  }
+  log('<span class="ok">✓ '+tot+' verkopen · €'+Math.round(rev)+' totale omzet</span>');
+  return{ok:true,byQuarter:byQ,totalRevenue:rev,totalOrders:tot,intlOrders:io};
+}
+
+function parseVintedHTML(html){
+  const doc=new DOMParser().parseFromString(html,'text/html');
+  const cells=doc.querySelectorAll('div.cell[itemscope]');
+  if(!cells.length)return{ok:false,msg:'Geen orders gevonden in HTML — controleer of je het juiste bestand hebt geselecteerd (orders/index.html)'};
+  // detecteer eigen gebruikersnaam: meest voorkomende seller
+  const sc={};
+  cells.forEach(c=>{const s=(c.querySelector('[itemprop="seller"]')?.textContent||'').trim();if(s)sc[s]=(sc[s]||0)+1;});
+  const ownUser=Object.entries(sc).sort((a,b)=>b[1]-a[1])[0]?.[0]||'';
+  log('Vinted HTML: <span class="ok">'+cells.length+' orders · Gebruiker: <strong>'+ownUser+'</strong></span>');
+  log('<span class="wn">⚠ Geen landgegevens in HTML — standaard NL. Pas land aan in Transacties-tab voor juiste BTW-splitsing.</span>');
+  function isSold(st){const s=st.toLowerCase();return s.includes('completed')||s.includes('accepted')||s.includes('delivered')||s.includes('geleverd');}
+  function parseDate(raw){const m=(raw||'').trim().match(/(\d{4}-\d{2}-\d{2})/);return m?m[1]:'';}
+  const orders=[];let rev=0,skip=0,uid=Date.now();
+  cells.forEach((c,idx)=>{
+    const seller=(c.querySelector('[itemprop="seller"]')?.textContent||'').trim();
+    if(ownUser&&seller!==ownUser){skip++;return;}
+    const st=(c.querySelector('[itemprop="status"]')?.textContent||'').trim();
+    if(!isSold(st)){skip++;return;}
+    const vt=(c.querySelector('[itemprop="order_value"]')?.textContent||'0').trim();
+    const m=vt.match(/([\d.,]+)\s*([A-Z]{3})?/);
+    if(!m){skip++;return;}
+    const amt=applyFx(parseFloat(m[1].replace(',','.'))||0,m[2]||'EUR');
+    if(amt<=0){skip++;return;}
+    const date=parseDate(c.querySelector('[itemprop="order_purchased"]')?.textContent);
+    orders.push({id:uid+'_'+idx,date,amount:amt,country:'NL',platform:'vinted_html'});
+    rev+=amt;
+  });
+  if(skip>0)log('<span class="wn">⚠ '+skip+' overgeslagen (aankopen of geannuleerd)</span>');
+  if(!orders.length)return{ok:false,msg:'Geen verkoopdata gevonden — controleer of dit jouw verkopen zijn (niet aankopen)'};
+  log('<span class="ok">✓ '+orders.length+' verkopen · €'+Math.round(rev)+' · pas land aan in Transacties</span>');
+  return{ok:true,orders,totalRevenue:rev,totalOrders:orders.length,intlOrders:0};
+}
+
+function hu(e,plat){
+  const f=e.target.files[0];if(!f)return;
+  const z=document.getElementById(plat==='etsy'?'eZ':plat==='shopify'?'sZ':'vZ');
+  clearLog();showLog();S.hasFx=false;
+  const reader=new FileReader();
+  reader.onerror=()=>{z.className='uz er';z.querySelector('.ui').textContent='❌';z.querySelector('.ut').textContent='Leesfout';log('<span class="er">✗ Bestand kon niet worden gelezen</span>');};
+  reader.onload=function(ev){
+    try{
+    const isHtml=/\.html?$/i.test(f.name);
+    const r=plat==='etsy'?parseEtsy(ev.target.result):plat==='shopify'?parseShopify(ev.target.result):isHtml?parseVintedHTML(ev.target.result):parseVinted(ev.target.result);
+    if(!r.ok){z.className='uz er';z.querySelector('.ui').textContent='❌';z.querySelector('.ut').textContent=r.msg||'Parsefout';return;}
+    // Toon review-modal voor validatie vóór opslaan
+    showReviewModal(plat,f.name,r,isHtml);
+    }catch(huErr){z.className='uz er';z.querySelector('.ui').textContent='❌';z.querySelector('.ut').textContent='Verwerkingsfout';log('<span class="er">✗ Verwerkingsfout: '+huErr.message+'</span>');}
+  };
+  reader.readAsText(f,'UTF-8');
+}
+
+// ── IMPORT REVIEW ──
+let _pendingImport=null;
+function showReviewModal(plat,fname,r,isHtml){
+  _pendingImport={plat,fname,r,isHtml};
+  const modal=document.getElementById('reviewMo');
+  document.getElementById('reviewMds').textContent='Bestand: '+fname+' · '+r.totalOrders+' orders herkend';
+  // Build summary
+  const byCc={};
+  if(isHtml&&r.orders){
+    r.orders.forEach(o=>{const cc=o.country||'NL';if(!byCc[cc])byCc[cc]={orders:0,revenue:0};byCc[cc].orders++;byCc[cc].revenue+=o.amount;});
+  } else if(r.byQuarter){
+    Object.values(r.byQuarter).forEach(qd=>{Object.entries(qd.countries||{}).forEach(([cc,d])=>{if(!byCc[cc])byCc[cc]={orders:0,revenue:0};byCc[cc].orders+=d.orders;byCc[cc].revenue+=d.revenue;});});
+  }
+  const rows=Object.entries(byCc).sort((a,b)=>b[1].revenue-a[1].revenue).map(([cc,d])=>{
+    const info=CI(cc);const regime=cc==='NL'?'KOR':EU[cc]?'OSS':'Non-EU';
+    return`<tr><td><span style="margin-right:6px">${info.f}</span>${info.n}</td><td class="am">${d.orders}</td><td class="am">€${fmt(Math.round(d.revenue))}</td><td style="text-align:center"><span class="sp ${regime==='OSS'?'oss':'kor'}" ${regime==='Non-EU'?'style="background:var(--s2);color:var(--tx4)"':''}><span class="dot"></span>${regime}</span></td></tr>`;
+  }).join('');
+  const warnEl=document.getElementById('reviewWarn');
+  if(isHtml){warnEl.textContent='⚠ Vinted HTML-export bevat geen landgegevens. Alle orders staan op NL. Pas landen aan in de Transacties-tab na het importeren.';warnEl.style.display='block';}
+  else{warnEl.style.display='none';}
+  document.getElementById('reviewContent').innerHTML=`<div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.07em;color:var(--tx4);margin-bottom:6px">Herkende landen & BTW-regime</div><div class="table-scroll-wrap"><table class="dt" style="font-size:12.5px"><thead><tr><th>Land</th><th class="r">Orders</th><th class="r">Omzet</th><th class="c">Regime</th></tr></thead><tbody>${rows}</tbody></table></div><div style="margin-top:10px;font-size:12px;color:var(--tx2)">Totaal: <strong>${r.totalOrders} orders · €${fmt(Math.round(r.totalRevenue))}</strong></div>`;
+  modal.classList.add('on');
+}
+function cancelImport(){_pendingImport=null;document.getElementById('reviewMo').classList.remove('on');}
+function confirmImport(){
+  if(!_pendingImport)return;
+  const{plat,fname,r,isHtml}=_pendingImport;_pendingImport=null;
+  document.getElementById('reviewMo').classList.remove('on');
+  // Commit to state
+  const z=document.getElementById(plat==='etsy'?'eZ':plat==='shopify'?'sZ':'vZ');
+  if(isHtml&&r.orders){
+    r.orders.forEach(o=>{
+      const q=dateToQuarter(o.date)||S.quarter;
+      if(!S.quarterHistory[q])S.quarterHistory[q]={countries:{},rawOrders:[],totalOrders:0,intlOrders:0,revenue:0,platforms:{etsy:null,shopify:null,vinted:null}};
+      const qh=S.quarterHistory[q];qh.rawOrders=qh.rawOrders||[];qh.platforms=qh.platforms||{etsy:null,shopify:null,vinted:null};
+      qh.rawOrders.push(o);qh.totalOrders=(qh.totalOrders||0)+1;qh.revenue=(qh.revenue||0)+o.amount;
+      if(!qh.platforms.vinted)qh.platforms.vinted={revenue:0,orders:0,intl:0};
+      qh.platforms.vinted.revenue+=o.amount;qh.platforms.vinted.orders++;
+    });
+  }else{
+    Object.entries(r.byQuarter).forEach(([q,qd])=>{
+      if(!S.quarterHistory[q])S.quarterHistory[q]={countries:{},rawOrders:[],totalOrders:0,intlOrders:0,revenue:0,platforms:{etsy:null,shopify:null,vinted:null}};
+      const qh=S.quarterHistory[q];qh.platforms=qh.platforms||{etsy:null,shopify:null,vinted:null};
+      Object.entries(qd.countries).forEach(([cc,d])=>{if(!qh.countries[cc])qh.countries[cc]={revenue:0,orders:0};qh.countries[cc].revenue+=d.revenue;qh.countries[cc].orders+=d.orders;});
+      qh.totalOrders=(qh.totalOrders||0)+qd.totalOrders;qh.intlOrders=(qh.intlOrders||0)+(qd.intlOrders||0);qh.revenue=(qh.revenue||0)+qd.totalRevenue;
+      if(!qh.platforms[plat])qh.platforms[plat]={revenue:0,orders:0,intl:0};
+      qh.platforms[plat].revenue+=qd.totalRevenue;qh.platforms[plat].orders+=qd.totalOrders;qh.platforms[plat].intl+=(qd.intlOrders||0);
+    });
+  }
+  restoreQ();
+  z.className='uz ok';z.querySelector('.ui').textContent='✅';z.querySelector('.ut').textContent=r.totalOrders+' orders';z.querySelector('.us').textContent='€'+fmt(Math.round(r.totalRevenue));
+  if(isHtml&&r.orders){log('<span class="wn">⚠️ Vinted HTML geladen: landgegevens ontbreken. Ga naar <strong>Transacties</strong> en klik per order op het land om het EU-land van de koper in te stellen.</span>');sv('transacties');}
+  if(S.hasFx){const fb=document.getElementById('fxB');fb.className='fxbar on';document.getElementById('fxI').textContent='USD×'+S.usdRate+' · GBP×'+S.gbpRate;}
+  ['xBtn','xX','xC'].forEach(id=>{const el=document.getElementById(id);if(el)el.disabled=false;});
+  document.getElementById('corrSec').className='corr on';populateCorrLand();
+  saveS();checkAlert();syncToSheets();render();
+}
+
+// ── CALCS ──
+const calcTotal=()=>Object.values(S.countries).reduce((s,d)=>s+d.revenue,0)+S.rawOrders.reduce((s,o)=>s+o.amount,0)+S.transactions.filter(t=>t.quarter===S.quarter).reduce((s,t)=>s+t.amount,0);
+const calcCB=()=>Object.entries(S.countries).filter(([cc])=>cc!=='NL'&&EU[cc]).reduce((s,[,d])=>s+d.revenue,0)+S.rawOrders.filter(o=>o.country!=='NL'&&EU[o.country]).reduce((s,o)=>s+o.amount,0);
+const calcBtw=()=>Object.entries(S.countries).filter(([cc])=>cc!=='NL'&&EU[cc]).reduce((s,[cc,d])=>s+d.revenue*EU[cc].r,0)+S.rawOrders.filter(o=>o.country!=='NL'&&EU[o.country]).reduce((s,o)=>s+o.amount*(EU[o.country].r||0),0);
+const calcBtwData=c=>Object.entries(c||{}).filter(([cc])=>cc!=='NL'&&EU[cc]).reduce((s,[cc,d])=>s+d.revenue*EU[cc].r,0);
+
+// ── RENDER ──
+function updateMobTopbar(){
+  const q=document.getElementById('mtbQ');if(q)q.textContent=S.quarter;
+  const ym=document.getElementById('yearSelMob');if(ym)ym.value=S.year;
+  const ymm=document.getElementById('yearSelMore');if(ymm)ymm.value=S.year;
+  const ys=document.getElementById('yearSel');if(ys)ys.value=S.year;
+}
+
+function render(){
+  updateMobTopbar();
+  updBanner();
+  updStats();
+  renderTable();
+  renderPlat();
+  updSide();
+  updDL();
+  updProg();
+  renderYGrid();
+  if(document.getElementById('vwtransacties').classList.contains('on')) renderTx();
+  if(document.getElementById('vwlanden').classList.contains('on')) renderLanden();
+  if(document.getElementById('vwjaaroverzicht').classList.contains('on')) renderJDetail();
+}
+
+function updBanner() {
+  const cb = calcCB();                                        // huidig kwartaal
+  const yearCB = calcYearCB();                               // jaartotaal (alle kwartalen)
+  const pct = Math.min(yearCB / S.korLimit * 100, 100);
+  const rem = Math.max(S.korLimit - yearCB, 0);
+  const b = document.getElementById('kB');
+  const tot = calcTotal();
+
+  // Update visuele balk
+  document.getElementById('kF').style.width = pct + '%';
+  document.getElementById('kP').textContent = Math.round(pct) + '%';
+
+  // Logica voor teksten en status (drempel op jaarbasis)
+  if (!tot) {
+    b.className = 'kb safe';
+    document.getElementById('kT').textContent = 'Upload je CSV om te beginnen';
+    document.getElementById('kS').textContent = 'ZENBTW berekent automatisch je BTW-plicht';
+    document.getElementById('ey').textContent = S.quarter + ' · Geen data';
+  } else if (pct >= 100) {
+    b.className = 'kb danger';
+    document.getElementById('kT').textContent = '🚨 KOR-drempel overschreden — OSS-aangifte verplicht';
+    document.getElementById('kS').textContent = 'Jaar ' + S.year + ' cross-border EU: €' + fmt(Math.round(yearCB)) + ' > €' + fmt(S.korLimit);
+    document.getElementById('ey').textContent = S.quarter + ' · ⚠ OSS VERPLICHT';
+  } else if (pct >= 60) {
+    b.className = 'kb warn';
+    document.getElementById('kT').textContent = 'KOR-drempel ' + Math.round(pct) + '% — nog €' + fmt(Math.round(rem)) + ' ruimte';
+    document.getElementById('kS').textContent = 'Jaar ' + S.year + ' cross-border EU: €' + fmt(Math.round(yearCB)) + ' van €' + fmt(S.korLimit);
+    document.getElementById('ey').textContent = S.quarter + ' · KOR actief';
+  } else {
+    b.className = 'kb safe';
+    document.getElementById('kT').textContent = 'KOR actief — €' + fmt(Math.round(rem)) + ' ruimte';
+    document.getElementById('kS').textContent = 'Jaar ' + S.year + ' cross-border EU: €' + fmt(Math.round(yearCB)) + ' van €' + fmt(S.korLimit);
+    document.getElementById('ey').textContent = S.quarter + ' · KOR actief';
+  }
+
+  // Actieplan bij drempeloverschrijding
+  const ap=document.getElementById('ossAP');if(ap)ap.style.display=(pct>=100&&tot)?'block':'none';
+  // Margeregeling waarschuwing
+  const mw=document.getElementById('margeWarn');if(mw)mw.style.display=(S.marge&&tot)?'block':'none';
+
+  // --- AUTOMATISCHE EMAIL ALERT ---
+  const afgerondPct = Math.round(pct);
+  if(AL.enabled && AL.email && calcTotal()>0 && afgerondPct>=AL.threshold && afgerondPct!==AL.lastAlertSent){
+    stuurEmailAlert(afgerondPct);
+  }
+}
+
+function updStats() {
+  const bw = calcBtw();
+  const euCC = new Set([
+    ...Object.keys(S.countries).filter(cc => cc !== 'NL' && EU[cc]),
+    ...S.rawOrders.filter(o => o.country !== 'NL' && EU[o.country]).map(o => o.country)
+  ]);
+  const eu = euCC.size;
+  const rawIntl = S.rawOrders.filter(o => o.country !== 'NL' && EU[o.country]).length;
+  const totIntl = (S.intlOrders || 0) + rawIntl;
+  const totOrders = S.totalOrders || 0;
+
+  document.getElementById('sR').textContent = '€' + fmt(Math.round(calcTotal()));
+  document.getElementById('sRs').textContent = totOrders > 0 ? totOrders + ' orders' : 'Geen data';
+  document.getElementById('sB').textContent = '€' + fmt(Math.round(bw));
+  document.getElementById('sBs').textContent = eu > 0 ? 'OSS · ' + eu + ' landen' : 'Geen OSS-plicht';
+  document.getElementById('sO').textContent = totIntl;
+  document.getElementById('sOs').textContent = totOrders > 0 
+    ? 'van ' + totOrders + ' (' + Math.round(totIntl / Math.max(totOrders, 1) * 100) + '%)' 
+    : 'van 0 totaal';
+  document.getElementById('sC').textContent = eu;
+}
+
+// ── MERGE HELPER — countries + rawOrders → {cc:{revenue,orders}} ──
+function buildMg(){
+  const mg={};
+  Object.entries(S.countries).forEach(([cc,d])=>{mg[cc]={revenue:d.revenue,orders:d.orders};});
+  S.rawOrders.forEach(o=>{const cc=o.country||'NL';if(!mg[cc])mg[cc]={revenue:0,orders:0};mg[cc].revenue+=o.amount;mg[cc].orders++;});
+  return mg;
+}
+// Jaar-brede versie: samenvoegen over alle kwartalen van S.year
+function buildYearMg(){
+  const mg={};
+  const add=(cc,rev,ord)=>{if(!mg[cc])mg[cc]={revenue:0,orders:0};mg[cc].revenue+=rev;mg[cc].orders+=ord;};
+  ['Q1','Q2','Q3','Q4'].map(q=>q+' '+S.year).forEach(q=>{
+    if(q===S.quarter){
+      Object.entries(S.countries).forEach(([cc,d])=>add(cc,d.revenue,d.orders));
+      S.rawOrders.forEach(o=>add(o.country||'NL',o.amount,1));
+    } else {
+      const d=S.quarterHistory[q];if(!d)return;
+      Object.entries(d.countries||{}).forEach(([cc,x])=>add(cc,x.revenue,x.orders));
+      (d.rawOrders||[]).forEach(o=>add(o.country||'NL',o.amount,1));
+    }
+  });
+  return mg;
+}
+// BTW + cross-border helpers that include rawOrders for any quarter
+function qBtwFull(q){if(q===S.quarter)return calcBtw();const d=S.quarterHistory[q];if(!d)return 0;return calcBtwData(d.countries)+(d.rawOrders||[]).filter(o=>o.country!=='NL'&&EU[o.country]).reduce((s,o)=>s+o.amount*(EU[o.country]?.r||0),0);}
+function qCBFull(q){if(q===S.quarter)return calcCB();const d=S.quarterHistory[q];if(!d)return 0;return Object.entries(d.countries).filter(([cc])=>cc!=='NL'&&EU[cc]).reduce((s,[,x])=>s+x.revenue,0)+(d.rawOrders||[]).filter(o=>o.country!=='NL'&&EU[o.country]).reduce((s,o)=>s+o.amount,0);}
+function calcYearCB(){return['Q1','Q2','Q3','Q4'].map(q=>q+' '+S.year).reduce((s,q)=>s+qCBFull(q),0);}
+
+function renderTable(){
+  const el=document.getElementById('tBody');
+  const mg=buildMg();
+  if(!Object.keys(mg).length){el.innerHTML='<div class="es"><div class="esi">📂</div><div class="est">Geen data</div><div class="ess">Upload Etsy, Shopify of Vinted CSV/HTML</div></div>';return;}
+  let rows='',tbw=0;
+  if(mg['NL']){const d=mg['NL'];rows+=`<tr><td data-l="Land"><div class="cc"><span class="cf">🇳🇱</span><div><div class="cn">Nederland</div><div class="csb">${d.orders} ${OW(d.orders)} · binnenland</div></div></div></td><td data-l="BTW%"><span class="rc">21%</span></td><td data-l="Omzet" class="am nl">€${fmt(Math.round(d.revenue))}</td><td data-l="BTW" class="am nl">—</td><td data-l="Status" style="text-align:center"><span class="sp kor"><span class="dot"></span>KOR</span></td></tr>`;}
+  for(const[cc,d]of Object.entries(mg).filter(([c])=>c!=='NL').sort((a,b)=>b[1].revenue-a[1].revenue)){
+    const info=CI(cc);const isEU=!!EU[cc];const bw=isEU?d.revenue*EU[cc].r:0;tbw+=bw;
+    rows+=`<tr><td data-l="Land"><div class="cc"><span class="cf">${info.f}</span><div><div class="cn">${info.n}</div><div class="csb">${d.orders} ${OW(d.orders)}${isEU?' · OSS-plichtig':' · buiten EU'}</div></div></div></td><td data-l="BTW%"><span class="rc">${isEU?Math.round(EU[cc].r*100)+'%':'n.v.t.'}</span></td><td data-l="Omzet" class="am">€${fmt(Math.round(d.revenue))}</td><td data-l="BTW" class="am bw">${isEU?'€'+fmt(Math.round(bw)):'—'}</td><td data-l="Status" style="text-align:center"><span class="sp ${isEU?'oss':'kor'}"><span class="dot"></span>${isEU?'OSS':'Non-EU'}</span></td></tr>`;
+  }
+  if(S.correcties.length){const ct=S.correcties.reduce((s,c)=>s+c.bedrag,0);rows+=`<tr style="background:var(--wnl)"><td colspan="3" style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--wn);padding:7px 0">📝 Correcties: ${S.correcties.length} item(s)</td><td class="am" style="color:var(--wn)">€${fmt(Math.round(ct))}</td><td></td></tr>`;}
+  el.innerHTML=`<table class="dt dt-stack"><thead><tr><th>Land</th><th>BTW%</th><th class="r">Omzet</th><th class="r">BTW</th><th class="c">Status</th></tr></thead><tbody>${rows}</tbody></table><div class="tf"><div class="tfl"><span class="sp oss"><span class="dot"></span>OSS</span><span class="sp kor"><span class="dot"></span>KOR</span></div><div class="tft">Totaal BTW: <strong>€${fmt(Math.round(tbw))}</strong></div></div>`;
+}
+
+function renderPlat(){
+  const pr=document.getElementById('pR');
+  const ld=Object.entries(S.platforms).filter(([,v])=>v!==null);
+  if(!ld.length){pr.innerHTML='<div class="es" style="padding:16px 0"><div class="ess">Geen platforms geladen</div></div>';return;}
+  const tot=ld.reduce((s,[,p])=>s+p.revenue,0);
+  const ic={etsy:'E',shopify:'S',vinted:'V'};const nm={etsy:'Etsy',shopify:'Shopify',vinted:'Vinted'};
+  pr.innerHTML=ld.map(([k,p])=>{const pct=tot>0?Math.round(p.revenue/tot*100):0;return`<div class="pr"><div class="pl ${k[0]}">${ic[k]}</div><div class="pi"><div class="pn">${nm[k]}</div><div class="po">${p.orders} ${OW(p.orders)} · ${p.intl} intl.</div><div class="pb"><div class="pbf ${k[0]}" style="width:${pct}%"></div></div></div><div class="pa">€${fmt(Math.round(p.revenue))}</div></div>`;}).join('');
+}
+
+function updSide(){
+  ['srCo','phC'].forEach(id=>document.getElementById(id).textContent=S.company||'—');
+  ['srBt','phB'].forEach(id=>document.getElementById(id).textContent=S.btwnr||'—');
+  const phKvk=document.getElementById('phKvk');if(phKvk)phKvk.textContent='KVK '+(S.kvk||'—');
+  document.getElementById('srKo').textContent='€'+fmt(S.korLimit);
+  document.getElementById('srQu').textContent=S.quarter;
+  document.getElementById('phP').textContent=S.quarter;
+  document.getElementById('tTag').textContent=S.quarter;
+  document.getElementById('angSt').textContent=S.quarter+' · OSS-portal NL';
+  const jh=document.getElementById('jaarHdr');if(jh)jh.textContent='Jaaroverzicht '+S.year;
+  const js=document.getElementById('jaarSub');if(js)js.textContent='Totale omzet '+S.year+' alle kwartalen';
+}
+
+function updDL(){
+  const qn=+S.quarter[1];const y=+S.year;
+  const dls=[[y,3,30,'30 april'],[y,6,31,'31 juli'],[y,9,31,'31 oktober'],[y+1,0,31,'31 januari']];
+  const[dy,dm,dd,dlbl]=dls[qn-1]||dls[0];
+  const dl=new Date(dy,dm,dd);const days=Math.ceil((dl-new Date())/86400000);
+  const bg=document.getElementById('dBg');const dll=document.getElementById('dDl');const ql=document.getElementById('dQl');
+  if(bg)bg.textContent=days>0?days+' d':'Verlopen';if(dll)dll.textContent=dlbl+' '+dy;if(ql)ql.textContent='Q'+qn;
+}
+
+function updProg(){
+  const cb=calcCB();const yearCB=calcYearCB();
+  if(cb<=0&&yearCB<=0){document.getElementById('progB').classList.remove('on');return;}
+  // Als jaartotaal al boven drempel: prognose niet tonen (OSS-banner al actief)
+  if(yearCB>=S.korLimit){document.getElementById('progB').classList.remove('on');return;}
+  const now=new Date();const qn=+S.quarter[1];const y=+S.year;
+  const starts=[new Date(y,0,1),new Date(y,3,1),new Date(y,6,1),new Date(y,9,1)];
+  const start=starts[qn-1]||starts[0];const wk=Math.max(1,(now-start)/(1000*60*60*24*7));const rate=cb/wk;
+  const remYear=S.korLimit-yearCB;const proj=yearCB+rate*(13-wk);
+  const pb=document.getElementById('progB');const pt=document.getElementById('progT');
+  if(proj>S.korLimit&&yearCB<S.korLimit){const w=Math.ceil(remYear/rate);pt.innerHTML=`Op huidig tempo (€${fmt(Math.round(rate))}/week) bereik je de KOR-jaargrens over <strong>ca. ${w} ${OW(w)}</strong>. Bereid je OSS-registratie voor.`;pb.classList.add('on');}
+  else if(proj>S.korLimit*.8){pt.innerHTML=`Prognose op jaarbasis: <strong>€${fmt(Math.round(proj))}</strong> cross-border omzet in ${S.year}. Je nadert de KOR-grens van €${fmt(S.korLimit)}.`;pb.classList.add('on');}
+  else pb.classList.remove('on');
+}
+
+// TRANSACTIES
+function countryOptions(sel){
+  const eu=Object.entries(EU).map(([cc,v])=>`<option value="${cc}"${sel===cc?' selected':''}>${v.f} ${v.n}</option>`).join('');
+  const noneu=Object.entries(NONEU).map(([cc,v])=>`<option value="${cc}"${sel===cc?' selected':''}>${v.f} ${v.n}</option>`).join('');
+  return eu+'<option disabled>──── Buiten EU ────</option>'+noneu;
+}
+function setOrderCountry(i,cc){if(i<0||i>=S.rawOrders.length)return;S.rawOrders[i].country=cc;saveQ();render();}
+function setOrderDate(i,d){if(i<0||i>=S.rawOrders.length)return;S.rawOrders[i].date=d;saveQ();}
+function delRawOrder(i){if(i<0||i>=S.rawOrders.length)return;S.rawOrders.splice(i,1);S.totalOrders=Math.max(0,S.totalOrders-1);saveQ();render();}
+function resetAllData(){if(!confirm('WAARSCHUWING: Hiermee wis je ALLE instellingen, geüploade orders en handmatige transacties. Dit kan niet ongedaan worden gemaakt. Weet je het zeker?'))return;Promise.all([idbPut('ktx_s',null),idbPut('ktx_al',null),idbPut('ktx_oss',null)]).catch(()=>{}).finally(()=>{localStorage.removeItem('ktx_s');localStorage.removeItem('ktx_al');localStorage.removeItem('ktx_oss');window.location.reload();});}
+function addTx(amount,type){S.transactions.push({id:Date.now(),date:new Date().toLocaleDateString('nl-NL'),amount:parseFloat(amount)||0,type:type||'manual',quarter:S.quarter});saveS();renderTx();}
+function deleteTx(id){S.transactions=S.transactions.filter(t=>t.id!==id);saveS();renderTx();}
+
+function renderTx(){
+  const el=document.getElementById('txBody');const sub=document.getElementById('txSub');
+  const mg=buildMg();const hasCC=Object.keys(S.countries).length>0;const hasRaw=S.rawOrders.length>0;const hasMg=Object.keys(mg).length>0;const qTx=S.transactions.filter(t=>t.quarter===S.quarter);const hasTx=qTx.length>0;
+  const vw=document.getElementById('vintedWarn');if(vw)vw.classList.toggle('on',hasRaw);
+  if(!hasMg&&!hasTx){el.innerHTML='<div class="es"><div class="esi">🧾</div><div class="est">Geen transacties</div><div class="ess">Upload CSV op dashboard</div></div>';return;}
+  sub.textContent=S.totalOrders+' orders · '+S.quarter;
+  let html='';
+  if(hasMg){
+    let rows='';
+    for(const[cc,d]of Object.entries(mg).sort((a,b)=>b[1].revenue-a[1].revenue)){
+      const info=CI(cc);const isEU=!!EU[cc];const bw=isEU&&cc!=='NL'?d.revenue*(EU[cc]?.r||0):0;
+      rows+=`<tr><td><div class="cc"><span class="cf">${info.f}</span><div><div class="cn">${info.n}</div><div class="csb">${cc}</div></div></div></td><td class="am">${d.orders}</td><td class="am">€${fmt(Math.round(d.revenue))}</td><td class="am ${bw>0?'bw':''}">${bw>0?'€'+fmt(Math.round(bw)):'—'}</td><td style="text-align:center"><span class="sp ${cc==='NL'?'kor':isEU?'oss':'kor'}" ${!isEU&&cc!=='NL'?'style="background:var(--s2);color:var(--tx4);border-color:var(--br)"':''}><span class="dot"></span>${cc==='NL'?'KOR':isEU?'OSS':'Non-EU'}</span></td></tr>`;
+    }
+    html+=`<table class="dt"><thead><tr><th>Land</th><th class="r">Orders</th><th class="r">Omzet</th><th class="r">BTW</th><th class="c">Status</th></tr></thead><tbody>${rows}</tbody></table>`;
+  }
+  if(hasRaw){
+    const si=getSortedRawIndices();
+    const siIcon=col=>{if(_rawSort.col!==col)return'<span class="sort-icon">⇅</span>';return _rawSort.dir==='asc'?'<span class="sort-icon">↑</span>':'<span class="sort-icon">↓</span>';};
+    const siCls=col=>'ro-sort-col'+(_rawSort.col===col?' active':'');
+    const rawRows=si.map(i=>{
+      const o=S.rawOrders[i];const info=CI(o.country);const isEU=!!EU[o.country]&&o.country!=='NL';const bw=isEU?o.amount*(EU[o.country].r||0):0;
+      return`<div class="ro-row" data-ridx="${i}">
+        <input type="checkbox" class="ro-row-cb" data-ridx="${i}" onchange="onRawCbChange(this)">
+        <input type="date" class="ro-date-in" value="${o.date||''}" onchange="setOrderDate(${i},this.value)" title="Orderdatum">
+        <select class="ro-cc-sel" onchange="setOrderCountry(${i},this.value)" title="Land aanpassen">${countryOptions(o.country)}</select>
+        <span class="ro-amt">€${fmt(o.amount.toFixed(2))}${isEU?'<br><span style="font-size:10px;color:var(--dn);font-weight:400">BTW €'+fmt(bw.toFixed(2))+'</span>':''}</span>
+        <button onclick="delRawOrder(${i})" title="Verwijderen" style="background:none;border:none;cursor:pointer;color:var(--tx4);font-size:15px;padding:4px 6px;min-height:36px;border-radius:var(--rx);-webkit-tap-highlight-color:transparent" onmouseover="this.style.color='var(--dn)'" onmouseout="this.style.color='var(--tx4)'">🗑️</button>
+      </div>`;
+    }).join('');
+    html+=`<div class="ro-section">
+      <div class="ro-header">
+        <span class="ro-header-title">👗 Vinted HTML — ${S.rawOrders.length} ${OW(S.rawOrders.length)}</span>
+        <span class="ro-hint">💡 Tip: gebruik de bulk-toewijzer om orders met dezelfde verzendmethode in één keer het juiste land te geven</span>
+      </div>
+      <div class="ro-select-all-row" onclick="toggleAllRaw(event)">
+        <input type="checkbox" id="rawSelAll" onclick="event.stopPropagation();toggleAllRaw(event)">
+        <span>Alles selecteren (${S.rawOrders.length} orders)</span>
+      </div>
+      <div class="ro-sort-hd">
+        <span class="${siCls('date')}" onclick="sortRawBy('date')">Datum ${siIcon('date')}</span>
+        <span class="ro-sort-spacer"></span>
+        <span class="${siCls('country')}" onclick="sortRawBy('country')">Land ${siIcon('country')}</span>
+        <span class="ro-sort-spacer"></span>
+        <span class="${siCls('amount')}" onclick="sortRawBy('amount')">Bedrag ${siIcon('amount')}</span>
+      </div>
+      ${rawRows}
+    </div>`;
+  }
+  if(hasTx){
+    const txRows=qTx.map(t=>`<tr><td>${t.date}</td><td>${t.type}</td><td class="am">€${fmt(t.amount.toFixed(2))}</td><td style="text-align:center"><button onclick="deleteTx(${t.id})" title="Verwijderen" style="background:none;border:none;cursor:pointer;color:var(--tx4);font-size:15px;padding:4px 8px;min-height:36px;border-radius:var(--rx);-webkit-tap-highlight-color:transparent" onmouseover="this.style.color='var(--dn)'" onmouseout="this.style.color='var(--tx4)'">🗑️</button></td></tr>`).join('');
+    html+=`<div class="ro-section"><div class="ro-header"><span class="ro-header-title">✏️ Handmatige invoer — ${qTx.length} ${OW(qTx.length)}</span></div><table class="dt"><thead><tr><th>Datum</th><th>Type</th><th class="r">Bedrag</th><th class="c">Actie</th></tr></thead><tbody>${txRows}</tbody></table></div>`;
+  }
+  el.innerHTML=html;
+}
+
+// LANDEN
+function renderLanden(){
+  const el=document.getElementById('landenCards');
+  const mg=buildYearMg();const eu=Object.entries(mg).filter(([cc])=>cc!=='NL'&&EU[cc]&&mg[cc].revenue>0);
+  const nl=mg['NL'];
+  if(!eu.length&&!nl){el.innerHTML='<div class="sc" style="grid-column:1/-1"><div class="es"><div class="esi">🌍</div><div class="est">Geen EU-landen</div><div class="ess">Upload CSV op dashboard</div></div></div>';return;}
+  const wb=eu.map(([cc,d])=>({cc,d,bw:d.revenue*(EU[cc].r||0)}));const tot=wb.reduce((s,x)=>s+x.bw,0);
+  let html='';
+  if(eu.length){
+    html+=`<div style="grid-column:1/-1;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:var(--tx4);padding:2px 0 4px">🌍 Cross-border EU — OSS-aangifte vereist</div>`;
+    html+=wb.sort((a,b)=>b.bw-a.bw).map(({cc,d,bw})=>{const info=EU[cc];const pct=tot>0?Math.round(bw/tot*100):0;return`<div class="sc"><div class="st"><div class="sl">${info.n}</div><span style="font-size:19px">${info.f}</span></div><div class="sv" style="font-size:20px;margin-bottom:2px">€${fmt(Math.round(bw))}</div><div class="sd">BTW · ${Math.round(info.r*100)}% tarief</div><div style="margin-top:9px;height:4px;background:var(--br);border-radius:100px;overflow:hidden"><div style="height:100%;width:${pct}%;background:var(--dn);border-radius:100px"></div></div><div class="sd" style="margin-top:4px">${pct}% · ${d.orders} ${OW(d.orders)} · €${fmt(Math.round(d.revenue))} omzet</div></div>`;}).join('');
+  }
+  if(nl){
+    html+=`<div style="grid-column:1/-1;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:var(--tx4);padding:${eu.length?'14px':'2px'} 0 4px">🏠 Binnenland — KOR (geen OSS vereist)</div>`;
+    html+=`<div class="sc" style="border-color:var(--br);opacity:.85"><div class="st"><div class="sl">Nederland</div><span style="font-size:19px">🇳🇱</span></div><div class="sv" style="font-size:20px;margin-bottom:2px">€${fmt(Math.round(nl.revenue))}</div><div class="sd">BTW via reguliere NL-aangifte · 21%</div><div style="margin-top:9px;padding:6px 8px;background:var(--acl);border-radius:var(--rx);font-size:10.5px;color:var(--acm)">✓ KOR — telt <strong>niet</strong> mee voor de €10.000 OSS-drempel</div><div class="sd" style="margin-top:6px">${nl.orders} ${OW(nl.orders)} · €${fmt(Math.round(nl.revenue))} omzet</div></div>`;
+  }
+  el.innerHTML=html;
+}
+
+// JAAR
+function renderYGrid(){
+  const el=document.getElementById('ygrid');const y=S.year;const Qs=['Q1','Q2','Q3','Q4'].map(q=>q+' '+y);
+  const q1CB=qCBFull('Q1 '+y);
+  const korBlocked=calcYearCB()>=S.korLimit; // Jaarlijkse cross-border EU ≥ ingestelde KOR-grens
+  const qRev=q=>q===S.quarter?calcTotal():(S.quarterHistory[q]?.revenue||0);
+  const maxR=Math.max(...Qs.map(qRev),1);
+  el.innerHTML=Qs.map((q,idx)=>{
+    const d=S.quarterHistory[q];const cur=q===S.quarter;const r=qRev(q);const bw=qBtwFull(q);
+    const blocked=korBlocked&&idx>0;
+    if(blocked){
+      return`<div class="yqc yqc-blocked${cur?' cur':''}">
+        <div class="yql">${q}${cur?' · huidig':''}</div>
+        <div class="yqr" style="font-size:13px;line-height:1.3;color:var(--dn)">🛑 KOR NIET<br>MEER MOGELIJK</div>
+        <div class="yqb" style="color:var(--dn)">OSS-aangifte verplicht</div>
+        <div class="yqo">${d?.totalOrders||0} orders</div>
+        <div class="ybar"><div class="ybarfill" style="width:100%;background:var(--dn)"></div></div>
+      </div>`;
+    }
+    return`<div class="yqc${cur?' cur':''}"><div class="yql">${q}${cur?' · huidig':''}</div><div class="yqr">€${fmt(Math.round(r))}</div><div class="yqb">BTW: €${fmt(Math.round(bw))}</div><div class="yqo">${d?.totalOrders||0} orders</div><div class="ybar"><div class="ybarfill" style="width:${Math.round(r/maxR*100)}%"></div></div></div>`;
+  }).join('');
+  // Waarschuwing tonen boven het grid
+  const warn=document.getElementById('korBlockWarn');
+  if(warn)warn.style.display=korBlocked?'flex':'none';
+}
+
+function renderJDetail(){
+  const el=document.getElementById('jdetail');const y=S.year;const Qs=['Q1','Q2','Q3','Q4'].map(q=>q+' '+y);
+  const ld=Qs.filter(q=>S.quarterHistory[q]);if(!ld.length){el.innerHTML='<div class="es"><div class="esi">📅</div><div class="est">Geen kwartaaldata</div><div class="ess">Upload CSV\'s per kwartaal</div></div>';return;}
+  const qR=q=>q===S.quarter?calcTotal():(S.quarterHistory[q]?.revenue||0);
+  const tR=ld.reduce((s,q)=>s+qR(q),0);const tB=ld.reduce((s,q)=>s+qBtwFull(q),0);const tO=ld.reduce((s,q)=>s+(S.quarterHistory[q]?.totalOrders||0),0);
+  el.innerHTML=`<div class="table-scroll-wrap"><table class="dt"><thead><tr><th>Kwartaal</th><th class="r">Omzet</th><th class="r">Cross-border EU</th><th class="r">BTW</th><th class="r">Orders</th></tr></thead><tbody>${ld.map(q=>{const d=S.quarterHistory[q];const bw=qBtwFull(q);const cb=qCBFull(q);return`<tr><td><strong>${q}</strong></td><td class="am">€${fmt(Math.round(qR(q)))}</td><td class="am">€${fmt(Math.round(cb))}</td><td class="am bw">€${fmt(Math.round(bw))}</td><td class="am">${d.totalOrders}</td></tr>`;}).join('')}<tr style="border-top:2px solid var(--br)"><td><strong>Jaartotaal ${y}</strong></td><td class="am"><strong>€${fmt(Math.round(tR))}</strong></td><td class="am">—</td><td class="am bw"><strong>€${fmt(Math.round(tB))}</strong></td><td class="am">${tO}</td></tr></tbody></table></div><div style="margin:12px 0;padding:11px 13px;background:var(--acl);border:1px solid #b2cfbf;border-radius:var(--rs);font-size:11.5px;color:var(--acm);font-family:'JetBrains Mono',monospace">✓ IB-aangifte: totale omzet ${y} = <strong>€${fmt(Math.round(tR))}</strong> · Gebruik dit voor box 1 inkomstenbelasting</div>`;
+}
+
+function exportJaar(){
+  const y=S.year;const Qs=['Q1','Q2','Q3','Q4'].map(q=>q+' '+y);let csv=`ZENBTW Jaaroverzicht ${y} · ${S.company||'—'}\nKwartaal,Omzet,Cross-border EU,BTW,Orders\n`;
+  Qs.forEach(q=>{const d=S.quarterHistory[q];if(!d&&q!==S.quarter)return;const rev=q===S.quarter?calcTotal():(d?.revenue||0);const bw=qBtwFull(q);const cb=qCBFull(q);const orders=q===S.quarter?S.totalOrders:(d?.totalOrders||0);csv+=`${q},${rev.toFixed(2)},${cb.toFixed(2)},${bw.toFixed(2)},${orders}\n`;});
+  dl('ZENBTW_Jaar_'+y+'.csv',csv,'text/csv;charset=utf-8');
+}
+
+// OSS CHECKLIST
+const ossSteps=[{id:'kvk',t:'KVK-inschrijving',s:'Sta geregistreerd bij de Kamer van Koophandel'},{id:'btwnr',t:'BTW-nummer aanvragen',s:'Via KvK of direct bij Belastingdienst'},{id:'oss_reg',t:'OSS-registratie',s:'Mijn Belastingdienst Zakelijk → BTW → E-commerce'},{id:'drempel',t:'Drempelcontrole',s:'>€10.000 cross-border EU verkopen?'},{id:'tarieven',t:'BTW-tarieven controleren',s:'Controleer per land het juiste tarief voor jouw producten'},{id:'factuur',t:'Factuurtemplate aanpassen',s:'Voeg OSS VAT-ID, klantsland en BTW-bedrag toe'},{id:'admin',t:'Administratie opzetten',s:'Per order: land, bedrag, tarief. Bewaren: 10 jaar'},{id:'melding',t:'Eerste BTW-melding',s:'Kwartaalmelding via OSS-portaal vóór deadline'}];
+function renderOSS(){
+  const el=document.getElementById('ossGrid');const done=ossSteps.filter(s=>OSSck[s.id]).length;
+  document.getElementById('ossBar').style.width=(done/ossSteps.length*100)+'%';
+  document.getElementById('ossProgressT').textContent=done+' / '+ossSteps.length+' stappen';
+  el.innerHTML=ossSteps.map(s=>`<div class="cli${OSSck[s.id]?' ck':''}" onclick="togOSS('${s.id}')"><div class="clb">${OSSck[s.id]?'✓':''}</div><div><div class="clt">${s.t}</div><div class="cls">${s.s}</div></div></div>`).join('');
+  // Update print section
+  const pg=document.getElementById('printOssGrid');
+  if(pg)pg.innerHTML=ossSteps.map(s=>`<div class="print-oss-item${OSSck[s.id]?' done':''}">${OSSck[s.id]?'✓ ':'○ '}<strong>${s.t}</strong></div>`).join('');
+}
+function togOSS(id){OSSck[id]=!OSSck[id];idbPut('ktx_oss',OSSck).catch(()=>{});localStorage.setItem('ktx_oss',JSON.stringify(OSSck));renderOSS();}
+
+// CORRECTIES
+function populateCorrLand(){const sel=document.getElementById('cLand');const eu=Object.keys(S.countries).filter(cc=>cc!=='NL'&&EU[cc]);sel.innerHTML='<option value="">Land kiezen...</option>'+eu.map(cc=>`<option value="${cc}">${EU[cc].n}</option>`).join('');}
+function addCorr(){const l=document.getElementById('cLand').value;const b=parseFloat(document.getElementById('cBedrag').value)||0;if(!l||b===0)return;S.correcties.push({land:l,bedrag:b,date:new Date().toLocaleDateString('nl-NL')});document.getElementById('cBedrag').value='';renderCorr();saveS();render();}
+function renderCorr(){const el=document.getElementById('corrList');if(!S.correcties.length){el.innerHTML='';return;}el.innerHTML=S.correcties.map((c,i)=>`<div class="ci-item"><span>${EU[c.land]?.n||c.land} · ${c.bedrag>=0?'+':''}€${Math.abs(c.bedrag).toFixed(2)} · ${c.date}</span><button class="ci-del" onclick="delCorr(${i})">✕</button></div>`).join('');}
+function delCorr(i){if(i<0||i>=S.correcties.length)return;S.correcties.splice(i,1);renderCorr();saveS();render();}
+
+// ALERTS
+function saveAl(){AL.enabled=document.getElementById('alTog').checked;AL.email=document.getElementById('alEmail').value;const su=document.getElementById('alSheets');if(su)AL.sheetsUrl=su.value.trim();idbPut('ktx_al',AL).catch(()=>{});localStorage.setItem('ktx_al',JSON.stringify(AL));const sv=document.getElementById('alSv');sv.classList.add('on');setTimeout(()=>sv.classList.remove('on'),2000);if(AL.enabled&&'Notification'in window&&Notification.permission==='default')Notification.requestPermission();}
+function setTh(p){AL.threshold=p;AL.lastAlertSent=0;document.querySelectorAll('.thb').forEach(b=>b.classList.remove('on'));document.getElementById('th'+p).classList.add('on');localStorage.setItem('ktx_al',JSON.stringify(AL));}
+function loadAlUI(){document.getElementById('alTog').checked=AL.enabled;document.getElementById('alEmail').value=AL.email||'';document.querySelectorAll('.thb').forEach(b=>b.classList.remove('on'));const t=document.getElementById('th'+AL.threshold);if(t)t.classList.add('on');const su=document.getElementById('alSheets');if(su)su.value=AL.sheetsUrl||'';}
+function checkAlert(){if(!AL.enabled||!AL.email)return;const pct=Math.min(calcYearCB()/S.korLimit*100,100);const p=Math.round(pct);if(p>=AL.threshold){if('Notification'in window&&Notification.permission==='granted')new Notification('ZENBTW BTW-alert',{body:'KOR-drempel '+p+'% bereikt (jaar '+S.year+')!'});if(p!==AL.lastAlertSent)stuurEmailAlert(p);}}
+
+// EXPORTS
+function exportXML(){
+  const mg=buildMg();const euEntries=Object.entries(mg).filter(([cc])=>cc!=='NL'&&EU[cc]&&mg[cc].revenue>0);
+  if(!euEntries.length&&!calcTotal()){alert('Geen EU-data beschikbaar. Upload eerst een CSV.');return;}
+  const bw=calcBtw();
+  const now=new Date();const isoDate=now.toISOString().slice(0,10);
+  const qn=S.quarter[1];const fyear=S.year;
+  // OSS Union Scheme XML — Belastingdienst formaat
+  let xml=`<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ZENBTW OSS-aangifte export
+  Bedrijf : ${S.company||'—'}
+  BTW-nr  : ${S.btwnr||'—'}
+  KVK     : ${S.kvk||'—'}
+  Periode : ${S.quarter}
+  Gegenereerd: ${now.toLocaleString('nl-NL')}
+  ⚠ Controleer alle bedragen bij je boekhouder vóór indiening bij de Belastingdienst
+-->
+<OSSReturn xmlns="urn:eu:taxud:ossreturn:v1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Header>
+    <TaxRefNO>${S.btwnr||''}</TaxRefNO>
+    <MemberStateOfRegistration>NL</MemberStateOfRegistration>
+    <FiscalYear>${fyear}</FiscalYear>
+    <TaxPeriod>Q${qn}</TaxPeriod>
+    <SubmissionDate>${isoDate}</SubmissionDate>
+    <SequenceNumber>1</SequenceNumber>
+    <ReturnType>STANDARD</ReturnType>
+    <TaxpayerName>${S.company||''}</TaxpayerName>
+  </Header>
+  <OSSDeclarationBody>\n`;
+  // Per EU-land: OSS supply
+  euEntries.sort((a,b)=>a[0].localeCompare(b[0])).forEach(([cc,d])=>{
+    const rate=EU[cc];const vatAmt=(d.revenue*rate.r);
+    xml+=`    <MSSupplyDetails>
+      <MSOfConsumption>${cc}</MSOfConsumption>
+      <SupplyType>TBE</SupplyType>
+      <VATRateDetails>
+        <VATRate>${(rate.r*100).toFixed(2)}</VATRate>
+        <TaxableAmountEUR>${d.revenue.toFixed(2)}</TaxableAmountEUR>
+        <VATAmountEUR>${vatAmt.toFixed(2)}</VATAmountEUR>
+        <NumberOfTransactions>${d.orders}</NumberOfTransactions>
+      </VATRateDetails>
+    </MSSupplyDetails>\n`;
+  });
+  // Vinted HTML rawOrders (per country)
+  const rawByCc={};
+  S.rawOrders.filter(o=>o.country!=='NL'&&EU[o.country]).forEach(o=>{
+    if(!rawByCc[o.country])rawByCc[o.country]={revenue:0,orders:0};
+    rawByCc[o.country].revenue+=o.amount;rawByCc[o.country].orders++;
+  });
+  Object.entries(rawByCc).forEach(([cc,d])=>{
+    const rate=EU[cc];const vatAmt=(d.revenue*rate.r);
+    xml+=`    <MSSupplyDetails>
+      <MSOfConsumption>${cc}</MSOfConsumption>
+      <SupplyType>TBE</SupplyType>
+      <VATRateDetails>
+        <VATRate>${(rate.r*100).toFixed(2)}</VATRate>
+        <TaxableAmountEUR>${d.revenue.toFixed(2)}</TaxableAmountEUR>
+        <VATAmountEUR>${vatAmt.toFixed(2)}</VATAmountEUR>
+        <NumberOfTransactions>${d.orders}</NumberOfTransactions>
+      </VATRateDetails>
+    </MSSupplyDetails>\n`;
+  });
+  // Correcties als XML-commentaar
+  if(S.correcties.length){
+    xml+=`    <!-- Correcties voor volgende aangifte:\n`;
+    S.correcties.forEach(c=>xml+=`         ${EU[c.land]?.n||c.land}: €${c.bedrag>=0?'+':''}${c.bedrag.toFixed(2)} (${c.date})\n`);
+    xml+=`    -->\n`;
+  }
+  xml+=`  </OSSDeclarationBody>
+  <TotalVATAmountPayable>${bw.toFixed(2)}</TotalVATAmountPayable>
+  <OSSThresholdCheck>
+    <YearlyEURevenue>${calcYearCB().toFixed(2)}</YearlyEURevenue>
+    <ThresholdEUR>${S.korLimit.toFixed(2)}</ThresholdEUR>
+    <ThresholdExceeded>${calcYearCB()>=S.korLimit?'true':'false'}</ThresholdExceeded>
+  </OSSThresholdCheck>
+</OSSReturn>`;
+  const a=document.createElement('a');
+  a.href=URL.createObjectURL(new Blob([xml],{type:'application/xml;charset=utf-8'}));
+  a.download=`ZENBTW_OSS_${S.quarter.replace(' ','_')}_${(S.company||'export').replace(/\s/g,'_')}.xml`;
+  a.click();URL.revokeObjectURL(a.href);
+  log('<span class="ok">📄 XML-aangifte geëxporteerd: '+euEntries.length+' EU-landen · BTW: €'+fmt(Math.round(bw))+'</span>');
+}
+function exportCSVFile(){
+  if(!calcTotal()){alert('Upload eerst een CSV.');return;}
+  const bw=calcBtw();let csv=`ZENBTW rapport · ${S.company||'—'} · ${S.quarter}\nGegenereerd: ${new Date().toLocaleDateString('nl-NL')}\n\nLand,ISO,BTW%,Omzet,BTW,Orders,Status\n`;
+  if(S.countries['NL'])csv+=`Nederland,NL,21%,${S.countries['NL'].revenue.toFixed(2)},0.00,${S.countries['NL'].orders},KOR\n`;
+  for(const[cc,d]of Object.entries(S.countries).filter(([c])=>c!=='NL').sort((a,b)=>b[1].revenue-a[1].revenue)){const i=EU[cc]||CI(cc);csv+=`"${i.n}",${cc},${EU[cc]?Math.round(EU[cc].r*100)+'%':'n.v.t.'},${d.revenue.toFixed(2)},${EU[cc]?(d.revenue*EU[cc].r).toFixed(2):'0.00'},${d.orders},${EU[cc]?'OSS':'Non-EU'}\n`;}
+  if(S.correcties.length){csv+=`\nCorrecties:\n`;S.correcties.forEach(c=>csv+=`${EU[c.land]?.n||c.land},,,,${c.bedrag.toFixed(2)},,${c.date}\n`);}
+  csv+=`\nTotaal BTW,,,,${bw.toFixed(2)},\n`;
+  dl(`ZENBTW_${S.quarter.replace(' ','_')}.csv`,csv,'text/csv;charset=utf-8');
+}
+function dl(name,content,type){const a=document.createElement('a');a.href=URL.createObjectURL(new Blob(['\uFEFF'+content],{type}));a.download=name;a.click();URL.revokeObjectURL(a.href);}
+
+// BACKUP & RESTORE
+function downloadBackup(){
+  const data={v:1,exported:new Date().toISOString(),S:S,AL:AL,OSSck:OSSck};
+  const name='ZENBTW_backup_'+(S.company||'export').replace(/\s/g,'_')+'_'+new Date().toISOString().slice(0,10)+'.json';
+  dl(name,JSON.stringify(data,null,2),'application/json');
+}
+function restoreBackup(ev){
+  const file=ev.target.files[0];if(!file)return;
+  const r=new FileReader();
+  r.onload=e=>{
+    try{
+      const data=JSON.parse(e.target.result);
+      if(!data.S||!data.v){alert('Ongeldig backup-bestand. Zorg dat je een ZENBTW-backup laadt.');return;}
+      if(!confirm('Weet je zeker dat je de backup wilt herstellen? Je huidige data wordt overschreven.')){return;}
+      Object.assign(S,data.S);
+      if(data.AL)AL=data.AL;
+      if(data.OSSck)OSSck=data.OSSck;
+      saveS();localStorage.setItem('ktx_al',JSON.stringify(AL));localStorage.setItem('ktx_oss',JSON.stringify(OSSck));
+      idbPut('ktx_al',AL).catch(()=>{});idbPut('ktx_oss',OSSck).catch(()=>{});
+      restoreQ();closeMo();render();
+      const ys=document.getElementById('yearSel');if(ys)ys.value=S.year;
+      const yl=document.getElementById('yrLbl');if(yl)yl.textContent='Kwartaal '+S.year;
+      alert('✓ Backup hersteld. Alle kwartaaldata is teruggezet.');
+    }catch(err){alert('Fout bij herstellen: '+err.message);}
+  };
+  r.readAsText(file);
+  ev.target.value='';
+}
+
+// NAV
+function sv(view){
+  document.querySelectorAll('.vw').forEach(v=>v.classList.remove('on'));
+  document.querySelectorAll('.ni').forEach(n=>n.classList.remove('on'));
+  const el=document.getElementById('vw'+view);if(el)el.classList.add('on');
+  const ni={dashboard:'nDash',transacties:'nTx',landen:'nLanden',jaaroverzicht:'nJaar',oss:'nOSS',alerts:'nAlert',help:'nHelp'};
+  const nel=document.getElementById(ni[view]);if(nel)nel.classList.add('on');
+  // sync mobile bottom nav
+  const mobMap={dashboard:'mniDash',transacties:'mniTx',landen:'mniLanden',jaaroverzicht:'mniJaar',oss:'mniOSS',alerts:'mniAlert',help:'mniHelp'};
+  if(mobMap[view])mniActive(mobMap[view]);
+  if(view==='transacties')renderTx();if(view==='landen')renderLanden();if(view==='jaaroverzicht'){renderYGrid();renderJDetail();}if(view==='oss')renderOSS();if(view==='alerts')loadAlUI();
+}
+function toggleAcc(el){el.closest('.acc').classList.toggle('on');}
+
+// SETTINGS
+function openSettings(){
+  document.getElementById('fCo').value=S.company||'';
+  document.getElementById('fBt').value=S.btwnr||'';
+  document.getElementById('fKv').value=S.kvk||'';
+  document.getElementById('fKo').value=S.korLimit||10000;
+  const fm=document.getElementById('fMarge');if(fm){fm.checked=!!S.marge;document.getElementById('margeModalInfo').style.display=S.marge?'block':'none';}
+  document.getElementById('fBackupUrl').value=S.backupUrl||'';
+  updateMobTopbar();
+  const fQu=document.getElementById('fQu');
+  fQu.innerHTML=['2024','2025','2026','2027'].flatMap(yr=>['Q1','Q2','Q3','Q4'].map(q=>`<option value="${q} ${yr}">${q} ${yr}</option>`)).join('');
+  fQu.value=S.quarter;
+  document.getElementById('sMo').classList.add('on');
+}
+
+function closeMo(){ document.getElementById('sMo').classList.remove('on'); }
+
+function saveSettings(){
+  S.company = document.getElementById('fCo').value.trim();
+  S.btwnr = document.getElementById('fBt').value.trim();
+  S.kvk = document.getElementById('fKv').value.trim();
+  S.korLimit = parseInt(document.getElementById('fKo').value) || 10000;
+  const fm=document.getElementById('fMarge');if(fm)S.marge=fm.checked;
+  S.quarter = document.getElementById('fQu').value;
+  S.year = S.quarter.split(' ')[1]||S.year;
+  S.usdRate = parseFloat(document.getElementById('fUsd').value) || .920;
+  S.gbpRate = parseFloat(document.getElementById('fGbp').value) || 1.170;
+  S.backupUrl = document.getElementById('fBackupUrl').value.trim();
+  updSyncBtnVisibility();
+
+  // Sync e-mailadres naar AL object
+  const alEmail = document.getElementById('alEmail');
+  if(alEmail&&alEmail.value.trim()){AL.email=alEmail.value.trim();localStorage.setItem('ktx_al',JSON.stringify(AL));}
+
+  const ys=document.getElementById('yearSel');if(ys)ys.value=S.year;
+  const yl=document.getElementById('yrLbl');if(yl)yl.textContent='Kwartaal '+S.year;
+  document.querySelectorAll('.nb .qb').forEach(b=>b.classList.toggle('on',b.textContent===S.quarter.split(' ')[0]));
+  restoreQ();
+  closeMo();
+  saveS();
+  render();
+}
+
+function changeYear(y){
+  saveQ();S.year=y;S.quarter='Q1 '+y;
+  document.getElementById('yrLbl').textContent='Kwartaal '+y;
+  document.querySelectorAll('.qb').forEach((b,i)=>b.classList.toggle('on',i===0));
+  restoreQ();saveS();render();
+}
+function setQ(el,q){
+  saveQ();
+  document.querySelectorAll('.qb').forEach(b=>b.classList.remove('on'));
+  el.classList.add('on');
+  S.quarter = q + ' ' + S.year;
+  restoreQ();
+  ['eZ','sZ','vZ'].forEach(id=>{
+    const z = document.getElementById(id);
+    if(z){
+      z.className = 'uz';
+      const icons = {eZ:'🏪', sZ:'🛍️', vZ:'👗'};
+      const tits = {eZ:'Etsy CSV', sZ:'Shopify CSV', vZ:'Vinted CSV'};
+      z.querySelector('.ui').textContent = icons[id];
+      z.querySelector('.ut').textContent = tits[id];
+    }
+  });
+  document.getElementById('fxB').className = 'fxbar';
+  ['xBtn','xX','xC'].forEach(id => {
+    const e = document.getElementById(id);
+    if(e) e.disabled = !calcTotal();
+  });
+  clearLog();
+  render();
+}
+
+function log(msg){ const el=document.getElementById('pL'); el.innerHTML+='<div>'+msg+'</div>'; el.scrollTop=el.scrollHeight; }
+function clearLog(){ document.getElementById('pL').innerHTML=''; }
+function showLog(){ document.getElementById('pL').classList.add('on'); }
+
+// --- CLOUD SYNC ---
+function updSyncBtnVisibility(){
+  const btn=document.getElementById('syncBtn');
+  if(!btn)return;
+  if(S.backupUrl){btn.classList.remove('sync-hidden');}
+  else{btn.classList.add('sync-hidden');}
+}
+
+async function syncToGoogle() {
+  if(!S.backupUrl){
+    alert('Vul eerst een Backup Script URL in via ⚙️ Instellingen.');
+    openSettings();
+    return;
+  }
+  const syncBtn = document.getElementById('syncBtn');
+  if(!syncBtn) return;
+  const originalText = syncBtn.innerHTML;
+  syncBtn.innerHTML = "⌛ Bezig...";
+  syncBtn.disabled = true;
+  const payload = {
+    company: S.company || "Onbekend bedrijf",
+    totalRevenue: calcTotal().toFixed(2),
+    totalVat: calcBtw().toFixed(2),
+    quarter: S.quarter || "Onbekend",
+    timestamp: new Date().toLocaleString('nl-NL')
+  };
+  const controller = new AbortController();
+  const timeout = setTimeout(() => controller.abort(), 10000);
+  try {
+    await fetch(S.backupUrl, {
+      method: 'POST',
+      mode: 'no-cors',
+      cache: 'no-cache',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload),
+      signal: controller.signal
+    });
+    clearTimeout(timeout);
+    log('<span class="ok">✓ Verzonden naar Google Cloud (bevestiging niet beschikbaar via no-cors)</span>');
+    syncBtn.innerHTML = "✅ Opgeslagen!";
+    syncBtn.style.background = "#2d6a4f";
+    setTimeout(() => { syncBtn.innerHTML = originalText; syncBtn.disabled = false; syncBtn.style.background = ""; }, 3000);
+  } catch (error) {
+    clearTimeout(timeout);
+    const msg = error.name === 'AbortError' ? 'Timeout: server reageert niet (>10s)' : error.message;
+    log('<span class="er">✗ Sync mislukt: ' + msg + '</span>');
+    alert("Opslaan mislukt: " + msg);
+    syncBtn.innerHTML = originalText;
+    syncBtn.disabled = false;
+  }
+}
+
+// ── MOBILE NAV ──
+function mniActive(id){
+  // bottom nav items
+  document.querySelectorAll('.mni').forEach(n=>n.classList.remove('on'));
+  const el=document.getElementById(id);if(el)el.classList.add('on');
+  // more menu items - mark active if it's a more-menu view
+  document.querySelectorAll('.mob-more-item').forEach(n=>n.classList.remove('on'));
+  const moreMap={mniJaar:1,mniOSS:1,mniHelp:1};
+  if(moreMap[id]){
+    document.getElementById('mniMore').classList.add('on');
+    const moreEl=document.getElementById(id);if(moreEl)moreEl.classList.add('on');
+  }
+}
+function toggleMobMore(){
+  const m=document.getElementById('mobMore');const o=document.getElementById('mobMoreOverlay');
+  const open=m.classList.toggle('on');o.classList.toggle('on',open);
+}
+function closeMobMore(){
+  document.getElementById('mobMore').classList.remove('on');
+  document.getElementById('mobMoreOverlay').classList.remove('on');
+}
+function syncMobQuarter(btn){
+  // keep desktop quarter buttons in sync
+  document.querySelectorAll('.nb .qb').forEach(b=>b.classList.remove('on'));
+  const q=btn.textContent;
+  document.querySelectorAll('.nb .qb').forEach(b=>{if(b.textContent===q)b.classList.add('on');});
+}
+
+// ── ONBOARDING ──
+function closeOnboard(){
+  document.getElementById('onboardMo').classList.remove('on');
+  localStorage.setItem('ktx_visited','1');
+}
+
+function loadDemoData(){
+  closeOnboard();
+  const demoQ='Q1 2025';
+  if(!S.quarterHistory[demoQ])S.quarterHistory[demoQ]={countries:{},rawOrders:[],totalOrders:0,intlOrders:0,revenue:0,platforms:{etsy:null,shopify:null,vinted:null}};
+  const qh=S.quarterHistory[demoQ];
+  // Etsy demo orders
+  const etsy={DE:{revenue:1840,orders:12},BE:{revenue:620,orders:4},FR:{revenue:890,orders:6},NL:{revenue:2100,orders:15},GB:{revenue:340,orders:2}};
+  Object.entries(etsy).forEach(([cc,d])=>{if(!qh.countries[cc])qh.countries[cc]={revenue:0,orders:0};qh.countries[cc].revenue+=d.revenue;qh.countries[cc].orders+=d.orders;});
+  qh.platforms.etsy={revenue:5790,orders:39,intl:24};
+  // Shopify demo orders
+  const shop={IT:{revenue:430,orders:3},ES:{revenue:290,orders:2},NL:{revenue:980,orders:7}};
+  Object.entries(shop).forEach(([cc,d])=>{if(!qh.countries[cc])qh.countries[cc]={revenue:0,orders:0};qh.countries[cc].revenue+=d.revenue;qh.countries[cc].orders+=d.orders;});
+  qh.platforms.shopify={revenue:1700,orders:12,intl:5};
+  qh.totalOrders=51;qh.intlOrders=29;qh.revenue=7490;
+  S.year='2025';S.quarter=demoQ;
+  restoreQ();saveS();render();
+  setTimeout(()=>{
+    log('<span class="ok">🚀 Demo data geladen — 51 orders van Etsy & Shopify. Vul via ⚙️ Instellingen je eigen gegevens in.</span>');
+    showLog();
+    if(!S.company)openSettings();
+  },300);
+}
+
+// ── INIT ──
+function initApp(){
+  restoreQ();
+  document.getElementById('phD').textContent='Gegenereerd: '+new Date().toLocaleDateString('nl-NL');
+  document.getElementById('fCo').value=S.company||'';document.getElementById('fBt').value=S.btwnr||'';document.getElementById('fKv').value=S.kvk||'';
+  document.getElementById('fKo').value=S.korLimit;document.getElementById('fUsd').value=S.usdRate;document.getElementById('fGbp').value=S.gbpRate;
+  document.getElementById('fBackupUrl').value=S.backupUrl||'';
+  const _ys=document.getElementById('yearSel');if(_ys)_ys.value=S.year||'2025';
+  const _yl=document.getElementById('yrLbl');if(_yl)_yl.textContent='Kwartaal '+(S.year||'2025');
+  document.querySelectorAll('.qb').forEach(b=>{if(b.textContent===S.quarter.split(' ')[0])b.classList.add('on');else b.classList.remove('on');});
+  renderCorr();if(S.correcties.length)document.getElementById('corrSec').className='corr on';
+  if(calcTotal()>0){['xBtn','xX','xC'].forEach(id=>{const e=document.getElementById(id);if(e)e.disabled=false;});}
+  updSyncBtnVisibility();
+  updDL();render();renderOSS();renderTx();
+  document.getElementById('sMo').addEventListener('click',function(e){if(e.target===this)closeMo();});
+  document.getElementById('reviewMo').addEventListener('click',function(e){if(e.target===this)cancelImport();});
+  document.getElementById('onboardMo').addEventListener('click',function(e){if(e.target===this)closeOnboard();});
+
+  // Drag & drop voor alle upload zones
+  const platMap={eZ:'etsy',sZ:'shopify',vZ:'vinted'};
+  ['eZ','sZ','vZ'].forEach(id=>{
+    const uz=document.getElementById(id);if(!uz)return;
+    const plat=platMap[id];
+    uz.addEventListener('dragover',e=>{e.preventDefault();e.stopPropagation();uz.classList.add('drag-ov');});
+    uz.addEventListener('dragleave',e=>{if(!uz.contains(e.relatedTarget))uz.classList.remove('drag-ov');});
+    uz.addEventListener('drop',e=>{
+      e.preventDefault();e.stopPropagation();uz.classList.remove('drag-ov');
+      const file=e.dataTransfer?.files?.[0];if(!file)return;
+      hu({target:{files:[file]}},plat);
+    });
+  });
+
+  // Eerste bezoek: toon onboarding wizard
+  const hasData=localStorage.getItem('ktx_s');
+  const hasVisited=localStorage.getItem('ktx_visited');
+  if(!hasVisited&&!hasData){
+    document.getElementById('onboardMo').classList.add('on');
+  }
+}
+loadS().then(initApp).catch(initApp);
+</script>
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+<script>
+emailjs.init("hdOoLlKINluOddB4m");
+
+function stuurEmailAlert(pct){
+  if(!AL.email)return;
+  emailjs.send("service_g2oec3u","template_qo2g3dj",{
+    to_email:AL.email,
+    percentage:pct,
+    company_name:S.company||"Ondernemer",
+    quarter:S.quarter,
+    revenue:'€'+fmt(Math.round(calcTotal())),
+    kor_limit:'€'+fmt(S.korLimit)
+  }).then(()=>{
+    AL.lastAlertSent=pct;
+    localStorage.setItem('ktx_al',JSON.stringify(AL));
+    log('<span class="ok">✉ E-mail alert verstuurd naar '+AL.email+'</span>');
+  },e=>log('<span class="er">✗ E-mail mislukt: '+(e.text||e)+'</span>'));
+}
+
+function syncToSheets(){
+  if(!AL.sheetsUrl)return;
+  const cb=calcCB(),tot=calcTotal(),btw=calcBtw();
+  const payload={
+    company:S.company||'',
+    quarter:S.quarter,
+    totalOrders:S.totalOrders,
+    korLimit:S.korLimit,
+    totalRevenue:Math.round(tot),
+    crossBorder:Math.round(cb),
+    btw:Math.round(btw),
+    pct:Math.round(cb/S.korLimit*100)
+  };
+  const sc=new AbortController();setTimeout(()=>sc.abort(),10000);
+  fetch(AL.sheetsUrl,{method:'POST',mode:'no-cors',body:JSON.stringify(payload),headers:{'Content-Type':'text/plain'},signal:sc.signal})
+    .then(()=>log('<span class="ok">📊 Verzonden naar Google Sheets · €'+fmt(Math.round(tot))+' · '+S.quarter+'</span>'))
+    .catch(e=>log('<span class="er">✗ Sheets sync mislukt: '+(e.name==='AbortError'?'Timeout (>10s)':e.message)+'</span>'));
+}
+</script>
+<!-- Bulk Land Toewijzer Bar -->
+<div class="bulk-bar" id="bulkBar">
+  <span class="bulk-bar-count" id="bulkCount">0 orders geselecteerd</span>
+  <span class="bulk-bar-sep">·</span>
+  <span class="bulk-bar-label">Zet land op:</span>
+  <select class="bulk-cc-sel" id="bulkCcSel"></select>
+  <button class="bulk-apply" onclick="applyBulkCountry()" data-umami-event="bulk-set-country">Toepassen</button>
+  <button class="bulk-close" onclick="clearBulkSelection()" title="Selectie wissen">✕</button>
+</div>
+
+<!-- PRO Rapport Modal -->
+<div class="pro-overlay" id="proOverlay" onclick="if(event.target===this)closeProModal()">
+  <div class="pro-modal">
+    <button class="pro-modal-close" onclick="closeProModal()" aria-label="Sluiten">✕</button>
+    <div class="pro-modal-icon">📄</div>
+    <div class="pro-modal-badge">✦ PRO FEATURE · €4,99</div>
+    <h2>Ontvang je Officiële BTW-Rapport</h2>
+    <p class="pro-modal-body">
+      We leggen momenteel de laatste hand aan de PDF-export functie.<br><br>
+      Laat je e-mailadres achter en we sturen je een bericht — met <strong>50% korting</strong> — zodra we live gaan.
+    </p>
+    <div id="proForm">
+      <div class="pro-input-wrap">
+        <input class="pro-input" type="email" id="proEmail" placeholder="jouw@emailadres.nl" autocomplete="email" onkeydown="if(event.key==='Enter')submitProEmail()">
+        <button class="pro-submit" onclick="submitProEmail()" data-umami-event="submit-pro-email">Hou me op de hoogte</button>
+      </div>
+      <p id="proEmailErr" style="display:none;margin-top:8px;font-size:12px;color:var(--dn);font-family:'JetBrains Mono',monospace">Vul een geldig e-mailadres in.</p>
+    </div>
+    <div class="pro-success" id="proSuccess">
+      <div class="pro-success-icon">🎉</div>
+      <h3>Bedankt! Je staat op de lijst.</h3>
+      <p>Zodra de PDF-rapportage live gaat, ben jij de eerste die het hoort.</p>
+      <span class="pro-discount">50% korting gereserveerd voor jou</span>
+    </div>
+  </div>
+</div>
+
+<!-- PRO Modal JavaScript -->
+<script>
+// ── BULK LAND TOEWIJZER ────────────────────────────────────────────────────
+let _rawSort={col:'date',dir:'asc'};
+
+function getSortedRawIndices(){
+  const idx=S.rawOrders.map((_,i)=>i);
+  return idx.sort((a,b)=>{
+    const oa=S.rawOrders[a],ob=S.rawOrders[b];
+    let va,vb;
+    if(_rawSort.col==='date'){va=oa.date||'';vb=ob.date||'';}
+    else if(_rawSort.col==='country'){va=EU[oa.country]?.n||oa.country||'';vb=EU[ob.country]?.n||ob.country||'';}
+    else if(_rawSort.col==='amount'){return _rawSort.dir==='asc'?oa.amount-ob.amount:ob.amount-oa.amount;}
+    return _rawSort.dir==='asc'?va.localeCompare(vb,'nl'):vb.localeCompare(va,'nl');
+  });
+}
+function sortRawBy(col){
+  _rawSort.dir=(_rawSort.col===col&&_rawSort.dir==='asc')?'desc':'asc';
+  _rawSort.col=col;
+  renderTx();
+}
+function onRawCbChange(cb){
+  cb.closest('.ro-row')?.classList.toggle('bulk-selected',cb.checked);
+  updateBulkBar();
+}
+function toggleAllRaw(e){
+  const chk=document.getElementById('rawSelAll');
+  if(e.target!==chk)chk.checked=!chk.checked;
+  const checked=chk.checked;
+  document.querySelectorAll('.ro-row-cb').forEach(cb=>{
+    cb.checked=checked;
+    cb.closest('.ro-row')?.classList.toggle('bulk-selected',checked);
+  });
+  updateBulkBar();
+}
+function updateBulkBar(){
+  const cbs=document.querySelectorAll('.ro-row-cb:checked');
+  const bar=document.getElementById('bulkBar');
+  const cnt=document.getElementById('bulkCount');
+  if(!bar)return;
+  const n=cbs.length;
+  if(n>0){bar.classList.add('on');cnt.textContent=n+' '+(n===1?'order':'orders')+' geselecteerd';}
+  else{bar.classList.remove('on');}
+  const allCbs=document.querySelectorAll('.ro-row-cb');
+  const selAll=document.getElementById('rawSelAll');
+  if(selAll){selAll.indeterminate=n>0&&n<allCbs.length;selAll.checked=n>0&&n===allCbs.length;}
+}
+function applyBulkCountry(){
+  const cc=document.getElementById('bulkCcSel')?.value;
+  if(!cc)return;
+  const checked=document.querySelectorAll('.ro-row-cb:checked');
+  if(!checked.length)return;
+  checked.forEach(cb=>{
+    const i=parseInt(cb.dataset.ridx);
+    if(!isNaN(i)&&i>=0&&i<S.rawOrders.length)S.rawOrders[i].country=cc;
+  });
+  saveQ();render();clearBulkSelection();
+}
+function clearBulkSelection(){
+  document.querySelectorAll('.ro-row-cb').forEach(cb=>{
+    cb.checked=false;
+    cb.closest('.ro-row')?.classList.remove('bulk-selected');
+  });
+  const bar=document.getElementById('bulkBar');if(bar)bar.classList.remove('on');
+  const selAll=document.getElementById('rawSelAll');if(selAll){selAll.checked=false;selAll.indeterminate=false;}
+}
+function initBulkCcSel(){
+  const sel=document.getElementById('bulkCcSel');if(!sel)return;
+  const eu=Object.entries(EU).filter(([cc])=>cc!=='NL').map(([cc,v])=>`<option value="${cc}">${v.f} ${v.n}</option>`).join('');
+  sel.innerHTML=eu;
+}
+document.addEventListener('DOMContentLoaded',initBulkCcSel);
+
+
+function openProModal(){
+  var overlay=document.getElementById('proOverlay');
+  if(!overlay)return;
+  // Reset naar beginstand
+  document.getElementById('proForm').style.display='';
+  document.getElementById('proSuccess').style.display='none';
+  document.getElementById('proEmail').value='';
+  document.getElementById('proEmailErr').style.display='none';
+  document.getElementById('proEmail').style.borderColor='';
+  overlay.classList.add('on');
+  document.body.style.overflow='hidden';
+  setTimeout(function(){document.getElementById('proEmail').focus();},280);
+}
+function closeProModal(){
+  var overlay=document.getElementById('proOverlay');
+  if(overlay)overlay.classList.remove('on');
+  document.body.style.overflow='';
+}
+function submitProEmail(){
+  var emailEl=document.getElementById('proEmail');
+  var email=emailEl.value.trim();
+  var errEl=document.getElementById('proEmailErr');
+  // Validatie
+  if(!email||!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){
+    emailEl.style.borderColor='var(--dn)';
+    errEl.style.display='block';
+    emailEl.focus();
+    return;
+  }
+  errEl.style.display='none';
+  // Umami event
+  if(typeof umami!=='undefined'){
+    umami.track('submit-pro-email',{email:email});
+  }
+  // Opslaan in localStorage
+  try{
+    var leads=JSON.parse(localStorage.getItem('zenbtw_pro_leads')||'[]');
+    leads.push({email:email,ts:new Date().toISOString()});
+    localStorage.setItem('zenbtw_pro_leads',JSON.stringify(leads));
+  }catch(e){}
+  // Toon succesmelding
+  document.getElementById('proForm').style.display='none';
+  document.getElementById('proSuccess').style.display='block';
+  // Sluit automatisch na 3 seconden
+  setTimeout(closeProModal,3000);
+}
+document.addEventListener('keydown',function(e){
+  if(e.key==='Escape')closeProModal();
+});
+</script>
+</body>
+</html>
