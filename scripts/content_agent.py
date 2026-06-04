@@ -34,6 +34,7 @@ SEED_KEYWORDS = [
 TRENDS_TIMEFRAME = "today 3-m"
 
 BLOG_OUTPUT_DIR = Path(__file__).parent.parent / "app" / "blog"
+SITEMAP_PATH = Path(__file__).parent.parent / "sitemap.xml"
 SITE_URL = "https://zenbtw.nl"
 SITE_NAME = "ZENbtw"
 
