@@ -770,6 +770,7 @@ async function loadUmami(){
   const el=document.getElementById('umami-stats');
   el.innerHTML='<div class="empty">Laden...</div>';
   const SITE_ID='9cb58ff4-cf6e-4773-8dd5-f2f0b6ad5510';
+  const token=UMAMI_TOKEN;
   try{
     const [stats,pages] = await Promise.all([
       fetch(`https://cloud.umami.is/api/websites/${SITE_ID}/stats?startAt=${Date.now()-30*864e5}&endAt=${Date.now()}`,{headers:{'x-umami-api-key':token}}).then(r=>r.json()),
