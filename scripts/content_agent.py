@@ -310,7 +310,7 @@ def update_blog_index(blogs: list[dict]):
   </style>
 </head>
 <body>
-  <a href="{SITE_URL}">&larr; {SITE_NAME}</a>
+  <a href="{SITE_URL}" style="display:inline-flex;align-items:center;gap:8px;text-decoration:none;color:#4f46e5"><img src="{SITE_URL}/logo.webp" alt="{SITE_NAME} Logo" style="height:28px;width:auto;border-radius:6px">&larr; {SITE_NAME}</a>
   <h1>BTW-gidsen voor marketplace verkopers</h1>
   <p>Automatisch gegenereerd op basis van actuele Google-zoekopdrachten.</p>
   <ul id="posts">
