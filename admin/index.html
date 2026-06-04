@@ -764,9 +764,9 @@ async function loadAgent(){
 }
 
 // ── Traffic / Umami ───────────────────────────────────────────────────────────
+const UMAMI_TOKEN = 'api_wsNZu7VcO1vuYeLZ8OcdmUjawDtFzrsS';
+
 async function loadUmami(){
-  const token=document.getElementById('umami-token').value.trim();
-  if(!token){alert('Voer je Umami API token in');return;}
   const el=document.getElementById('umami-stats');
   el.innerHTML='<div class="empty">Laden...</div>';
   const SITE_ID='9cb58ff4-cf6e-4773-8dd5-f2f0b6ad5510';
