@@ -23,7 +23,7 @@ jobs:
 
       - name: Run content agent
         env:
-          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          ANTHROPIC_API_KEY: ${{ secrets.ZENBTW_BLOGS }}
         run: python scripts/content_agent.py
 
       - name: Commit en push nieuwe blog
