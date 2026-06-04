@@ -1,11 +1,112 @@
 {
   "runs": [
     {
+      "timestamp": "2026-06-04T18:07:29.400381",
+      "status": "success",
+      "queries_found": 11,
+      "top_queries": [
+        {
+          "query": "kleine ondernemersregeling 2026",
+          "score": 350,
+          "type": "rising"
+        },
+        {
+          "query": "belastingdienst btw aangifte",
+          "score": 100,
+          "type": "top"
+        },
+        {
+          "query": "kleine ondernemersregeling btw",
+          "score": 100,
+          "type": "top"
+        },
+        {
+          "query": "hoe werkt vinted verkopen",
+          "score": 100,
+          "type": "top"
+        },
+        {
+          "query": "kor regeling aanvragen",
+          "score": 100,
+          "type": "top"
+        },
+        {
+          "query": "btw aangifte doen",
+          "score": 90,
+          "type": "top"
+        },
+        {
+          "query": "aangifte inkomstenbelasting",
+          "score": 70,
+          "type": "rising"
+        },
+        {
+          "query": "vrijstelling btw aangifte",
+          "score": 60,
+          "type": "rising"
+        },
+        {
+          "query": "btw aangifte 2026",
+          "score": 50,
+          "type": "rising"
+        },
+        {
+          "query": "kleine ondernemersregeling aanvragen",
+          "score": 40,
+          "type": "top"
+        }
+      ],
+      "skipped_queries": [],
+      "blog": {
+        "date": "2026-06-04",
+        "query": "kleine ondernemersregeling 2026",
+        "trending_score": 350,
+        "trending_type": "rising",
+        "seed_keyword": "kleine ondernemersregeling",
+        "title": "Kleine Ondernemersregeling 2026: wat verandert er (en wat niet)?",
+        "slug": "kleine-ondernemersregeling-2026",
+        "meta_description": "Alles over de kleine ondernemersregeling (KOR) in 2026. Wat zijn de regels, grenzen en valkuilen? Praktisch uitgelegd voor marketplace verkopers.",
+        "url": "https://zenbtw.nl/blog/kleine-ondernemersregeling-2026",
+        "seo": {
+          "score": 100,
+          "title_length": 64,
+          "meta_length": 145,
+          "word_count": 866,
+          "keyword_in_title": true,
+          "keyword_in_meta": true,
+          "h2_count": 8,
+          "notes": []
+        }
+      }
+    },
+    {
       "timestamp": "2026-06-04T20:05:56.066131",
       "status": "no_queries",
       "queries_found": 0,
       "blog": null
     }
   ],
-  "blogs": []
+  "blogs": [
+    {
+      "date": "2026-06-04",
+      "query": "kleine ondernemersregeling 2026",
+      "trending_score": 350,
+      "trending_type": "rising",
+      "seed_keyword": "kleine ondernemersregeling",
+      "title": "Kleine Ondernemersregeling 2026: wat verandert er (en wat niet)?",
+      "slug": "kleine-ondernemersregeling-2026",
+      "meta_description": "Alles over de kleine ondernemersregeling (KOR) in 2026. Wat zijn de regels, grenzen en valkuilen? Praktisch uitgelegd voor marketplace verkopers.",
+      "url": "https://zenbtw.nl/blog/kleine-ondernemersregeling-2026",
+      "seo": {
+        "score": 100,
+        "title_length": 64,
+        "meta_length": 145,
+        "word_count": 866,
+        "keyword_in_title": true,
+        "keyword_in_meta": true,
+        "h2_count": 8,
+        "notes": []
+      }
+    }
+  ]
 }
