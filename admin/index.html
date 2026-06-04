@@ -789,11 +789,26 @@ async function loadAgent(){
 const UMAMI_TOKEN = 'api_wsNZu7VcO1vuYeLZ8OcdmUjawDtFzrsS';
 
 // ── Contacten (Brevo lijst #3) ────────────────────────────────────────────────
-const BREVO_KEY = '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';
+function saveBrevoKey(){
+  const val = document.getElementById('brevo-key-input').value.trim();
+  if(!val){ alert('Voer een API key in'); return; }
+  localStorage.setItem('zenbtw_brevo_key', val);
+  document.getElementById('brevo-key-input').value = '';
+  document.getElementById('brevo-key-input').placeholder = '✓ Opgeslagen';
+  loadContacts();
+}
 
 async function loadContacts(){
+  // Laad opgeslagen key
+  const savedKey = localStorage.getItem('zenbtw_brevo_key');
+  if(savedKey && document.getElementById('brevo-key-input')) {
+    document.getElementById('brevo-key-input').placeholder = savedKey.slice(0,12)+'...';
+  }
+
   const el = document.getElementById('contacts-table');
   const kpi = document.getElementById('kpi-contacts');
+  const BREVO_KEY = savedKey;
+  if(!BREVO_KEY){ el.innerHTML = '<div class="empty">Voer eerst je Brevo API key in hierboven.</div>'; return; }
   el.innerHTML = '<div class="empty">Ophalen van Brevo...</div>';
   try {
     // Haal contacten op uit lijst 3
