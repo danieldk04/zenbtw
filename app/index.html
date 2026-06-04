@@ -2103,11 +2103,11 @@ function render(){
 }
 
 function updateNavBadges(){
-  const pct=Math.min(Math.round(calcYearCB()/S.korLimit*100),100);
+  const pct=Math.min(Math.round(calcYearCB()/(S.ossLimit||10000)*100),100);
   const badge=document.getElementById('navAlertBadge');
   if(!badge)return;
-  if(pct>=90){badge.style.display='flex';badge.className='nav-badge';badge.title='KOR-drempel '+pct+'% bereikt — actie vereist!';}
-  else if(pct>=70){badge.style.display='flex';badge.className='nav-badge warn';badge.title='KOR-drempel '+pct+'% — let op';}
+  if(pct>=90){badge.style.display='flex';badge.className='nav-badge';badge.title='OSS-drempel '+pct+'% bereikt — actie vereist!';}
+  else if(pct>=70){badge.style.display='flex';badge.className='nav-badge warn';badge.title='OSS-drempel '+pct+'% — let op';}
   else{badge.style.display='none';}
 }
 
