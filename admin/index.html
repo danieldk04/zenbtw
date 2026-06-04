@@ -809,7 +809,7 @@ async function loadContacts(){
 
   const el = document.getElementById('contacts-table');
   const kpi = document.getElementById('kpi-contacts');
-  const BREVO_KEY = savedKey;
+  const BREVO_KEY = savedKey || BREVO_DEFAULT;
   if(!BREVO_KEY){ el.innerHTML = '<div class="empty">Voer eerst je Brevo API key in hierboven.</div>'; return; }
   el.innerHTML = '<div class="empty">Ophalen van Brevo...</div>';
   try {
