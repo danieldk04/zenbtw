@@ -409,11 +409,8 @@
 
       <div class="card">
         <div class="card-head">
-          <h3>Live statistieken</h3>
-          <div style="display:flex;gap:.5rem;align-items:center">
-            <input id="umami-token" type="password" placeholder="Umami API token" style="padding:.4rem .8rem;border:1.5px solid var(--br);border-radius:7px;font-size:.78rem;width:220px;outline:none">
-            <button class="btn btn-primary" onclick="loadUmami()">Laden</button>
-          </div>
+          <h3>Live statistieken — afgelopen 30 dagen</h3>
+          <button class="btn btn-ghost" onclick="loadUmami()">↺ Vernieuwen</button>
         </div>
         <div id="umami-stats"><div class="empty">Voer je Umami API token in om statistieken te laden.<br><br>Te vinden op: cloud.umami.is → Profiel → API tokens</div></div>
       </div>
