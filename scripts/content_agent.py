@@ -571,6 +571,11 @@ def main():
 
     update_blog_index([blog])
 
+    # Sitemap + Google Indexing
+    update_sitemap(blog["slug"])
+    blog_url = f"{SITE_URL}/app/blog/{blog['slug']}.html"
+    submit_to_google_indexing(blog_url)
+
     # 6. Data loggen
     blog_entry = {
         "date": datetime.date.today().isoformat(),
