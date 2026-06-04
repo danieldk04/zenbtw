@@ -2,7 +2,7 @@
 /**
  * ZenBTW Batch Blog Regenerator
  * Rewrites ALL existing blogs with the improved human-like style prompt.
- * Uses max_tokens: 8192 to prevent truncation.
+ * Uses max_tokens: 16000 to prevent truncation.
  *
  * Usage: node scripts/regenerate-blogs.js
  * Env:   ANTHROPIC_API_KEY (required)
