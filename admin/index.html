@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ZenBTW Admin</title>
+  <meta name="robots" content="noindex, nofollow">
+  <style>
+    *{box-sizing:border-box;margin:0;padding:0}
+    :root{--bg:#f7f6f3;--wh:#fff;--br:#e8e5de;--ac:#1a4731;--acl:#e8f0ec;--acm:#2d6a4f;--tx:#1a1814;--tx2:#4a4640;--tx3:#8a847a;--s2:#f4f3ef;--red:#dc2626;--redl:#fef2f2;--yellow:#d97706;--yellowl:#fffbeb;--blue:#2563eb;--bluel:#eff6ff;--green:#16a34a;--greenl:#dcfce7}
+    body{background:var(--bg);color:var(--tx);font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;min-height:100vh}
+
+    /* ── Login ── */
+    #login-screen{display:flex;align-items:center;justify-content:center;min-height:100vh;background:var(--bg)}
+    .login-box{background:var(--wh);border:1px solid var(--br);border-radius:16px;padding:2.5rem 2rem;width:100%;max-width:380px;text-align:center;box-shadow:0 8px 32px rgba(0,0,0,.08)}
+    .login-box h1{font-size:1.4rem;font-weight:700;margin-bottom:.3rem}
+    .login-box p{font-size:.85rem;color:var(--tx3);margin-bottom:1.5rem}
+    .login-box input{width:100%;padding:.75rem 1rem;border:1.5px solid var(--br);border-radius:8px;font-size:1rem;outline:none;transition:border .15s}
+    .login-box input:focus{border-color:var(--acm)}
+    .login-box button{width:100%;margin-top:.75rem;padding:.8rem;background:var(--ac);color:#fff;border:none;border-radius:8px;font-size:.95rem;font-weight:700;cursor:pointer}
+    .login-box button:hover{background:var(--acm)}
+    .login-error{color:var(--red);font-size:.82rem;margin-top:.5rem;min-height:1.2rem}
+
+    /* ── App shell ── */
+    #app{display:none}
+    header{background:var(--ac);color:#fff;padding:.9rem 1.5rem;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:100}
+    header h1{font-size:1rem;font-weight:700;letter-spacing:-.02em}
+    header nav{display:flex;gap:.5rem}
+    header nav button{background:rgba(255,255,255,.15);color:#fff;border:none;border-radius:6px;padding:.4rem .9rem;font-size:.8rem;font-weight:600;cursor:pointer;transition:background .15s}
+    header nav button:hover,header nav button.active{background:rgba(255,255,255,.3)}
+    .logout-btn{background:transparent!important;opacity:.7}
+
+    .container{max-width:1200px;margin:0 auto;padding:1.5rem}
+
+    /* ── Tabs ── */
+    .tab{display:none}.tab.active{display:block}
+
+    /* ── Cards / stats ── */
+    .stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:1rem;margin-bottom:1.5rem}
+    .stat-card{background:var(--wh);border:1px solid var(--br);border-radius:10px;padding:1.1rem 1.3rem}
+    .stat-card .lbl{font-size:.75rem;color:var(--tx3);text-transform:uppercase;letter-spacing:.05em;margin-bottom:.3rem}
+    .stat-card .val{font-size:2rem;font-weight:800;color:var(--acm)}
+    .stat-card .sub{font-size:.75rem;color:var(--tx3);margin-top:.2rem}
+
+    /* ── Section ── */
+    .section{background:var(--wh);border:1px solid var(--br);border-radius:10px;margin-bottom:1.2rem;overflow:hidden}
+    .section-head{padding:.9rem 1.2rem;border-bottom:1px solid var(--br);display:flex;justify-content:space-between;align-items:center;gap:.5rem}
+    .section-head h2{font-size:.9rem;font-weight:700}
+    .section-head .actions{display:flex;gap:.5rem;flex-wrap:wrap}
+
+    /* ── Table ── */
+    table{width:100%;border-collapse:collapse;font-size:.82rem}
+    th{background:var(--s2);padding:.6rem 1rem;text-align:left;font-size:.72rem;text-transform:uppercase;letter-spacing:.05em;color:var(--tx3);font-weight:600;border-bottom:1px solid var(--br)}
+    td{padding:.8rem 1rem;border-bottom:1px solid #f9fafb;vertical-align:top}
+    tr:last-child td{border-bottom:none}
+    tr:hover td{background:#fafbff}
+
+    /* ── Badges ── */
+    .badge{display:inline-block;font-size:.7rem;font-weight:700;padding:2px 8px;border-radius:99px;white-space:nowrap}
+    .b-green{background:var(--greenl);color:var(--green)}
+    .b-red{background:var(--redl);color:var(--red)}
+    .b-yellow{background:var(--yellowl);color:var(--yellow)}
+    .b-blue{background:var(--bluel);color:var(--blue)}
+    .b-gray{background:#f3f4f6;color:#6b7280}
+
+    /* ── SEO bar ── */
+    .seo-bar{height:5px;border-radius:3px;background:#e5e7eb;margin-top:3px;width:80px}
+    .seo-fill{height:100%;border-radius:3px}
+    .sf-green{background:var(--green)}.sf-yellow{background:var(--yellow)}.sf-red{background:var(--red)}
+
+    /* ── Queue editor ── */
+    .queue-form{padding:1rem 1.2rem;border-top:1px solid var(--br);display:flex;gap:.6rem;align-items:center;flex-wrap:wrap}
+    .queue-form input{flex:1;min-width:200px;padding:.55rem .9rem;border:1.5px solid var(--br);border-radius:7px;font-size:.85rem;outline:none}
+    .queue-form input:focus{border-color:var(--acm)}
+
+    /* ── Buttons ── */
+    .btn{display:inline-flex;align-items:center;gap:.3rem;padding:.45rem .9rem;border:none;border-radius:7px;font-size:.8rem;font-weight:600;cursor:pointer;transition:all .15s;white-space:nowrap}
+    .btn-primary{background:var(--ac);color:#fff}.btn-primary:hover{background:var(--acm)}
+    .btn-danger{background:var(--red);color:#fff}.btn-danger:hover{opacity:.85}
+    .btn-ghost{background:var(--s2);color:var(--tx2)}.btn-ghost:hover{background:var(--br)}
+    .btn-yellow{background:var(--yellow);color:#fff}.btn-yellow:hover{opacity:.85}
+
+    /* ── Alerts log ── */
+    .run-item{padding:.8rem 1.2rem;border-bottom:1px solid #f3f4f6;font-size:.82rem}
+    .run-item:last-child{border-bottom:none}
+    .run-meta{display:flex;align-items:center;gap:.5rem;margin-bottom:.3rem}
+    .run-time{color:var(--tx3);font-size:.75rem}
+    .run-detail{color:var(--tx2)}
+
+    /* ── Trends panel ── */
+    .trend-item{display:flex;align-items:center;gap:1rem;padding:.55rem 1.2rem;border-bottom:1px solid #f9fafb;font-size:.82rem}
+    .trend-item:last-child{border-bottom:none}
+    .trend-score{font-weight:800;color:var(--acm);min-width:48px;font-size:.78rem}
+    .trend-query{flex:1}
+    .trend-add{font-size:.75rem}
+
+    /* ── Loading ── */
+    .loading{text-align:center;padding:2rem;color:var(--tx3);font-size:.85rem}
+
+    a{color:var(--acm);text-decoration:none}a:hover{text-decoration:underline}
+
+    @media(max-width:600px){
+      .stats{grid-template-columns:1fr 1fr}
+      header nav button span{display:none}
+    }
+  </style>
+</head>
+<body>
+
+<!-- ── Login ───────────────────────────────────────────────────────────────── -->
+<div id="login-screen">
+  <div class="login-box">
+    <h1>ZenBTW Admin</h1>
+    <p>Niet voor publiek gebruik</p>
+    <input type="password" id="pw-input" placeholder="Wachtwoord" autofocus>
+    <button onclick="tryLogin()">Inloggen</button>
+    <div class="login-error" id="login-err"></div>
+  </div>
+</div>
+
+<!-- ── App ─────────────────────────────────────────────────────────────────── -->
+<div id="app">
+  <header>
+    <h1>ZenBTW Admin</h1>
+    <nav>
+      <button class="active" onclick="showTab('blogs')" id="tab-btn-blogs">Blogs</button>
+      <button onclick="showTab('queue')" id="tab-btn-queue">Queue</button>
+      <button onclick="showTab('agent')" id="tab-btn-agent">Agent</button>
+      <button onclick="showTab('actions')" id="tab-btn-actions">Actions</button>
+      <button class="logout-btn" onclick="logout()">Uitloggen</button>
+    </nav>
+  </header>
+
+  <div class="container">
+
+    <!-- ── BLOGS tab ── -->
+    <div class="tab active" id="tab-blogs">
+      <div class="stats" id="blog-stats"></div>
+      <div class="section">
+        <div class="section-head">
+          <h2>Alle gepubliceerde blogs</h2>
+          <div class="actions">
+            <button class="btn btn-ghost" onclick="loadBlogs()">↺ Vernieuwen</button>
+          </div>
+        </div>
+        <div id="blogs-table"><div class="loading">Laden...</div></div>
+      </div>
+    </div>
+
+    <!-- ── QUEUE tab ── -->
+    <div class="tab" id="tab-queue">
+      <div class="section">
+        <div class="section-head">
+          <h2>Keywords queue</h2>
+          <span id="queue-count" class="badge b-blue">–</span>
+        </div>
+        <div id="queue-table"><div class="loading">Laden...</div></div>
+        <div class="queue-form">
+          <input type="text" id="new-keyword" placeholder="Nieuw keyword, bijv: vinted btw 2026">
+          <input type="text" id="new-slug" placeholder="slug (optioneel)">
+          <button class="btn btn-primary" onclick="addKeyword()">+ Toevoegen</button>
+        </div>
+      </div>
+
+      <div class="section" style="margin-top:1rem">
+        <div class="section-head"><h2>Trending topics (laatste run)</h2></div>
+        <div id="trends-list"><div class="loading">Laden...</div></div>
+      </div>
+    </div>
+
+    <!-- ── AGENT tab ── -->
+    <div class="tab" id="tab-agent">
+      <div class="stats" id="agent-stats"></div>
+      <div class="section">
+        <div class="section-head"><h2>Agent run history</h2></div>
+        <div id="agent-runs"><div class="loading">Laden...</div></div>
+      </div>
+    </div>
+
+    <!-- ── ACTIONS tab ── -->
+    <div class="tab" id="tab-actions">
+      <div class="section">
+        <div class="section-head">
+          <h2>GitHub Actions runs</h2>
+          <div class="actions">
+            <button class="btn btn-ghost" onclick="loadActions()">↺ Vernieuwen</button>
+          </div>
+        </div>
+        <div id="actions-table"><div class="loading">Laden...</div></div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+// ── Auth ──────────────────────────────────────────────────────────────────────
+
+// SHA-256 hash van het wachtwoord. Wijzig dit door:
+// 1. Kies een nieuw wachtwoord
+// 2. Ga naar: https://emn178.github.io/online-tools/sha256.html
+// 3. Plak de hash hieronder
+const PASSWORD_HASH = 'a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3'; // standaard: "123"
+
+async function sha256(str) {
+  const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(str));
+  return Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2, '0')).join('');
+}
+
+async function tryLogin() {
+  const pw = document.getElementById('pw-input').value;
+  const hash = await sha256(pw);
+  if (hash === PASSWORD_HASH) {
+    sessionStorage.setItem('zenbtw_admin', '1');
+    document.getElementById('login-screen').style.display = 'none';
+    document.getElementById('app').style.display = 'block';
+    initApp();
+  } else {
+    document.getElementById('login-err').textContent = 'Wachtwoord onjuist';
+    document.getElementById('pw-input').value = '';
+    document.getElementById('pw-input').focus();
+  }
+}
+
+document.getElementById('pw-input').addEventListener('keydown', e => {
+  if (e.key === 'Enter') tryLogin();
+});
+
+function logout() {
+  sessionStorage.removeItem('zenbtw_admin');
+  location.reload();
+}
+
+if (sessionStorage.getItem('zenbtw_admin') === '1') {
+  document.getElementById('login-screen').style.display = 'none';
+  document.getElementById('app').style.display = 'block';
+  initApp();
+}
+
+// ── Tabs ──────────────────────────────────────────────────────────────────────
+
+function showTab(name) {
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('header nav button').forEach(b => b.classList.remove('active'));
+  document.getElementById('tab-' + name).classList.add('active');
+  document.getElementById('tab-btn-' + name).classList.add('active');
+}
+
+// ── Data fetchers ─────────────────────────────────────────────────────────────
+
+const REPO = 'danieldk04/zenbtw';
+const BASE = 'https://raw.githubusercontent.com/' + REPO + '/main';
+
+async function fetchJSON(path) {
+  const r = await fetch(BASE + path + '?t=' + Date.now());
+  if (!r.ok) throw new Error(path + ' niet gevonden (' + r.status + ')');
+  return r.json();
+}
+
+async function fetchGHAPI(path) {
+  const r = await fetch('https://api.github.com/repos/' + REPO + path);
+  if (!r.ok) throw new Error('GitHub API fout');
+  return r.json();
+}
+
+// ── Helpers ───────────────────────────────────────────────────────────────────
+
+function fmt(iso) {
+  return new Date(iso).toLocaleString('nl-NL', {day:'numeric',month:'short',year:'numeric',hour:'2-digit',minute:'2-digit'});
+}
+
+function seoColor(s) {
+  return s >= 75 ? 'sf-green' : s >= 50 ? 'sf-yellow' : 'sf-red';
+}
+
+function seoLabel(s) {
+  return s >= 75 ? 'b-green' : s >= 50 ? 'b-yellow' : 'b-red';
+}
+
+// ── Blogs tab ─────────────────────────────────────────────────────────────────
+
+async function loadBlogs() {
+  const el = document.getElementById('blogs-table');
+  el.innerHTML = '<div class="loading">Laden...</div>';
+
+  try {
+    // Haal GitHub tree op voor blog/ directory
+    const tree = await fetchGHAPI('/git/trees/main?recursive=1');
+    const blogFiles = tree.tree.filter(f =>
+      f.path.match(/^blog\/[^/]+\.html$/) && !f.path.includes('index.html')
+    );
+    const appBlogFiles = tree.tree.filter(f =>
+      f.path.match(/^app\/blog\/[^/]+\.html$/) && !f.path.match(/index|dashboard/)
+    );
+
+    // Haal agent data op
+    let agentData = { blogs: [] };
+    try { agentData = await fetchJSON('/app/blog/data.json'); } catch(_) {}
+
+    const agentMap = {};
+    (agentData.blogs || []).forEach(b => { agentMap[b.slug] = b; });
+
+    // Combineer beide sets
+    const allBlogs = [
+      ...blogFiles.map(f => ({
+        path: f.path,
+        slug: f.path.replace('blog/', '').replace('.html', ''),
+        source: 'generate-blog.js',
+        url: 'https://zenbtw.nl/' + f.path,
+        size: f.size
+      })),
+      ...appBlogFiles.map(f => ({
+        path: f.path,
+        slug: f.path.replace('app/blog/', '').replace('.html', ''),
+        source: 'content_agent.py',
+        url: 'https://zenbtw.nl/' + f.path,
+        size: f.size
+      }))
+    ];
+
+    // Stats
+    const truncated = allBlogs.filter(b => b.size < 9800 && b.source === 'generate-blog.js').length;
+    document.getElementById('blog-stats').innerHTML = `
+      <div class="stat-card"><div class="lbl">Totaal blogs</div><div class="val">${allBlogs.length}</div><div class="sub">${blogFiles.length} via generator · ${appBlogFiles.length} via agent</div></div>
+      <div class="stat-card"><div class="lbl">Mogelijk afgekapt</div><div class="val" style="color:${truncated > 0 ? 'var(--red)' : 'var(--green)'}">${truncated}</div><div class="sub">&lt;9.8KB → verdacht</div></div>
+      <div class="stat-card"><div class="lbl">Gem. SEO score</div><div class="val">${agentData.blogs.length ? Math.round(agentData.blogs.reduce((a,b)=>a+(b.seo?.score||0),0)/agentData.blogs.length) : '–'}</div><div class="sub">van agent blogs</div></div>
+    `;
+
+    el.innerHTML = `
+      <table>
+        <thead><tr>
+          <th>Blog</th>
+          <th>Bron</th>
+          <th>Grootte</th>
+          <th>SEO</th>
+          <th>Acties</th>
+        </tr></thead>
+        <tbody>
+          ${allBlogs.map(b => {
+            const agent = agentMap[b.slug];
+            const isTruncated = b.size < 9800 && b.source === 'generate-blog.js';
+            const seo = agent?.seo;
+            return `<tr>
+              <td>
+                <a href="${b.url}" target="_blank">${b.slug}</a>
+                ${isTruncated ? ' <span class="badge b-red">⚠ afgekapt</span>' : ''}
+              </td>
+              <td><span class="badge b-gray">${b.source}</span></td>
+              <td style="color:${isTruncated?'var(--red)':'var(--tx3)'}; font-size:.78rem">${(b.size/1024).toFixed(1)} KB</td>
+              <td>
+                ${seo ? `
+                  <span class="badge ${seoLabel(seo.score)}">${seo.score}/100</span>
+                  <div class="seo-bar"><div class="seo-fill ${seoColor(seo.score)}" style="width:${seo.score}%"></div></div>
+                ` : '<span style="color:var(--tx3);font-size:.75rem">–</span>'}
+              </td>
+              <td>
+                <a href="${b.url}" target="_blank" class="btn btn-ghost" style="font-size:.72rem">Bekijk</a>
+                ${isTruncated ? `<button class="btn btn-yellow" style="font-size:.72rem;margin-left:.3rem" onclick="requeue('${b.slug}')">Regenereer</button>` : ''}
+              </td>
+            </tr>`;
+          }).join('')}
+        </tbody>
+      </table>`;
+  } catch(e) {
+    el.innerHTML = `<div class="loading" style="color:var(--red)">${e.message}</div>`;
+  }
+}
+
+// ── Queue tab ─────────────────────────────────────────────────────────────────
+
+let keywordsData = null;
+
+async function loadQueue() {
+  const el = document.getElementById('queue-table');
+  el.innerHTML = '<div class="loading">Laden...</div>';
+
+  try {
+    keywordsData = await fetchJSON('/keywords.json');
+    const queue = keywordsData.queue || [];
+    const pending = queue.filter(k => k.status === 'pending');
+    const published = keywordsData.published || [];
+
+    document.getElementById('queue-count').textContent = pending.length + ' pending';
+
+    if (!queue.length && !published.length) {
+      el.innerHTML = '<div class="loading">Queue is leeg</div>';
+      return;
+    }
+
+    el.innerHTML = `
+      <table>
+        <thead><tr><th>Keyword</th><th>Slug</th><th>Status</th><th>Prioriteit</th><th>Gepubliceerd</th></tr></thead>
+        <tbody>
+          ${[...pending, ...published.slice(0,10)].map(k => `
+            <tr>
+              <td>${k.keyword}</td>
+              <td style="color:var(--tx3);font-size:.75rem">${k.slug}</td>
+              <td>
+                <span class="badge ${k.status==='pending'?'b-yellow':k.status==='published'?'b-green':'b-gray'}">
+                  ${k.status}
+                </span>
+              </td>
+              <td style="color:var(--tx3)">${k.priority ?? '–'}</td>
+              <td style="color:var(--tx3);font-size:.75rem">${k.publishedDate || '–'}</td>
+            </tr>`).join('')}
+        </tbody>
+      </table>`;
+  } catch(e) {
+    el.innerHTML = `<div class="loading" style="color:var(--red)">${e.message}</div>`;
+  }
+
+  // Laad trending queries uit agent data
+  try {
+    const agentData = await fetchJSON('/app/blog/data.json');
+    const lastRun = (agentData.runs || [])[0];
+    const trendsEl = document.getElementById('trends-list');
+
+    if (lastRun?.top_queries?.length) {
+      trendsEl.innerHTML = lastRun.top_queries.map(q => `
+        <div class="trend-item">
+          <span class="trend-score">${q.score >= 5000 ? '🔥' : q.score}</span>
+          <span class="trend-query">${q.query}</span>
+          <span class="badge ${q.type==='rising'?'b-blue':'b-gray'}">${q.type==='rising'?'Trending':'Top'}</span>
+          <button class="btn btn-ghost trend-add" onclick="prefillKeyword('${q.query.replace(/'/g,'\\\'')}')" style="font-size:.72rem">+ Queue</button>
+        </div>`).join('');
+    } else {
+      trendsEl.innerHTML = '<div class="loading">Geen trending data (nog niet gedraaid)</div>';
+    }
+  } catch(_) {
+    document.getElementById('trends-list').innerHTML = '<div class="loading">Geen agent data</div>';
+  }
+}
+
+function prefillKeyword(kw) {
+  document.getElementById('new-keyword').value = kw;
+  document.getElementById('new-slug').value = kw.toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'');
+  showTab('queue');
+  document.getElementById('new-keyword').focus();
+}
+
+async function addKeyword() {
+  const kw = document.getElementById('new-keyword').value.trim();
+  if (!kw) return alert('Voer een keyword in');
+  const slug = document.getElementById('new-slug').value.trim() ||
+    kw.toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'');
+
+  const msg = `Keyword toegevoegd aan queue:\n\n"${kw}" → ${slug}\n\nOm dit te publiceren:\n1. Voeg toe aan keywords.json in de GitHub repo\n2. Trigger de workflow handmatig`;
+  alert(msg);
+}
+
+async function requeue(slug) {
+  alert(`Blog "${slug}" markeren voor regeneratie:\n\n1. Open keywords.json in de GitHub repo\n2. Voeg toe aan queue:\n   { "keyword": "${slug.replace(/-/g,' ')}", "slug": "${slug}", "status": "pending", "priority": 1 }\n3. Trigger de blog-generator workflow`);
+}
+
+// ── Agent tab ─────────────────────────────────────────────────────────────────
+
+async function loadAgent() {
+  const el = document.getElementById('agent-runs');
+  el.innerHTML = '<div class="loading">Laden...</div>';
+
+  try {
+    const data = await fetchJSON('/app/blog/data.json');
+    const runs = data.runs || [];
+    const blogs = data.blogs || [];
+
+    const successful = runs.filter(r => r.status === 'success').length;
+    document.getElementById('agent-stats').innerHTML = `
+      <div class="stat-card"><div class="lbl">Totale runs</div><div class="val">${runs.length}</div><div class="sub">${successful} succesvol</div></div>
+      <div class="stat-card"><div class="lbl">Agent blogs</div><div class="val">${blogs.length}</div><div class="sub">gegenereerd via pytrends</div></div>
+      <div class="stat-card"><div class="lbl">Laatste run</div><div class="val" style="font-size:1rem;padding-top:.4rem">${runs[0] ? fmt(runs[0].timestamp) : '–'}</div><div class="sub">${runs[0]?.status||'–'}</div></div>
+    `;
+
+    if (!runs.length) {
+      el.innerHTML = '<div class="loading">Nog geen runs</div>';
+      return;
+    }
+
+    el.innerHTML = runs.map(r => `
+      <div class="run-item">
+        <div class="run-meta">
+          <span class="badge ${r.status==='success'?'b-green':'b-red'}">${r.status==='success'?'Geslaagd':'Geen queries'}</span>
+          <span class="run-time">${fmt(r.timestamp)}</span>
+          <span class="badge b-gray">${r.queries_found||0} queries</span>
+        </div>
+        ${r.blog ? `<div class="run-detail">
+          <a href="${r.blog.url}" target="_blank">${r.blog.title}</a>
+          · trending score <strong>${r.blog.trending_score}</strong>
+          · SEO <strong>${r.blog.seo?.score||'?'}/100</strong>
+        </div>` : ''}
+        ${r.top_queries?.length ? `<div class="run-detail" style="margin-top:.3rem;color:var(--tx3)">
+          Top queries: ${r.top_queries.slice(0,4).map(q=>`"${q.query}" (${q.score})`).join(', ')}
+        </div>` : ''}
+      </div>`).join('');
+  } catch(e) {
+    el.innerHTML = `<div class="loading" style="color:var(--red)">${e.message}</div>`;
+  }
+}
+
+// ── Actions tab ───────────────────────────────────────────────────────────────
+
+async function loadActions() {
+  const el = document.getElementById('actions-table');
+  el.innerHTML = '<div class="loading">GitHub Actions laden...</div>';
+
+  try {
+    const data = await fetchGHAPI('/actions/runs?per_page=15');
+    const runs = data.workflow_runs || [];
+
+    if (!runs.length) {
+      el.innerHTML = '<div class="loading">Geen runs gevonden</div>';
+      return;
+    }
+
+    el.innerHTML = `
+      <table>
+        <thead><tr><th>Workflow</th><th>Status</th><th>Branch</th><th>Getriggerd</th><th>Duur</th><th></th></tr></thead>
+        <tbody>
+          ${runs.map(r => {
+            const statusBadge = r.conclusion === 'success' ? 'b-green' :
+              r.conclusion === 'failure' ? 'b-red' :
+              r.status === 'in_progress' ? 'b-blue' : 'b-gray';
+            const statusText = r.conclusion || r.status;
+            const dur = r.updated_at && r.created_at
+              ? Math.round((new Date(r.updated_at) - new Date(r.created_at)) / 1000) + 's'
+              : '–';
+            return `<tr>
+              <td>${r.name || r.workflow_id}</td>
+              <td><span class="badge ${statusBadge}">${statusText}</span></td>
+              <td style="color:var(--tx3);font-size:.75rem">${r.head_branch}</td>
+              <td style="color:var(--tx3);font-size:.75rem">${fmt(r.created_at)}</td>
+              <td style="color:var(--tx3);font-size:.75rem">${dur}</td>
+              <td><a href="${r.html_url}" target="_blank" class="btn btn-ghost" style="font-size:.72rem">Logs</a></td>
+            </tr>`;
+          }).join('')}
+        </tbody>
+      </table>`;
+  } catch(e) {
+    el.innerHTML = `<div class="loading" style="color:var(--red)">GitHub API fout: ${e.message}</div>`;
+  }
+}
+
+// ── Init ──────────────────────────────────────────────────────────────────────
+
+function initApp() {
+  loadBlogs();
+  loadQueue();
+  loadAgent();
+  loadActions();
+}
+</script>
+</body>
+</html>
