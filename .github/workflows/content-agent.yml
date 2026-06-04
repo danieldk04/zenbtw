@@ -5,6 +5,9 @@ on:
     - cron: '0 7 * * 1'  # Elke maandag 07:00 UTC
   workflow_dispatch:       # Ook handmatig te triggeren
 
+permissions:
+  contents: write
+
 jobs:
   generate-blog:
     runs-on: ubuntu-latest
