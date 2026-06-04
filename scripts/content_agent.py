@@ -318,11 +318,95 @@ def update_blog_index(blogs: list[dict]):
     print(f"[index] Blog-index bijgewerkt: {index_path}")
 
 
+# ── SEO scoring ──────────────────────────────────────────────────────────────
+
+def seo_score(blog: dict, query: dict) -> dict:
+    """Berekent eenvoudige SEO-kwaliteitsscores voor het gegenereerde blog."""
+    title = blog.get("title", "")
+    meta = blog.get("meta_description", "")
+    content = blog.get("content", "")
+    keyword = query["query"].lower()
+
+    title_len = len(title)
+    meta_len = len(meta)
+    word_count = len(content.split())
+    keyword_in_title = keyword.split()[0] in title.lower()
+    keyword_in_meta = keyword.split()[0] in meta.lower()
+    h2_count = content.count("## ")
+    has_example = "€" in content
+
+    score = 0
+    notes = []
+
+    if 50 <= title_len <= 65:
+        score += 25
+    else:
+        notes.append(f"Titel {title_len} tekens (ideaal: 50-65)")
+
+    if 120 <= meta_len <= 155:
+        score += 20
+    else:
+        notes.append(f"Meta {meta_len} tekens (ideaal: 120-155)")
+
+    if keyword_in_title:
+        score += 20
+    else:
+        notes.append("Keyword niet in titel")
+
+    if keyword_in_meta:
+        score += 10
+    else:
+        notes.append("Keyword niet in meta-omschrijving")
+
+    if 600 <= word_count <= 1000:
+        score += 15
+    else:
+        notes.append(f"Woordtelling: {word_count} (ideaal: 600-1000)")
+
+    if h2_count >= 3:
+        score += 5
+    else:
+        notes.append(f"Slechts {h2_count} H2-headers (min. 3)")
+
+    if has_example:
+        score += 5
+
+    return {
+        "score": score,
+        "title_length": title_len,
+        "meta_length": meta_len,
+        "word_count": word_count,
+        "keyword_in_title": keyword_in_title,
+        "keyword_in_meta": keyword_in_meta,
+        "h2_count": h2_count,
+        "notes": notes,
+    }
+
+
+# ── Data log bijhouden ────────────────────────────────────────────────────────
+
+DATA_FILE = BLOG_OUTPUT_DIR / "data.json"
+
+
+def load_data() -> dict:
+    if DATA_FILE.exists():
+        return json.loads(DATA_FILE.read_text())
+    return {"runs": [], "blogs": []}
+
+
+def save_data(data: dict):
+    BLOG_OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
+    DATA_FILE.write_text(json.dumps(data, ensure_ascii=False, indent=2))
+
+
 # ── Main ──────────────────────────────────────────────────────────────────────
 
 def main():
+    run_start = datetime.datetime.now().isoformat()
     print("=== ZENbtw Content Agent ===")
     print(f"Datum: {datetime.date.today()}\n")
+
+    data = load_data()
 
     # 1. Trending queries ophalen
     print("[1/4] Trending queries ophalen van Google Trends...")
@@ -331,14 +415,23 @@ def main():
 
     if not relevant:
         print("Geen relevante trending queries gevonden. Probeer later opnieuw.")
+        data["runs"].append({
+            "timestamp": run_start,
+            "status": "no_queries",
+            "queries_found": 0,
+            "blog": None,
+        })
+        save_data(data)
         return
 
     print(f"      {len(relevant)} relevante trending queries gevonden:")
     for i, q in enumerate(relevant[:5], 1):
         print(f"      {i}. \"{q['query']}\" (score: {q['score']}, type: {q['type']})")
 
-    # 2. Top query kiezen (hoogste trending score)
-    top_query = relevant[0]
+    # 2. Top query kiezen — sla over als al eerder gebruikt
+    existing_queries = {b["query"] for b in data.get("blogs", [])}
+    fresh = [q for q in relevant if q["query"] not in existing_queries]
+    top_query = (fresh or relevant)[0]
     print(f"\n[2/4] Top trending query: \"{top_query['query']}\"")
 
     # 3. Blog genereren
@@ -347,7 +440,11 @@ def main():
     print(f"      Titel: {blog['title']}")
     print(f"      Slug:  {blog['slug']}")
 
-    # 4. HTML opslaan
+    # 4. SEO score berekenen
+    seo = seo_score(blog, top_query)
+    print(f"      SEO score: {seo['score']}/100  ({', '.join(seo['notes']) if seo['notes'] else 'alles goed'})")
+
+    # 5. HTML opslaan
     print("[4/4] HTML pagina opslaan...")
     BLOG_OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
 
@@ -357,8 +454,34 @@ def main():
 
     update_blog_index([blog])
 
+    # 6. Data loggen
+    blog_entry = {
+        "date": datetime.date.today().isoformat(),
+        "query": top_query["query"],
+        "trending_score": top_query["score"],
+        "trending_type": top_query["type"],
+        "seed_keyword": top_query["seed"],
+        "title": blog["title"],
+        "slug": blog["slug"],
+        "meta_description": blog["meta_description"],
+        "url": f"{SITE_URL}/blog/{blog['slug']}",
+        "seo": seo,
+    }
+    data["blogs"].insert(0, blog_entry)
+
+    run_entry = {
+        "timestamp": run_start,
+        "status": "success",
+        "queries_found": len(relevant),
+        "top_queries": [{"query": q["query"], "score": q["score"], "type": q["type"]} for q in relevant[:10]],
+        "skipped_queries": [q["query"] for q in relevant if q["query"] in existing_queries][:5],
+        "blog": blog_entry,
+    }
+    data["runs"].insert(0, run_entry)
+    data["runs"] = data["runs"][:20]  # bewaar de laatste 20 runs
+
+    save_data(data)
     print(f"\nKlaar! Blog gepubliceerd: {SITE_URL}/blog/{blog['slug']}")
-    print("\nVolgende stap: git add app/blog/ && git commit -m 'blog: {blog['slug']}' && git push")
 
 
 if __name__ == "__main__":
