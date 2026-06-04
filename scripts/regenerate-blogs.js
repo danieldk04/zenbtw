@@ -246,7 +246,8 @@ async function main() {
   if (failed.length) {
     console.log(`❌ Failed (${failed.length}):`);
     failed.forEach(f => console.log(`  - ${f.slug}: ${f.error}`));
-    process.exit(1);
+    // Niet afsluiten met exit(1) — de geslaagde blogs moeten wel gepusht worden
+    console.log('\n⚠️  Geslaagde blogs worden nog steeds gepusht.');
   }
 }
 
