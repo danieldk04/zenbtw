@@ -423,7 +423,19 @@
         <div class="info-row"><span class="info-label">Advertenties</span><span class="info-value">Google Ads (AW-18073002348) — conversietracking voor "Check mijn status" clicks</span></div>
         <div class="info-row"><span class="info-label">Gebruikersdata in app</span><span class="info-value">Volledig lokaal in browser (localStorage / IndexedDB) — geen server, geen account, geen opslag bij ons</span></div>
         <div class="info-row"><span class="info-label">Email alerts</span><span class="info-value">Via EmailJS (hdOoLlKINluOddB4m) — verstuurd vanuit browser van gebruiker, niet opgeslagen op server</span></div>
-        <div class="info-row"><span class="info-label">Subscriber lijst</span><span class="info-value" style="color:var(--tx3);font-style:italic">Niet aanwezig — app heeft geen accounts of nieuwsbrief. Gebruikers zijn anoniem.</span></div>
+        <div class="info-row"><span class="info-label">Subscriber lijst</span><span class="info-value">Brevo lijst #3 — <a onclick="go('contacts')" style="cursor:pointer">bekijk contacten →</a></span></div>
+      </div>
+    </div>
+
+    <!-- ── CONTACTEN ── -->
+    <div class="page" id="page-contacts">
+      <div class="kpi-grid" id="kpi-contacts"></div>
+      <div class="card">
+        <div class="card-head">
+          <h3>📧 Aangemelde e-mailadressen</h3>
+          <button class="btn btn-ghost" onclick="loadContacts()" style="padding:6px 12px;font-size:12px">↻ Vernieuwen</button>
+        </div>
+        <div id="contacts-table"><div class="empty">Laden...</div></div>
       </div>
     </div>
 
