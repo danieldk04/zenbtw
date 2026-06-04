@@ -1896,7 +1896,20 @@ function parseVintedHTML(html){
     // Log unieke status-waarden voor debugging
     const statuses=[...new Set([...cells].map(c=>(c.querySelector('[itemprop="status"]')?.textContent||'').trim()).filter(Boolean))];
     if(statuses.length)log('<span class="wn">⚠ Status-waarden gevonden: '+statuses.slice(0,5).join(', ')+'</span>');
-    return{ok:false,msg:'Geen verkoopdata gevonden — controleer of dit jouw verkopen zijn (niet aankopen)'};
+    // Derde fallback: accepteer alles met bedrag > 0, ongeacht status
+    cells.forEach((c,idx)=>{
+      const vt=(c.querySelector('[itemprop="order_value"]')?.textContent||'0').trim();
+      const m=vt.match(/([\d.,]+)\s*([A-Z]{3})?/);if(!m)return;
+      const currency=m[2]||'EUR';
+      const amt=applyFx(parseFloat(m[1].replace(',','.'))||0,currency);if(amt<=0)return;
+      const date=parseDate(c.querySelector('[itemprop="order_purchased"]')?.textContent);
+      const cellText=c.textContent||'';
+      const inferred=inferCountryFromVintedOrder(currency,cellText,platformTld);
+      orders.push({id:uid+'_'+idx,date,amount:amt,country:inferred.cc,platform:'vinted_html',provisional:true,confidence:inferred.confidence,inferReason:'Onbekende status — controleer of dit verkopen zijn'});
+      rev+=amt;
+    });
+    if(orders.length)log('<span class="wn">⚠ Onbekende statusterminologie — '+orders.length+' orders geladen zonder statusfilter. Controleer of dit jouw <strong>verkopen</strong> zijn en geen aankopen.</span>');
+    if(!orders.length)return{ok:false,msg:'Geen verkoopdata gevonden — controleer of dit jouw verkopen zijn (niet aankopen)'};
   }
   const confirmed=orders.length-provisional;
   log('<span class="ok">✓ '+orders.length+' verkopen · €'+Math.round(rev)+'</span>');
