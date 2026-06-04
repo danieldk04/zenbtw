@@ -17,15 +17,18 @@ import anthropic
 # ── Configuratie ──────────────────────────────────────────────────────────────
 
 SEED_KEYWORDS = [
-    "vinted belasting",
-    "etsy btw",
-    "marketplace btw",
-    "kor regeling",
-    "omzetbelasting 2025",
-    "vinted omzetbelasting",
-    "shopify btw nederland",
+    "btw aangifte",
     "kleine ondernemersregeling",
+    "vinted verkopen",
+    "etsy btw",
+    "omzetbelasting ondernemer",
+    "kor regeling",
+    "marketplace belasting",
+    "shopify btw nederland",
 ]
+
+# Gebruik 3-maanden window: niche NL keywords hebben te weinig volume voor 7 dagen
+TRENDS_TIMEFRAME = "today 3-m"
 
 BLOG_OUTPUT_DIR = Path(__file__).parent.parent / "app" / "blog"
 SITE_URL = "https://zenbtw.nl"
