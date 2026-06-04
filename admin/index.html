@@ -620,6 +620,7 @@ function go(name){
   document.getElementById('nav-'+name).classList.add('active');
   document.getElementById('topbar-title').textContent = PAGE_TITLES[name];
   if(name==='traffic') loadUmami();
+  if(name==='contacts') loadContacts();
 }
 
 // ── Data helpers ──────────────────────────────────────────────────────────────
