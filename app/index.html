@@ -2709,8 +2709,9 @@ function renderJDetail(){
   const tB=ld.reduce((s,q)=>s+qBtwFull(q),0);
   const tCB=ld.reduce((s,q)=>s+qCBFull(q),0);
   const tO=ld.reduce((s,q)=>s+qO(q),0);
-  const korPct=tCB>0?Math.min(Math.round(tCB/S.korLimit*100),100):0;
-  const korStatus=tCB>=S.korLimit?'danger':tCB>=S.korLimit*.7?'warn':'safe';
+  const _ossLimJ=S.ossLimit||10000;const _korLimJ=S.korLimit||20000;
+  const korPct=tCB>0?Math.min(Math.round(tCB/_ossLimJ*100),100):0;
+  const korStatus=tCB>=_ossLimJ?'danger':tCB>=_ossLimJ*.7?'warn':'safe';
   const korClr=korStatus==='danger'?'var(--dn)':korStatus==='warn'?'#92400e':'var(--acm)';
   const korBg=korStatus==='danger'?'var(--dn)':korStatus==='warn'?'#f59e0b':'var(--ac)';
   const maxRev=Math.max(...ld.map(q=>qR(q)),1);
