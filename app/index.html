@@ -1845,7 +1845,7 @@ function parseVintedHTML(html){
   cells.forEach(c=>{const s=(c.querySelector('[itemprop="seller"]')?.textContent||'').trim();if(s)sc[s]=(sc[s]||0)+1;});
   const ownUser=Object.entries(sc).sort((a,b)=>b[1]-a[1])[0]?.[0]||'';
   log('Vinted HTML: <span class="ok">'+cells.length+' orders · Gebruiker: <strong>'+ownUser+'</strong></span>'+(platformTld?' · Platform: vinted.'+platformTld:''));
-  function isSold(st){const s=st.toLowerCase();return s.includes('completed')||s.includes('accepted')||s.includes('delivered')||s.includes('geleverd')||s.includes('shipped')||s.includes('verzonden')||s.includes('afgerond')||s.includes('voltooid');}
+  function isSold(st){const s=st.toLowerCase();return s.includes('completed')||s.includes('accepted')||s.includes('delivered')||s.includes('geleverd')||s.includes('shipped')||s.includes('verzonden')||s.includes('afgerond')||s.includes('voltooid')||s.includes('sold')||s.includes('verkocht')||s.includes('betaald')||s.includes('uitbetaald')||s.includes('paid')||s.includes('succesvol')||s.includes('confirmed')||s.includes('bevestigd')||s.includes('success')||s.includes('afgehandeld')||s.includes('verwerkt');}
   function parseDate(raw){const m=(raw||'').trim().match(/(\d{4}-\d{2}-\d{2})/);return m?m[1]:'';}
   const orders=[];let rev=0,skip=0,provisional=0,uid=Date.now();
   // Eerste pass: met seller-filter (verkooporders van eigen account)
