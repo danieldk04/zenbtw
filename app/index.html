@@ -2512,15 +2512,16 @@ function updProg(){
   const cb=calcCB();const yearCB=calcYearCB();
   if(cb<=0&&yearCB<=0){document.getElementById('progB').classList.remove('on');return;}
   // Als jaartotaal al boven drempel: prognose niet tonen (OSS-banner al actief)
-  if(yearCB>=S.korLimit){document.getElementById('progB').classList.remove('on');return;}
+  const ossLim=S.ossLimit||10000;
+  if(yearCB>=ossLim){document.getElementById('progB').classList.remove('on');return;}
   const now=new Date();const qn=+S.quarter[1];const y=+S.year;
   const starts=[new Date(y,0,1),new Date(y,3,1),new Date(y,6,1),new Date(y,9,1)];
   const start=starts[qn-1]||starts[0];const wk=Math.max(1,(now-start)/(1000*60*60*24*7));const rate=cb/wk;
-  const remYear=S.korLimit-yearCB;const proj=yearCB+rate*(13-wk);
+  const remYear=ossLim-yearCB;const proj=yearCB+rate*(13-wk);
   const pb=document.getElementById('progB');const pt=document.getElementById('progT');
   const _enP=window._lang==='en';
-  if(proj>S.korLimit&&yearCB<S.korLimit){const w=Math.ceil(remYear/rate);pt.innerHTML=_enP?`At current pace (€${fmt(Math.round(rate))}/week) you'll hit the OSS threshold in <strong>~${w} week${w!==1?'s':''}</strong>. Prepare your OSS registration.`:`Op huidig tempo (€${fmt(Math.round(rate))}/week) bereik je de KOR-jaargrens over <strong>ca. ${w} ${OW(w)}</strong>. Bereid je OSS-registratie voor.`;pb.classList.add('on');}
-  else if(proj>S.korLimit*.8){pt.innerHTML=_enP?`Annual forecast: <strong>€${fmt(Math.round(proj))}</strong> cross-border revenue in ${S.year}. You're approaching the OSS threshold of €${fmt(S.korLimit)}.`:`Prognose op jaarbasis: <strong>€${fmt(Math.round(proj))}</strong> cross-border omzet in ${S.year}. Je nadert de KOR-grens van €${fmt(S.korLimit)}.`;pb.classList.add('on');}
+  if(proj>ossLim&&yearCB<ossLim){const w=Math.ceil(remYear/rate);pt.innerHTML=_enP?`At current pace (€${fmt(Math.round(rate))}/week) you'll hit the OSS threshold in <strong>~${w} week${w!==1?'s':''}</strong>. Prepare your OSS registration.`:`Op huidig tempo (€${fmt(Math.round(rate))}/week) bereik je de OSS-drempel over <strong>ca. ${w} ${OW(w)}</strong>. Bereid je OSS-registratie voor.`;pb.classList.add('on');}
+  else if(proj>ossLim*.8){pt.innerHTML=_enP?`Annual forecast: <strong>€${fmt(Math.round(proj))}</strong> cross-border revenue in ${S.year}. You're approaching the OSS threshold of €${fmt(ossLim)}.`:`Prognose op jaarbasis: <strong>€${fmt(Math.round(proj))}</strong> cross-border omzet in ${S.year}. Je nadert de OSS-drempel van €${fmt(ossLim)}.`;pb.classList.add('on');}
   else pb.classList.remove('on');
 }
 
