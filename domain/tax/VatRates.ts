@@ -53,6 +53,7 @@ export function getVatRate(countryCode: string): CountryVatRate | null {
 
 /**
  * Extraheer BTW uit een BRUTO consumentenprijs (incl. BTW).
+ * Gebruik altijd deze functie voor marktplaatsprijzen (Vinted, Etsy, Shopify).
  * Formule conform deep research: bruto × (tarief / (100 + tarief))
  * Marktplaatsprijzen (Vinted, eBay, Shopify) zijn altijd consumentenprijzen = bruto.
  */
