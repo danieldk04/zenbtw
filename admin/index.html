@@ -913,6 +913,9 @@ function initApp(){
   loadAgent();
   loadActions();
   loadUmami();
+  // Herstel Brevo key placeholder als die al opgeslagen is
+  const bk = localStorage.getItem('zenbtw_brevo_key');
+  if(bk){ const inp=document.getElementById('brevo-key-input'); if(inp) inp.placeholder=bk.slice(0,12)+'... (opgeslagen)'; }
 }
 </script>
 </body>
