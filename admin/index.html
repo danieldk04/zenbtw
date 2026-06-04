@@ -778,6 +778,70 @@ async function loadAgent(){
 // ── Traffic / Umami ───────────────────────────────────────────────────────────
 const UMAMI_TOKEN = 'api_wsNZu7VcO1vuYeLZ8OcdmUjawDtFzrsS';
 
+// ── Contacten (Brevo lijst #3) ────────────────────────────────────────────────
+const BREVO_KEY = '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';
+
+async function loadContacts(){
+  const el = document.getElementById('contacts-table');
+  const kpi = document.getElementById('kpi-contacts');
+  el.innerHTML = '<div class="empty">Ophalen van Brevo...</div>';
+  try {
+    // Haal contacten op uit lijst 3
+    const r = await fetch('https://api.brevo.com/v3/contacts?listId=3&limit=500&sort=desc', {
+      headers: { 'api-key': BREVO_KEY, 'accept': 'application/json' }
+    });
+    if (!r.ok) throw new Error('Brevo API ' + r.status);
+    const data = await r.json();
+    const contacts = data.contacts || [];
+
+    // Haal totaal op
+    const total = data.count || contacts.length;
+
+    // KPI
+    const platforms = {};
+    contacts.forEach(c => {
+      const p = c.attributes?.PLATFORM || 'onbekend';
+      platforms[p] = (platforms[p] || 0) + 1;
+    });
+    kpi.innerHTML = `
+      <div class="kpi-card"><div class="kpi-val">${total}</div><div class="kpi-label">Totaal aangemeld</div></div>
+      ${Object.entries(platforms).sort((a,b)=>b[1]-a[1]).map(([p,n])=>`<div class="kpi-card"><div class="kpi-val">${n}</div><div class="kpi-label">${p}</div></div>`).join('')}
+    `;
+
+    if (!contacts.length) { el.innerHTML = '<div class="empty">Geen contacten gevonden in lijst #3</div>'; return; }
+
+    // Tabel
+    const rows = contacts.map(c => {
+      const date = c.attributes?.SIGNUP_DATE || c.createdAt?.split('T')[0] || '—';
+      const platform = c.attributes?.PLATFORM || '—';
+      const bron = c.attributes?.BRON || '—';
+      return `<tr>
+        <td>${c.email}</td>
+        <td>${platform}</td>
+        <td>${date}</td>
+        <td><span style="font-size:11px;color:var(--tx3)">${bron}</span></td>
+      </tr>`;
+    }).join('');
+
+    el.innerHTML = `
+      <div style="overflow-x:auto">
+        <table style="width:100%;border-collapse:collapse;font-size:13px">
+          <thead><tr style="border-bottom:1px solid var(--br);text-align:left">
+            <th style="padding:8px 12px;font-weight:600;color:var(--tx2)">E-mail</th>
+            <th style="padding:8px 12px;font-weight:600;color:var(--tx2)">Platform</th>
+            <th style="padding:8px 12px;font-weight:600;color:var(--tx2)">Aangemeld</th>
+            <th style="padding:8px 12px;font-weight:600;color:var(--tx2)">Bron</th>
+          </tr></thead>
+          <tbody>${rows}</tbody>
+        </table>
+      </div>
+      <div style="padding:10px 12px;font-size:11px;color:var(--tx3)">${contacts.length} van ${total} contacten getoond · <a href="https://app.brevo.com/contact/list" target="_blank">Open Brevo →</a></div>
+    `;
+  } catch(e) {
+    el.innerHTML = `<div class="empty">Fout: ${e.message}</div>`;
+  }
+}
+
 async function loadUmami(){
   const el=document.getElementById('umami-stats');
   el.innerHTML='<div class="empty">Laden...</div>';
