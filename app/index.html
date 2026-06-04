@@ -2917,8 +2917,8 @@ function exportXML(){
   <TotalVATAmountPayable>${bw.toFixed(2)}</TotalVATAmountPayable>
   <OSSThresholdCheck>
     <YearlyEURevenue>${calcYearCB().toFixed(2)}</YearlyEURevenue>
-    <ThresholdEUR>${S.korLimit.toFixed(2)}</ThresholdEUR>
-    <ThresholdExceeded>${calcYearCB()>=S.korLimit?'true':'false'}</ThresholdExceeded>
+    <ThresholdEUR>${(S.ossLimit||10000).toFixed(2)}</ThresholdEUR>
+    <ThresholdExceeded>${calcYearCB()>=(S.ossLimit||10000)?'true':'false'}</ThresholdExceeded>
   </OSSThresholdCheck>
 </OSSReturn>`;
   const a=document.createElement('a');
