@@ -49,7 +49,7 @@ def get_trending_queries(keywords: list[str]) -> list[dict]:
 
     for batch in batches:
         try:
-            pytrends.build_payload(batch, timeframe="now 7-d", geo="NL")
+            pytrends.build_payload(batch, timeframe=TRENDS_TIMEFRAME, geo="NL")
             related = pytrends.related_queries()
 
             for kw in batch:
