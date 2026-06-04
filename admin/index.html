@@ -7,541 +7,805 @@
   <meta name="robots" content="noindex, nofollow">
   <style>
     *{box-sizing:border-box;margin:0;padding:0}
-    :root{--bg:#f7f6f3;--wh:#fff;--br:#e8e5de;--ac:#1a4731;--acl:#e8f0ec;--acm:#2d6a4f;--tx:#1a1814;--tx2:#4a4640;--tx3:#8a847a;--s2:#f4f3ef;--red:#dc2626;--redl:#fef2f2;--yellow:#d97706;--yellowl:#fffbeb;--blue:#2563eb;--bluel:#eff6ff;--green:#16a34a;--greenl:#dcfce7}
-    body{background:var(--bg);color:var(--tx);font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;min-height:100vh}
+    :root{
+      --bg:#f4f5f7;--wh:#fff;--br:#e2e4e9;--sidebar:#1a1f2e;--sidebar-hover:#252d40;--sidebar-active:#2d6a4f;
+      --ac:#1a4731;--acm:#2d6a4f;--acl:#e8f0ec;--tx:#1a1c20;--tx2:#4b5060;--tx3:#8c909c;
+      --green:#16a34a;--greenl:#dcfce7;--red:#dc2626;--redl:#fef2f2;
+      --yellow:#d97706;--yellowl:#fffbeb;--blue:#2563eb;--bluel:#eff6ff;--purple:#7c3aed;--purplel:#f5f3ff
+    }
+    body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:var(--bg);color:var(--tx);min-height:100vh;font-size:14px}
 
     /* ── Login ── */
-    #login-screen{display:flex;align-items:center;justify-content:center;min-height:100vh;background:var(--bg)}
-    .login-box{background:var(--wh);border:1px solid var(--br);border-radius:16px;padding:2.5rem 2rem;width:100%;max-width:380px;text-align:center;box-shadow:0 8px 32px rgba(0,0,0,.08)}
-    .login-box h1{font-size:1.4rem;font-weight:700;margin-bottom:.3rem}
-    .login-box p{font-size:.85rem;color:var(--tx3);margin-bottom:1.5rem}
-    .login-box input{width:100%;padding:.75rem 1rem;border:1.5px solid var(--br);border-radius:8px;font-size:1rem;outline:none;transition:border .15s}
-    .login-box input:focus{border-color:var(--acm)}
-    .login-box button{width:100%;margin-top:.75rem;padding:.8rem;background:var(--ac);color:#fff;border:none;border-radius:8px;font-size:.95rem;font-weight:700;cursor:pointer}
-    .login-box button:hover{background:var(--acm)}
-    .login-error{color:var(--red);font-size:.82rem;margin-top:.5rem;min-height:1.2rem}
+    #login-screen{display:flex;align-items:center;justify-content:center;min-height:100vh}
+    .login-card{background:var(--wh);border:1px solid var(--br);border-radius:12px;padding:2.5rem 2rem;width:360px;box-shadow:0 4px 24px rgba(0,0,0,.07)}
+    .login-logo{display:flex;align-items:center;gap:10px;justify-content:center;margin-bottom:1.5rem}
+    .login-logo img{height:40px;border-radius:8px}
+    .login-logo span{font-weight:800;font-size:1.2rem;color:var(--ac)}
+    .login-card h2{font-size:1.1rem;font-weight:700;margin-bottom:.3rem;text-align:center}
+    .login-card p{color:var(--tx3);font-size:.82rem;text-align:center;margin-bottom:1.5rem}
+    .form-group{margin-bottom:.8rem}
+    .form-group label{display:block;font-size:.78rem;font-weight:600;color:var(--tx2);margin-bottom:.3rem}
+    .form-group input{width:100%;padding:.65rem .9rem;border:1.5px solid var(--br);border-radius:8px;font-size:.9rem;outline:none;transition:border .15s}
+    .form-group input:focus{border-color:var(--acm)}
+    .login-btn{width:100%;padding:.75rem;background:var(--ac);color:#fff;border:none;border-radius:8px;font-size:.9rem;font-weight:700;cursor:pointer;margin-top:.3rem}
+    .login-err{color:var(--red);font-size:.78rem;text-align:center;min-height:1.2rem;margin-top:.5rem}
 
-    /* ── App shell ── */
-    #app{display:none}
-    header{background:var(--ac);color:#fff;padding:.9rem 1.5rem;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:100}
-    header h1{font-size:1rem;font-weight:700;letter-spacing:-.02em}
-    header nav{display:flex;gap:.5rem}
-    header nav button{background:rgba(255,255,255,.15);color:#fff;border:none;border-radius:6px;padding:.4rem .9rem;font-size:.8rem;font-weight:600;cursor:pointer;transition:background .15s}
-    header nav button:hover,header nav button.active{background:rgba(255,255,255,.3)}
-    .logout-btn{background:transparent!important;opacity:.7}
+    /* ── App layout ── */
+    #app{display:none;min-height:100vh;flex-direction:row}
+    #app.show{display:flex}
 
-    .container{max-width:1200px;margin:0 auto;padding:1.5rem}
+    /* ── Sidebar ── */
+    .sidebar{width:220px;background:var(--sidebar);flex-shrink:0;display:flex;flex-direction:column;min-height:100vh;position:sticky;top:0;overflow-y:auto}
+    .sidebar-logo{padding:1.2rem 1.1rem 1rem;display:flex;align-items:center;gap:10px;border-bottom:1px solid rgba(255,255,255,.08)}
+    .sidebar-logo img{height:36px;border-radius:7px}
+    .sidebar-logo span{font-weight:800;font-size:1rem;color:#fff}
+    .sidebar-logo span em{color:#4ade80;font-style:normal}
+    .nav-group{padding:.5rem 0}
+    .nav-label{padding:.4rem 1.1rem .2rem;font-size:.68rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:rgba(255,255,255,.3)}
+    .nav-item{display:flex;align-items:center;gap:.7rem;padding:.55rem 1.1rem;cursor:pointer;color:rgba(255,255,255,.65);font-size:.83rem;font-weight:500;transition:all .15s;border-radius:0;text-decoration:none;border-left:3px solid transparent}
+    .nav-item:hover{background:var(--sidebar-hover);color:#fff}
+    .nav-item.active{background:var(--sidebar-active);color:#fff;border-left-color:#4ade80}
+    .nav-icon{font-size:1rem;width:18px;text-align:center}
+    .sidebar-foot{margin-top:auto;padding:1rem 1.1rem;border-top:1px solid rgba(255,255,255,.08)}
+    .logout-btn{width:100%;padding:.5rem;background:rgba(255,255,255,.07);color:rgba(255,255,255,.6);border:none;border-radius:7px;font-size:.78rem;cursor:pointer}
+    .logout-btn:hover{background:rgba(255,255,255,.15);color:#fff}
 
-    /* ── Tabs ── */
-    .tab{display:none}.tab.active{display:block}
+    /* ── Main ── */
+    .main{flex:1;overflow-x:hidden}
+    .topbar{background:var(--wh);border-bottom:1px solid var(--br);padding:.75rem 1.5rem;display:flex;justify-content:space-between;align-items:center}
+    .topbar-title{font-weight:700;font-size:.95rem;color:var(--tx)}
+    .topbar-sub{font-size:.75rem;color:var(--tx3);margin-top:1px}
+    .topbar-actions{display:flex;gap:.5rem}
 
-    /* ── Cards / stats ── */
-    .stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:1rem;margin-bottom:1.5rem}
-    .stat-card{background:var(--wh);border:1px solid var(--br);border-radius:10px;padding:1.1rem 1.3rem}
-    .stat-card .lbl{font-size:.75rem;color:var(--tx3);text-transform:uppercase;letter-spacing:.05em;margin-bottom:.3rem}
-    .stat-card .val{font-size:2rem;font-weight:800;color:var(--acm)}
-    .stat-card .sub{font-size:.75rem;color:var(--tx3);margin-top:.2rem}
+    .page{display:none;padding:1.5rem}
+    .page.active{display:block}
 
-    /* ── Section ── */
-    .section{background:var(--wh);border:1px solid var(--br);border-radius:10px;margin-bottom:1.2rem;overflow:hidden}
-    .section-head{padding:.9rem 1.2rem;border-bottom:1px solid var(--br);display:flex;justify-content:space-between;align-items:center;gap:.5rem}
-    .section-head h2{font-size:.9rem;font-weight:700}
-    .section-head .actions{display:flex;gap:.5rem;flex-wrap:wrap}
+    /* ── KPI cards ── */
+    .kpi-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:1rem;margin-bottom:1.5rem}
+    .kpi{background:var(--wh);border:1px solid var(--br);border-radius:10px;padding:1.1rem 1.3rem;position:relative;overflow:hidden}
+    .kpi-label{font-size:.72rem;font-weight:600;color:var(--tx3);text-transform:uppercase;letter-spacing:.05em;margin-bottom:.4rem}
+    .kpi-value{font-size:2rem;font-weight:800;color:var(--tx);line-height:1}
+    .kpi-sub{font-size:.74rem;color:var(--tx3);margin-top:.3rem}
+    .kpi-icon{position:absolute;right:1rem;top:1rem;font-size:1.5rem;opacity:.15}
+    .kpi-trend{font-size:.72rem;padding:2px 7px;border-radius:99px;font-weight:700}
+    .trend-up{background:var(--greenl);color:var(--green)}
+    .trend-warn{background:var(--yellowl);color:var(--yellow)}
 
-    /* ── Table ── */
-    table{width:100%;border-collapse:collapse;font-size:.82rem}
-    th{background:var(--s2);padding:.6rem 1rem;text-align:left;font-size:.72rem;text-transform:uppercase;letter-spacing:.05em;color:var(--tx3);font-weight:600;border-bottom:1px solid var(--br)}
-    td{padding:.8rem 1rem;border-bottom:1px solid #f9fafb;vertical-align:top}
+    /* ── Cards / panels ── */
+    .card{background:var(--wh);border:1px solid var(--br);border-radius:10px;margin-bottom:1.2rem;overflow:hidden}
+    .card-head{padding:.85rem 1.2rem;border-bottom:1px solid var(--br);display:flex;justify-content:space-between;align-items:center;gap:.5rem;flex-wrap:wrap}
+    .card-head h3{font-size:.88rem;font-weight:700;color:var(--tx)}
+    .card-head .meta{font-size:.75rem;color:var(--tx3)}
+    .card-body{padding:1.2rem}
+
+    /* ── Tables ── */
+    table{width:100%;border-collapse:collapse}
+    th{padding:.6rem 1rem;text-align:left;font-size:.7rem;text-transform:uppercase;letter-spacing:.05em;color:var(--tx3);font-weight:700;background:#fafafa;border-bottom:1px solid var(--br)}
+    td{padding:.75rem 1rem;border-bottom:1px solid #f5f5f7;vertical-align:top;font-size:.82rem}
     tr:last-child td{border-bottom:none}
     tr:hover td{background:#fafbff}
 
     /* ── Badges ── */
-    .badge{display:inline-block;font-size:.7rem;font-weight:700;padding:2px 8px;border-radius:99px;white-space:nowrap}
-    .b-green{background:var(--greenl);color:var(--green)}
-    .b-red{background:var(--redl);color:var(--red)}
-    .b-yellow{background:var(--yellowl);color:var(--yellow)}
-    .b-blue{background:var(--bluel);color:var(--blue)}
-    .b-gray{background:#f3f4f6;color:#6b7280}
-
-    /* ── SEO bar ── */
-    .seo-bar{height:5px;border-radius:3px;background:#e5e7eb;margin-top:3px;width:80px}
-    .seo-fill{height:100%;border-radius:3px}
-    .sf-green{background:var(--green)}.sf-yellow{background:var(--yellow)}.sf-red{background:var(--red)}
-
-    /* ── Queue editor ── */
-    .queue-form{padding:1rem 1.2rem;border-top:1px solid var(--br);display:flex;gap:.6rem;align-items:center;flex-wrap:wrap}
-    .queue-form input{flex:1;min-width:200px;padding:.55rem .9rem;border:1.5px solid var(--br);border-radius:7px;font-size:.85rem;outline:none}
-    .queue-form input:focus{border-color:var(--acm)}
+    .badge{display:inline-block;font-size:.68rem;font-weight:700;padding:2px 8px;border-radius:99px;white-space:nowrap}
+    .bg{background:var(--greenl);color:var(--green)}
+    .br{background:var(--redl);color:var(--red)}
+    .by{background:var(--yellowl);color:var(--yellow)}
+    .bb{background:var(--bluel);color:var(--blue)}
+    .bp{background:var(--purplel);color:var(--purple)}
+    .bgr{background:#f3f4f6;color:#6b7280}
 
     /* ── Buttons ── */
-    .btn{display:inline-flex;align-items:center;gap:.3rem;padding:.45rem .9rem;border:none;border-radius:7px;font-size:.8rem;font-weight:600;cursor:pointer;transition:all .15s;white-space:nowrap}
+    .btn{display:inline-flex;align-items:center;gap:.3rem;padding:.4rem .85rem;border:none;border-radius:7px;font-size:.78rem;font-weight:600;cursor:pointer;transition:all .15s;white-space:nowrap;text-decoration:none}
     .btn-primary{background:var(--ac);color:#fff}.btn-primary:hover{background:var(--acm)}
-    .btn-danger{background:var(--red);color:#fff}.btn-danger:hover{opacity:.85}
-    .btn-ghost{background:var(--s2);color:var(--tx2)}.btn-ghost:hover{background:var(--br)}
-    .btn-yellow{background:var(--yellow);color:#fff}.btn-yellow:hover{opacity:.85}
+    .btn-ghost{background:var(--bg);border:1px solid var(--br);color:var(--tx2)}.btn-ghost:hover{border-color:var(--tx3)}
+    .btn-danger{background:var(--red);color:#fff}
 
-    /* ── Alerts log ── */
-    .run-item{padding:.8rem 1.2rem;border-bottom:1px solid #f3f4f6;font-size:.82rem}
-    .run-item:last-child{border-bottom:none}
-    .run-meta{display:flex;align-items:center;gap:.5rem;margin-bottom:.3rem}
-    .run-time{color:var(--tx3);font-size:.75rem}
-    .run-detail{color:var(--tx2)}
+    /* ── Info rows ── */
+    .info-row{display:flex;padding:.75rem 1.2rem;border-bottom:1px solid #f5f5f7;gap:1rem;font-size:.82rem}
+    .info-row:last-child{border-bottom:none}
+    .info-label{color:var(--tx3);width:200px;flex-shrink:0;font-weight:500}
+    .info-value{color:var(--tx);flex:1}
 
-    /* ── Trends panel ── */
-    .trend-item{display:flex;align-items:center;gap:1rem;padding:.55rem 1.2rem;border-bottom:1px solid #f9fafb;font-size:.82rem}
-    .trend-item:last-child{border-bottom:none}
-    .trend-score{font-weight:800;color:var(--acm);min-width:48px;font-size:.78rem}
-    .trend-query{flex:1}
-    .trend-add{font-size:.75rem}
+    /* ── SEO ── */
+    .seo-bar{height:4px;border-radius:2px;background:#e5e7eb;margin-top:4px;width:70px}
+    .seo-fill{height:100%;border-radius:2px}
+    .sf-g{background:var(--green)}.sf-y{background:var(--yellow)}.sf-r{background:var(--red)}
 
-    /* ── Loading ── */
-    .loading{text-align:center;padding:2rem;color:var(--tx3);font-size:.85rem}
+    /* ── Rule cards ── */
+    .rules-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1rem}
+    .rule-card{background:var(--bg);border:1px solid var(--br);border-radius:9px;padding:1rem 1.1rem}
+    .rule-card h4{font-size:.82rem;font-weight:700;color:var(--acm);margin-bottom:.5rem;display:flex;align-items:center;gap:.4rem}
+    .rule-card ul{list-style:none;padding:0}
+    .rule-card li{font-size:.78rem;color:var(--tx2);padding:.25rem 0;border-bottom:1px solid var(--br);display:flex;align-items:flex-start;gap:.4rem}
+    .rule-card li:last-child{border-bottom:none}
+    .rule-card li::before{content:"›";color:var(--acm);font-weight:700;flex-shrink:0}
+
+    /* ── Fiscal boxes ── */
+    .fiscal-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1rem}
+    .fiscal-box{border-radius:10px;padding:1.1rem;border-left:4px solid}
+    .fbox-btw{background:#fafbff;border-color:var(--blue)}
+    .fbox-kor{background:#f0fdf4;border-color:var(--green)}
+    .fbox-oss{background:#fffbeb;border-color:var(--yellow)}
+    .fbox-dac{background:#fdf4ff;border-color:var(--purple)}
+    .fiscal-box h4{font-size:.82rem;font-weight:700;margin-bottom:.5rem}
+    .fiscal-box .formula{font-family:monospace;font-size:.8rem;background:rgba(0,0,0,.06);padding:.3rem .6rem;border-radius:5px;margin:.5rem 0;display:inline-block}
+    .fiscal-box p,.fiscal-box li{font-size:.78rem;color:var(--tx2);line-height:1.6}
+    .fiscal-box ul{padding-left:1rem;margin-top:.3rem}
+
+    /* ── Trend list ── */
+    .trend-row{display:flex;align-items:center;gap:.8rem;padding:.6rem 1.2rem;border-bottom:1px solid #f5f5f7;font-size:.82rem}
+    .trend-row:last-child{border-bottom:none}
+    .trend-score{font-weight:800;color:var(--acm);min-width:52px}
+    .trend-q{flex:1}
+
+    /* ── Style blocks ── */
+    .do-dont{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-top:.5rem}
+    .do-block{background:#f0fdf4;border:1px solid #bbf7d0;border-radius:8px;padding:.8rem 1rem}
+    .dont-block{background:var(--redl);border:1px solid #fecaca;border-radius:8px;padding:.8rem 1rem}
+    .do-block h5,.dont-block h5{font-size:.72rem;font-weight:700;margin-bottom:.4rem;text-transform:uppercase;letter-spacing:.05em}
+    .do-block h5{color:var(--green)}.dont-block h5{color:var(--red)}
+    .do-block p,.dont-block p{font-size:.78rem;color:var(--tx2);margin-bottom:.25rem;line-height:1.5}
+
+    /* ── Umami frame ── */
+    .umami-link{background:var(--acl);border-radius:8px;padding:1rem 1.2rem;display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem}
+    .umami-link p{font-size:.82rem;color:var(--acm);font-weight:600}
+    .umami-link span{font-size:.75rem;color:var(--tx3);display:block;margin-top:2px}
+
+    /* ── Empty / loading ── */
+    .empty{text-align:center;padding:2.5rem;color:var(--tx3);font-size:.82rem}
 
     a{color:var(--acm);text-decoration:none}a:hover{text-decoration:underline}
+    .mono{font-family:monospace;font-size:.8rem}
 
-    @media(max-width:600px){
-      .stats{grid-template-columns:1fr 1fr}
-      header nav button span{display:none}
-    }
+    @media(max-width:768px){.sidebar{display:none}.do-dont{grid-template-columns:1fr}}
   </style>
 </head>
 <body>
 
-<!-- ── Login ───────────────────────────────────────────────────────────────── -->
+<!-- ── Login ── -->
 <div id="login-screen">
-  <div class="login-box">
-    <h1>ZenBTW Admin</h1>
-    <p>Niet voor publiek gebruik</p>
-    <input type="password" id="pw-input" placeholder="Wachtwoord" autofocus>
-    <button onclick="tryLogin()">Inloggen</button>
-    <div class="login-error" id="login-err"></div>
+  <div class="login-card">
+    <div class="login-logo">
+      <img src="../logo.webp" alt="ZenBTW">
+      <span>Zen<em>BTW</em> Admin</span>
+    </div>
+    <h2>Inloggen</h2>
+    <p>Alleen voor beheerders</p>
+    <div class="form-group">
+      <label>Wachtwoord</label>
+      <input type="password" id="pw" placeholder="••••••••" autofocus>
+    </div>
+    <button class="login-btn" onclick="tryLogin()">Inloggen →</button>
+    <div class="login-err" id="login-err"></div>
   </div>
 </div>
 
-<!-- ── App ─────────────────────────────────────────────────────────────────── -->
+<!-- ── App ── -->
 <div id="app">
-  <header>
-    <h1>ZenBTW Admin</h1>
+
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <div class="sidebar-logo">
+      <img src="../logo.webp" alt="ZenBTW">
+      <span>Zen<em>BTW</em></span>
+    </div>
+
     <nav>
-      <button class="active" onclick="showTab('blogs')" id="tab-btn-blogs">Blogs</button>
-      <button onclick="showTab('queue')" id="tab-btn-queue">Queue</button>
-      <button onclick="showTab('agent')" id="tab-btn-agent">Agent</button>
-      <button onclick="showTab('actions')" id="tab-btn-actions">Actions</button>
-      <button class="logout-btn" onclick="logout()">Uitloggen</button>
+      <div class="nav-group">
+        <div class="nav-label">Overzicht</div>
+        <a class="nav-item active" onclick="go('home')" id="nav-home"><span class="nav-icon">🏠</span> Home</a>
+      </div>
+      <div class="nav-group">
+        <div class="nav-label">Content</div>
+        <a class="nav-item" onclick="go('blogs')" id="nav-blogs"><span class="nav-icon">📝</span> Blogs</a>
+        <a class="nav-item" onclick="go('queue')" id="nav-queue"><span class="nav-icon">📋</span> Keywords queue</a>
+        <a class="nav-item" onclick="go('style')" id="nav-style"><span class="nav-icon">✍️</span> Schrijfstijl</a>
+      </div>
+      <div class="nav-group">
+        <div class="nav-label">Bezoekers</div>
+        <a class="nav-item" onclick="go('traffic')" id="nav-traffic"><span class="nav-icon">📊</span> Verkeer</a>
+      </div>
+      <div class="nav-group">
+        <div class="nav-label">Systeem</div>
+        <a class="nav-item" onclick="go('agent')" id="nav-agent"><span class="nav-icon">🤖</span> Content agent</a>
+        <a class="nav-item" onclick="go('fiscal')" id="nav-fiscal"><span class="nav-icon">🧮</span> Fiscale logica</a>
+        <a class="nav-item" onclick="go('actions')" id="nav-actions"><span class="nav-icon">⚙️</span> GitHub Actions</a>
+      </div>
     </nav>
-  </header>
 
-  <div class="container">
+    <div class="sidebar-foot">
+      <button class="logout-btn" onclick="logout()">Uitloggen</button>
+    </div>
+  </aside>
 
-    <!-- ── BLOGS tab ── -->
-    <div class="tab active" id="tab-blogs">
-      <div class="stats" id="blog-stats"></div>
-      <div class="section">
-        <div class="section-head">
-          <h2>Alle gepubliceerde blogs</h2>
-          <div class="actions">
-            <button class="btn btn-ghost" onclick="loadBlogs()">↺ Vernieuwen</button>
-          </div>
-        </div>
-        <div id="blogs-table"><div class="loading">Laden...</div></div>
+  <!-- Main content -->
+  <div class="main">
+    <div class="topbar">
+      <div>
+        <div class="topbar-title" id="topbar-title">Overzicht</div>
+        <div class="topbar-sub" id="topbar-sub">ZenBTW Admin Dashboard</div>
+      </div>
+      <div class="topbar-actions">
+        <a href="https://zenbtw.nl" target="_blank" class="btn btn-ghost">🌐 Live site</a>
+        <a href="https://github.com/danieldk04/zenbtw/actions" target="_blank" class="btn btn-ghost">⚙️ Actions</a>
       </div>
     </div>
 
-    <!-- ── QUEUE tab ── -->
-    <div class="tab" id="tab-queue">
-      <div class="section">
-        <div class="section-head">
-          <h2>Keywords queue</h2>
-          <span id="queue-count" class="badge b-blue">–</span>
+    <!-- ── HOME ── -->
+    <div class="page active" id="page-home">
+      <div class="kpi-grid" id="kpi-home"></div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.2rem">
+        <div class="card">
+          <div class="card-head"><h3>Recente blogs</h3><a onclick="go('blogs')" class="btn btn-ghost">Alle blogs</a></div>
+          <div id="home-recent-blogs"></div>
         </div>
-        <div id="queue-table"><div class="loading">Laden...</div></div>
-        <div class="queue-form">
-          <input type="text" id="new-keyword" placeholder="Nieuw keyword, bijv: vinted btw 2026">
-          <input type="text" id="new-slug" placeholder="slug (optioneel)">
+        <div class="card">
+          <div class="card-head"><h3>Agent — laatste run</h3><a onclick="go('agent')" class="btn btn-ghost">Details</a></div>
+          <div id="home-agent-run"></div>
+        </div>
+      </div>
+      <div class="card" style="margin-top:1.2rem">
+        <div class="card-head"><h3>Queue status</h3><a onclick="go('queue')" class="btn btn-ghost">Beheren</a></div>
+        <div id="home-queue"></div>
+      </div>
+    </div>
+
+    <!-- ── BLOGS ── -->
+    <div class="page" id="page-blogs">
+      <div class="kpi-grid" id="kpi-blogs"></div>
+      <div class="card">
+        <div class="card-head">
+          <h3>Alle gepubliceerde blogs</h3>
+          <button class="btn btn-ghost" onclick="loadBlogs()">↺</button>
+        </div>
+        <div id="blogs-table"><div class="empty">Laden...</div></div>
+      </div>
+    </div>
+
+    <!-- ── QUEUE ── -->
+    <div class="page" id="page-queue">
+      <div class="card">
+        <div class="card-head">
+          <h3>Keywords queue</h3>
+          <div style="display:flex;gap:.5rem;align-items:center">
+            <span class="badge bb" id="queue-pending-badge">–</span>
+            <button class="btn btn-ghost" onclick="loadQueue()">↺</button>
+          </div>
+        </div>
+        <div id="queue-table"><div class="empty">Laden...</div></div>
+        <div style="padding:.8rem 1.2rem;border-top:1px solid var(--br);display:flex;gap:.5rem;flex-wrap:wrap">
+          <input id="kw-input" type="text" placeholder="Nieuw keyword, bijv: vinted btw 2026" style="flex:1;min-width:200px;padding:.55rem .9rem;border:1.5px solid var(--br);border-radius:7px;font-size:.82rem;outline:none">
           <button class="btn btn-primary" onclick="addKeyword()">+ Toevoegen</button>
         </div>
       </div>
 
-      <div class="section" style="margin-top:1rem">
-        <div class="section-head"><h2>Trending topics (laatste run)</h2></div>
-        <div id="trends-list"><div class="loading">Laden...</div></div>
+      <div class="card">
+        <div class="card-head">
+          <h3>Hoe worden keywords bepaald?</h3>
+          <span class="badge bb">Methode</span>
+        </div>
+        <div class="info-row"><span class="info-label">Primaire bron</span><span class="info-value">Google Trends via pytrends — haalt <strong>rising queries</strong> op voor 8 seed-keywords</span></div>
+        <div class="info-row"><span class="info-label">Seed keywords</span><span class="info-value mono">btw aangifte · kleine ondernemersregeling · vinted verkopen · etsy btw · omzetbelasting ondernemer · kor regeling · marketplace belasting · shopify btw nederland</span></div>
+        <div class="info-row"><span class="info-label">Tijdvenster</span><span class="info-value">Laatste 3 maanden (NL) — niche keywords hebben te weinig volume voor 7-daags venster</span></div>
+        <div class="info-row"><span class="info-label">Selectie logica</span><span class="info-value">Rising queries (score ≥ 300 = breakout) met BTW/belasting/marketplace-termen · gesorteerd op trending score · eerder gebruikte queries worden overgeslagen</span></div>
+        <div class="info-row"><span class="info-label">Handmatige queue</span><span class="info-value">keywords.json — prioriteit 1-10 (lager = eerder verwerkt) · handmatig toe te voegen via dit formulier</span></div>
+        <div class="info-row"><span class="info-label">Frequentie</span><span class="info-value">Automatisch elke maandag 07:00 UTC via GitHub Actions</span></div>
+
+        <div style="padding:1.2rem">
+          <div class="card-head" style="padding:0 0 .8rem;border:none"><h3>Trending queries — laatste agent run</h3></div>
+          <div id="queue-trends"><div class="empty">Laden...</div></div>
+        </div>
       </div>
     </div>
 
-    <!-- ── AGENT tab ── -->
-    <div class="tab" id="tab-agent">
-      <div class="stats" id="agent-stats"></div>
-      <div class="section">
-        <div class="section-head"><h2>Agent run history</h2></div>
-        <div id="agent-runs"><div class="loading">Laden...</div></div>
-      </div>
-    </div>
+    <!-- ── SCHRIJFSTIJL ── -->
+    <div class="page" id="page-style">
+      <div class="card">
+        <div class="card-head">
+          <h3>Schrijfstijl richtlijnen</h3>
+          <span class="badge bb">Gevolgd door Claude</span>
+        </div>
+        <div class="card-body">
+          <p style="font-size:.82rem;color:var(--tx2);margin-bottom:1rem">
+            Claude krijgt bij elke bloggeneratie deze regels mee. Ze bepalen de toon, structuur en aanpak van elk artikel.
+          </p>
 
-    <!-- ── ACTIONS tab ── -->
-    <div class="tab" id="tab-actions">
-      <div class="section">
-        <div class="section-head">
-          <h2>GitHub Actions runs</h2>
-          <div class="actions">
-            <button class="btn btn-ghost" onclick="loadActions()">↺ Vernieuwen</button>
+          <div class="rules-grid">
+            <div class="rule-card">
+              <h4>🎭 Persona</h4>
+              <ul>
+                <li>Nederlandse ondernemer met jarenlange marketplace-ervaring</li>
+                <li>Schrijft voor ZenBTW vanuit eigen perspectief</li>
+                <li>Uitlegt alsof het aan een vriend is</li>
+                <li>Direct, eerlijk, menselijk — niet corporate</li>
+              </ul>
+            </div>
+            <div class="rule-card">
+              <h4>📏 Structuur</h4>
+              <ul>
+                <li>900–1200 woorden zichtbare tekst</li>
+                <li>Minimaal 1 inline SVG visualisatie</li>
+                <li>H2 headers met keyword erin</li>
+                <li>Leestijd berekend op ~200 woorden/min</li>
+                <li>2–3 interne links naar gerelateerde blogs</li>
+              </ul>
+            </div>
+            <div class="rule-card">
+              <h4>✅ Verboden woorden</h4>
+              <ul>
+                <li>"cruciaal", "essentieel", "naadloos"</li>
+                <li>"optimaal", "robuust", "uitgebreid"</li>
+                <li>"allesomvattend", "volledig"</li>
+                <li>-- (dubbel koppelteken)</li>
+                <li>"In dit artikel", "In deze gids"</li>
+                <li>"Het is belangrijk om"</li>
+                <li>"Kortom", "Samengevat", "Tot slot"</li>
+              </ul>
+            </div>
+            <div class="rule-card">
+              <h4>🧠 Stijlregels</h4>
+              <ul>
+                <li>Wisselende zinslengtes — soms kort, soms langer</li>
+                <li>Retorische vragen aan de lezer</li>
+                <li>Geef toe als iets ingewikkeld is</li>
+                <li>Concrete bedragen, landen, situaties</li>
+                <li>Varieer lijst-lengtes (niet altijd 3 of 5)</li>
+                <li>Sluit soms af met nuance of kanttekening</li>
+              </ul>
+            </div>
+            <div class="rule-card">
+              <h4>📣 Persoonlijke taal</h4>
+              <ul>
+                <li>"ik merkte dat…"</li>
+                <li>"wat ik zelf deed was…"</li>
+                <li>"veel verkopers die ik spreek…"</li>
+                <li>"in de praktijk zie ik…"</li>
+                <li>"Eerlijk gezegd is dit het meest verwarrende deel"</li>
+              </ul>
+            </div>
+            <div class="rule-card">
+              <h4>🔍 SEO vereisten</h4>
+              <ul>
+                <li>Keyword in title (55-60 tekens)</li>
+                <li>Keyword in h1 en eerste alinea</li>
+                <li>Keyword in minstens 1 h2</li>
+                <li>Meta description 140-155 tekens</li>
+                <li>ZenBTW vermeld in de tekst (niet alleen CTA)</li>
+                <li>Disclaimer: geen belastingadvies</li>
+              </ul>
+            </div>
+          </div>
+
+          <div style="margin-top:1.5rem">
+            <h4 style="font-size:.85rem;font-weight:700;margin-bottom:.8rem">Voorbeelden — goed vs fout</h4>
+            <div class="do-dont">
+              <div class="do-block">
+                <h5>✅ Zo schrijven we</h5>
+                <p>"Vinted verkopers krijgen hier regelmatig buikpijn van, want de prijs die je ziet is altijd inclusief BTW."</p>
+                <p>"Eerlijk gezegd is de margeregeling het meest verwarrende onderdeel van dit verhaal."</p>
+                <p>"Wat ik zelf deed toen ik de KOR-grens naderde: een spreadsheet bijhouden per platform."</p>
+              </div>
+              <div class="dont-block">
+                <h5>❌ Zo schrijven we niet</h5>
+                <p>"Het is van belang dat u zich ervan bewust bent dat de verkoopprijs de BTW bevat."</p>
+                <p>"In dit artikel bespreken we alle essentiële aspecten van de BTW-regelgeving."</p>
+                <p>"Samenvattend kan worden gesteld dat de KOR een cruciaal instrument is."</p>
+              </div>
+            </div>
           </div>
         </div>
-        <div id="actions-table"><div class="loading">Laden...</div></div>
       </div>
     </div>
 
-  </div>
-</div>
+    <!-- ── VERKEER ── -->
+    <div class="page" id="page-traffic">
+      <div class="umami-link">
+        <div>
+          <p>Analytics via Umami</p>
+          <span>Website ID: 9cb58ff4-cf6e-4773-8dd5-f2f0b6ad5510 · cloud.umami.is</span>
+        </div>
+        <a href="https://cloud.umami.is/websites/9cb58ff4-cf6e-4773-8dd5-f2f0b6ad5510" target="_blank" class="btn btn-primary">Open Umami →</a>
+      </div>
+
+      <div class="card">
+        <div class="card-head">
+          <h3>Live statistieken</h3>
+          <div style="display:flex;gap:.5rem;align-items:center">
+            <input id="umami-token" type="password" placeholder="Umami API token" style="padding:.4rem .8rem;border:1.5px solid var(--br);border-radius:7px;font-size:.78rem;width:220px;outline:none">
+            <button class="btn btn-primary" onclick="loadUmami()">Laden</button>
+          </div>
+        </div>
+        <div id="umami-stats"><div class="empty">Voer je Umami API token in om statistieken te laden.<br><br>Te vinden op: cloud.umami.is → Profiel → API tokens</div></div>
+      </div>
+
+      <div class="card">
+        <div class="card-head"><h3>Hoe worden gebruikers getrackt?</h3></div>
+        <div class="info-row"><span class="info-label">Analytics tool</span><span class="info-value">Umami (privacy-first, GDPR-compliant, geen cookies)</span></div>
+        <div class="info-row"><span class="info-label">Wat wordt gemeten</span><span class="info-value">Paginabezoeken · unieke bezoekers · bouncepercentage · sessieduur · apparaat/land · events (start-nu, nav-switch-en)</span></div>
+        <div class="info-row"><span class="info-label">Advertenties</span><span class="info-value">Google Ads (AW-18073002348) — conversietracking voor "Check mijn status" clicks</span></div>
+        <div class="info-row"><span class="info-label">Gebruikersdata in app</span><span class="info-value">Volledig lokaal in browser (localStorage / IndexedDB) — geen server, geen account, geen opslag bij ons</span></div>
+        <div class="info-row"><span class="info-label">Email alerts</span><span class="info-value">Via EmailJS (hdOoLlKINluOddB4m) — verstuurd vanuit browser van gebruiker, niet opgeslagen op server</span></div>
+        <div class="info-row"><span class="info-label">Subscriber lijst</span><span class="info-value" style="color:var(--tx3);font-style:italic">Niet aanwezig — app heeft geen accounts of nieuwsbrief. Gebruikers zijn anoniem.</span></div>
+      </div>
+    </div>
+
+    <!-- ── AGENT ── -->
+    <div class="page" id="page-agent">
+      <div class="kpi-grid" id="kpi-agent"></div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.2rem">
+        <div class="card">
+          <div class="card-head"><h3>Run history</h3></div>
+          <div id="agent-runs"><div class="empty">Laden...</div></div>
+        </div>
+        <div class="card">
+          <div class="card-head"><h3>Agent configuratie</h3></div>
+          <div class="info-row"><span class="info-label">Script</span><span class="info-value mono">scripts/content_agent.py</span></div>
+          <div class="info-row"><span class="info-label">Taal</span><span class="info-value">Python 3.12</span></div>
+          <div class="info-row"><span class="info-label">Model</span><span class="info-value">claude-opus-4-6</span></div>
+          <div class="info-row"><span class="info-label">Max tokens</span><span class="info-value">2.500 (blog content)</span></div>
+          <div class="info-row"><span class="info-label">Output</span><span class="info-value mono">app/blog/</span></div>
+          <div class="info-row"><span class="info-label">Schedule</span><span class="info-value">Maandag 07:00 UTC (cron: 0 7 * * 1)</span></div>
+          <div class="info-row"><span class="info-label">Trends timeframe</span><span class="info-value">Laatste 3 maanden, geo: NL</span></div>
+          <div class="info-row"><span class="info-label">Rate limiting</span><span class="info-value">2s delay tussen pytrends batches</span></div>
+          <br>
+          <div class="card-head" style="border-top:1px solid var(--br);padding-top:.85rem;border-bottom:none"><h3>Blog generator configuratie</h3></div>
+          <div class="info-row"><span class="info-label">Script</span><span class="info-value mono">scripts/generate-blog.js</span></div>
+          <div class="info-row"><span class="info-label">Model</span><span class="info-value">claude-opus-4-6</span></div>
+          <div class="info-row"><span class="info-label">Max tokens</span><span class="info-value">8.192 (volledige HTML blog)</span></div>
+          <div class="info-row"><span class="info-label">Output</span><span class="info-value mono">blog/</span></div>
+          <div class="info-row"><span class="info-label">Distributie</span><span class="info-value">Reddit · Medium · Google Indexing API</span></div>
+          <div class="info-row"><span class="info-label">Secret naam</span><span class="info-value mono">ZENBTW_BLOGS</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── FISCALE LOGICA ── -->
+    <div class="page" id="page-fiscal">
+      <div class="card">
+        <div class="card-head">
+          <h3>Fiscale logica — wat is er ingebouwd?</h3>
+          <span class="badge bb">Belastingjaar 2025/2026</span>
+        </div>
+        <div class="card-body">
+          <p style="font-size:.82rem;color:var(--tx2);margin-bottom:1.2rem">
+            Dit zijn de BTW-regels die zijn verwerkt in de ZenBTW calculator, de blog-prompt en de fiscale uitleg aan gebruikers.
+          </p>
+
+          <div class="fiscal-grid">
+            <div class="fiscal-box fbox-btw">
+              <h4>🔢 BTW-berekening</h4>
+              <p>Marktplaatsprijzen zijn altijd <strong>bruto</strong> (inclusief BTW). Fout: netto × tarief. Goed:</p>
+              <div class="formula">BTW = bruto × (tarief / (100 + tarief))</div>
+              <p><strong>Voorbeeld:</strong> €121 bruto @ 21%</p>
+              <ul>
+                <li>BTW = €121 × (21/121) = <strong>€21</strong></li>
+                <li>Netto omzet = €121 − €21 = <strong>€100</strong></li>
+              </ul>
+              <p style="margin-top:.5rem">Tarieven NL: 21% standaard · 9% verlaagd (voedsel, boeken, etc.)</p>
+            </div>
+
+            <div class="fiscal-box fbox-kor">
+              <h4>🇳🇱 KOR — Kleine Ondernemersregeling</h4>
+              <ul>
+                <li>Grens: <strong>€20.000</strong> jaaromzet (NL)</li>
+                <li>Onder grens: geen BTW afdragen, geen aangifte</li>
+                <li>Nadeel: ook geen BTW op inkopen terug</li>
+                <li>Aanmelden bij Belastingdienst vereist</li>
+                <li>EU-KOR grens: €100.000</li>
+              </ul>
+              <p style="margin-top:.5rem"><strong>Splitsing:</strong> EU-afstandsverkopen ≤ €10.000 tellen MEE voor NL KOR-teller. Daarboven vallen ze onder OSS en tellen NIET mee.</p>
+            </div>
+
+            <div class="fiscal-box fbox-oss">
+              <h4>🌍 OSS — One Stop Shop</h4>
+              <ul>
+                <li>Drempel: <strong>€10.000</strong> EU-breed per jaar</li>
+                <li>Onder drempel: gewoon NL BTW rekenen</li>
+                <li>Boven drempel: BTW afdragen in land van klant</li>
+                <li>OSS via NL Belastingdienst (niet in elk EU-land apart)</li>
+                <li>Kwartaalaangifte via Mijn Belastingdienst Zakelijk</li>
+              </ul>
+              <p style="margin-top:.5rem"><strong>Tarieven variëren:</strong> Luxemburg 17% t/m Hongarije 27%</p>
+            </div>
+
+            <div class="fiscal-box fbox-dac">
+              <h4>📋 DAC7 — Platformrapportage</h4>
+              <ul>
+                <li>Actief vanaf 2023, volledig op gang 2024/2025</li>
+                <li>Platforms (Vinted, Etsy, Bol) delen verkoopdata met Belastingdienst</li>
+                <li>Rapportageplicht bij: >30 transacties/jaar <em>of</em> >€2.000 omzet</li>
+                <li>Geldt voor verkoop van goederen én diensten</li>
+              </ul>
+              <p style="margin-top:.5rem">Praktisch: de Belastingdienst weet exact wat je verkoopt. Kruiscontrole met aangifte is mogelijk.</p>
+            </div>
+
+            <div class="fiscal-box fbox-btw" style="background:#fff8f0;border-color:#ea580c">
+              <h4>💰 Margeregeling</h4>
+              <ul>
+                <li>Voor wederverkoop van gebruikte goederen</li>
+                <li>BTW alleen over de <strong>winstmarge</strong>, niet de volle verkoopprijs</li>
+                <li>Formule: BTW = marge × (tarief / (100 + tarief))</li>
+                <li>Vereist: apart administreren per artikel</li>
+                <li>Niet combineerbaar met OSS</li>
+              </ul>
+            </div>
+
+            <div class="fiscal-box fbox-kor" style="background:#f0f9ff;border-color:#0369a1">
+              <h4>📅 Aangiftedeadlines</h4>
+              <ul>
+                <li>Maandaangifte: uiterlijk laatste dag volgende maand</li>
+                <li>Kwartaalaangifte: uiterlijk einde volgende maand na kwartaal</li>
+                <li>Q1 (jan-mrt) → deadline 30 april</li>
+                <li>Papieren aangifte: zelfde deadline, rekening houden met postbezorging</li>
+                <li>Boete bij te laat: minimaal €68 administratieve boete</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── ACTIONS ── -->
+    <div class="page" id="page-actions">
+      <div class="card">
+        <div class="card-head">
+          <h3>GitHub Actions runs</h3>
+          <button class="btn btn-ghost" onclick="loadActions()">↺ Vernieuwen</button>
+        </div>
+        <div id="actions-table"><div class="empty">Laden...</div></div>
+      </div>
+      <div class="card">
+        <div class="card-head"><h3>Workflows overzicht</h3></div>
+        <div class="info-row"><span class="info-label">content-agent.yml</span><span class="info-value">Elke maandag 07:00 UTC · pytrends trending queries → Claude blog → push naar app/blog/</span></div>
+        <div class="info-row"><span class="info-label">generate-blog.yml</span><span class="info-value">keywords.json queue verwerken · 1 blog per run · Reddit + Medium + Google Indexing</span></div>
+        <div class="info-row"><span class="info-label">regenerate-blogs.yml</span><span class="info-value">Handmatig triggeren · herschrijft alle 13 blogs met verbeterde prompt · max_tokens 8192</span></div>
+        <div class="info-row"><span class="info-label">Secret</span><span class="info-value mono">ZENBTW_BLOGS → ANTHROPIC_API_KEY in alle workflows</span></div>
+      </div>
+    </div>
+
+  </div><!-- /main -->
+</div><!-- /app -->
 
 <script>
 // ── Auth ──────────────────────────────────────────────────────────────────────
+// SHA-256 van wachtwoord. Wijzig: https://emn178.github.io/online-tools/sha256.html
+const PW_HASH = 'a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3'; // "123"
 
-// SHA-256 hash van het wachtwoord. Wijzig dit door:
-// 1. Kies een nieuw wachtwoord
-// 2. Ga naar: https://emn178.github.io/online-tools/sha256.html
-// 3. Plak de hash hieronder
-const PASSWORD_HASH = 'a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3'; // standaard: "123"
+async function sha256(s){const b=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(s));return Array.from(new Uint8Array(b)).map(x=>x.toString(16).padStart(2,'0')).join('')}
 
-async function sha256(str) {
-  const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(str));
-  return Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2, '0')).join('');
-}
-
-async function tryLogin() {
-  const pw = document.getElementById('pw-input').value;
-  const hash = await sha256(pw);
-  if (hash === PASSWORD_HASH) {
-    sessionStorage.setItem('zenbtw_admin', '1');
-    document.getElementById('login-screen').style.display = 'none';
-    document.getElementById('app').style.display = 'block';
+async function tryLogin(){
+  const pw = document.getElementById('pw').value;
+  if(await sha256(pw) === PW_HASH){
+    sessionStorage.setItem('za','1');
+    document.getElementById('login-screen').style.display='none';
+    document.getElementById('app').classList.add('show');
     initApp();
   } else {
-    document.getElementById('login-err').textContent = 'Wachtwoord onjuist';
-    document.getElementById('pw-input').value = '';
-    document.getElementById('pw-input').focus();
+    document.getElementById('login-err').textContent='Wachtwoord onjuist';
+    document.getElementById('pw').value='';
+    document.getElementById('pw').focus();
   }
 }
+document.getElementById('pw').addEventListener('keydown',e=>{ if(e.key==='Enter') tryLogin(); });
 
-document.getElementById('pw-input').addEventListener('keydown', e => {
-  if (e.key === 'Enter') tryLogin();
-});
+function logout(){ sessionStorage.removeItem('za'); location.reload(); }
 
-function logout() {
-  sessionStorage.removeItem('zenbtw_admin');
-  location.reload();
-}
-
-if (sessionStorage.getItem('zenbtw_admin') === '1') {
-  document.getElementById('login-screen').style.display = 'none';
-  document.getElementById('app').style.display = 'block';
+if(sessionStorage.getItem('za')==='1'){
+  document.getElementById('login-screen').style.display='none';
+  document.getElementById('app').classList.add('show');
   initApp();
 }
 
-// ── Tabs ──────────────────────────────────────────────────────────────────────
+// ── Navigation ────────────────────────────────────────────────────────────────
+const PAGE_TITLES = {
+  home:'Overzicht', blogs:'Blogs', queue:'Keywords queue',
+  style:'Schrijfstijl', traffic:'Bezoekers & verkeer',
+  agent:'Content agent', fiscal:'Fiscale logica', actions:'GitHub Actions'
+};
 
-function showTab(name) {
-  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-  document.querySelectorAll('header nav button').forEach(b => b.classList.remove('active'));
-  document.getElementById('tab-' + name).classList.add('active');
-  document.getElementById('tab-btn-' + name).classList.add('active');
+function go(name){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
+  document.getElementById('page-'+name).classList.add('active');
+  document.getElementById('nav-'+name).classList.add('active');
+  document.getElementById('topbar-title').textContent = PAGE_TITLES[name];
 }
 
-// ── Data fetchers ─────────────────────────────────────────────────────────────
-
+// ── Data helpers ──────────────────────────────────────────────────────────────
 const REPO = 'danieldk04/zenbtw';
-const BASE = 'https://raw.githubusercontent.com/' + REPO + '/main';
+const RAW  = 'https://raw.githubusercontent.com/'+REPO+'/main';
 
-async function fetchJSON(path) {
-  const r = await fetch(BASE + path + '?t=' + Date.now());
-  if (!r.ok) throw new Error(path + ' niet gevonden (' + r.status + ')');
-  return r.json();
+async function get(path){ const r=await fetch(RAW+path+'?t='+Date.now()); if(!r.ok) throw new Error(r.status); return r.json(); }
+async function ghapi(path){ const r=await fetch('https://api.github.com/repos/'+REPO+path); if(!r.ok) throw new Error(r.status); return r.json(); }
+
+function fmt(iso){ return new Date(iso).toLocaleString('nl-NL',{day:'numeric',month:'short',year:'numeric',hour:'2-digit',minute:'2-digit'}); }
+function fmtDate(iso){ return new Date(iso).toLocaleDateString('nl-NL',{day:'numeric',month:'short',year:'numeric'}); }
+function seoClass(s){ return s>=75?'sf-g':s>=50?'sf-y':'sf-r'; }
+function seoBadge(s){ return s>=75?'bg':s>=50?'by':'br'; }
+
+// ── Home ──────────────────────────────────────────────────────────────────────
+async function loadHome(){
+  let agentData={blogs:[],runs:[]}, kwData={queue:[],published:[]}, treeData={tree:[]};
+  try{ agentData=await get('/app/blog/data.json'); }catch(_){}
+  try{ kwData=await get('/keywords.json'); }catch(_){}
+  try{ treeData=await ghapi('/git/trees/main?recursive=1'); }catch(_){}
+
+  const blogFiles = treeData.tree.filter(f=>f.path.match(/^blog\/[^/]+\.html$/)&&!f.path.includes('index'));
+  const appBlogFiles = treeData.tree.filter(f=>f.path.match(/^app\/blog\/[^/]+\.html$/)&&!f.path.match(/index|dashboard/));
+  const totalBlogs = blogFiles.length + appBlogFiles.length;
+  const pending = (kwData.queue||[]).filter(k=>k.status==='pending').length;
+  const lastRun = (agentData.runs||[])[0];
+  const avgSeo = agentData.blogs.length ? Math.round(agentData.blogs.reduce((a,b)=>a+(b.seo?.score||0),0)/agentData.blogs.length) : 0;
+
+  document.getElementById('kpi-home').innerHTML = `
+    <div class="kpi"><div class="kpi-label">Blogs live</div><div class="kpi-value">${totalBlogs}</div><div class="kpi-sub">${blogFiles.length} generator · ${appBlogFiles.length} agent</div><div class="kpi-icon">📝</div></div>
+    <div class="kpi"><div class="kpi-label">Gem. SEO score</div><div class="kpi-value">${avgSeo||'–'}</div><div class="kpi-sub">van agent blogs</div><div class="kpi-icon">🔍</div></div>
+    <div class="kpi"><div class="kpi-label">Queue pending</div><div class="kpi-value">${pending}</div><div class="kpi-sub">klaar om te genereren</div><div class="kpi-icon">📋</div></div>
+    <div class="kpi"><div class="kpi-label">Laatste agent run</div><div class="kpi-value" style="font-size:1rem;padding-top:.4rem">${lastRun?fmtDate(lastRun.timestamp):'–'}</div><div class="kpi-sub">${lastRun?.status||'–'}</div><div class="kpi-icon">🤖</div></div>
+  `;
+
+  // Recente blogs
+  const recentBlogs = agentData.blogs.slice(0,4);
+  document.getElementById('home-recent-blogs').innerHTML = recentBlogs.length
+    ? `<table><tbody>${recentBlogs.map(b=>`<tr><td><a href="${b.url}" target="_blank">${b.title}</a></td><td><span class="badge ${seoBadge(b.seo?.score||0)}">${b.seo?.score||'?'}/100</span></td></tr>`).join('')}</tbody></table>`
+    : '<div class="empty">Nog geen agent blogs</div>';
+
+  // Last agent run
+  document.getElementById('home-agent-run').innerHTML = lastRun
+    ? `<div class="info-row"><span class="info-label">Status</span><span class="info-value"><span class="badge ${lastRun.status==='success'?'bg':'br'}">${lastRun.status}</span></span></div>
+       <div class="info-row"><span class="info-label">Timestamp</span><span class="info-value">${fmt(lastRun.timestamp)}</span></div>
+       <div class="info-row"><span class="info-label">Queries gevonden</span><span class="info-value">${lastRun.queries_found||0}</span></div>
+       ${lastRun.blog?`<div class="info-row"><span class="info-label">Blog gegenereerd</span><span class="info-value"><a href="${lastRun.blog.url}" target="_blank">${lastRun.blog.title}</a></span></div>`:''}
+       ${lastRun.top_queries?`<div class="info-row"><span class="info-label">Top trending</span><span class="info-value">${lastRun.top_queries.slice(0,3).map(q=>`"${q.query}" (${q.score})`).join(' · ')}</span></div>`:''}`
+    : '<div class="empty">Geen run data</div>';
+
+  // Queue
+  const pendingItems = (kwData.queue||[]).filter(k=>k.status==='pending');
+  document.getElementById('home-queue').innerHTML = pendingItems.length
+    ? `<table><tbody>${pendingItems.map(k=>`<tr><td>${k.keyword}</td><td class="mono" style="color:var(--tx3)">${k.slug}</td><td><span class="badge bb">prio ${k.priority||'–'}</span></td></tr>`).join('')}</tbody></table>`
+    : '<div class="empty">Queue is leeg — geen pending keywords</div>';
 }
 
-async function fetchGHAPI(path) {
-  const r = await fetch('https://api.github.com/repos/' + REPO + path);
-  if (!r.ok) throw new Error('GitHub API fout');
-  return r.json();
-}
+// ── Blogs ──────────────────────────────────────────────────────────────────────
+async function loadBlogs(){
+  document.getElementById('blogs-table').innerHTML='<div class="empty">Laden...</div>';
+  try{
+    const [tree, agentData] = await Promise.all([ghapi('/git/trees/main?recursive=1'), get('/app/blog/data.json').catch(()=>({blogs:[]}))]);
+    const blogFiles = tree.tree.filter(f=>f.path.match(/^blog\/[^/]+\.html$/)&&!f.path.includes('index'));
+    const appFiles  = tree.tree.filter(f=>f.path.match(/^app\/blog\/[^/]+\.html$/)&&!f.path.match(/index|dashboard/));
+    const agentMap  = Object.fromEntries((agentData.blogs||[]).map(b=>[b.slug,b]));
+    const truncated = blogFiles.filter(f=>f.size<9800).length;
 
-// ── Helpers ───────────────────────────────────────────────────────────────────
+    document.getElementById('kpi-blogs').innerHTML = `
+      <div class="kpi"><div class="kpi-label">Totaal</div><div class="kpi-value">${blogFiles.length+appFiles.length}</div><div class="kpi-sub">${blogFiles.length} + ${appFiles.length}</div></div>
+      <div class="kpi"><div class="kpi-label">Mogelijk afgekapt</div><div class="kpi-value" style="color:${truncated?'var(--red)':'var(--green)'}">${truncated}</div><div class="kpi-sub">&lt;9.8 KB</div></div>
+    `;
 
-function fmt(iso) {
-  return new Date(iso).toLocaleString('nl-NL', {day:'numeric',month:'short',year:'numeric',hour:'2-digit',minute:'2-digit'});
-}
-
-function seoColor(s) {
-  return s >= 75 ? 'sf-green' : s >= 50 ? 'sf-yellow' : 'sf-red';
-}
-
-function seoLabel(s) {
-  return s >= 75 ? 'b-green' : s >= 50 ? 'b-yellow' : 'b-red';
-}
-
-// ── Blogs tab ─────────────────────────────────────────────────────────────────
-
-async function loadBlogs() {
-  const el = document.getElementById('blogs-table');
-  el.innerHTML = '<div class="loading">Laden...</div>';
-
-  try {
-    // Haal GitHub tree op voor blog/ directory
-    const tree = await fetchGHAPI('/git/trees/main?recursive=1');
-    const blogFiles = tree.tree.filter(f =>
-      f.path.match(/^blog\/[^/]+\.html$/) && !f.path.includes('index.html')
-    );
-    const appBlogFiles = tree.tree.filter(f =>
-      f.path.match(/^app\/blog\/[^/]+\.html$/) && !f.path.match(/index|dashboard/)
-    );
-
-    // Haal agent data op
-    let agentData = { blogs: [] };
-    try { agentData = await fetchJSON('/app/blog/data.json'); } catch(_) {}
-
-    const agentMap = {};
-    (agentData.blogs || []).forEach(b => { agentMap[b.slug] = b; });
-
-    // Combineer beide sets
-    const allBlogs = [
-      ...blogFiles.map(f => ({
-        path: f.path,
-        slug: f.path.replace('blog/', '').replace('.html', ''),
-        source: 'generate-blog.js',
-        url: 'https://zenbtw.nl/' + f.path,
-        size: f.size
-      })),
-      ...appBlogFiles.map(f => ({
-        path: f.path,
-        slug: f.path.replace('app/blog/', '').replace('.html', ''),
-        source: 'content_agent.py',
-        url: 'https://zenbtw.nl/' + f.path,
-        size: f.size
-      }))
+    const rows = [
+      ...blogFiles.map(f=>({path:f.path,slug:f.path.replace('blog/','').replace('.html',''),source:'generate-blog.js',url:'https://zenbtw.nl/'+f.path,size:f.size})),
+      ...appFiles.map(f=>({path:f.path,slug:f.path.replace('app/blog/','').replace('.html',''),source:'content_agent.py',url:'https://zenbtw.nl/'+f.path,size:f.size}))
     ];
 
-    // Stats
-    const truncated = allBlogs.filter(b => b.size < 9800 && b.source === 'generate-blog.js').length;
-    document.getElementById('blog-stats').innerHTML = `
-      <div class="stat-card"><div class="lbl">Totaal blogs</div><div class="val">${allBlogs.length}</div><div class="sub">${blogFiles.length} via generator · ${appBlogFiles.length} via agent</div></div>
-      <div class="stat-card"><div class="lbl">Mogelijk afgekapt</div><div class="val" style="color:${truncated > 0 ? 'var(--red)' : 'var(--green)'}">${truncated}</div><div class="sub">&lt;9.8KB → verdacht</div></div>
-      <div class="stat-card"><div class="lbl">Gem. SEO score</div><div class="val">${agentData.blogs.length ? Math.round(agentData.blogs.reduce((a,b)=>a+(b.seo?.score||0),0)/agentData.blogs.length) : '–'}</div><div class="sub">van agent blogs</div></div>
+    document.getElementById('blogs-table').innerHTML = `
+      <table><thead><tr><th>Blog</th><th>Bron</th><th>Grootte</th><th>SEO</th><th></th></tr></thead>
+      <tbody>${rows.map(b=>{
+        const agent=agentMap[b.slug], isTrunc=b.size<9800&&b.source==='generate-blog.js';
+        const seo=agent?.seo;
+        return `<tr>
+          <td><a href="${b.url}" target="_blank">${b.slug}</a>${isTrunc?' <span class="badge br">⚠ afgekapt</span>':''}</td>
+          <td><span class="badge bgr">${b.source}</span></td>
+          <td style="color:${isTrunc?'var(--red)':'var(--tx3)'}">${(b.size/1024).toFixed(1)} KB</td>
+          <td>${seo?`<span class="badge ${seoBadge(seo.score)}">${seo.score}/100</span><div class="seo-bar"><div class="seo-fill ${seoClass(seo.score)}" style="width:${seo.score}%"></div></div>`:'–'}</td>
+          <td><a href="${b.url}" target="_blank" class="btn btn-ghost">Bekijk</a></td>
+        </tr>`}).join('')}</tbody></table>`;
+  }catch(e){document.getElementById('blogs-table').innerHTML=`<div class="empty" style="color:var(--red)">${e.message}</div>`;}
+}
+
+// ── Queue ──────────────────────────────────────────────────────────────────────
+async function loadQueue(){
+  document.getElementById('queue-table').innerHTML='<div class="empty">Laden...</div>';
+  try{
+    const kw = await get('/keywords.json');
+    const pending=(kw.queue||[]).filter(k=>k.status==='pending');
+    document.getElementById('queue-pending-badge').textContent=pending.length+' pending';
+    const all=[...(kw.queue||[]),...(kw.published||[]).slice(0,10)];
+    document.getElementById('queue-table').innerHTML=all.length
+      ?`<table><thead><tr><th>Keyword</th><th>Slug</th><th>Status</th><th>Prioriteit</th><th>Gepubliceerd</th><th>Notitie</th></tr></thead>
+        <tbody>${all.map(k=>`<tr>
+          <td>${k.keyword}</td>
+          <td class="mono" style="color:var(--tx3)">${k.slug}</td>
+          <td><span class="badge ${k.status==='pending'?'by':k.status==='published'?'bg':'bgr'}">${k.status}</span></td>
+          <td>${k.priority??'–'}</td>
+          <td style="color:var(--tx3)">${k.publishedDate||'–'}</td>
+          <td style="color:var(--tx3);font-style:italic">${k.notes||'–'}</td>
+        </tr>`).join('')}</tbody></table>`
+      :'<div class="empty">Queue leeg</div>';
+  }catch(e){document.getElementById('queue-table').innerHTML=`<div class="empty" style="color:var(--red)">${e.message}</div>`;}
+
+  try{
+    const ag=await get('/app/blog/data.json');
+    const q=(ag.runs||[])[0]?.top_queries||[];
+    document.getElementById('queue-trends').innerHTML=q.length
+      ?q.map(t=>`<div class="trend-row"><span class="trend-score">${t.score>=5000?'🔥':t.score}</span><span class="trend-q">${t.query}</span><span class="badge ${t.type==='rising'?'bb':'bgr'}">${t.type==='rising'?'Trending':'Top'}</span></div>`).join('')
+      :'<div class="empty">Nog geen run data</div>';
+  }catch(_){document.getElementById('queue-trends').innerHTML='<div class="empty">Geen agent data</div>';}
+}
+
+function addKeyword(){
+  const kw=document.getElementById('kw-input').value.trim();
+  if(!kw){alert('Voer een keyword in');return;}
+  const slug=kw.toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'');
+  alert(`Om "${kw}" toe te voegen:\n\n1. Open keywords.json in de GitHub repo\n2. Voeg toe aan "queue":\n{\n  "keyword": "${kw}",\n  "slug": "${slug}",\n  "status": "pending",\n  "priority": 5\n}\n3. Trigger de blog-generator workflow via Actions`);
+}
+
+// ── Agent ──────────────────────────────────────────────────────────────────────
+async function loadAgent(){
+  try{
+    const d=await get('/app/blog/data.json');
+    const runs=d.runs||[], blogs=d.blogs||[];
+    const ok=runs.filter(r=>r.status==='success').length;
+    document.getElementById('kpi-agent').innerHTML=`
+      <div class="kpi"><div class="kpi-label">Totale runs</div><div class="kpi-value">${runs.length}</div><div class="kpi-sub">${ok} succesvol · ${runs.length-ok} mislukt</div></div>
+      <div class="kpi"><div class="kpi-label">Agent blogs</div><div class="kpi-value">${blogs.length}</div><div class="kpi-sub">gegenereerd via pytrends</div></div>
+      <div class="kpi"><div class="kpi-label">Laatste run</div><div class="kpi-value" style="font-size:.9rem;padding-top:.5rem">${runs[0]?fmtDate(runs[0].timestamp):'–'}</div><div class="kpi-sub">${runs[0]?.status||'–'}</div></div>
     `;
-
-    el.innerHTML = `
-      <table>
-        <thead><tr>
-          <th>Blog</th>
-          <th>Bron</th>
-          <th>Grootte</th>
-          <th>SEO</th>
-          <th>Acties</th>
-        </tr></thead>
-        <tbody>
-          ${allBlogs.map(b => {
-            const agent = agentMap[b.slug];
-            const isTruncated = b.size < 9800 && b.source === 'generate-blog.js';
-            const seo = agent?.seo;
-            return `<tr>
-              <td>
-                <a href="${b.url}" target="_blank">${b.slug}</a>
-                ${isTruncated ? ' <span class="badge b-red">⚠ afgekapt</span>' : ''}
-              </td>
-              <td><span class="badge b-gray">${b.source}</span></td>
-              <td style="color:${isTruncated?'var(--red)':'var(--tx3)'}; font-size:.78rem">${(b.size/1024).toFixed(1)} KB</td>
-              <td>
-                ${seo ? `
-                  <span class="badge ${seoLabel(seo.score)}">${seo.score}/100</span>
-                  <div class="seo-bar"><div class="seo-fill ${seoColor(seo.score)}" style="width:${seo.score}%"></div></div>
-                ` : '<span style="color:var(--tx3);font-size:.75rem">–</span>'}
-              </td>
-              <td>
-                <a href="${b.url}" target="_blank" class="btn btn-ghost" style="font-size:.72rem">Bekijk</a>
-                ${isTruncated ? `<button class="btn btn-yellow" style="font-size:.72rem;margin-left:.3rem" onclick="requeue('${b.slug}')">Regenereer</button>` : ''}
-              </td>
-            </tr>`;
-          }).join('')}
-        </tbody>
-      </table>`;
-  } catch(e) {
-    el.innerHTML = `<div class="loading" style="color:var(--red)">${e.message}</div>`;
-  }
+    document.getElementById('agent-runs').innerHTML=runs.length
+      ?runs.map(r=>`<div style="padding:.75rem 1.2rem;border-bottom:1px solid #f5f5f7">
+          <div style="display:flex;align-items:center;gap:.5rem;margin-bottom:.3rem">
+            <span class="badge ${r.status==='success'?'bg':'br'}">${r.status==='success'?'Geslaagd':'Geen queries'}</span>
+            <span style="font-size:.75rem;color:var(--tx3)">${fmt(r.timestamp)}</span>
+            <span class="badge bgr">${r.queries_found||0} queries</span>
+          </div>
+          ${r.blog?`<div style="font-size:.78rem;color:var(--tx2)"><a href="${r.blog.url}" target="_blank">${r.blog.title}</a> · SEO <strong>${r.blog.seo?.score||'?'}/100</strong> · score <strong>${r.blog.trending_score}</strong></div>`:''}
+          ${r.top_queries?.length?`<div style="font-size:.75rem;color:var(--tx3);margin-top:.2rem">${r.top_queries.slice(0,4).map(q=>`"${q.query}"(${q.score})`).join(' · ')}</div>`:''}
+        </div>`).join('')
+      :'<div class="empty">Nog geen runs</div>';
+  }catch(e){document.getElementById('agent-runs').innerHTML=`<div class="empty" style="color:var(--red)">${e.message}</div>`;}
 }
 
-// ── Queue tab ─────────────────────────────────────────────────────────────────
-
-let keywordsData = null;
-
-async function loadQueue() {
-  const el = document.getElementById('queue-table');
-  el.innerHTML = '<div class="loading">Laden...</div>';
-
-  try {
-    keywordsData = await fetchJSON('/keywords.json');
-    const queue = keywordsData.queue || [];
-    const pending = queue.filter(k => k.status === 'pending');
-    const published = keywordsData.published || [];
-
-    document.getElementById('queue-count').textContent = pending.length + ' pending';
-
-    if (!queue.length && !published.length) {
-      el.innerHTML = '<div class="loading">Queue is leeg</div>';
-      return;
-    }
-
-    el.innerHTML = `
-      <table>
-        <thead><tr><th>Keyword</th><th>Slug</th><th>Status</th><th>Prioriteit</th><th>Gepubliceerd</th></tr></thead>
-        <tbody>
-          ${[...pending, ...published.slice(0,10)].map(k => `
-            <tr>
-              <td>${k.keyword}</td>
-              <td style="color:var(--tx3);font-size:.75rem">${k.slug}</td>
-              <td>
-                <span class="badge ${k.status==='pending'?'b-yellow':k.status==='published'?'b-green':'b-gray'}">
-                  ${k.status}
-                </span>
-              </td>
-              <td style="color:var(--tx3)">${k.priority ?? '–'}</td>
-              <td style="color:var(--tx3);font-size:.75rem">${k.publishedDate || '–'}</td>
-            </tr>`).join('')}
-        </tbody>
-      </table>`;
-  } catch(e) {
-    el.innerHTML = `<div class="loading" style="color:var(--red)">${e.message}</div>`;
-  }
-
-  // Laad trending queries uit agent data
-  try {
-    const agentData = await fetchJSON('/app/blog/data.json');
-    const lastRun = (agentData.runs || [])[0];
-    const trendsEl = document.getElementById('trends-list');
-
-    if (lastRun?.top_queries?.length) {
-      trendsEl.innerHTML = lastRun.top_queries.map(q => `
-        <div class="trend-item">
-          <span class="trend-score">${q.score >= 5000 ? '🔥' : q.score}</span>
-          <span class="trend-query">${q.query}</span>
-          <span class="badge ${q.type==='rising'?'b-blue':'b-gray'}">${q.type==='rising'?'Trending':'Top'}</span>
-          <button class="btn btn-ghost trend-add" onclick="prefillKeyword('${q.query.replace(/'/g,'\\\'')}')" style="font-size:.72rem">+ Queue</button>
-        </div>`).join('');
-    } else {
-      trendsEl.innerHTML = '<div class="loading">Geen trending data (nog niet gedraaid)</div>';
-    }
-  } catch(_) {
-    document.getElementById('trends-list').innerHTML = '<div class="loading">Geen agent data</div>';
-  }
+// ── Traffic / Umami ───────────────────────────────────────────────────────────
+async function loadUmami(){
+  const token=document.getElementById('umami-token').value.trim();
+  if(!token){alert('Voer je Umami API token in');return;}
+  const el=document.getElementById('umami-stats');
+  el.innerHTML='<div class="empty">Laden...</div>';
+  const SITE_ID='9cb58ff4-cf6e-4773-8dd5-f2f0b6ad5510';
+  try{
+    const [stats,pages] = await Promise.all([
+      fetch(`https://cloud.umami.is/api/websites/${SITE_ID}/stats?startAt=${Date.now()-30*864e5}&endAt=${Date.now()}`,{headers:{'x-umami-api-key':token}}).then(r=>r.json()),
+      fetch(`https://cloud.umami.is/api/websites/${SITE_ID}/metrics?startAt=${Date.now()-30*864e5}&endAt=${Date.now()}&type=url&limit=10`,{headers:{'x-umami-api-key':token}}).then(r=>r.json())
+    ]);
+    el.innerHTML=`
+      <div class="kpi-grid" style="padding:1.2rem">
+        <div class="kpi"><div class="kpi-label">Bezoekers (30d)</div><div class="kpi-value">${stats.visitors?.value?.toLocaleString('nl-NL')||'–'}</div></div>
+        <div class="kpi"><div class="kpi-label">Paginaweergaven</div><div class="kpi-value">${stats.pageviews?.value?.toLocaleString('nl-NL')||'–'}</div></div>
+        <div class="kpi"><div class="kpi-label">Sessies</div><div class="kpi-value">${stats.sessions?.value?.toLocaleString('nl-NL')||'–'}</div></div>
+        <div class="kpi"><div class="kpi-label">Bouncepercentage</div><div class="kpi-value">${stats.bounces?.value!==undefined?Math.round(stats.bounces.value/(stats.sessions?.value||1)*100)+'%':'–'}</div></div>
+      </div>
+      <table><thead><tr><th>Pagina</th><th>Bezoeken</th></tr></thead>
+      <tbody>${Array.isArray(pages)?pages.map(p=>`<tr><td>${p.x}</td><td>${p.y?.toLocaleString('nl-NL')}</td></tr>`).join(''):'<tr><td colspan="2" style="text-align:center;color:var(--tx3)">Geen data</td></tr>'}</tbody></table>`;
+  }catch(e){el.innerHTML=`<div class="empty" style="color:var(--red)">Umami API fout: ${e.message}<br><small>Controleer het token en probeer opnieuw</small></div>`;}
 }
 
-function prefillKeyword(kw) {
-  document.getElementById('new-keyword').value = kw;
-  document.getElementById('new-slug').value = kw.toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'');
-  showTab('queue');
-  document.getElementById('new-keyword').focus();
-}
-
-async function addKeyword() {
-  const kw = document.getElementById('new-keyword').value.trim();
-  if (!kw) return alert('Voer een keyword in');
-  const slug = document.getElementById('new-slug').value.trim() ||
-    kw.toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'');
-
-  const msg = `Keyword toegevoegd aan queue:\n\n"${kw}" → ${slug}\n\nOm dit te publiceren:\n1. Voeg toe aan keywords.json in de GitHub repo\n2. Trigger de workflow handmatig`;
-  alert(msg);
-}
-
-async function requeue(slug) {
-  alert(`Blog "${slug}" markeren voor regeneratie:\n\n1. Open keywords.json in de GitHub repo\n2. Voeg toe aan queue:\n   { "keyword": "${slug.replace(/-/g,' ')}", "slug": "${slug}", "status": "pending", "priority": 1 }\n3. Trigger de blog-generator workflow`);
-}
-
-// ── Agent tab ─────────────────────────────────────────────────────────────────
-
-async function loadAgent() {
-  const el = document.getElementById('agent-runs');
-  el.innerHTML = '<div class="loading">Laden...</div>';
-
-  try {
-    const data = await fetchJSON('/app/blog/data.json');
-    const runs = data.runs || [];
-    const blogs = data.blogs || [];
-
-    const successful = runs.filter(r => r.status === 'success').length;
-    document.getElementById('agent-stats').innerHTML = `
-      <div class="stat-card"><div class="lbl">Totale runs</div><div class="val">${runs.length}</div><div class="sub">${successful} succesvol</div></div>
-      <div class="stat-card"><div class="lbl">Agent blogs</div><div class="val">${blogs.length}</div><div class="sub">gegenereerd via pytrends</div></div>
-      <div class="stat-card"><div class="lbl">Laatste run</div><div class="val" style="font-size:1rem;padding-top:.4rem">${runs[0] ? fmt(runs[0].timestamp) : '–'}</div><div class="sub">${runs[0]?.status||'–'}</div></div>
-    `;
-
-    if (!runs.length) {
-      el.innerHTML = '<div class="loading">Nog geen runs</div>';
-      return;
-    }
-
-    el.innerHTML = runs.map(r => `
-      <div class="run-item">
-        <div class="run-meta">
-          <span class="badge ${r.status==='success'?'b-green':'b-red'}">${r.status==='success'?'Geslaagd':'Geen queries'}</span>
-          <span class="run-time">${fmt(r.timestamp)}</span>
-          <span class="badge b-gray">${r.queries_found||0} queries</span>
-        </div>
-        ${r.blog ? `<div class="run-detail">
-          <a href="${r.blog.url}" target="_blank">${r.blog.title}</a>
-          · trending score <strong>${r.blog.trending_score}</strong>
-          · SEO <strong>${r.blog.seo?.score||'?'}/100</strong>
-        </div>` : ''}
-        ${r.top_queries?.length ? `<div class="run-detail" style="margin-top:.3rem;color:var(--tx3)">
-          Top queries: ${r.top_queries.slice(0,4).map(q=>`"${q.query}" (${q.score})`).join(', ')}
-        </div>` : ''}
-      </div>`).join('');
-  } catch(e) {
-    el.innerHTML = `<div class="loading" style="color:var(--red)">${e.message}</div>`;
-  }
-}
-
-// ── Actions tab ───────────────────────────────────────────────────────────────
-
-async function loadActions() {
-  const el = document.getElementById('actions-table');
-  el.innerHTML = '<div class="loading">GitHub Actions laden...</div>';
-
-  try {
-    const data = await fetchGHAPI('/actions/runs?per_page=15');
-    const runs = data.workflow_runs || [];
-
-    if (!runs.length) {
-      el.innerHTML = '<div class="loading">Geen runs gevonden</div>';
-      return;
-    }
-
-    el.innerHTML = `
-      <table>
-        <thead><tr><th>Workflow</th><th>Status</th><th>Branch</th><th>Getriggerd</th><th>Duur</th><th></th></tr></thead>
-        <tbody>
-          ${runs.map(r => {
-            const statusBadge = r.conclusion === 'success' ? 'b-green' :
-              r.conclusion === 'failure' ? 'b-red' :
-              r.status === 'in_progress' ? 'b-blue' : 'b-gray';
-            const statusText = r.conclusion || r.status;
-            const dur = r.updated_at && r.created_at
-              ? Math.round((new Date(r.updated_at) - new Date(r.created_at)) / 1000) + 's'
-              : '–';
-            return `<tr>
-              <td>${r.name || r.workflow_id}</td>
-              <td><span class="badge ${statusBadge}">${statusText}</span></td>
-              <td style="color:var(--tx3);font-size:.75rem">${r.head_branch}</td>
-              <td style="color:var(--tx3);font-size:.75rem">${fmt(r.created_at)}</td>
-              <td style="color:var(--tx3);font-size:.75rem">${dur}</td>
-              <td><a href="${r.html_url}" target="_blank" class="btn btn-ghost" style="font-size:.72rem">Logs</a></td>
-            </tr>`;
-          }).join('')}
-        </tbody>
-      </table>`;
-  } catch(e) {
-    el.innerHTML = `<div class="loading" style="color:var(--red)">GitHub API fout: ${e.message}</div>`;
-  }
+// ── Actions ───────────────────────────────────────────────────────────────────
+async function loadActions(){
+  document.getElementById('actions-table').innerHTML='<div class="empty">Laden...</div>';
+  try{
+    const d=await ghapi('/actions/runs?per_page=20');
+    const runs=d.workflow_runs||[];
+    document.getElementById('actions-table').innerHTML=`
+      <table><thead><tr><th>Workflow</th><th>Status</th><th>Branch</th><th>Gestart</th><th>Duur</th><th></th></tr></thead>
+      <tbody>${runs.map(r=>{
+        const cls=r.conclusion==='success'?'bg':r.conclusion==='failure'?'br':r.status==='in_progress'?'bb':'bgr';
+        const dur=r.updated_at&&r.created_at?Math.round((new Date(r.updated_at)-new Date(r.created_at))/1000)+'s':'–';
+        return`<tr><td>${r.name}</td><td><span class="badge ${cls}">${r.conclusion||r.status}</span></td><td class="mono" style="color:var(--tx3)">${r.head_branch}</td><td style="color:var(--tx3)">${fmt(r.created_at)}</td><td style="color:var(--tx3)">${dur}</td><td><a href="${r.html_url}" target="_blank" class="btn btn-ghost">Logs</a></td></tr>`;
+      }).join('')}</tbody></table>`;
+  }catch(e){document.getElementById('actions-table').innerHTML=`<div class="empty" style="color:var(--red)">${e.message}</div>`;}
 }
 
 // ── Init ──────────────────────────────────────────────────────────────────────
-
-function initApp() {
+function initApp(){
+  loadHome();
   loadBlogs();
   loadQueue();
   loadAgent();
