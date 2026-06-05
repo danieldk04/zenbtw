@@ -229,6 +229,14 @@
       #kw-input{min-width:0}
     }
 
+    /* ── Blog editor modal ── */
+    .edit-modal{position:fixed;inset:0;z-index:1000;display:none;flex-direction:column;background:var(--bg)}
+    .edit-modal.open{display:flex}
+    .edit-topbar{background:var(--wh);border-bottom:1px solid var(--br);padding:.75rem 1.2rem;display:flex;align-items:center;gap:.75rem;flex-wrap:wrap}
+    .edit-topbar h3{font-size:.9rem;font-weight:700;flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+    .edit-textarea{flex:1;width:100%;padding:1.2rem;font-family:monospace;font-size:.78rem;line-height:1.6;border:none;outline:none;resize:none;background:#1e1e2e;color:#cdd6f4;tab-size:2}
+    .edit-statusbar{background:var(--wh);border-top:1px solid var(--br);padding:.4rem 1.2rem;font-size:.72rem;color:var(--tx3);display:flex;gap:1rem}
+
     /* Desktop: mobiele topbar verbergen */
     @media(min-width:769px){
       .mob-topbar{display:none}
@@ -339,6 +347,16 @@
 
     <!-- ── BLOGS ── -->
     <div class="page" id="page-blogs">
+      <div class="card" style="margin-bottom:1.2rem">
+        <div class="card-head"><h3>🔑 GitHub token (voor bewerken)</h3><span class="badge bgr" id="gh-token-status">Niet ingesteld</span></div>
+        <div style="display:flex;gap:8px;align-items:center;padding:4px 0">
+          <input type="password" id="gh-token-input" placeholder="ghp_..." style="flex:1;padding:8px 12px;border:1px solid var(--br);border-radius:8px;font-size:13px;font-family:monospace">
+          <button class="btn btn-primary" onclick="saveGhToken()">Opslaan</button>
+        </div>
+        <div style="font-size:11.5px;color:var(--tx3);margin-top:6px">
+          Maak aan op <a href="https://github.com/settings/tokens/new?scopes=repo&description=ZenBTW+Admin" target="_blank">github.com → Settings → Tokens</a> — scope: <strong>repo</strong>. Alleen lokaal opgeslagen in je browser.
+        </div>
+      </div>
       <div class="kpi-grid" id="kpi-blogs"></div>
       <div class="card">
         <div class="card-head">
@@ -672,6 +690,21 @@
   </div><!-- /main -->
 </div><!-- /app -->
 
+<!-- ── Blog editor modal ── -->
+<div class="edit-modal" id="editModal">
+  <div class="edit-topbar">
+    <button class="btn btn-ghost" onclick="closeEditor()">← Terug</button>
+    <h3 id="edit-modal-title">Blog bewerken</h3>
+    <button class="btn btn-ghost" id="edit-preview-btn" onclick="previewBlog()">👁 Voorbeeld</button>
+    <button class="btn btn-primary" id="edit-save-btn" onclick="saveBlog()">💾 Opslaan</button>
+  </div>
+  <textarea class="edit-textarea" id="edit-textarea" spellcheck="false"></textarea>
+  <div class="edit-statusbar">
+    <span id="edit-status">Klaar</span>
+    <span id="edit-chars"></span>
+  </div>
+</div>
+
 <script>
 // ── Auth ──────────────────────────────────────────────────────────────────────
 // SHA-256 van wachtwoord. Wijzig: https://emn178.github.io/online-tools/sha256.html
@@ -824,7 +857,10 @@ async function loadBlogs(){
           <td><span class="badge bgr">${b.source}</span></td>
           <td style="color:${isTrunc?'var(--red)':'var(--tx3)'}">${(b.size/1024).toFixed(1)} KB</td>
           <td>${seo?`<span class="badge ${seoBadge(seo.score)}">${seo.score}/100</span><div class="seo-bar"><div class="seo-fill ${seoClass(seo.score)}" style="width:${seo.score}%"></div></div>`:'–'}</td>
-          <td><a href="${b.url}" target="_blank" class="btn btn-ghost">Bekijk</a></td>
+          <td style="display:flex;gap:.4rem;flex-wrap:wrap">
+            <a href="${b.url}" target="_blank" class="btn btn-ghost">Bekijk</a>
+            <button class="btn btn-ghost" onclick="editBlog('${b.path}','${b.url}')">✏️ Bewerk</button>
+          </td>
         </tr>`}).join('')}</tbody></table>`;
   }catch(e){document.getElementById('blogs-table').innerHTML=`<div class="empty" style="color:var(--red)">${e.message}</div>`;}
 }
@@ -1021,9 +1057,121 @@ function initApp(){
   loadAgent();
   loadActions();
   loadUmami();
-  // Herstel Brevo key placeholder als die al opgeslagen is
+  // Herstel Brevo key placeholder
   const bk = localStorage.getItem('zenbtw_brevo_key');
   if(bk){ const inp=document.getElementById('brevo-key-input'); if(inp) inp.placeholder=bk.slice(0,12)+'... (opgeslagen)'; }
+
+  // Herstel GitHub token status
+  updateGhTokenStatus();
+}
+
+// ── GitHub token ──────────────────────────────────────────────────────────────
+function saveGhToken(){
+  const val = document.getElementById('gh-token-input').value.trim();
+  if(!val){ alert('Voer een token in'); return; }
+  localStorage.setItem('zenbtw_gh_token', val);
+  document.getElementById('gh-token-input').value = '';
+  updateGhTokenStatus();
+}
+function updateGhTokenStatus(){
+  const el = document.getElementById('gh-token-status');
+  const inp = document.getElementById('gh-token-input');
+  if(!el) return;
+  const tok = localStorage.getItem('zenbtw_gh_token');
+  if(tok){
+    el.textContent = '✓ Ingesteld';
+    el.className = 'badge bg';
+    if(inp) inp.placeholder = tok.slice(0,12)+'... (opgeslagen)';
+  } else {
+    el.textContent = 'Niet ingesteld';
+    el.className = 'badge bgr';
+  }
+}
+
+// ── Blog editor ───────────────────────────────────────────────────────────────
+let _editPath = '', _editSha = '', _editLiveUrl = '';
+
+async function editBlog(filePath, liveUrl){
+  const tok = localStorage.getItem('zenbtw_gh_token');
+  if(!tok){ alert('Stel eerst een GitHub token in bovenaan de Blogs pagina.'); return; }
+
+  _editPath = filePath;
+  _editLiveUrl = liveUrl;
+
+  document.getElementById('edit-modal-title').textContent = filePath;
+  document.getElementById('edit-status').textContent = 'Ophalen...';
+  document.getElementById('edit-textarea').value = '';
+  document.getElementById('editModal').classList.add('open');
+  document.body.style.overflow = 'hidden';
+
+  try {
+    const res = await fetch(`https://api.github.com/repos/${REPO}/contents/${filePath}`, {
+      headers: { 'Authorization': `Bearer ${tok}`, 'Accept': 'application/vnd.github+json' }
+    });
+    if(!res.ok) throw new Error(`GitHub API: ${res.status}`);
+    const data = await res.json();
+    _editSha = data.sha;
+    const content = atob(data.content.replace(/\n/g,''));
+    document.getElementById('edit-textarea').value = content;
+    document.getElementById('edit-status').textContent = 'Geladen — maak wijzigingen en klik Opslaan';
+    updateCharCount();
+  } catch(e){
+    document.getElementById('edit-status').textContent = '❌ ' + e.message;
+  }
+}
+
+function updateCharCount(){
+  const ta = document.getElementById('edit-textarea');
+  const words = ta.value.trim().split(/\s+/).filter(Boolean).length;
+  document.getElementById('edit-chars').textContent = `${ta.value.length} tekens · ~${words} woorden`;
+}
+document.addEventListener('DOMContentLoaded', ()=>{
+  document.getElementById('edit-textarea')?.addEventListener('input', updateCharCount);
+});
+
+async function saveBlog(){
+  const tok = localStorage.getItem('zenbtw_gh_token');
+  if(!tok){ alert('Geen GitHub token ingesteld.'); return; }
+  const content = document.getElementById('edit-textarea').value;
+  if(!content){ alert('Inhoud mag niet leeg zijn.'); return; }
+
+  const btn = document.getElementById('edit-save-btn');
+  btn.textContent = 'Opslaan...'; btn.disabled = true;
+  document.getElementById('edit-status').textContent = 'Opslaan naar GitHub...';
+
+  try {
+    const encoded = btoa(unescape(encodeURIComponent(content)));
+    const res = await fetch(`https://api.github.com/repos/${REPO}/contents/${_editPath}`, {
+      method: 'PUT',
+      headers: {
+        'Authorization': `Bearer ${tok}`,
+        'Accept': 'application/vnd.github+json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        message: `update blog: ${_editPath}`,
+        content: encoded,
+        sha: _editSha
+      })
+    });
+    if(!res.ok){ const e=await res.json(); throw new Error(e.message||res.status); }
+    const data = await res.json();
+    _editSha = data.content.sha;
+    document.getElementById('edit-status').textContent = '✅ Opgeslagen — live over ~1 minuut via GitHub Pages';
+  } catch(e){
+    document.getElementById('edit-status').textContent = '❌ Fout: ' + e.message;
+  } finally {
+    btn.textContent = '💾 Opslaan'; btn.disabled = false;
+  }
+}
+
+function previewBlog(){
+  if(_editLiveUrl) window.open(_editLiveUrl, '_blank');
+}
+
+function closeEditor(){
+  document.getElementById('editModal').classList.remove('open');
+  document.body.style.overflow = '';
 }
 </script>
 </body>

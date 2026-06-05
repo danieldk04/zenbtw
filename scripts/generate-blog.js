@@ -39,8 +39,28 @@ function nextPending(data) {
     .sort((a, b) => a.priority - b.priority)[0] || null;
 }
 
+// ── Bestaande blogs ophalen voor internal linking ─────────────────────────────
+function getExistingBlogs() {
+  try {
+    return fs.readdirSync(BLOG_DIR)
+      .filter(f => f.endsWith('.html') && f !== 'index.html')
+      .map(f => {
+        const slug = f.replace('.html', '');
+        const content = fs.readFileSync(path.join(BLOG_DIR, f), 'utf8');
+        const h1 = content.match(/<h1[^>]*>([^<]+)<\/h1>/)?.[1]?.trim() || slug;
+        return { slug, title: h1, url: `${slug}.html` };
+      });
+  } catch {
+    return [];
+  }
+}
+
 // ── Claude prompt ─────────────────────────────────────────────────────────────
-function buildPrompt(keyword, slug) {
+function buildPrompt(keyword, slug, existingBlogs = []) {
+  const blogList = existingBlogs.length
+    ? existingBlogs.map(b => `  - "${b.title}" → ${b.url}`).join('\n')
+    : '  (nog geen andere blogs)';
+
   return `Je bent een Nederlandse ondernemer die zelf jarenlang marketplace-verkoper is geweest (Etsy, Shopify, Vinted) en nu schrijft over BTW en belastingen vanuit eigen ervaring. Je schrijft voor ZenBTW (https://zenbtw.nl). Je toon is direct, eerlijk en menselijk — alsof je het uitlegt aan een vriend die er niks van weet.
 
 Schrijf een VOLLEDIG HTML blog artikel voor het keyword: "${keyword}"
@@ -171,7 +191,11 @@ SEO REGELS:
 - Vermeldt ZenBTW als oplossing in de tekst (niet alleen in de CTA), maar niet opdringerig
 - Vermijd juridisch absolute claims — gebruik "over het algemeen", "in de meeste gevallen"
 - Disclaimer altijd in footer: "Geen belastingadvies"
-- Gerelateerde interne links naar bestaande artikelen: etsy-btw-2026.html, vinted-belasting-2026.html, kor-drempel-overschreden.html, oss-aangifte-nederland.html, shopify-btw-nederland-2026.html
+- Voeg 2-3 interne links toe naar bestaande artikelen die INHOUDELIJK relevant zijn voor dit artikel. Kies alleen uit onderstaande lijst — link NIET naar het huidige artikel (slug: ${slug}):
+${blogList}
+- Gebruik voor elke link: <p><a href="[url]" style="color:var(--acm);font-weight:600">→ Lees ook: [titel]</a></p>
+- Plaats de links aan het einde van het artikel, vóór de .cta-box
+- Niet alle blogs zijn altijd relevant — forceer geen links als er geen goede match is
 
 LEESTIJD:
 - Bereken de leestijd op basis van de tekstlengte (gemiddeld 200 woorden per minuut)
@@ -445,6 +469,9 @@ async function main() {
 
   console.log(`\n🔍 Processing keyword: "${item.keyword}" → ${item.slug}.html`);
 
+  const existingBlogs = getExistingBlogs().filter(b => b.slug !== item.slug);
+  console.log(`  Found ${existingBlogs.length} existing blogs for internal linking`);
+
   // ── 1. Generate with Claude ────────────────────────────────────────────────
   console.log('  Calling Claude API...');
   const client = new Anthropic();
@@ -454,7 +481,7 @@ async function main() {
     messages: [
       {
         role: 'user',
-        content: buildPrompt(item.keyword, item.slug)
+        content: buildPrompt(item.keyword, item.slug, existingBlogs)
       }
     ]
   });
