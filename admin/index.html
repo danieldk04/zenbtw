@@ -157,7 +157,81 @@
     a{color:var(--acm);text-decoration:none}a:hover{text-decoration:underline}
     .mono{font-family:monospace;font-size:.8rem}
 
-    @media(max-width:768px){.sidebar{display:none}.do-dont{grid-template-columns:1fr}}
+    /* ══ MOBIEL ══ */
+    @media(max-width:768px){
+      /* Sidebar als overlay drawer */
+      .sidebar{
+        position:fixed;top:0;left:0;bottom:0;
+        z-index:300;
+        transform:translateX(-100%);
+        transition:transform .28s cubic-bezier(.16,1,.3,1);
+        display:flex!important;
+        min-height:100vh
+      }
+      .sidebar.open{transform:translateX(0)}
+      .sidebar-overlay{
+        position:fixed;inset:0;z-index:299;
+        background:rgba(0,0,0,.5);
+        display:none;opacity:0;transition:opacity .28s
+      }
+      .sidebar-overlay.open{display:block;opacity:1}
+
+      /* Mobiele topbar */
+      .mob-topbar{
+        display:flex;align-items:center;justify-content:space-between;
+        padding:.7rem 1rem;
+        background:var(--wh);
+        border-bottom:1px solid var(--br);
+        position:sticky;top:0;z-index:200
+      }
+      .mob-topbar-title{font-weight:700;font-size:.9rem;color:var(--tx)}
+      .mob-hamburger{
+        display:flex;flex-direction:column;justify-content:center;align-items:center;gap:4px;
+        width:38px;height:38px;background:none;border:none;cursor:pointer;border-radius:8px
+      }
+      .mob-hamburger .hb{width:18px;height:2px;background:var(--tx2);border-radius:2px;transition:all .22s cubic-bezier(.16,1,.3,1);transform-origin:center}
+      .mob-hamburger.open .hb:nth-child(1){transform:translateY(6px) rotate(45deg)}
+      .mob-hamburger.open .hb:nth-child(2){opacity:0;transform:scaleX(0)}
+      .mob-hamburger.open .hb:nth-child(3){transform:translateY(-6px) rotate(-45deg)}
+
+      /* Verberg desktop topbar op mobiel */
+      .topbar{display:none}
+
+      /* Layout */
+      #app{flex-direction:column}
+      .main{min-width:0}
+      .page{padding:1rem}
+
+      /* Grids */
+      .kpi-grid{grid-template-columns:repeat(2,1fr)}
+      #page-home > div[style*="grid-template-columns:1fr 1fr"],
+      #page-agent > div[style*="grid-template-columns:1fr 1fr"]{
+        display:flex!important;flex-direction:column;gap:1rem
+      }
+
+      /* Tabellen scrollbaar */
+      .card > table,.card > div > table{display:block;overflow-x:auto;-webkit-overflow-scrolling:touch}
+
+      /* Info rows */
+      .info-label{width:120px;font-size:.78rem}
+      .info-value{font-size:.78rem}
+
+      /* Topbar actions */
+      .topbar-actions .btn span{display:none}
+
+      /* Do/dont */
+      .do-dont{grid-template-columns:1fr}
+
+      /* Login card */
+      .login-card{width:calc(100vw - 2rem);max-width:360px}
+
+      /* Queue input */
+      #kw-input{min-width:0}
+    }
+
+    /* Desktop: mobiele topbar verbergen */
+    .mob-topbar{display:none}
+    .sidebar-overlay{display:none}
   </style>
 </head>
 <body>
@@ -182,6 +256,16 @@
 
 <!-- ── App ── -->
 <div id="app">
+
+  <!-- Mobiele topbar -->
+  <div class="mob-topbar">
+    <button class="mob-hamburger" id="mobHamburger" onclick="toggleSidebar()" aria-label="Menu">
+      <span class="hb"></span><span class="hb"></span><span class="hb"></span>
+    </button>
+    <span class="mob-topbar-title" id="mob-topbar-title">Overzicht</span>
+    <a href="https://zenbtw.nl" target="_blank" class="btn btn-ghost" style="padding:.35rem .7rem;font-size:.75rem">🌐</a>
+  </div>
+  <div class="sidebar-overlay" id="sidebarOverlay" onclick="closeSidebar()"></div>
 
   <!-- Sidebar -->
   <aside class="sidebar">
@@ -628,9 +712,29 @@ function go(name){
   document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
   document.getElementById('page-'+name).classList.add('active');
   document.getElementById('nav-'+name).classList.add('active');
-  document.getElementById('topbar-title').textContent = PAGE_TITLES[name];
+  const title = PAGE_TITLES[name];
+  document.getElementById('topbar-title').textContent = title;
+  document.getElementById('mob-topbar-title').textContent = title;
   if(name==='traffic') loadUmami();
   if(name==='contacts') loadContacts();
+  closeSidebar();
+}
+
+function toggleSidebar(){
+  const s=document.querySelector('.sidebar'), o=document.getElementById('sidebarOverlay'), b=document.getElementById('mobHamburger');
+  const open=s.classList.toggle('open');
+  if(open){o.style.display='block';setTimeout(()=>o.classList.add('open'),10);}
+  else{o.classList.remove('open');setTimeout(()=>o.style.display='none',280);}
+  b.classList.toggle('open',open);
+  document.body.style.overflow=open?'hidden':'';
+}
+function closeSidebar(){
+  const s=document.querySelector('.sidebar'), o=document.getElementById('sidebarOverlay'), b=document.getElementById('mobHamburger');
+  s.classList.remove('open');
+  o.classList.remove('open');
+  setTimeout(()=>o.style.display='none',280);
+  b.classList.remove('open');
+  document.body.style.overflow='';
 }
 
 // ── Data helpers ──────────────────────────────────────────────────────────────
