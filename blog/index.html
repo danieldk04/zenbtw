@@ -73,19 +73,19 @@ footer a{color:var(--tx3);text-decoration:none;margin:0 8px}
 </head>
 <body>
 <nav>
-  <a href="../index.html" class="nav-logo">
+  <a href="/" class="nav-logo">
     <img src="../logo.webp" alt="ZenBTW Logo" class="nav-logo-img" width="52" height="52">
     <span class="nav-wordmark">Zen<em>BTW</em></span>
   </a>
   <div class="nav-links">
     <a href="../index.html#functies" class="nav-link">Functies</a>
     <a href="../index.html#stappen" class="nav-link">Hoe werkt het</a>
-    <a href="index.html" class="nav-link active">Blog</a>
+    <a href="./" class="nav-link active">Blog</a>
     <a href="../index.html#prijzen" class="nav-link">Prijzen</a>
     <a href="../index.html#wachtlijst" class="nav-link">PRO</a>
     <a href="../index.html#faq" class="nav-link">FAQ</a>
   </div>
-  <a href="../app.html" class="nav-cta">Check mijn status <span style="transition:transform .2s;font-size:17px">→</span></a>
+  <a href="/app" class="nav-cta">Check mijn status <span style="transition:transform .2s;font-size:17px">→</span></a>
   <button class="nav-hamburger" id="navHamburger" onclick="toggleMobNav()" aria-label="Menu openen" aria-expanded="false">
     <span class="hb"></span><span class="hb"></span><span class="hb"></span>
   </button>
@@ -93,7 +93,7 @@ footer a{color:var(--tx3);text-decoration:none;margin:0 8px}
 <div class="mob-nav-overlay" id="mobNavOverlay" onclick="closeMobNav()"></div>
 <div class="mob-nav-drawer" id="mobNavDrawer">
   <div class="mob-nav-hd">
-    <a href="../index.html" class="nav-logo" onclick="closeMobNav()">
+    <a href="/" class="nav-logo" onclick="closeMobNav()">
       <img src="../logo.webp" alt="ZenBTW" style="height:36px;width:auto;">
       <span class="nav-wordmark">Zen<em>BTW</em></span>
     </a>
@@ -102,12 +102,12 @@ footer a{color:var(--tx3);text-decoration:none;margin:0 8px}
   <div class="mob-nav-links">
     <a href="../index.html#functies" class="mob-nav-link" onclick="closeMobNav()">Functies</a>
     <a href="../index.html#stappen" class="mob-nav-link" onclick="closeMobNav()">Hoe werkt het</a>
-    <a href="index.html" class="mob-nav-link active" onclick="closeMobNav()">Blog</a>
+    <a href="./" class="mob-nav-link active" onclick="closeMobNav()">Blog</a>
     <a href="../index.html#prijzen" class="mob-nav-link" onclick="closeMobNav()">Prijzen</a>
     <a href="../index.html#wachtlijst" class="mob-nav-link" onclick="closeMobNav()">PRO</a>
     <a href="../index.html#faq" class="mob-nav-link" onclick="closeMobNav()">FAQ</a>
   </div>
-  <a href="../app.html" class="mob-nav-cta">Check mijn status →</a>
+  <a href="/app" class="mob-nav-cta">Check mijn status →</a>
 </div>
 <script>
 function toggleMobNav(){var d=document.getElementById('mobNavDrawer'),o=document.getElementById('mobNavOverlay'),b=document.getElementById('navHamburger'),open=d.classList.toggle('on');o.style.display='block';setTimeout(function(){if(open)o.classList.add('on');},10);if(!open)closeMobNav();b.classList.toggle('open',open);b.setAttribute('aria-expanded',open);document.body.style.overflow=open?'hidden':'';}
@@ -124,7 +124,7 @@ function closeMobNav(){var d=document.getElementById('mobNavDrawer'),o=document.
   <div class="section-label">Alle artikelen</div>
   <div class="grid">
 
-    <a href="etsy-btw-2026.html" class="card">
+    <a href="etsy-btw-2026" class="card">
       <div class="card-body">
         <span class="card-tag">Etsy</span>
         <h2>Etsy BTW 2026: wanneer moet je BTW betalen als verkoper?</h2>
@@ -136,7 +136,7 @@ function closeMobNav(){var d=document.getElementById('mobNavDrawer'),o=document.
       </div>
     </a>
 
-    <a href="vinted-belasting-2026.html" class="card">
+    <a href="vinted-belasting-2026" class="card">
       <div class="card-body">
         <span class="card-tag">Vinted</span>
         <h2>Vinted belasting 2026: moet je BTW betalen over je verkopen?</h2>
@@ -148,7 +148,7 @@ function closeMobNav(){var d=document.getElementById('mobNavDrawer'),o=document.
       </div>
     </a>
 
-    <a href="kor-drempel-overschreden.html" class="card">
+    <a href="kor-drempel-overschreden" class="card">
       <div class="card-body">
         <span class="card-tag">KOR · OSS</span>
         <h2>KOR-drempel overschreden: wat moet je nu doen?</h2>
@@ -160,7 +160,7 @@ function closeMobNav(){var d=document.getElementById('mobNavDrawer'),o=document.
       </div>
     </a>
 
-    <a href="oss-aangifte-nederland.html" class="card">
+    <a href="oss-aangifte-nederland" class="card">
       <div class="card-body">
         <span class="card-tag">OSS · Aangifte</span>
         <h2>OSS-aangifte Nederland: complete stap-voor-stap gids voor 2026</h2>
@@ -172,7 +172,7 @@ function closeMobNav(){var d=document.getElementById('mobNavDrawer'),o=document.
       </div>
     </a>
 
-    <a href="shopify-btw-nederland-2026.html" class="card">
+    <a href="shopify-btw-nederland-2026" class="card">
       <div class="card-body">
         <span class="card-tag">Shopify</span>
         <h2>Shopify BTW Nederland 2026: Alles Wat Je Moet Weten</h2>
@@ -185,7 +185,7 @@ function closeMobNav(){var d=document.getElementById('mobNavDrawer'),o=document.
     </a>
 
   
-    <a href="oss-registratie-belastingdienst.html" class="card">
+    <a href="oss-registratie-belastingdienst" class="card">
       <div class="card-body">
         <span class="card-tag">BTW & Registratie</span>
         <h2>OSS Registratie Belastingdienst: Het Complete Stappenplan</h2>
@@ -198,7 +198,7 @@ function closeMobNav(){var d=document.getElementById('mobNavDrawer'),o=document.
     </a>
 
   
-    <a href="etsy-verkoper-belastingaangifte.html" class="card">
+    <a href="etsy-verkoper-belastingaangifte" class="card">
       <div class="card-body">
         <span class="card-tag">Etsy</span>
         <h2>Etsy Verkoper Belastingaangifte Nederland: Alles Wat Je Moet Weten</h2>
@@ -211,7 +211,7 @@ function closeMobNav(){var d=document.getElementById('mobNavDrawer'),o=document.
     </a>
 
   
-    <a href="kor-vrijstelling-2026.html" class="card">
+    <a href="kor-vrijstelling-2026" class="card">
       <div class="card-body">
         <span class="card-tag">BTW Tips</span>
         <h2>KOR Vrijstelling 2026 Voorwaarden: Wat Je Echt Moet Weten</h2>
@@ -224,7 +224,7 @@ function closeMobNav(){var d=document.getElementById('mobNavDrawer'),o=document.
     </a>
 
   
-    <a href="marketplace-verkoper-btw-aangifte.html" class="card">
+    <a href="marketplace-verkoper-btw-aangifte" class="card">
       <div class="card-body">
         <span class="card-tag">BTW Tips</span>
         <h2>Marketplace Verkoper BTW Aangifte: Hoe Werkt Dat Nou Eigenlijk?</h2>
@@ -237,7 +237,7 @@ function closeMobNav(){var d=document.getElementById('mobNavDrawer'),o=document.
     </a>
 
   
-    <a href="dac7-belastingdienst-rapportage.html" class="card">
+    <a href="dac7-belastingdienst-rapportage" class="card">
       <div class="card-body">
         <span class="card-tag">Belastingen</span>
         <h2>DAC7 Belastingdienst Rapportage 2026: Wat Verandert Er Voor Jou?</h2>
@@ -250,7 +250,7 @@ function closeMobNav(){var d=document.getElementById('mobNavDrawer'),o=document.
     </a>
 
   
-    <a href="vinted-ondernemer-btw-registratie.html" class="card">
+    <a href="vinted-ondernemer-btw-registratie" class="card">
       <div class="card-body">
         <span class="card-tag">Vinted</span>
         <h2>Vinted Ondernemer BTW Registratie: Wanneer Moet Je in Actie Komen?</h2>
@@ -263,7 +263,7 @@ function closeMobNav(){var d=document.getElementById('mobNavDrawer'),o=document.
     </a>
 
   
-    <a href="btw-tarief-eu-landen-2026.html" class="card">
+    <a href="btw-tarief-eu-landen-2026" class="card">
       <div class="card-body">
         <span class="card-tag">BTW EU</span>
         <h2>BTW Tarief EU Landen Overzicht 2026: Alle Percentages op een Rij</h2>
@@ -276,7 +276,7 @@ function closeMobNav(){var d=document.getElementById('mobNavDrawer'),o=document.
     </a>
 
   
-    <a href="shopify-dropshipping-btw.html" class="card">
+    <a href="shopify-dropshipping-btw" class="card">
       <div class="card-body">
         <span class="card-tag">Shopify</span>
         <h2>Shopify Dropshipping BTW Nederland: Wat Je Écht Moet Weten</h2>
@@ -295,15 +295,15 @@ function closeMobNav(){var d=document.getElementById('mobNavDrawer'),o=document.
       <h3>Bereken gratis je KOR-status</h3>
       <p>Upload je Etsy, Shopify of Vinted export en zie in 10 seconden of je actie moet ondernemen.</p>
     </div>
-    <a href="../app.html">📊 Open gratis dashboard →</a>
+    <a href="/app">📊 Open gratis dashboard →</a>
   </div>
 </div>
 
 <footer>
-  <a href="../index.html">Home</a>
-  <a href="../app.html">Dashboard</a>
-  <a href="../privacy.html">Privacy</a>
-  <a href="index.html">Blog</a>
+  <a href="/">Home</a>
+  <a href="/app">Dashboard</a>
+  <a href="/privacy">Privacy</a>
+  <a href="./">Blog</a>
   <br><br>© 2026 ZenBTW
 </footer>
 </body>

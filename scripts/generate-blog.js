@@ -48,7 +48,7 @@ function getExistingBlogs() {
         const slug = f.replace('.html', '');
         const content = fs.readFileSync(path.join(BLOG_DIR, f), 'utf8');
         const h1 = content.match(/<h1[^>]*>([^<]+)<\/h1>/)?.[1]?.trim() || slug;
-        return { slug, title: h1, url: `${slug}.html` };
+        return { slug, title: h1, url: slug };
       });
   } catch {
     return [];
@@ -80,11 +80,11 @@ HTML STRUCTUUR (gebruik EXACT dit format, vervang ALLEEN de content):
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>[SEO TITLE 55-60 tekens met keyword] | ZenBTW</title>
 <meta name="description" content="[Meta description 140-155 tekens, bevat keyword, prikkelend]">
-<link rel="canonical" href="https://zenbtw.nl/blog/${slug}.html">
+<link rel="canonical" href="https://zenbtw.nl/blog/${slug}">
 <meta property="og:type" content="article">
 <meta property="og:title" content="[ZELFDE ALS TITLE TAG, zonder '| ZenBTW']">
 <meta property="og:description" content="[ZELFDE ALS META DESCRIPTION]">
-<meta property="og:url" content="https://zenbtw.nl/blog/${slug}.html">
+<meta property="og:url" content="https://zenbtw.nl/blog/${slug}">
 <meta property="og:site_name" content="ZenBTW">
 <meta property="og:image" content="https://zenbtw.nl/og-blog.png">
 <meta name="twitter:card" content="summary_large_image">
@@ -222,7 +222,7 @@ function cleanHtml(raw) {
 
 // ── Sitemap updater ────────────────────────────────────────────────────────────
 function updateSitemap(slug) {
-  const url = `https://zenbtw.nl/blog/${slug}.html`;
+  const url = `https://zenbtw.nl/blog/${slug}`;
   let xml = fs.readFileSync(SITEMAP_FILE, 'utf8');
 
   // Don't add duplicate
@@ -293,7 +293,7 @@ async function submitToGoogleIndexing(slug) {
 
   try {
     const key = JSON.parse(keyJson);
-    const url = `https://zenbtw.nl/blog/${slug}.html`;
+    const url = `https://zenbtw.nl/blog/${slug}`;
 
     // Build JWT for Google OAuth
     const now = Math.floor(Date.now() / 1000);
@@ -372,7 +372,7 @@ async function postToReddit(keyword, slug, description) {
     });
     const { access_token } = await tokenRes.json();
 
-    const postUrl = `https://zenbtw.nl/blog/${slug}.html`;
+    const postUrl = `https://zenbtw.nl/blog/${slug}`;
     const subreddits = ['r/DutchFIRE', 'r/financialindependence', 'r/Netherlands', 'r/Ondernemen'];
 
     // Post to the first subreddit (rotate based on day to avoid spam)
@@ -435,7 +435,7 @@ async function postToMedium(title, slug, htmlContent) {
         title,
         contentFormat: 'html',
         content: articleHtml,
-        canonicalUrl: `https://zenbtw.nl/blog/${slug}.html`,
+        canonicalUrl: `https://zenbtw.nl/blog/${slug}`,
         publishStatus: 'public',
         tags: ['BTW', 'Belasting', 'E-commerce', 'Nederland', 'Ondernemen']
       })
