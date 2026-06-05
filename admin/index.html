@@ -786,7 +786,7 @@ async function loadAgent(){
 }
 
 // ── Traffic / Umami ───────────────────────────────────────────────────────────
-const UMAMI_TOKEN = 'REMOVED';
+const UMAMI_TOKEN = localStorage.getItem('zenbtw_umami_token') || '';
 
 // ── Contacten (Brevo lijst #3) ────────────────────────────────────────────────
 const BREVO_DEFAULT = 'REMOVED';
