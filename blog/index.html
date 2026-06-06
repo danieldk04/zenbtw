@@ -35,6 +35,25 @@ nav{position:sticky;top:0;z-index:500;height:72px;background:rgba(247,246,243,.9
 .nav-cta{display:inline-flex;align-items:center;gap:8px;padding:12px 26px;background:var(--ac);color:#fff;border-radius:10px;font-size:15px;font-weight:800;letter-spacing:-.1px;transition:all .2s;flex-shrink:0;box-shadow:0 4px 16px rgba(26,71,49,.35);text-decoration:none}
 .nav-cta:hover{background:var(--acm);transform:translateY(-2px);box-shadow:0 8px 28px rgba(26,71,49,.45)}
 @media(max-width:700px){.nav-links{display:none}}
+.nav-hamburger{display:none;flex-direction:column;justify-content:center;align-items:center;gap:5px;width:42px;height:42px;background:none;border:none;cursor:pointer;border-radius:10px;transition:background .15s;flex-shrink:0}
+.nav-hamburger:hover{background:var(--acl)}
+.nav-hamburger .hb{width:20px;height:2px;background:var(--tx2);border-radius:2px;transition:all .25s cubic-bezier(.16,1,.3,1);transform-origin:center}
+.nav-hamburger.open .hb:nth-child(1){transform:translateY(7px) rotate(45deg)}
+.nav-hamburger.open .hb:nth-child(2){opacity:0;transform:scaleX(0)}
+.nav-hamburger.open .hb:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+.mob-nav-overlay{position:fixed;inset:0;z-index:600;background:rgba(0,0,0,.45);backdrop-filter:blur(2px);-webkit-backdrop-filter:blur(2px);display:none;opacity:0;transition:opacity .3s}
+.mob-nav-overlay.on{display:block;opacity:1}
+.mob-nav-drawer{position:fixed;top:0;right:0;bottom:0;width:min(300px,85vw);background:#fff;z-index:700;transform:translateX(100%);transition:transform .3s cubic-bezier(.16,1,.3,1);display:flex;flex-direction:column;overflow-y:auto}
+.mob-nav-drawer.on{transform:translateX(0)}
+.mob-nav-hd{display:flex;align-items:center;justify-content:space-between;padding:16px 18px;border-bottom:1.5px solid var(--br)}
+.mob-nav-close{background:none;border:none;cursor:pointer;font-size:18px;color:var(--tx2);width:36px;height:36px;display:flex;align-items:center;justify-content:center;border-radius:8px;transition:background .15s}
+.mob-nav-close:hover{background:var(--s2,#f4f3ef)}
+.mob-nav-links{display:flex;flex-direction:column;padding:12px 0;flex:1}
+.mob-nav-link{padding:14px 22px;font-size:15px;font-weight:700;color:var(--tx2);border-left:3px solid transparent;text-decoration:none;transition:all .14s;display:block}
+.mob-nav-link:hover,.mob-nav-link.active{color:var(--ac);background:var(--acl);border-left-color:var(--ac)}
+.mob-nav-cta{display:flex;align-items:center;justify-content:center;margin:0 18px 28px;padding:14px 24px;background:var(--ac);color:#fff;border-radius:10px;font-size:15px;font-weight:800;box-shadow:0 4px 16px rgba(26,71,49,.35);text-decoration:none;transition:all .2s}
+.mob-nav-cta:hover{background:var(--acm)}
+@media(max-width:700px){.nav-hamburger{display:flex}.nav-cta{display:none}}
 .hero{background:var(--ac);padding:clamp(56px,8vw,96px) clamp(24px,5vw,80px);text-align:center}
 .hero-label{display:inline-block;background:rgba(255,255,255,.15);color:rgba(255,255,255,.9);font-size:11.5px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;padding:5px 14px;border-radius:20px;margin-bottom:18px}
 .hero h1{font-family:'Fraunces',serif;font-size:clamp(28px,4.5vw,44px);font-weight:700;color:#fff;letter-spacing:-.02em;line-height:1.2;margin-bottom:14px}
@@ -62,20 +81,46 @@ footer a{color:var(--tx3);text-decoration:none;margin:0 8px}
 </head>
 <body>
 <nav>
-  <a href="../index.html" class="nav-logo">
+  <a href="/" class="nav-logo">
     <img src="../logo.webp" alt="ZenBTW Logo" class="nav-logo-img" width="52" height="52">
     <span class="nav-wordmark">Zen<em>BTW</em></span>
   </a>
   <div class="nav-links">
     <a href="../index.html#functies" class="nav-link">Functies</a>
     <a href="../index.html#stappen" class="nav-link">Hoe werkt het</a>
-    <a href="index.html" class="nav-link active">Blog</a>
+    <a href="./" class="nav-link active">Blog</a>
     <a href="../index.html#prijzen" class="nav-link">Prijzen</a>
     <a href="../index.html#wachtlijst" class="nav-link">PRO</a>
     <a href="../index.html#faq" class="nav-link">FAQ</a>
   </div>
-  <a href="../app.html" class="nav-cta">Check mijn status <span style="transition:transform .2s;font-size:17px">→</span></a>
+  <a href="/app" class="nav-cta">Check mijn status <span style="transition:transform .2s;font-size:17px">→</span></a>
+  <button class="nav-hamburger" id="navHamburger" onclick="toggleMobNav()" aria-label="Menu openen" aria-expanded="false">
+    <span class="hb"></span><span class="hb"></span><span class="hb"></span>
+  </button>
 </nav>
+<div class="mob-nav-overlay" id="mobNavOverlay" onclick="closeMobNav()"></div>
+<div class="mob-nav-drawer" id="mobNavDrawer">
+  <div class="mob-nav-hd">
+    <a href="/" class="nav-logo" onclick="closeMobNav()">
+      <img src="../logo.webp" alt="ZenBTW" style="height:36px;width:auto;">
+      <span class="nav-wordmark">Zen<em>BTW</em></span>
+    </a>
+    <button class="mob-nav-close" onclick="closeMobNav()" aria-label="Sluiten">✕</button>
+  </div>
+  <div class="mob-nav-links">
+    <a href="../index.html#functies" class="mob-nav-link" onclick="closeMobNav()">Functies</a>
+    <a href="../index.html#stappen" class="mob-nav-link" onclick="closeMobNav()">Hoe werkt het</a>
+    <a href="./" class="mob-nav-link active" onclick="closeMobNav()">Blog</a>
+    <a href="../index.html#prijzen" class="mob-nav-link" onclick="closeMobNav()">Prijzen</a>
+    <a href="../index.html#wachtlijst" class="mob-nav-link" onclick="closeMobNav()">PRO</a>
+    <a href="../index.html#faq" class="mob-nav-link" onclick="closeMobNav()">FAQ</a>
+  </div>
+  <a href="/app" class="mob-nav-cta">Check mijn status →</a>
+</div>
+<script>
+function toggleMobNav(){var d=document.getElementById('mobNavDrawer'),o=document.getElementById('mobNavOverlay'),b=document.getElementById('navHamburger'),open=d.classList.toggle('on');o.style.display='block';setTimeout(function(){if(open)o.classList.add('on');},10);if(!open)closeMobNav();b.classList.toggle('open',open);b.setAttribute('aria-expanded',open);document.body.style.overflow=open?'hidden':'';}
+function closeMobNav(){var d=document.getElementById('mobNavDrawer'),o=document.getElementById('mobNavOverlay'),b=document.getElementById('navHamburger');d.classList.remove('on');o.classList.remove('on');setTimeout(function(){o.style.display='none';},300);b.classList.remove('open');b.setAttribute('aria-expanded','false');document.body.style.overflow='';}
+</script>
 
 <div class="hero">
   <div class="hero-label">📚 Kennisbank</div>
@@ -87,7 +132,7 @@ footer a{color:var(--tx3);text-decoration:none;margin:0 8px}
   <div class="section-label">Alle artikelen</div>
   <div class="grid">
 
-    <a href="etsy-btw-2026.html" class="card">
+    <a href="etsy-btw-2026" class="card">
       <div class="card-body">
         <span class="card-tag">Etsy</span>
         <h2>Etsy BTW 2026: wanneer moet je BTW betalen als verkoper?</h2>
@@ -99,7 +144,7 @@ footer a{color:var(--tx3);text-decoration:none;margin:0 8px}
       </div>
     </a>
 
-    <a href="vinted-belasting-2026.html" class="card">
+    <a href="vinted-belasting-2026" class="card">
       <div class="card-body">
         <span class="card-tag">Vinted</span>
         <h2>Vinted belasting 2026: moet je BTW betalen over je verkopen?</h2>
@@ -111,7 +156,7 @@ footer a{color:var(--tx3);text-decoration:none;margin:0 8px}
       </div>
     </a>
 
-    <a href="kor-drempel-overschreden.html" class="card">
+    <a href="kor-drempel-overschreden" class="card">
       <div class="card-body">
         <span class="card-tag">KOR · OSS</span>
         <h2>KOR-drempel overschreden: wat moet je nu doen?</h2>
@@ -123,7 +168,7 @@ footer a{color:var(--tx3);text-decoration:none;margin:0 8px}
       </div>
     </a>
 
-    <a href="oss-aangifte-nederland.html" class="card">
+    <a href="oss-aangifte-nederland" class="card">
       <div class="card-body">
         <span class="card-tag">OSS · Aangifte</span>
         <h2>OSS-aangifte Nederland: complete stap-voor-stap gids voor 2026</h2>
@@ -135,7 +180,7 @@ footer a{color:var(--tx3);text-decoration:none;margin:0 8px}
       </div>
     </a>
 
-    <a href="shopify-btw-nederland-2026.html" class="card">
+    <a href="shopify-btw-nederland-2026" class="card">
       <div class="card-body">
         <span class="card-tag">Shopify</span>
         <h2>Shopify BTW Nederland 2026: Alles Wat Je Moet Weten</h2>
@@ -148,7 +193,7 @@ footer a{color:var(--tx3);text-decoration:none;margin:0 8px}
     </a>
 
   
-    <a href="oss-registratie-belastingdienst.html" class="card">
+    <a href="oss-registratie-belastingdienst" class="card">
       <div class="card-body">
         <span class="card-tag">BTW & Registratie</span>
         <h2>OSS Registratie Belastingdienst: Het Complete Stappenplan</h2>
@@ -161,7 +206,7 @@ footer a{color:var(--tx3);text-decoration:none;margin:0 8px}
     </a>
 
   
-    <a href="etsy-verkoper-belastingaangifte.html" class="card">
+    <a href="etsy-verkoper-belastingaangifte" class="card">
       <div class="card-body">
         <span class="card-tag">Etsy</span>
         <h2>Etsy Verkoper Belastingaangifte Nederland: Alles Wat Je Moet Weten</h2>
@@ -174,7 +219,7 @@ footer a{color:var(--tx3);text-decoration:none;margin:0 8px}
     </a>
 
   
-    <a href="kor-vrijstelling-2026.html" class="card">
+    <a href="kor-vrijstelling-2026" class="card">
       <div class="card-body">
         <span class="card-tag">BTW Tips</span>
         <h2>KOR Vrijstelling 2026 Voorwaarden: Wat Je Echt Moet Weten</h2>
@@ -187,7 +232,7 @@ footer a{color:var(--tx3);text-decoration:none;margin:0 8px}
     </a>
 
   
-    <a href="marketplace-verkoper-btw-aangifte.html" class="card">
+    <a href="marketplace-verkoper-btw-aangifte" class="card">
       <div class="card-body">
         <span class="card-tag">BTW Tips</span>
         <h2>Marketplace Verkoper BTW Aangifte: Hoe Werkt Dat Nou Eigenlijk?</h2>
@@ -200,7 +245,7 @@ footer a{color:var(--tx3);text-decoration:none;margin:0 8px}
     </a>
 
   
-    <a href="dac7-belastingdienst-rapportage.html" class="card">
+    <a href="dac7-belastingdienst-rapportage" class="card">
       <div class="card-body">
         <span class="card-tag">Belastingen</span>
         <h2>DAC7 Belastingdienst Rapportage 2026: Wat Verandert Er Voor Jou?</h2>
@@ -213,7 +258,7 @@ footer a{color:var(--tx3);text-decoration:none;margin:0 8px}
     </a>
 
   
-    <a href="vinted-ondernemer-btw-registratie.html" class="card">
+    <a href="vinted-ondernemer-btw-registratie" class="card">
       <div class="card-body">
         <span class="card-tag">Vinted</span>
         <h2>Vinted Ondernemer BTW Registratie: Wanneer Moet Je in Actie Komen?</h2>
@@ -226,11 +271,24 @@ footer a{color:var(--tx3);text-decoration:none;margin:0 8px}
     </a>
 
   
-    <a href="btw-tarief-eu-landen-2026.html" class="card">
+    <a href="btw-tarief-eu-landen-2026" class="card">
       <div class="card-body">
         <span class="card-tag">BTW EU</span>
         <h2>BTW Tarief EU Landen Overzicht 2026: Alle Percentages op een Rij</h2>
         <p>Compleet btw tarief eu landen overzicht 2026: alle percentages per land. Van 17% in Luxemburg tot 27% in Hongarije. Handig voor online verkopers.</p>
+        <div class="card-meta">
+          <span>juni 2026</span>
+          <span class="card-read">Lees artikel →</span>
+        </div>
+      </div>
+    </a>
+
+  
+    <a href="shopify-dropshipping-btw" class="card">
+      <div class="card-body">
+        <span class="card-tag">Shopify</span>
+        <h2>Shopify Dropshipping BTW Nederland: Wat Je Écht Moet Weten</h2>
+        <p>Shopify dropshipping BTW in Nederland uitgelegd. Leer wanneer je BTW moet rekenen, wat er verandert bij leveringen uit China en hoe je het regelt.</p>
         <div class="card-meta">
           <span>juni 2026</span>
           <span class="card-read">Lees artikel →</span>
@@ -245,15 +303,15 @@ footer a{color:var(--tx3);text-decoration:none;margin:0 8px}
       <h3>Bereken gratis je KOR-status</h3>
       <p>Upload je Etsy, Shopify of Vinted export en zie in 10 seconden of je actie moet ondernemen.</p>
     </div>
-    <a href="../app.html">📊 Open gratis dashboard →</a>
+    <a href="/app">📊 Open gratis dashboard →</a>
   </div>
 </div>
 
 <footer>
-  <a href="../index.html">Home</a>
-  <a href="../app.html">Dashboard</a>
-  <a href="../privacy.html">Privacy</a>
-  <a href="index.html">Blog</a>
+  <a href="/">Home</a>
+  <a href="/app">Dashboard</a>
+  <a href="/privacy">Privacy</a>
+  <a href="./">Blog</a>
   <br><br>© 2026 ZenBTW
 </footer>
 </body>

@@ -16,7 +16,7 @@
 <meta name="apple-mobile-web-app-title" content="ZenBTW">
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
-:root{--bg:#f7f6f3;--wh:#fff;--s2:#f4f3ef;--br:#e8e5de;--brs:#d4cfc5;--ac:#1a4731;--acl:#e8f0ec;--acm:#2d6a4f;--dn:#c0392b;--dnl:#fdf0ee;--wn:#d97706;--wnl:#fffbeb;--tx:#1a1814;--tx2:#4a4640;--tx3:#8a847a;--tx4:#b8b2a8;--sh:0 1px 3px rgba(0,0,0,.06);--shm:0 4px 12px rgba(0,0,0,.08);--shl:0 12px 32px rgba(0,0,0,.1);--r:12px;--rs:8px;--rx:6px}
+:root{--bg:#f7f6f3;--wh:#fff;--s2:#f4f3ef;--br:#e8e5de;--brs:#d4cfc5;--ac:#1a4731;--acl:#e8f0ec;--acm:#2d6a4f;--acd:#143d28;--dn:#c0392b;--dnl:#fdf0ee;--wn:#d97706;--wnl:#fffbeb;--tx:#1a1814;--tx2:#4a4640;--tx3:#8a847a;--tx4:#b8b2a8;--focus:#f5bf4f;--success:#b2cfbf;--error:#c64747;--sh:0 1px 3px rgba(0,0,0,.06);--shm:0 4px 12px rgba(0,0,0,.08);--shl:0 12px 32px rgba(0,0,0,.1);--r:12px;--rs:8px;--rx:6px}
 *{margin:0;padding:0;box-sizing:border-box}
 body{background:var(--bg);color:var(--tx);font-family:'Plus Jakarta Sans',sans-serif;min-height:100vh;-webkit-font-smoothing:antialiased}
 .shell{display:flex;min-height:100vh}
@@ -150,6 +150,9 @@ body{background:var(--bg);color:var(--tx);font-family:'Plus Jakarta Sans',sans-s
 .acc-bd .step{display:flex;gap:8px;align-items:flex-start;margin-bottom:8px}.acc-bd .step-n{width:20px;height:20px;border-radius:50%;background:var(--ac);color:#fff;font-size:10px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px}
 .vinted-warn{display:none;background:var(--wnl);border:1px solid #e6a817;border-radius:var(--rs);padding:11px 14px;margin-bottom:14px;font-size:12.5px;color:#92400e;font-weight:500;gap:10px;align-items:flex-start;line-height:1.55}
 .vinted-warn.on{display:flex}
+.eu-kor-banner{display:none;padding:11px 16px;border-radius:var(--rs);margin-bottom:14px;font-size:12.5px;line-height:1.6;border:1px solid}
+.eu-kor-banner.warn{background:var(--wnl);border-color:#e6a817;color:#92400e}
+.eu-kor-banner.danger{background:var(--dnl);border-color:#f5c2bc;color:var(--dn)}
 /* CORRECTIE */
 .corr{background:var(--wh);border:1px solid var(--br);border-radius:var(--r);padding:16px 18px;margin-bottom:14px;display:none}
 .corr.on{display:block}
@@ -440,6 +443,13 @@ input:checked + .tsl:before{transform:translateX(17px)}
 .bulk-apply{background:rgba(255,255,255,.15);border:1.5px solid rgba(255,255,255,.45);color:#fff;font-family:'Plus Jakarta Sans',sans-serif;font-size:12.5px;font-weight:700;padding:6px 16px;border-radius:30px;cursor:pointer;transition:all .15s;min-height:34px}
 .bulk-apply:hover{background:rgba(255,255,255,.25);border-color:#fff}
 .bulk-close{background:none;border:none;color:rgba(255,255,255,.55);font-size:15px;cursor:pointer;padding:2px 0 2px 4px;line-height:1;transition:color .15s;flex-shrink:0}
+/* ── PROVISIONAL BADGE ── */
+.prov-badge{display:inline-flex;align-items:center;gap:3px;font-size:10px;font-weight:700;padding:2px 7px;border-radius:20px;background:#fef3c7;color:#78350f;border:1px solid var(--focus);letter-spacing:.02em;flex-shrink:0;white-space:nowrap}
+.prov-badge.confirmed{background:var(--acl);color:var(--acm);border-color:var(--success)}
+.ro-row.prov-row{background:linear-gradient(90deg,rgba(245,191,79,.07) 0,transparent 60%)}
+/* ── KOR UITSLUITINGSTERMIJN BANNER ── */
+.kor-excl-banner{margin-bottom:12px;padding:12px 16px;background:#fef3c7;border:1.5px solid var(--focus);border-radius:var(--rs);font-size:12px;color:#78350f;line-height:1.5}
+.kor-excl-banner a{color:#78350f;text-decoration:underline}
 .bulk-close:hover{color:#fff}
 .ro-sort-hd{display:flex;align-items:center;padding:7px 18px;background:var(--s2);border-bottom:1px solid var(--br);user-select:none}
 .ro-sort-col{cursor:pointer;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--tx3);padding:3px 6px;border-radius:4px;display:inline-flex;align-items:center;gap:3px;transition:all .12s}
@@ -691,7 +701,7 @@ src="https://www.facebook.com/tr?id=964378096043237&ev=PageView&noscript=1"
   <div id="ob-step1" class="ob-card">
     <div class="ob-header">
       <div class="ob-logo-row">
-        <div class="ob-logo-icon">Z</div>
+        <img src="/logo.webp" alt="ZenBTW" style="height:36px;width:auto;border-radius:8px;object-fit:contain">
         <span class="ob-logo-name">Zen<em>BTW</em></span>
       </div>
       <h1>Bereken gratis je BTW-status</h1>
@@ -723,7 +733,7 @@ src="https://www.facebook.com/tr?id=964378096043237&ev=PageView&noscript=1"
   <div id="ob-step2" class="ob-card" style="display:none">
     <div class="ob-step2-head">
       <div class="ob-logo-row">
-        <div class="ob-logo-icon">Z</div>
+        <img src="/logo.webp" alt="ZenBTW" style="height:36px;width:auto;border-radius:8px;object-fit:contain">
         <span class="ob-logo-name">Zen<em>BTW</em></span>
       </div>
       <h2>Eén stap: haal je verkoopdata op</h2>
@@ -741,14 +751,7 @@ src="https://www.facebook.com/tr?id=964378096043237&ev=PageView&noscript=1"
 <nav class="nav">
   <div class="nav-logo" style="padding:12px 18px 16px;display:flex;justify-content:center;align-items:center">
     <a href="/">
-      <svg width="34" height="34" viewBox="0 0 100 100" aria-label="ZenBTW" role="img" style="flex-shrink:0;display:block">
-        <path d="M50 8 L88 20 L88 55 Q88 78 50 92 Q12 78 12 55 L12 20 Z" fill="#1a4731"/>
-        <rect x="27" y="54" width="10" height="18" fill="white" rx="2"/>
-        <rect x="41" y="42" width="10" height="30" fill="white" rx="2"/>
-        <rect x="55" y="32" width="10" height="40" fill="white" rx="2"/>
-        <path d="M24 56 Q52 36 74 26" stroke="white" stroke-width="4" fill="none" stroke-linecap="round"/>
-        <path d="M70 20 L80 28 L68 30 Z" fill="white"/>
-      </svg>
+      <img src="/logo.webp" alt="ZenBTW Logo" style="height:34px;width:auto;display:block;border-radius:8px;object-fit:contain" width="62" height="34">
     </a>
   </div>
   <div style="padding:8px 18px 14px;border-bottom:1px solid var(--br);margin-bottom:8px">
@@ -945,6 +948,13 @@ src="https://www.facebook.com/tr?id=964378096043237&ev=PageView&noscript=1"
     <button class="kbb" onclick="sv('alerts')">🔔 Alert</button>
   </div>
   <div id="korUitleg" style="display:none"></div>
+  <div id="euKorBanner" class="eu-kor-banner" style="display:none"></div>
+  <div id="korExclBanner" class="kor-excl-banner" style="display:none"></div>
+  <div id="dac7Banner" style="display:none;margin-bottom:12px;padding:12px 16px;background:#fefce8;border:1.5px solid #fbbf24;border-radius:var(--rs);font-size:12.5px;color:#78350f">
+    <strong>📋 DAC7 — platformrapportage</strong><br>
+    <span id="dac7Msg"></span>
+    <a href="https://www.belastingdienst.nl/wps/wcm/connect/bldcontentnl/belastingdienst/zakelijk/btw/btw-aangifte/dac7" target="_blank" rel="noopener" style="color:#92400e;font-weight:600;margin-left:6px;white-space:nowrap">Meer info →</a>
+  </div>
   <div id="margeWarn" style="display:none;margin-bottom:12px;padding:10px 14px;background:var(--wnl);border:1px solid #fcd34d;border-radius:var(--rs);font-size:12px;color:#92400e">⚠ <strong>Margeregeling actief</strong> — BTW-bedragen zijn indicatief (gebaseerd op omzet, niet winstmarge). Raadpleeg je boekhouder voor de definitieve BTW bij tweedehands goederen.</div>
   <div id="ossAP" style="display:none;margin-bottom:16px;padding:14px 18px;background:var(--dnl);border:1px solid #f5c2bc;border-radius:var(--rs)">
     <div style="font-size:13px;font-weight:700;color:var(--dn);margin-bottom:8px">🚨 Actieplan — OSS-aangifte is nu verplicht</div>
@@ -962,6 +972,7 @@ src="https://www.facebook.com/tr?id=964378096043237&ev=PageView&noscript=1"
     <div class="sc"><div class="st"><div class="sl" data-i18n="stat-vat">BTW te betalen</div><div class="si r">⚠️</div></div><div class="sv r" id="sB">€0</div><div class="sd" id="sBs">OSS-aangifte</div></div>
     <div class="sc"><div class="st"><div class="sl" data-i18n="stat-orders">Intl. orders</div><div class="si b">🌍</div></div><div class="sv" id="sO">0</div><div class="sd" id="sOs">van 0 totaal</div></div>
     <div class="sc"><div class="st"><div class="sl" data-i18n="stat-countries">EU-landen</div><div class="si a">🗺️</div></div><div class="sv a" id="sC">0</div><div class="sd" data-i18n="stat-countries-sub">excl. Nederland</div></div>
+    <div class="sc"><div class="st"><div class="sl">EU-KOR</div><div class="si" style="color:#2d6a4f">🇪🇺</div></div><div class="sv" id="sEK" style="color:#2d6a4f">0%</div><div class="sd" id="sEKs">van €100.000 EU-SME</div></div>
   </div>
   <div id="maandGrafiekWrap" style="display:none;margin-bottom:14px">
     <div class="card">
@@ -1006,7 +1017,7 @@ src="https://www.facebook.com/tr?id=964378096043237&ev=PageView&noscript=1"
   <div class="ur">
     <div class="uz" id="eZ" data-umami-event="upload-csv"><input type="file" accept=".csv" onchange="hu(event,'etsy')"><div class="ui">🏪</div><div class="ut">Etsy CSV</div><div class="us" data-i18n="upload-etsy-sub">Shop Manager → Data downloaden</div><div class="ubg e">EtsySoldOrders.csv</div></div>
     <div class="uz" id="sZ" data-umami-event="upload-csv"><input type="file" accept=".csv" onchange="hu(event,'shopify')"><div class="ui">🛍️</div><div class="ut">Shopify CSV</div><div class="us" data-i18n="upload-shopify-sub">Orders → Exporteren → CSV</div><div class="ubg s">orders_export.csv</div></div>
-    <div class="uz" id="vZ" data-umami-event="upload-csv"><input type="file" accept=".csv,.html,.htm" onchange="hu(event,'vinted')"><div class="ui">👗</div><div class="ut" data-i18n="upload-vinted-title">Vinted CSV of HTML</div><div class="us" data-i18n="upload-vinted-sub">Instellingen → Mijn gegevens → Gegevens exporteren</div><div class="ubg v">transactions.csv / orders/index.html</div></div>
+    <div class="uz" id="vZ" data-umami-event="upload-csv"><input type="file" accept=".csv,.html,.htm,.zip" onchange="hu(event,'vinted')"><div class="ui">👗</div><div class="ut" data-i18n="upload-vinted-title">Vinted CSV, HTML of ZIP</div><div class="us" data-i18n="upload-vinted-sub">Instellingen → Mijn gegevens → Gegevens exporteren</div><div class="ubg v">transactions.csv / orders.zip / index.html</div></div>
   </div>
   <p style="text-align:center;font-size:12px;color:#888;margin:6px 0 0;letter-spacing:.02em"><span data-i18n="no-account">🔒 Geen account nodig voor de initiële scan.</span></p>
   <div class="plog" id="pL"></div>
@@ -1330,7 +1341,8 @@ src="https://www.facebook.com/tr?id=964378096043237&ev=PageView&noscript=1"
     <div class="mdt">Bedrijfsinstellingen</div><div class="mds">Opgeslagen in je browser (localStorage)</div>
     <div class="fg"><label class="fl">Bedrijfsnaam</label><input class="fi" id="fCo" type="text" placeholder="Bijv. Revaleur"></div>
     <div class="fr"><div class="fg"><label class="fl">KVK-nummer</label><input class="fi" id="fKv" type="text" placeholder="12345678"></div><div class="fg"><label class="fl">BTW-nummer</label><input class="fi" id="fBt" type="text" placeholder="NL123456789B01"></div></div>
-    <div class="fr"><div class="fg"><label class="fl">KOR-grens (€)</label><input class="fi" id="fKo" type="number" value="10000"></div><div class="fg"><label class="fl">Kwartaal</label><select class="fsl" id="fQu"><option>Q1 2025</option><option>Q2 2025</option><option>Q3 2025</option><option>Q4 2025</option></select></div></div>
+    <div class="fr"><div class="fg"><label class="fl">KOR-grens (€)</label><input class="fi" id="fKo" type="number" value="10000"></div><div class="fg"><label class="fl">KOR uitgesloten t/m jaar <span style="font-size:10px;opacity:.6">(leeg = niet uitgesloten)</span></label><input class="fi" id="fKorExcl" type="number" placeholder="bijv. 2027" min="2024" max="2035"></div></div>
+    <div class="fr"><div class="fg"><label class="fl">Kwartaal</label><select class="fsl" id="fQu"><option>Q1 2025</option><option>Q2 2025</option><option>Q3 2025</option><option>Q4 2025</option></select></div></div>
     <div class="fg" style="margin-top:2px">
       <label class="fl">Verkooptype</label>
       <label style="display:flex;align-items:center;gap:9px;cursor:pointer;padding:9px 11px;background:var(--s2);border-radius:var(--rx);border:1px solid var(--br)">
@@ -1423,8 +1435,9 @@ let S = {
   company: '',
   btwnr: '',
   kvk: '',
-  korLimit: 20000,   // KOR-drempel: totale jaaromzet (NL + EU) — standaard €20.000
-  ossLimit: 10000,   // OSS-drempel: cross-border EU omzet — wettelijk vastgesteld op €10.000
+  korLimit: 20000,    // KOR-drempel: NL-omzet + sub-€10k EU — standaard €20.000
+  ossLimit: 10000,    // OSS-drempel: cross-border EU omzet — wettelijk vastgesteld op €10.000
+  euKorLimit: 100000, // EU-KOR (EU SME Scheme): totale EU-brede omzet — wettelijk max €100.000
   usdRate: .920,
   gbpRate: 1.170,
   countries: {},
@@ -1437,6 +1450,7 @@ let S = {
   correcties: [],
   hasFx: false,
   marge: false,
+  korExcludedUntil: null, // KOR-uitsluitingstermijn: uitgesloten t/m dit jaar (rest jaar + volgend jaar)
   backupUrl: '',
   lineItems: [],
   costPrices: {}
@@ -1640,7 +1654,7 @@ function parseShopify(text){
   for(const row of rows){ try{
     const nm=row['name']||row['order']||'';if(nm&&seen.has(nm))continue;if(nm)seen.add(nm);
     const date=row['created at']||row['created_at']||row['date']||'';
-    const st=(row['financial status']||'').toLowerCase();if(st&&st!=='paid'&&st!=='partially_paid')continue;
+    const st=(row['financial status']||'').toLowerCase();if(st&&st!=='paid'&&st!=='partially_paid'&&st!=='partially_refunded')continue;
     if(row['cancelled at']&&row['cancelled at'].trim())continue;
     const cur=row['currency']||'EUR';const cc=rc(row['shipping country']||row['billing country']||'')||'NL';
     let amt=applyFx(pm(row['total']||'0'),cur);if(row['refunded amount'])amt-=applyFx(pm(row['refunded amount']),cur);
@@ -1769,19 +1783,72 @@ function parseVinted(text){
   return{ok:true,byQuarter:byQ,totalRevenue:rev,totalOrders:tot,intlOrders:io,lineItems:vintedItems};
 }
 
+/**
+ * Heuristische landbepaling voor Vinted HTML-exports.
+ * Analyseert valuta, verzendmethode en platform-TLD om het bestemmingsland
+ * te schatten. Geeft {cc, confidence, reason} terug.
+ * Confidence 0 = onbekend (valt terug op NL).
+ */
+function inferCountryFromVintedOrder(currency, cellText, platformTld){
+  const c=(currency||'').toUpperCase().trim();
+  const t=(cellText||'').toLowerCase();
+  // 1. Valuta — sterkste signaal (valuta is uniek per land)
+  if(c==='PLN')return{cc:'PL',confidence:99,reason:'PLN valuta'};
+  if(c==='GBP')return{cc:'GB',confidence:99,reason:'GBP valuta'};
+  if(c==='SEK')return{cc:'SE',confidence:97,reason:'SEK valuta'};
+  if(c==='DKK')return{cc:'DK',confidence:97,reason:'DKK valuta'};
+  if(c==='HUF')return{cc:'HU',confidence:97,reason:'HUF valuta'};
+  if(c==='CZK')return{cc:'CZ',confidence:97,reason:'CZK valuta'};
+  if(c==='RON')return{cc:'RO',confidence:97,reason:'RON valuta'};
+  if(c==='BGN')return{cc:'BG',confidence:97,reason:'BGN valuta'};
+  if(c==='HRK'||c==='EUR'&&/hrvatska|hrvatska/.test(t))return{cc:'HR',confidence:90,reason:'Kroatisch signaal'};
+  // 2. Verzendmethode — uit tekst van de orderregel
+  if(/chronopost|colissimo/.test(t))return{cc:'FR',confidence:95,reason:'Chronopost/Colissimo'};
+  if(/correos/.test(t))return{cc:'ES',confidence:92,reason:'Correos verzending'};
+  if(/bpost/.test(t))return{cc:'BE',confidence:92,reason:'bpost verzending'};
+  if(/inpost/.test(t))return{cc:'PL',confidence:90,reason:'InPost verzending'};
+  if(/dhl paket|hermes paket|dpd germany/.test(t))return{cc:'DE',confidence:88,reason:'DHL/Hermes DE'};
+  if(/postnl|homerr/.test(t))return{cc:'NL',confidence:87,reason:'PostNL/Homerr'};
+  if(/mondial relay/.test(t))return{cc:'FR',confidence:75,reason:'Mondial Relay (FR/ES/BE)'};
+  if(/poste italiane|sda express/.test(t))return{cc:'IT',confidence:90,reason:'Poste Italiane'};
+  if(/ctt expresso|ctt\.pt/.test(t))return{cc:'PT',confidence:90,reason:'CTT Portugal'};
+  // 3. Platform-TLD — uit URL-patronen in de HTML
+  const tld=(platformTld||'').toLowerCase();
+  if(tld==='fr')return{cc:'FR',confidence:90,reason:'vinted.fr platform'};
+  if(tld==='de')return{cc:'DE',confidence:90,reason:'vinted.de platform'};
+  if(tld==='pl')return{cc:'PL',confidence:88,reason:'vinted.pl platform'};
+  if(tld==='be')return{cc:'BE',confidence:87,reason:'vinted.be platform'};
+  if(tld==='es')return{cc:'ES',confidence:87,reason:'vinted.es platform'};
+  if(tld==='it')return{cc:'IT',confidence:87,reason:'vinted.it platform'};
+  if(tld==='nl')return{cc:'NL',confidence:85,reason:'vinted.nl platform'};
+  if(tld==='lu')return{cc:'LU',confidence:85,reason:'vinted.lu platform'};
+  if(tld==='pt')return{cc:'PT',confidence:85,reason:'vinted.pt platform'};
+  if(tld==='at')return{cc:'AT',confidence:85,reason:'vinted.at platform'};
+  if(tld==='lt')return{cc:'LT',confidence:85,reason:'vinted.lt platform'};
+  if(tld==='lv')return{cc:'LV',confidence:85,reason:'vinted.lv platform'};
+  if(tld==='sk')return{cc:'SK',confidence:85,reason:'vinted.sk platform'};
+  if(tld==='cz')return{cc:'CZ',confidence:85,reason:'vinted.cz platform'};
+  // Geen signaal gevonden
+  return{cc:'NL',confidence:0,reason:'geen signaal'};
+}
+
 function parseVintedHTML(html){
   const doc=new DOMParser().parseFromString(html,'text/html');
   const cells=doc.querySelectorAll('div.cell[itemscope]');
   if(!cells.length)return{ok:false,msg:'Geen orders gevonden in HTML — controleer of je het juiste bestand hebt geselecteerd (orders/index.html)'};
-  // detecteer eigen gebruikersnaam: meest voorkomende seller
+  // Detecteer platform-TLD uit canonical link of meta tags in het HTML-bestand
+  const canonical=doc.querySelector('link[rel="canonical"]')?.href||doc.querySelector('meta[property="og:url"]')?.content||'';
+  const tldM=canonical.match(/vinted\.([\w]+)/);
+  const platformTld=tldM?.[1]||'';
+  // Detecteer eigen gebruikersnaam: meest voorkomende seller
   const sc={};
   cells.forEach(c=>{const s=(c.querySelector('[itemprop="seller"]')?.textContent||'').trim();if(s)sc[s]=(sc[s]||0)+1;});
   const ownUser=Object.entries(sc).sort((a,b)=>b[1]-a[1])[0]?.[0]||'';
-  log('Vinted HTML: <span class="ok">'+cells.length+' orders · Gebruiker: <strong>'+ownUser+'</strong></span>');
-  log('<span class="wn">⚠ Geen landgegevens in HTML — standaard NL. Pas land aan in Transacties-tab voor juiste BTW-splitsing.</span>');
-  function isSold(st){const s=st.toLowerCase();return s.includes('completed')||s.includes('accepted')||s.includes('delivered')||s.includes('geleverd');}
+  log('Vinted HTML: <span class="ok">'+cells.length+' orders · Gebruiker: <strong>'+ownUser+'</strong></span>'+(platformTld?' · Platform: vinted.'+platformTld:''));
+  function isSold(st){const s=st.toLowerCase();return s.includes('completed')||s.includes('accepted')||s.includes('delivered')||s.includes('geleverd')||s.includes('shipped')||s.includes('verzonden')||s.includes('afgerond')||s.includes('voltooid')||s.includes('sold')||s.includes('verkocht')||s.includes('betaald')||s.includes('uitbetaald')||s.includes('paid')||s.includes('succesvol')||s.includes('confirmed')||s.includes('bevestigd')||s.includes('success')||s.includes('afgehandeld')||s.includes('verwerkt');}
   function parseDate(raw){const m=(raw||'').trim().match(/(\d{4}-\d{2}-\d{2})/);return m?m[1]:'';}
-  const orders=[];let rev=0,skip=0,uid=Date.now();
+  const orders=[];let rev=0,skip=0,provisional=0,uid=Date.now();
+  // Eerste pass: met seller-filter (verkooporders van eigen account)
   cells.forEach((c,idx)=>{
     const seller=(c.querySelector('[itemprop="seller"]')?.textContent||'').trim();
     if(ownUser&&seller!==ownUser){skip++;return;}
@@ -1790,24 +1857,123 @@ function parseVintedHTML(html){
     const vt=(c.querySelector('[itemprop="order_value"]')?.textContent||'0').trim();
     const m=vt.match(/([\d.,]+)\s*([A-Z]{3})?/);
     if(!m){skip++;return;}
-    const amt=applyFx(parseFloat(m[1].replace(',','.'))||0,m[2]||'EUR');
+    const currency=m[2]||'EUR';
+    const amt=applyFx(parseFloat(m[1].replace(',','.'))||0,currency);
     if(amt<=0){skip++;return;}
     const date=parseDate(c.querySelector('[itemprop="order_purchased"]')?.textContent);
-    orders.push({id:uid+'_'+idx,date,amount:amt,country:'NL',platform:'vinted_html'});
+    const cellText=c.textContent||'';
+    const inferred=inferCountryFromVintedOrder(currency,cellText,platformTld);
+    if(inferred.confidence<100)provisional++;
+    orders.push({id:uid+'_'+idx,date,amount:amt,country:inferred.cc,platform:'vinted_html',provisional:inferred.confidence<100,confidence:inferred.confidence,inferReason:inferred.reason});
     rev+=amt;
   });
+  // Als geen orders gevonden na seller-filter: debug-log eerste cel en probeer zonder seller-filter
+  if(!orders.length&&cells.length){
+    const c0=cells[0];
+    const dbgSeller=(c0.querySelector('[itemprop="seller"]')?.textContent||'—').trim();
+    const dbgStatus=(c0.querySelector('[itemprop="status"]')?.textContent||'—').trim();
+    const dbgAmt=(c0.querySelector('[itemprop="order_value"]')?.textContent||'—').trim();
+    log('<span class="wn">⚠ Eerste order — seller: "'+dbgSeller+'" · status: "'+dbgStatus+'" · bedrag: "'+dbgAmt+'" · ownUser: "'+ownUser+'"</span>');
+    // Fallback: geen seller-filter, alle verkopen ongeacht seller-veld
+    cells.forEach((c,idx)=>{
+      const st=(c.querySelector('[itemprop="status"]')?.textContent||'').trim();
+      if(!isSold(st))return;
+      const vt=(c.querySelector('[itemprop="order_value"]')?.textContent||'0').trim();
+      const m=vt.match(/([\d.,]+)\s*([A-Z]{3})?/);if(!m)return;
+      const currency=m[2]||'EUR';
+      const amt=applyFx(parseFloat(m[1].replace(',','.'))||0,currency);if(amt<=0)return;
+      const date=parseDate(c.querySelector('[itemprop="order_purchased"]')?.textContent);
+      const cellText=c.textContent||'';
+      const inferred=inferCountryFromVintedOrder(currency,cellText,platformTld);
+      if(inferred.confidence<100)provisional++;
+      orders.push({id:uid+'_'+idx,date,amount:amt,country:inferred.cc,platform:'vinted_html',provisional:inferred.confidence<100,confidence:inferred.confidence,inferReason:inferred.reason});
+      rev+=amt;
+    });
+    if(orders.length)log('<span class="wn">ℹ Seller-filter overgeslagen — '+orders.length+' orders gevonden via status-filter</span>');
+  }
   if(skip>0)log('<span class="wn">⚠ '+skip+' overgeslagen (aankopen of geannuleerd)</span>');
-  if(!orders.length)return{ok:false,msg:'Geen verkoopdata gevonden — controleer of dit jouw verkopen zijn (niet aankopen)'};
-  log('<span class="ok">✓ '+orders.length+' verkopen · €'+Math.round(rev)+' · pas land aan in Transacties</span>');
-  return{ok:true,orders,totalRevenue:rev,totalOrders:orders.length,intlOrders:0};
+  if(!orders.length){
+    // Log unieke status-waarden voor debugging
+    const statuses=[...new Set([...cells].map(c=>(c.querySelector('[itemprop="status"]')?.textContent||'').trim()).filter(Boolean))];
+    if(statuses.length)log('<span class="wn">⚠ Status-waarden gevonden: '+statuses.slice(0,5).join(', ')+'</span>');
+    // Derde fallback: accepteer alles met bedrag > 0, ongeacht status
+    cells.forEach((c,idx)=>{
+      const vt=(c.querySelector('[itemprop="order_value"]')?.textContent||'0').trim();
+      const m=vt.match(/([\d.,]+)\s*([A-Z]{3})?/);if(!m)return;
+      const currency=m[2]||'EUR';
+      const amt=applyFx(parseFloat(m[1].replace(',','.'))||0,currency);if(amt<=0)return;
+      const date=parseDate(c.querySelector('[itemprop="order_purchased"]')?.textContent);
+      const cellText=c.textContent||'';
+      const inferred=inferCountryFromVintedOrder(currency,cellText,platformTld);
+      orders.push({id:uid+'_'+idx,date,amount:amt,country:inferred.cc,platform:'vinted_html',provisional:true,confidence:inferred.confidence,inferReason:'Onbekende status — controleer of dit verkopen zijn'});
+      rev+=amt;
+    });
+    if(orders.length)log('<span class="wn">⚠ Onbekende statusterminologie — '+orders.length+' orders geladen zonder statusfilter. Controleer of dit jouw <strong>verkopen</strong> zijn en geen aankopen.</span>');
+    if(!orders.length)return{ok:false,msg:'Geen verkoopdata gevonden — controleer of dit jouw verkopen zijn (niet aankopen)'};
+  }
+  const confirmed=orders.length-provisional;
+  log('<span class="ok">✓ '+orders.length+' verkopen · €'+Math.round(rev)+'</span>');
+  if(provisional>0)log('<span class="wn">⚠ '+provisional+' orders: land heuristisch bepaald (VOORLOPIG) — controleer in review</span>');
+  if(confirmed===orders.length)log('<span class="ok">✓ Alle landen bepaald via valuta of verzendmethode</span>');
+  return{ok:true,orders,totalRevenue:rev,totalOrders:orders.length,intlOrders:0,provisionalCount:provisional};
+}
+
+/**
+ * Verwerkt een Vinted GDPR ZIP-archief.
+ * Het ZIP-bestand bevat de map 'orders/' met daarin index.html.
+ * Alle HTML-bestanden onder orders/ worden gemerged en geparsed.
+ */
+// Verwerkt een Vinted ZIP: ontvangt bytes (ArrayBuffer) al ingelezen, nooit een File-referentie
+async function handleVintedZip(ab,fname,z){
+  try{
+    if(typeof JSZip==='undefined'){z.className='uz er';z.querySelector('.ui').textContent='❌';z.querySelector('.ut').textContent='JSZip niet geladen';log('<span class="er">✗ JSZip bibliotheek niet beschikbaar. Herlaad de pagina.</span>');return;}
+    log('ZIP: bezig met uitpakken van <strong>'+fname+'</strong>...');
+    const zip=await JSZip.loadAsync(ab);
+    // Zoek HTML-bestanden in de orders/ map
+    const htmlFiles=Object.keys(zip.files).filter(n=>/^orders\/.*\.html?$/i.test(n)||/^orders\/index\.html?$/i.test(n));
+    if(!htmlFiles.length){
+      const anyHtml=Object.keys(zip.files).filter(n=>/\.html?$/i.test(n)&&!zip.files[n].dir);
+      if(!anyHtml.length){z.className='uz er';z.querySelector('.ui').textContent='❌';z.querySelector('.ut').textContent='Geen HTML in ZIP';log('<span class="er">✗ Geen orders/index.html gevonden in ZIP. Controleer het archief.</span>');return;}
+      htmlFiles.push(...anyHtml);
+    }
+    log('ZIP: '+htmlFiles.length+' HTML-bestand(en) gevonden: '+htmlFiles.join(', '));
+    let allOrders=[],totalRev=0,totalProvisional=0;
+    for(const fn of htmlFiles){
+      const html=await zip.files[fn].async('text');
+      const r=parseVintedHTML(html);
+      if(r.ok&&r.orders){allOrders=allOrders.concat(r.orders);totalRev+=r.totalRevenue;totalProvisional+=(r.provisionalCount||0);}
+    }
+    if(!allOrders.length){z.className='uz er';z.querySelector('.ui').textContent='❌';z.querySelector('.ut').textContent='Geen verkoopdata';log('<span class="er">✗ Geen verkooporders gevonden in het ZIP-archief.</span>');return;}
+    log('<span class="ok">✓ ZIP verwerkt: '+allOrders.length+' orders · €'+Math.round(totalRev)+'</span>');
+    showReviewModal('vinted',fname,{ok:true,orders:allOrders,totalRevenue:totalRev,totalOrders:allOrders.length,intlOrders:0,provisionalCount:totalProvisional},true);
+  }catch(err){z.className='uz er';z.querySelector('.ui').textContent='❌';z.querySelector('.ut').textContent='ZIP-fout';log('<span class="er">✗ ZIP-fout: '+err.message+'</span>');}
 }
 
 function hu(e,plat){
   const f=e.target.files[0];if(!f)return;
   const z=document.getElementById(plat==='etsy'?'eZ':plat==='shopify'?'sZ':'vZ');
   clearLog();showLog();S.hasFx=false;
+  // Vinted ZIP: lees bestand als ArrayBuffer — probeer native f.arrayBuffer() én FileReader als fallback
+  if(plat==='vinted'&&/\.zip$/i.test(f.name)){
+    const _zipErr=()=>{z.className='uz er';z.querySelector('.ui').textContent='❌';z.querySelector('.ut').textContent='Leesfout';
+      log('<span class="er">✗ ZIP kan niet worden gelezen.</span>');
+      log('<span class="wn">💡 Oplossing 1: Pak het ZIP-bestand uit en sleep het <strong>index.html</strong> bestand (uit de map "orders") direct naar dit uploadveld.</span>');
+      log('<span class="wn">💡 Oplossing 2: Staat het bestand in OneDrive? Klik dan rechts op het bestand → "Altijd op dit apparaat bewaren", dan opnieuw uploaden.</span>');
+    };
+    const _doZip=ab=>handleVintedZip(ab,f.name,z);
+    // Probeer eerst native Blob.arrayBuffer() (andere code-pad dan FileReader)
+    if(typeof f.arrayBuffer==='function'){
+      f.arrayBuffer().then(_doZip).catch(()=>{
+        // Fallback: FileReader
+        const zr=new FileReader();zr.onerror=_zipErr;zr.onload=ev=>_doZip(ev.target.result);zr.readAsArrayBuffer(f);
+      });
+    }else{
+      const zr=new FileReader();zr.onerror=_zipErr;zr.onload=ev=>_doZip(ev.target.result);zr.readAsArrayBuffer(f);
+    }
+    return;
+  }
   const reader=new FileReader();
-  reader.onerror=()=>{z.className='uz er';z.querySelector('.ui').textContent='❌';z.querySelector('.ut').textContent='Leesfout';log('<span class="er">✗ Bestand kon niet worden gelezen</span>');};
+  reader.onerror=()=>{z.className='uz er';z.querySelector('.ui').textContent='❌';z.querySelector('.ut').textContent='Leesfout';log('<span class="er">✗ Bestand kan niet worden gelezen — sla het bestand eerst op je bureaublad op (niet in OneDrive of een map met synchronisatie)</span>');};
   reader.onload=function(ev){
     try{
     const isHtml=/\.html?$/i.test(f.name);
@@ -1838,8 +2004,16 @@ function showReviewModal(plat,fname,r,isHtml){
     return`<tr><td><span style="margin-right:6px">${info.f}</span>${info.n}</td><td class="am">${d.orders}</td><td class="am">€${fmt(Math.round(d.revenue))}</td><td style="text-align:center"><span class="sp ${regime==='OSS'?'oss':'kor'}" ${regime==='Non-EU'?'style="background:var(--s2);color:var(--tx4)"':''}><span class="dot"></span>${regime}</span></td></tr>`;
   }).join('');
   const warnEl=document.getElementById('reviewWarn');
-  if(isHtml){warnEl.textContent='⚠ Vinted HTML-export bevat geen landgegevens. Alle orders staan op NL. Pas landen aan in de Transacties-tab na het importeren.';warnEl.style.display='block';}
-  else{warnEl.style.display='none';}
+  if(isHtml){
+    const prov=r.provisionalCount||0;
+    const tot=r.totalOrders||0;
+    if(prov>0){
+      warnEl.innerHTML='⚠ <strong>'+prov+' van '+tot+' orders: land heuristisch bepaald (VOORLOPIG).</strong> ZenBTW heeft het bestemmingsland afgeleid uit valuta, verzendmethode of platform. Controleer en corrigeer in de Transacties-tab waar nodig.';
+    } else {
+      warnEl.textContent='✓ Alle landen bepaald via valuta of verzendmethode. Controleer de tabel ter bevestiging.';
+    }
+    warnEl.style.display='block';
+  } else {warnEl.style.display='none';}
   document.getElementById('reviewContent').innerHTML=`<div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.07em;color:var(--tx4);margin-bottom:6px">Herkende landen & BTW-regime</div><div class="table-scroll-wrap"><table class="dt" style="font-size:12.5px"><thead><tr><th>Land</th><th class="r">Orders</th><th class="r">Omzet</th><th class="c">Regime</th></tr></thead><tbody>${rows}</tbody></table></div><div style="margin-top:10px;font-size:12px;color:var(--tx2)">Totaal: <strong>${r.totalOrders} orders · €${fmt(Math.round(r.totalRevenue))}</strong></div>`;
   modal.classList.add('on');
 }
@@ -1877,6 +2051,20 @@ function confirmImport(){
     S.lineItems.push(...r.lineItems);
   }
   restoreQ();
+  // Als huidig kwartaal geen data heeft maar geïmporteerde data wél, navigeer naar kwartaal met meeste data
+  if(!Object.keys(S.countries).length&&!S.rawOrders.length){
+    const importedQs=isHtml?null:r.byQuarter;
+    if(importedQs){
+      const bestQ=Object.entries(importedQs).reduce((best,[q,d])=>(!best||d.totalRevenue>(importedQs[best]?.totalRevenue||0))?q:best,null);
+      if(bestQ&&bestQ!==S.quarter&&S.quarterHistory[bestQ]){
+        S.year=bestQ.split(' ')[1];S.quarter=bestQ;
+        const yl=document.getElementById('yrLbl');if(yl)yl.textContent='Kwartaal '+S.year;
+        const ys=document.getElementById('yearSel');if(ys)ys.value=S.year;
+        document.querySelectorAll('.qb').forEach(b=>b.classList.toggle('on',b.textContent===S.quarter.split(' ')[0]));
+        restoreQ();
+      }
+    }
+  }
   z.className='uz ok';z.querySelector('.ui').textContent='✅';z.querySelector('.ut').textContent=r.totalOrders+' orders';z.querySelector('.us').textContent='€'+fmt(Math.round(r.totalRevenue));
   if(isHtml&&r.orders){log('<span class="wn">⚠️ Vinted HTML geladen: landgegevens ontbreken. Ga naar <strong>Transacties</strong> en klik per order op het land om het EU-land van de koper in te stellen.</span>');sv('transacties');}
   if(S.hasFx){const fb=document.getElementById('fxB');fb.className='fxbar on';document.getElementById('fxI').textContent='USD×'+S.usdRate+' · GBP×'+S.gbpRate;}
@@ -1893,8 +2081,8 @@ function confirmImport(){
 // ── CALCS ──
 const calcTotal=()=>Object.values(S.countries).reduce((s,d)=>s+d.revenue,0)+S.rawOrders.reduce((s,o)=>s+o.amount,0)+S.transactions.filter(t=>t.quarter===S.quarter).reduce((s,t)=>s+t.amount,0);
 const calcCB=()=>Object.entries(S.countries).filter(([cc])=>cc!=='NL'&&EU[cc]).reduce((s,[,d])=>s+d.revenue,0)+S.rawOrders.filter(o=>o.country!=='NL'&&EU[o.country]).reduce((s,o)=>s+o.amount,0);
-const calcBtw=()=>Object.entries(S.countries).filter(([cc])=>cc!=='NL'&&EU[cc]).reduce((s,[cc,d])=>s+d.revenue*EU[cc].r,0)+S.rawOrders.filter(o=>o.country!=='NL'&&EU[o.country]).reduce((s,o)=>s+o.amount*(EU[o.country].r||0),0);
-const calcBtwData=c=>Object.entries(c||{}).filter(([cc])=>cc!=='NL'&&EU[cc]).reduce((s,[cc,d])=>s+d.revenue*EU[cc].r,0);
+const calcBtw=()=>Object.entries(S.countries).filter(([cc])=>cc!=='NL'&&EU[cc]).reduce((s,[cc,d])=>s+d.revenue*(EU[cc].r/(1+EU[cc].r)),0)+S.rawOrders.filter(o=>o.country!=='NL'&&EU[o.country]).reduce((s,o)=>s+o.amount*((EU[o.country].r||0)/(1+(EU[o.country].r||0))),0);
+const calcBtwData=c=>Object.entries(c||{}).filter(([cc])=>cc!=='NL'&&EU[cc]).reduce((s,[cc,d])=>s+d.revenue*(EU[cc].r/(1+EU[cc].r)),0);
 
 // ── RENDER ──
 function updateMobTopbar(){
@@ -1904,6 +2092,9 @@ function updateMobTopbar(){
 }
 
 function render(){
+  // State-sync: als S.countries leeg is maar quarterHistory heeft data, herstel automatisch
+  const _qh=S.quarterHistory[S.quarter];
+  if(_qh&&!Object.keys(S.countries).length&&Object.keys(_qh.countries||{}).length){restoreQ();}
   updateMobTopbar();
   updBanner();
   updStats();
@@ -1915,6 +2106,7 @@ function render(){
   renderYGrid();
   renderMaandChart();
   updateNavBadges();
+  updDAC7();
   updateOnboarding();
   if(document.getElementById('vwtransacties').classList.contains('on')) renderTx();
   if(document.getElementById('vwlanden').classList.contains('on')) renderLanden();
@@ -1922,12 +2114,54 @@ function render(){
   if(document.getElementById('vwmarge')&&document.getElementById('vwmarge').classList.contains('on')) renderMarge();
 }
 
+function calcYearOrders(){
+  return['Q1','Q2','Q3','Q4'].map(q=>q+' '+S.year).reduce((s,q)=>{
+    const qh=S.quarterHistory[q];
+    if(!qh)return s;
+    const cc=Object.values(qh.countries||{}).reduce((t,d)=>t+d.orders,0);
+    const raw=(qh.rawOrders||[]).length;
+    return s+cc+raw;
+  },0)+S.transactions.filter(t=>t.quarter&&t.quarter.endsWith(' '+S.year)).length;
+}
+
+function updDAC7(){
+  const banner=document.getElementById('dac7Banner');
+  const msg=document.getElementById('dac7Msg');
+  if(!banner||!msg)return;
+  const yearTot=calcYearTotal();
+  const yearOrders=calcYearOrders();
+  const DAC7_REVENUE=2000;
+  const DAC7_ORDERS=30;
+  if(!yearTot&&!yearOrders){banner.style.display='none';return;}
+  const hitRevenue=yearTot>=DAC7_REVENUE;
+  const hitOrders=yearOrders>=DAC7_ORDERS;
+  const nearRevenue=yearTot>=DAC7_REVENUE*0.75&&!hitRevenue;
+  const nearOrders=yearOrders>=DAC7_ORDERS*0.75&&!hitOrders;
+  if(hitRevenue||hitOrders){
+    banner.style.display='block';
+    banner.style.borderColor='#f59e0b';
+    const parts=[];
+    if(hitRevenue)parts.push(`je jaaromzet (€${fmt(Math.round(yearTot))}) overschrijdt de €${fmt(DAC7_REVENUE)} rapportagedrempel`);
+    if(hitOrders)parts.push(`je hebt ${yearOrders} verkopen (drempel: ${DAC7_ORDERS})`);
+    msg.textContent=`Het platform waarop je verkoopt (Vinted, Etsy, etc.) is wettelijk verplicht jouw verkoopgegevens te rapporteren aan de Belastingdienst: ${parts.join(' en ')}. Zorg dat je omzet correct is opgegeven in je IB- en BTW-aangifte.`;
+  } else if(nearRevenue||nearOrders){
+    banner.style.display='block';
+    banner.style.borderColor='#fbbf24';
+    const parts=[];
+    if(nearRevenue)parts.push(`omzet €${fmt(Math.round(yearTot))} van €${fmt(DAC7_REVENUE)}`);
+    if(nearOrders)parts.push(`${yearOrders} van ${DAC7_ORDERS} verkopen`);
+    msg.textContent=`Je nadert de DAC7-rapportagedrempel (${parts.join(', ')}). Als je deze overschrijdt, rapporteert het platform je gegevens aan de Belastingdienst.`;
+  } else {
+    banner.style.display='none';
+  }
+}
+
 function updateNavBadges(){
-  const pct=Math.min(Math.round(calcYearCB()/S.korLimit*100),100);
+  const pct=Math.min(Math.round(calcYearCB()/(S.ossLimit||10000)*100),100);
   const badge=document.getElementById('navAlertBadge');
   if(!badge)return;
-  if(pct>=90){badge.style.display='flex';badge.className='nav-badge';badge.title='KOR-drempel '+pct+'% bereikt — actie vereist!';}
-  else if(pct>=70){badge.style.display='flex';badge.className='nav-badge warn';badge.title='KOR-drempel '+pct+'% — let op';}
+  if(pct>=90){badge.style.display='flex';badge.className='nav-badge';badge.title='OSS-drempel '+pct+'% bereikt — actie vereist!';}
+  else if(pct>=70){badge.style.display='flex';badge.className='nav-badge warn';badge.title='OSS-drempel '+pct+'% — let op';}
   else{badge.style.display='none';}
 }
 
@@ -1959,9 +2193,12 @@ function updBanner() {
   // OSS-drempel: cross-border EU vs €10.000
   const ossPct = Math.min(yearCB / ossLimit * 100, 100);
   const ossRem = Math.max(ossLimit - yearCB, 0);
-  // KOR-drempel: totale omzet vs €20.000
-  const korPct = Math.min(yearTot / korLimit * 100, 100);
-  const korRem = Math.max(korLimit - yearTot, 0);
+  // KOR-basis: NL-omzet + EU-afstandsverkopen tot max de OSS-drempel (Artikel 33 EU Btw-richtlijn).
+  // EU-omzet boven de €10.000-drempel telt NIET mee voor de Nederlandse KOR-teller — die omzet
+  // is verschoven naar het bestemmingsland (OSS) en valt buiten de Nederlandse belastingjurisdictie.
+  const korBasis = yearTot - Math.max(0, yearCB - ossLimit);
+  const korPct = Math.min(korBasis / korLimit * 100, 100);
+  const korRem = Math.max(korLimit - korBasis, 0);
 
   const b = document.getElementById('kB');
 
@@ -1971,7 +2208,7 @@ function updBanner() {
 
   // Status bepalen: twee onafhankelijke drempels
   const ossExceeded = yearCB >= ossLimit;
-  const korExceeded = yearTot >= korLimit;
+  const korExceeded = korBasis >= korLimit;
 
   if (!tot) {
     b.className = 'kb safe';
@@ -1982,13 +2219,13 @@ function updBanner() {
     // KOR overschreden: BTW-plichtig voor NL
     b.className = 'kb danger';
     document.getElementById('kT').textContent = en ? '🚨 KOR threshold exceeded — Dutch VAT registration required' : '🚨 KOR-grens overschreden — BTW-registratie vereist';
-    document.getElementById('kS').textContent = (en ? 'Total revenue ' : 'Totale omzet ') + S.year + ': €' + fmt(Math.round(yearTot)) + ' > €' + fmt(korLimit) + (en ? ' (KOR limit)' : ' (KOR-grens)');
+    document.getElementById('kS').textContent = (en ? 'KOR basis ' : 'KOR-basis ') + S.year + ': €' + fmt(Math.round(korBasis)) + ' > €' + fmt(korLimit) + (en ? ' (KOR limit)' : ' (KOR-grens)');
     document.getElementById('ey').textContent = S.quarter + (en ? ' · ⚠ KOR EXCEEDED' : ' · ⚠ KOR VERLOPEN');
   } else if (ossExceeded) {
     // OSS overschreden: buitenlandse BTW verplicht, maar KOR kan nog actief zijn
     b.className = 'kb danger';
     document.getElementById('kT').textContent = en ? '🚨 OSS threshold exceeded — foreign VAT filing required' : '🚨 OSS-drempel overschreden — buitenlandse BTW-aangifte verplicht';
-    document.getElementById('kS').textContent = (en ? 'Cross-border EU ' : 'Cross-border EU ') + S.year + ': €' + fmt(Math.round(yearCB)) + ' > €' + fmt(ossLimit) + (en ? ' · KOR: €' : ' · KOR: €') + fmt(Math.round(yearTot)) + (en ? ' of €' : ' van €') + fmt(korLimit);
+    document.getElementById('kS').textContent = (en ? 'Cross-border EU ' : 'Cross-border EU ') + S.year + ': €' + fmt(Math.round(yearCB)) + ' > €' + fmt(ossLimit) + (en ? ' · KOR basis: €' : ' · KOR-basis: €') + fmt(Math.round(korBasis)) + (en ? ' of €' : ' van €') + fmt(korLimit);
     document.getElementById('ey').textContent = S.quarter + (en ? ' · ⚠ OSS REQUIRED' : ' · ⚠ OSS VERPLICHT');
   } else if (ossPct >= 60 || korPct >= 75) {
     b.className = 'kb warn';
@@ -2001,14 +2238,14 @@ function updBanner() {
         ? 'KOR threshold ' + Math.round(korPct) + '% — €' + fmt(Math.round(korRem)) + ' total remaining'
         : 'KOR-drempel ' + Math.round(korPct) + '% — nog €' + fmt(Math.round(korRem)) + ' totale ruimte';
     }
-    document.getElementById('kS').textContent = (en ? 'Cross-border EU: €' : 'Cross-border EU: €') + fmt(Math.round(yearCB)) + (en ? ' of €' : ' van €') + fmt(ossLimit) + ' · ' + (en ? 'Total: €' : 'Totaal: €') + fmt(Math.round(yearTot)) + (en ? ' of €' : ' van €') + fmt(korLimit);
+    document.getElementById('kS').textContent = (en ? 'Cross-border EU: €' : 'Cross-border EU: €') + fmt(Math.round(yearCB)) + (en ? ' of €' : ' van €') + fmt(ossLimit) + ' · ' + (en ? 'KOR basis: €' : 'KOR-basis: €') + fmt(Math.round(korBasis)) + (en ? ' of €' : ' van €') + fmt(korLimit);
     document.getElementById('ey').textContent = S.quarter + (en ? ' · KOR active' : ' · KOR actief');
   } else {
     b.className = 'kb safe';
     document.getElementById('kT').textContent = en
       ? 'KOR active — within both thresholds'
       : 'KOR actief — beide drempels binnen limiet';
-    document.getElementById('kS').textContent = (en ? 'Cross-border EU: €' : 'Cross-border EU: €') + fmt(Math.round(yearCB)) + (en ? ' of €' : ' van €') + fmt(ossLimit) + ' · ' + (en ? 'Total: €' : 'Totaal: €') + fmt(Math.round(yearTot)) + (en ? ' of €' : ' van €') + fmt(korLimit);
+    document.getElementById('kS').textContent = (en ? 'Cross-border EU: €' : 'Cross-border EU: €') + fmt(Math.round(yearCB)) + (en ? ' of €' : ' van €') + fmt(ossLimit) + ' · ' + (en ? 'KOR basis: €' : 'KOR-basis: €') + fmt(Math.round(korBasis)) + (en ? ' of €' : ' van €') + fmt(korLimit);
     document.getElementById('ey').textContent = S.quarter + (en ? ' · KOR active' : ' · KOR actief');
   }
 
@@ -2017,7 +2254,49 @@ function updBanner() {
   // Margeregeling waarschuwing
   const mw=document.getElementById('margeWarn');if(mw)mw.style.display=(S.marge&&tot)?'block':'none';
   // Uitleg kaart — geef beide drempelwaarden mee
-  updUitleg(ossPct, ossRem, yearCB, tot, korPct, korRem, yearTot, ossLimit, korLimit);
+  updUitleg(ossPct, ossRem, yearCB, tot, korPct, korRem, korBasis, ossLimit, korLimit);
+
+  // EU-KOR (EU SME Scheme): totale EU-brede jaaromzet bewaking
+  const euKorLimit = S.euKorLimit || 100000;
+  const euKorTotal = calcYearTotal();
+  const euKorBanner = document.getElementById('euKorBanner');
+  if(euKorBanner && tot){
+    const euKorPct = Math.round(euKorTotal / euKorLimit * 100);
+    const euKorRem = Math.max(0, euKorLimit - euKorTotal);
+    const en = window._lang === 'en';
+    if(euKorTotal >= euKorLimit){
+      euKorBanner.style.display = 'block';
+      euKorBanner.className = 'eu-kor-banner danger';
+      euKorBanner.innerHTML = en
+        ? '<strong>🚨 EU SME Scheme limit exceeded (€100,000)</strong> — Your total EU-wide revenue has exceeded the annual threshold. You can no longer apply the EU-KOR exemption in any EU member state. Contact your tax advisor.'
+        : '<strong>🚨 EU-KOR grens overschreden (€100.000)</strong> — Uw totale EU-brede omzet overschrijdt de jaargrens. De EU-KOR-vrijstelling vervalt onmiddellijk in alle lidstaten. Raadpleeg uw belastingadviseur.';
+    } else if(euKorPct >= 75){
+      euKorBanner.style.display = 'block';
+      euKorBanner.className = 'eu-kor-banner warn';
+      euKorBanner.innerHTML = en
+        ? '<strong>⚠ EU SME Scheme: '+euKorPct+'%</strong> — Total EU revenue €'+fmt(Math.round(euKorTotal))+' of €'+fmt(euKorLimit)+'. €'+fmt(Math.round(euKorRem))+' remaining before the EU-wide limit.'
+        : '<strong>⚠ EU-KOR: '+euKorPct+'%</strong> — Totale EU-omzet €'+fmt(Math.round(euKorTotal))+' van €'+fmt(euKorLimit)+'. Nog €'+fmt(Math.round(euKorRem))+' tot de EU-brede grens.';
+    } else {
+      euKorBanner.style.display = 'none';
+    }
+  } else if(euKorBanner){
+    euKorBanner.style.display = 'none';
+  }
+
+  // KOR uitsluitingstermijn
+  const korExclEl = document.getElementById('korExclBanner');
+  if(korExclEl){
+    const excl = S.korExcludedUntil ? parseInt(S.korExcludedUntil) : null;
+    const _en2 = window._lang === 'en';
+    if(excl && parseInt(S.year) <= excl){
+      korExclEl.style.display = 'block';
+      korExclEl.innerHTML = _en2
+        ? `<strong>⏸ KOR exclusion period active until ${excl}</strong> — You are excluded from the KOR (Small Business Scheme) until the end of ${excl}. Dutch VAT (21%) applies to all NL sales. <a href="https://mijn.belastingdienst.nl/" target="_blank" rel="noopener">Mijn Belastingdienst Zakelijk →</a>`
+        : `<strong>⏸ KOR-uitsluitingstermijn actief t/m ${excl}</strong> — Je bent uitgesloten van de KOR tot en met einde ${excl}. Op alle NL-verkopen geldt BTW-plicht (21%). <a href="https://mijn.belastingdienst.nl/" target="_blank" rel="noopener">Mijn Belastingdienst Zakelijk →</a>`;
+    } else {
+      korExclEl.style.display = 'none';
+    }
+  }
 
   // Automatische email alert (op OSS-drempel)
   const afgerondPct = Math.round(ossPct);
@@ -2181,6 +2460,23 @@ function updStats() {
     ? (_enS ? 'of ' : 'van ') + totOrders + ' (' + Math.round(totIntl / Math.max(totOrders, 1) * 100) + '%)'
     : (_enS ? 'of 0 total' : 'van 0 totaal');
   document.getElementById('sC').textContent = eu;
+
+  // EU-KOR (EU SME Scheme): totale EU-brede jaaromzet vs €100.000
+  const euKorLimit = S.euKorLimit || 100000;
+  const euKorTotal = calcYearTotal();
+  const euKorPct = Math.min(Math.round(euKorTotal / euKorLimit * 100), 100);
+  const ekEl = document.getElementById('sEK');
+  const ekSub = document.getElementById('sEKs');
+  if(ekEl){
+    ekEl.textContent = euKorPct + '%';
+    ekEl.style.color = euKorTotal >= euKorLimit ? 'var(--dn)' : euKorPct >= 75 ? '#b45309' : '#2d6a4f';
+  }
+  if(ekSub){
+    const rem = Math.max(0, euKorLimit - euKorTotal);
+    ekSub.textContent = _enS
+      ? (euKorTotal >= euKorLimit ? '⚠ EU SME limit exceeded' : '€'+fmt(Math.round(rem))+' remaining · EU-SME')
+      : (euKorTotal >= euKorLimit ? '⚠ EU-KOR grens overschreden' : 'nog €'+fmt(Math.round(rem))+' · EU-SME');
+  }
 }
 
 // ── MERGE HELPER — countries + rawOrders → {cc:{revenue,orders}} ──
@@ -2207,11 +2503,11 @@ function buildYearMg(){
   return mg;
 }
 // BTW + cross-border helpers that include rawOrders for any quarter
-function qBtwFull(q){if(q===S.quarter)return calcBtw();const d=S.quarterHistory[q];if(!d)return 0;return calcBtwData(d.countries)+(d.rawOrders||[]).filter(o=>o.country!=='NL'&&EU[o.country]).reduce((s,o)=>s+o.amount*(EU[o.country]?.r||0),0);}
+function qBtwFull(q){if(q===S.quarter)return calcBtw();const d=S.quarterHistory[q];if(!d)return 0;return calcBtwData(d.countries)+(d.rawOrders||[]).filter(o=>o.country!=='NL'&&EU[o.country]).reduce((s,o)=>s+o.amount*((EU[o.country]?.r||0)/(1+(EU[o.country]?.r||0))),0);}
 function qCBFull(q){if(q===S.quarter)return calcCB();const d=S.quarterHistory[q];if(!d)return 0;return Object.entries(d.countries).filter(([cc])=>cc!=='NL'&&EU[cc]).reduce((s,[,x])=>s+x.revenue,0)+(d.rawOrders||[]).filter(o=>o.country!=='NL'&&EU[o.country]).reduce((s,o)=>s+o.amount,0);}
 function calcYearCB(){return['Q1','Q2','Q3','Q4'].map(q=>q+' '+S.year).reduce((s,q)=>s+qCBFull(q),0);}
 // Totale jaaromzet (alle landen incl. NL) — voor KOR-drempel (€20.000)
-function qRevFull(q){if(q===S.quarter)return calcTotal();const d=S.quarterHistory[q];if(!d)return 0;return(d.revenue||0)+(d.rawOrders||[]).reduce((s,o)=>s+o.amount,0);}
+function qRevFull(q){if(q===S.quarter)return calcTotal();const d=S.quarterHistory[q];if(!d)return 0;return Object.values(d.countries||{}).reduce((s,c)=>s+c.revenue,0)+(d.rawOrders||[]).reduce((s,o)=>s+o.amount,0);}
 function calcYearTotal(){return['Q1','Q2','Q3','Q4'].map(q=>q+' '+S.year).reduce((s,q)=>s+qRevFull(q),0);}
 
 function renderTable(){
@@ -2225,7 +2521,7 @@ function renderTable(){
   const nonEU=en?'outside EU':'buiten EU';
   if(mg['NL']){const d=mg['NL'];rows+=`<tr><td data-l="${en?'Country':'Land'}"><div class="cc"><span class="cf">🇳🇱</span><div><div class="cn">${en?'Netherlands':'Nederland'}</div><div class="csb">${d.orders} ${OW(d.orders)} · ${domestic}</div></div></div></td><td data-l="VAT%"><span class="rc">21%</span></td><td data-l="${en?'Revenue':'Omzet'}" class="am nl">€${fmt(Math.round(d.revenue))}</td><td data-l="VAT" class="am nl">—</td><td data-l="Status" style="text-align:center"><span class="sp kor"><span class="dot"></span>KOR</span></td></tr>`;}
   for(const[cc,d]of Object.entries(mg).filter(([c])=>c!=='NL').sort((a,b)=>b[1].revenue-a[1].revenue)){
-    const info=CI(cc);const isEU=!!EU[cc];const bw=isEU?d.revenue*EU[cc].r:0;tbw+=bw;
+    const info=CI(cc);const isEU=!!EU[cc];const bw=isEU?d.revenue*(EU[cc].r/(1+EU[cc].r)):0;tbw+=bw;
     rows+=`<tr><td data-l="${en?'Country':'Land'}"><div class="cc"><span class="cf">${info.f}</span><div><div class="cn">${info.n}</div><div class="csb">${d.orders} ${OW(d.orders)}${isEU?' · '+ossLbl:' · '+nonEU}</div></div></div></td><td data-l="VAT%"><span class="rc">${isEU?Math.round(EU[cc].r*100)+'%':(en?'n/a':'n.v.t.')}</span></td><td data-l="${en?'Revenue':'Omzet'}" class="am">€${fmt(Math.round(d.revenue))}</td><td data-l="VAT" class="am bw">${isEU?'€'+fmt(Math.round(bw)):'—'}</td><td data-l="Status" style="text-align:center"><span class="sp ${isEU?'oss':'kor'}"><span class="dot"></span>${isEU?'OSS':'Non-EU'}</span></td></tr>`;
   }
   if(S.correcties.length){const ct=S.correcties.reduce((s,c)=>s+c.bedrag,0);rows+=`<tr style="background:var(--wnl)"><td colspan="3" style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--wn);padding:7px 0">📝 ${en?'Adjustments':'Correcties'}: ${S.correcties.length} item(s)</td><td class="am" style="color:var(--wn)">€${fmt(Math.round(ct))}</td><td></td></tr>`;}
@@ -2270,15 +2566,16 @@ function updProg(){
   const cb=calcCB();const yearCB=calcYearCB();
   if(cb<=0&&yearCB<=0){document.getElementById('progB').classList.remove('on');return;}
   // Als jaartotaal al boven drempel: prognose niet tonen (OSS-banner al actief)
-  if(yearCB>=S.korLimit){document.getElementById('progB').classList.remove('on');return;}
+  const ossLim=S.ossLimit||10000;
+  if(yearCB>=ossLim){document.getElementById('progB').classList.remove('on');return;}
   const now=new Date();const qn=+S.quarter[1];const y=+S.year;
   const starts=[new Date(y,0,1),new Date(y,3,1),new Date(y,6,1),new Date(y,9,1)];
   const start=starts[qn-1]||starts[0];const wk=Math.max(1,(now-start)/(1000*60*60*24*7));const rate=cb/wk;
-  const remYear=S.korLimit-yearCB;const proj=yearCB+rate*(13-wk);
+  const remYear=ossLim-yearCB;const proj=yearCB+rate*(13-wk);
   const pb=document.getElementById('progB');const pt=document.getElementById('progT');
   const _enP=window._lang==='en';
-  if(proj>S.korLimit&&yearCB<S.korLimit){const w=Math.ceil(remYear/rate);pt.innerHTML=_enP?`At current pace (€${fmt(Math.round(rate))}/week) you'll hit the OSS threshold in <strong>~${w} week${w!==1?'s':''}</strong>. Prepare your OSS registration.`:`Op huidig tempo (€${fmt(Math.round(rate))}/week) bereik je de KOR-jaargrens over <strong>ca. ${w} ${OW(w)}</strong>. Bereid je OSS-registratie voor.`;pb.classList.add('on');}
-  else if(proj>S.korLimit*.8){pt.innerHTML=_enP?`Annual forecast: <strong>€${fmt(Math.round(proj))}</strong> cross-border revenue in ${S.year}. You're approaching the OSS threshold of €${fmt(S.korLimit)}.`:`Prognose op jaarbasis: <strong>€${fmt(Math.round(proj))}</strong> cross-border omzet in ${S.year}. Je nadert de KOR-grens van €${fmt(S.korLimit)}.`;pb.classList.add('on');}
+  if(proj>ossLim&&yearCB<ossLim){const w=Math.ceil(remYear/rate);pt.innerHTML=_enP?`At current pace (€${fmt(Math.round(rate))}/week) you'll hit the OSS threshold in <strong>~${w} week${w!==1?'s':''}</strong>. Prepare your OSS registration.`:`Op huidig tempo (€${fmt(Math.round(rate))}/week) bereik je de OSS-drempel over <strong>ca. ${w} ${OW(w)}</strong>. Bereid je OSS-registratie voor.`;pb.classList.add('on');}
+  else if(proj>ossLim*.8){pt.innerHTML=_enP?`Annual forecast: <strong>€${fmt(Math.round(proj))}</strong> cross-border revenue in ${S.year}. You're approaching the OSS threshold of €${fmt(ossLim)}.`:`Prognose op jaarbasis: <strong>€${fmt(Math.round(proj))}</strong> cross-border omzet in ${S.year}. Je nadert de OSS-drempel van €${fmt(ossLim)}.`;pb.classList.add('on');}
   else pb.classList.remove('on');
 }
 
@@ -2353,8 +2650,9 @@ function renderTx(){
   const mg=buildMg();const hasCC=Object.keys(S.countries).length>0;const hasRaw=S.rawOrders.length>0;const hasMg=Object.keys(mg).length>0;const qTx=S.transactions.filter(t=>t.quarter===S.quarter);const hasTx=qTx.length>0;
   const vw=document.getElementById('vintedWarn');if(vw)vw.classList.toggle('on',hasRaw);
   const en=window._lang==='en';
+  // Altijd subtitle updaten — voorkomt stale tekst bij kwartaalwissel
+  sub.textContent=(S.totalOrders>0||hasMg)?(S.totalOrders+' orders · '+S.quarter):(en?'Upload a CSV':'Upload een CSV');
   if(!hasMg&&!hasTx){el.innerHTML=`<div class="es"><div class="esi">🧾</div><div class="est">${en?'No transactions':'Geen transacties'}</div><div class="ess">${en?'Upload a CSV on the dashboard':'Upload CSV op dashboard'}</div></div>`;return;}
-  sub.textContent=S.totalOrders+' orders · '+S.quarter;
   let html='';
   if(hasMg){
     let rows='';
@@ -2370,11 +2668,13 @@ function renderTx(){
     const siIcon=col=>{if(_rawSort.col!==col)return'<span class="sort-icon">⇅</span>';return _rawSort.dir==='asc'?'<span class="sort-icon">↑</span>':'<span class="sort-icon">↓</span>';};
     const siCls=col=>'ro-sort-col'+(_rawSort.col===col?' active':'');
     const rawRows=si.map(i=>{
-      const o=S.rawOrders[i];const info=CI(o.country);const isEU=!!EU[o.country]&&o.country!=='NL';const bw=isEU?o.amount*(EU[o.country].r||0):0;
-      return`<div class="ro-row" data-ridx="${i}">
+      const o=S.rawOrders[i];const info=CI(o.country);const isEU=!!EU[o.country]&&o.country!=='NL';const bw=isEU?o.amount*((EU[o.country].r||0)/(1+(EU[o.country].r||0))):0;
+      const provBadge=o.provisional?`<span class="prov-badge" title="${o.inferReason||'Heuristisch bepaald — controleer land'}">⚑ ~${o.confidence||'?'}%</span>`:'';
+      return`<div class="ro-row${o.provisional?' prov-row':''}" data-ridx="${i}">
         <input type="checkbox" class="ro-row-cb" data-ridx="${i}" onchange="onRawCbChange(this)">
         <input type="date" class="ro-date-in" value="${o.date||''}" onchange="setOrderDate(${i},this.value)" title="${en?'Order date':'Orderdatum'}">
         <select class="ro-cc-sel" onchange="setOrderCountry(${i},this.value)" title="${en?'Change country':'Land aanpassen'}">${countryOptions(o.country)}</select>
+        ${provBadge}
         <span class="ro-amt">€${fmt(o.amount.toFixed(2))}${isEU?'<br><span style="font-size:10px;color:var(--dn);font-weight:400">VAT €'+fmt(bw.toFixed(2))+'</span>':''}</span>
         <button onclick="delRawOrder(${i})" title="${en?'Delete':'Verwijderen'}" style="background:none;border:none;cursor:pointer;color:var(--tx4);font-size:15px;padding:4px 6px;min-height:36px;border-radius:var(--rx);-webkit-tap-highlight-color:transparent" onmouseover="this.style.color='var(--dn)'" onmouseout="this.style.color='var(--tx4)'">🗑️</button>
       </div>`;
@@ -2387,6 +2687,7 @@ function renderTx(){
       <div class="ro-select-all-row" onclick="toggleAllRaw(event)">
         <input type="checkbox" id="rawSelAll" onclick="event.stopPropagation();toggleAllRaw(event)">
         <span>${en?'Select all':'Alles selecteren'} (${S.rawOrders.length} orders)</span>
+        ${S.rawOrders.some(o=>o.provisional)?`<button onclick="event.stopPropagation();selectProvisionalOnly()" style="margin-left:auto;background:var(--wnl);border:1px solid var(--focus);color:#78350f;font-size:11px;font-weight:700;padding:3px 10px;border-radius:20px;cursor:pointer;flex-shrink:0">${en?'⚑ Select provisional only':'⚑ Selecteer alleen voorlopig'} (${S.rawOrders.filter(o=>o.provisional).length})</button>`:''}
       </div>
       <div class="ro-sort-hd">
         <span class="${siCls('date')}" onclick="sortRawBy('date')">${en?'Date':'Datum'} ${siIcon('date')}</span>
@@ -2411,7 +2712,7 @@ function renderLanden(){
   const mg=buildYearMg();const eu=Object.entries(mg).filter(([cc])=>cc!=='NL'&&EU[cc]&&mg[cc].revenue>0);
   const nl=mg['NL'];const en=window._lang==='en';
   if(!eu.length&&!nl){el.innerHTML=`<div class="sc" style="grid-column:1/-1"><div class="es"><div class="esi">🌍</div><div class="est">${en?'No EU countries':'Geen EU-landen'}</div><div class="ess">${en?'Upload a CSV on the dashboard':'Upload CSV op dashboard'}</div></div></div>`;return;}
-  const wb=eu.map(([cc,d])=>({cc,d,bw:d.revenue*(EU[cc].r||0)}));const tot=wb.reduce((s,x)=>s+x.bw,0);
+  const wb=eu.map(([cc,d])=>({cc,d,bw:d.revenue*((EU[cc].r||0)/(1+(EU[cc].r||0)))}));const tot=wb.reduce((s,x)=>s+x.bw,0);
   let html='';
   if(eu.length){
     html+=`<div style="grid-column:1/-1;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:var(--tx4);padding:2px 0 4px">🌍 ${en?'Cross-border EU — OSS filing required':'Cross-border EU — OSS-aangifte vereist'}</div>`;
@@ -2428,7 +2729,8 @@ function renderLanden(){
 function renderYGrid(){
   const el=document.getElementById('ygrid');const y=S.year;const Qs=['Q1','Q2','Q3','Q4'].map(q=>q+' '+y);
   const q1CB=qCBFull('Q1 '+y);
-  const korBlocked=calcYearCB()>=S.korLimit; // Jaarlijkse cross-border EU ≥ ingestelde KOR-grens
+  const _yCB=calcYearCB();const _yTot=calcYearTotal();const _korBasis=_yTot-Math.max(0,_yCB-(S.ossLimit||10000));
+  const korBlocked=_korBasis>=(S.korLimit||20000); // KOR-basis (yearTot - EU-deel boven OSS) ≥ KOR-grens
   const qRev=q=>q===S.quarter?calcTotal():(S.quarterHistory[q]?.revenue||0);
   const maxR=Math.max(...Qs.map(qRev),1);
   el.innerHTML=Qs.map((q,idx)=>{
@@ -2461,8 +2763,9 @@ function renderJDetail(){
   const tB=ld.reduce((s,q)=>s+qBtwFull(q),0);
   const tCB=ld.reduce((s,q)=>s+qCBFull(q),0);
   const tO=ld.reduce((s,q)=>s+qO(q),0);
-  const korPct=tCB>0?Math.min(Math.round(tCB/S.korLimit*100),100):0;
-  const korStatus=tCB>=S.korLimit?'danger':tCB>=S.korLimit*.7?'warn':'safe';
+  const _ossLimJ=S.ossLimit||10000;const _korLimJ=S.korLimit||20000;
+  const korPct=tCB>0?Math.min(Math.round(tCB/_ossLimJ*100),100):0;
+  const korStatus=tCB>=_ossLimJ?'danger':tCB>=_ossLimJ*.7?'warn':'safe';
   const korClr=korStatus==='danger'?'var(--dn)':korStatus==='warn'?'#92400e':'var(--acm)';
   const korBg=korStatus==='danger'?'var(--dn)':korStatus==='warn'?'#f59e0b':'var(--ac)';
   const maxRev=Math.max(...ld.map(q=>qR(q)),1);
@@ -2565,7 +2868,7 @@ function delCorr(i){if(i<0||i>=S.correcties.length)return;S.correcties.splice(i,
 function saveAl(){AL.enabled=document.getElementById('alTog').checked;AL.email=document.getElementById('alEmail').value;const su=document.getElementById('alSheets');if(su)AL.sheetsUrl=su.value.trim();idbPut('ktx_al',AL).catch(()=>{});localStorage.setItem('ktx_al',JSON.stringify(AL));const sv=document.getElementById('alSv');sv.classList.add('on');setTimeout(()=>sv.classList.remove('on'),2000);if(AL.enabled&&'Notification'in window&&Notification.permission==='default')Notification.requestPermission();}
 function setTh(p){AL.threshold=p;AL.lastAlertSent=0;document.querySelectorAll('.thb').forEach(b=>b.classList.remove('on'));document.getElementById('th'+p).classList.add('on');localStorage.setItem('ktx_al',JSON.stringify(AL));}
 function loadAlUI(){document.getElementById('alTog').checked=AL.enabled;document.getElementById('alEmail').value=AL.email||'';document.querySelectorAll('.thb').forEach(b=>b.classList.remove('on'));const t=document.getElementById('th'+AL.threshold);if(t)t.classList.add('on');const su=document.getElementById('alSheets');if(su)su.value=AL.sheetsUrl||'';}
-function checkAlert(){if(!AL.enabled||!AL.email)return;const pct=Math.min(calcYearCB()/S.korLimit*100,100);const p=Math.round(pct);if(p>=AL.threshold){if('Notification'in window&&Notification.permission==='granted')new Notification('ZenBTW Alert',{body:'BTW-drempel '+p+'% bereikt (jaar '+S.year+')!'});if(p!==AL.lastAlertSent)stuurEmailAlert(p);}}
+function checkAlert(){if(!AL.enabled||!AL.email)return;const pct=Math.min(calcYearCB()/(S.ossLimit||10000)*100,100);const p=Math.round(pct);if(p>=AL.threshold){if('Notification'in window&&Notification.permission==='granted')new Notification('ZenBTW Alert',{body:'BTW-drempel '+p+'% bereikt (jaar '+S.year+')!'});if(p!==AL.lastAlertSent)stuurEmailAlert(p);}}
 
 // ── PDF RAPPORT ──
 function printRapport(){
@@ -2587,7 +2890,7 @@ function printRapport(){
       ['BTW verschuldigd (OSS)','€'+fmt(Math.round(bw))],
       ...euRows.map(([cc,d])=>[
         (EU[cc].f||'')+' '+EU[cc].n+' ('+Math.round(EU[cc].r*100)+'%)',
-        '€'+fmt(Math.round(d.revenue))+' · BTW €'+fmt(Math.round(d.revenue*EU[cc].r))
+        '€'+fmt(Math.round(d.revenue))+' · BTW €'+fmt(Math.round(d.revenue*(EU[cc].r/(1+EU[cc].r))))
       ])
     ];
     body.innerHTML=rows.map(([l,v])=>`<div class="print-rapport-row"><span>${l}</span><span><strong>${v}</strong></span></div>`).join('');
@@ -2668,8 +2971,8 @@ function exportXML(){
   <TotalVATAmountPayable>${bw.toFixed(2)}</TotalVATAmountPayable>
   <OSSThresholdCheck>
     <YearlyEURevenue>${calcYearCB().toFixed(2)}</YearlyEURevenue>
-    <ThresholdEUR>${S.korLimit.toFixed(2)}</ThresholdEUR>
-    <ThresholdExceeded>${calcYearCB()>=S.korLimit?'true':'false'}</ThresholdExceeded>
+    <ThresholdEUR>${(S.ossLimit||10000).toFixed(2)}</ThresholdEUR>
+    <ThresholdExceeded>${calcYearCB()>=(S.ossLimit||10000)?'true':'false'}</ThresholdExceeded>
   </OSSThresholdCheck>
 </OSSReturn>`;
   const a=document.createElement('a');
@@ -2682,7 +2985,7 @@ function exportCSVFile(){
   if(!calcTotal()){alert('Upload eerst een CSV.');return;}
   const bw=calcBtw();let csv=`ZENBTW rapport · ${S.company||'—'} · ${S.quarter}\nGegenereerd: ${new Date().toLocaleDateString('nl-NL')}\n\nLand,ISO,BTW%,Omzet,BTW,Orders,Status\n`;
   if(S.countries['NL'])csv+=`Nederland,NL,21%,${S.countries['NL'].revenue.toFixed(2)},0.00,${S.countries['NL'].orders},KOR\n`;
-  for(const[cc,d]of Object.entries(S.countries).filter(([c])=>c!=='NL').sort((a,b)=>b[1].revenue-a[1].revenue)){const i=EU[cc]||CI(cc);csv+=`"${i.n}",${cc},${EU[cc]?Math.round(EU[cc].r*100)+'%':'n.v.t.'},${d.revenue.toFixed(2)},${EU[cc]?(d.revenue*EU[cc].r).toFixed(2):'0.00'},${d.orders},${EU[cc]?'OSS':'Non-EU'}\n`;}
+  for(const[cc,d]of Object.entries(S.countries).filter(([c])=>c!=='NL').sort((a,b)=>b[1].revenue-a[1].revenue)){const i=EU[cc]||CI(cc);csv+=`"${i.n}",${cc},${EU[cc]?Math.round(EU[cc].r*100)+'%':'n.v.t.'},${d.revenue.toFixed(2)},${EU[cc]?(d.revenue*(EU[cc].r/(1+EU[cc].r))).toFixed(2):'0.00'},${d.orders},${EU[cc]?'OSS':'Non-EU'}\n`;}
   if(S.correcties.length){csv+=`\nCorrecties:\n`;S.correcties.forEach(c=>csv+=`${EU[c.land]?.n||c.land},,,,${c.bedrag.toFixed(2)},,${c.date}\n`);}
   csv+=`\nTotaal BTW,,,,${bw.toFixed(2)},\n`;
   dl(`ZENBTW_${S.quarter.replace(' ','_')}.csv`,csv,'text/csv;charset=utf-8');
@@ -2736,7 +3039,8 @@ function openSettings(){
   document.getElementById('fCo').value=S.company||'';
   document.getElementById('fBt').value=S.btwnr||'';
   document.getElementById('fKv').value=S.kvk||'';
-  document.getElementById('fKo').value=S.korLimit||10000;
+  document.getElementById('fKo').value=S.korLimit||20000;
+  const fKorExcl=document.getElementById('fKorExcl');if(fKorExcl)fKorExcl.value=S.korExcludedUntil||'';
   const fm=document.getElementById('fMarge');if(fm){fm.checked=!!S.marge;document.getElementById('margeModalInfo').style.display=S.marge?'block':'none';}
   document.getElementById('fBackupUrl').value=S.backupUrl||'';
   updateMobTopbar();
@@ -2752,7 +3056,8 @@ function saveSettings(){
   S.company = document.getElementById('fCo').value.trim();
   S.btwnr = document.getElementById('fBt').value.trim();
   S.kvk = document.getElementById('fKv').value.trim();
-  S.korLimit = parseInt(document.getElementById('fKo').value) || 10000;
+  S.korLimit = parseInt(document.getElementById('fKo').value) || 20000;
+  const _fKorExcl=document.getElementById('fKorExcl');S.korExcludedUntil=_fKorExcl&&_fKorExcl.value?parseInt(_fKorExcl.value)||null:null;
   const fm=document.getElementById('fMarge');if(fm)S.marge=fm.checked;
   S.quarter = document.getElementById('fQu').value;
   S.year = S.quarter.split(' ')[1]||S.year;
@@ -2774,11 +3079,17 @@ function saveSettings(){
   render();
 }
 
+function _updUploadZones(){
+  const pm={eZ:'etsy',sZ:'shopify',vZ:'vinted'};const ic={eZ:'🏪',sZ:'🛍️',vZ:'👗'};const tt={eZ:'Etsy CSV',sZ:'Shopify CSV',vZ:'Vinted CSV'};
+  ['eZ','sZ','vZ'].forEach(id=>{const z=document.getElementById(id);if(!z)return;const pd=S.platforms&&S.platforms[pm[id]];
+    if(pd){z.className='uz ok';z.querySelector('.ui').textContent='✅';z.querySelector('.ut').textContent=pd.orders+' orders';z.querySelector('.us').textContent='€'+fmt(Math.round(pd.revenue));}
+    else{z.className='uz';z.querySelector('.ui').textContent=ic[id];z.querySelector('.ut').textContent=tt[id];if(z.querySelector('.us'))z.querySelector('.us').textContent='';}});
+}
 function changeYear(y){
   saveQ();S.year=y;S.quarter='Q1 '+y;
   document.getElementById('yrLbl').textContent='Kwartaal '+y;
   document.querySelectorAll('.qb').forEach((b,i)=>b.classList.toggle('on',i===0));
-  restoreQ();saveS();render();
+  restoreQ();_updUploadZones();saveS();render();
 }
 function setQ(el,q){
   saveQ();
@@ -2786,21 +3097,13 @@ function setQ(el,q){
   el.classList.add('on');
   S.quarter = q + ' ' + S.year;
   restoreQ();
-  ['eZ','sZ','vZ'].forEach(id=>{
-    const z = document.getElementById(id);
-    if(z){
-      z.className = 'uz';
-      const icons = {eZ:'🏪', sZ:'🛍️', vZ:'👗'};
-      const tits = {eZ:'Etsy CSV', sZ:'Shopify CSV', vZ:'Vinted CSV'};
-      z.querySelector('.ui').textContent = icons[id];
-      z.querySelector('.ut').textContent = tits[id];
-    }
-  });
+  _updUploadZones();
   document.getElementById('fxB').className = 'fxbar';
   ['xBtn','xX','xC'].forEach(id => {
     const e = document.getElementById(id);
     if(e) e.disabled = !calcTotal();
   });
+  saveS();
   clearLog();
   render();
 }
@@ -2998,6 +3301,7 @@ function initApp(){
 }
 loadS().then(initApp).catch(initApp);
 </script>
+<script src="https://cdn.jsdelivr.net/npm/jszip@3.10.1/dist/jszip.min.js"></script>
 <script defer src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
 <script>
 emailjs.init("hdOoLlKINluOddB4m");
@@ -3172,9 +3476,18 @@ function applyBulkCountry(){
   if(!checked.length)return;
   checked.forEach(cb=>{
     const i=parseInt(cb.dataset.ridx);
-    if(!isNaN(i)&&i>=0&&i<S.rawOrders.length)S.rawOrders[i].country=cc;
+    if(!isNaN(i)&&i>=0&&i<S.rawOrders.length){S.rawOrders[i].country=cc;S.rawOrders[i].provisional=false;}
   });
   saveQ();render();clearBulkSelection();
+}
+function selectProvisionalOnly(){
+  document.querySelectorAll('.ro-row-cb').forEach(cb=>{
+    const i=parseInt(cb.dataset.ridx);
+    const isProv=!isNaN(i)&&i>=0&&i<S.rawOrders.length&&!!S.rawOrders[i].provisional;
+    cb.checked=isProv;
+    cb.closest('.ro-row')?.classList.toggle('bulk-selected',isProv);
+  });
+  updateBulkBar();
 }
 function clearBulkSelection(){
   document.querySelectorAll('.ro-row-cb').forEach(cb=>{

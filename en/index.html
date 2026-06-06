@@ -166,7 +166,26 @@ footer{border-top:1px solid var(--br);padding:28px clamp(24px,5vw,80px);display:
   .steps,.vat-grid,.features-grid{grid-template-columns:1fr}
   .nav-links{display:none}
   .hero h1{font-size:30px}
+  .nav-hamburger{display:flex}
+  .nav-cta{display:none}
 }
+.nav-hamburger{display:none;flex-direction:column;justify-content:center;align-items:center;gap:5px;width:42px;height:42px;background:none;border:none;cursor:pointer;border-radius:10px;transition:background .15s;flex-shrink:0}
+.nav-hamburger:hover{background:var(--acl)}
+.nav-hamburger .hb{width:20px;height:2px;background:var(--tx2);border-radius:2px;transition:all .25s cubic-bezier(.16,1,.3,1);transform-origin:center}
+.nav-hamburger.open .hb:nth-child(1){transform:translateY(7px) rotate(45deg)}
+.nav-hamburger.open .hb:nth-child(2){opacity:0;transform:scaleX(0)}
+.nav-hamburger.open .hb:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+.mob-nav-overlay{position:fixed;inset:0;z-index:600;background:rgba(0,0,0,.45);backdrop-filter:blur(2px);-webkit-backdrop-filter:blur(2px);display:none;opacity:0;transition:opacity .3s}
+.mob-nav-overlay.on{display:block;opacity:1}
+.mob-nav-drawer{position:fixed;top:0;right:0;bottom:0;width:min(300px,85vw);background:#fff;z-index:700;transform:translateX(100%);transition:transform .3s cubic-bezier(.16,1,.3,1);display:flex;flex-direction:column;overflow-y:auto}
+.mob-nav-drawer.on{transform:translateX(0)}
+.mob-nav-hd{display:flex;align-items:center;justify-content:space-between;padding:16px 18px;border-bottom:1.5px solid var(--br)}
+.mob-nav-close{background:none;border:none;cursor:pointer;font-size:18px;color:var(--tx2);width:36px;height:36px;display:flex;align-items:center;justify-content:center;border-radius:8px;transition:background .15s}
+.mob-nav-link-list{display:flex;flex-direction:column;padding:12px 0;flex:1}
+.mob-nav-link{padding:14px 22px;font-size:15px;font-weight:700;color:var(--tx2);border-left:3px solid transparent;text-decoration:none;transition:all .14s;display:block}
+.mob-nav-link:hover{color:var(--ac);background:var(--acl);border-left-color:var(--ac)}
+.mob-nav-cta-en{display:flex;align-items:center;justify-content:center;margin:0 18px 16px;padding:14px 24px;background:var(--ac);color:#fff;border-radius:10px;font-size:15px;font-weight:800;text-decoration:none;transition:all .2s}
+.mob-nav-cta-en:hover{background:var(--acd)}
 </style>
 </head>
 <body>
@@ -188,16 +207,36 @@ footer{border-top:1px solid var(--br);padding:28px clamp(24px,5vw,80px);display:
     <a href="#faq" class="nav-link">FAQ</a>
   </div>
   <div class="nav-right">
-    <div class="lang-switch">
-      <a href="/">NL</a>
-      <span>|</span>
-      <a href="/en" class="active">EN</a>
-    </div>
     <a href="/app" class="nav-cta" data-umami-event="en-nav-cta">
       Try free <span class="nav-cta-arrow">→</span>
     </a>
+    <button class="nav-hamburger" id="navHamburger" onclick="toggleMobNav()" aria-label="Open menu" aria-expanded="false">
+      <span class="hb"></span><span class="hb"></span><span class="hb"></span>
+    </button>
   </div>
 </nav>
+<div class="mob-nav-overlay" id="mobNavOverlay" onclick="closeMobNav()"></div>
+<div class="mob-nav-drawer" id="mobNavDrawer">
+  <div class="mob-nav-hd">
+    <a href="/en" style="display:flex;align-items:center;gap:10px;text-decoration:none;color:#1a1814">
+      <svg width="28" height="28" viewBox="0 0 100 100"><path d="M50 8 L88 20 L88 55 Q88 78 50 92 Q12 78 12 55 L12 20 Z" fill="#1a4731"/><rect x="27" y="54" width="10" height="18" fill="white" rx="2"/><rect x="41" y="42" width="10" height="30" fill="white" rx="2"/><rect x="55" y="32" width="10" height="40" fill="white" rx="2"/><path d="M24 56 Q52 36 74 26" stroke="white" stroke-width="4" fill="none" stroke-linecap="round"/><path d="M70 20 L80 28 L68 30 Z" fill="white"/></svg>
+      <span style="font-family:'Fraunces',serif;font-size:18px;font-weight:700">Zen<em style="color:#2d6a4f;font-style:normal">BTW</em></span>
+    </a>
+    <button class="mob-nav-close" onclick="closeMobNav()" aria-label="Close">✕</button>
+  </div>
+  <div class="mob-nav-link-list">
+    <a href="#how" class="mob-nav-link" onclick="closeMobNav()">How it works</a>
+    <a href="#vat" class="mob-nav-link" onclick="closeMobNav()">EU VAT rules</a>
+    <a href="#faq" class="mob-nav-link" onclick="closeMobNav()">FAQ</a>
+  </div>
+  <div style="padding:0 18px 20px">
+    <a href="/app" class="mob-nav-cta-en" data-umami-event="en-nav-cta-mob">Try free →</a>
+  </div>
+</div>
+<script>
+function toggleMobNav(){var d=document.getElementById('mobNavDrawer'),o=document.getElementById('mobNavOverlay'),b=document.getElementById('navHamburger'),open=d.classList.toggle('on');o.style.display='block';setTimeout(function(){if(open)o.classList.add('on');},10);if(!open)closeMobNav();b.classList.toggle('open',open);b.setAttribute('aria-expanded',open);document.body.style.overflow=open?'hidden':'';}
+function closeMobNav(){var d=document.getElementById('mobNavDrawer'),o=document.getElementById('mobNavOverlay'),b=document.getElementById('navHamburger');d.classList.remove('on');o.classList.remove('on');setTimeout(function(){o.style.display='none';},300);b.classList.remove('open');b.setAttribute('aria-expanded','false');document.body.style.overflow='';}
+</script>
 
 <!-- ── HERO ── -->
 <section class="hero">

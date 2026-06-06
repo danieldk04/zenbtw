@@ -77,6 +77,7 @@ jobs:
           git add blog/*.html sitemap.xml keywords.json
           SLUG=$(jq -r '.published[-1].slug // "unknown"' keywords.json)
           git commit -m "feat: auto-publish blog post ${SLUG}"
+          git pull --rebase origin main
           git push
 
       - name: Summary

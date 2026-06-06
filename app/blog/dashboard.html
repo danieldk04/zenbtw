@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Content Agent Dashboard | ZENbtw</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #f8f9ff; color: #1a1a2e; min-height: 100vh; }
+
+    header { background: #1a1a2e; color: white; padding: 1.2rem 2rem; display: flex; justify-content: space-between; align-items: center; }
+    header h1 { font-size: 1.1rem; font-weight: 600; }
+    header a { color: #a5b4fc; font-size: 0.85rem; text-decoration: none; }
+
+    .container { max-width: 1100px; margin: 0 auto; padding: 2rem 1.5rem; }
+
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1rem; margin-bottom: 2rem; }
+    .stat { background: white; border-radius: 10px; padding: 1.2rem 1.5rem; border: 1px solid #e5e7eb; }
+    .stat .label { font-size: 0.8rem; color: #6b7280; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.4rem; }
+    .stat .value { font-size: 2rem; font-weight: 700; color: #4f46e5; }
+    .stat .sub { font-size: 0.8rem; color: #9ca3af; margin-top: 0.2rem; }
+
+    .section { background: white; border-radius: 10px; border: 1px solid #e5e7eb; margin-bottom: 1.5rem; overflow: hidden; }
+    .section-header { padding: 1rem 1.5rem; border-bottom: 1px solid #f3f4f6; display: flex; justify-content: space-between; align-items: center; }
+    .section-header h2 { font-size: 0.95rem; font-weight: 600; }
+    .badge { font-size: 0.75rem; padding: 2px 10px; border-radius: 99px; }
+    .badge-blue { background: #eef2ff; color: #4f46e5; }
+    .badge-green { background: #dcfce7; color: #16a34a; }
+    .badge-orange { background: #fff7ed; color: #ea580c; }
+    .badge-red { background: #fef2f2; color: #dc2626; }
+
+    table { width: 100%; border-collapse: collapse; }
+    th { padding: 0.7rem 1rem; text-align: left; font-size: 0.78rem; color: #6b7280; text-transform: uppercase; letter-spacing: 0.05em; background: #f9fafb; border-bottom: 1px solid #f3f4f6; }
+    td { padding: 0.9rem 1rem; border-bottom: 1px solid #f9fafb; font-size: 0.88rem; vertical-align: top; }
+    tr:last-child td { border-bottom: none; }
+    tr:hover td { background: #fafbff; }
+
+    .seo-bar { height: 6px; border-radius: 3px; background: #e5e7eb; margin-top: 4px; }
+    .seo-fill { height: 100%; border-radius: 3px; }
+    .seo-good { background: #22c55e; }
+    .seo-medium { background: #f59e0b; }
+    .seo-poor { background: #ef4444; }
+
+    .query-list { padding: 1rem 1.5rem; }
+    .query-item { display: flex; align-items: center; gap: 1rem; padding: 0.6rem 0; border-bottom: 1px solid #f3f4f6; }
+    .query-item:last-child { border-bottom: none; }
+    .query-score { font-size: 0.8rem; font-weight: 700; color: #4f46e5; min-width: 50px; }
+    .query-text { font-size: 0.88rem; flex: 1; }
+    .query-type { font-size: 0.75rem; }
+
+    .run-entry { padding: 1rem 1.5rem; border-bottom: 1px solid #f3f4f6; }
+    .run-entry:last-child { border-bottom: none; }
+    .run-meta { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0.4rem; }
+    .run-time { font-size: 0.8rem; color: #9ca3af; }
+    .run-detail { font-size: 0.82rem; color: #6b7280; }
+
+    .notes { font-size: 0.78rem; color: #9ca3af; margin-top: 3px; }
+    a.blog-link { color: #4f46e5; text-decoration: none; font-weight: 500; }
+    a.blog-link:hover { text-decoration: underline; }
+
+    .loading { text-align: center; padding: 4rem; color: #9ca3af; }
+    .error { text-align: center; padding: 4rem; color: #ef4444; }
+    .last-updated { font-size: 0.78rem; color: #9ca3af; text-align: right; margin-bottom: 1rem; }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>ZENbtw — Content Agent Dashboard</h1>
+    <a href="https://zenbtw.nl">&larr; Terug naar ZENbtw</a>
+  </header>
+
+  <div class="container">
+    <div id="app"><div class="loading">Data laden...</div></div>
+  </div>
+
+  <script>
+    async function loadData() {
+      const res = await fetch('data.json?t=' + Date.now());
+      if (!res.ok) throw new Error('data.json niet gevonden');
+      return res.json();
+    }
+
+    function seoClass(score) {
+      if (score >= 75) return 'seo-good';
+      if (score >= 50) return 'seo-medium';
+      return 'seo-poor';
+    }
+
+    function seoLabel(score) {
+      if (score >= 75) return ['badge-green', 'Goed'];
+      if (score >= 50) return ['badge-orange', 'Matig'];
+      return ['badge-red', 'Zwak'];
+    }
+
+    function typeLabel(type) {
+      if (type === 'rising') return ['badge-blue', 'Trending'];
+      return ['badge-orange', 'Top'];
+    }
+
+    function formatDate(iso) {
+      return new Date(iso).toLocaleString('nl-NL', { day: 'numeric', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit' });
+    }
+
+    function render(data) {
+      const blogs = data.blogs || [];
+      const runs = data.runs || [];
+      const lastRun = runs[0];
+      const lastRunTime = lastRun ? formatDate(lastRun.timestamp) : '—';
+      const avgSeo = blogs.length
+        ? Math.round(blogs.reduce((a, b) => a + (b.seo?.score || 0), 0) / blogs.length)
+        : 0;
+
+      const statsHTML = `
+        <div class="grid">
+          <div class="stat">
+            <div class="label">Gepubliceerde blogs</div>
+            <div class="value">${blogs.length}</div>
+            <div class="sub">totaal gegenereerd</div>
+          </div>
+          <div class="stat">
+            <div class="label">Gem. SEO score</div>
+            <div class="value">${avgSeo}<span style="font-size:1rem;color:#9ca3af">/100</span></div>
+            <div class="sub">over alle blogs</div>
+          </div>
+          <div class="stat">
+            <div class="label">Laatste run</div>
+            <div class="value" style="font-size:1.1rem;padding-top:0.3rem">${lastRunTime}</div>
+            <div class="sub">${lastRun?.status === 'success' ? 'succesvol' : lastRun?.status || '—'}</div>
+          </div>
+          <div class="stat">
+            <div class="label">Agent runs</div>
+            <div class="value">${runs.length}</div>
+            <div class="sub">totaal uitgevoerd</div>
+          </div>
+        </div>`;
+
+      const blogsHTML = `
+        <div class="section">
+          <div class="section-header">
+            <h2>Gepubliceerde blogs</h2>
+            <span class="badge badge-blue">${blogs.length} blogs</span>
+          </div>
+          <table>
+            <thead>
+              <tr>
+                <th>Datum</th>
+                <th>Blog titel</th>
+                <th>Trending query</th>
+                <th>Score</th>
+                <th>SEO</th>
+                <th>Details</th>
+              </tr>
+            </thead>
+            <tbody>
+              ${blogs.map(b => {
+                const [badgeClass, badgeLabel] = seoLabel(b.seo?.score || 0);
+                const [typeClass, typeText] = typeLabel(b.trending_type);
+                return `
+                  <tr>
+                    <td style="white-space:nowrap;color:#6b7280">${b.date}</td>
+                    <td><a class="blog-link" href="${b.url}" target="_blank">${b.title}</a></td>
+                    <td>
+                      <span style="font-size:0.85rem">${b.query}</span><br>
+                      <span class="badge ${typeClass}">${typeText}</span>
+                    </td>
+                    <td style="font-weight:700;color:#4f46e5">${b.trending_score >= 5000 ? '🔥 ' + b.trending_score : b.trending_score}</td>
+                    <td>
+                      <span class="badge ${badgeClass}">${badgeLabel} ${b.seo?.score || 0}/100</span>
+                      <div class="seo-bar"><div class="seo-fill ${seoClass(b.seo?.score || 0)}" style="width:${b.seo?.score || 0}%"></div></div>
+                      ${b.seo?.notes?.length ? `<div class="notes">${b.seo.notes.join(' · ')}</div>` : ''}
+                    </td>
+                    <td style="color:#9ca3af;font-size:0.8rem">
+                      ${b.seo?.word_count || '?'} woorden<br>
+                      ${b.seo?.h2_count || 0} headers
+                    </td>
+                  </tr>`;
+              }).join('')}
+            </tbody>
+          </table>
+        </div>`;
+
+      const lastRunQueries = lastRun?.top_queries || [];
+      const skipped = lastRun?.skipped_queries || [];
+      const queriesHTML = lastRunQueries.length ? `
+        <div class="section">
+          <div class="section-header">
+            <h2>Laatste run — trending queries gevonden</h2>
+            <span class="badge badge-blue">${lastRunQueries.length} queries</span>
+          </div>
+          <div class="query-list">
+            ${lastRunQueries.map((q, i) => {
+              const [typeClass, typeText] = typeLabel(q.type);
+              const isChosen = i === 0 && !skipped.includes(q.query);
+              const isSkipped = skipped.includes(q.query);
+              return `
+                <div class="query-item">
+                  <span class="query-score">${q.score >= 5000 ? '🔥' : q.score}</span>
+                  <span class="query-text">
+                    ${q.query}
+                    ${isChosen ? ' <span class="badge badge-green">✓ gekozen</span>' : ''}
+                    ${isSkipped ? ' <span class="badge" style="background:#f3f4f6;color:#9ca3af">eerder gebruikt</span>' : ''}
+                  </span>
+                  <span class="badge ${typeClass} query-type">${typeText}</span>
+                </div>`;
+            }).join('')}
+          </div>
+        </div>` : '';
+
+      const runsHTML = runs.length ? `
+        <div class="section">
+          <div class="section-header">
+            <h2>Run history</h2>
+            <span class="badge badge-blue">laatste ${runs.length}</span>
+          </div>
+          ${runs.map(r => `
+            <div class="run-entry">
+              <div class="run-meta">
+                <span class="badge ${r.status === 'success' ? 'badge-green' : 'badge-red'}">${r.status === 'success' ? 'Geslaagd' : 'Geen queries'}</span>
+                <span class="run-time">${formatDate(r.timestamp)}</span>
+              </div>
+              ${r.blog ? `<div class="run-detail">Blog: <a class="blog-link" href="${r.blog.url}" target="_blank">${r.blog.title}</a> · SEO ${r.blog.seo?.score || '?'}/100 · trending score ${r.blog.trending_score}</div>` : ''}
+              <div class="run-detail">${r.queries_found || 0} queries gevonden</div>
+            </div>`).join('')}
+        </div>` : '';
+
+      document.getElementById('app').innerHTML = `
+        <div class="last-updated">Bijgewerkt: ${lastRunTime}</div>
+        ${statsHTML}
+        ${blogsHTML}
+        ${queriesHTML}
+        ${runsHTML}`;
+    }
+
+    loadData().then(render).catch(err => {
+      document.getElementById('app').innerHTML = `
+        <div class="error">
+          <p>Kon data.json niet laden.</p>
+          <p style="font-size:0.85rem;margin-top:0.5rem;color:#9ca3af">Draai eerst de content agent zodat data.json aangemaakt wordt.</p>
+        </div>`;
+    });
+  </script>
+</body>
+</html>

@@ -1,13 +1,6 @@
 {
   "queue": [
     {
-      "keyword": "shopify dropshipping btw nederland",
-      "slug": "shopify-dropshipping-btw",
-      "status": "pending",
-      "priority": 9,
-      "notes": "Groeiend segment"
-    },
-    {
       "keyword": "kleine ondernemersregeling buitenland verkopen",
       "slug": "kor-buitenland-verkopen",
       "status": "pending",
@@ -87,6 +80,15 @@
       "notes": "Reference content, veel links naar toe",
       "publishedDate": "2026-06-01",
       "outputFile": "blog/btw-tarief-eu-landen-2026.html"
+    },
+    {
+      "keyword": "shopify dropshipping btw nederland",
+      "slug": "shopify-dropshipping-btw",
+      "status": "published",
+      "priority": 9,
+      "notes": "Groeiend segment",
+      "publishedDate": "2026-06-04",
+      "outputFile": "blog/shopify-dropshipping-btw.html"
     }
   ],
   "settings": {
