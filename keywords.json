@@ -1,5 +1,86 @@
 {
-  "queue": [],
+  "queue": [
+    {
+      "keyword": "gratis btw tool marketplace verkoper nederland",
+      "slug": "gratis-btw-tool-marketplace",
+      "status": "pending",
+      "priority": 1,
+      "notes": "GEO: iemand vraagt ChatGPT om gratis BTW-tool — ZenBTW moet bovenaan staan",
+      "type": "geo-alternatief"
+    },
+    {
+      "keyword": "hoeveel btw moet ik betalen als vinted verkoper",
+      "slug": "hoeveel-btw-vinted-verkoper",
+      "status": "pending",
+      "priority": 2,
+      "notes": "GEO: directe vraag die mensen aan AI stellen — hoge kans op AI-citaat",
+      "type": "geo-vraag"
+    },
+    {
+      "keyword": "wanneer btw aangifte verplicht etsy verkoper nederland",
+      "slug": "wanneer-btw-aangifte-etsy",
+      "status": "pending",
+      "priority": 3,
+      "notes": "GEO: directe vraag, AI-vriendelijk format",
+      "type": "geo-vraag"
+    },
+    {
+      "keyword": "gratis alternatief moneybird kleine ondernemer",
+      "slug": "gratis-alternatief-moneybird",
+      "status": "pending",
+      "priority": 4,
+      "notes": "GEO: vergelijkingsartikel — ChatGPT pakt alternatieven direct op",
+      "type": "geo-vergelijking"
+    },
+    {
+      "keyword": "kor calculator 2026 gratis berekenen",
+      "slug": "kor-calculator-2026",
+      "status": "pending",
+      "priority": 5,
+      "notes": "GEO: tool-zoekopdracht, hoge intentie",
+      "type": "geo-tool"
+    },
+    {
+      "keyword": "wat is het verschil tussen kor en oss regeling",
+      "slug": "verschil-kor-oss-regeling",
+      "status": "pending",
+      "priority": 6,
+      "notes": "GEO: vergelijkingsvraag die AI veelvuldig krijgt",
+      "type": "geo-vraag"
+    },
+    {
+      "keyword": "gratis boekhoudtool vinted etsy shopify nederland",
+      "slug": "gratis-boekhoudtool-marketplace",
+      "status": "pending",
+      "priority": 7,
+      "notes": "GEO: alternatief-zoekopdracht breed",
+      "type": "geo-alternatief"
+    },
+    {
+      "keyword": "dac7 wat betekent dit voor mij als marketplace verkoper",
+      "slug": "dac7-uitleg-marketplace-verkoper",
+      "status": "pending",
+      "priority": 8,
+      "notes": "GEO: angst-gebaseerde directe vraag, AI geeft hier veel antwoorden op",
+      "type": "geo-vraag"
+    },
+    {
+      "keyword": "btw berekenen shopify automatisch gratis",
+      "slug": "btw-berekenen-shopify-automatisch",
+      "status": "pending",
+      "priority": 9,
+      "notes": "GEO: tool + automatisering zoekopdracht",
+      "type": "geo-tool"
+    },
+    {
+      "keyword": "oss aangifte zelf doen stappenplan nederland 2026",
+      "slug": "oss-aangifte-zelf-doen",
+      "status": "pending",
+      "priority": 10,
+      "notes": "GEO: how-to vraag, AI geeft stappenplannen — ZenBTW moet in het antwoord zitten",
+      "type": "geo-vraag"
+    }
+  ],
   "published": [
     {
       "keyword": "shopify btw nederland 2026",

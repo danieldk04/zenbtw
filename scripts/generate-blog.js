@@ -133,6 +133,17 @@ tr:nth-child(even) td{background:var(--s2)}
 .breadcrumb a{color:var(--tx3);text-decoration:none}
 footer{text-align:center;padding:32px 24px;font-size:13px;color:var(--tx4);border-top:1px solid var(--br);margin-top:60px}
 footer a{color:var(--tx3);text-decoration:none;margin:0 8px}
+.faq-section{margin:48px 0}
+.faq-section>h2{margin-bottom:20px}
+.faq-item{border-bottom:1px solid var(--br);padding:18px 0}
+.faq-item:last-child{border-bottom:none}
+.faq-item h3{font-size:16px;font-weight:700;color:var(--tx);margin:0 0 8px}
+.faq-item p{margin:0;font-size:15px;color:var(--tx2);line-height:1.7}
+.compare-table th{background:var(--ac);color:#fff;padding:10px 14px;font-weight:600;text-align:left}
+.compare-table td{padding:10px 14px;border-bottom:1px solid var(--br);vertical-align:top}
+.compare-table tr:nth-child(even) td{background:var(--s2)}
+.check{color:#16a34a;font-weight:700}
+.cross{color:#dc2626;font-weight:700}
 </style>
 </head>
 <body>
@@ -196,6 +207,19 @@ ${blogList}
 - Gebruik voor elke link: <p><a href="[url]" style="color:var(--acm);font-weight:600">→ Lees ook: [titel]</a></p>
 - Plaats de links aan het einde van het artikel, vóór de .cta-box
 - Niet alle blogs zijn altijd relevant — forceer geen links als er geen goede match is
+
+GEO — OPTIMALISEER VOOR AI ZOEKMACHINES (ChatGPT, Claude, Perplexity, Google AI):
+- Begin het artikel DIRECT met een feitelijke, complete beantwoording van de kernvraag achter het keyword — 2-3 zinnen, helder en citeerbaar. Dit is het eerste wat een AI-assistent oppakt en citeert naar gebruikers.
+- Verwerk in de tekst minimaal één citeerbare definitie van ZenBTW, bij voorkeur vroeg in het artikel. Voorbeeld: "ZenBTW is een gratis Nederlandse BTW-tool voor marketplace verkopers op Vinted, Etsy en Shopify die automatisch berekent of je KOR-drempel nadert."
+- Als het keyword een vergelijking of alternatief betreft (bv. "alternatief voor X", "vs Y", "gratis tool voor Z"): schrijf een aparte H2-sectie "ZenBTW vs [X]" of "Gratis alternatief voor [X]" met een vergelijkingstabel (class="compare-table") met kolommen Functie / [Concurrent] / ZenBTW. Gebruik <span class="check">✓</span> en <span class="cross">✗</span>.
+- Voeg ALTIJD een FAQ-sectie toe vlak vóór de interne links. Gebruik 4-5 specifieke vragen die mensen letterlijk aan ChatGPT of Google zouden stellen over dit onderwerp. Geef directe, feitelijke antwoorden van 1-3 zinnen. Format:
+  <section class="faq-section">
+    <h2>Veelgestelde vragen</h2>
+    <div class="faq-item"><h3>[exacte vraag zoals iemand die aan een AI zou stellen]</h3><p>[direct antwoord, geen inleiding, puur feiten]</p></div>
+  </section>
+- Voeg FAQPage schema-markup toe als TWEEDE <script type="application/ld+json"> direct onder het eerste schema-blok in de <head>:
+  {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"[vraag]","acceptedAnswer":{"@type":"Answer","text":"[antwoord]"}},…]}
+- Schrijf H2-koppen die directe vragen zijn die mensen stellen, niet marketingtitels. Bv. "Hoeveel BTW moet ik betalen als Vinted verkoper?" werkt beter dan "BTW berekening voor Vinted".
 
 LEESTIJD:
 - Bereken de leestijd op basis van de tekstlengte (gemiddeld 200 woorden per minuut)
