@@ -1307,7 +1307,7 @@ async function searchVolume(){
       headers: { 'Authorization': auth, 'Content-Type': 'application/json' },
       body: JSON.stringify([{ keywords, language_code: 'nl', location_code: 2528 }])
     });
-    if(!res.ok) throw new Error('DataForSEO ' + res.status + ' — controleer je credentials');
+    if(!res.ok){ let msg=''; try{ const e=await res.json(); msg=e.error_message||e.message||JSON.stringify(e); }catch(_){} throw new Error('DataForSEO ' + res.status + (msg?' — '+msg:'')); }
     const data = await res.json();
     if(data.tasks?.[0]?.status_code !== 20000) throw new Error(data.tasks?.[0]?.status_message || 'Onbekende fout');
     const results = (data.tasks?.[0]?.result || []).filter(r=>r.keyword);
@@ -1349,7 +1349,7 @@ async function searchIdeas(){
       headers: { 'Authorization': auth, 'Content-Type': 'application/json' },
       body: JSON.stringify([{ keywords: [seed], language_code: 'nl', location_code: 2528 }])
     });
-    if(!res.ok) throw new Error('DataForSEO ' + res.status + ' — controleer je credentials');
+    if(!res.ok){ let msg=''; try{ const e=await res.json(); msg=e.error_message||e.message||JSON.stringify(e); }catch(_){} throw new Error('DataForSEO ' + res.status + (msg?' — '+msg:'')); }
     const data = await res.json();
     if(data.tasks?.[0]?.status_code !== 20000) throw new Error(data.tasks?.[0]?.status_message || 'Onbekende fout');
     const results = (data.tasks?.[0]?.result || []).filter(r=>r.keyword);
