@@ -1291,23 +1291,27 @@ function setSeoTab(tab){
 }
 
 function compColor(level){ return level==='LOW'?'bg':level==='MEDIUM'?'by':'br'; }
-function compBar(val){ return val>=0.67?'sf-r':val>=0.33?'sf-y':'sf-g'; }
 
 function oppScore(r, maxVol){
-  const vol  = maxVol > 0 ? Math.log((r.search_volume||0)+1) / Math.log(maxVol+1) * 50 : 0;
-  const comp = (1 - (r.competition||0)) * 30;
-  const cpc  = Math.min((r.cpc||0) / 5, 1) * 20;
-  return Math.round(vol + comp + cpc);
+  const sv = r.search_volume||0;
+  const vol = (maxVol>0 && sv>0) ? Math.log(sv+1)/Math.log(maxVol+1)*50 : 0;
+  const hasComp = Number.isFinite(r.competition) && r.competition>0;
+  const comp = hasComp ? (1-r.competition)*30 : 15;
+  const cpc = Math.min((Number.isFinite(r.cpc)?r.cpc:0)/5,1)*20;
+  const s = vol+comp+cpc;
+  return Number.isFinite(s) ? Math.round(s) : 0;
 }
 function oppBadge(s){ return s>=70?'bg':s>=45?'by':'br'; }
 function oppLabel(s){ return s>=70?'Goed':s>=45?'Matig':'Moeilijk'; }
 
 function compDisplay(r){
-  const pct = Math.round((r.competition||0)*100);
-  const level = r.competition_level;
-  const barClass = compBar(r.competition||0);
-  const label = level ? level : (pct===0?'–':pct+'%');
-  const badgeClass = level ? compColor(level) : (pct<=33?'bg':pct<=66?'by':'br');
+  const hasComp = Number.isFinite(r.competition) && r.competition>0;
+  const level = r.competition_level||null;
+  if(!hasComp && !level) return '<span style="color:var(--tx3);font-size:.75rem">Geen data</span>';
+  const pct = hasComp ? Math.round(r.competition*100) : (level==='LOW'?20:level==='MEDIUM'?55:80);
+  const barClass = pct>=67?'sf-r':pct>=33?'sf-y':'sf-g';
+  const badgeClass = level?compColor(level):(pct<=33?'bg':pct<=66?'by':'br');
+  const label = level||pct+'%';
   return `<div style="display:flex;align-items:center;gap:6px">
     <div class="seo-bar" style="width:50px;flex-shrink:0"><div class="seo-fill ${barClass}" style="width:${pct}%"></div></div>
     <span class="badge ${badgeClass}" style="font-size:.65rem">${label}</span>
