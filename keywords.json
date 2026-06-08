@@ -1,13 +1,5 @@
 {
-  "queue": [
-    {
-      "keyword": "kleine ondernemersregeling buitenland verkopen",
-      "slug": "kor-buitenland-verkopen",
-      "status": "pending",
-      "priority": 10,
-      "notes": "Specifiek pijnpunt"
-    }
-  ],
+  "queue": [],
   "published": [
     {
       "keyword": "shopify btw nederland 2026",
@@ -89,6 +81,15 @@
       "notes": "Groeiend segment",
       "publishedDate": "2026-06-04",
       "outputFile": "blog/shopify-dropshipping-btw.html"
+    },
+    {
+      "keyword": "kleine ondernemersregeling buitenland verkopen",
+      "slug": "kor-buitenland-verkopen",
+      "status": "published",
+      "priority": 10,
+      "notes": "Specifiek pijnpunt",
+      "publishedDate": "2026-06-08",
+      "outputFile": "blog/kor-buitenland-verkopen.html"
     }
   ],
   "settings": {
