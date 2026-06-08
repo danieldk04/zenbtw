@@ -30,8 +30,8 @@ jobs:
             --status completed --limit 1 --json createdAt --jq '.[0].createdAt // "2000-01-01"')
           DAYS=$(( ( $(date +%s) - $(date -d "$LAST" +%s) ) / 86400 ))
           echo "Laatste auto-blog run: $LAST ($DAYS dagen geleden)"
-          if [ "$DAYS" -ge 4 ]; then
-            echo "Meer dan 4 dagen geleden — trigger auto-blog nu"
+          if [ "$DAYS" -ge 2 ]; then
+            echo "Meer dan 2 dagen geleden — trigger auto-blog nu"
             gh workflow run auto-blog.yml --repo ${{ github.repository }} --ref main
           else
             echo "Recentelijk gedraaid — geen actie nodig"
