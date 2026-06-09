@@ -1643,8 +1643,17 @@ function updateLeadKpis(){
 
 function renderLeads(){
   const filter = document.getElementById('leads-filter')?.value||'all';
+  const ageDays = parseInt(document.getElementById('leads-age-filter')?.value||'365');
   let leads = getLeads();
   if(filter!=='all') leads = leads.filter(l=>l.status===filter);
+  if(ageDays > 0){
+    const cutoff = new Date();
+    cutoff.setDate(cutoff.getDate() - ageDays);
+    leads = leads.filter(l => {
+      if(!l.date) return true; // datum onbekend: tonen
+      return new Date(l.date) >= cutoff;
+    });
+  }
   const el = document.getElementById('leads-table');
   if(!leads.length){ el.innerHTML=`<div class="empty" style="padding:2rem">Geen leads. Klik op "Scrape starten" om Reddit te scannen.</div>`; return; }
   const sColor={nieuw:'var(--blue)',benaderd:'var(--green)',genegeerd:'var(--tx3)'};
