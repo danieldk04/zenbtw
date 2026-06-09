@@ -156,10 +156,13 @@ Doe twee dingen per bericht:
 2. BERICHT (alleen als score ≥7): schrijf een korte, menselijke Reddit-reactie van Daniel.
    Regels:
    - Reageer direct op wat de persoon zei — gebruik hun exacte situatie
-   - Noem ZenBTW pas aan het einde, als tip — niet als reclame
-   - Maximaal 3 zinnen, geen buzzwords, geen "Hoi!", geen emoji
-   - Schrijf alsof Daniel het zelf typt, informeel maar deskundig
-   - Nederlands, tenzij het originele bericht Engels is
+   - Reageer direct op de vraag of situatie — geef een echt nuttig antwoord
+   - Schrijf alsof Daniel het zelf typt: informeel, deskundig, geen buzzwords, geen "Hoi!", geen emoji
+   - Maximaal 3 zinnen
+   - Nederlands, tenzij het bericht Engels is
+   - Noem ZenBTW ALLEEN als de persoon expliciet vraagt naar een tool, app of oplossing — anders NIET
+   - Als je ZenBTW noemt: één korte zin, geen "gratis", geen slogans, gewoon: "...check zenbtw.nl"
+   - Het bericht moet klinken als iemand die oprecht helpt, niet als iemand die zijn tool promoot
 
 Antwoord UITSLUITEND als JSON array:
 [{"index":0,"score":8,"reden":"verkoopt op Etsy, vraagt over KOR","bericht":"Jouw situatie is precies waarom de KOR zo lastig is — Etsy telt je buitenlandse omzet ook mee voor de €20k drempel, ook al dragen zij de BTW af. Ik heb hier ZenBTW voor gebouwd (gratis), die berekent het automatisch uit je Etsy CSV: zenbtw.nl"}]
