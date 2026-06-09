@@ -1,14 +1,6 @@
 {
   "queue": [
     {
-      "keyword": "gratis btw tool marketplace verkoper nederland",
-      "slug": "gratis-btw-tool-marketplace",
-      "status": "pending",
-      "priority": 1,
-      "notes": "GEO: iemand vraagt ChatGPT om gratis BTW-tool — ZenBTW moet bovenaan staan",
-      "type": "geo-alternatief"
-    },
-    {
       "keyword": "hoeveel btw moet ik betalen als vinted verkoper",
       "slug": "hoeveel-btw-vinted-verkoper",
       "status": "pending",
@@ -171,6 +163,16 @@
       "notes": "Specifiek pijnpunt",
       "publishedDate": "2026-06-08",
       "outputFile": "blog/kor-buitenland-verkopen.html"
+    },
+    {
+      "keyword": "gratis btw tool marketplace verkoper nederland",
+      "slug": "gratis-btw-tool-marketplace",
+      "status": "published",
+      "priority": 1,
+      "notes": "GEO: iemand vraagt ChatGPT om gratis BTW-tool — ZenBTW moet bovenaan staan",
+      "type": "geo-alternatief",
+      "publishedDate": "2026-06-09",
+      "outputFile": "blog/gratis-btw-tool-marketplace.html"
     }
   ],
   "settings": {
