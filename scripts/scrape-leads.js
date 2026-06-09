@@ -242,13 +242,6 @@ async function main() {
 
   const [redditItems, forumItems] = await Promise.all([scrapeReddit(), scrapeForums()]);
   console.log(`Reddit: ${redditItems.length} items, Forums: ${forumItems.length} items`);
-  // Debug: log datum-velden van eerste item
-  if (redditItems.length > 0) {
-    const sample = redditItems[0];
-    const dateFields = ['created_utc','createdAt','created','publishedAt','timestamp','date','time','postedAt'];
-    console.log('Datum velden in Apify response:', JSON.stringify(Object.fromEntries(dateFields.filter(f => f in sample).map(f => [f, sample[f]]))));
-    console.log('Alle velden:', Object.keys(sample).join(', '));
-  }
 
   // Markeer eigen posts zodat reacties erop gefilterd worden
   markOwnPosts(redditItems);
