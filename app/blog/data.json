@@ -1,6 +1,47 @@
 {
   "runs": [
     {
+      "timestamp": "2026-06-08T11:53:25.800459",
+      "status": "success",
+      "queries_found": 2,
+      "top_queries": [
+        {
+          "query": "belastingdienst kor regeling",
+          "score": 100,
+          "type": "top"
+        },
+        {
+          "query": "kor regeling stopzetten",
+          "score": 1,
+          "type": "top"
+        }
+      ],
+      "skipped_queries": [],
+      "blog": {
+        "date": "2026-06-08",
+        "query": "belastingdienst kor regeling",
+        "trending_score": 100,
+        "trending_type": "top",
+        "seed_keyword": "kor regeling",
+        "title": "KOR regeling bij de Belastingdienst: zo werkt het in 2025",
+        "slug": "belastingdienst-kor-regeling",
+        "meta_description": "Alles over de KOR regeling bij de Belastingdienst. Wat is de kleineondernemersregeling, wanneer kom je in aanmerking en hoe meld je je aan? Helder uitgelegd.",
+        "url": "https://zenbtw.nl/blog/belastingdienst-kor-regeling",
+        "seo": {
+          "score": 80,
+          "title_length": 57,
+          "meta_length": 157,
+          "word_count": 815,
+          "keyword_in_title": true,
+          "keyword_in_meta": true,
+          "h2_count": 7,
+          "notes": [
+            "Meta 157 tekens (ideaal: 120-155)"
+          ]
+        }
+      }
+    },
+    {
       "timestamp": "2026-06-04T18:07:29.400381",
       "status": "success",
       "queries_found": 11,
@@ -87,6 +128,29 @@
     }
   ],
   "blogs": [
+    {
+      "date": "2026-06-08",
+      "query": "belastingdienst kor regeling",
+      "trending_score": 100,
+      "trending_type": "top",
+      "seed_keyword": "kor regeling",
+      "title": "KOR regeling bij de Belastingdienst: zo werkt het in 2025",
+      "slug": "belastingdienst-kor-regeling",
+      "meta_description": "Alles over de KOR regeling bij de Belastingdienst. Wat is de kleineondernemersregeling, wanneer kom je in aanmerking en hoe meld je je aan? Helder uitgelegd.",
+      "url": "https://zenbtw.nl/blog/belastingdienst-kor-regeling",
+      "seo": {
+        "score": 80,
+        "title_length": 57,
+        "meta_length": 157,
+        "word_count": 815,
+        "keyword_in_title": true,
+        "keyword_in_meta": true,
+        "h2_count": 7,
+        "notes": [
+          "Meta 157 tekens (ideaal: 120-155)"
+        ]
+      }
+    },
     {
       "date": "2026-06-04",
       "query": "kleine ondernemersregeling 2026",

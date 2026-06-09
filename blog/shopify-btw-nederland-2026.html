@@ -76,6 +76,32 @@ tr:nth-child(even) td{background:var(--s2)}
 .author-bio a{color:var(--acm);text-decoration:none;font-weight:600}
 footer{text-align:center;padding:32px 24px;font-size:13px;color:var(--tx4);border-top:1px solid var(--br);margin-top:60px}
 footer a{color:var(--tx3);text-decoration:none;margin:0 8px}
+
+/* ── Category related section ── */
+.cat-related{background:var(--s2);border:1.5px solid var(--br);border-radius:12px;padding:22px 24px;margin:40px 0 0}
+.cat-related-hd{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;flex-wrap:wrap;gap:8px}
+.cat-related-lbl{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--tx4)}
+.cat-related-all{font-size:13px;font-weight:600;color:var(--acm);text-decoration:none}
+.cat-related-all:hover{text-decoration:underline}
+.cat-related-links{display:flex;flex-direction:column;gap:6px}
+.cat-related-link{display:flex;align-items:center;gap:10px;padding:10px 14px;background:var(--wh);border:1px solid var(--br);border-radius:8px;text-decoration:none;color:var(--tx2);font-size:14px;font-weight:600;transition:all .15s;line-height:1.4}
+.cat-related-link:hover{border-color:var(--acm);color:var(--ac);background:var(--acl)}
+.cat-related-link span{color:var(--acm);font-size:13px;flex-shrink:0}
+
+/* ── Mobile fixes ── */
+html,body{max-width:100%;overflow-x:hidden}
+svg{max-width:100%!important;height:auto!important}
+figure{max-width:100%;overflow:hidden}
+@media(max-width:640px){
+  nav{padding:0 16px!important;gap:8px!important}
+  .nav-logo-img{max-height:36px!important}
+  .nav-wordmark{display:none!important}
+  .nav-back{white-space:nowrap;font-size:12px}
+  .nav-cta{padding:9px 14px!important;font-size:13px!important}
+  table{font-size:12.5px}
+  td,th{padding:7px 8px!important}
+  .article-wrap{padding-left:18px!important;padding-right:18px!important}
+}
 </style>
 </head>
 <body>
@@ -90,7 +116,7 @@ footer a{color:var(--tx3);text-decoration:none;margin:0 8px}
 
 <div class="page-layout">
 <div class="article-wrap">
-  <div class="breadcrumb"><a href="/">Home</a> › <a href="./">Blog</a> › Shopify BTW 2026</div>
+  <div class="breadcrumb"><a href="/">Home</a> › <a href="/blog">Blog</a> › <a href="/blog#platforms">Marketplaces</a> › Shopify BTW 2026</div>
   <span class="article-tag">Shopify</span>
   <h1>Shopify BTW Nederland 2026: Het Compleet Overzicht</h1>
   <div class="meta">6 minuten lezen &nbsp;·&nbsp; Bijgewerkt juni 2026 &nbsp;·&nbsp; Door ZenBTW</div>
@@ -195,7 +221,7 @@ footer a{color:var(--tx3);text-decoration:none;margin:0 8px}
   <p>Maar er zitten haken en ogen aan:</p>
   <ul>
     <li>Je mag geen BTW op je inkoopfacturen terugvragen</li>
-    <li>Je zit er minimaal drie jaar aan vast</li>
+    <li>Afmelden kan op elk moment; daarna mag je de rest van het jaar én het volledige volgende jaar niet opnieuw deelnemen</li>
     <li>Op het moment dat je de €20.000 overschrijdt, moet je direct terugschakelen naar reguliere BTW-aangifte</li>
     <li>Je mag geen BTW vermelden op je facturen</li>
   </ul>
@@ -204,7 +230,7 @@ footer a{color:var(--tx3);text-decoration:none;margin:0 8px}
 
   <h2>Shopify Payments en de Belastingdienst</h2>
 
-  <p>Sinds 2024 delen betaaldienstverleners transactiedata met de Belastingdienst via de DAC7-richtlijn. Shopify Payments valt hier ook onder. Concreet: als je meer dan 25 transacties óf meer dan €2.000 omzet per jaar draait, worden je gegevens automatisch gemeld.</p>
+  <p>Sinds 2024 delen betaaldienstverleners transactiedata met de Belastingdienst via de <a href="/blog/dac7-belastingdienst-rapportage">DAC7-richtlijn</a>. Shopify Payments valt hier ook onder. Concreet: als je meer dan 25 transacties óf meer dan €2.000 omzet per jaar draait, worden je gegevens automatisch gemeld.</p>
 
   <p>Dat betekent dat de Belastingdienst precies kan zien wat er binnenkomt op je Shopify-account. Vergeet de gedachte "ik vlieg onder de radar" dus maar. Die radar is er gewoon.</p>
 
@@ -225,7 +251,7 @@ footer a{color:var(--tx3);text-decoration:none;margin:0 8px}
   <ol>
     <li><strong>BTW-nummer aanvragen</strong> bij de Belastingdienst (tenzij je KOR gebruikt)</li>
     <li><strong>Shopify BTW-instellingen</strong> controleren: juiste tarieven per EU-land</li>
-    <li><strong>OSS-registratie</strong> regelen als je boven de €10.000 EU-brede drempel komt</li>
+    <li><strong><a href="/blog/oss-registratie-belastingdienst">OSS-registratie</a></strong> regelen als je boven de €10.000 EU-brede drempel komt</li>
     <li><strong>Facturen</strong> automatisch laten genereren via Shopify of een app als Sufio</li>
     <li><strong>Kwartaalaangiften</strong> markeren in je agenda (deadlines: 30 april, 31 juli, 31 oktober, 31 januari)</li>
     <li><strong>Boekhouding bijhouden</strong> per maand, niet pas in december</li>
@@ -246,7 +272,27 @@ footer a{color:var(--tx3);text-decoration:none;margin:0 8px}
 
   <p>Klinkt als veel? Valt mee als je het systeem eenmaal hebt ingericht. De eerste keer is het meeste werk. Daarna is het bijhouden.</p>
 
-  <div class="cta-box">
+  
+
+
+
+
+<section class="cat-related">
+  <div class="cat-related-hd">
+    <span class="cat-related-lbl">Meer over Marketplaces</span>
+    <a href="/blog#platforms" class="cat-related-all">Alle Marketplaces-artikelen →</a>
+  </div>
+  <div class="cat-related-links">
+    <a href="/blog/etsy-btw-2026" class="cat-related-link"><span>→</span> Etsy BTW 2026: wanneer moet je als verkoper BTW betalen?</a>
+    <a href="/blog/etsy-verkoper-belastingaangifte" class="cat-related-link"><span>→</span> Etsy verkoper belastingaangifte Nederland: stap voor stap uitgelegd</a>
+    <a href="/blog/hoeveel-btw-vinted-verkoper" class="cat-related-link"><span>→</span> Hoeveel BTW moet ik betalen als Vinted verkoper?</a>
+    <a href="/blog/marketplace-verkoper-btw-aangifte" class="cat-related-link"><span>→</span> Marketplace verkoper BTW aangifte: hoe doe je het in 2026?</a>
+    <a href="/blog/shopify-dropshipping-btw" class="cat-related-link"><span>→</span> Shopify Dropshipping BTW Nederland: Zo Regel Je Het</a>
+    <a href="/blog/vinted-belasting-2026" class="cat-related-link"><span>→</span> Vinted Belasting 2026: Moet Je BTW Betalen Over Je Verkopen?</a>
+    <a href="/blog/vinted-ondernemer-btw-registratie" class="cat-related-link"><span>→</span> Vinted ondernemer BTW registratie: wat je moet weten in 2026</a>
+  </div>
+</section>
+<div class="cta-box">
     <h3>Shopify BTW overzicht in één dashboard</h3>
     <p>Zie direct je drempels, deadlines en BTW-verplichtingen voor 2026.</p>
     <a href="/app">📊 Open gratis ZenBTW dashboard →</a>
@@ -282,7 +328,7 @@ footer a{color:var(--tx3);text-decoration:none;margin:0 8px}
 
 <footer>
   <a href="/">Home</a>
-  <a href="./">Blog</a>
+  <a href="/blog">Blog</a>
   <a href="/app">Dashboard</a>
   <a href="/privacy">Privacy</a>
   <br><br>© 2026 ZenBTW &nbsp;·&nbsp; Geen belastingadvies — raadpleeg een adviseur voor jouw specifieke situatie.

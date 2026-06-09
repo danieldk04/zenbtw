@@ -76,6 +76,32 @@ tr:nth-child(even) td{background:var(--s2)}
 .author-bio a{color:var(--acm);text-decoration:none;font-weight:600}
 footer{text-align:center;padding:32px 24px;font-size:13px;color:var(--tx4);border-top:1px solid var(--br);margin-top:60px}
 footer a{color:var(--tx3);text-decoration:none;margin:0 8px}
+
+/* ── Category related section ── */
+.cat-related{background:var(--s2);border:1.5px solid var(--br);border-radius:12px;padding:22px 24px;margin:40px 0 0}
+.cat-related-hd{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;flex-wrap:wrap;gap:8px}
+.cat-related-lbl{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--tx4)}
+.cat-related-all{font-size:13px;font-weight:600;color:var(--acm);text-decoration:none}
+.cat-related-all:hover{text-decoration:underline}
+.cat-related-links{display:flex;flex-direction:column;gap:6px}
+.cat-related-link{display:flex;align-items:center;gap:10px;padding:10px 14px;background:var(--wh);border:1px solid var(--br);border-radius:8px;text-decoration:none;color:var(--tx2);font-size:14px;font-weight:600;transition:all .15s;line-height:1.4}
+.cat-related-link:hover{border-color:var(--acm);color:var(--ac);background:var(--acl)}
+.cat-related-link span{color:var(--acm);font-size:13px;flex-shrink:0}
+
+/* ── Mobile fixes ── */
+html,body{max-width:100%;overflow-x:hidden}
+svg{max-width:100%!important;height:auto!important}
+figure{max-width:100%;overflow:hidden}
+@media(max-width:640px){
+  nav{padding:0 16px!important;gap:8px!important}
+  .nav-logo-img{max-height:36px!important}
+  .nav-wordmark{display:none!important}
+  .nav-back{white-space:nowrap;font-size:12px}
+  .nav-cta{padding:9px 14px!important;font-size:13px!important}
+  table{font-size:12.5px}
+  td,th{padding:7px 8px!important}
+  .article-wrap{padding-left:18px!important;padding-right:18px!important}
+}
 </style>
 </head>
 <body>
@@ -90,7 +116,7 @@ footer a{color:var(--tx3);text-decoration:none;margin:0 8px}
 
 <div class="page-layout">
 <div class="article-wrap">
-  <div class="breadcrumb"><a href="/">Home</a> › <a href="./">Blog</a> › KOR Vrijstelling 2026</div>
+  <div class="breadcrumb"><a href="/">Home</a> › <a href="/blog">Blog</a> › <a href="/blog#kor">KOR</a> › KOR Vrijstelling 2026</div>
   <span class="article-tag">BTW Tips</span>
   <h1>KOR Vrijstelling 2026: Alle Voorwaarden van de Kleine Ondernemersregeling</h1>
   <div class="meta">5 minuten lezen &nbsp;·&nbsp; Bijgewerkt juni 2026 &nbsp;·&nbsp; Door ZenBTW</div>
@@ -109,7 +135,7 @@ footer a{color:var(--tx3);text-decoration:none;margin:0 8px}
     <li><strong>Je bent in Nederland gevestigd.</strong> Woon je in België of Duitsland? Dan geldt de Nederlandse KOR niet voor jou.</li>
     <li><strong>Je hebt een eenmanszaak, VOF of maatschap.</strong> Een BV kan de KOR niet gebruiken.</li>
     <li><strong>Je meldt je actief aan bij de Belastingdienst.</strong> De KOR gaat niet automatisch in. Je moet een verzoek indienen, en dat moet vóór het kwartaal ingaan waarin je wilt starten.</li>
-    <li><strong>Je zit minimaal 3 jaar vast aan je keuze.</strong> Aanmelden is makkelijk. Weer uitstappen? Dat kan pas na drie kalenderjaren.</li>
+    <li><strong>Je kunt je op elk moment afmelden.</strong> Er is geen minimale looptijd meer. Meld je je af, dan mag je de rest van het lopende kalenderjaar én het volledige jaar daarna niet opnieuw deelnemen — maar de vroegere driejaarstermijn is afgeschaft.</li>
   </ul>
 
   <div class="highlight">
@@ -193,7 +219,7 @@ footer a{color:var(--tx3);text-decoration:none;margin:0 8px}
 
   <h2>KOR en marketplace-verkoop: speciale aandachtspunten</h2>
   <p>Verkoop je op Etsy, Vinted of via Shopify? Dan zijn er een paar dingen die je moet weten.</p>
-  <p>Platformen zoals Etsy en Vinted dragen soms zelf al BTW af via het zogenaamde deemed supplier model. Dat geldt met name voor verkopen aan consumenten in andere EU-landen. Die omzet telt dan niet mee voor jouw KOR-grens, want het platform is voor die transactie de "verkoper" in de ogen van de fiscus.</p>
+  <p>Platformen zoals Etsy en Vinted dragen soms zelf al BTW af via het zogenaamde <a href="/blog/marketplace-verkoper-btw-aangifte">deemed supplier</a> model. Dat geldt met name voor verkopen aan consumenten in andere EU-landen. Die omzet telt dan niet mee voor jouw KOR-grens, want het platform is voor die transactie de "verkoper" in de ogen van de fiscus.</p>
 
   <div class="warn">
     <p>⚡ Verkoop je via Etsy aan klanten in Nederland? Dan draagt Etsy géén BTW voor je af. Die omzet telt wél mee voor je €20.000 grens. Dit is eerlijk gezegd het meest verwarrende deel van de hele regeling.</p>
@@ -222,14 +248,29 @@ footer a{color:var(--tx3);text-decoration:none;margin:0 8px}
     <li>Omzetgrens is <strong>€20.000 per kalenderjaar</strong></li>
     <li>Alleen voor in Nederland gevestigde ondernemers (geen BV)</li>
     <li>Je moet je <strong>actief aanmelden</strong></li>
-    <li>Minimaal <strong>3 jaar vastzitten</strong></li>
+    <li>Afmelden kan altijd, maar <strong>wachttermijn rest jaar + volgend jaar</strong></li>
     <li>Geen BTW-aftrek meer op inkopen</li>
     <li>Overschrijding = BTW met terugwerkende kracht</li>
   </ul>
 
   <p>De KOR kan je leven als kleine verkoper een stuk makkelijker maken. Maar ga er niet blindelings in. Ken je cijfers, weet wat je inlevert, en houd je omzet scherp in de gaten. Dan is het een fantastische regeling.</p>
 
-  <div class="cta-box">
+  
+
+
+
+
+<section class="cat-related">
+  <div class="cat-related-hd">
+    <span class="cat-related-lbl">Meer over KOR</span>
+    <a href="/blog#kor" class="cat-related-all">Alle KOR-artikelen →</a>
+  </div>
+  <div class="cat-related-links">
+    <a href="/blog/kor-buitenland-verkopen" class="cat-related-link"><span>→</span> Kleine ondernemersregeling en buitenland verkopen: wat mag wel (en wat niet)?</a>
+    <a href="/blog/kor-drempel-overschreden" class="cat-related-link"><span>→</span> KOR drempel overschreden in 2026? Dit is je stappenplan</a>
+  </div>
+</section>
+<div class="cta-box">
     <h3>Zit je al dicht bij de KOR-grens?</h3>
     <p>Koppel je verkoopkanalen en zie direct hoeveel ruimte je nog hebt in 2026.</p>
     <a href="/app">📊 Open gratis ZenBTW dashboard →</a>
@@ -265,7 +306,7 @@ footer a{color:var(--tx3);text-decoration:none;margin:0 8px}
 
 <footer>
   <a href="/">Home</a>
-  <a href="./">Blog</a>
+  <a href="/blog">Blog</a>
   <a href="/app">Dashboard</a>
   <a href="/privacy">Privacy</a>
   <br><br>© 2026 ZenBTW &nbsp;·&nbsp; Geen belastingadvies — raadpleeg een adviseur voor jouw specifieke situatie.

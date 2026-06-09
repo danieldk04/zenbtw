@@ -1,9 +1,9 @@
 name: Auto Blog Generator
 
 on:
-  # Run every Monday and Thursday at 09:00 CET (08:00 UTC)
+  # Elke dag 09:00 CEST (07:00 UTC, zomertijd)
   schedule:
-    - cron: '0 8 * * 1,4'
+    - cron: '0 7 * * *'
 
   # Allow manual trigger from GitHub Actions UI
   workflow_dispatch:
@@ -59,6 +59,10 @@ jobs:
           REDDIT_PASSWORD: ${{ secrets.REDDIT_PASSWORD }}
           MEDIUM_TOKEN: ${{ secrets.MEDIUM_TOKEN }}
         run: node scripts/generate-blog.js
+
+      - name: Update category structure
+        if: steps.check_queue.outputs.pending_count != '0'
+        run: node scripts/setup-categories.js && node scripts/fix-mobile.js
 
       - name: Check if files changed
         id: check_changes

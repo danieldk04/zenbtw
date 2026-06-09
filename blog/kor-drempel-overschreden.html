@@ -76,6 +76,32 @@ tr:nth-child(even) td{background:var(--s2)}
 .author-bio a{color:var(--acm);text-decoration:none;font-weight:600}
 footer{text-align:center;padding:32px 24px;font-size:13px;color:var(--tx4);border-top:1px solid var(--br);margin-top:60px}
 footer a{color:var(--tx3);text-decoration:none;margin:0 8px}
+
+/* ── Category related section ── */
+.cat-related{background:var(--s2);border:1.5px solid var(--br);border-radius:12px;padding:22px 24px;margin:40px 0 0}
+.cat-related-hd{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;flex-wrap:wrap;gap:8px}
+.cat-related-lbl{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--tx4)}
+.cat-related-all{font-size:13px;font-weight:600;color:var(--acm);text-decoration:none}
+.cat-related-all:hover{text-decoration:underline}
+.cat-related-links{display:flex;flex-direction:column;gap:6px}
+.cat-related-link{display:flex;align-items:center;gap:10px;padding:10px 14px;background:var(--wh);border:1px solid var(--br);border-radius:8px;text-decoration:none;color:var(--tx2);font-size:14px;font-weight:600;transition:all .15s;line-height:1.4}
+.cat-related-link:hover{border-color:var(--acm);color:var(--ac);background:var(--acl)}
+.cat-related-link span{color:var(--acm);font-size:13px;flex-shrink:0}
+
+/* ── Mobile fixes ── */
+html,body{max-width:100%;overflow-x:hidden}
+svg{max-width:100%!important;height:auto!important}
+figure{max-width:100%;overflow:hidden}
+@media(max-width:640px){
+  nav{padding:0 16px!important;gap:8px!important}
+  .nav-logo-img{max-height:36px!important}
+  .nav-wordmark{display:none!important}
+  .nav-back{white-space:nowrap;font-size:12px}
+  .nav-cta{padding:9px 14px!important;font-size:13px!important}
+  table{font-size:12.5px}
+  td,th{padding:7px 8px!important}
+  .article-wrap{padding-left:18px!important;padding-right:18px!important}
+}
 </style>
 </head>
 <body>
@@ -90,7 +116,7 @@ footer a{color:var(--tx3);text-decoration:none;margin:0 8px}
 
 <div class="page-layout">
 <div class="article-wrap">
-  <div class="breadcrumb"><a href="/">Home</a> › <a href="./">Blog</a> › KOR drempel overschreden</div>
+  <div class="breadcrumb"><a href="/">Home</a> › <a href="/blog">Blog</a> › <a href="/blog#kor">KOR</a> › KOR drempel overschreden</div>
   <span class="article-tag">KOR &amp; BTW</span>
   <h1>KOR drempel overschreden in 2026? Dit is je stappenplan</h1>
   <div class="meta">5 minuten lezen &nbsp;·&nbsp; Bijgewerkt juni 2026 &nbsp;·&nbsp; Door ZenBTW</div>
@@ -192,11 +218,11 @@ footer a{color:var(--tx3);text-decoration:none;margin:0 8px}
     <li><strong>Te laat afmelden.</strong> De Belastingdienst kan naheffingen opleggen over de periode dat je al BTW had moeten rekenen. Dat kan zo een paar duizend euro zijn.</li>
     <li><strong>BTW niet apart zetten.</strong> Je int 21% extra, maar dat geld moet naar de fiscus. Geef het niet uit.</li>
     <li><strong>Buitenlandse verkopen vergeten.</strong> Verkoop je aan klanten in andere EU-landen? Dan speelt de OSS-regeling mee. Heel andere regels.</li>
-    <li><strong>Denken dat je na een slecht jaar automatisch terug in de KOR valt.</strong> Nee. Je moet je opnieuw aanmelden, en dat kan pas na drie jaar.</li>
+    <li><strong>Denken dat je na een slecht jaar automatisch terug in de KOR valt.</strong> Nee. Je moet je opnieuw aanmelden. Je kunt je op elk moment afmelden, maar daarna mag je de rest van het lopende kalenderjaar én het volledige jaar daarna niet opnieuw deelnemen. Afgemeld in 2026? Vroegst terug per 1 januari 2028.</li>
   </ul>
 
   <div class="danger">
-    <p>🚨 Drie-jaar-regel: eenmaal afgemeld bij de KOR, kun je pas na minimaal 3 volledige kalenderjaren weer deelnemen. Afgemeld in 2026? Vroegst mogelijk terug per 1 januari 2030.</p>
+    <p>🚨 Wachttermijn na afmelding: eenmaal afgemeld bij de KOR kun je de rest van het lopende kalenderjaar én het volledige daaropvolgende kalenderjaar niet opnieuw deelnemen. De vroegere minimale driejaarstermijn is afgeschaft.</p>
   </div>
 
   <h2>Wat als ik via meerdere platforms verkoop?</h2>
@@ -211,7 +237,7 @@ footer a{color:var(--tx3);text-decoration:none;margin:0 8px}
     <tr><td>Losse facturen / markten</td><td>Ja</td><td>Vergeet offline omzet niet!</td></tr>
   </table>
 
-  <p>Eerlijk gezegd is dit het meest verwarrende deel voor veel verkopers. Etsy en Vinted dragen al BTW af namens jou voor bepaalde transacties, maar die omzet telt wél mee voor de KOR-drempel. Het voelt dubbel, maar zo werkt het.</p>
+  <p>Eerlijk gezegd is dit het meest verwarrende deel voor veel verkopers. Etsy en Vinted dragen al BTW af namens jou voor bepaalde transacties, maar die omzet telt wél mee voor de <a href="/blog/kor-vrijstelling-2026">KOR-drempel</a>. Het voelt dubbel, maar zo werkt het.</p>
 
   <h2>De drempel naderen: hoe voorkom je verrassingen?</h2>
 
@@ -235,7 +261,22 @@ footer a{color:var(--tx3);text-decoration:none;margin:0 8px}
 
   <p>Het voelt misschien overweldigend. Maar eerlijk? Na twee kwartalen is het routine. En je kunt nu BTW terugvragen op je inkopen, wat als KOR-deelnemer niet kon. Zie het als volwassen worden als ondernemer. Soms een beetje vervelend, maar het hoort erbij.</p>
 
-  <div class="cta-box">
+  
+
+
+
+
+<section class="cat-related">
+  <div class="cat-related-hd">
+    <span class="cat-related-lbl">Meer over KOR</span>
+    <a href="/blog#kor" class="cat-related-all">Alle KOR-artikelen →</a>
+  </div>
+  <div class="cat-related-links">
+    <a href="/blog/kor-buitenland-verkopen" class="cat-related-link"><span>→</span> Kleine ondernemersregeling en buitenland verkopen: wat mag wel (en wat niet)?</a>
+    <a href="/blog/kor-vrijstelling-2026" class="cat-related-link"><span>→</span> KOR Vrijstelling 2026: Alle Voorwaarden van de Kleine Ondernemersregeling</a>
+  </div>
+</section>
+<div class="cta-box">
     <h3>Zit je dicht bij de KOR-drempel?</h3>
     <p>Houd je omzet per platform bij en voorkom verrassingen met het gratis ZenBTW dashboard.</p>
     <a href="/app">📊 Open gratis ZenBTW dashboard →</a>
@@ -271,7 +312,7 @@ footer a{color:var(--tx3);text-decoration:none;margin:0 8px}
 
 <footer>
   <a href="/">Home</a>
-  <a href="./">Blog</a>
+  <a href="/blog">Blog</a>
   <a href="/app">Dashboard</a>
   <a href="/privacy">Privacy</a>
   <br><br>© 2026 ZenBTW &nbsp;·&nbsp; Geen belastingadvies — raadpleeg een adviseur voor jouw specifieke situatie.

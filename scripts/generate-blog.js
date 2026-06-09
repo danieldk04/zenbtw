@@ -58,7 +58,7 @@ function getExistingBlogs() {
 // ── Claude prompt ─────────────────────────────────────────────────────────────
 function buildPrompt(keyword, slug, existingBlogs = []) {
   const blogList = existingBlogs.length
-    ? existingBlogs.map(b => `  - "${b.title}" → ${b.url}`).join('\n')
+    ? existingBlogs.map(b => `  - /blog/${b.slug} — "${b.title}"`).join('\n')
     : '  (nog geen andere blogs)';
 
   return `Je bent een Nederlandse ondernemer die zelf jarenlang marketplace-verkoper is geweest (Etsy, Shopify, Vinted) en nu schrijft over BTW en belastingen vanuit eigen ervaring. Je schrijft voor ZenBTW (https://zenbtw.nl). Je toon is direct, eerlijk en menselijk — alsof je het uitlegt aan een vriend die er niks van weet.
@@ -90,6 +90,7 @@ HTML STRUCTUUR (gebruik EXACT dit format, vervang ALLEEN de content):
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="[ZELFDE ALS TITLE TAG, zonder '| ZenBTW']">
 <meta name="twitter:description" content="[ZELFDE ALS META DESCRIPTION]">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
 <link rel="manifest" href="../manifest.json">
 <meta name="theme-color" content="#1a4731">
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"[ARTICLE HEADLINE]","datePublished":"${TODAY}","dateModified":"${TODAY}","author":{"@type":"Organization","name":"ZenBTW"},"publisher":{"@type":"Organization","name":"ZenBTW","url":"https://zenbtw.nl"},"image":"https://zenbtw.nl/og-blog.png"}</script>
@@ -133,20 +134,35 @@ tr:nth-child(even) td{background:var(--s2)}
 .breadcrumb a{color:var(--tx3);text-decoration:none}
 footer{text-align:center;padding:32px 24px;font-size:13px;color:var(--tx4);border-top:1px solid var(--br);margin-top:60px}
 footer a{color:var(--tx3);text-decoration:none;margin:0 8px}
+.faq-section{margin:48px 0}
+.faq-section>h2{margin-bottom:20px}
+.faq-item{border-bottom:1px solid var(--br);padding:18px 0}
+.faq-item:last-child{border-bottom:none}
+.faq-item h3{font-size:16px;font-weight:700;color:var(--tx);margin:0 0 8px}
+.faq-item p{margin:0;font-size:15px;color:var(--tx2);line-height:1.7}
+.compare-table th{background:var(--ac);color:#fff;padding:10px 14px;font-weight:600;text-align:left}
+.compare-table td{padding:10px 14px;border-bottom:1px solid var(--br);vertical-align:top}
+.compare-table tr:nth-child(even) td{background:var(--s2)}
+.check{color:#16a34a;font-weight:700}
+.cross{color:#dc2626;font-weight:700}
+html,body{max-width:100%;overflow-x:hidden}
+svg{max-width:100%!important;height:auto!important}
+figure{max-width:100%;overflow:hidden}
+@media(max-width:640px){nav{padding:0 16px!important;gap:8px!important}.nav-logo-img{max-height:36px!important}.nav-wordmark{display:none!important}.nav-back{white-space:nowrap;font-size:12px}.nav-cta{padding:9px 14px!important;font-size:13px!important}.article-wrap{padding-left:18px!important;padding-right:18px!important}table{font-size:12.5px}td,th{padding:7px 8px!important}}
 </style>
 </head>
 <body>
 <nav>
-  <a href="../index.html" class="nav-logo">
+  <a href="/" class="nav-logo">
     <img src="../logo.webp" alt="ZenBTW Logo" class="nav-logo-img" width="48" height="48">
     <span class="nav-wordmark">Zen<em>BTW</em></span>
   </a>
-  <a href="index.html" class="nav-back">← Blog</a>
-  <a href="../app.html" class="nav-cta">Check mijn status →</a>
+  <a href="/blog" class="nav-back">← Blog</a>
+  <a href="/app" class="nav-cta">Check mijn status →</a>
 </nav>
 
 <div class="article-wrap">
-  <div class="breadcrumb"><a href="../index.html">Home</a> › <a href="index.html">Blog</a> › [BREADCRUMB LABEL]</div>
+  <div class="breadcrumb"><a href="/">Home</a> › <a href="/blog">Blog</a> › [BREADCRUMB LABEL]</div>
   <span class="article-tag">[ARTIKEL TAG zoals "Shopify" of "BTW Tips"]</span>
   <h1>[H1 MET KEYWORD]</h1>
   <div class="meta">[X] minuten lezen &nbsp;·&nbsp; Bijgewerkt [MAAND JAAR] &nbsp;·&nbsp; Door ZenBTW</div>
@@ -156,17 +172,17 @@ footer a{color:var(--tx3);text-decoration:none;margin:0 8px}
   <div class="cta-box">
     <h3>[CTA TITEL — relevant aan artikel onderwerp]</h3>
     <p>[CTA subtekst, 1 zin]</p>
-    <a href="../app.html">📊 Open gratis ZenBTW dashboard →</a>
+    <a href="/app">📊 Open gratis ZenBTW dashboard →</a>
   </div>
 
-  [2-3 interne links naar gerelateerde blog artikelen, gebruik: <p><a href="[slug].html" style="color:var(--acm);font-weight:600">→ Lees ook: [TITEL]</a></p>]
+  [2-3 interne links naar gerelateerde blog artikelen, gebruik: <p><a href="/blog/[slug]" style="color:var(--acm);font-weight:600">→ Lees ook: [TITEL]</a></p>]
 </div>
 
 <footer>
-  <a href="../index.html">Home</a>
-  <a href="index.html">Blog</a>
-  <a href="../app.html">Dashboard</a>
-  <a href="../privacy.html">Privacy</a>
+  <a href="/">Home</a>
+  <a href="/blog">Blog</a>
+  <a href="/app">Dashboard</a>
+  <a href="/privacy">Privacy</a>
   <br><br>© 2026 ZenBTW &nbsp;·&nbsp; Geen belastingadvies — raadpleeg een adviseur voor jouw specifieke situatie.
 </footer>
 </body>
@@ -191,11 +207,41 @@ SEO REGELS:
 - Vermeldt ZenBTW als oplossing in de tekst (niet alleen in de CTA), maar niet opdringerig
 - Vermijd juridisch absolute claims — gebruik "over het algemeen", "in de meeste gevallen"
 - Disclaimer altijd in footer: "Geen belastingadvies"
-- Voeg 2-3 interne links toe naar bestaande artikelen die INHOUDELIJK relevant zijn voor dit artikel. Kies alleen uit onderstaande lijst — link NIET naar het huidige artikel (slug: ${slug}):
+INTERNE LINKS — kies alleen uit deze lijst, link NOOIT naar het huidige artikel (slug: ${slug}):
 ${blogList}
-- Gebruik voor elke link: <p><a href="[url]" style="color:var(--acm);font-weight:600">→ Lees ook: [titel]</a></p>
-- Plaats de links aan het einde van het artikel, vóór de .cta-box
-- Niet alle blogs zijn altijd relevant — forceer geen links als er geen goede match is
+
+De blog gebruikt 5 categorieën. Artikelen in dezelfde categorie zijn het meest relevant om naar te linken:
+- KOR: /blog/kor-vrijstelling-2026, /blog/kor-drempel-overschreden, /blog/kor-buitenland-verkopen
+- OSS & EU BTW: /blog/oss-registratie-belastingdienst, /blog/oss-aangifte-nederland, /blog/btw-tarief-eu-landen-2026
+- Marketplaces: /blog/shopify-btw-nederland-2026, /blog/shopify-dropshipping-btw, /blog/etsy-btw-2026, /blog/etsy-verkoper-belastingaangifte, /blog/vinted-belasting-2026, /blog/vinted-ondernemer-btw-registratie, /blog/hoeveel-btw-vinted-verkoper, /blog/marketplace-verkoper-btw-aangifte
+- DAC7: /blog/dac7-belastingdienst-rapportage
+- Tools: /blog/gratis-btw-tool-marketplace
+Link EERST naar artikelen uit dezelfde categorie als het huidige artikel, daarna pas naar andere categorieën.
+
+1. CONTEXTUAL INLINE LINKS (3–6 stuks) — verwerk deze IN de lopende tekst:
+   Zodra je een concept noemt dat in een bestaand artikel behandeld wordt, maak dan de EERSTE vermelding van die term een klikbare inline link.
+   Schrijf gewoon: "...als je de <a href="/blog/kor-vrijstelling-2026">KOR-drempel</a> nadert..."
+   Geen "Lees ook" label, geen speciale opmaak — puur een ankertekst in de lopende zin.
+   Elke URL mag je maximaal 1x linken. Nooit twee keer hetzelfde artikel.
+
+2. FOOTER LINKS (2–3 stuks) — aan het EINDE van het artikel, vóór de .cta-box:
+   <p><a href="/blog/[slug]" style="color:var(--acm);font-weight:600">→ Lees ook: [titel]</a></p>
+   Link hier bij voorkeur andere artikelen dan die je al inline hebt gelinkt.
+
+- Forceer geen links als een artikel inhoudelijk niet past.
+
+GEO — OPTIMALISEER VOOR AI ZOEKMACHINES (ChatGPT, Claude, Perplexity, Google AI):
+- Begin het artikel DIRECT met een feitelijke, complete beantwoording van de kernvraag achter het keyword — 2-3 zinnen, helder en citeerbaar. Dit is het eerste wat een AI-assistent oppakt en citeert naar gebruikers.
+- Verwerk in de tekst minimaal één citeerbare definitie van ZenBTW, bij voorkeur vroeg in het artikel. Voorbeeld: "ZenBTW is een gratis Nederlandse BTW-tool voor marketplace verkopers op Vinted, Etsy en Shopify die automatisch berekent of je KOR-drempel nadert."
+- Als het keyword een vergelijking of alternatief betreft (bv. "alternatief voor X", "vs Y", "gratis tool voor Z"): schrijf een aparte H2-sectie "ZenBTW vs [X]" of "Gratis alternatief voor [X]" met een vergelijkingstabel (class="compare-table") met kolommen Functie / [Concurrent] / ZenBTW. Gebruik <span class="check">✓</span> en <span class="cross">✗</span>.
+- Voeg ALTIJD een FAQ-sectie toe vlak vóór de interne links. Gebruik 4-5 specifieke vragen die mensen letterlijk aan ChatGPT of Google zouden stellen over dit onderwerp. Geef directe, feitelijke antwoorden van 1-3 zinnen. Format:
+  <section class="faq-section">
+    <h2>Veelgestelde vragen</h2>
+    <div class="faq-item"><h3>[exacte vraag zoals iemand die aan een AI zou stellen]</h3><p>[direct antwoord, geen inleiding, puur feiten]</p></div>
+  </section>
+- Voeg FAQPage schema-markup toe als TWEEDE <script type="application/ld+json"> direct onder het eerste schema-blok in de <head>:
+  {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"[vraag]","acceptedAnswer":{"@type":"Answer","text":"[antwoord]"}},…]}
+- Schrijf H2-koppen die directe vragen zijn die mensen stellen, niet marketingtitels. Bv. "Hoeveel BTW moet ik betalen als Vinted verkoper?" werkt beter dan "BTW berekening voor Vinted".
 
 LEESTIJD:
 - Bereken de leestijd op basis van de tekstlengte (gemiddeld 200 woorden per minuut)
@@ -254,13 +300,13 @@ function updateBlogIndex(slug, title, description, tag) {
   let html = fs.readFileSync(indexPath, 'utf8');
 
   // Don't add duplicate
-  if (html.includes(`href="${slug}.html"`)) {
+  if (html.includes(`href="/blog/${slug}"`) || html.includes(`href="${slug}.html"`) || html.includes(`href="${slug}"`)) {
     console.log('  blog/index.html: card already present, skipping');
     return;
   }
 
   const card = `
-    <a href="${slug}.html" class="card">
+    <a href="/blog/${slug}" class="card">
       <div class="card-body">
         <span class="card-tag">${tag}</span>
         <h2>${title}</h2>
@@ -477,7 +523,7 @@ async function main() {
   const client = new Anthropic();
   const message = await client.messages.create({
     model: 'claude-opus-4-6',
-    max_tokens: 8192,
+    max_tokens: 16000,
     messages: [
       {
         role: 'user',

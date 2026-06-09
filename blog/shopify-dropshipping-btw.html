@@ -76,6 +76,32 @@ tr:nth-child(even) td{background:var(--s2)}
 .author-bio a{color:var(--acm);text-decoration:none;font-weight:600}
 footer{text-align:center;padding:32px 24px;font-size:13px;color:var(--tx4);border-top:1px solid var(--br);margin-top:60px}
 footer a{color:var(--tx3);text-decoration:none;margin:0 8px}
+
+/* ── Category related section ── */
+.cat-related{background:var(--s2);border:1.5px solid var(--br);border-radius:12px;padding:22px 24px;margin:40px 0 0}
+.cat-related-hd{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;flex-wrap:wrap;gap:8px}
+.cat-related-lbl{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--tx4)}
+.cat-related-all{font-size:13px;font-weight:600;color:var(--acm);text-decoration:none}
+.cat-related-all:hover{text-decoration:underline}
+.cat-related-links{display:flex;flex-direction:column;gap:6px}
+.cat-related-link{display:flex;align-items:center;gap:10px;padding:10px 14px;background:var(--wh);border:1px solid var(--br);border-radius:8px;text-decoration:none;color:var(--tx2);font-size:14px;font-weight:600;transition:all .15s;line-height:1.4}
+.cat-related-link:hover{border-color:var(--acm);color:var(--ac);background:var(--acl)}
+.cat-related-link span{color:var(--acm);font-size:13px;flex-shrink:0}
+
+/* ── Mobile fixes ── */
+html,body{max-width:100%;overflow-x:hidden}
+svg{max-width:100%!important;height:auto!important}
+figure{max-width:100%;overflow:hidden}
+@media(max-width:640px){
+  nav{padding:0 16px!important;gap:8px!important}
+  .nav-logo-img{max-height:36px!important}
+  .nav-wordmark{display:none!important}
+  .nav-back{white-space:nowrap;font-size:12px}
+  .nav-cta{padding:9px 14px!important;font-size:13px!important}
+  table{font-size:12.5px}
+  td,th{padding:7px 8px!important}
+  .article-wrap{padding-left:18px!important;padding-right:18px!important}
+}
 </style>
 </head>
 <body>
@@ -90,7 +116,7 @@ footer a{color:var(--tx3);text-decoration:none;margin:0 8px}
 
 <div class="page-layout">
 <div class="article-wrap">
-  <div class="breadcrumb"><a href="/">Home</a> › <a href="./">Blog</a> › Shopify dropshipping BTW</div>
+  <div class="breadcrumb"><a href="/">Home</a> › <a href="/blog">Blog</a> › <a href="/blog#platforms">Marketplaces</a> › Shopify dropshipping BTW</div>
   <span class="article-tag">Shopify &amp; BTW</span>
   <h1>Shopify Dropshipping BTW Nederland: Zo Regel Je Het</h1>
   <div class="meta">6 minuten lezen &nbsp;·&nbsp; Bijgewerkt juni 2026 &nbsp;·&nbsp; Door ZenBTW</div>
@@ -109,27 +135,40 @@ footer a{color:var(--tx3);text-decoration:none;margin:0 8px}
 
   <h2>Scenario 1: Zendingen onder €150 vanuit buiten de EU</h2>
 
-  <p>Dit is veruit het meest voorkomende scenario. Je leverancier in Shenzhen stuurt een telefoonhoesje van €12 rechtstreeks naar je klant in Amsterdam. De goederenwaarde is onder de €150.</p>
+  <div class="danger">
+    <p>🚨 <strong>Update 2026 — douanevrijstelling afgeschaft.</strong> De €150-drempel waarbij kleine zendingen douanevrij de EU binnenkwamen bestaat niet meer. Elke zending vanuit buiten de EU — ook een pakketje van €8 — vereist nu een officiële douaneaangifte én er gelden douanerechten over de goederenwaarde. Voor dropshippers die rechtstreeks vanuit China leveren is dit een ingrijpende verandering.</p>
+  </div>
 
-  <p>Sinds juli 2021 geldt de IOSS-regeling (Import One Stop Shop). Die werkt zo:</p>
+  <p>Dit is veruit het meest voorkomende scenario. Je leverancier in Shenzhen stuurt een telefoonhoesje van €12 rechtstreeks naar je klant in Amsterdam. De goederenwaarde is onder de €150. Tot voor kort was dat een relatief eenvoudige situatie. Dat is voorbij.</p>
+
+  <p>De IOSS-regeling (Import <a href="/blog/oss-registratie-belastingdienst">One Stop Shop</a>, sinds juli 2021) blijft bestaan voor de BTW-kant:</p>
 
   <ul>
     <li>Je rekent <strong>21% Nederlandse BTW</strong> aan je klant</li>
-    <li>Je draagt die BTW af via IOSS in plaats van dat de klant invoerrechten betaalt bij bezorging</li>
-    <li>Je leverancier vermeldt jouw IOSS-nummer op de zending, waardoor die zonder extra kosten door de douane gaat</li>
+    <li>Je draagt die BTW af via IOSS</li>
+    <li>Je leverancier vermeldt jouw IOSS-nummer op de zending</li>
   </ul>
 
-  <p>Klinkt netjes, maar ik merkte dat het in de praktijk regelmatig misging. Leveranciers die vergeten je IOSS-nummer te vermelden, waardoor klanten alsnog een factuur van PostNL krijgen voor invoer-BTW. Dubbel BTW betalen dus. Niet fijn, en je klantenservice draait overuren.</p>
+  <p>Maar IOSS dekt alleen de BTW. Wat er nu <em>bovenop</em> komt door de afschaffing van de douanevrijstelling:</p>
+
+  <ul>
+    <li><strong>Douaneaangifte per zending</strong> — ook voor een pakketje van €5</li>
+    <li><strong>Douanerechten</strong> over de goederenwaarde (tarief afhankelijk van productcategorie en land van herkomst)</li>
+    <li><strong>Hogere administratieve druk</strong> voor jou én je leverancier — elk pakket moet correct worden gedocumenteerd</li>
+    <li><strong>Hogere kosten per order</strong> — douanekosten drukken direct op je marge</li>
+  </ul>
+
+  <p>Wat ik verkopers in deze situatie aanraad: overweeg serieus een fulfillment center binnen de EU. Je betaalt meer voor opslag en verzending, maar je omzeilt de douane volledig en je levertijden worden beter. Dat is in de meeste gevallen de betere businesscase geworden.</p>
 
   <div class="warn">
-    <p>⚠️ Controleer bij je leverancier of ze je IOSS-nummer daadwerkelijk op élke zending plakken. Vraag om een screenshot van het verzendlabel. Ik deed dit de eerste maanden wekelijks.</p>
+    <p>⚠️ Controleer bij je leverancier of ze je IOSS-nummer op élke zending vermelden én of ze de douaneaangifte correct afhandelen. De nieuwe regels maken fouten duurder — zowel in boetes als in tevreden klanten.</p>
   </div>
 
   <h2>Scenario 2: Zendingen boven €150</h2>
 
-  <p>Verkoop je producten met een waarde boven €150? Dan valt IOSS weg en wordt het een ander verhaal. Er moet een officiële douane-aangifte gedaan worden, en je klant (of jij) betaalt invoer-BTW en eventuele douanerechten bij de grens.</p>
+  <p>Verkoop je producten met een waarde boven €150? Dan was er al een officiële douane-aangifte vereist, plus invoer-BTW en douanerechten. Dat is niet veranderd — het verschil is dat dit nu feitelijk voor álle zendingen vanuit buiten de EU geldt, niet alleen de duurdere.</p>
 
-  <p>Wat ik zelf deed: ik vermeed producten boven de €150 als ik direct vanuit China liet verzenden. Te veel gedoe, te veel klachten van klanten die €30 extra moesten aftikken bij bezorging. Als je toch duurdere producten wilt verkopen, overweeg dan een fulfillment center binnen de EU. Dan verschuift het hele BTW-plaatje.</p>
+  <p>Wat ik zelf deed: ik vermeed producten boven de €150 als ik direct vanuit China liet verzenden. Te veel gedoe, te veel klachten van klanten die €30 extra moesten aftikken bij bezorging. Met de nieuwe regels is dat argument voor goedkopere producten dus ook weggevallen — overweeg een fulfillment center binnen de EU als je serieus wilt schalen.</p>
 
   <h2>Shopify dropshipping BTW als je aan buitenlandse klanten verkoopt</h2>
 
@@ -200,7 +239,7 @@ footer a{color:var(--tx3);text-decoration:none;margin:0 8px}
   <p>Ten tweede: als je de €20.000 halverwege het jaar overschrijdt, moet je per direct BTW gaan rekenen. Ik heb verkopers gezien die in november ineens door hun KOR-grens schoten door Black Friday-verkopen. Alle prijzen moesten aangepast, marge verdampte.</p>
 
   <div class="danger">
-    <p>🚨 Overschrijd je de KOR-drempel? Dan moet je dit binnen 4 weken melden bij de Belastingdienst. Doe je dat niet, dan riskeer je naheffingen over de hele periode.</p>
+    <p>🚨 Overschrijd je de <a href="/blog/kor-vrijstelling-2026">KOR-drempel</a>? Dan moet je dit binnen 4 weken melden bij de Belastingdienst. Doe je dat niet, dan riskeer je naheffingen over de hele periode.</p>
   </div>
 
   <h2>Shopify's eigen BTW-instellingen: handig maar niet genoeg</h2>
@@ -235,7 +274,27 @@ footer a{color:var(--tx3);text-decoration:none;margin:0 8px}
 
   <p>Eerlijk gezegd is het BTW-deel het minst leuke aan dropshipping. Maar het is ook het deel dat je het meeste geld kan kosten als je het fout doet. Een naheffing van €3.000 over twee jaar gemiste BTW-afdrachten, plus boete? Dat hakt erin als je net begint.</p>
 
-  <div class="cta-box">
+  
+
+
+
+
+<section class="cat-related">
+  <div class="cat-related-hd">
+    <span class="cat-related-lbl">Meer over Marketplaces</span>
+    <a href="/blog#platforms" class="cat-related-all">Alle Marketplaces-artikelen →</a>
+  </div>
+  <div class="cat-related-links">
+    <a href="/blog/etsy-btw-2026" class="cat-related-link"><span>→</span> Etsy BTW 2026: wanneer moet je als verkoper BTW betalen?</a>
+    <a href="/blog/etsy-verkoper-belastingaangifte" class="cat-related-link"><span>→</span> Etsy verkoper belastingaangifte Nederland: stap voor stap uitgelegd</a>
+    <a href="/blog/hoeveel-btw-vinted-verkoper" class="cat-related-link"><span>→</span> Hoeveel BTW moet ik betalen als Vinted verkoper?</a>
+    <a href="/blog/marketplace-verkoper-btw-aangifte" class="cat-related-link"><span>→</span> Marketplace verkoper BTW aangifte: hoe doe je het in 2026?</a>
+    <a href="/blog/shopify-btw-nederland-2026" class="cat-related-link"><span>→</span> Shopify BTW Nederland 2026: Het Compleet Overzicht</a>
+    <a href="/blog/vinted-belasting-2026" class="cat-related-link"><span>→</span> Vinted Belasting 2026: Moet Je BTW Betalen Over Je Verkopen?</a>
+    <a href="/blog/vinted-ondernemer-btw-registratie" class="cat-related-link"><span>→</span> Vinted ondernemer BTW registratie: wat je moet weten in 2026</a>
+  </div>
+</section>
+<div class="cta-box">
     <h3>Grip op je Shopify BTW, zonder gedoe</h3>
     <p>ZenBTW houdt je drempels, tarieven en aangiftetermijnen bij, zodat jij kunt focussen op verkopen.</p>
     <a href="/app">📊 Open gratis ZenBTW dashboard →</a>
@@ -271,7 +330,7 @@ footer a{color:var(--tx3);text-decoration:none;margin:0 8px}
 
 <footer>
   <a href="/">Home</a>
-  <a href="./">Blog</a>
+  <a href="/blog">Blog</a>
   <a href="/app">Dashboard</a>
   <a href="/privacy">Privacy</a>
   <br><br>© 2026 ZenBTW &nbsp;·&nbsp; Geen belastingadvies — raadpleeg een adviseur voor jouw specifieke situatie.
