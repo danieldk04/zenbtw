@@ -590,12 +590,19 @@
       <div class="card">
         <div class="card-head">
           <h3>📋 Lead lijst</h3>
-          <div style="display:flex;gap:6px;align-items:center">
+          <div style="display:flex;gap:6px;align-items:center;flex-wrap:wrap">
             <select id="leads-filter" onchange="renderLeads()" style="padding:5px 8px;border:1px solid var(--br);border-radius:7px;font-size:12px;background:var(--wh)">
-              <option value="all">Alle</option>
+              <option value="all">Alle statussen</option>
               <option value="nieuw">Nieuw</option>
               <option value="benaderd">Benaderd</option>
               <option value="genegeerd">Genegeerd</option>
+            </select>
+            <select id="leads-age-filter" onchange="renderLeads()" style="padding:5px 8px;border:1px solid var(--br);border-radius:7px;font-size:12px;background:var(--wh)">
+              <option value="365">Afgelopen jaar</option>
+              <option value="90">Afgelopen 3 maanden</option>
+              <option value="30">Afgelopen maand</option>
+              <option value="7">Afgelopen week</option>
+              <option value="0">Alle datums</option>
             </select>
             <button class="btn btn-ghost" onclick="clearLeads()" style="padding:5px 10px;font-size:12px;color:var(--red)">Wis alles</button>
           </div>
