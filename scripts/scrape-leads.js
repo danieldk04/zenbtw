@@ -142,20 +142,30 @@ async function scoreWithClaude(posts) {
 
   for (let i = 0; i < posts.length; i += 8) {
     const batch = posts.slice(i, i + 8);
-    const prompt = `Je bent een strenge filter voor ZenBTW — een tool voor Nederlandse marketplace-verkopers (Vinted, Etsy, Shopify) die hun KOR-drempel en BTW-aangifte willen bijhouden.
+    const prompt = `Je bent een filter én outreach-schrijver voor ZenBTW — een gratis tool voor Nederlandse marketplace-verkopers (Vinted, Etsy, Shopify) die hun KOR-drempel en BTW-aangifte bijhouden.
 
-Beoordeel elk bericht: is de auteur een potentiële gebruiker van ZenBTW?
+ZenBTW is gebouwd door Daniel, die zelf een vintage kledingwinkel (Revaleur) runt met 700+ reviews op Vinted/Etsy/Shopify. Hij weet dus uit eigen ervaring hoe het is.
 
-Score 8-10: Ja, duidelijk. Persoon verkoopt actief op Vinted/Etsy/Shopify/marketplace EN worstelt met KOR, BTW, belasting, of drempel. Is waarschijnlijk Nederlander. Kan direct baat hebben bij ZenBTW.
-Score 5-7: Mogelijk. Vraag over belasting maar niet duidelijk marketplace-verkoper, of context onduidelijk.
-Score 1-4: Nee. Iemand die slechts commentaar geeft zonder eigen probleem, iemand die alleen hobby-inkomsten heeft zonder serieuze verkoop, niet-relevant onderwerp, of geen Nederlandse context.
+Doe twee dingen per bericht:
 
-Geef ALLEEN score ≥7 als je echt zeker bent dat dit iemand is die ZenBTW kan helpen.
+1. SCORE: is de auteur een potentiële ZenBTW-gebruiker?
+   - 8-10: Verkoopt actief op marketplace EN worstelt met KOR/BTW/drempel. Nederlander. Direct baat.
+   - 5-7: Mogelijk relevant maar context onduidelijk.
+   - 1-4: Niet relevant.
 
-Antwoord UITSLUITEND als JSON array: [{"index":0,"score":8,"reden":"verkoopt op Etsy, vraagt over KOR drempel"}]
+2. BERICHT (alleen als score ≥7): schrijf een korte, menselijke Reddit-reactie van Daniel.
+   Regels:
+   - Reageer direct op wat de persoon zei — gebruik hun exacte situatie
+   - Noem ZenBTW pas aan het einde, als tip — niet als reclame
+   - Maximaal 3 zinnen, geen buzzwords, geen "Hoi!", geen emoji
+   - Schrijf alsof Daniel het zelf typt, informeel maar deskundig
+   - Nederlands, tenzij het originele bericht Engels is
+
+Antwoord UITSLUITEND als JSON array:
+[{"index":0,"score":8,"reden":"verkoopt op Etsy, vraagt over KOR","bericht":"Jouw situatie is precies waarom de KOR zo lastig is — Etsy telt je buitenlandse omzet ook mee voor de €20k drempel, ook al dragen zij de BTW af. Ik heb hier ZenBTW voor gebouwd (gratis), die berekent het automatisch uit je Etsy CSV: zenbtw.nl"}]
 
 Berichten:
-${batch.map((p, idx) => `[${idx}] Auteur: ${p.author || p.username || '?'}\nTitel: ${p.title || '(reactie)'}\nTekst: ${(p.body || p.selftext || p.text || p.snippet || '').slice(0, 400)}`).join('\n\n---\n\n')}`;
+${batch.map((p, idx) => `[${idx}] Auteur: ${p.username || p.author || '?'}\nTitel: ${p.title || '(reactie)'}\nTekst: ${(p.body || p.selftext || p.text || p.snippet || '').slice(0, 500)}`).join('\n\n---\n\n')}`;
 
     try {
       const r = await fetch('https://api.anthropic.com/v1/messages', {
@@ -167,7 +177,7 @@ ${batch.map((p, idx) => `[${idx}] Auteur: ${p.author || p.username || '?'}\nTite
         },
         body: JSON.stringify({
           model: 'claude-haiku-4-5-20251001',
-          max_tokens: 1024,
+          max_tokens: 2048,
           messages: [{ role: 'user', content: prompt }],
         }),
       });
@@ -177,7 +187,7 @@ ${batch.map((p, idx) => `[${idx}] Auteur: ${p.author || p.username || '?'}\nTite
       const scores = jsonMatch ? JSON.parse(jsonMatch[0]) : [];
       for (const s of scores) {
         if (s.score >= 7 && batch[s.index]) {
-          scored.push({ ...batch[s.index], _score: s.score, _reden: s.reden });
+          scored.push({ ...batch[s.index], _score: s.score, _reden: s.reden, _bericht: s.bericht || '' });
         }
       }
     } catch (e) {
