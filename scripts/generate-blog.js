@@ -206,6 +206,14 @@ SEO REGELS:
 INTERNE LINKS — kies alleen uit deze lijst, link NOOIT naar het huidige artikel (slug: ${slug}):
 ${blogList}
 
+De blog gebruikt 5 categorieën. Artikelen in dezelfde categorie zijn het meest relevant om naar te linken:
+- KOR: /blog/kor-vrijstelling-2026, /blog/kor-drempel-overschreden, /blog/kor-buitenland-verkopen
+- OSS & EU BTW: /blog/oss-registratie-belastingdienst, /blog/oss-aangifte-nederland, /blog/btw-tarief-eu-landen-2026
+- Marketplaces: /blog/shopify-btw-nederland-2026, /blog/shopify-dropshipping-btw, /blog/etsy-btw-2026, /blog/etsy-verkoper-belastingaangifte, /blog/vinted-belasting-2026, /blog/vinted-ondernemer-btw-registratie, /blog/hoeveel-btw-vinted-verkoper, /blog/marketplace-verkoper-btw-aangifte
+- DAC7: /blog/dac7-belastingdienst-rapportage
+- Tools: /blog/gratis-btw-tool-marketplace
+Link EERST naar artikelen uit dezelfde categorie als het huidige artikel, daarna pas naar andere categorieën.
+
 1. CONTEXTUAL INLINE LINKS (3–6 stuks) — verwerk deze IN de lopende tekst:
    Zodra je een concept noemt dat in een bestaand artikel behandeld wordt, maak dan de EERSTE vermelding van die term een klikbare inline link.
    Schrijf gewoon: "...als je de <a href="/blog/kor-vrijstelling-2026">KOR-drempel</a> nadert..."

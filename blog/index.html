@@ -77,6 +77,18 @@ nav{position:sticky;top:0;z-index:500;height:72px;background:rgba(247,246,243,.9
 footer{text-align:center;padding:32px 24px;font-size:13px;color:var(--tx4);border-top:1px solid var(--br);margin-top:60px}
 footer a{color:var(--tx3);text-decoration:none;margin:0 8px}
 @media(max-width:700px){.grid{grid-template-columns:1fr}.nav-links{display:none}}
+
+/* ── Category filter ── */
+.cat-bar{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:32px}
+.cat-btn{display:inline-flex;align-items:center;gap:7px;padding:9px 18px;border-radius:30px;border:1.5px solid var(--br);background:var(--wh);color:var(--tx2);font-size:13px;font-weight:700;cursor:pointer;transition:all .16s;white-space:nowrap;font-family:inherit;letter-spacing:-.1px}
+.cat-btn:hover{border-color:var(--acm);color:var(--acm);background:var(--acl)}
+.cat-btn.active{background:var(--ac);border-color:var(--ac);color:#fff;box-shadow:0 4px 14px rgba(26,71,49,.28)}
+.cat-count{display:inline-flex;align-items:center;justify-content:center;min-width:20px;height:18px;padding:0 5px;border-radius:9px;font-size:11px;font-weight:700}
+.cat-btn.active .cat-count{background:rgba(255,255,255,.22);color:#fff}
+.cat-btn:not(.active) .cat-count{background:var(--s2);color:var(--tx4)}
+.card.cat-hidden{display:none}
+.cat-empty{display:none;grid-column:1/-1;text-align:center;padding:48px 20px;color:var(--tx3);font-size:15px}
+.cat-empty.on{display:block}
 </style>
 </head>
 <body>
@@ -129,10 +141,21 @@ function closeMobNav(){var d=document.getElementById('mobNavDrawer'),o=document.
 </div>
 
 <div class="wrap">
-  <div class="section-label">Alle artikelen</div>
+  
+  
+  
+  <div class="cat-bar">
+  <button class="cat-btn active" data-filter="all">Alle <span class="cat-count">16</span></button>
+  <button class="cat-btn" data-filter="kor">KOR <span class="cat-count">3</span></button>
+  <button class="cat-btn" data-filter="oss">OSS &amp; EU BTW <span class="cat-count">3</span></button>
+  <button class="cat-btn" data-filter="platforms">Marketplaces <span class="cat-count">8</span></button>
+  <button class="cat-btn" data-filter="dac7">DAC7 <span class="cat-count">1</span></button>
+  <button class="cat-btn" data-filter="tools">Tools <span class="cat-count">1</span></button>
+</div>
+<div class="cat-empty">Geen artikelen gevonden in deze categorie.</div>
   <div class="grid">
 
-    <a href="etsy-btw-2026" class="card">
+    <a href="etsy-btw-2026" data-cat="platforms" class="card">
       <div class="card-body">
         <span class="card-tag">Etsy</span>
         <h2>Etsy BTW 2026: wanneer moet je BTW betalen als verkoper?</h2>
@@ -144,7 +167,7 @@ function closeMobNav(){var d=document.getElementById('mobNavDrawer'),o=document.
       </div>
     </a>
 
-    <a href="vinted-belasting-2026" class="card">
+    <a href="vinted-belasting-2026" data-cat="platforms" class="card">
       <div class="card-body">
         <span class="card-tag">Vinted</span>
         <h2>Vinted belasting 2026: moet je BTW betalen over je verkopen?</h2>
@@ -156,7 +179,7 @@ function closeMobNav(){var d=document.getElementById('mobNavDrawer'),o=document.
       </div>
     </a>
 
-    <a href="kor-drempel-overschreden" class="card">
+    <a href="kor-drempel-overschreden" data-cat="kor" class="card">
       <div class="card-body">
         <span class="card-tag">KOR · OSS</span>
         <h2>KOR-drempel overschreden: wat moet je nu doen?</h2>
@@ -168,7 +191,7 @@ function closeMobNav(){var d=document.getElementById('mobNavDrawer'),o=document.
       </div>
     </a>
 
-    <a href="oss-aangifte-nederland" class="card">
+    <a href="oss-aangifte-nederland" data-cat="oss" class="card">
       <div class="card-body">
         <span class="card-tag">OSS · Aangifte</span>
         <h2>OSS-aangifte Nederland: complete stap-voor-stap gids voor 2026</h2>
@@ -180,7 +203,7 @@ function closeMobNav(){var d=document.getElementById('mobNavDrawer'),o=document.
       </div>
     </a>
 
-    <a href="shopify-btw-nederland-2026" class="card">
+    <a href="shopify-btw-nederland-2026" data-cat="platforms" class="card">
       <div class="card-body">
         <span class="card-tag">Shopify</span>
         <h2>Shopify BTW Nederland 2026: Alles Wat Je Moet Weten</h2>
@@ -193,7 +216,7 @@ function closeMobNav(){var d=document.getElementById('mobNavDrawer'),o=document.
     </a>
 
   
-    <a href="oss-registratie-belastingdienst" class="card">
+    <a href="oss-registratie-belastingdienst" data-cat="oss" class="card">
       <div class="card-body">
         <span class="card-tag">BTW & Registratie</span>
         <h2>OSS Registratie Belastingdienst: Het Complete Stappenplan</h2>
@@ -206,7 +229,7 @@ function closeMobNav(){var d=document.getElementById('mobNavDrawer'),o=document.
     </a>
 
   
-    <a href="etsy-verkoper-belastingaangifte" class="card">
+    <a href="etsy-verkoper-belastingaangifte" data-cat="platforms" class="card">
       <div class="card-body">
         <span class="card-tag">Etsy</span>
         <h2>Etsy Verkoper Belastingaangifte Nederland: Alles Wat Je Moet Weten</h2>
@@ -219,7 +242,7 @@ function closeMobNav(){var d=document.getElementById('mobNavDrawer'),o=document.
     </a>
 
   
-    <a href="kor-vrijstelling-2026" class="card">
+    <a href="kor-vrijstelling-2026" data-cat="kor" class="card">
       <div class="card-body">
         <span class="card-tag">BTW Tips</span>
         <h2>KOR Vrijstelling 2026 Voorwaarden: Wat Je Echt Moet Weten</h2>
@@ -232,7 +255,7 @@ function closeMobNav(){var d=document.getElementById('mobNavDrawer'),o=document.
     </a>
 
   
-    <a href="marketplace-verkoper-btw-aangifte" class="card">
+    <a href="marketplace-verkoper-btw-aangifte" data-cat="platforms" class="card">
       <div class="card-body">
         <span class="card-tag">BTW Tips</span>
         <h2>Marketplace Verkoper BTW Aangifte: Hoe Werkt Dat Nou Eigenlijk?</h2>
@@ -245,7 +268,7 @@ function closeMobNav(){var d=document.getElementById('mobNavDrawer'),o=document.
     </a>
 
   
-    <a href="dac7-belastingdienst-rapportage" class="card">
+    <a href="dac7-belastingdienst-rapportage" data-cat="dac7" class="card">
       <div class="card-body">
         <span class="card-tag">Belastingen</span>
         <h2>DAC7 Belastingdienst Rapportage 2026: Wat Verandert Er Voor Jou?</h2>
@@ -258,7 +281,7 @@ function closeMobNav(){var d=document.getElementById('mobNavDrawer'),o=document.
     </a>
 
   
-    <a href="vinted-ondernemer-btw-registratie" class="card">
+    <a href="vinted-ondernemer-btw-registratie" data-cat="platforms" class="card">
       <div class="card-body">
         <span class="card-tag">Vinted</span>
         <h2>Vinted Ondernemer BTW Registratie: Wanneer Moet Je in Actie Komen?</h2>
@@ -271,7 +294,7 @@ function closeMobNav(){var d=document.getElementById('mobNavDrawer'),o=document.
     </a>
 
   
-    <a href="btw-tarief-eu-landen-2026" class="card">
+    <a href="btw-tarief-eu-landen-2026" data-cat="oss" class="card">
       <div class="card-body">
         <span class="card-tag">BTW EU</span>
         <h2>BTW Tarief EU Landen Overzicht 2026: Alle Percentages op een Rij</h2>
@@ -284,7 +307,7 @@ function closeMobNav(){var d=document.getElementById('mobNavDrawer'),o=document.
     </a>
 
   
-    <a href="shopify-dropshipping-btw" class="card">
+    <a href="shopify-dropshipping-btw" data-cat="platforms" class="card">
       <div class="card-body">
         <span class="card-tag">Shopify</span>
         <h2>Shopify Dropshipping BTW Nederland: Wat Je Écht Moet Weten</h2>
@@ -297,7 +320,7 @@ function closeMobNav(){var d=document.getElementById('mobNavDrawer'),o=document.
     </a>
 
   
-    <a href="kor-buitenland-verkopen.html" class="card">
+    <a href="kor-buitenland-verkopen" data-cat="kor" class="card">
       <div class="card-body">
         <span class="card-tag">BTW &amp; KOR</span>
         <h2>Kleine ondernemersregeling en buitenland verkopen: wat mag wel (en wat niet)?</h2>
@@ -310,7 +333,7 @@ function closeMobNav(){var d=document.getElementById('mobNavDrawer'),o=document.
     </a>
 
   
-    <a href="/blog/gratis-btw-tool-marketplace" class="card">
+    <a href="/blog/gratis-btw-tool-marketplace" data-cat="tools" class="card">
       <div class="card-body">
         <span class="card-tag">BTW Tools</span>
         <h2>Gratis BTW tool voor marketplace verkopers in Nederland: wat werkt écht?</h2>
@@ -323,7 +346,7 @@ function closeMobNav(){var d=document.getElementById('mobNavDrawer'),o=document.
     </a>
 
   
-    <a href="/blog/hoeveel-btw-vinted-verkoper" class="card">
+    <a href="/blog/hoeveel-btw-vinted-verkoper" data-cat="platforms" class="card">
       <div class="card-body">
         <span class="card-tag">Vinted & BTW</span>
         <h2>Hoeveel BTW moet ik betalen als Vinted verkoper?</h2>

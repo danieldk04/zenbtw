@@ -60,6 +60,10 @@ jobs:
           MEDIUM_TOKEN: ${{ secrets.MEDIUM_TOKEN }}
         run: node scripts/generate-blog.js
 
+      - name: Update category structure
+        if: steps.check_queue.outputs.pending_count != '0'
+        run: node scripts/setup-categories.js
+
       - name: Check if files changed
         id: check_changes
         run: |

@@ -58,6 +58,17 @@ tr:nth-child(even) td{background:var(--s2)}
 .breadcrumb a{color:var(--tx3);text-decoration:none}
 footer{text-align:center;padding:32px 24px;font-size:13px;color:var(--tx4);border-top:1px solid var(--br);margin-top:60px}
 footer a{color:var(--tx3);text-decoration:none;margin:0 8px}
+
+/* ── Category related section ── */
+.cat-related{background:var(--s2);border:1.5px solid var(--br);border-radius:12px;padding:22px 24px;margin:40px 0 0}
+.cat-related-hd{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;flex-wrap:wrap;gap:8px}
+.cat-related-lbl{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--tx4)}
+.cat-related-all{font-size:13px;font-weight:600;color:var(--acm);text-decoration:none}
+.cat-related-all:hover{text-decoration:underline}
+.cat-related-links{display:flex;flex-direction:column;gap:6px}
+.cat-related-link{display:flex;align-items:center;gap:10px;padding:10px 14px;background:var(--wh);border:1px solid var(--br);border-radius:8px;text-decoration:none;color:var(--tx2);font-size:14px;font-weight:600;transition:all .15s;line-height:1.4}
+.cat-related-link:hover{border-color:var(--acm);color:var(--ac);background:var(--acl)}
+.cat-related-link span{color:var(--acm);font-size:13px;flex-shrink:0}
 </style>
 </head>
 <body>
@@ -197,7 +208,21 @@ footer a{color:var(--tx3);text-decoration:none;margin:0 8px}
   <p><a href="oss-registratie-belastingdienst.html" style="color:var(--acm);font-weight:600">→ Lees ook: OSS Registratie Belastingdienst: Compleet Stappenplan 2026</a></p>
   <p><a href="etsy-btw-2026.html" style="color:var(--acm);font-weight:600">→ Lees ook: Etsy BTW 2026: wanneer moet je als verkoper BTW betalen?</a></p>
 
-  <div class="cta-box">
+  
+
+
+
+<section class="cat-related">
+  <div class="cat-related-hd">
+    <span class="cat-related-lbl">Meer over KOR</span>
+    <a href="/blog#kor" class="cat-related-all">Alle KOR-artikelen →</a>
+  </div>
+  <div class="cat-related-links">
+    <a href="/blog/kor-drempel-overschreden" class="cat-related-link"><span>→</span> KOR drempel overschreden in 2026? Dit is je stappenplan</a>
+    <a href="/blog/kor-vrijstelling-2026" class="cat-related-link"><span>→</span> KOR Vrijstelling 2026: Alle Voorwaarden van de Kleine Ondernemersregeling</a>
+  </div>
+</section>
+<div class="cta-box">
     <h3>Weet jij waar je staat met je KOR en buitenlandse verkopen?</h3>
     <p>ZenBTW houdt je omzet per land bij en waarschuwt je vóórdat je een drempel overschrijdt.</p>
     <a href="../app.html">📊 Open gratis ZenBTW dashboard →</a>

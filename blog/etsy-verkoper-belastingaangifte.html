@@ -76,6 +76,17 @@ tr:nth-child(even) td{background:var(--s2)}
 .author-bio a{color:var(--acm);text-decoration:none;font-weight:600}
 footer{text-align:center;padding:32px 24px;font-size:13px;color:var(--tx4);border-top:1px solid var(--br);margin-top:60px}
 footer a{color:var(--tx3);text-decoration:none;margin:0 8px}
+
+/* ── Category related section ── */
+.cat-related{background:var(--s2);border:1.5px solid var(--br);border-radius:12px;padding:22px 24px;margin:40px 0 0}
+.cat-related-hd{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;flex-wrap:wrap;gap:8px}
+.cat-related-lbl{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--tx4)}
+.cat-related-all{font-size:13px;font-weight:600;color:var(--acm);text-decoration:none}
+.cat-related-all:hover{text-decoration:underline}
+.cat-related-links{display:flex;flex-direction:column;gap:6px}
+.cat-related-link{display:flex;align-items:center;gap:10px;padding:10px 14px;background:var(--wh);border:1px solid var(--br);border-radius:8px;text-decoration:none;color:var(--tx2);font-size:14px;font-weight:600;transition:all .15s;line-height:1.4}
+.cat-related-link:hover{border-color:var(--acm);color:var(--ac);background:var(--acl)}
+.cat-related-link span{color:var(--acm);font-size:13px;flex-shrink:0}
 </style>
 </head>
 <body>
@@ -90,7 +101,7 @@ footer a{color:var(--tx3);text-decoration:none;margin:0 8px}
 
 <div class="page-layout">
 <div class="article-wrap">
-  <div class="breadcrumb"><a href="/">Home</a> › <a href="./">Blog</a> › Etsy belastingaangifte</div>
+  <div class="breadcrumb"><a href="/">Home</a> › <a href="/blog">Blog</a> › <a href="/blog#platforms">Marketplaces</a> › Etsy belastingaangifte</div>
   <span class="article-tag">Etsy</span>
   <h1>Etsy verkoper belastingaangifte Nederland: stap voor stap uitgelegd</h1>
   <div class="meta">6 minuten lezen &nbsp;·&nbsp; Bijgewerkt juni 2026 &nbsp;·&nbsp; Door ZenBTW</div>
@@ -239,7 +250,26 @@ footer a{color:var(--tx3);text-decoration:none;margin:0 8px}
 
   <p>Het klinkt als veel. Maar als je eenmaal een systeem hebt, kost het je een uurtje per maand. En dat uurtje bespaart je stress in april.</p>
 
-  <div class="cta-box">
+  
+
+
+
+<section class="cat-related">
+  <div class="cat-related-hd">
+    <span class="cat-related-lbl">Meer over Marketplaces</span>
+    <a href="/blog#platforms" class="cat-related-all">Alle Marketplaces-artikelen →</a>
+  </div>
+  <div class="cat-related-links">
+    <a href="/blog/etsy-btw-2026" class="cat-related-link"><span>→</span> Etsy BTW 2026: wanneer moet je als verkoper BTW betalen?</a>
+    <a href="/blog/hoeveel-btw-vinted-verkoper" class="cat-related-link"><span>→</span> Hoeveel BTW moet ik betalen als Vinted verkoper?</a>
+    <a href="/blog/marketplace-verkoper-btw-aangifte" class="cat-related-link"><span>→</span> Marketplace verkoper BTW aangifte: hoe doe je het in 2026?</a>
+    <a href="/blog/shopify-btw-nederland-2026" class="cat-related-link"><span>→</span> Shopify BTW Nederland 2026: Het Compleet Overzicht</a>
+    <a href="/blog/shopify-dropshipping-btw" class="cat-related-link"><span>→</span> Shopify Dropshipping BTW Nederland: Zo Regel Je Het</a>
+    <a href="/blog/vinted-belasting-2026" class="cat-related-link"><span>→</span> Vinted Belasting 2026: Moet Je BTW Betalen Over Je Verkopen?</a>
+    <a href="/blog/vinted-ondernemer-btw-registratie" class="cat-related-link"><span>→</span> Vinted ondernemer BTW registratie: wat je moet weten in 2026</a>
+  </div>
+</section>
+<div class="cta-box">
     <h3>Weet jij of je BTW moet afdragen?</h3>
     <p>ZenBTW checkt je Etsy-omzet en vertelt je precies wat je moet doen voor de Belastingdienst.</p>
     <a href="/app">📊 Open gratis ZenBTW dashboard →</a>
@@ -275,7 +305,7 @@ footer a{color:var(--tx3);text-decoration:none;margin:0 8px}
 
 <footer>
   <a href="/">Home</a>
-  <a href="./">Blog</a>
+  <a href="/blog">Blog</a>
   <a href="/app">Dashboard</a>
   <a href="/privacy">Privacy</a>
   <br><br>© 2026 ZenBTW &nbsp;·&nbsp; Geen belastingadvies — raadpleeg een adviseur voor jouw specifieke situatie.

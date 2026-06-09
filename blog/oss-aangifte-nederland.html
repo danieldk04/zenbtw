@@ -76,6 +76,17 @@ tr:nth-child(even) td{background:var(--s2)}
 .author-bio a{color:var(--acm);text-decoration:none;font-weight:600}
 footer{text-align:center;padding:32px 24px;font-size:13px;color:var(--tx4);border-top:1px solid var(--br);margin-top:60px}
 footer a{color:var(--tx3);text-decoration:none;margin:0 8px}
+
+/* ── Category related section ── */
+.cat-related{background:var(--s2);border:1.5px solid var(--br);border-radius:12px;padding:22px 24px;margin:40px 0 0}
+.cat-related-hd{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;flex-wrap:wrap;gap:8px}
+.cat-related-lbl{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--tx4)}
+.cat-related-all{font-size:13px;font-weight:600;color:var(--acm);text-decoration:none}
+.cat-related-all:hover{text-decoration:underline}
+.cat-related-links{display:flex;flex-direction:column;gap:6px}
+.cat-related-link{display:flex;align-items:center;gap:10px;padding:10px 14px;background:var(--wh);border:1px solid var(--br);border-radius:8px;text-decoration:none;color:var(--tx2);font-size:14px;font-weight:600;transition:all .15s;line-height:1.4}
+.cat-related-link:hover{border-color:var(--acm);color:var(--ac);background:var(--acl)}
+.cat-related-link span{color:var(--acm);font-size:13px;flex-shrink:0}
 </style>
 </head>
 <body>
@@ -90,7 +101,7 @@ footer a{color:var(--tx3);text-decoration:none;margin:0 8px}
 
 <div class="page-layout">
 <div class="article-wrap">
-  <div class="breadcrumb"><a href="/">Home</a> › <a href="./">Blog</a> › OSS aangifte Nederland</div>
+  <div class="breadcrumb"><a href="/">Home</a> › <a href="/blog">Blog</a> › <a href="/blog#oss">OSS & EU BTW</a> › OSS aangifte Nederland</div>
   <span class="article-tag">BTW Tips</span>
   <h1>OSS aangifte Nederland 2026: stap voor stap gids</h1>
   <div class="meta">6 minuten lezen &nbsp;·&nbsp; Bijgewerkt juni 2026 &nbsp;·&nbsp; Door ZenBTW</div>
@@ -232,7 +243,21 @@ footer a{color:var(--tx3);text-decoration:none;margin:0 8px}
 
   <p>En als je net begint met verkopen naar het buitenland: houd die €10.000-grens scherp in de gaten. Je kunt ervoor kiezen om je vóórdat je de drempel bereikt al aan te melden. Dat scheelt gedoe achteraf.</p>
 
-  <div class="cta-box">
+  
+
+
+
+<section class="cat-related">
+  <div class="cat-related-hd">
+    <span class="cat-related-lbl">Meer over OSS & EU BTW</span>
+    <a href="/blog#oss" class="cat-related-all">Alle OSS & EU BTW-artikelen →</a>
+  </div>
+  <div class="cat-related-links">
+    <a href="/blog/btw-tarief-eu-landen-2026" class="cat-related-link"><span>→</span> BTW tarief EU landen overzicht 2026: alle percentages op een rij</a>
+    <a href="/blog/oss-registratie-belastingdienst" class="cat-related-link"><span>→</span> OSS Registratie Belastingdienst: Compleet Stappenplan 2026</a>
+  </div>
+</section>
+<div class="cta-box">
     <h3>Weet jij of je OSS-plichtig bent?</h3>
     <p>Check in 2 minuten of je de drempel al hebt overschreden en wat je moet doen.</p>
     <a href="/app">📊 Open gratis ZenBTW dashboard →</a>
@@ -268,7 +293,7 @@ footer a{color:var(--tx3);text-decoration:none;margin:0 8px}
 
 <footer>
   <a href="/">Home</a>
-  <a href="./">Blog</a>
+  <a href="/blog">Blog</a>
   <a href="/app">Dashboard</a>
   <a href="/privacy">Privacy</a>
   <br><br>© 2026 ZenBTW &nbsp;·&nbsp; Geen belastingadvies — raadpleeg een adviseur voor jouw specifieke situatie.
