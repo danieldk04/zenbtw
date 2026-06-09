@@ -16,12 +16,13 @@ Titel: ${lead.title}
 Tekst: ${lead.snippet}
 
 Regels:
-- Reageer direct op wat de persoon zei — gebruik hun exacte situatie
-- Noem ZenBTW pas aan het einde, als tip — niet als reclame
-- Maximaal 3 zinnen, geen buzzwords, geen "Hoi!", geen emoji
-- Schrijf alsof Daniel het zelf typt, informeel maar deskundig
+- Reageer direct op de vraag of situatie — geef een echt nuttig antwoord
+- Schrijf alsof Daniel het zelf typt: informeel, deskundig, geen buzzwords, geen "Hoi!", geen emoji
+- Maximaal 3 zinnen
 - Nederlands, tenzij het bericht Engels is
-- Sluit af met: zenbtw.nl
+- Noem ZenBTW ALLEEN als de persoon expliciet vraagt naar een tool, app of oplossing — anders NIET
+- Als je ZenBTW noemt: één korte zin, geen "gratis", geen slogans, gewoon: "...check zenbtw.nl"
+- Het bericht moet klinken als iemand die oprecht helpt, niet als iemand die zijn tool promoot
 
 Geef ALLEEN de reactietekst terug, geen uitleg.`;
 
