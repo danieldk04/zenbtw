@@ -1503,12 +1503,44 @@ function saveLeadsData(arr){ localStorage.setItem('zenbtw_leads', JSON.stringify
 function getLeadKeywords(){ return JSON.parse(localStorage.getItem('zenbtw_lead_kws') || JSON.stringify(DEFAULT_KEYWORDS)); }
 function saveLeadKeywords(arr){ localStorage.setItem('zenbtw_lead_kws', JSON.stringify(arr)); }
 
-function initLeads(){
+async function initLeads(){
   const key = localStorage.getItem('apify_token');
   if(key) document.getElementById('apify-key-input').placeholder = '✓ Token opgeslagen';
   renderKeywordTags();
+  await syncLeadsFromGithub();
   renderLeads();
   updateLeadKpis();
+}
+
+async function syncLeadsFromGithub(){
+  try {
+    const GH = localStorage.getItem('gh_token') || '';
+    const headers = GH ? { Authorization: `token ${GH}` } : {};
+    const res = await fetch(
+      'https://raw.githubusercontent.com/danieldk04/zenbtw/main/leads.json?t=' + Date.now(),
+      { headers }
+    );
+    if(!res.ok) return;
+    const remote = await res.json();
+    if(!Array.isArray(remote) || remote.length === 0) return;
+    // Merge: remote als basis, lokale status-wijzigingen bewaren
+    const local = getLeads();
+    const localMap = Object.fromEntries(local.map(l => [l.id||l.url, l]));
+    const merged = remote.map(r => {
+      const key = r.id || r.url;
+      const loc = localMap[key];
+      // Bewaar status en note als die lokaal aangepast zijn
+      if(loc && loc.status !== 'nieuw') return { ...r, status: loc.status, note: loc.note };
+      return r;
+    });
+    // Voeg puur lokale leads toe die niet in remote zitten
+    const remoteKeys = new Set(remote.map(r => r.id||r.url));
+    for(const l of local) if(!remoteKeys.has(l.id||l.url)) merged.push(l);
+    saveLeadsData(merged);
+    console.log(`Leads gesynchroniseerd: ${merged.length} totaal`);
+  } catch(e) {
+    console.warn('Leads sync mislukt (lokale data bewaard):', e.message);
+  }
 }
 
 function renderKeywordTags(){
