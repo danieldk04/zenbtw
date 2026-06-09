@@ -251,10 +251,17 @@ async function main() {
     ...forumItems.map(i => ({ ...i, _platform: 'Forum' })),
   ];
 
+  const oneYearAgo = new Date();
+  oneYearAgo.setFullYear(oneYearAgo.getFullYear() - 1);
+
   // Stap 1: goedkoop pre-filter (geen API calls)
   const preFiltered = preFilter(allRaw).filter(i => {
     const url = i.url || (i.permalink ? `https://reddit.com${i.permalink}` : '') || i.link || '';
-    return url && !existingUrls.has(url);
+    if (!url || existingUrls.has(url)) return false;
+    // Filter posts ouder dan 1 jaar (alleen als datum bekend is)
+    const d = parseDate(i);
+    if (d && d < oneYearAgo) return false;
+    return true;
   });
   console.log(`Na pre-filter: ${preFiltered.length} kandidaten`);
 
