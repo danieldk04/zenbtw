@@ -1,14 +1,6 @@
 {
   "queue": [
     {
-      "keyword": "hoeveel btw moet ik betalen als vinted verkoper",
-      "slug": "hoeveel-btw-vinted-verkoper",
-      "status": "pending",
-      "priority": 2,
-      "notes": "GEO: directe vraag die mensen aan AI stellen — hoge kans op AI-citaat",
-      "type": "geo-vraag"
-    },
-    {
       "keyword": "wanneer btw aangifte verplicht etsy verkoper nederland",
       "slug": "wanneer-btw-aangifte-etsy",
       "status": "pending",
@@ -173,6 +165,16 @@
       "type": "geo-alternatief",
       "publishedDate": "2026-06-09",
       "outputFile": "blog/gratis-btw-tool-marketplace.html"
+    },
+    {
+      "keyword": "hoeveel btw moet ik betalen als vinted verkoper",
+      "slug": "hoeveel-btw-vinted-verkoper",
+      "status": "published",
+      "priority": 2,
+      "notes": "GEO: directe vraag die mensen aan AI stellen — hoge kans op AI-citaat",
+      "type": "geo-vraag",
+      "publishedDate": "2026-06-09",
+      "outputFile": "blog/hoeveel-btw-vinted-verkoper.html"
     }
   ],
   "settings": {
