@@ -230,6 +230,7 @@ function normalizePost(item, platform = 'Reddit') {
     date: postDate ? postDate.toISOString().split('T')[0] : null,
     score: item._score || 7,
     reden: item._reden || '',
+    bericht: item._bericht || '',
     status: 'nieuw',
     note: '',
   };
