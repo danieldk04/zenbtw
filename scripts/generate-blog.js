@@ -148,16 +148,16 @@ footer a{color:var(--tx3);text-decoration:none;margin:0 8px}
 </head>
 <body>
 <nav>
-  <a href="../index.html" class="nav-logo">
+  <a href="/" class="nav-logo">
     <img src="../logo.webp" alt="ZenBTW Logo" class="nav-logo-img" width="48" height="48">
     <span class="nav-wordmark">Zen<em>BTW</em></span>
   </a>
-  <a href="index.html" class="nav-back">← Blog</a>
-  <a href="../app.html" class="nav-cta">Check mijn status →</a>
+  <a href="/blog" class="nav-back">← Blog</a>
+  <a href="/app" class="nav-cta">Check mijn status →</a>
 </nav>
 
 <div class="article-wrap">
-  <div class="breadcrumb"><a href="../index.html">Home</a> › <a href="index.html">Blog</a> › [BREADCRUMB LABEL]</div>
+  <div class="breadcrumb"><a href="/">Home</a> › <a href="/blog">Blog</a> › [BREADCRUMB LABEL]</div>
   <span class="article-tag">[ARTIKEL TAG zoals "Shopify" of "BTW Tips"]</span>
   <h1>[H1 MET KEYWORD]</h1>
   <div class="meta">[X] minuten lezen &nbsp;·&nbsp; Bijgewerkt [MAAND JAAR] &nbsp;·&nbsp; Door ZenBTW</div>
@@ -167,17 +167,17 @@ footer a{color:var(--tx3);text-decoration:none;margin:0 8px}
   <div class="cta-box">
     <h3>[CTA TITEL — relevant aan artikel onderwerp]</h3>
     <p>[CTA subtekst, 1 zin]</p>
-    <a href="../app.html">📊 Open gratis ZenBTW dashboard →</a>
+    <a href="/app">📊 Open gratis ZenBTW dashboard →</a>
   </div>
 
-  [2-3 interne links naar gerelateerde blog artikelen, gebruik: <p><a href="[slug].html" style="color:var(--acm);font-weight:600">→ Lees ook: [TITEL]</a></p>]
+  [2-3 interne links naar gerelateerde blog artikelen, gebruik: <p><a href="/blog/[slug]" style="color:var(--acm);font-weight:600">→ Lees ook: [TITEL]</a></p>]
 </div>
 
 <footer>
-  <a href="../index.html">Home</a>
-  <a href="index.html">Blog</a>
-  <a href="../app.html">Dashboard</a>
-  <a href="../privacy.html">Privacy</a>
+  <a href="/">Home</a>
+  <a href="/blog">Blog</a>
+  <a href="/app">Dashboard</a>
+  <a href="/privacy">Privacy</a>
   <br><br>© 2026 ZenBTW &nbsp;·&nbsp; Geen belastingadvies — raadpleeg een adviseur voor jouw specifieke situatie.
 </footer>
 </body>
@@ -278,13 +278,13 @@ function updateBlogIndex(slug, title, description, tag) {
   let html = fs.readFileSync(indexPath, 'utf8');
 
   // Don't add duplicate
-  if (html.includes(`href="${slug}.html"`)) {
+  if (html.includes(`href="/blog/${slug}"`) || html.includes(`href="${slug}.html"`) || html.includes(`href="${slug}"`)) {
     console.log('  blog/index.html: card already present, skipping');
     return;
   }
 
   const card = `
-    <a href="${slug}.html" class="card">
+    <a href="/blog/${slug}" class="card">
       <div class="card-body">
         <span class="card-tag">${tag}</span>
         <h2>${title}</h2>
