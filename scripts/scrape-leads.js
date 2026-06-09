@@ -184,7 +184,7 @@ ${batch.map((p, idx) => `[${idx}] Auteur: ${p.username || p.author || '?'}\nTite
       const scores = jsonMatch ? JSON.parse(jsonMatch[0]) : [];
       for (const s of scores) {
         if (s.score >= 7 && batch[s.index]) {
-          scored.push({ ...batch[s.index], _score: s.score, _reden: s.reden, _bericht: s.bericht || '' });
+          scored.push({ ...batch[s.index], _score: s.score, _reden: s.reden, _berichten: s.berichten || {} });
         }
       }
     } catch (e) {
