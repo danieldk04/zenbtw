@@ -1545,12 +1545,20 @@ async function runLeadScrape(){
   btn.disabled = true; btn.textContent = '⏳ Bezig...';
   status.textContent = 'Scrape gestart — dit duurt ~30-60 seconden...';
   const kws = getLeadKeywords();
-  const subreddits = ['belastingdienst','ondernemen','vinted','zzp','werkzaken','EcommerceWebsite','Boekhouder'];
   try {
     const startRes = await fetch(
       `https://api.apify.com/v2/acts/trudax~reddit-scraper-lite/runs?token=${token}`,
       { method:'POST', headers:{'Content-Type':'application/json'},
-        body: JSON.stringify({ searches: kws.slice(0,6).map(q=>({query:q,subreddits})), maxItems:40, type:'posts_and_comments', sort:'new' }) }
+        body: JSON.stringify({
+          searches: kws.slice(0,6),
+          searchPosts: true,
+          searchComments: true,
+          sort: 'new',
+          time: 'month',
+          maxItems: 50,
+          maxPostCount: 50,
+          proxy: { useApifyProxy: true, apifyProxyGroups: ['RESIDENTIAL'] }
+        }) }
     );
     if(!startRes.ok) throw new Error(`Apify fout: ${startRes.status}`);
     const runId = (await startRes.json()).data.id;
