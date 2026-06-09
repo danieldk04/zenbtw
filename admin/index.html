@@ -302,6 +302,10 @@
         <a class="nav-item" onclick="go('leads')" id="nav-leads"><span class="nav-icon">🎯</span> Leads</a>
       </div>
       <div class="nav-group">
+        <div class="nav-label">SEO</div>
+        <a class="nav-item" onclick="go('seo')" id="nav-seo"><span class="nav-icon">🔍</span> Keyword research</a>
+      </div>
+      <div class="nav-group">
         <div class="nav-label">Systeem</div>
         <a class="nav-item" onclick="go('agent')" id="nav-agent"><span class="nav-icon">🤖</span> Content agent</a>
         <a class="nav-item" onclick="go('fiscal')" id="nav-fiscal"><span class="nav-icon">🧮</span> Fiscale logica</a>
@@ -554,51 +558,6 @@
       </div>
     </div>
 
-    <!-- ── LEADS ── -->
-    <div class="page" id="page-leads">
-      <div class="card" style="margin-bottom:1.2rem">
-        <div class="card-head"><h3>🔑 Apify API token</h3></div>
-        <div style="display:flex;gap:8px;align-items:center;padding:4px 0">
-          <input type="password" id="apify-key-input" placeholder="apify_api_..." style="flex:1;padding:8px 12px;border:1px solid var(--br);border-radius:8px;font-size:13px;font-family:monospace">
-          <button class="btn" onclick="saveApifyKey()" style="padding:8px 16px;font-size:13px">Opslaan</button>
-        </div>
-        <div style="font-size:11.5px;color:var(--tx3);margin-top:6px">
-          Maak aan op <a href="https://console.apify.com/account/integrations" target="_blank">console.apify.com → Settings → Integrations → API tokens</a>.
-        </div>
-      </div>
-
-      <div class="kpi-grid" id="kpi-leads"></div>
-
-      <div class="card" style="margin-bottom:1.2rem">
-        <div class="card-head">
-          <h3>🔍 Zoekwoorden</h3>
-          <button class="btn" onclick="runLeadScrape()" id="leads-scrape-btn" style="padding:6px 14px;font-size:13px">▶ Scrape starten</button>
-        </div>
-        <div style="padding:1rem 1.2rem;display:flex;flex-wrap:wrap;gap:6px" id="leads-keywords-list"></div>
-        <div style="padding:0 1.2rem 1rem;display:flex;gap:8px;align-items:center">
-          <input type="text" id="leads-kw-input" placeholder="Nieuw zoekwoord..." style="flex:1;padding:7px 10px;border:1px solid var(--br);border-radius:7px;font-size:13px">
-          <button class="btn btn-ghost" onclick="addLeadKeyword()" style="padding:7px 12px;font-size:13px">+ Toevoegen</button>
-        </div>
-        <div id="leads-scrape-status" style="padding:0 1.2rem 1rem;font-size:12px;color:var(--tx3)"></div>
-      </div>
-
-      <div class="card">
-        <div class="card-head">
-          <h3>📋 Lead lijst</h3>
-          <div style="display:flex;gap:6px;align-items:center">
-            <select id="leads-filter" onchange="renderLeads()" style="padding:5px 8px;border:1px solid var(--br);border-radius:7px;font-size:12px;background:var(--wh)">
-              <option value="all">Alle</option>
-              <option value="nieuw">Nieuw</option>
-              <option value="benaderd">Benaderd</option>
-              <option value="genegeerd">Genegeerd</option>
-            </select>
-            <button class="btn btn-ghost" onclick="clearLeads()" style="padding:5px 10px;font-size:12px;color:var(--red)">Wis alles</button>
-          </div>
-        </div>
-        <div id="leads-table" style="overflow-x:auto"></div>
-      </div>
-    </div>
-
     <!-- ── AGENT ── -->
     <div class="page" id="page-agent">
       <div class="kpi-grid" id="kpi-agent"></div>
@@ -733,6 +692,73 @@
       </div>
     </div>
 
+    <!-- ── SEO / KEYWORD RESEARCH ── -->
+    <div class="page" id="page-seo">
+
+      <div class="card" style="margin-bottom:1.2rem">
+        <div class="card-head">
+          <h3>🔑 DataForSEO API</h3>
+          <span class="badge bgr" id="dfs-status">Niet ingesteld</span>
+        </div>
+        <div class="card-body" style="padding-bottom:.5rem">
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;align-items:end">
+            <div>
+              <label style="font-size:11px;font-weight:600;color:var(--tx3);display:block;margin-bottom:4px">Login (e-mailadres)</label>
+              <input type="text" id="dfs-login-input" placeholder="jouw@email.com" style="width:100%;padding:8px 12px;border:1px solid var(--br);border-radius:8px;font-size:13px;outline:none">
+            </div>
+            <div>
+              <label style="font-size:11px;font-weight:600;color:var(--tx3);display:block;margin-bottom:4px">Wachtwoord</label>
+              <input type="password" id="dfs-pass-input" placeholder="••••••••" style="width:100%;padding:8px 12px;border:1px solid var(--br);border-radius:8px;font-size:13px;outline:none">
+            </div>
+          </div>
+          <button class="btn btn-primary" style="margin-top:8px" onclick="saveDfsCredentials()">Opslaan</button>
+          <div style="font-size:11.5px;color:var(--tx3);margin-top:8px">
+            Account aanmaken op <a href="https://app.dataforseo.com/register" target="_blank">dataforseo.com</a> — vul je inlognaam (e-mail) en wachtwoord in. Credentials worden lokaal opgeslagen in je browser.
+          </div>
+        </div>
+      </div>
+
+      <div style="display:flex;gap:6px;margin-bottom:1rem">
+        <button class="btn btn-primary" id="seo-tab-volume" onclick="setSeoTab('volume')">📊 Zoekvolume</button>
+        <button class="btn btn-ghost" id="seo-tab-ideas" onclick="setSeoTab('ideas')">💡 Keyword ideeën</button>
+      </div>
+
+      <!-- Volume pane -->
+      <div id="seo-pane-volume">
+        <div class="card">
+          <div class="card-head">
+            <h3>Zoekvolume opzoeken</h3>
+            <span class="meta">Nederland · Google · max 20 keywords</span>
+          </div>
+          <div class="card-body">
+            <label style="font-size:.72rem;font-weight:700;color:var(--tx3);text-transform:uppercase;letter-spacing:.05em;display:block;margin-bottom:6px">Keywords (één per regel)</label>
+            <textarea id="seo-kw-input" rows="6" placeholder="btw aangifte&#10;kor regeling&#10;vinted belasting&#10;etsy ondernemer" style="width:100%;padding:10px 12px;border:1.5px solid var(--br);border-radius:8px;font-size:.82rem;font-family:inherit;resize:vertical;outline:none;transition:border .15s" onfocus="this.style.borderColor='var(--acm)'" onblur="this.style.borderColor='var(--br)'"></textarea>
+            <button class="btn btn-primary" style="margin-top:8px" onclick="searchVolume()">Zoekvolume ophalen →</button>
+          </div>
+          <div id="seo-volume-results"></div>
+        </div>
+      </div>
+
+      <!-- Ideas pane -->
+      <div id="seo-pane-ideas" style="display:none">
+        <div class="card">
+          <div class="card-head">
+            <h3>Keyword ideeën genereren</h3>
+            <span class="meta">Gebaseerd op seed keyword</span>
+          </div>
+          <div class="card-body">
+            <label style="font-size:.72rem;font-weight:700;color:var(--tx3);text-transform:uppercase;letter-spacing:.05em;display:block;margin-bottom:6px">Seed keyword</label>
+            <div style="display:flex;gap:8px">
+              <input type="text" id="seo-seed-input" placeholder="bijv: btw aangifte" style="flex:1;padding:10px 12px;border:1.5px solid var(--br);border-radius:8px;font-size:.82rem;outline:none;transition:border .15s" onfocus="this.style.borderColor='var(--acm)'" onblur="this.style.borderColor='var(--br)'" onkeydown="if(event.key==='Enter')searchIdeas()">
+              <button class="btn btn-primary" onclick="searchIdeas()">Ideeën ophalen →</button>
+            </div>
+          </div>
+          <div id="seo-ideas-results"></div>
+        </div>
+      </div>
+
+    </div>
+
   </div><!-- /main -->
 </div><!-- /app -->
 
@@ -785,8 +811,7 @@ if(sessionStorage.getItem('za')==='1'){
 const PAGE_TITLES = {
   home:'Overzicht', blogs:'Blogs', queue:'Keywords queue',
   style:'Schrijfstijl', traffic:'Bezoekers & verkeer', contacts:'Contacten & e-mails',
-  leads:'Leads & outreach',
-  agent:'Content agent', fiscal:'Fiscale logica', actions:'GitHub Actions'
+  seo:'Keyword research', agent:'Content agent', fiscal:'Fiscale logica', actions:'GitHub Actions'
 };
 
 function go(name){
@@ -799,7 +824,6 @@ function go(name){
   document.getElementById('mob-topbar-title').textContent = title;
   if(name==='traffic') loadUmami();
   if(name==='contacts') loadContacts();
-  if(name==='leads') initLeads();
   closeSidebar();
 }
 
@@ -1111,6 +1135,8 @@ function initApp(){
 
   // Herstel GitHub token status
   updateGhTokenStatus();
+  // Herstel DataForSEO status
+  updateDfsStatus();
 }
 
 // ── GitHub token ──────────────────────────────────────────────────────────────
@@ -1222,219 +1248,191 @@ function closeEditor(){
   document.body.style.overflow = '';
 }
 
-// ── LEADS ─────────────────────────────────────────────────────────────────────
-const DEFAULT_KEYWORDS = [
-  'KOR belasting','BTW Vinted','OSS drempel','BTW drempel overschreden',
-  'hoeveel mag ik verdienen Vinted','belasting marketplace','Etsy BTW Nederland',
-  'KOR regeling ondernemer','BTW vrijstelling kleine ondernemer'
-];
+// ── SEO / Keyword research ─────────────────────────────────────────────────────
+let _seoVolumeResults = [], _seoIdeasResults = [];
 
-function saveApifyKey(){
-  const v = document.getElementById('apify-key-input').value.trim();
-  if(!v) return;
-  localStorage.setItem('apify_token', v);
-  document.getElementById('apify-key-input').value = '';
-  document.getElementById('apify-key-input').placeholder = '✓ Opgeslagen';
+function saveDfsCredentials(){
+  const login = document.getElementById('dfs-login-input').value.trim();
+  const pass  = document.getElementById('dfs-pass-input').value.trim();
+  if(!login || !pass){ alert('Voer zowel login als wachtwoord in.'); return; }
+  localStorage.setItem('zenbtw_dfs_login', login);
+  localStorage.setItem('zenbtw_dfs_pass', pass);
+  document.getElementById('dfs-login-input').value = '';
+  document.getElementById('dfs-pass-input').value = '';
+  updateDfsStatus();
 }
 
-function getLeads(){ try{ return JSON.parse(localStorage.getItem('zenbtw_leads')||'[]'); }catch{ return []; } }
-function saveLeadsData(arr){ localStorage.setItem('zenbtw_leads', JSON.stringify(arr)); }
-function getLeadKeywords(){ return JSON.parse(localStorage.getItem('zenbtw_lead_kws') || JSON.stringify(DEFAULT_KEYWORDS)); }
-function saveLeadKeywords(arr){ localStorage.setItem('zenbtw_lead_kws', JSON.stringify(arr)); }
-
-function initLeads(){
-  const key = localStorage.getItem('apify_token');
-  if(key) document.getElementById('apify-key-input').placeholder = '✓ Token opgeslagen';
-  renderKeywordTags();
-  renderLeads();
-  updateLeadKpis();
+function updateDfsStatus(){
+  const el = document.getElementById('dfs-status');
+  if(!el) return;
+  const login = localStorage.getItem('zenbtw_dfs_login');
+  const inp = document.getElementById('dfs-login-input');
+  if(login){
+    el.textContent = '✓ Ingesteld';
+    el.className = 'badge bg';
+    if(inp) inp.placeholder = login + ' (opgeslagen)';
+  } else {
+    el.textContent = 'Niet ingesteld';
+    el.className = 'badge bgr';
+  }
 }
 
-function renderKeywordTags(){
-  const kws = getLeadKeywords();
-  document.getElementById('leads-keywords-list').innerHTML = kws.map((k,i)=>
-    `<span style="background:var(--acl);color:var(--ac);padding:3px 10px 3px 10px;border-radius:99px;font-size:12px;display:inline-flex;align-items:center;gap:6px">
-      ${k} <span onclick="removeLeadKeyword(${i})" style="cursor:pointer;opacity:.6;font-size:11px">✕</span>
-    </span>`
-  ).join('');
+function dfsAuth(){
+  const login = localStorage.getItem('zenbtw_dfs_login');
+  const pass  = localStorage.getItem('zenbtw_dfs_pass');
+  if(!login || !pass) return null;
+  return 'Basic ' + btoa(login + ':' + pass);
 }
 
-function addLeadKeyword(){
-  const inp = document.getElementById('leads-kw-input');
-  const v = inp.value.trim();
-  if(!v) return;
-  const kws = getLeadKeywords();
-  if(!kws.includes(v)){ kws.push(v); saveLeadKeywords(kws); }
-  inp.value = '';
-  renderKeywordTags();
+function setSeoTab(tab){
+  document.getElementById('seo-pane-volume').style.display = tab==='volume' ? '' : 'none';
+  document.getElementById('seo-pane-ideas').style.display  = tab==='ideas'  ? '' : 'none';
+  document.getElementById('seo-tab-volume').className = 'btn ' + (tab==='volume' ? 'btn-primary' : 'btn-ghost');
+  document.getElementById('seo-tab-ideas').className  = 'btn ' + (tab==='ideas'  ? 'btn-primary' : 'btn-ghost');
 }
 
-function removeLeadKeyword(i){
-  const kws = getLeadKeywords();
-  kws.splice(i,1);
-  saveLeadKeywords(kws);
-  renderKeywordTags();
+function compColor(level){ return level==='LOW'?'bg':level==='MEDIUM'?'by':'br'; }
+
+function oppScore(r, maxVol){
+  const sv = r.search_volume||0;
+  const vol = (maxVol>0 && sv>0) ? Math.log(sv+1)/Math.log(maxVol+1)*50 : 0;
+  const hasComp = Number.isFinite(r.competition) && r.competition>0;
+  const comp = hasComp ? (1-r.competition)*30 : 15;
+  const cpc = Math.min((Number.isFinite(r.cpc)?r.cpc:0)/5,1)*20;
+  const s = vol+comp+cpc;
+  return Number.isFinite(s) ? Math.round(s) : 0;
+}
+function oppBadge(s){ return s>=70?'bg':s>=45?'by':'br'; }
+function oppLabel(s){ return s>=70?'Goed':s>=45?'Matig':'Moeilijk'; }
+
+function compDisplay(r){
+  const hasComp = Number.isFinite(r.competition) && r.competition>0;
+  const level = r.competition_level||null;
+  if(!hasComp && !level) return '<span style="color:var(--tx3);font-size:.75rem">Geen data</span>';
+  const pct = hasComp ? Math.round(r.competition*100) : (level==='LOW'?20:level==='MEDIUM'?55:80);
+  const barClass = pct>=67?'sf-r':pct>=33?'sf-y':'sf-g';
+  const badgeClass = level?compColor(level):(pct<=33?'bg':pct<=66?'by':'br');
+  const label = level||pct+'%';
+  return `<div style="display:flex;align-items:center;gap:6px">
+    <div class="seo-bar" style="width:50px;flex-shrink:0"><div class="seo-fill ${barClass}" style="width:${pct}%"></div></div>
+    <span class="badge ${badgeClass}" style="font-size:.65rem">${label}</span>
+  </div>`;
 }
 
-async function runLeadScrape(){
-  const token = localStorage.getItem('apify_token');
-  if(!token){ alert('Voer eerst je Apify API token in.'); return; }
-  const btn = document.getElementById('leads-scrape-btn');
-  const status = document.getElementById('leads-scrape-status');
-  btn.disabled = true; btn.textContent = '⏳ Bezig...';
-  status.textContent = 'Scrape gestart — dit duurt ~30-60 seconden...';
-
-  const kws = getLeadKeywords();
-  const searchTerms = kws.slice(0,6); // max 6 per run om kosten laag te houden
-  const subreddits = ['belastingdienst','ondernemen','vinted','zzp','werkzaken','EcommerceWebsite','Boekhouder'];
-
+async function searchVolume(){
+  const auth = dfsAuth();
+  if(!auth){ alert('Stel eerst DataForSEO credentials in bovenaan deze pagina.'); return; }
+  const raw = document.getElementById('seo-kw-input').value.trim();
+  if(!raw){ alert('Voer minimaal één keyword in.'); return; }
+  const keywords = raw.split('\n').map(k=>k.trim()).filter(Boolean).slice(0,20);
+  const el = document.getElementById('seo-volume-results');
+  el.innerHTML = '<div class="empty">Ophalen via DataForSEO...</div>';
   try {
-    // Start Apify actor run
-    const startRes = await fetch(
-      `https://api.apify.com/v2/acts/trudax~reddit-scraper-lite/runs?token=${token}`,
-      {
-        method: 'POST',
-        headers: {'Content-Type':'application/json'},
-        body: JSON.stringify({
-          searches: searchTerms.map(q => ({ query: q, subreddits })),
-          maxItems: 40,
-          type: 'posts_and_comments',
-          sort: 'new'
-        })
-      }
-    );
-    if(!startRes.ok) throw new Error(`Apify start fout: ${startRes.status}`);
-    const startData = await startRes.json();
-    const runId = startData.data.id;
-    status.textContent = `Run gestart (${runId}). Wacht op resultaten...`;
-
-    // Poll voor completion (max 90s)
-    let done = false, tries = 0;
-    while(!done && tries < 18){
-      await new Promise(r=>setTimeout(r,5000));
-      tries++;
-      const statusRes = await fetch(`https://api.apify.com/v2/actor-runs/${runId}?token=${token}`);
-      const statusData = await statusRes.json();
-      const runStatus = statusData.data.status;
-      status.textContent = `Status: ${runStatus} (${tries*5}s)...`;
-      if(['SUCCEEDED','FAILED','ABORTED','TIMED-OUT'].includes(runStatus)) done = true;
-    }
-
-    // Haal dataset op
-    const dataRes = await fetch(`https://api.apify.com/v2/actor-runs/${runId}/dataset/items?token=${token}&limit=100`);
-    const items = await dataRes.json();
-
-    // Filter op relevantie
-    const relevantTerms = ['kor','btw','belasting','drempel','omzet','aangifte','oss','vinted','etsy','shopify','marketplace','vrijstelling','kvk'];
-    const filtered = items.filter(item => {
-      const text = ((item.title||'')+(item.body||item.text||item.selftext||'')).toLowerCase();
-      return relevantTerms.some(t => text.includes(t));
+    const res = await fetch('https://api.dataforseo.com/v3/keywords_data/google_ads/search_volume/live', {
+      method: 'POST',
+      headers: { 'Authorization': auth, 'Content-Type': 'application/json' },
+      body: JSON.stringify([{ keywords, language_code: 'nl', location_code: 2528 }])
     });
-
-    // Merge met bestaande leads (dedup op url)
-    const existing = getLeads();
-    const existingUrls = new Set(existing.map(l=>l.url));
-    const nieuweLeads = filtered
-      .filter(item => item.url && !existingUrls.has(item.url))
-      .map(item => ({
-        id: item.id || item.url,
-        url: item.url || `https://reddit.com${item.permalink||''}`,
-        platform: 'Reddit',
-        subreddit: item.subreddit || '',
-        username: item.author || item.username || '?',
-        title: item.title || item.body?.slice(0,80) || '',
-        snippet: (item.body || item.selftext || item.text || '').slice(0,200),
-        date: item.createdAt || item.created_utc ? new Date((item.created_utc||0)*1000).toISOString().split('T')[0] : new Date().toISOString().split('T')[0],
-        status: 'nieuw',
-        note: ''
-      }));
-
-    const allLeads = [...nieuweLeads, ...existing];
-    saveLeadsData(allLeads);
-    renderLeads();
-    updateLeadKpis();
-    status.textContent = `✓ ${nieuweLeads.length} nieuwe leads gevonden (${filtered.length} relevant van ${items.length} totaal).`;
+    if(!res.ok){ let msg=''; try{ const e=await res.json(); msg=e.error_message||e.message||JSON.stringify(e); }catch(_){} throw new Error('DataForSEO ' + res.status + (msg?' — '+msg:'')); }
+    const data = await res.json();
+    if(data.tasks?.[0]?.status_code !== 20000) throw new Error(data.tasks?.[0]?.status_message || 'Onbekende fout');
+    const results = (data.tasks?.[0]?.result || []).filter(r=>r.keyword);
+    if(!results.length){ el.innerHTML='<div class="empty">Geen resultaten gevonden</div>'; return; }
+    results.sort((a,b)=>(b.search_volume||0)-(a.search_volume||0));
+    _seoVolumeResults = results;
+    const maxVolV = Math.max(...results.map(r=>r.search_volume||0));
+    el.innerHTML = `
+      <div style="overflow-x:auto">
+        <table><thead><tr>
+          <th>Keyword</th><th>Zoekvolume/mnd</th><th>CPC (€)</th><th>Concurrentie</th><th>Kans</th>
+        </tr></thead>
+        <tbody>${results.map(r=>{const s=oppScore(r,maxVolV);return`<tr>
+          <td style="font-weight:500">${r.keyword}</td>
+          <td style="font-weight:700;color:var(--blue)">${r.search_volume!=null?r.search_volume.toLocaleString('nl-NL'):'–'}</td>
+          <td>${r.cpc!=null?'€'+r.cpc.toFixed(2):'–'}</td>
+          <td>${compDisplay(r)}</td>
+          <td><span class="badge ${oppBadge(s)}" style="min-width:52px;text-align:center">${s}/100 ${oppLabel(s)}</span></td>
+        </tr>`}).join('')}</tbody></table>
+      </div>
+      <div style="padding:.6rem 1.2rem;font-size:.72rem;color:var(--tx3);display:flex;align-items:center;gap:.8rem">
+        <span>${results.length} keywords · Nederland · gesorteerd op volume</span>
+        <button class="btn btn-ghost" style="padding:3px 10px;font-size:.72rem" onclick="exportSeoVolumeCsv()">⬇ CSV</button>
+      </div>`;
   } catch(e){
-    status.textContent = `Fout: ${e.message}`;
+    el.innerHTML = `<div class="empty" style="color:var(--red)">Fout: ${e.message}</div>`;
   }
-  btn.disabled = false; btn.textContent = '▶ Scrape starten';
 }
 
-function updateLeadKpis(){
-  const leads = getLeads();
-  const nieuw = leads.filter(l=>l.status==='nieuw').length;
-  const benaderd = leads.filter(l=>l.status==='benaderd').length;
-  document.getElementById('kpi-leads').innerHTML = `
-    <div class="kpi"><div class="kpi-label">Totaal leads</div><div class="kpi-value">${leads.length}</div><div class="kpi-icon">🎯</div></div>
-    <div class="kpi"><div class="kpi-label">Nieuw</div><div class="kpi-value" style="color:var(--blue)">${nieuw}</div><div class="kpi-icon">✨</div></div>
-    <div class="kpi"><div class="kpi-label">Benaderd</div><div class="kpi-value" style="color:var(--green)">${benaderd}</div><div class="kpi-icon">✉️</div></div>
-    <div class="kpi"><div class="kpi-label">Conversie</div><div class="kpi-value">${leads.length?Math.round(benaderd/leads.length*100):0}%</div><div class="kpi-icon">📈</div></div>
-  `;
-}
-
-function renderLeads(){
-  const filter = document.getElementById('leads-filter')?.value || 'all';
-  let leads = getLeads();
-  if(filter !== 'all') leads = leads.filter(l=>l.status===filter);
-  const el = document.getElementById('leads-table');
-  if(!leads.length){
-    el.innerHTML = `<div class="empty" style="padding:2rem">Geen leads. Klik op "Scrape starten" om Reddit te scannen op warme leads.</div>`;
-    return;
+async function searchIdeas(){
+  const auth = dfsAuth();
+  if(!auth){ alert('Stel eerst DataForSEO credentials in bovenaan deze pagina.'); return; }
+  const seed = document.getElementById('seo-seed-input').value.trim();
+  if(!seed){ alert('Voer een seed keyword in.'); return; }
+  const el = document.getElementById('seo-ideas-results');
+  el.innerHTML = '<div class="empty">Ophalen via DataForSEO...</div>';
+  try {
+    const res = await fetch('https://api.dataforseo.com/v3/keywords_data/google_ads/keywords_for_keywords/live', {
+      method: 'POST',
+      headers: { 'Authorization': auth, 'Content-Type': 'application/json' },
+      body: JSON.stringify([{ keywords: [seed], language_code: 'nl', location_code: 2528 }])
+    });
+    if(!res.ok){ let msg=''; try{ const e=await res.json(); msg=e.error_message||e.message||JSON.stringify(e); }catch(_){} throw new Error('DataForSEO ' + res.status + (msg?' — '+msg:'')); }
+    const data = await res.json();
+    if(data.tasks?.[0]?.status_code !== 20000) throw new Error(data.tasks?.[0]?.status_message || 'Onbekende fout');
+    const results = (data.tasks?.[0]?.result || []).filter(r=>r.keyword);
+    if(!results.length){ el.innerHTML='<div class="empty">Geen ideeën gevonden voor "'+seed+'"</div>'; return; }
+    const maxVolI = Math.max(...results.map(r=>r.search_volume||0));
+    results.sort((a,b)=>oppScore(b,maxVolI)-oppScore(a,maxVolI));
+    _seoIdeasResults = results;
+    el.innerHTML = `
+      <div style="overflow-x:auto">
+        <table><thead><tr>
+          <th>Keyword idee</th><th>Zoekvolume/mnd</th><th>CPC (€)</th><th>Concurrentie</th><th>Kans</th><th></th>
+        </tr></thead>
+        <tbody>${results.slice(0,50).map((r,i)=>{const s=oppScore(r,maxVolI);return`<tr>
+          <td style="font-weight:500">${r.keyword}</td>
+          <td style="font-weight:700;color:var(--blue)">${r.search_volume!=null?r.search_volume.toLocaleString('nl-NL'):'–'}</td>
+          <td>${r.cpc!=null?'€'+r.cpc.toFixed(2):'–'}</td>
+          <td>${compDisplay(r)}</td>
+          <td><span class="badge ${oppBadge(s)}" style="min-width:52px;text-align:center">${s}/100 ${oppLabel(s)}</span></td>
+          <td><button class="btn btn-ghost" style="padding:3px 8px;font-size:.72rem" onclick="addIdeaToQueue(${i})">+ Queue</button></td>
+        </tr>`}).join('')}</tbody></table>
+      </div>
+      <div style="padding:.6rem 1.2rem;font-size:.72rem;color:var(--tx3);display:flex;align-items:center;gap:.8rem">
+        <span>${Math.min(results.length,50)} van ${results.length} ideeën · gesorteerd op kans-score</span>
+        <button class="btn btn-ghost" style="padding:3px 10px;font-size:.72rem" onclick="exportSeoIdeasCsv()">⬇ CSV</button>
+      </div>`;
+  } catch(e){
+    el.innerHTML = `<div class="empty" style="color:var(--red)">Fout: ${e.message}</div>`;
   }
-  const statusColor = {nieuw:'var(--blue)',benaderd:'var(--green)',genegeerd:'var(--tx3)'};
-  const statusBg = {nieuw:'var(--bluel)',benaderd:'var(--greenl)',genegeerd:'var(--bg)'};
-  el.innerHTML = `<table style="width:100%;border-collapse:collapse;font-size:13px">
-    <thead><tr style="border-bottom:1px solid var(--br);text-align:left">
-      <th style="padding:8px 12px;font-size:11px;color:var(--tx3);font-weight:600;text-transform:uppercase">Platform</th>
-      <th style="padding:8px 12px;font-size:11px;color:var(--tx3);font-weight:600;text-transform:uppercase">Gebruiker</th>
-      <th style="padding:8px 12px;font-size:11px;color:var(--tx3);font-weight:600;text-transform:uppercase">Post</th>
-      <th style="padding:8px 12px;font-size:11px;color:var(--tx3);font-weight:600;text-transform:uppercase">Datum</th>
-      <th style="padding:8px 12px;font-size:11px;color:var(--tx3);font-weight:600;text-transform:uppercase">Status</th>
-      <th style="padding:8px 12px;font-size:11px;color:var(--tx3);font-weight:600;text-transform:uppercase">Actie</th>
-    </tr></thead>
-    <tbody>${leads.map((l,i)=>{
-      const allLeads = getLeads();
-      const realIdx = allLeads.findIndex(x=>x.id===l.id||x.url===l.url);
-      return `<tr style="border-bottom:1px solid var(--br)" id="lead-row-${realIdx}">
-        <td style="padding:10px 12px">
-          <span style="font-size:11px;background:var(--bg);padding:2px 7px;border-radius:5px">${l.platform}</span>
-          ${l.subreddit?`<div style="font-size:10px;color:var(--tx3);margin-top:2px">r/${l.subreddit}</div>`:''}
-        </td>
-        <td style="padding:10px 12px">
-          <a href="${l.url}" target="_blank" style="color:var(--ac);font-weight:600;text-decoration:none">u/${l.username}</a>
-        </td>
-        <td style="padding:10px 12px;max-width:320px">
-          <div style="font-weight:600;margin-bottom:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${l.title||'(geen titel)'}</div>
-          <div style="font-size:12px;color:var(--tx2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${l.snippet}</div>
-        </td>
-        <td style="padding:10px 12px;color:var(--tx3);font-size:12px;white-space:nowrap">${l.date}</td>
-        <td style="padding:10px 12px">
-          <select onchange="updateLeadStatus(${realIdx}, this.value)" style="padding:3px 6px;border-radius:6px;border:1px solid var(--br);font-size:12px;background:${statusBg[l.status]||'var(--bg)'};color:${statusColor[l.status]||'var(--tx)'}">
-            <option value="nieuw" ${l.status==='nieuw'?'selected':''}>Nieuw</option>
-            <option value="benaderd" ${l.status==='benaderd'?'selected':''}>Benaderd</option>
-            <option value="genegeerd" ${l.status==='genegeerd'?'selected':''}>Negeren</option>
-          </select>
-        </td>
-        <td style="padding:10px 12px">
-          <a href="${l.url}" target="_blank" class="btn btn-ghost" style="padding:4px 10px;font-size:11px;text-decoration:none">→ Open</a>
-        </td>
-      </tr>`;
-    }).join('')}</tbody>
-  </table>`;
 }
 
-function updateLeadStatus(idx, status){
-  const leads = getLeads();
-  if(leads[idx]) leads[idx].status = status;
-  saveLeadsData(leads);
-  updateLeadKpis();
+function addIdeaToQueue(i){
+  const r = _seoIdeasResults[i];
+  if(!r) return;
+  const slug = r.keyword.toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'');
+  alert(`Voeg "${r.keyword}" toe aan keywords.json:\n\n{\n  "keyword": "${r.keyword}",\n  "slug": "${slug}",\n  "status": "pending",\n  "priority": 5\n}\n\nOpen via: GitHub repo → keywords.json → ✏️ Edit, of via de Blogs-editor in admin.`);
 }
 
-function clearLeads(){
-  if(!confirm('Weet je zeker dat je alle leads wilt verwijderen?')) return;
-  saveLeadsData([]);
-  renderLeads();
-  updateLeadKpis();
+function exportSeoVolumeCsv(){
+  if(!_seoVolumeResults.length) return;
+  const header = 'keyword,zoekvolume,cpc,concurrentie_level\n';
+  const rows = _seoVolumeResults.map(r=>`"${r.keyword}",${r.search_volume??''},${r.cpc?.toFixed(2)??''},"${r.competition_level??''}"`).join('\n');
+  dlCsv('zenbtw-keywords-volume.csv', header+rows);
+}
+
+function exportSeoIdeasCsv(){
+  if(!_seoIdeasResults.length) return;
+  const header = 'keyword,zoekvolume,cpc,concurrentie_level\n';
+  const rows = _seoIdeasResults.map(r=>`"${r.keyword}",${r.search_volume??''},${r.cpc?.toFixed(2)??''},"${r.competition_level??''}"`).join('\n');
+  dlCsv('zenbtw-keyword-ideeen.csv', header+rows);
+}
+
+function dlCsv(name, content){
+  const blob = new Blob([content], {type:'text/csv;charset=utf-8'});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a'); a.href=url; a.download=name; a.click();
+  URL.revokeObjectURL(url);
 }
 </script>
 </body>
