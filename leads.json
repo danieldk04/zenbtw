@@ -10,9 +10,14 @@
     "date": "2026-04-01",
     "score": 9,
     "reden": "Nederlands, verkoopt op Etsy, vraagt direct over 10k-drempel en OSS-regeling — exact kernprobleem van ZenBTW.",
-    "bericht": "Ja, Etsy houdt daar inderdaad niks van bij. Wat je dan moet doen: zodra je die 10k overschrijdt, ben je niet meer onder de OSS regeling en moet je normaal BTW aanrekenen op alle verkopen naar de EU (en aangeven bij je eigen belastingdienst). Je kunt niet zomaar doorverkopen onder OSS als je de grens voorbij bent, dus je moet je daarvan bewust zijn en aanpassen hoe je het gaat doen.",
+    "bericht": "",
     "status": "nieuw",
-    "note": ""
+    "note": "",
+    "berichten": {
+      "helper": "Klopt, Etsy ziet dat niet automatisch. Zodra je de 10k overschrijdt moet je zelf bij de belastingdienst aangeven dat je onder de OSS-regeling valt, en dan ga je vanaf dat moment normale BTW aanrekenen in plaats van de vereenvoudigde regeling. Het is aan jezelf om dat goed bij te houden en op tijd in te dienen.",
+      "gesprek": "Ja, daar zit wel het probleem. Veel verkopers merken pas na maanden dat ze over de drempel heen zijn gegaan, en dan loopt het uit de hand met de administratie. Op welke platforms verkoop jij eigenlijk, en heb je enig idee hoe dicht je al bij die 10k zit?",
+      "pitch": "Exact, daarom is het zo belangrijk om zelf je omzet per kwartal in de gaten te houden. Veel verkopers gebruiken een spreadsheet, maar dat werkt niet goed als je op meerdere platforms actief bent. Ik gebruik zelf zenbtw.nl om niet in de problemen te komen."
+    }
   },
   {
     "id": "t1_oen6hus",
@@ -27,7 +32,12 @@
     "reden": "Bespreekt KOR-regeling (BTW) en relatie met inkomstenbelasting; toont kennis van belastingstructuur Nederlandse ondernemers, maar geen duidelijke aanwijzing van actieve marketplace-verkoop",
     "status": "nieuw",
     "note": "",
-    "bericht": "Je hebt helemaal gelijk dat het twee aparte dingen zijn, maar ze hangen wel samen in de praktijk: als je onder de KOR-drempel blijft (€20k/jaar), hoef je geen BTW aan te geven maar je inkomsten gaan natuurlijk nog steeds in de inkomstenbelasting. Zodra je erboven uitkomt moet je beide doen, dus daarom werden ze in dat eerdere gesprek door elkaar gehaald, denk ik."
+    "bericht": "",
+    "berichten": {
+      "helper": "Je hebt gelijk dat KOR alleen voor BTW geldt, maar ze hangen wel samen in de praktijk. Als je onder de KOR-drempel zit hoef je namelijk geen BTW aan te geven, maar die omzet telt wel mee voor je inkomstenbelasting. Dus je moet beide goed bijhouden om niet in de problemen te komen met de Belastingdienst.",
+      "gesprek": "Klopt dat je KOR en inkomstenbelasting apart zijn, maar waar het lastig wordt is dat veel verkopers niet goed in de gaten hebben dat ze beide moeten tracken. Op welke platforms verkoop je zelf, en ongeveer hoe hoog zit je jaarlijkse omzet?",
+      "pitch": "Je hebt absoluut gelijk dat het twee verschillende regelingen zijn, maar in de praktijk moet je ze allebei nauwkeurig volgen omdat je omzet beide betreft. Veel verkopers verliezen hier de grip op, daarom heb ik zenbtw.nl gebouwd om beide aan te volgen zonder gedoe."
+    }
   },
   {
     "id": "t1_o8hn2oo",
@@ -42,7 +52,12 @@
     "reden": "Discussie over W&V, onttrekkingen en KOR-regeling (onder 20.000 euro); suggereert actieve ondernemer met BTW-administratie, maar context van marketplace-verkoop niet expliciet",
     "status": "nieuw",
     "note": "",
-    "bericht": "Ja klopt, dat dubbeltellingsprobleem zien we vaak — je maakt inderdaad de fout dat kilometervergoeding zowel als onttrekking als als bedrijfskosten wordt meegeteld. Zet eerst je balans goed op orde: eigendom minus schulden moet gelijk zijn aan eigen vermogen, anders klopt de rest niet. Daarna pas je inkomsten en uitgaven in met het juiste moment van boeking, dan zie je meteen waar het misgaat."
+    "bericht": "",
+    "berichten": {
+      "helper": "Je hebt gelijk, die kilometervergoeding mag je niet dubbel meenemen. Als je die als kosten aftrekt, mag het niet ook als onttrekking. En die -287 in eigen vermogen klopt inderdaad niet, dat zou 0 moeten zijn als je alles correct hebt ingerekend. Controleer of je bijvoorbeeld voorschotten of privé-stortingen mist in je boekhouding.",
+      "gesprek": "Bedankt voor het spotten van die fout, daar ben ik niet blij mee. Vraag: hoe hou jij zelf je eigen vermogen in de gaten, vooral met die onttrekkingen en stortingen? Ik ben benieuwd of jij alles handmatig bijhoudt of dat je een systeem gebruikt.",
+      "pitch": "Je hebt helemaal gelijk, die kilometervergoeding dubbel meerekenen is een klassieker. De -287 in eigen vermogen betekent dat je ergens geld mist in je administratie—meestal zijn het net die kleine dingen die uit elkaar lopen. Daarom heb ik ZenBTW gemaakt, eigenlijk: gewoon één plek waar al die stortingen, onttrekkingen en kosten automatisch kloppen. Check zenbtw.nl."
+    }
   },
   {
     "id": "t1_oktu7xs",
@@ -57,7 +72,12 @@
     "reden": "Noemt concrete KOR-drempel (20k omzet) en BTW-plicht. Waarschijnlijk zelf verkoper die dit moet bijhouden, maar vrij kort en geen duidelijke marketplace genoemd.",
     "status": "nieuw",
     "note": "",
-    "bericht": "Klopt, dat is inderdaad de regel — zodra je 20k omzet hebt bereikt in een kalenderjaar, moet je uit de KOR en vanaf dat moment BTW aanrekenen op alles wat je verkoopt. Veel verkopers vergeten dat je vanaf die grens ook gewoon een ondernemingsnummer nodig hebt en echt ingeschreven moet staan bij de KvK, want dan ben je technisch gezien geen particulier meer. Het is best belangrijk om dit goed bij te houden, want anders loop je straks tegen boetes op."
+    "bericht": "",
+    "berichten": {
+      "helper": "Klopt, vanaf 20k omzet per jaar ben je niet meer vrijgesteld van btw en moet je die gaan berekenen en afdragen. Let wel: het gaat om de grens van 20k in een kalenderjaar, dus je kunt niet zomaar halverwege stoppen met de kor. Na die grens word alles inderdaad btw-belast.",
+      "gesprek": "Ja, die 20k-grens is best een kantelpunt waar veel verkopers tegen aanlopen. Verkoop je zelf ook via meerdere platforms of vooral op één plek, en wanneer denk je die grens te gaan bereiken? Vraag je me dit omdat je bijna daar bent of meer uit voorzorg?",
+      "pitch": "Precies, dus vanaf 20k omzet moet je echt goed bijhouden wat je nog onder de kor hebt gedaan en wat niet. Veel verkopers houden dit handmatig bij in Excel, maar dat gaat hartstikke makkelijk fout - check zenbtw.nl als je dit beter wilt organiseren."
+    }
   },
   {
     "id": "t1_ogvyc3d",
@@ -72,7 +92,12 @@
     "reden": "Advies aan iemand die verkoopt en worstelt met inkoopprijs-tracking, KOR-vrijstelling (20k), en inkomstenbelasting. Duidelijk marketplace-verkoper-context. Kan direct baat hebben bij ZenBTW.",
     "status": "nieuw",
     "note": "",
-    "bericht": "Precies, en het lastige is dat je die inkoopprijs én je omzet goed bij moet houden om straks geen verrassingen van de belastingdienst te krijgen. Ik zeg altijd: administratie nu = geen kopzorgen later. Veel verkopers onderschatten hoeveel ze eigenlijk omzetten en merken dat pas wanneer ze die 20k grens voorbij gaan."
+    "bericht": "",
+    "berichten": {
+      "helper": "Klopt, die inkoopprijs bijhouden is echt essentieel voor je administratie en om later niet voor verrassingen te staan bij de belastingdienst. De KOR-vrijstelling tot 20k is inderdaad handig, maar je moet wel alles goed kunnen aantonen. Veel verkopers onderschatten hoe belangrijk die administratie is totdat het te laat is.",
+      "gesprek": "Goeie point over die inkoopprijs, dat maakt echt uit voor je boekhouding. Op welke platforms verkoop jij eigenlijk en hoe zit het met je jaaromzet, zit je al in de buurt van die 20k of nog eronder? Vraag omdat veel verkopers niet weten op welk moment ze echt serieus moeten gaan bijhouden.",
+      "pitch": "Absoluut mee eens dat je inkoopprijs bij moet houden, veel mensen realiseren zich niet hoe makkelijk je over die KOR-grens heen gaat. Het lastige is dat je dan ook echt alles netjes moet documenteren en bijhouden waar je zit qua omzet. Daarom heb ik ZenBTW gebouwd, check zenbtw.nl."
+    }
   },
   {
     "id": "t1_ogay81x",
@@ -87,7 +112,12 @@
     "reden": "Discussie over BTW-aangifte, KOR-drempel en factuurafhandeling. Auteur lijkt Nederlands marketplace-verkoper met concrete belastingvragen.",
     "status": "nieuw",
     "note": "",
-    "bericht": "Ik snap wat je bedoelt, maar zo werkt het niet echt in de praktijk. Je moet altijd de werkelijke verkoopprijs (inclusief 0% BTW omdat je onder de KOR zit) op je factuur zetten, niet een hypothetische prijs met 21% erin. En BTW afdragen doe je alleen als je boven de 5000 euro omzet per jaar komt — daaronder ben je vrijgesteld."
+    "bericht": "",
+    "berichten": {
+      "helper": "Je zit op het goede spoor, maar let op: als je KOR gebruikt mag je 0% BTW op de factuur zetten, maar je berekent intern wel degelijk BTW over je inkoopprijs. Die 21% die je zonder KOR zou afdragen, betaal je nu via je lager netto-inkoopwaarde. De klant ziet 0% op de factuur, jij declareert 0% bij de Belastingdienst, maar je administratie moet kloppen.",
+      "gesprek": "Snap dat dit verwarrend is, veel verkopers worstelen hier mee. Zit je alleen op Vinted of ook op andere platforms waar je echt facturen moet maken? En hoe hoog ligt je jaaromzet ongeveer, want dat bepaalt ook of je het zelf moet gaan bijhouden of dat het snel ingewikkelder wordt.",
+      "pitch": "Precies, jij declareert 0% en de klant ziet 0%, maar je administratie moet wel waterdicht zijn zodat je kunt aantonen dat je onder de KOR-drempel zit en dat alles klopt voor een controle. Daarom houden veel verkopers dit met een spreadsheet bij, maar er zijn ook tools voor gemaakt, check zenbtw.nl."
+    }
   },
   {
     "id": "t3_1u0bqnp",
@@ -102,7 +132,12 @@
     "reden": "Etsy-verkoper met actieve verkoop, worstelt met retourverzoeken en klantenservice. Potentieel gebruik voor ZenBTW om verkoopsgegevens/inkomsten bij te houden.",
     "status": "nieuw",
     "note": "",
-    "bericht": "Ja, dit ziet er inderdaad verdacht uit – normaal gesproken stuur je foto's van het beschadigde item zelf, niet alleen de verpakking. Ik zou in je reactie duidelijk aangeven dat je foto's van het daadwerkelijke product nodig hebt om de claim goed te kunnen beoordelen. Etsy zal dit meestal ook van hem eisen voordat zij een terugbetaling goedkeuren, dus je staat sterker als je hier nu al om vraagt."
+    "bericht": "",
+    "berichten": {
+      "helper": "Dit is inderdaad verdacht - vraag de koper altijd om foto's van het item zelf en de verpakking van binnenin. Met alleen een foto van de doos buiten kun je niks bewijzen bij Etsy. Stuur een beleefd bericht terug dat je graag foto's van het daadwerkelijke product wilt zien voordat je iets goedkeurt.",
+      "gesprek": "Hoe lang verkoop je al op Etsy? Ik vraag omdat dit soort claims regelmatig voorkomen, maar de manier waarop iemand het aanpakt bepaalt echt of je wint of verliest. Krijg je dit vaker, of is dit een uitzondering voor jou?",
+      "pitch": "Vraag eerst foto's van het item zelf - zonder die kan Etsy niks met hun claim aanvangen. Voor dit soort situaties is het ook handig om je verkopen goed bij te houden, check zenbtw.nl als je meerdere platforms hebt."
+    }
   },
   {
     "id": "t1_kc2gar8",
@@ -117,7 +152,12 @@
     "reden": "Verkoopt actief op Etsy (80% omzet), vraagt specifiek over BTW-plicht voor EU vs Amerika, bestudeert KOR-regeling voor eenmanszaak",
     "status": "nieuw",
     "note": "",
-    "bericht": "Ja klopt, je betaalt geen Nederlandse BTW op verkopen naar Amerika — dat geldt inderdaad voor alle landen buiten de EU. Wel moet je opletten: zodra je de KOR-drempel van €22.500 per jaar overschrijdt, ben je verplicht BTW-aangifte in te dienen, ook al verkoop je vooral internationaal. Voor het overzicht kun je checken zenbtw.nl, maar het belangrijkste is: houd je omzet goed bij zodat je niet ineens verrast wordt."
+    "bericht": "",
+    "berichten": {
+      "helper": "Klopt, verkoop naar Amerika is btw-vrij als je onder de drempel blijft. Maar je moet wel goed bijhouden wat binnenlands is en wat niet, want zodra je de 100k overschrijdt gaat alles onder btw-regels. Het lastige is dat veel verkopers dit door elkaar halen en dan vervelende boetes krijgen.",
+      "gesprek": "Ja, Amerika is btw-vrij maar je moet oppassen met je totale omzet - zodra je over de drempel gaat gelden de regels voor alles. Op welke platforms verkoop je nu precies en hoe verdeel je je omzet ruwweg tussen NL, EU en Amerika? Dat maakt voor je belastingaangifte heel veel uit.",
+      "pitch": "Precies, Amerika is btw-vrij maar je totale omzet bepaalt of je de hele zaak onder btw-regels valt. Het wordt ingewikkeld als je over meerdere markten verkoopt en je KOR-drempel in de gaten moet houden. Daarom bouw ik ZenBTW - check zenbtw.nl."
+    }
   },
   {
     "id": "t1_nmc5lzo",
@@ -132,7 +172,12 @@
     "reden": "Exploiteert webshops/Etsy, zoekt boekhoudsoftware en KOR-achtige functionaliteit, Nederlands context duidelijk",
     "status": "nieuw",
     "note": "",
-    "bericht": "Ha, ik snap de frustratie — ik heb zelf dezelfde zoektocht gedaan met mijn shops. SilvaSoft is inderdaad BE-focused, dus dat helpt niet veel. Voor Nederlands marketplace-verkopen (Vinted, Etsy, Shopify) zou je kunnen kijken naar tools die specifiek daarop zijn gebouwd en automatisch je transacties pullen, check zenbtw.nl bijvoorbeeld. Anders zit je inderdaad met handmatig invoeren, wat snel een klusje wordt."
+    "bericht": "",
+    "berichten": {
+      "helper": "Die crawl-functie zit niet standaard in veel Nederlandse tools, dus je bent niet gek. Voor Etsy/webshops zou je ook handmatig kunnen exporteren naar een spreadsheet en die dan bijhouden - niet sexy, maar wel gratis en betrouwbaar. Als je echt veel SKU's hebt wordt dat snel onhandig.",
+      "gesprek": "Welke platforms gebruik je het meest - vooral Etsy of heb je ook een eigen webshop? En ongeveer hoe veel orders per maand, zodat ik een beter beeld krijg van wat je nodig hebt. Want de tool die je nodig hebt hangt echt af van je schaal.",
+      "pitch": "Voor Etsy en webshops zou ik zeggen: export je data regelmatig en hou je aantallen in een Google Sheet of spreadsheet bij - simpel maar effectief. Mocht je het willen automatiseren, check zenbtw.nl, daar kun je je omzet van alle kanalen tegelijk volgen."
+    }
   },
   {
     "id": "t1_op3ot2p",
@@ -147,7 +192,12 @@
     "reden": "Vraagt expliciet over KOR-regeling en KvK-inschrijving bij structurele verkoop/commissies, lijkt potentiële ondernemer",
     "status": "nieuw",
     "note": "",
-    "bericht": "Je hebt gelijk dat je niet meteen hoeft in te schrijven bij de KvK, maar let op: zodra je structureel verkoopt (ook al is het weinig), ben je technisch gezien al ondernemer en moet je aangifte doen bij de belastingdienst. Ik zat zelf in die grijze zone toen ik begon met mijn vintage winkel, en uiteindelijk bleek het handiger om meteen goed bij te houden dan later in de problemen te komen. Wacht niet tot je \"echt serieus\" bent – zodra het regelmatig gebeurt, moet je het gewoon doen."
+    "bericht": "",
+    "berichten": {
+      "helper": "Je hebt gelijk dat je niet direct bij de KvK hoeft voor incidentele verkopen. Maar zodra het structureel wordt – zeg, maandelijks inkomsten – moet je je aanmelden en BTW gaan bijhouden. Het lastige is dat 'structureel' voor iedereen anders voelt, dus veel mensen wachten tot het te laat is.",
+      "gesprek": "Goeie vraag, maar het hangt echt af van wat jij doet. Verkoop je op Vinted, Etsy of je eigen webshop? En ruw geschat, hoe hoog zit je maandelijkse omzet nu? Dan kunnen we beter bepalen of je echt nog onder de radar kunt blijven of dat het slim is om nu al in te schrijven.",
+      "pitch": "Het grensgebied tussen hobby en onderneming is inderdaad vaag. Officieel geldt: zodra het regelmatig en met winst gebeurt, ben je ondernemer – dan moet je je aanmelden en je BTW bijhouden. Veel verkopers struikelen hier, daarom heb ik zenbtw.nl gebouwd om precies dit makkelijker te maken."
+    }
   },
   {
     "id": "t1_opb4got",
@@ -162,7 +212,12 @@
     "reden": "Geeft feedback op ZenBTW product zelf, erkent VAT pain point voor marketplace sellers (Etsy/Shopify/Vinted). Echter geen eigen verkoper, dus niet ideaal target.",
     "status": "nieuw",
     "note": "",
-    "bericht": "Ja, dat is precies waar ik tegen aanloop met Revaleur. Ik heb maanden mijn exports handmatig gecheckt voordat ik ze vertrouwde — dus die trustfactor is echt het bottleneck, niet de interesse. Het helpt enorm als je real-time kan zien welke orders naar welke marktplaat gaan en hoe je tegen je KOR-drempel aanloopt."
+    "bericht": "",
+    "berichten": {
+      "helper": "Het vertrouwen in de import krijg je door meteen te laten zien hoe de data uit je platform wordt gelezen, niet door het zwart op wit te beloven. Veel sellers checken eerst handmatig één maand tegen hun eigen Excel voor ze het helemaal los laten. Als je die controle ingebouwd hebt, voel je al snel of het klopt.",
+      "gesprek": "Snap je insight volledig—trustworthiness is inderdaad het grootste blokkade. Waar zit jij nu precies mee vast: is het de import zelf die twijfelachtig voelt, of meer dat je niet goed ziet hoe het systeem je omzet berekent? En op welke platforms verkoop je eigenlijk, en ruwweg wat is je maandelijkse omzet?",
+      "pitch": "Je hebt gelijk dat het snelle vertrouwen cruciaal is. De meeste sellers willen gewoon zien dat hun getallen kloppen voordat ze ergens inloggen—dus als je kunnen aantonen dat je de data correct leest én dat het gemakkelijk te controleren is, ben je al een stuk verder. Wij hebben dat exact zo opgebouwd bij ZenBTW, check zenbtw.nl als je benieuwd bent."
+    }
   },
   {
     "id": "t3_1u044no",
@@ -177,6 +232,11 @@
     "reden": "Nederlandse ZZP'er met meerdere activiteiten, eigen BTW-aangiftes, worstelt met boekhouding complexiteit. Perfect profiel voor ZenBTW ondanks geen marketplace-mention - kan toch marketplace-inkomsten hebben.",
     "status": "nieuw",
     "note": "",
-    "bericht": "Hey, ik herken dit helemaal. Voor mij werd het echt lastig rond de 30k omzet per jaar, want toen ging ik veel tijd kwijt aan administratie in plaats van mijn vintage items fotograferen en inpakken. Een boekhouder kostte me toen nog meer dan ik verdiende, dus ik zocht naar een middenweg—uiteindelijk hield ik zelf de aantallen bij en deed mijn aangifte eenmaal per jaar, wat me echt veel stress bespaarde. Dus mijn tip: het loont pas echt als je omzet drie keer zo hoog wordt, anders frustreert het meer dan het helpt."
+    "bericht": "",
+    "berichten": {
+      "helper": "Voor mij loonde het pas echt toen ik consistent boven de 50k omzet zat en de administratie echt uit de hand liep. Tot die tijd kostte een boekhouder meer dan wat ik erdoor bespaard kreeg. Het hangt echt af van je marges en hoeveel uur je zelf in je boekhouding steekt.",
+      "gesprek": "Drie jaar is inderdaad een veelgenoemde grens, maar wat was je omzet toen je die stap zette? Ik vraag omdat het voor vintage/marketplace sellers heel anders kan liggen dan voor diensten - je hebt veel meer transacties maar vaak lagere marges. Op welke platforms verkoop je eigenlijk?",
+      "pitch": "Een boekhouder inhuren heeft alleen zin als je echt niet meer rond komt met je eigen administratie. Tot die tijd zou ik eerst goed bijhouden waar je geld naar toe gaat en welke transacties je hebt - dat geeft je veel meer inzicht. Daarvoor gebruik ik zelf zenbtw.nl om niet in de BTW-valkuilen te trappen."
+    }
   }
 ]
