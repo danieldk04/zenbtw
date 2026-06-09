@@ -1660,7 +1660,9 @@ function renderLeads(){
   const sBg={nieuw:'var(--bluel)',benaderd:'var(--greenl)',genegeerd:'var(--bg)'};
   el.innerHTML=leads.map(l=>{
     const all=getLeads(); const ri=all.findIndex(x=>x.id===l.id||x.url===l.url);
-    const hasBericht = l.bericht && l.bericht.trim().length > 0;
+    const b = l.berichten || {};
+    const hasB = b.helper || b.gesprek || b.pitch;
+    const tabLabels = [['helper','💬 Helper'],['gesprek','🗣 Gesprek'],['pitch','🎯 Pitch']];
     return `<div style="border-bottom:1px solid var(--br);padding:1rem 1.2rem">
       <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:1rem;flex-wrap:wrap">
         <div style="flex:1;min-width:0">
@@ -1681,13 +1683,23 @@ function renderLeads(){
           <a href="${l.url}" target="_blank" class="btn btn-ghost" style="padding:4px 10px;font-size:11px;text-decoration:none">→ Open post</a>
         </div>
       </div>
-      ${hasBericht ? `
-      <div style="margin-top:10px;background:var(--acl);border-left:3px solid var(--acm);border-radius:0 6px 6px 0;padding:10px 12px">
-        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">
-          <span style="font-size:11px;font-weight:700;color:var(--ac);text-transform:uppercase;letter-spacing:.05em">✉ Voorgesteld bericht</span>
-          <button onclick="copyBericht(${ri})" style="padding:3px 10px;font-size:11px;background:var(--ac);color:#fff;border:none;border-radius:5px;cursor:pointer">Kopieer</button>
+      ${hasB ? `
+      <div style="margin-top:10px;background:var(--acl);border-left:3px solid var(--acm);border-radius:0 6px 6px 0;overflow:hidden">
+        <div style="display:flex;border-bottom:1px solid rgba(0,0,0,.06)">
+          ${tabLabels.map(([key,label])=>`
+          <button onclick="switchTab(${ri},'${key}')" id="tab-${ri}-${key}"
+            style="padding:7px 14px;font-size:11px;font-weight:600;border:none;cursor:pointer;background:${key==='helper'?'var(--acm)':'transparent'};color:${key==='helper'?'#fff':'var(--ac)'};transition:all .15s">
+            ${label}
+          </button>`).join('')}
         </div>
-        <div id="bericht-${ri}" style="font-size:13px;color:var(--tx);line-height:1.6;white-space:pre-wrap">${l.bericht}</div>
+        ${tabLabels.map(([key])=>`
+        <div id="tabcontent-${ri}-${key}" style="display:${key==='helper'?'block':'none'};padding:10px 12px">
+          <div style="font-size:13px;color:var(--tx);line-height:1.6;white-space:pre-wrap;margin-bottom:8px">${(b[key]||'').replace(/</g,'&lt;')}</div>
+          <button onclick="copyTab(${ri},'${key}')" id="copybtn-${ri}-${key}"
+            style="padding:3px 10px;font-size:11px;background:var(--ac);color:#fff;border:none;border-radius:5px;cursor:pointer">
+            Kopieer
+          </button>
+        </div>`).join('')}
       </div>` : ''}
     </div>`;
   }).join('');
