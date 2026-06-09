@@ -1658,30 +1658,39 @@ function renderLeads(){
   if(!leads.length){ el.innerHTML=`<div class="empty" style="padding:2rem">Geen leads. Klik op "Scrape starten" om Reddit te scannen.</div>`; return; }
   const sColor={nieuw:'var(--blue)',benaderd:'var(--green)',genegeerd:'var(--tx3)'};
   const sBg={nieuw:'var(--bluel)',benaderd:'var(--greenl)',genegeerd:'var(--bg)'};
-  el.innerHTML=`<table style="width:100%;border-collapse:collapse;font-size:13px">
-    <thead><tr style="border-bottom:1px solid var(--br);text-align:left">
-      <th style="padding:8px 12px;font-size:11px;color:var(--tx3);font-weight:600;text-transform:uppercase">Platform</th>
-      <th style="padding:8px 12px;font-size:11px;color:var(--tx3);font-weight:600;text-transform:uppercase">Gebruiker</th>
-      <th style="padding:8px 12px;font-size:11px;color:var(--tx3);font-weight:600;text-transform:uppercase">Post</th>
-      <th style="padding:8px 12px;font-size:11px;color:var(--tx3);font-weight:600;text-transform:uppercase">Datum</th>
-      <th style="padding:8px 12px;font-size:11px;color:var(--tx3);font-weight:600;text-transform:uppercase">Status</th>
-      <th style="padding:8px 12px;font-size:11px;color:var(--tx3);font-weight:600;text-transform:uppercase">Actie</th>
-    </tr></thead>
-    <tbody>${leads.map(l=>{
-      const all=getLeads(); const ri=all.findIndex(x=>x.id===l.id||x.url===l.url);
-      return `<tr style="border-bottom:1px solid var(--br)">
-        <td style="padding:10px 12px"><span style="font-size:11px;background:var(--bg);padding:2px 7px;border-radius:5px">${l.platform}</span>${l.subreddit?`<div style="font-size:10px;color:var(--tx3);margin-top:2px">r/${l.subreddit}</div>`:''}</td>
-        <td style="padding:10px 12px"><a href="${l.url}" target="_blank" style="color:var(--ac);font-weight:600;text-decoration:none">u/${l.username}</a></td>
-        <td style="padding:10px 12px;max-width:320px"><div style="font-weight:600;margin-bottom:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${l.title||'(geen titel)'}</div><div style="font-size:12px;color:var(--tx2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${l.snippet}</div></td>
-        <td style="padding:10px 12px;color:var(--tx3);font-size:12px;white-space:nowrap">${l.date}</td>
-        <td style="padding:10px 12px"><select onchange="updateLeadStatus(${ri},this.value)" style="padding:3px 6px;border-radius:6px;border:1px solid var(--br);font-size:12px;background:${sBg[l.status]||'var(--bg)'};color:${sColor[l.status]||'var(--tx)'}">
-          <option value="nieuw" ${l.status==='nieuw'?'selected':''}>Nieuw</option>
-          <option value="benaderd" ${l.status==='benaderd'?'selected':''}>Benaderd</option>
-          <option value="genegeerd" ${l.status==='genegeerd'?'selected':''}>Negeren</option>
-        </select></td>
-        <td style="padding:10px 12px"><a href="${l.url}" target="_blank" class="btn btn-ghost" style="padding:4px 10px;font-size:11px;text-decoration:none">→ Open</a></td>
-      </tr>`;
-    }).join('')}</tbody></table>`;
+  el.innerHTML=leads.map(l=>{
+    const all=getLeads(); const ri=all.findIndex(x=>x.id===l.id||x.url===l.url);
+    const hasBericht = l.bericht && l.bericht.trim().length > 0;
+    return `<div style="border-bottom:1px solid var(--br);padding:1rem 1.2rem">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:1rem;flex-wrap:wrap">
+        <div style="flex:1;min-width:0">
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;flex-wrap:wrap">
+            <span style="font-size:11px;background:var(--bg);padding:2px 7px;border-radius:5px;color:var(--tx2)">${l.platform}${l.subreddit?' · r/'+l.subreddit:''}</span>
+            <a href="${l.url}" target="_blank" style="color:var(--ac);font-weight:700;font-size:13px;text-decoration:none">u/${l.username}</a>
+            <span style="font-size:11px;color:var(--tx3)">${l.date||'datum onbekend'}</span>
+          </div>
+          <div style="font-weight:600;font-size:13px;margin-bottom:4px">${l.title||'(geen titel)'}</div>
+          <div style="font-size:12px;color:var(--tx2);line-height:1.5">${l.snippet}</div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:6px;align-items:flex-end;flex-shrink:0">
+          <select onchange="updateLeadStatus(${ri},this.value)" style="padding:4px 8px;border-radius:6px;border:1px solid var(--br);font-size:12px;background:${sBg[l.status]||'var(--bg)'};color:${sColor[l.status]||'var(--tx)'}">
+            <option value="nieuw" ${l.status==='nieuw'?'selected':''}>Nieuw</option>
+            <option value="benaderd" ${l.status==='benaderd'?'selected':''}>Benaderd</option>
+            <option value="genegeerd" ${l.status==='genegeerd'?'selected':''}>Negeren</option>
+          </select>
+          <a href="${l.url}" target="_blank" class="btn btn-ghost" style="padding:4px 10px;font-size:11px;text-decoration:none">→ Open post</a>
+        </div>
+      </div>
+      ${hasBericht ? `
+      <div style="margin-top:10px;background:var(--acl);border-left:3px solid var(--acm);border-radius:0 6px 6px 0;padding:10px 12px">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">
+          <span style="font-size:11px;font-weight:700;color:var(--ac);text-transform:uppercase;letter-spacing:.05em">✉ Voorgesteld bericht</span>
+          <button onclick="copyBericht(${ri})" style="padding:3px 10px;font-size:11px;background:var(--ac);color:#fff;border:none;border-radius:5px;cursor:pointer">Kopieer</button>
+        </div>
+        <div id="bericht-${ri}" style="font-size:13px;color:var(--tx);line-height:1.6;white-space:pre-wrap">${l.bericht}</div>
+      </div>` : ''}
+    </div>`;
+  }).join('');
 }
 
 function updateLeadStatus(idx,status){
