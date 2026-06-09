@@ -1478,6 +1478,160 @@ function dlCsv(name, content){
   const a = document.createElement('a'); a.href=url; a.download=name; a.click();
   URL.revokeObjectURL(url);
 }
+
+// ── LEADS ─────────────────────────────────────────────────────────────────────
+const DEFAULT_KEYWORDS = [
+  'KOR belasting','BTW Vinted','OSS drempel','BTW drempel overschreden',
+  'hoeveel mag ik verdienen Vinted','belasting marketplace','Etsy BTW Nederland',
+  'KOR regeling ondernemer','BTW vrijstelling kleine ondernemer'
+];
+
+function saveApifyKey(){
+  const v = document.getElementById('apify-key-input').value.trim();
+  if(!v) return;
+  localStorage.setItem('apify_token', v);
+  document.getElementById('apify-key-input').value = '';
+  document.getElementById('apify-key-input').placeholder = '✓ Opgeslagen';
+}
+
+function getLeads(){ try{ return JSON.parse(localStorage.getItem('zenbtw_leads')||'[]'); }catch{ return []; } }
+function saveLeadsData(arr){ localStorage.setItem('zenbtw_leads', JSON.stringify(arr)); }
+function getLeadKeywords(){ return JSON.parse(localStorage.getItem('zenbtw_lead_kws') || JSON.stringify(DEFAULT_KEYWORDS)); }
+function saveLeadKeywords(arr){ localStorage.setItem('zenbtw_lead_kws', JSON.stringify(arr)); }
+
+function initLeads(){
+  const key = localStorage.getItem('apify_token');
+  if(key) document.getElementById('apify-key-input').placeholder = '✓ Token opgeslagen';
+  renderKeywordTags();
+  renderLeads();
+  updateLeadKpis();
+}
+
+function renderKeywordTags(){
+  const kws = getLeadKeywords();
+  document.getElementById('leads-keywords-list').innerHTML = kws.map((k,i)=>
+    `<span style="background:var(--acl);color:var(--ac);padding:3px 10px;border-radius:99px;font-size:12px;display:inline-flex;align-items:center;gap:6px">
+      ${k} <span onclick="removeLeadKeyword(${i})" style="cursor:pointer;opacity:.6;font-size:11px">✕</span>
+    </span>`
+  ).join('');
+}
+
+function addLeadKeyword(){
+  const inp = document.getElementById('leads-kw-input');
+  const v = inp.value.trim();
+  if(!v) return;
+  const kws = getLeadKeywords();
+  if(!kws.includes(v)){ kws.push(v); saveLeadKeywords(kws); }
+  inp.value = '';
+  renderKeywordTags();
+}
+
+function removeLeadKeyword(i){
+  const kws = getLeadKeywords();
+  kws.splice(i,1);
+  saveLeadKeywords(kws);
+  renderKeywordTags();
+}
+
+async function runLeadScrape(){
+  const token = localStorage.getItem('apify_token');
+  if(!token){ alert('Voer eerst je Apify API token in.'); return; }
+  const btn = document.getElementById('leads-scrape-btn');
+  const status = document.getElementById('leads-scrape-status');
+  btn.disabled = true; btn.textContent = '⏳ Bezig...';
+  status.textContent = 'Scrape gestart — dit duurt ~30-60 seconden...';
+  const kws = getLeadKeywords();
+  const subreddits = ['belastingdienst','ondernemen','vinted','zzp','werkzaken','EcommerceWebsite','Boekhouder'];
+  try {
+    const startRes = await fetch(
+      `https://api.apify.com/v2/acts/trudax~reddit-scraper-lite/runs?token=${token}`,
+      { method:'POST', headers:{'Content-Type':'application/json'},
+        body: JSON.stringify({ searches: kws.slice(0,6).map(q=>({query:q,subreddits})), maxItems:40, type:'posts_and_comments', sort:'new' }) }
+    );
+    if(!startRes.ok) throw new Error(`Apify fout: ${startRes.status}`);
+    const runId = (await startRes.json()).data.id;
+    status.textContent = `Run gestart. Wacht op resultaten...`;
+    let done = false, tries = 0;
+    while(!done && tries < 18){
+      await new Promise(r=>setTimeout(r,5000)); tries++;
+      const s = (await (await fetch(`https://api.apify.com/v2/actor-runs/${runId}?token=${token}`)).json()).data.status;
+      status.textContent = `Status: ${s} (${tries*5}s)...`;
+      if(['SUCCEEDED','FAILED','ABORTED','TIMED-OUT'].includes(s)) done = true;
+    }
+    const items = await (await fetch(`https://api.apify.com/v2/actor-runs/${runId}/dataset/items?token=${token}&limit=100`)).json();
+    const rel = ['kor','btw','belasting','drempel','omzet','aangifte','oss','vinted','etsy','shopify','marketplace','vrijstelling'];
+    const filtered = items.filter(i=>{ const t=((i.title||'')+(i.body||i.text||i.selftext||'')).toLowerCase(); return rel.some(r=>t.includes(r)); });
+    const existing = getLeads();
+    const urls = new Set(existing.map(l=>l.url));
+    const nieuweLeads = filtered.filter(i=>i.url&&!urls.has(i.url)).map(i=>({
+      id: i.id||i.url, url: i.url||`https://reddit.com${i.permalink||''}`,
+      platform:'Reddit', subreddit: i.subreddit||'',
+      username: i.author||i.username||'?',
+      title: i.title||i.body?.slice(0,80)||'',
+      snippet:(i.body||i.selftext||i.text||'').slice(0,200),
+      date: i.created_utc ? new Date(i.created_utc*1000).toISOString().split('T')[0] : new Date().toISOString().split('T')[0],
+      status:'nieuw', note:''
+    }));
+    saveLeadsData([...nieuweLeads,...existing]);
+    renderLeads(); updateLeadKpis();
+    status.textContent = `✓ ${nieuweLeads.length} nieuwe leads (${filtered.length} relevant van ${items.length} totaal).`;
+  } catch(e){ status.textContent = `Fout: ${e.message}`; }
+  btn.disabled = false; btn.textContent = '▶ Scrape starten';
+}
+
+function updateLeadKpis(){
+  const leads = getLeads();
+  const nieuw = leads.filter(l=>l.status==='nieuw').length;
+  const benaderd = leads.filter(l=>l.status==='benaderd').length;
+  document.getElementById('kpi-leads').innerHTML = `
+    <div class="kpi"><div class="kpi-label">Totaal leads</div><div class="kpi-value">${leads.length}</div><div class="kpi-icon">🎯</div></div>
+    <div class="kpi"><div class="kpi-label">Nieuw</div><div class="kpi-value" style="color:var(--blue)">${nieuw}</div><div class="kpi-icon">✨</div></div>
+    <div class="kpi"><div class="kpi-label">Benaderd</div><div class="kpi-value" style="color:var(--green)">${benaderd}</div><div class="kpi-icon">✉️</div></div>
+    <div class="kpi"><div class="kpi-label">Conversie</div><div class="kpi-value">${leads.length?Math.round(benaderd/leads.length*100):0}%</div><div class="kpi-icon">📈</div></div>`;
+}
+
+function renderLeads(){
+  const filter = document.getElementById('leads-filter')?.value||'all';
+  let leads = getLeads();
+  if(filter!=='all') leads = leads.filter(l=>l.status===filter);
+  const el = document.getElementById('leads-table');
+  if(!leads.length){ el.innerHTML=`<div class="empty" style="padding:2rem">Geen leads. Klik op "Scrape starten" om Reddit te scannen.</div>`; return; }
+  const sColor={nieuw:'var(--blue)',benaderd:'var(--green)',genegeerd:'var(--tx3)'};
+  const sBg={nieuw:'var(--bluel)',benaderd:'var(--greenl)',genegeerd:'var(--bg)'};
+  el.innerHTML=`<table style="width:100%;border-collapse:collapse;font-size:13px">
+    <thead><tr style="border-bottom:1px solid var(--br);text-align:left">
+      <th style="padding:8px 12px;font-size:11px;color:var(--tx3);font-weight:600;text-transform:uppercase">Platform</th>
+      <th style="padding:8px 12px;font-size:11px;color:var(--tx3);font-weight:600;text-transform:uppercase">Gebruiker</th>
+      <th style="padding:8px 12px;font-size:11px;color:var(--tx3);font-weight:600;text-transform:uppercase">Post</th>
+      <th style="padding:8px 12px;font-size:11px;color:var(--tx3);font-weight:600;text-transform:uppercase">Datum</th>
+      <th style="padding:8px 12px;font-size:11px;color:var(--tx3);font-weight:600;text-transform:uppercase">Status</th>
+      <th style="padding:8px 12px;font-size:11px;color:var(--tx3);font-weight:600;text-transform:uppercase">Actie</th>
+    </tr></thead>
+    <tbody>${leads.map(l=>{
+      const all=getLeads(); const ri=all.findIndex(x=>x.id===l.id||x.url===l.url);
+      return `<tr style="border-bottom:1px solid var(--br)">
+        <td style="padding:10px 12px"><span style="font-size:11px;background:var(--bg);padding:2px 7px;border-radius:5px">${l.platform}</span>${l.subreddit?`<div style="font-size:10px;color:var(--tx3);margin-top:2px">r/${l.subreddit}</div>`:''}</td>
+        <td style="padding:10px 12px"><a href="${l.url}" target="_blank" style="color:var(--ac);font-weight:600;text-decoration:none">u/${l.username}</a></td>
+        <td style="padding:10px 12px;max-width:320px"><div style="font-weight:600;margin-bottom:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${l.title||'(geen titel)'}</div><div style="font-size:12px;color:var(--tx2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${l.snippet}</div></td>
+        <td style="padding:10px 12px;color:var(--tx3);font-size:12px;white-space:nowrap">${l.date}</td>
+        <td style="padding:10px 12px"><select onchange="updateLeadStatus(${ri},this.value)" style="padding:3px 6px;border-radius:6px;border:1px solid var(--br);font-size:12px;background:${sBg[l.status]||'var(--bg)'};color:${sColor[l.status]||'var(--tx)'}">
+          <option value="nieuw" ${l.status==='nieuw'?'selected':''}>Nieuw</option>
+          <option value="benaderd" ${l.status==='benaderd'?'selected':''}>Benaderd</option>
+          <option value="genegeerd" ${l.status==='genegeerd'?'selected':''}>Negeren</option>
+        </select></td>
+        <td style="padding:10px 12px"><a href="${l.url}" target="_blank" class="btn btn-ghost" style="padding:4px 10px;font-size:11px;text-decoration:none">→ Open</a></td>
+      </tr>`;
+    }).join('')}</tbody></table>`;
+}
+
+function updateLeadStatus(idx,status){
+  const leads=getLeads(); if(leads[idx]) leads[idx].status=status; saveLeadsData(leads); updateLeadKpis();
+}
+
+function clearLeads(){
+  if(!confirm('Weet je zeker dat je alle leads wilt verwijderen?')) return;
+  saveLeadsData([]); renderLeads(); updateLeadKpis();
+}
 </script>
 </body>
 </html>
