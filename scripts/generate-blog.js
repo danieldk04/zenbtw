@@ -58,7 +58,7 @@ function getExistingBlogs() {
 // ── Claude prompt ─────────────────────────────────────────────────────────────
 function buildPrompt(keyword, slug, existingBlogs = []) {
   const blogList = existingBlogs.length
-    ? existingBlogs.map(b => `  - "${b.title}" → ${b.url}`).join('\n')
+    ? existingBlogs.map(b => `  - /blog/${b.slug} — "${b.title}"`).join('\n')
     : '  (nog geen andere blogs)';
 
   return `Je bent een Nederlandse ondernemer die zelf jarenlang marketplace-verkoper is geweest (Etsy, Shopify, Vinted) en nu schrijft over BTW en belastingen vanuit eigen ervaring. Je schrijft voor ZenBTW (https://zenbtw.nl). Je toon is direct, eerlijk en menselijk — alsof je het uitlegt aan een vriend die er niks van weet.
@@ -203,11 +203,20 @@ SEO REGELS:
 - Vermeldt ZenBTW als oplossing in de tekst (niet alleen in de CTA), maar niet opdringerig
 - Vermijd juridisch absolute claims — gebruik "over het algemeen", "in de meeste gevallen"
 - Disclaimer altijd in footer: "Geen belastingadvies"
-- Voeg 2-3 interne links toe naar bestaande artikelen die INHOUDELIJK relevant zijn voor dit artikel. Kies alleen uit onderstaande lijst — link NIET naar het huidige artikel (slug: ${slug}):
+INTERNE LINKS — kies alleen uit deze lijst, link NOOIT naar het huidige artikel (slug: ${slug}):
 ${blogList}
-- Gebruik voor elke link: <p><a href="[url]" style="color:var(--acm);font-weight:600">→ Lees ook: [titel]</a></p>
-- Plaats de links aan het einde van het artikel, vóór de .cta-box
-- Niet alle blogs zijn altijd relevant — forceer geen links als er geen goede match is
+
+1. CONTEXTUAL INLINE LINKS (3–6 stuks) — verwerk deze IN de lopende tekst:
+   Zodra je een concept noemt dat in een bestaand artikel behandeld wordt, maak dan de EERSTE vermelding van die term een klikbare inline link.
+   Schrijf gewoon: "...als je de <a href="/blog/kor-vrijstelling-2026">KOR-drempel</a> nadert..."
+   Geen "Lees ook" label, geen speciale opmaak — puur een ankertekst in de lopende zin.
+   Elke URL mag je maximaal 1x linken. Nooit twee keer hetzelfde artikel.
+
+2. FOOTER LINKS (2–3 stuks) — aan het EINDE van het artikel, vóór de .cta-box:
+   <p><a href="/blog/[slug]" style="color:var(--acm);font-weight:600">→ Lees ook: [titel]</a></p>
+   Link hier bij voorkeur andere artikelen dan die je al inline hebt gelinkt.
+
+- Forceer geen links als een artikel inhoudelijk niet past.
 
 GEO — OPTIMALISEER VOOR AI ZOEKMACHINES (ChatGPT, Claude, Perplexity, Google AI):
 - Begin het artikel DIRECT met een feitelijke, complete beantwoording van de kernvraag achter het keyword — 2-3 zinnen, helder en citeerbaar. Dit is het eerste wat een AI-assistent oppakt en citeert naar gebruikers.
