@@ -1697,6 +1697,17 @@ function updateLeadStatus(idx,status){
   const leads=getLeads(); if(leads[idx]) leads[idx].status=status; saveLeadsData(leads); updateLeadKpis();
 }
 
+function copyBericht(idx){
+  const leads=getLeads();
+  const tekst = leads[idx]?.bericht || '';
+  navigator.clipboard.writeText(tekst).then(()=>{
+    const btn = event.target;
+    btn.textContent='✓ Gekopieerd';
+    btn.style.background='var(--green)';
+    setTimeout(()=>{ btn.textContent='Kopieer'; btn.style.background='var(--ac)'; }, 2000);
+  });
+}
+
 function clearLeads(){
   if(!confirm('Weet je zeker dat je alle leads wilt verwijderen?')) return;
   saveLeadsData([]); renderLeads(); updateLeadKpis();
