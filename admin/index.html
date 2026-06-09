@@ -1650,7 +1650,7 @@ function renderLeads(){
     const cutoff = new Date();
     cutoff.setDate(cutoff.getDate() - ageDays);
     leads = leads.filter(l => {
-      if(!l.date) return true; // datum onbekend: tonen
+      if(!l.date) return false; // datum onbekend: verbergen bij actieve filter
       return new Date(l.date) >= cutoff;
     });
   }
