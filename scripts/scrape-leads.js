@@ -188,8 +188,27 @@ ${batch.map((p, idx) => `[${idx}] Auteur: ${p.author || p.username || '?'}\nTite
   return scored;
 }
 
+function parseDate(item) {
+  // Probeer alle bekende veldnamen die Apify kan teruggeven
+  const raw =
+    item.created_utc ||   // Unix timestamp (seconds)
+    item.createdAt ||     // ISO string
+    item.created ||       // ISO string of timestamp
+    item.publishedAt ||
+    item.timestamp ||
+    item.date ||
+    null;
+  if (!raw) return null;
+  // Unix timestamp (getal)
+  if (typeof raw === 'number') return new Date(raw < 1e10 ? raw * 1000 : raw);
+  // ISO string of datumstring
+  const d = new Date(raw);
+  return isNaN(d.getTime()) ? null : d;
+}
+
 function normalizePost(item, platform = 'Reddit') {
   const url = item.url || (item.permalink ? `https://reddit.com${item.permalink}` : null) || item.link || '';
+  const postDate = parseDate(item);
   return {
     id: item.id || url,
     url,
@@ -198,9 +217,7 @@ function normalizePost(item, platform = 'Reddit') {
     username: item.author || item.username || '?',
     title: item.title || item.body?.slice(0, 80) || item.snippet?.slice(0, 80) || '(reactie)',
     snippet: (item.body || item.selftext || item.text || item.snippet || '').slice(0, 300),
-    date: item.created_utc
-      ? new Date(item.created_utc * 1000).toISOString().split('T')[0]
-      : new Date().toISOString().split('T')[0],
+    date: postDate ? postDate.toISOString().split('T')[0] : null,
     score: item._score || 7,
     reden: item._reden || '',
     status: 'nieuw',
