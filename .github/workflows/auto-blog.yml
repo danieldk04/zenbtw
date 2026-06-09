@@ -1,9 +1,9 @@
 name: Auto Blog Generator
 
 on:
-  # Run Monday, Tuesday, Thursday, Friday at 09:00 CET (08:00 UTC)
+  # Run Monday, Tuesday, Thursday, Friday at 09:00 CEST / 08:00 CET (07:00 UTC zomertijd)
   schedule:
-    - cron: '0 8 * * 1,2,4,5'
+    - cron: '0 7 * * 1,2,4,5'
 
   # Allow manual trigger from GitHub Actions UI
   workflow_dispatch:
