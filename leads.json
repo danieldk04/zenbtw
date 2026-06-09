@@ -12,7 +12,8 @@
     "reden": "Nederlands, verkoopt op Etsy, vraagt direct over 10k-drempel en OSS-regeling \u2014 exact kernprobleem van ZenBTW.",
     "bericht": "",
     "status": "nieuw",
-    "note": ""
+    "note": "",
+    "berichten": {}
   },
   {
     "id": "t1_oen6hus",
@@ -27,7 +28,8 @@
     "reden": "Bespreekt KOR-regeling (BTW) en relatie met inkomstenbelasting; toont kennis van belastingstructuur Nederlandse ondernemers, maar geen duidelijke aanwijzing van actieve marketplace-verkoop",
     "status": "nieuw",
     "note": "",
-    "bericht": ""
+    "bericht": "",
+    "berichten": {}
   },
   {
     "id": "t1_o8hn2oo",
@@ -42,7 +44,8 @@
     "reden": "Discussie over W&V, onttrekkingen en KOR-regeling (onder 20.000 euro); suggereert actieve ondernemer met BTW-administratie, maar context van marketplace-verkoop niet expliciet",
     "status": "nieuw",
     "note": "",
-    "bericht": ""
+    "bericht": "",
+    "berichten": {}
   },
   {
     "id": "t1_oktu7xs",
@@ -57,7 +60,8 @@
     "reden": "Noemt concrete KOR-drempel (20k omzet) en BTW-plicht. Waarschijnlijk zelf verkoper die dit moet bijhouden, maar vrij kort en geen duidelijke marketplace genoemd.",
     "status": "nieuw",
     "note": "",
-    "bericht": ""
+    "bericht": "",
+    "berichten": {}
   },
   {
     "id": "t1_ogvyc3d",
@@ -72,7 +76,8 @@
     "reden": "Advies aan iemand die verkoopt en worstelt met inkoopprijs-tracking, KOR-vrijstelling (20k), en inkomstenbelasting. Duidelijk marketplace-verkoper-context. Kan direct baat hebben bij ZenBTW.",
     "status": "nieuw",
     "note": "",
-    "bericht": ""
+    "bericht": "",
+    "berichten": {}
   },
   {
     "id": "t1_ogay81x",
@@ -87,7 +92,8 @@
     "reden": "Discussie over BTW-aangifte, KOR-drempel en factuurafhandeling. Auteur lijkt Nederlands marketplace-verkoper met concrete belastingvragen.",
     "status": "nieuw",
     "note": "",
-    "bericht": ""
+    "bericht": "",
+    "berichten": {}
   },
   {
     "id": "t3_1u0bqnp",
@@ -102,7 +108,8 @@
     "reden": "Etsy-verkoper met actieve verkoop, worstelt met retourverzoeken en klantenservice. Potentieel gebruik voor ZenBTW om verkoopsgegevens/inkomsten bij te houden.",
     "status": "nieuw",
     "note": "",
-    "bericht": ""
+    "bericht": "",
+    "berichten": {}
   },
   {
     "id": "t1_kc2gar8",
@@ -117,7 +124,8 @@
     "reden": "Verkoopt actief op Etsy (80% omzet), vraagt specifiek over BTW-plicht voor EU vs Amerika, bestudeert KOR-regeling voor eenmanszaak",
     "status": "nieuw",
     "note": "",
-    "bericht": ""
+    "bericht": "",
+    "berichten": {}
   },
   {
     "id": "t1_nmc5lzo",
@@ -132,7 +140,8 @@
     "reden": "Exploiteert webshops/Etsy, zoekt boekhoudsoftware en KOR-achtige functionaliteit, Nederlands context duidelijk",
     "status": "nieuw",
     "note": "",
-    "bericht": ""
+    "bericht": "",
+    "berichten": {}
   },
   {
     "id": "t1_op3ot2p",
@@ -147,7 +156,8 @@
     "reden": "Vraagt expliciet over KOR-regeling en KvK-inschrijving bij structurele verkoop/commissies, lijkt potenti\u00eble ondernemer",
     "status": "nieuw",
     "note": "",
-    "bericht": ""
+    "bericht": "",
+    "berichten": {}
   },
   {
     "id": "t1_opb4got",
@@ -162,7 +172,8 @@
     "reden": "Geeft feedback op ZenBTW product zelf, erkent VAT pain point voor marketplace sellers (Etsy/Shopify/Vinted). Echter geen eigen verkoper, dus niet ideaal target.",
     "status": "nieuw",
     "note": "",
-    "bericht": ""
+    "bericht": "",
+    "berichten": {}
   },
   {
     "id": "t3_1u044no",
@@ -177,6 +188,7 @@
     "reden": "Nederlandse ZZP'er met meerdere activiteiten, eigen BTW-aangiftes, worstelt met boekhouding complexiteit. Perfect profiel voor ZenBTW ondanks geen marketplace-mention - kan toch marketplace-inkomsten hebben.",
     "status": "nieuw",
     "note": "",
-    "bericht": ""
+    "bericht": "",
+    "berichten": {}
   }
 ]
