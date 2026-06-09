@@ -144,6 +144,7 @@ function closeMobNav(){var d=document.getElementById('mobNavDrawer'),o=document.
   
   
   
+  
   <div class="cat-bar">
   <button class="cat-btn active" data-filter="all">Alle <span class="cat-count">16</span></button>
   <button class="cat-btn" data-filter="kor">KOR <span class="cat-count">3</span></button>
@@ -376,5 +377,22 @@ function closeMobNav(){var d=document.getElementById('mobNavDrawer'),o=document.
   <a href="./">Blog</a>
   <br><br>© 2026 ZenBTW
 </footer>
+<script>
+(function(){
+  var btns=document.querySelectorAll('.cat-btn');
+  var cards=document.querySelectorAll('.card[data-cat]');
+  var empty=document.querySelector('.cat-empty');
+  function run(f){
+    btns.forEach(function(b){b.classList.toggle('active',b.dataset.filter===f);});
+    var n=0;
+    cards.forEach(function(c){var s=f==='all'||c.dataset.cat===f;c.classList.toggle('cat-hidden',!s);if(s)n++;});
+    if(empty)empty.classList.toggle('on',n===0);
+    history.replaceState(null,'',f==='all'?location.pathname:'#'+f);
+  }
+  btns.forEach(function(b){b.addEventListener('click',function(){run(b.dataset.filter);});});
+  var h=location.hash.slice(1);
+  if(h&&document.querySelector('[data-filter="'+h+'"]'))run(h);else run('all');
+})();
+</script>
 </body>
 </html>

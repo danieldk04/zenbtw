@@ -154,7 +154,7 @@ function updateBlogIndex(blogs) {
   }
 
   // ── 4. Filter JS (idempotent) ─────────────────────────────────────────────
-  if (!html.includes('cat-hidden')) {
+  if (!html.includes('dataset.filter')) {
     const filterJs = `<script>
 (function(){
   var btns=document.querySelectorAll('.cat-btn');
