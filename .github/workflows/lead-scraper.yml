@@ -1,0 +1,39 @@
+name: Lead Scraper
+
+on:
+  schedule:
+    - cron: '0 8 * * 1'  # Elke maandag 08:00 UTC (na content agent)
+  workflow_dispatch:       # Ook handmatig te triggeren
+
+permissions:
+  contents: write
+
+jobs:
+  scrape-leads:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install dependencies
+        run: npm install node-fetch@3
+
+      - name: Run lead scraper
+        env:
+          APIFY_TOKEN: ${{ secrets.APIFY_TOKEN }}
+          ANTHROPIC_API_KEY: ${{ secrets.ZENBTW_BLOGS }}
+        run: node scripts/scrape-leads.js
+
+      - name: Commit leads
+        run: |
+          git config user.name "ZENbtw Bot"
+          git config user.email "bot@zenbtw.nl"
+          git add leads.json
+          git diff --staged --quiet || git commit -m "auto: update leads.json [skip ci]"
+          git push
