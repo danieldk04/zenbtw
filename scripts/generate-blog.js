@@ -90,6 +90,7 @@ HTML STRUCTUUR (gebruik EXACT dit format, vervang ALLEEN de content):
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="[ZELFDE ALS TITLE TAG, zonder '| ZenBTW']">
 <meta name="twitter:description" content="[ZELFDE ALS META DESCRIPTION]">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
 <link rel="manifest" href="../manifest.json">
 <meta name="theme-color" content="#1a4731">
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"[ARTICLE HEADLINE]","datePublished":"${TODAY}","dateModified":"${TODAY}","author":{"@type":"Organization","name":"ZenBTW"},"publisher":{"@type":"Organization","name":"ZenBTW","url":"https://zenbtw.nl"},"image":"https://zenbtw.nl/og-blog.png"}</script>
@@ -501,7 +502,7 @@ async function main() {
   const client = new Anthropic();
   const message = await client.messages.create({
     model: 'claude-opus-4-6',
-    max_tokens: 8192,
+    max_tokens: 16000,
     messages: [
       {
         role: 'user',
