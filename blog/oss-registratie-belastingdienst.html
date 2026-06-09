@@ -87,6 +87,21 @@ footer a{color:var(--tx3);text-decoration:none;margin:0 8px}
 .cat-related-link{display:flex;align-items:center;gap:10px;padding:10px 14px;background:var(--wh);border:1px solid var(--br);border-radius:8px;text-decoration:none;color:var(--tx2);font-size:14px;font-weight:600;transition:all .15s;line-height:1.4}
 .cat-related-link:hover{border-color:var(--acm);color:var(--ac);background:var(--acl)}
 .cat-related-link span{color:var(--acm);font-size:13px;flex-shrink:0}
+
+/* ── Mobile fixes ── */
+html,body{max-width:100%;overflow-x:hidden}
+svg{max-width:100%!important;height:auto!important}
+figure{max-width:100%;overflow:hidden}
+@media(max-width:640px){
+  nav{padding:0 16px!important;gap:8px!important}
+  .nav-logo-img{max-height:36px!important}
+  .nav-wordmark{display:none!important}
+  .nav-back{white-space:nowrap;font-size:12px}
+  .nav-cta{padding:9px 14px!important;font-size:13px!important}
+  table{font-size:12.5px}
+  td,th{padding:7px 8px!important}
+  .article-wrap{padding-left:18px!important;padding-right:18px!important}
+}
 </style>
 </head>
 <body>

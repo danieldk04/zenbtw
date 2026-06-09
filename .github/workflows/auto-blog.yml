@@ -62,7 +62,7 @@ jobs:
 
       - name: Update category structure
         if: steps.check_queue.outputs.pending_count != '0'
-        run: node scripts/setup-categories.js
+        run: node scripts/setup-categories.js && node scripts/fix-mobile.js
 
       - name: Check if files changed
         id: check_changes

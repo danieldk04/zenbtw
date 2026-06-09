@@ -145,6 +145,10 @@ footer a{color:var(--tx3);text-decoration:none;margin:0 8px}
 .compare-table tr:nth-child(even) td{background:var(--s2)}
 .check{color:#16a34a;font-weight:700}
 .cross{color:#dc2626;font-weight:700}
+html,body{max-width:100%;overflow-x:hidden}
+svg{max-width:100%!important;height:auto!important}
+figure{max-width:100%;overflow:hidden}
+@media(max-width:640px){nav{padding:0 16px!important;gap:8px!important}.nav-logo-img{max-height:36px!important}.nav-wordmark{display:none!important}.nav-back{white-space:nowrap;font-size:12px}.nav-cta{padding:9px 14px!important;font-size:13px!important}.article-wrap{padding-left:18px!important;padding-right:18px!important}table{font-size:12.5px}td,th{padding:7px 8px!important}}
 </style>
 </head>
 <body>
