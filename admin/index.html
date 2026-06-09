@@ -1709,13 +1709,26 @@ function updateLeadStatus(idx,status){
   const leads=getLeads(); if(leads[idx]) leads[idx].status=status; saveLeadsData(leads); updateLeadKpis();
 }
 
-function copyBericht(idx){
-  const leads=getLeads();
-  const tekst = leads[idx]?.bericht || '';
+function switchTab(ri, key){
+  ['helper','gesprek','pitch'].forEach(k=>{
+    const tab = document.getElementById(`tab-${ri}-${k}`);
+    const content = document.getElementById(`tabcontent-${ri}-${k}`);
+    if(!tab||!content) return;
+    const active = k===key;
+    tab.style.background = active ? 'var(--acm)' : 'transparent';
+    tab.style.color = active ? '#fff' : 'var(--ac)';
+    content.style.display = active ? 'block' : 'none';
+  });
+}
+
+function copyTab(ri, key){
+  const leads = getLeads();
+  const tekst = leads[ri]?.berichten?.[key] || '';
   navigator.clipboard.writeText(tekst).then(()=>{
-    const btn = event.target;
-    btn.textContent='✓ Gekopieerd';
-    btn.style.background='var(--green)';
+    const btn = document.getElementById(`copybtn-${ri}-${key}`);
+    if(!btn) return;
+    btn.textContent = '✓ Gekopieerd';
+    btn.style.background = 'var(--green)';
     setTimeout(()=>{ btn.textContent='Kopieer'; btn.style.background='var(--ac)'; }, 2000);
   });
 }
