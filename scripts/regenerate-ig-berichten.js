@@ -6,33 +6,35 @@ const ANTHROPIC_KEY = process.env.ANTHROPIC_API_KEY;
 const LEADS_FILE = 'instagram-leads.json';
 
 async function generateDMs(lead) {
-  const prompt = `Je schrijft persoonlijke Instagram DM's namens Daniel — eigenaar van vintage kledingwinkel Revaleur (700+ reviews op Vinted, Etsy en Shopify) en oprichter van ZenBTW.
+  const prompt = `Je schrijft 3 Instagram DM's namens Daniel. Hij is eigenaar van vintage kledingwinkel Revaleur (700+ reviews op Vinted, Etsy en Shopify) en heeft ZenBTW gebouwd. Hij stuurt dit vanuit @revaleur naar iemand die hij niet kent.
 
-Daniel stuurt deze DM's vanuit @revaleur naar iemand die hij NIET kent.
-
-Profiel:
+PROFIEL:
 @${lead.username} (${lead.displayName || lead.username})
 Bio: ${lead.bio || '(geen bio)'}
 Recente post: ${lead.snippet || '(geen post)'}
-Reden dat dit een goede lead is: ${lead.reden || ''}
 
-Schrijf 3 varianten van een persoonlijke intro-DM.
+Schrijf 3 TOTAAL VERSCHILLENDE DM's. Elke variant heeft een andere toon en aanpak. Kies de 3 beste stijlen uit onderstaande opties:
 
-STRUCTUUR (in deze volgorde):
-1. Naam (voornaam of @${lead.username}) — geen "Hoi"
-2. Één oprecht compliment over iets specifieks dat je ziet in hun profiel/post
-3. "Ik ga er niet omheen draaien — ik heb zelf 700+ reviews op Vinted/Etsy/Shopify via mijn vintage shop Revaleur en heb hier zelf lang mee geworsteld."
-4. Afhankelijk van variant (zie onder)
-5. Afsluiten met: "Groetjes, Daniel"
+WARME COLLEGA: begin met voornaam, complimenteer iets specifieks aan hun shop, vertel kort over je eigen ervaring als verkoper op Revaleur, zeg dat je hebt geworsteld met BTW/KOR, stel één persoonlijke vraag. Sluit af met "Groetjes Daniel 👋"
 
-STIJL: Informeel, menselijk, geen buzzwords, geen emoji, max 5 zinnen. Klinkt als een vriend die toevallig expert is — niet als een pitch.
+ENTHOUSIASTE FAN: begin met hun naam + iets dat je echt aanspreekt in hun content (wees specifiek), zeg dat je zelf ook verkoopt via Revaleur en je herkent het, maak het probleem urgent maar luchtig (bijv. "de Belastingdienst kijkt namelijk naar je omzet, niet je winst 😅"), verwijs naar zenbtw.nl. Sluit af met "Groetjes Daniel"
 
-3 VARIANTEN:
-- helper: na intro → één concreet nuttig feit over hun specifieke situatie (GEEN ZenBTW noemen) → "Check gerust ook mijn profiel @revaleur of zenbtw.nl als je meer wil weten, maar geen druk. Groetjes, Daniel"
-- gesprek: na intro → één gerichte vraag die hun situatie uitdiept (bijv. hoe bijhouden ze omzet, op hoeveel platforms zitten ze) → "Groetjes, Daniel"
-- pitch: na intro → probleem kort uitleggen (KOR-drempel, Belastingdienst kijkt naar omzet niet winst) → "Daarvoor heb ik zenbtw.nl gebouwd, puur om het simpel te houden. Als het niks voor je is ook geen hard feelings. Groetjes, Daniel"
+DIRECTE HELPER: geen omwegen, begin met compliment, zeg meteen "ik heb iets gebouwd dat jou waarschijnlijk tijd bespaart", leg in één zin uit wat ZenBTW doet, zeg dat hij het zelf ook gebruikt voor Revaleur. Sluit af met "Groetjes Daniel, @revaleur"
 
-Geef ALLEEN JSON terug:
+NIEUWSGIERIGE VRAGEN-STELLER: begin met naam + observatie over hun shop, stel twee korte vragen over hoe zij hun administratie doen (bijv. hoe ze bijhouden wanneer ze de KOR-drempel raken), vertel daarna pas dat je dit zelf ook hebt meegemaakt en iets hebt gemaakt. Sluit af met "Groetjes Daniel"
+
+PERSOONLIJK VERHAAL: begin met hun naam, vertel een mini-verhaal van 2 zinnen over hoe jij (Daniel) dit probleem zelf tegenkwam bij Revaleur, trek de parallel naar hun situatie, bied hulp aan. Sluit af met "Groetjes Daniel 🙏"
+
+Kies de 3 stijlen die het BESTE passen bij dit specifieke profiel en schrijf ze uit.
+
+REGELS VOOR ALLE VARIANTEN:
+Gebruik NOOIT een streepje (geen gedachtestreepje, geen koppelteken aan het begin van een zin, geen opsomming met streepjes)
+Emojis zijn welkom maar gebruik ze spaarzaam (max 2 per bericht)
+Max 5 zinnen per variant
+Klinkt als een echt mens, niet als een template
+Noem altijd iets specifieks over hun profiel of post
+
+Geef ALLEEN JSON terug (geen uitleg):
 {"helper":"...","gesprek":"...","pitch":"..."}`;
 
   const r = await fetch('https://api.anthropic.com/v1/messages', {
