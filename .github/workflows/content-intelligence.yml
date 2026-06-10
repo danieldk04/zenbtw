@@ -1,0 +1,34 @@
+name: Content Intelligence
+
+on:
+  schedule:
+    - cron: '0 7 * * 1'  # Elke maandag 07:00 UTC
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  analyze:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - run: npm install node-fetch@3
+      - name: Fetch insights & analyseer
+        env:
+          IG_ACCESS_TOKEN: ${{ secrets.IG_ACCESS_TOKEN }}
+          IG_USER_ID: ${{ secrets.IG_USER_ID }}
+          APIFY_TOKEN: ${{ secrets.APIFY_TOKEN }}
+          ANTHROPIC_API_KEY: ${{ secrets.ZENBTW_BLOGS }}
+          TIKTOK_USERNAME: ${{ secrets.TIKTOK_USERNAME }}
+        run: node scripts/fetch-content-insights.js
+      - name: Commit
+        run: |
+          git config user.name "ZENbtw Bot"
+          git config user.email "bot@zenbtw.nl"
+          git add content-memory.json
+          git diff --staged --quiet || git commit -m "auto: content memory bijgewerkt [skip ci]"
+          git push
