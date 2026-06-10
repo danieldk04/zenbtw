@@ -1781,6 +1781,166 @@ function clearLeads(){
   if(!confirm('Weet je zeker dat je alle leads wilt verwijderen?')) return;
   saveLeadsData([]); renderLeads(); updateLeadKpis();
 }
+
+// ── Instagram leads ──────────────────────────────────────────────
+
+let _currentLeadPlatform = 'reddit';
+
+function switchLeadPlatform(platform) {
+  _currentLeadPlatform = platform;
+  document.getElementById('leads-section-reddit').style.display = platform === 'reddit' ? '' : 'none';
+  document.getElementById('leads-section-instagram').style.display = platform === 'instagram' ? '' : 'none';
+  const rTab = document.getElementById('platform-tab-reddit');
+  const iTab = document.getElementById('platform-tab-instagram');
+  rTab.style.color = platform === 'reddit' ? 'var(--acm)' : 'var(--tx3)';
+  rTab.style.borderBottomColor = platform === 'reddit' ? 'var(--acm)' : 'transparent';
+  iTab.style.color = platform === 'instagram' ? 'var(--acm)' : 'var(--tx3)';
+  iTab.style.borderBottomColor = platform === 'instagram' ? 'var(--acm)' : 'transparent';
+  if (platform === 'instagram') {
+    syncInstagramFromGithub();
+  }
+}
+
+function getInstagramLeads() {
+  try { return JSON.parse(localStorage.getItem('zenbtw_instagram_leads') || '[]'); } catch { return []; }
+}
+function saveInstagramLeads(data) {
+  localStorage.setItem('zenbtw_instagram_leads', JSON.stringify(data));
+}
+
+async function syncInstagramFromGithub() {
+  const status = document.getElementById('instagram-scrape-status');
+  if (status) status.textContent = 'Synchroniseren...';
+  try {
+    const res = await fetch('https://raw.githubusercontent.com/danieldk04/zenbtw/main/instagram-leads.json?t=' + Date.now());
+    if (!res.ok) { if (status) status.textContent = 'Nog geen Instagram-leads gevonden op GitHub.'; return; }
+    const remote = await res.json();
+    if (!Array.isArray(remote) || remote.length === 0) { if (status) status.textContent = 'Geen leads in instagram-leads.json.'; return; }
+    const local = getInstagramLeads();
+    const localMap = Object.fromEntries(local.map(l => [l.id || l.username, l]));
+    const merged = remote.map(r => {
+      const loc = localMap[r.id || r.username];
+      if (loc && loc.status !== 'nieuw') return { ...r, status: loc.status, note: loc.note };
+      return r;
+    });
+    saveInstagramLeads(merged);
+    renderInstagramLeads();
+    updateInstagramKpis();
+    if (status) status.textContent = `✓ ${merged.length} leads gesynchroniseerd`;
+  } catch (e) {
+    if (status) status.textContent = 'Sync mislukt: ' + e.message;
+  }
+}
+
+function updateInstagramKpis() {
+  const leads = getInstagramLeads();
+  const nieuw = leads.filter(l => l.status === 'nieuw').length;
+  const benaderd = leads.filter(l => l.status === 'benaderd').length;
+  document.getElementById('kpi-instagram').innerHTML = `
+    <div class="kpi"><div class="kpi-label">Totaal leads</div><div class="kpi-value">${leads.length}</div><div class="kpi-icon">📸</div></div>
+    <div class="kpi"><div class="kpi-label">Nieuw</div><div class="kpi-value" style="color:var(--blue)">${nieuw}</div><div class="kpi-icon">✨</div></div>
+    <div class="kpi"><div class="kpi-label">Benaderd</div><div class="kpi-value" style="color:var(--green)">${benaderd}</div><div class="kpi-icon">✉️</div></div>
+    <div class="kpi"><div class="kpi-label">Conversie</div><div class="kpi-value">${leads.length ? Math.round(benaderd / leads.length * 100) : 0}%</div><div class="kpi-icon">📈</div></div>`;
+}
+
+function updateInstagramStatus(idx, status) {
+  const leads = getInstagramLeads();
+  if (leads[idx]) leads[idx].status = status;
+  saveInstagramLeads(leads);
+  updateInstagramKpis();
+}
+
+function clearInstagramLeads() {
+  if (!confirm('Weet je zeker dat je alle Instagram-leads wilt verwijderen?')) return;
+  saveInstagramLeads([]); renderInstagramLeads(); updateInstagramKpis();
+}
+
+function switchIgTab(ri, key) {
+  ['helper', 'gesprek', 'pitch'].forEach(k => {
+    const tab = document.getElementById(`igtab-${ri}-${k}`);
+    const content = document.getElementById(`igtabcontent-${ri}-${k}`);
+    if (!tab || !content) return;
+    const active = k === key;
+    tab.style.background = active ? 'var(--acm)' : 'transparent';
+    tab.style.color = active ? '#fff' : 'var(--ac)';
+    content.style.display = active ? 'block' : 'none';
+  });
+}
+
+function copyIgTab(ri, key) {
+  const leads = getInstagramLeads();
+  const tekst = leads[ri]?.berichten?.[key] || '';
+  navigator.clipboard.writeText(tekst).then(() => {
+    const btn = document.getElementById(`igcopybtn-${ri}-${key}`);
+    if (!btn) return;
+    btn.textContent = '✓ Gekopieerd';
+    btn.style.background = 'var(--green)';
+    setTimeout(() => { btn.textContent = 'Kopieer'; btn.style.background = 'var(--ac)'; }, 2000);
+  });
+}
+
+function renderInstagramLeads() {
+  const filter = document.getElementById('instagram-filter')?.value || 'all';
+  let leads = getInstagramLeads();
+  if (filter !== 'all') leads = leads.filter(l => l.status === filter);
+  const el = document.getElementById('instagram-table');
+  if (!leads.length) {
+    el.innerHTML = `<div class="empty" style="padding:2rem">Geen Instagram-leads. De GitHub Action scrapet elke maandag automatisch, of klik Sync.</div>`;
+    return;
+  }
+  const allLeads = getInstagramLeads();
+  const sColor = { nieuw: 'var(--blue)', benaderd: 'var(--green)', genegeerd: 'var(--tx3)' };
+  const sBg = { nieuw: 'var(--bluel)', benaderd: 'var(--greenl)', genegeerd: 'var(--bg)' };
+  const tabLabels = [['helper', '💬 Helper'], ['gesprek', '🗣 Gesprek'], ['pitch', '🎯 Pitch']];
+
+  el.innerHTML = leads.map(l => {
+    const ri = allLeads.findIndex(x => (x.id || x.username) === (l.id || l.username));
+    const b = l.berichten || {};
+    const hasB = b.helper || b.gesprek || b.pitch;
+    return `<div style="border-bottom:1px solid var(--br);padding:1rem 1.2rem">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:1rem;flex-wrap:wrap">
+        <div style="flex:1;min-width:0">
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;flex-wrap:wrap">
+            <span style="font-size:11px;background:#fce4ec;color:#c2185b;padding:2px 7px;border-radius:5px;font-weight:600">📸 Instagram</span>
+            <a href="${l.url}" target="_blank" style="color:var(--ac);font-weight:700;font-size:13px;text-decoration:none">@${l.username}</a>
+            ${l.displayName && l.displayName !== l.username ? `<span style="font-size:12px;color:var(--tx2)">${l.displayName}</span>` : ''}
+            <span style="font-size:11px;color:var(--tx3)">👥 ${l.followers?.toLocaleString('nl') || '?'} volgers</span>
+          </div>
+          ${l.bio ? `<div style="font-size:12px;color:var(--tx2);margin-bottom:4px;font-style:italic">"${l.bio}"</div>` : ''}
+          ${l.snippet ? `<div style="font-size:12px;color:var(--tx3);line-height:1.5">${l.snippet}</div>` : ''}
+          ${l.reden ? `<div style="font-size:11px;color:var(--acm);margin-top:4px">✓ ${l.reden}</div>` : ''}
+        </div>
+        <div style="display:flex;flex-direction:column;gap:6px;align-items:flex-end;flex-shrink:0">
+          <select onchange="updateInstagramStatus(${ri},this.value)" style="padding:4px 8px;border-radius:6px;border:1px solid var(--br);font-size:12px;background:${sBg[l.status] || 'var(--bg)'};color:${sColor[l.status] || 'var(--tx)'}">
+            <option value="nieuw" ${l.status === 'nieuw' ? 'selected' : ''}>Nieuw</option>
+            <option value="benaderd" ${l.status === 'benaderd' ? 'selected' : ''}>Benaderd</option>
+            <option value="genegeerd" ${l.status === 'genegeerd' ? 'selected' : ''}>Negeren</option>
+          </select>
+          <a href="${l.url}" target="_blank" class="btn btn-ghost" style="padding:4px 10px;font-size:11px;text-decoration:none">→ Open profiel</a>
+          ${l.postUrl ? `<a href="${l.postUrl}" target="_blank" class="btn btn-ghost" style="padding:4px 10px;font-size:11px;text-decoration:none">→ Open post</a>` : ''}
+        </div>
+      </div>
+      ${hasB ? `
+      <div style="margin-top:10px;background:var(--acl);border-left:3px solid var(--acm);border-radius:0 6px 6px 0;overflow:hidden">
+        <div style="display:flex;border-bottom:1px solid rgba(0,0,0,.06)">
+          ${tabLabels.map(([key, label]) => `
+          <button onclick="switchIgTab(${ri},'${key}')" id="igtab-${ri}-${key}"
+            style="padding:7px 14px;font-size:11px;font-weight:600;border:none;cursor:pointer;background:${key === 'helper' ? 'var(--acm)' : 'transparent'};color:${key === 'helper' ? '#fff' : 'var(--ac)'};transition:all .15s">
+            ${label}
+          </button>`).join('')}
+        </div>
+        ${tabLabels.map(([key]) => `
+        <div id="igtabcontent-${ri}-${key}" style="display:${key === 'helper' ? 'block' : 'none'};padding:10px 12px">
+          <div style="font-size:13px;color:var(--tx);line-height:1.6;white-space:pre-wrap;margin-bottom:8px">${(b[key] || '').replace(/</g, '&lt;')}</div>
+          <button onclick="copyIgTab(${ri},'${key}')" id="igcopybtn-${ri}-${key}"
+            style="padding:3px 10px;font-size:11px;background:var(--ac);color:#fff;border:none;border-radius:5px;cursor:pointer">
+            Kopieer
+          </button>
+        </div>`).join('')}
+      </div>` : `<div style="margin-top:8px;font-size:12px;color:var(--tx3)">Geen berichten gegenereerd (score te laag of ontbrekend).</div>`}
+    </div>`;
+  }).join('');
+}
 </script>
 </body>
 </html>
