@@ -187,23 +187,22 @@ Hashtags: ${hashtags}`;
 }
 
 function normalizePost(item) {
-  const username = item.ownerUsername || item.username || '?';
-  const displayName = item._displayName || item.ownerFullName || item.fullName || username;
-  const followers = item.ownerFollowersCount || item.followersCount || 0;
-  const url = item.url || item.shortCode
-    ? `https://www.instagram.com/p/${item.shortCode}/`
-    : `https://www.instagram.com/${username}/`;
+  const username = item.ownerUsername || item.username || item.owner?.username || '?';
+  const displayName = item._displayName || item.ownerFullName || item.fullName || item.owner?.full_name || username;
+  const followers = item.ownerFollowersCount || item.followersCount || item.owner?.edge_followed_by?.count || 0;
+  const shortCode = item.shortCode || item.shortcode || '';
+  const postUrl = shortCode ? `https://www.instagram.com/p/${shortCode}/` : '';
   const profileUrl = `https://www.instagram.com/${username}/`;
 
   return {
-    id: item.id || username,
+    id: item.id || item.shortCode || username,
     url: profileUrl,
-    postUrl: url,
+    postUrl,
     platform: 'Instagram',
     username,
     displayName,
-    bio: (item.ownerBio || item.biography || '').slice(0, 200),
-    snippet: (item.caption || item.text || '').slice(0, 300),
+    bio: (item.ownerBio || item.biography || item.owner?.biography || '').slice(0, 200),
+    snippet: (item.caption || item.text || item.accessibility_caption || '').slice(0, 300),
     followers,
     date: new Date().toISOString().split('T')[0],
     score: item._score || 7,
