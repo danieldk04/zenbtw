@@ -1530,19 +1530,14 @@ async function syncLeadsFromGithub(){
     if(!res.ok) return;
     const remote = await res.json();
     if(!Array.isArray(remote) || remote.length === 0) return;
-    // Merge: remote als basis, lokale status-wijzigingen bewaren
+    // Remote is leidend — bewaar alleen status/note van lokale aanpassingen
     const local = getLeads();
     const localMap = Object.fromEntries(local.map(l => [l.id||l.url, l]));
     const merged = remote.map(r => {
-      const key = r.id || r.url;
-      const loc = localMap[key];
-      // Bewaar status en note als die lokaal aangepast zijn
+      const loc = localMap[r.id||r.url];
       if(loc && loc.status !== 'nieuw') return { ...r, status: loc.status, note: loc.note };
       return r;
     });
-    // Voeg puur lokale leads toe die niet in remote zitten
-    const remoteKeys = new Set(remote.map(r => r.id||r.url));
-    for(const l of local) if(!remoteKeys.has(l.id||l.url)) merged.push(l);
     saveLeadsData(merged);
     console.log(`Leads gesynchroniseerd: ${merged.length} totaal`);
   } catch(e) {
