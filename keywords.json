@@ -1,14 +1,6 @@
 {
   "queue": [
     {
-      "keyword": "kor calculator 2026 gratis berekenen",
-      "slug": "kor-calculator-2026",
-      "status": "pending",
-      "priority": 5,
-      "notes": "GEO: tool-zoekopdracht, hoge intentie",
-      "type": "geo-tool"
-    },
-    {
       "keyword": "wat is het verschil tussen kor en oss regeling",
       "slug": "verschil-kor-oss-regeling",
       "status": "pending",
@@ -179,6 +171,16 @@
       "type": "geo-vergelijking",
       "publishedDate": "2026-06-10",
       "outputFile": "blog/gratis-alternatief-moneybird.html"
+    },
+    {
+      "keyword": "kor calculator 2026 gratis berekenen",
+      "slug": "kor-calculator-2026",
+      "status": "published",
+      "priority": 5,
+      "notes": "GEO: tool-zoekopdracht, hoge intentie",
+      "type": "geo-tool",
+      "publishedDate": "2026-06-10",
+      "outputFile": "blog/kor-calculator-2026.html"
     }
   ],
   "settings": {
