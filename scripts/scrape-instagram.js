@@ -71,31 +71,23 @@ async function scrapeInstagram() {
 }
 
 function preFilter(posts) {
-  const nlTerms = ['vinted', 'etsy', 'shopify', 'depop', 'marktplaats', 'verkoop', 'webshop',
-    'btw', 'kor', 'belasting', 'ondernemer', 'kvk', 'shop', 'winkel', 'tweedehands',
-    'vintage', 'resell', 'kledingverkoop', 'handmade'];
+  // Hashtag-scraper geeft geen bio/followers in post-data — filter alleen op beschikbare velden
+  const spamPatterns = [/crypto|nft|forex|trading|casino|bet|loan|affiliate|giveaway|follow.*back/i];
 
   return posts.filter(post => {
-    const bio = (post.ownerBio || post.biography || '').toLowerCase();
-    const caption = (post.caption || post.text || '').toLowerCase();
-    const username = (post.ownerUsername || post.username || '').toLowerCase();
-    const fullname = (post.ownerFullName || post.fullName || '').toLowerCase();
-    const followers = post.ownerFollowersCount || post.followersCount || 0;
-    const postCount = post.ownerPostsCount || post.postsCount || 0;
+    // Probeer alle bekende veldnamen die Apify kan teruggeven
+    const caption = (post.caption || post.text || post.accessibility_caption || '').toLowerCase();
+    const username = (post.ownerUsername || post.username || post.owner?.username || '').toLowerCase();
+    const fullname = (post.ownerFullName || post.fullName || post.owner?.full_name || '').toLowerCase();
 
-    // Minimale activiteit
-    if (followers < 30) return false;
-    if (followers > 15000) return false; // te groot = al professioneel geregeld
-    if (postCount < 5) return false;
+    // Moet een username hebben
+    if (!username) return false;
 
-    // Moet NL-gerelateerd zijn: NL tekst in bio of caption of NL-specifieke termen
-    const allText = bio + ' ' + caption + ' ' + fullname;
-    const hasNlTerms = nlTerms.some(t => allText.includes(t));
-    if (!hasNlTerms) return false;
+    // Filter spam
+    if (spamPatterns.some(p => p.test(caption) || p.test(username))) return false;
 
-    // Filter duidelijk irrelevante accounts
-    const spamPatterns = [/crypto|nft|forex|trading|casino|bet|loan|affiliate/i];
-    if (spamPatterns.some(p => p.test(bio) || p.test(caption))) return false;
+    // Caption moet enige inhoud hebben (geen pure foto-zonder-tekst)
+    if (caption.length < 10) return false;
 
     return true;
   });
