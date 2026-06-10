@@ -1870,6 +1870,145 @@ function copyTab(ri, key){
   });
 }
 
+// ── Content Intelligence ─────────────────────────────────────────
+
+let _contentMemory = null;
+
+function saveContentSettings(){
+  const token = document.getElementById('ig-token-input').value.trim();
+  const userId = document.getElementById('ig-userid-input').value.trim();
+  const tiktok = document.getElementById('tiktok-user-input').value.trim();
+  if(token) localStorage.setItem('ig_access_token', token);
+  if(userId) localStorage.setItem('ig_user_id', userId);
+  if(tiktok) localStorage.setItem('tiktok_username', tiktok);
+  alert('Instellingen opgeslagen. Sla IG_ACCESS_TOKEN, IG_USER_ID en TIKTOK_USERNAME ook op als GitHub Secrets voor de automatische analyse.');
+}
+
+async function initContent(){
+  // Vul opgeslagen waarden in
+  const token = localStorage.getItem('ig_access_token');
+  const userId = localStorage.getItem('ig_user_id');
+  const tiktok = localStorage.getItem('tiktok_username');
+  if(token) document.getElementById('ig-token-input').placeholder = '✓ Token opgeslagen';
+  if(userId) document.getElementById('ig-userid-input').value = userId;
+  if(tiktok) document.getElementById('tiktok-user-input').value = tiktok;
+  await syncContentMemory();
+}
+
+async function syncContentMemory(){
+  const btn = document.getElementById('content-sync-btn');
+  const status = document.getElementById('content-sync-status');
+  btn.disabled = true; btn.textContent = 'Laden...';
+  status.textContent = 'Sync met GitHub...';
+  try {
+    const res = await fetch('https://raw.githubusercontent.com/danieldk04/zenbtw/main/content-memory.json?t=' + Date.now());
+    if(!res.ok){ status.textContent = 'Nog geen content-memory.json — run de GitHub Action eerst.'; btn.disabled=false; btn.textContent='↻ Sync learnings'; return; }
+    _contentMemory = await res.json();
+    renderContentDashboard();
+    status.textContent = `✓ Bijgewerkt op ${new Date(_contentMemory.lastUpdated||Date.now()).toLocaleDateString('nl')}`;
+  } catch(e){
+    status.textContent = 'Sync mislukt: ' + e.message;
+  }
+  btn.disabled=false; btn.textContent='↻ Sync learnings';
+}
+
+function renderContentDashboard(){
+  if(!_contentMemory) return;
+  const m = _contentMemory;
+  const posts = m.posts || [];
+
+  // KPI's
+  const igPosts = posts.filter(p=>p.platform==='instagram');
+  const ttPosts = posts.filter(p=>p.platform==='tiktok');
+  const topPost = [...posts].sort((a,b)=>(b.metrics?.reach||b.metrics?.views||0)-(a.metrics?.reach||a.metrics?.views||0))[0];
+  const avgReach = posts.length ? Math.round(posts.reduce((s,p)=>s+(p.metrics?.reach||p.metrics?.views||0),0)/posts.length) : 0;
+  document.getElementById('kpi-content').innerHTML = `
+    <div class="kpi"><div class="kpi-label">Posts geanalyseerd</div><div class="kpi-value">${posts.length}</div><div class="kpi-icon">📊</div></div>
+    <div class="kpi"><div class="kpi-label">Instagram posts</div><div class="kpi-value">${igPosts.length}</div><div class="kpi-icon">📸</div></div>
+    <div class="kpi"><div class="kpi-label">TikTok posts</div><div class="kpi-value">${ttPosts.length}</div><div class="kpi-icon">🎵</div></div>
+    <div class="kpi"><div class="kpi-label">Gemiddeld bereik</div><div class="kpi-value">${avgReach.toLocaleString('nl')}</div><div class="kpi-icon">👁</div></div>`;
+
+  // Waarom 13k
+  const w13k = document.getElementById('content-waarom');
+  if(m.waarom13k){
+    w13k.style.display='';
+    w13k.innerHTML=`<div class="card" style="border-left:4px solid var(--acm)">
+      <div class="card-head"><h3>💡 Waarom scoorde jouw 13k reel?</h3></div>
+      <div style="padding:.8rem 1.2rem;font-size:13px;color:var(--tx);line-height:1.7">${m.waarom13k}</div>
+    </div>`;
+  }
+
+  // Aanbevelingen
+  const recs = m.recommendations || [];
+  document.getElementById('content-rec-date').textContent = m.lastUpdated ? 'Gegenereerd op ' + new Date(m.lastUpdated).toLocaleDateString('nl') : '';
+  document.getElementById('content-recommendations').innerHTML = recs.length ? recs.map((r,i)=>`
+    <div style="border-bottom:1px solid var(--br);padding:1rem 1.2rem;${i===recs.length-1?'border:none':''}">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px">
+        <span style="background:var(--acm);color:#fff;border-radius:50%;width:22px;height:22px;display:inline-flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0">${i+1}</span>
+        <strong style="font-size:13px">${r.titel||'Aanbeveling'}</strong>
+        <span style="font-size:11px;color:var(--tx3);margin-left:auto">${r.postMoment||''}</span>
+      </div>
+      <div style="font-size:12px;background:var(--acl);padding:6px 10px;border-radius:6px;margin-bottom:6px;font-style:italic">"${r.hook||''}"</div>
+      <div style="font-size:12px;color:var(--tx2)">${r.format||''}</div>
+      ${r.rationale?`<div style="font-size:11.5px;color:var(--tx3);margin-top:4px">↳ ${r.rationale}</div>`:''}
+    </div>`).join('') : '<div class="empty" style="padding:1.5rem">Geen aanbevelingen. Run de Content Intelligence Action.</div>';
+
+  // Learnings
+  const learnings = m.learnings || [];
+  document.getElementById('content-learnings').innerHTML = learnings.length ? `<ul style="padding:.8rem 1.2rem 1rem;display:flex;flex-direction:column;gap:6px">
+    ${learnings.map(l=>`<li style="font-size:13px;color:var(--tx);line-height:1.6;padding-left:4px">✓ ${l}</li>`).join('')}
+  </ul>` : '<div class="empty" style="padding:1rem">Nog geen learnings opgebouwd.</div>';
+
+  // Patroon kaarten
+  const renderList = (id, items) => {
+    document.getElementById(id).innerHTML = (items||[]).length
+      ? `<ul style="display:flex;flex-direction:column;gap:5px">${(items||[]).map(i=>`<li style="font-size:12px;color:var(--tx2);line-height:1.5">• ${i}</li>`).join('')}</ul>`
+      : '<div class="empty" style="padding:.5rem">Geen data.</div>';
+  };
+  renderList('content-hooks', m.patterns?.hooks);
+  renderList('content-topics', m.patterns?.topics);
+  renderList('content-format', m.patterns?.format);
+  renderList('content-timing', m.patterns?.timing);
+
+  renderContentPosts();
+}
+
+function renderContentPosts(){
+  if(!_contentMemory) return;
+  const filter = document.getElementById('content-platform-filter')?.value||'all';
+  let posts = (_contentMemory.posts||[]).filter(p=>filter==='all'||p.platform===filter);
+  posts = [...posts].sort((a,b)=>new Date(b.date)-new Date(a.date));
+  const el = document.getElementById('content-posts-table');
+  if(!posts.length){ el.innerHTML='<div class="empty" style="padding:1.5rem">Geen posts.</div>'; return; }
+  const platIcon = {instagram:'📸',tiktok:'🎵'};
+  el.innerHTML = posts.map(p=>{
+    const reach = p.metrics?.reach||p.metrics?.views||0;
+    const eng = ((p.metrics?.likes||0)+(p.metrics?.comments||0)+(p.metrics?.shares||0)+(p.metrics?.saves||0));
+    const engRate = reach>0 ? ((eng/reach)*100).toFixed(1) : '–';
+    const isTop = reach > 5000;
+    return `<div style="border-bottom:1px solid var(--br);padding:.85rem 1.2rem;${isTop?'background:var(--acl)':''}">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:1rem;flex-wrap:wrap">
+        <div style="flex:1;min-width:0">
+          <div style="display:flex;align-items:center;gap:6px;margin-bottom:4px">
+            <span style="font-size:12px">${platIcon[p.platform]||'📄'} ${p.platform}</span>
+            <span style="font-size:11px;color:var(--tx3)">${p.date}</span>
+            <span style="font-size:11px;font-weight:600;color:var(--tx2);text-transform:uppercase">${p.type}</span>
+            ${isTop?'<span style="background:var(--acm);color:#fff;font-size:10px;padding:1px 7px;border-radius:99px;font-weight:700">TOP</span>':''}
+          </div>
+          <div style="font-size:12px;color:var(--tx2);line-height:1.5">${(p.caption||'').slice(0,120)}${(p.caption||'').length>120?'…':''}</div>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(4,auto);gap:6px 16px;text-align:right;flex-shrink:0">
+          <div><div style="font-size:10px;color:var(--tx3)">Bereik</div><div style="font-size:13px;font-weight:700;color:${reach>5000?'var(--acm)':'var(--tx)'}">${reach.toLocaleString('nl')}</div></div>
+          <div><div style="font-size:10px;color:var(--tx3)">Likes</div><div style="font-size:13px;font-weight:600">${(p.metrics?.likes||0).toLocaleString('nl')}</div></div>
+          <div><div style="font-size:10px;color:var(--tx3)">Saves</div><div style="font-size:13px;font-weight:600">${(p.metrics?.saves||0).toLocaleString('nl')}</div></div>
+          <div><div style="font-size:10px;color:var(--tx3)">Eng%</div><div style="font-size:13px;font-weight:600">${engRate}%</div></div>
+          ${p.metrics?.avgWatchTime?`<div style="grid-column:span 4;text-align:right"><span style="font-size:10px;color:var(--tx3)">Gem. kijktijd: </span><span style="font-size:12px;font-weight:600">${(p.metrics.avgWatchTime/1000).toFixed(1)}s</span></div>`:''}
+        </div>
+      </div>
+    </div>`;
+  }).join('');
+}
+
 function clearLeads(){
   if(!confirm('Weet je zeker dat je alle leads wilt verwijderen?')) return;
   saveLeadsData([]); renderLeads(); updateLeadKpis();
