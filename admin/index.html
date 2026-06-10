@@ -574,40 +574,89 @@
           Maak aan op <a href="https://console.apify.com/account/integrations" target="_blank">console.apify.com → Settings → Integrations → API tokens</a>.
         </div>
       </div>
-      <div class="kpi-grid" id="kpi-leads"></div>
-      <div class="card" style="margin-bottom:1.2rem">
-        <div class="card-head">
-          <h3>🔍 Zoekwoorden</h3>
-          <button class="btn" onclick="runLeadScrape()" id="leads-scrape-btn" style="padding:6px 14px;font-size:13px">▶ Scrape starten</button>
-        </div>
-        <div style="padding:1rem 1.2rem;display:flex;flex-wrap:wrap;gap:6px" id="leads-keywords-list"></div>
-        <div style="padding:0 1.2rem 1rem;display:flex;gap:8px;align-items:center">
-          <input type="text" id="leads-kw-input" placeholder="Nieuw zoekwoord..." style="flex:1;padding:7px 10px;border:1px solid var(--br);border-radius:7px;font-size:13px">
-          <button class="btn btn-ghost" onclick="addLeadKeyword()" style="padding:7px 12px;font-size:13px">+ Toevoegen</button>
-        </div>
-        <div id="leads-scrape-status" style="padding:0 1.2rem 1rem;font-size:12px;color:var(--tx3)"></div>
+
+      <!-- Platform tabs -->
+      <div style="display:flex;gap:0;margin-bottom:1.2rem;border-bottom:2px solid var(--br)">
+        <button onclick="switchLeadPlatform('reddit')" id="platform-tab-reddit"
+          style="padding:9px 20px;font-size:13px;font-weight:600;border:none;cursor:pointer;background:transparent;color:var(--acm);border-bottom:2px solid var(--acm);margin-bottom:-2px;transition:all .15s">
+          🔴 Reddit
+        </button>
+        <button onclick="switchLeadPlatform('instagram')" id="platform-tab-instagram"
+          style="padding:9px 20px;font-size:13px;font-weight:600;border:none;cursor:pointer;background:transparent;color:var(--tx3);border-bottom:2px solid transparent;margin-bottom:-2px;transition:all .15s">
+          📸 Instagram
+        </button>
       </div>
-      <div class="card">
-        <div class="card-head">
-          <h3>📋 Lead lijst</h3>
-          <div style="display:flex;gap:6px;align-items:center;flex-wrap:wrap">
-            <select id="leads-filter" onchange="renderLeads()" style="padding:5px 8px;border:1px solid var(--br);border-radius:7px;font-size:12px;background:var(--wh)">
-              <option value="all">Alle statussen</option>
-              <option value="nieuw">Nieuw</option>
-              <option value="benaderd">Benaderd</option>
-              <option value="genegeerd">Genegeerd</option>
-            </select>
-            <select id="leads-age-filter" onchange="renderLeads()" style="padding:5px 8px;border:1px solid var(--br);border-radius:7px;font-size:12px;background:var(--wh)">
-              <option value="365">Afgelopen jaar</option>
-              <option value="90">Afgelopen 3 maanden</option>
-              <option value="30">Afgelopen maand</option>
-              <option value="7">Afgelopen week</option>
-              <option value="0">Alle datums</option>
-            </select>
-            <button class="btn btn-ghost" onclick="clearLeads()" style="padding:5px 10px;font-size:12px;color:var(--red)">Wis alles</button>
+
+      <!-- Reddit sectie -->
+      <div id="leads-section-reddit">
+        <div class="kpi-grid" id="kpi-leads"></div>
+        <div class="card" style="margin-bottom:1.2rem">
+          <div class="card-head">
+            <h3>🔍 Zoekwoorden</h3>
+            <button class="btn" onclick="runLeadScrape()" id="leads-scrape-btn" style="padding:6px 14px;font-size:13px">▶ Scrape starten</button>
           </div>
+          <div style="padding:1rem 1.2rem;display:flex;flex-wrap:wrap;gap:6px" id="leads-keywords-list"></div>
+          <div style="padding:0 1.2rem 1rem;display:flex;gap:8px;align-items:center">
+            <input type="text" id="leads-kw-input" placeholder="Nieuw zoekwoord..." style="flex:1;padding:7px 10px;border:1px solid var(--br);border-radius:7px;font-size:13px">
+            <button class="btn btn-ghost" onclick="addLeadKeyword()" style="padding:7px 12px;font-size:13px">+ Toevoegen</button>
+          </div>
+          <div id="leads-scrape-status" style="padding:0 1.2rem 1rem;font-size:12px;color:var(--tx3)"></div>
         </div>
-        <div id="leads-table" style="overflow-x:auto"></div>
+        <div class="card">
+          <div class="card-head">
+            <h3>📋 Reddit leads</h3>
+            <div style="display:flex;gap:6px;align-items:center;flex-wrap:wrap">
+              <select id="leads-filter" onchange="renderLeads()" style="padding:5px 8px;border:1px solid var(--br);border-radius:7px;font-size:12px;background:var(--wh)">
+                <option value="all">Alle statussen</option>
+                <option value="nieuw">Nieuw</option>
+                <option value="benaderd">Benaderd</option>
+                <option value="genegeerd">Genegeerd</option>
+              </select>
+              <select id="leads-age-filter" onchange="renderLeads()" style="padding:5px 8px;border:1px solid var(--br);border-radius:7px;font-size:12px;background:var(--wh)">
+                <option value="365">Afgelopen jaar</option>
+                <option value="90">Afgelopen 3 maanden</option>
+                <option value="30">Afgelopen maand</option>
+                <option value="7">Afgelopen week</option>
+                <option value="0">Alle datums</option>
+              </select>
+              <button class="btn btn-ghost" onclick="clearLeads()" style="padding:5px 10px;font-size:12px;color:var(--red)">Wis alles</button>
+            </div>
+          </div>
+          <div id="leads-table" style="overflow-x:auto"></div>
+        </div>
+      </div>
+
+      <!-- Instagram sectie -->
+      <div id="leads-section-instagram" style="display:none">
+        <div class="kpi-grid" id="kpi-instagram"></div>
+        <div class="card" style="margin-bottom:1.2rem">
+          <div class="card-head">
+            <h3>📸 Instagram scraper</h3>
+            <div style="display:flex;gap:6px">
+              <button class="btn btn-ghost" onclick="syncInstagramFromGithub()" style="padding:6px 14px;font-size:13px">↻ Sync</button>
+            </div>
+          </div>
+          <div style="padding:.8rem 1.2rem;font-size:12px;color:var(--tx3);line-height:1.7">
+            Scrapet wekelijks automatisch (maandag 08:00) via GitHub Action op hashtags:<br>
+            <code style="font-size:11px">#vintedverkoper #tweedehandskleding #etsyverkoper #etsyshopnederland #vintednederland #resellernederland</code>
+          </div>
+          <div id="instagram-scrape-status" style="padding:0 1.2rem .8rem;font-size:12px;color:var(--tx3)"></div>
+        </div>
+        <div class="card">
+          <div class="card-head">
+            <h3>📋 Instagram leads</h3>
+            <div style="display:flex;gap:6px;align-items:center;flex-wrap:wrap">
+              <select id="instagram-filter" onchange="renderInstagramLeads()" style="padding:5px 8px;border:1px solid var(--br);border-radius:7px;font-size:12px;background:var(--wh)">
+                <option value="all">Alle statussen</option>
+                <option value="nieuw">Nieuw</option>
+                <option value="benaderd">Benaderd</option>
+                <option value="genegeerd">Genegeerd</option>
+              </select>
+              <button class="btn btn-ghost" onclick="clearInstagramLeads()" style="padding:5px 10px;font-size:12px;color:var(--red)">Wis alles</button>
+            </div>
+          </div>
+          <div id="instagram-table" style="overflow-x:auto"></div>
+        </div>
       </div>
     </div>
 
