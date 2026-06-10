@@ -135,16 +135,18 @@ Antwoord UITSLUITEND als JSON array:
 
 Profielen:
 ${batch.map((p, idx) => {
-  const username = p.ownerUsername || p.username || '?';
-  const displayName = p.ownerFullName || p.fullName || '';
-  const bio = p.ownerBio || p.biography || '';
-  const caption = (p.caption || p.text || '').slice(0, 300);
-  const followers = p.ownerFollowersCount || p.followersCount || 0;
-  const posts = p.ownerPostsCount || p.postsCount || 0;
+  const username = p.ownerUsername || p.username || p.owner?.username || '?';
+  const displayName = p.ownerFullName || p.fullName || p.owner?.full_name || '';
+  const bio = p.ownerBio || p.biography || p.owner?.biography || '';
+  const caption = (p.caption || p.text || p.accessibility_caption || '').slice(0, 400);
+  const followers = p.ownerFollowersCount || p.followersCount || p.owner?.edge_followed_by?.count || '?';
+  const posts = p.ownerPostsCount || p.postsCount || p.owner?.edge_owner_to_timeline_media?.count || '?';
+  const hashtags = (p.hashtags || []).slice(0, 8).join(' ');
   return `[${idx}] @${username} (${displayName})
-Bio: ${bio}
+Bio: ${bio || '(geen bio beschikbaar)'}
 Followers: ${followers} | Posts: ${posts}
-Recente post: ${caption}`;
+Caption: ${caption}
+Hashtags: ${hashtags}`;
 }).join('\n\n---\n\n')}`;
 
     try {
