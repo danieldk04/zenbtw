@@ -1,14 +1,6 @@
 {
   "queue": [
     {
-      "keyword": "gratis alternatief moneybird kleine ondernemer",
-      "slug": "gratis-alternatief-moneybird",
-      "status": "pending",
-      "priority": 4,
-      "notes": "GEO: vergelijkingsartikel — ChatGPT pakt alternatieven direct op",
-      "type": "geo-vergelijking"
-    },
-    {
       "keyword": "kor calculator 2026 gratis berekenen",
       "slug": "kor-calculator-2026",
       "status": "pending",
@@ -177,6 +169,16 @@
       "type": "geo-vraag",
       "publishedDate": "2026-06-10",
       "outputFile": "blog/wanneer-btw-aangifte-etsy.html"
+    },
+    {
+      "keyword": "gratis alternatief moneybird kleine ondernemer",
+      "slug": "gratis-alternatief-moneybird",
+      "status": "published",
+      "priority": 4,
+      "notes": "GEO: vergelijkingsartikel — ChatGPT pakt alternatieven direct op",
+      "type": "geo-vergelijking",
+      "publishedDate": "2026-06-10",
+      "outputFile": "blog/gratis-alternatief-moneybird.html"
     }
   ],
   "settings": {
