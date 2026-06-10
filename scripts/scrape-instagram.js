@@ -100,38 +100,33 @@ async function scoreWithClaude(posts) {
   for (let i = 0; i < posts.length; i += 6) {
     const batch = posts.slice(i, i + 6);
 
-    const prompt = `Je bent een filter én outreach-schrijver voor ZenBTW — een gratis tool voor Nederlandse marketplace-verkopers (Vinted, Etsy, Shopify) die hun KOR-drempel en BTW-aangifte bijhouden.
+    const prompt = `Je schrijft persoonlijke Instagram DM's namens Daniel — eigenaar van vintage kledingwinkel Revaleur (700+ reviews op Vinted, Etsy en Shopify) en oprichter van ZenBTW.
 
-ZenBTW is gebouwd door Daniel. Hij runt zelf vintage kledingwinkel Revaleur met 700+ reviews op Vinted, Etsy en Shopify. Hij weet dus exact hoe het is om als kleine verkoper met belastingzaken te worstelen.
+Daniel stuurt deze DM's vanuit @revaleur naar mensen die hij NIET kent. Hij benadert ze puur omdat hij zelf heeft geworsteld met KOR/BTW en denkt dat ze er wat aan hebben.
 
-STRIKTE VOORWAARDEN voor een goede lead (score 8-10):
-- Verkoopt actief fysieke producten op Vinted, Etsy, Shopify, Depop, Marktplaats of eigen webshop
-- Is een Nederlandse kleine verkoper (niet een groot merk)
-- Heeft omzet die de KOR-drempel (€20k/jaar) zou kunnen raken
-- Is GEEN puur influencer/blogger zonder eigen producten
-- Is GEEN service-bedrijf (fotograaf, coach, etc.) — alleen productverkopers
+FILTER (score):
+8-10: Verkoopt actief fysieke producten via Vinted/Etsy/Shopify/Depop/Marktplaats, Nederlandse kleine verkoper, omzet kan KOR-drempel (€20k/jaar) raken
+5-7: Mogelijk relevant maar onduidelijk
+1-4: Niet relevant
 
-Score 5-7: verkoopt mogelijk producten maar onduidelijk of NL of klein genoeg
-Score 1-4: niet relevant (influencer zonder shop, groot merk, buitenlands, service)
+Voor score ≥7: schrijf 3 varianten van een persoonlijke intro-DM.
 
-Voor score ≥7: schrijf een persoonlijk Instagram DM namens Daniel.
+STRUCTUUR VAN ELKE DM (in deze volgorde):
+1. Naam (voornaam of @username) — geen "Hoi"
+2. Één oprecht compliment over iets specifieks: hun product, shopnaam, wat ze maken
+3. Korte intro: "Ik ga er niet omheen draaien — ik heb zelf 700+ reviews op Vinted/Etsy/Shopify via mijn vintage shop Revaleur en heb hier zelf lang mee geworsteld."
+4. Afhankelijk van variant (zie onder)
+5. Altijd afsluiten met: "Groetjes, Daniel"
 
-DM-regels:
-- Begin met hun voornaam of @username als naam onbekend is
-- Noem iets SPECIFIEKS uit hun bio of post (shop naam, product type, wat ze verkopen)
-- Schrijf vanuit Daniels eigen ervaring: hij verkoopt ook vintage kleding via Revaleur, 700+ reviews op Vinted/Etsy/Shopify
-- Maak het probleem concreet en herkenbaar: veel verkopers ontdekken de KOR-drempel te laat, Belastingdienst kijkt naar omzet niet winst, platforms als Etsy dragen zelf geen BTW af aan de NL fiscus
-- Kort: max 4 zinnen
-- Informeel, geen emoji, geen "Hoi!", geen buzzwords
-- Klinkt als een berichtje van een echte collega-verkoper, niet een pitch
+STIJL: Informeel, menselijk, geen buzzwords, geen emoji, max 5 zinnen. Klinkt als een vriend die toevallig expert is.
 
-3 varianten per lead:
-- helper: deel één concreet nuttig feit over hun situatie — geen ZenBTW
-- gesprek: stel één gerichte vraag die hun situatie uitdiept (bijv. hoeveel platforms, hoe ze nu bijhouden)
-- pitch: help eerst, dan in de laatste zin: "...ik heb zenbtw.nl gebouwd hiervoor"
+3 VARIANTEN:
+- helper: na intro → één concreet nuttig feit over hun specifieke situatie (geen ZenBTW) → "Check gerust ook mijn profiel @revaleur of zenbtw.nl als je meer wil weten, maar geen druk. Groetjes, Daniel"
+- gesprek: na intro → één gerichte vraag over hun situatie (bijv. hoe ze omzet bijhouden, hoeveel platforms) → "Groetjes, Daniel"
+- pitch: na intro → probleem kort uitleggen → "Daarvoor heb ik zenbtw.nl gebouwd, puur om het simpel te houden. Als het niks voor je is ook geen hard feelings. Groetjes, Daniel"
 
 Antwoord UITSLUITEND als JSON array:
-[{"index":0,"score":8,"reden":"verkoopt vintage kleding op Etsy NL, ~500 followers, actieve shop","username":"shopnaam","displayName":"Lisa","berichten":{"helper":"...","gesprek":"...","pitch":"..."}}]
+[{"index":0,"score":8,"reden":"verkoopt vintage kleding op Etsy NL","username":"shopnaam","displayName":"Lisa","berichten":{"helper":"...","gesprek":"...","pitch":"..."}}]
 
 Profielen:
 ${batch.map((p, idx) => {
