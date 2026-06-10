@@ -1,0 +1,31 @@
+name: Scrape Instagram Leads
+
+on:
+  schedule:
+    - cron: '0 8 * * 1'  # Elke maandag 08:00 UTC
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  scrape:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - run: npm install node-fetch@3
+      - name: Scrape Instagram leads
+        env:
+          APIFY_TOKEN: ${{ secrets.APIFY_TOKEN }}
+          ANTHROPIC_API_KEY: ${{ secrets.ZENBTW_BLOGS }}
+        run: node scripts/scrape-instagram.js
+      - name: Commit
+        run: |
+          git config user.name "ZENbtw Bot"
+          git config user.email "bot@zenbtw.nl"
+          git add instagram-leads.json
+          git diff --staged --quiet || git commit -m "auto: instagram leads bijgewerkt [skip ci]"
+          git push
