@@ -299,6 +299,11 @@
         <div class="nav-label">Bezoekers</div>
         <a class="nav-item" onclick="go('traffic')" id="nav-traffic"><span class="nav-icon">📊</span> Verkeer</a>
         <a class="nav-item" onclick="go('contacts')" id="nav-contacts"><span class="nav-icon">📧</span> Contacten</a>
+        <a class="nav-item" onclick="go('leads')" id="nav-leads"><span class="nav-icon">🎯</span> Leads</a>
+      </div>
+      <div class="nav-group">
+        <div class="nav-label">SEO</div>
+        <a class="nav-item" onclick="go('seo')" id="nav-seo"><span class="nav-icon">🔍</span> Keyword research</a>
       </div>
       <div class="nav-group">
         <div class="nav-label">SEO</div>
@@ -557,6 +562,55 @@
       </div>
     </div>
 
+    <!-- ── LEADS ── -->
+    <div class="page" id="page-leads">
+      <div class="card" style="margin-bottom:1.2rem">
+        <div class="card-head"><h3>🔑 Apify API token</h3></div>
+        <div style="display:flex;gap:8px;align-items:center;padding:4px 0">
+          <input type="password" id="apify-key-input" placeholder="apify_api_..." style="flex:1;padding:8px 12px;border:1px solid var(--br);border-radius:8px;font-size:13px;font-family:monospace">
+          <button class="btn" onclick="saveApifyKey()" style="padding:8px 16px;font-size:13px">Opslaan</button>
+        </div>
+        <div style="font-size:11.5px;color:var(--tx3);margin-top:6px">
+          Maak aan op <a href="https://console.apify.com/account/integrations" target="_blank">console.apify.com → Settings → Integrations → API tokens</a>.
+        </div>
+      </div>
+      <div class="kpi-grid" id="kpi-leads"></div>
+      <div class="card" style="margin-bottom:1.2rem">
+        <div class="card-head">
+          <h3>🔍 Zoekwoorden</h3>
+          <button class="btn" onclick="runLeadScrape()" id="leads-scrape-btn" style="padding:6px 14px;font-size:13px">▶ Scrape starten</button>
+        </div>
+        <div style="padding:1rem 1.2rem;display:flex;flex-wrap:wrap;gap:6px" id="leads-keywords-list"></div>
+        <div style="padding:0 1.2rem 1rem;display:flex;gap:8px;align-items:center">
+          <input type="text" id="leads-kw-input" placeholder="Nieuw zoekwoord..." style="flex:1;padding:7px 10px;border:1px solid var(--br);border-radius:7px;font-size:13px">
+          <button class="btn btn-ghost" onclick="addLeadKeyword()" style="padding:7px 12px;font-size:13px">+ Toevoegen</button>
+        </div>
+        <div id="leads-scrape-status" style="padding:0 1.2rem 1rem;font-size:12px;color:var(--tx3)"></div>
+      </div>
+      <div class="card">
+        <div class="card-head">
+          <h3>📋 Lead lijst</h3>
+          <div style="display:flex;gap:6px;align-items:center;flex-wrap:wrap">
+            <select id="leads-filter" onchange="renderLeads()" style="padding:5px 8px;border:1px solid var(--br);border-radius:7px;font-size:12px;background:var(--wh)">
+              <option value="all">Alle statussen</option>
+              <option value="nieuw">Nieuw</option>
+              <option value="benaderd">Benaderd</option>
+              <option value="genegeerd">Genegeerd</option>
+            </select>
+            <select id="leads-age-filter" onchange="renderLeads()" style="padding:5px 8px;border:1px solid var(--br);border-radius:7px;font-size:12px;background:var(--wh)">
+              <option value="365">Afgelopen jaar</option>
+              <option value="90">Afgelopen 3 maanden</option>
+              <option value="30">Afgelopen maand</option>
+              <option value="7">Afgelopen week</option>
+              <option value="0">Alle datums</option>
+            </select>
+            <button class="btn btn-ghost" onclick="clearLeads()" style="padding:5px 10px;font-size:12px;color:var(--red)">Wis alles</button>
+          </div>
+        </div>
+        <div id="leads-table" style="overflow-x:auto"></div>
+      </div>
+    </div>
+
     <!-- ── AGENT ── -->
     <div class="page" id="page-agent">
       <div class="kpi-grid" id="kpi-agent"></div>
@@ -810,7 +864,8 @@ if(sessionStorage.getItem('za')==='1'){
 const PAGE_TITLES = {
   home:'Overzicht', blogs:'Blogs', queue:'Keywords queue',
   style:'Schrijfstijl', traffic:'Bezoekers & verkeer', contacts:'Contacten & e-mails',
-  seo:'Keyword research', agent:'Content agent', fiscal:'Fiscale logica', actions:'GitHub Actions'
+  seo:'Keyword research', leads:'Leads & outreach',
+  agent:'Content agent', fiscal:'Fiscale logica', actions:'GitHub Actions'
 };
 
 function go(name){
@@ -823,6 +878,7 @@ function go(name){
   document.getElementById('mob-topbar-title').textContent = title;
   if(name==='traffic') loadUmami();
   if(name==='contacts') loadContacts();
+  if(name==='leads') initLeads();
   closeSidebar();
 }
 
@@ -1432,6 +1488,254 @@ function dlCsv(name, content){
   const url = URL.createObjectURL(blob);
   const a = document.createElement('a'); a.href=url; a.download=name; a.click();
   URL.revokeObjectURL(url);
+}
+
+// ── LEADS ─────────────────────────────────────────────────────────────────────
+const DEFAULT_KEYWORDS = [
+  'KOR belasting','BTW Vinted','OSS drempel','BTW drempel overschreden',
+  'hoeveel mag ik verdienen Vinted','belasting marketplace','Etsy BTW Nederland',
+  'KOR regeling ondernemer','BTW vrijstelling kleine ondernemer'
+];
+
+function saveApifyKey(){
+  const v = document.getElementById('apify-key-input').value.trim();
+  if(!v) return;
+  localStorage.setItem('apify_token', v);
+  document.getElementById('apify-key-input').value = '';
+  document.getElementById('apify-key-input').placeholder = '✓ Opgeslagen';
+}
+
+function getLeads(){ try{ return JSON.parse(localStorage.getItem('zenbtw_leads')||'[]'); }catch{ return []; } }
+function saveLeadsData(arr){ localStorage.setItem('zenbtw_leads', JSON.stringify(arr)); }
+function getLeadKeywords(){ return JSON.parse(localStorage.getItem('zenbtw_lead_kws') || JSON.stringify(DEFAULT_KEYWORDS)); }
+function saveLeadKeywords(arr){ localStorage.setItem('zenbtw_lead_kws', JSON.stringify(arr)); }
+
+async function initLeads(){
+  const key = localStorage.getItem('apify_token');
+  if(key) document.getElementById('apify-key-input').placeholder = '✓ Token opgeslagen';
+  renderKeywordTags();
+  await syncLeadsFromGithub();
+  renderLeads();
+  updateLeadKpis();
+}
+
+async function syncLeadsFromGithub(){
+  try {
+    const GH = localStorage.getItem('gh_token') || '';
+    const headers = GH ? { Authorization: `token ${GH}` } : {};
+    const res = await fetch(
+      'https://raw.githubusercontent.com/danieldk04/zenbtw/main/leads.json?t=' + Date.now(),
+      { headers }
+    );
+    if(!res.ok) return;
+    const remote = await res.json();
+    if(!Array.isArray(remote) || remote.length === 0) return;
+    // Merge: remote als basis, lokale status-wijzigingen bewaren
+    const local = getLeads();
+    const localMap = Object.fromEntries(local.map(l => [l.id||l.url, l]));
+    const merged = remote.map(r => {
+      const key = r.id || r.url;
+      const loc = localMap[key];
+      // Bewaar status en note als die lokaal aangepast zijn
+      if(loc && loc.status !== 'nieuw') return { ...r, status: loc.status, note: loc.note };
+      return r;
+    });
+    // Voeg puur lokale leads toe die niet in remote zitten
+    const remoteKeys = new Set(remote.map(r => r.id||r.url));
+    for(const l of local) if(!remoteKeys.has(l.id||l.url)) merged.push(l);
+    saveLeadsData(merged);
+    console.log(`Leads gesynchroniseerd: ${merged.length} totaal`);
+  } catch(e) {
+    console.warn('Leads sync mislukt (lokale data bewaard):', e.message);
+  }
+}
+
+function renderKeywordTags(){
+  const kws = getLeadKeywords();
+  document.getElementById('leads-keywords-list').innerHTML = kws.map((k,i)=>
+    `<span style="background:var(--acl);color:var(--ac);padding:3px 10px;border-radius:99px;font-size:12px;display:inline-flex;align-items:center;gap:6px">
+      ${k} <span onclick="removeLeadKeyword(${i})" style="cursor:pointer;opacity:.6;font-size:11px">✕</span>
+    </span>`
+  ).join('');
+}
+
+function addLeadKeyword(){
+  const inp = document.getElementById('leads-kw-input');
+  const v = inp.value.trim();
+  if(!v) return;
+  const kws = getLeadKeywords();
+  if(!kws.includes(v)){ kws.push(v); saveLeadKeywords(kws); }
+  inp.value = '';
+  renderKeywordTags();
+}
+
+function removeLeadKeyword(i){
+  const kws = getLeadKeywords();
+  kws.splice(i,1);
+  saveLeadKeywords(kws);
+  renderKeywordTags();
+}
+
+async function runLeadScrape(){
+  const token = localStorage.getItem('apify_token');
+  if(!token){ alert('Voer eerst je Apify API token in.'); return; }
+  const btn = document.getElementById('leads-scrape-btn');
+  const status = document.getElementById('leads-scrape-status');
+  btn.disabled = true; btn.textContent = '⏳ Bezig...';
+  status.textContent = 'Scrape gestart — dit duurt ~30-60 seconden...';
+  const kws = getLeadKeywords();
+  try {
+    const startRes = await fetch(
+      `https://api.apify.com/v2/acts/trudax~reddit-scraper-lite/runs?token=${token}`,
+      { method:'POST', headers:{'Content-Type':'application/json'},
+        body: JSON.stringify({
+          searches: kws.slice(0,6),
+          searchPosts: true,
+          searchComments: true,
+          sort: 'new',
+          time: 'month',
+          maxItems: 50,
+          maxPostCount: 50,
+          proxy: { useApifyProxy: true, apifyProxyGroups: ['RESIDENTIAL'] }
+        }) }
+    );
+    if(!startRes.ok) throw new Error(`Apify fout: ${startRes.status}`);
+    const runId = (await startRes.json()).data.id;
+    status.textContent = `Run gestart. Wacht op resultaten...`;
+    let done = false, tries = 0;
+    while(!done && tries < 18){
+      await new Promise(r=>setTimeout(r,5000)); tries++;
+      const s = (await (await fetch(`https://api.apify.com/v2/actor-runs/${runId}?token=${token}`)).json()).data.status;
+      status.textContent = `Status: ${s} (${tries*5}s)...`;
+      if(['SUCCEEDED','FAILED','ABORTED','TIMED-OUT'].includes(s)) done = true;
+    }
+    const items = await (await fetch(`https://api.apify.com/v2/actor-runs/${runId}/dataset/items?token=${token}&limit=100`)).json();
+    const rel = ['kor','btw','belasting','drempel','omzet','aangifte','oss','vinted','etsy','shopify','marketplace','vrijstelling'];
+    const filtered = items.filter(i=>{ const t=((i.title||'')+(i.body||i.text||i.selftext||'')).toLowerCase(); return rel.some(r=>t.includes(r)); });
+    const existing = getLeads();
+    const urls = new Set(existing.map(l=>l.url));
+    const nieuweLeads = filtered.filter(i=>i.url&&!urls.has(i.url)).map(i=>({
+      id: i.id||i.url, url: i.url||`https://reddit.com${i.permalink||''}`,
+      platform:'Reddit', subreddit: i.subreddit||'',
+      username: i.author||i.username||'?',
+      title: i.title||i.body?.slice(0,80)||'',
+      snippet:(i.body||i.selftext||i.text||'').slice(0,200),
+      date: i.created_utc ? new Date(i.created_utc*1000).toISOString().split('T')[0] : new Date().toISOString().split('T')[0],
+      status:'nieuw', note:''
+    }));
+    saveLeadsData([...nieuweLeads,...existing]);
+    renderLeads(); updateLeadKpis();
+    status.textContent = `✓ ${nieuweLeads.length} nieuwe leads (${filtered.length} relevant van ${items.length} totaal).`;
+  } catch(e){ status.textContent = `Fout: ${e.message}`; }
+  btn.disabled = false; btn.textContent = '▶ Scrape starten';
+}
+
+function updateLeadKpis(){
+  const leads = getLeads();
+  const nieuw = leads.filter(l=>l.status==='nieuw').length;
+  const benaderd = leads.filter(l=>l.status==='benaderd').length;
+  document.getElementById('kpi-leads').innerHTML = `
+    <div class="kpi"><div class="kpi-label">Totaal leads</div><div class="kpi-value">${leads.length}</div><div class="kpi-icon">🎯</div></div>
+    <div class="kpi"><div class="kpi-label">Nieuw</div><div class="kpi-value" style="color:var(--blue)">${nieuw}</div><div class="kpi-icon">✨</div></div>
+    <div class="kpi"><div class="kpi-label">Benaderd</div><div class="kpi-value" style="color:var(--green)">${benaderd}</div><div class="kpi-icon">✉️</div></div>
+    <div class="kpi"><div class="kpi-label">Conversie</div><div class="kpi-value">${leads.length?Math.round(benaderd/leads.length*100):0}%</div><div class="kpi-icon">📈</div></div>`;
+}
+
+function renderLeads(){
+  const filter = document.getElementById('leads-filter')?.value||'all';
+  const ageDays = parseInt(document.getElementById('leads-age-filter')?.value||'365');
+  let leads = getLeads();
+  if(filter!=='all') leads = leads.filter(l=>l.status===filter);
+  if(ageDays > 0){
+    const cutoff = new Date();
+    cutoff.setDate(cutoff.getDate() - ageDays);
+    leads = leads.filter(l => {
+      if(!l.date) return false; // datum onbekend: verbergen bij actieve filter
+      return new Date(l.date) >= cutoff;
+    });
+  }
+  const el = document.getElementById('leads-table');
+  if(!leads.length){ el.innerHTML=`<div class="empty" style="padding:2rem">Geen leads. Klik op "Scrape starten" om Reddit te scannen.</div>`; return; }
+  const sColor={nieuw:'var(--blue)',benaderd:'var(--green)',genegeerd:'var(--tx3)'};
+  const sBg={nieuw:'var(--bluel)',benaderd:'var(--greenl)',genegeerd:'var(--bg)'};
+  el.innerHTML=leads.map(l=>{
+    const all=getLeads(); const ri=all.findIndex(x=>x.id===l.id||x.url===l.url);
+    const b = l.berichten || {};
+    const hasB = b.helper || b.gesprek || b.pitch;
+    const tabLabels = [['helper','💬 Helper'],['gesprek','🗣 Gesprek'],['pitch','🎯 Pitch']];
+    return `<div style="border-bottom:1px solid var(--br);padding:1rem 1.2rem">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:1rem;flex-wrap:wrap">
+        <div style="flex:1;min-width:0">
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;flex-wrap:wrap">
+            <span style="font-size:11px;background:var(--bg);padding:2px 7px;border-radius:5px;color:var(--tx2)">${l.platform}${l.subreddit?' · r/'+l.subreddit:''}</span>
+            <a href="${l.url}" target="_blank" style="color:var(--ac);font-weight:700;font-size:13px;text-decoration:none">u/${l.username}</a>
+            <span style="font-size:11px;color:var(--tx3)">${l.date||'datum onbekend'}</span>
+          </div>
+          <div style="font-weight:600;font-size:13px;margin-bottom:4px">${l.title||'(geen titel)'}</div>
+          <div style="font-size:12px;color:var(--tx2);line-height:1.5">${l.snippet}</div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:6px;align-items:flex-end;flex-shrink:0">
+          <select onchange="updateLeadStatus(${ri},this.value)" style="padding:4px 8px;border-radius:6px;border:1px solid var(--br);font-size:12px;background:${sBg[l.status]||'var(--bg)'};color:${sColor[l.status]||'var(--tx)'}">
+            <option value="nieuw" ${l.status==='nieuw'?'selected':''}>Nieuw</option>
+            <option value="benaderd" ${l.status==='benaderd'?'selected':''}>Benaderd</option>
+            <option value="genegeerd" ${l.status==='genegeerd'?'selected':''}>Negeren</option>
+          </select>
+          <a href="${l.url}" target="_blank" class="btn btn-ghost" style="padding:4px 10px;font-size:11px;text-decoration:none">→ Open post</a>
+        </div>
+      </div>
+      ${hasB ? `
+      <div style="margin-top:10px;background:var(--acl);border-left:3px solid var(--acm);border-radius:0 6px 6px 0;overflow:hidden">
+        <div style="display:flex;border-bottom:1px solid rgba(0,0,0,.06)">
+          ${tabLabels.map(([key,label])=>`
+          <button onclick="switchTab(${ri},'${key}')" id="tab-${ri}-${key}"
+            style="padding:7px 14px;font-size:11px;font-weight:600;border:none;cursor:pointer;background:${key==='helper'?'var(--acm)':'transparent'};color:${key==='helper'?'#fff':'var(--ac)'};transition:all .15s">
+            ${label}
+          </button>`).join('')}
+        </div>
+        ${tabLabels.map(([key])=>`
+        <div id="tabcontent-${ri}-${key}" style="display:${key==='helper'?'block':'none'};padding:10px 12px">
+          <div style="font-size:13px;color:var(--tx);line-height:1.6;white-space:pre-wrap;margin-bottom:8px">${(b[key]||'').replace(/</g,'&lt;')}</div>
+          <button onclick="copyTab(${ri},'${key}')" id="copybtn-${ri}-${key}"
+            style="padding:3px 10px;font-size:11px;background:var(--ac);color:#fff;border:none;border-radius:5px;cursor:pointer">
+            Kopieer
+          </button>
+        </div>`).join('')}
+      </div>` : ''}
+    </div>`;
+  }).join('');
+}
+
+function updateLeadStatus(idx,status){
+  const leads=getLeads(); if(leads[idx]) leads[idx].status=status; saveLeadsData(leads); updateLeadKpis();
+}
+
+function switchTab(ri, key){
+  ['helper','gesprek','pitch'].forEach(k=>{
+    const tab = document.getElementById(`tab-${ri}-${k}`);
+    const content = document.getElementById(`tabcontent-${ri}-${k}`);
+    if(!tab||!content) return;
+    const active = k===key;
+    tab.style.background = active ? 'var(--acm)' : 'transparent';
+    tab.style.color = active ? '#fff' : 'var(--ac)';
+    content.style.display = active ? 'block' : 'none';
+  });
+}
+
+function copyTab(ri, key){
+  const leads = getLeads();
+  const tekst = leads[ri]?.berichten?.[key] || '';
+  navigator.clipboard.writeText(tekst).then(()=>{
+    const btn = document.getElementById(`copybtn-${ri}-${key}`);
+    if(!btn) return;
+    btn.textContent = '✓ Gekopieerd';
+    btn.style.background = 'var(--green)';
+    setTimeout(()=>{ btn.textContent='Kopieer'; btn.style.background='var(--ac)'; }, 2000);
+  });
+}
+
+function clearLeads(){
+  if(!confirm('Weet je zeker dat je alle leads wilt verwijderen?')) return;
+  saveLeadsData([]); renderLeads(); updateLeadKpis();
 }
 </script>
 </body>

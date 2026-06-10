@@ -1,22 +1,6 @@
 {
   "queue": [
     {
-      "keyword": "wanneer btw aangifte verplicht etsy verkoper nederland",
-      "slug": "wanneer-btw-aangifte-etsy",
-      "status": "pending",
-      "priority": 3,
-      "notes": "GEO: directe vraag, AI-vriendelijk format",
-      "type": "geo-vraag"
-    },
-    {
-      "keyword": "gratis alternatief moneybird kleine ondernemer",
-      "slug": "gratis-alternatief-moneybird",
-      "status": "pending",
-      "priority": 4,
-      "notes": "GEO: vergelijkingsartikel — ChatGPT pakt alternatieven direct op",
-      "type": "geo-vergelijking"
-    },
-    {
       "keyword": "kor calculator 2026 gratis berekenen",
       "slug": "kor-calculator-2026",
       "status": "pending",
@@ -175,6 +159,26 @@
       "type": "geo-vraag",
       "publishedDate": "2026-06-09",
       "outputFile": "blog/hoeveel-btw-vinted-verkoper.html"
+    },
+    {
+      "keyword": "wanneer btw aangifte verplicht etsy verkoper nederland",
+      "slug": "wanneer-btw-aangifte-etsy",
+      "status": "published",
+      "priority": 3,
+      "notes": "GEO: directe vraag, AI-vriendelijk format",
+      "type": "geo-vraag",
+      "publishedDate": "2026-06-10",
+      "outputFile": "blog/wanneer-btw-aangifte-etsy.html"
+    },
+    {
+      "keyword": "gratis alternatief moneybird kleine ondernemer",
+      "slug": "gratis-alternatief-moneybird",
+      "status": "published",
+      "priority": 4,
+      "notes": "GEO: vergelijkingsartikel — ChatGPT pakt alternatieven direct op",
+      "type": "geo-vergelijking",
+      "publishedDate": "2026-06-10",
+      "outputFile": "blog/gratis-alternatief-moneybird.html"
     }
   ],
   "settings": {
