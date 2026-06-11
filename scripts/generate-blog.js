@@ -161,6 +161,7 @@ figure{max-width:100%;overflow:hidden}
   <a href="/app" class="nav-cta">Check mijn status →</a>
 </nav>
 
+<div class="page-layout">
 <div class="article-wrap">
   <div class="breadcrumb"><a href="/">Home</a> › <a href="/blog">Blog</a> › [BREADCRUMB LABEL]</div>
   <span class="article-tag">[ARTIKEL TAG zoals "Shopify" of "BTW Tips"]</span>
@@ -176,6 +177,29 @@ figure{max-width:100%;overflow:hidden}
   </div>
 
   [2-3 interne links naar gerelateerde blog artikelen, gebruik: <p><a href="/blog/[slug]" style="color:var(--acm);font-weight:600">→ Lees ook: [TITEL]</a></p>]
+</div>
+
+<aside class="author-sidebar">
+<div class="author-box">
+  <img src="/author-daniel.jpg" alt="Daniel - oprichter ZenBTW" class="author-img">
+  <div class="author-info">
+    <span class="author-label">Over de auteur</span>
+    <strong class="author-name">Daniel</strong>
+    <p class="author-bio">Oprichter van ZenBTW en <a href="https://revaleur.com" target="_blank" rel="noopener">Revaleur</a> (680+ reviews, 4.9★). Met 4 jaar ervaring in finance helpt Daniel marketplace-verkopers grip te krijgen op BTW, KOR en OSS, zonder dat je er een boekhouder bij nodig hebt.</p>
+  </div>
+</div>
+</aside>
+</div>
+
+<div class="author-box-mobile">
+<div class="author-box">
+  <img src="/author-daniel.jpg" alt="Daniel - oprichter ZenBTW" class="author-img">
+  <div class="author-info">
+    <span class="author-label">Over de auteur</span>
+    <strong class="author-name">Daniel</strong>
+    <p class="author-bio">Oprichter van ZenBTW en <a href="https://revaleur.com" target="_blank" rel="noopener">Revaleur</a> (680+ reviews, 4.9★). Met 4 jaar ervaring in finance helpt Daniel marketplace-verkopers grip te krijgen op BTW, KOR en OSS, zonder dat je er een boekhouder bij nodig hebt.</p>
+  </div>
+</div>
 </div>
 
 <footer>
