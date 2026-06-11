@@ -1,6 +1,14 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
-  <!-- Rounded green background -->
-  <rect width="100" height="100" rx="22" fill="#1a4731"/>
-  <!-- Bold white "Z" -->
-  <text x="50" y="73" font-family="Georgia, serif" font-size="68" font-weight="700" text-anchor="middle" fill="white">Z</text>
+  <!-- Groen gevuld schild -->
+  <path d="M50 5 L87 18 L87 54 Q87 78 50 95 Q13 78 13 54 L13 18 Z" fill="#1a4731"/>
+
+  <!-- Witte staafjes oplopend links naar rechts -->
+  <rect x="22" y="55" width="12" height="22" fill="white" rx="2"/>
+  <rect x="37" y="43" width="12" height="34" fill="white" rx="2"/>
+  <rect x="52" y="30" width="12" height="47" fill="white" rx="2"/>
+
+  <!-- Witte swoosh-pijl van linksonder naar rechtsboven -->
+  <path d="M9 76 Q42 50 72 20" stroke="white" stroke-width="8" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  <!-- Pijlpunt rechtsboven -->
+  <polygon points="66,12 82,24 67,27" fill="white"/>
 </svg>
