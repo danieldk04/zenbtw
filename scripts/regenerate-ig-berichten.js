@@ -48,7 +48,16 @@ Geef ALLEEN JSON terug:
   const data = await r.json();
   const text = data.content?.[0]?.text?.trim() || '{}';
   const match = text.match(/\{[\s\S]*\}/);
-  try { return match ? JSON.parse(match[0]) : {}; }
+  try {
+    const parsed = match ? JSON.parse(match[0]) : {};
+    const flat = {};
+    for (const [k, v] of Object.entries(parsed)) {
+      if (typeof v === 'string') flat[k] = v;
+      else if (v && typeof v === 'object') flat[k] = Object.values(v).find(x => typeof x === 'string') || '';
+      else flat[k] = '';
+    }
+    return flat;
+  }
   catch { return {}; }
 }
 
