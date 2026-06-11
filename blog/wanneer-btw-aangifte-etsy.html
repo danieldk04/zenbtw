@@ -101,6 +101,22 @@ figure{max-width:100%;overflow:hidden}
   td,th{padding:7px 8px!important}
   .article-wrap{padding-left:18px!important;padding-right:18px!important}
 }
+
+.page-layout{display:grid;grid-template-columns:1fr 240px;gap:40px;max-width:1080px;margin:0 auto;padding:0 clamp(20px,4vw,56px)}
+.author-sidebar{padding-top:clamp(40px,6vw,72px)}
+.author-sidebar .author-box{position:sticky;top:88px;flex-direction:column;align-items:center;text-align:center;padding:20px 18px;gap:12px}
+.author-sidebar .author-img{width:80px;height:80px}
+.author-sidebar .author-info{align-items:center}
+.author-sidebar .author-bio{text-align:left;font-size:13px}
+@media(max-width:960px){.page-layout{display:block;padding:0}.article-wrap{padding:clamp(40px,6vw,72px) clamp(20px,5vw,40px) 60px}.author-sidebar{display:none}.author-box-mobile{display:flex!important}}
+.author-box-mobile{display:none;margin:0 clamp(20px,5vw,40px) 48px}
+.author-box{display:flex;align-items:flex-start;gap:20px;background:var(--wh);border:1.5px solid var(--br);border-radius:14px;padding:24px 28px}
+.author-img{width:72px;height:72px;border-radius:50%;object-fit:cover;flex-shrink:0;box-shadow:0 3px 10px rgba(0,0,0,.12)}
+.author-info{display:flex;flex-direction:column;gap:4px}
+.author-label{font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--tx3)}
+.author-name{font-size:17px;font-weight:700;color:var(--tx);font-family:'Fraunces',serif}
+.author-bio{font-size:14px;color:var(--tx2);line-height:1.65;margin:4px 0 0}
+.author-bio a{color:var(--acm);text-decoration:none;font-weight:600}
 </style>
 </head>
 <body>
@@ -113,6 +129,7 @@ figure{max-width:100%;overflow:hidden}
   <a href="/app" class="nav-cta">Check mijn status →</a>
 </nav>
 
+<div class="page-layout">
 <div class="article-wrap">
   <div class="breadcrumb"><a href="/">Home</a> › <a href="/blog">Blog</a> › <a href="/blog#platforms">Marketplaces</a> › BTW aangifte Etsy verkoper</div>
   <span class="article-tag">Etsy</span>
@@ -325,8 +342,29 @@ figure{max-width:100%;overflow:hidden}
     <p>ZenBTW berekent automatisch je totale omzet over al je verkoopkanalen en waarschuwt je op tijd.</p>
     <a href="/app">📊 Open gratis ZenBTW dashboard →</a>
   </div>
+
+<aside class="author-sidebar">
+<div class="author-box">
+  <img src="/author-daniel.jpg" alt="Daniel - oprichter ZenBTW" class="author-img">
+  <div class="author-info">
+    <span class="author-label">Over de auteur</span>
+    <strong class="author-name">Daniel</strong>
+    <p class="author-bio">Oprichter van ZenBTW en <a href="https://revaleur.com" target="_blank" rel="noopener">Revaleur</a> (680+ reviews, 4.9★). Met 4 jaar ervaring in finance helpt Daniel marketplace-verkopers grip te krijgen op BTW, KOR en OSS, zonder dat je er een boekhouder bij nodig hebt.</p>
+  </div>
+</div>
+</aside>
 </div>
 
+<div class="author-box-mobile">
+<div class="author-box">
+  <img src="/author-daniel.jpg" alt="Daniel - oprichter ZenBTW" class="author-img">
+  <div class="author-info">
+    <span class="author-label">Over de auteur</span>
+    <strong class="author-name">Daniel</strong>
+    <p class="author-bio">Oprichter van ZenBTW en <a href="https://revaleur.com" target="_blank" rel="noopener">Revaleur</a> (680+ reviews, 4.9★). Met 4 jaar ervaring in finance helpt Daniel marketplace-verkopers grip te krijgen op BTW, KOR en OSS, zonder dat je er een boekhouder bij nodig hebt.</p>
+  </div>
+</div>
+</div>
 <footer>
   <a href="/">Home</a>
   <a href="/blog">Blog</a>
