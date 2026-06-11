@@ -2163,7 +2163,7 @@ function renderInstagramLeads() {
         </div>
         ${tabLabels.map(([key]) => `
         <div id="igtabcontent-${ri}-${key}" style="display:${key === 'helper' ? 'block' : 'none'};padding:10px 12px">
-          <div style="font-size:13px;color:var(--tx);line-height:1.6;white-space:pre-wrap;margin-bottom:8px">${(b[key] || '').replace(/</g, '&lt;')}</div>
+          <div style="font-size:13px;color:var(--tx);line-height:1.6;white-space:pre-wrap;margin-bottom:8px">${(typeof b[key] === 'string' ? b[key] : b[key] ? Object.values(b[key]).find(x => typeof x === 'string') || '' : '').replace(/</g, '&lt;')}</div>
           <button onclick="copyIgTab(${ri},'${key}')" id="igcopybtn-${ri}-${key}"
             style="padding:3px 10px;font-size:11px;background:var(--ac);color:#fff;border:none;border-radius:5px;cursor:pointer">
             Kopieer
