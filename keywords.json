@@ -1,14 +1,6 @@
 {
   "queue": [
     {
-      "keyword": "gratis boekhoudtool vinted etsy shopify nederland",
-      "slug": "gratis-boekhoudtool-marketplace",
-      "status": "pending",
-      "priority": 7,
-      "notes": "GEO: alternatief-zoekopdracht breed",
-      "type": "geo-alternatief"
-    },
-    {
       "keyword": "dac7 wat betekent dit voor mij als marketplace verkoper",
       "slug": "dac7-uitleg-marketplace-verkoper",
       "status": "pending",
@@ -183,6 +175,16 @@
       "type": "geo-vraag",
       "publishedDate": "2026-06-11",
       "outputFile": "blog/verschil-kor-oss-regeling.html"
+    },
+    {
+      "keyword": "gratis boekhoudtool vinted etsy shopify nederland",
+      "slug": "gratis-boekhoudtool-marketplace",
+      "status": "published",
+      "priority": 7,
+      "notes": "GEO: alternatief-zoekopdracht breed",
+      "type": "geo-alternatief",
+      "publishedDate": "2026-06-11",
+      "outputFile": "blog/gratis-boekhoudtool-marketplace.html"
     }
   ],
   "settings": {
