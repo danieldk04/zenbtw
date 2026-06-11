@@ -105,18 +105,113 @@ figure{max-width:100%;overflow:hidden}
   td,th{padding:7px 8px!important}
   .article-wrap{padding-left:18px!important;padding-right:18px!important}
 }
+/* === STANDAARD NAV === */
+:root{--nav-h:72px}
+.nav{position:sticky;top:0;z-index:500;height:var(--nav-h);background:rgba(247,246,243,.95);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-bottom:1.5px solid var(--br,#e5e0d8);box-shadow:0 2px 12px rgba(0,0,0,.05);display:flex;align-items:center;padding:0 clamp(20px,4vw,56px);justify-content:space-between;gap:24px}
+.nav-logo{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--tx,#1a1a18);flex-shrink:0}
+.nav-logo-img{height:52px;width:52px;border-radius:10px;object-fit:contain}
+.nav-wordmark{font-family:'Fraunces',serif;font-size:22px;font-weight:700;letter-spacing:-.5px;line-height:1}
+.nav-wordmark em{color:var(--acm,#2d7a52);font-style:normal}
+.nav-links{display:flex;align-items:center;gap:4px;flex:1;justify-content:center}
+.nav-link{padding:9px 16px;font-size:15px;font-weight:800;color:var(--tx2,#4a4a46);border-radius:10px;transition:all .16s;letter-spacing:-.1px;text-decoration:none}
+.nav-link:hover{color:var(--ac,#1a4731);background:var(--acl,#eef7f2)}
+.nav-dropdown{position:relative}
+.nav-dropdown-btn{padding:9px 16px;font-size:15px;font-weight:800;color:var(--tx2,#4a4a46);background:none;border-radius:10px;border:none;cursor:pointer;font-family:inherit;display:flex;align-items:center;gap:5px;letter-spacing:-.1px;transition:all .16s}
+.nav-dropdown-btn:hover,.nav-dropdown:hover .nav-dropdown-btn{color:var(--ac,#1a4731);background:var(--acl,#eef7f2)}
+.nav-dropdown-arrow{font-size:10px;transition:transform .2s;display:inline-block}
+.nav-dropdown:hover .nav-dropdown-arrow{transform:rotate(180deg)}
+.nav-dropdown-menu{position:absolute;top:calc(100% + 8px);left:50%;transform:translateX(-50%) translateY(-4px);background:#fff;border-radius:14px;box-shadow:0 8px 32px rgba(0,0,0,.12),0 2px 8px rgba(0,0,0,.06);border:1.5px solid var(--br,#e5e0d8);min-width:252px;padding:8px;opacity:0;pointer-events:none;transition:opacity .18s,transform .18s;z-index:200}
+.nav-dropdown:hover .nav-dropdown-menu{opacity:1;pointer-events:all;transform:translateX(-50%) translateY(0)}
+.nav-dd-item{display:flex;align-items:center;gap:12px;padding:10px 14px;border-radius:10px;color:var(--tx2,#4a4a46);transition:all .14s;font-size:14px;font-weight:600;text-decoration:none}
+.nav-dd-item:hover{background:var(--acl,#eef7f2);color:var(--ac,#1a4731)}
+.nav-dd-icon{width:34px;height:34px;background:var(--acl,#eef7f2);border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0}
+.nav-dd-label{font-weight:700;font-size:14px;line-height:1.2}
+.nav-dd-sub{font-size:12px;color:var(--tx3,#7a7a74);font-weight:500;margin-top:1px}
+.nav-dd-sep{height:1px;background:var(--br,#e5e0d8);margin:6px 0}
+.nav-dd-all{display:block;padding:9px 14px;border-radius:10px;color:var(--ac,#1a4731);font-size:13px;font-weight:700;text-align:center;transition:background .14s;text-decoration:none}
+.nav-dd-all:hover{background:var(--acl,#eef7f2)}
+.nav-cta{display:inline-flex;align-items:center;gap:8px;padding:11px 22px;background:var(--ac,#1a4731);color:#fff;border-radius:12px;font-size:14px;font-weight:800;transition:all .2s;flex-shrink:0;box-shadow:0 4px 16px rgba(26,71,49,.3);text-decoration:none}
+.nav-cta:hover{background:var(--acd,#143825);transform:translateY(-1px)}
+.nav-hamburger{display:none;flex-direction:column;justify-content:center;align-items:center;gap:5px;width:42px;height:42px;background:none;border:none;cursor:pointer;border-radius:10px}
+.nav-hamburger .hb{width:20px;height:2px;background:var(--tx2,#4a4a46);border-radius:2px;transition:all .25s cubic-bezier(.16,1,.3,1);transform-origin:center}
+.nav-hamburger.open .hb:nth-child(1){transform:translateY(7px) rotate(45deg)}
+.nav-hamburger.open .hb:nth-child(2){opacity:0;transform:scaleX(0)}
+.nav-hamburger.open .hb:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+.mob-nav-overlay{position:fixed;inset:0;z-index:600;background:rgba(0,0,0,.45);backdrop-filter:blur(2px);display:none;opacity:0;transition:opacity .3s}
+.mob-nav-overlay.on{display:block;opacity:1}
+.mob-nav-drawer{position:fixed;top:0;right:0;bottom:0;width:min(300px,85vw);background:#fff;z-index:700;transform:translateX(100%);transition:transform .3s cubic-bezier(.16,1,.3,1);display:flex;flex-direction:column;overflow-y:auto}
+.mob-nav-drawer.on{transform:translateX(0)}
+.mob-nav-hd{display:flex;align-items:center;justify-content:space-between;padding:16px 18px;border-bottom:1.5px solid var(--br,#e5e0d8)}
+.mob-nav-close{background:none;border:none;cursor:pointer;font-size:18px;color:var(--tx2,#4a4a46);width:36px;height:36px;display:flex;align-items:center;justify-content:center;border-radius:8px}
+.mob-nav-links{display:flex;flex-direction:column;padding:12px 0;flex:1}
+.mob-nav-link{padding:14px 22px;font-size:15px;font-weight:700;color:var(--tx2,#4a4a46);border-left:3px solid transparent;text-decoration:none;transition:all .14s;display:block}
+.mob-nav-link:hover{color:var(--ac,#1a4731);background:var(--acl,#eef7f2);border-left-color:var(--ac,#1a4731)}
+.mob-nav-section{padding:8px 22px 4px;font-size:11px;font-weight:800;color:var(--tx4,#b8b2a8);letter-spacing:.08em;text-transform:uppercase}
+.mob-nav-sublink{padding:10px 22px 10px 34px;font-size:14px;font-weight:600;color:var(--tx2,#4a4a46);text-decoration:none;display:block;border-left:3px solid transparent;transition:all .14s}
+.mob-nav-sublink:hover{color:var(--ac,#1a4731);background:var(--acl,#eef7f2);border-left-color:var(--ac,#1a4731)}
+.mob-nav-cta{display:flex;align-items:center;justify-content:center;margin:0 18px 28px;padding:14px 24px;background:var(--ac,#1a4731);color:#fff;border-radius:10px;font-size:15px;font-weight:800;box-shadow:0 4px 16px rgba(26,71,49,.35);text-decoration:none}
+@media(max-width:768px){.nav-links{display:none!important}.nav-cta{display:none!important}.nav-hamburger{display:flex!important;flex-direction:column}}
 </style>
 </head>
 <body>
-<nav>
+<nav class="nav">
   <a href="/" class="nav-logo">
-    <img src="../logo.webp" alt="ZenBTW Logo" class="nav-logo-img" width="52" height="52">
+    <img src="/logo.webp" alt="ZenBTW" class="nav-logo-img" width="52" height="52">
     <span class="nav-wordmark">Zen<em>BTW</em></span>
   </a>
-  <a href="./" class="nav-back">← Blog</a>
-  <a href="/hulpmiddelen/" class="nav-tools">Hulpmiddelen</a>
-  <a href="/app" class="nav-cta">Check mijn status →</a>
+  <div class="nav-links">
+    <a href="/#functies" class="nav-link">Functies</a>
+    <a href="/#stappen" class="nav-link">Hoe werkt het</a>
+    <a href="/blog/" class="nav-link">Blog</a>
+    <div class="nav-dropdown">
+      <button class="nav-dropdown-btn">Hulpmiddelen <span class="nav-dropdown-arrow">▾</span></button>
+      <div class="nav-dropdown-menu">
+        <a href="/hulpmiddelen/margeregeling-calculator.html" class="nav-dd-item">
+          <div class="nav-dd-icon">🧮</div>
+          <div><div class="nav-dd-label">Margeregeling Calculator</div><div class="nav-dd-sub">BTW berekenen op tweedehands</div></div>
+        </a>
+        <a href="/hulpmiddelen/kor-oss-checker.html" class="nav-dd-item">
+          <div class="nav-dd-icon">📊</div>
+          <div><div class="nav-dd-label">KOR &amp; OSS Checker</div><div class="nav-dd-sub">Check je drempelstatus direct</div></div>
+        </a>
+        <div class="nav-dd-sep"></div>
+        <a href="/hulpmiddelen/" class="nav-dd-all">Alle hulpmiddelen →</a>
+      </div>
+    </div>
+    <a href="/#prijzen" class="nav-link">Prijzen</a>
+    <a href="/#faq" class="nav-link">FAQ</a>
+  </div>
+  <div style="display:flex;align-items:center;gap:10px;flex-shrink:0">
+    <a href="/app" class="nav-cta">Check mijn status →</a>
+    <button class="nav-hamburger" id="navHamburger" onclick="toggleMobNav()" aria-label="Menu openen" aria-expanded="false">
+      <span class="hb"></span><span class="hb"></span><span class="hb"></span>
+    </button>
+  </div>
 </nav>
+<div class="mob-nav-overlay" id="mobNavOverlay" onclick="closeMobNav()"></div>
+<div class="mob-nav-drawer" id="mobNavDrawer">
+  <div class="mob-nav-hd">
+    <a href="/" class="nav-logo" onclick="closeMobNav()">
+      <img src="/logo.webp" alt="ZenBTW" style="height:36px;width:36px;border-radius:8px;">
+    </a>
+    <button class="mob-nav-close" onclick="closeMobNav()" aria-label="Menu sluiten">✕</button>
+  </div>
+  <nav class="mob-nav-links">
+    <a href="/#functies" class="mob-nav-link" onclick="closeMobNav()">Functies</a>
+    <a href="/#stappen" class="mob-nav-link" onclick="closeMobNav()">Hoe werkt het</a>
+    <a href="/blog/" class="mob-nav-link" onclick="closeMobNav()">Blog</a>
+    <div class="mob-nav-section">Hulpmiddelen</div>
+    <a href="/hulpmiddelen/margeregeling-calculator.html" class="mob-nav-sublink" onclick="closeMobNav()">🧮 Margeregeling Calculator</a>
+    <a href="/hulpmiddelen/kor-oss-checker.html" class="mob-nav-sublink" onclick="closeMobNav()">📊 KOR &amp; OSS Checker</a>
+    <a href="/hulpmiddelen/" class="mob-nav-link" onclick="closeMobNav()">Alle hulpmiddelen</a>
+    <a href="/#prijzen" class="mob-nav-link" onclick="closeMobNav()">Prijzen</a>
+    <a href="/#faq" class="mob-nav-link" onclick="closeMobNav()">FAQ</a>
+  </nav>
+  <div style="padding:0 18px 28px">
+    <a href="/app" class="mob-nav-cta">Check mijn status →</a>
+  </div>
+</div>
+
 
 <div class="page-layout">
 <div class="article-wrap">
@@ -361,5 +456,9 @@ figure{max-width:100%;overflow:hidden}
   <a href="/privacy">Privacy</a>
   <br><br>© 2026 ZenBTW &nbsp;·&nbsp; Geen belastingadvies — raadpleeg een adviseur voor jouw specifieke situatie.
 </footer>
+<script>
+function toggleMobNav(){var h=document.getElementById('navHamburger'),o=document.getElementById('mobNavOverlay'),d=document.getElementById('mobNavDrawer'),op=!h.classList.contains('open');h.classList.toggle('open',op);o.classList.toggle('on',op);d.classList.toggle('on',op);document.body.style.overflow=op?'hidden':'';}
+function closeMobNav(){document.getElementById('navHamburger').classList.remove('open');document.getElementById('mobNavOverlay').classList.remove('on');document.getElementById('mobNavDrawer').classList.remove('on');document.body.style.overflow='';}
+</script>
 </body>
 </html>
