@@ -3,39 +3,21 @@
   <rect width="100" height="100" fill="white"/>
 
   <!-- Schild: groen gevuld -->
-  <path d="M50 6
-    C50 6 22 6 16 12
-    L13 14 L13 54
-    Q13 79 50 95
-    Q87 79 87 54
-    L87 14 L84 12
-    C78 6 50 6 50 6Z"
-    fill="#1a4731"/>
+  <path d="M50 6 C50 6 22 6 16 12 L13 14 L13 54 Q13 79 50 95 Q87 79 87 54 L87 14 L84 12 C78 6 50 6 50 6Z" fill="#1a4731"/>
 
-  <!-- Binnenste wit: maakt de schildrand zichtbaar -->
-  <path d="M50 16
-    C50 16 28 16 23 20
-    L21 22 L21 53
-    Q21 72 50 84
-    Q79 72 79 53
-    L79 22 L77 20
-    C72 16 50 16 50 16Z"
-    fill="white"/>
+  <!-- Binnenste wit: schildrand zichtbaar -->
+  <path d="M50 16 C50 16 28 16 23 20 L21 22 L21 53 Q21 72 50 84 Q79 72 79 53 L79 22 L77 20 C72 16 50 16 50 16Z" fill="white"/>
 
   <!-- Drie groene staven (oplopend links → rechts) -->
   <rect x="26" y="52" width="11" height="22" fill="#1a4731" rx="1.5"/>
   <rect x="40" y="41" width="11" height="33" fill="#1a4731" rx="1.5"/>
   <rect x="54" y="30" width="11" height="44" fill="#1a4731" rx="1.5"/>
 
-  <!-- Witte swoosh pijl van linksonder naar rechtsboven -->
-  <path d="M11 76 Q44 52 73 22"
-    stroke="white" stroke-width="9" fill="none"
+  <!-- Witte swoosh pijl: dunne elegante boog van linksonder naar rechtsboven -->
+  <path d="M8 80 C28 74 58 42 80 16"
+    stroke="white" stroke-width="6" fill="none"
     stroke-linecap="round"/>
-  <!-- Pijlpunt -->
-  <polygon points="68,13 84,25 67,28" fill="white"/>
 
-  <!-- Groene outline op de pijl zodat hij zichtbaar is op wit -->
-  <path d="M11 76 Q44 52 73 22"
-    stroke="#1a4731" stroke-width="4" fill="none"
-    stroke-linecap="round" opacity="0.15"/>
+  <!-- Pijlpunt rechtsboven (wijst naar ~2 uur) -->
+  <path d="M80 16 L88 10 L82 20 Z" fill="white"/>
 </svg>
