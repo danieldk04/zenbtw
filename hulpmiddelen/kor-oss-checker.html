@@ -1,0 +1,749 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>KOR & OSS Drempelchecker — Gratis | ZenBTW</title>
+<meta name="description" content="Controleer gratis of je de KOR-drempel van €20.000 nadert en of je OSS-plichtig bent. Voer je kwartaalomzet in en zie direct je status. Voor Etsy, Vinted en Shopify verkopers.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://zenbtw.nl/hulpmiddelen/kor-oss-checker">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<meta property="og:title" content="KOR & OSS Drempelchecker — Check je status in 30 seconden">
+<meta property="og:description" content="Bereken gratis of je de KOR-drempel van €20.000 nadert en of je OSS-plichtig bent.">
+<meta property="og:url" content="https://zenbtw.nl/hulpmiddelen/kor-oss-checker">
+<meta property="og:type" content="website">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "KOR & OSS Drempelchecker",
+  "url": "https://zenbtw.nl/hulpmiddelen/kor-oss-checker",
+  "description": "Gratis checker voor de KOR-drempel (€20.000) en OSS-verplichting (€10.000). Direct resultaat.",
+  "applicationCategory": "FinanceApplication",
+  "operatingSystem": "Any",
+  "isAccessibleForFree": true,
+  "offers": {"@type":"Offer","price":"0","priceCurrency":"EUR"},
+  "provider": {"@type":"Organization","name":"ZenBTW","url":"https://zenbtw.nl"}
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {"@type":"Question","name":"Wat is de KOR-drempel in 2026?","acceptedAnswer":{"@type":"Answer","text":"De KOR-drempel (Kleineondernemersregeling) is €20.000 totale jaaromzet. Zolang je daaronder blijft, hoef je geen BTW te rekenen of aan te geven."}},
+    {"@type":"Question","name":"Telt mijn Etsy of Vinted-omzet mee voor de KOR?","acceptedAnswer":{"@type":"Answer","text":"Alleen de omzet waarbij JIJ de belastingplichtige bent telt mee. Etsy en Vinted dragen voor B2C-verkopen aan EU-klanten buiten NL zelf BTW af via de deemed supplier-regeling. Die omzet telt in de meeste gevallen NIET mee voor jouw KOR-drempel."}},
+    {"@type":"Question","name":"Wanneer ben ik OSS-plichtig?","acceptedAnswer":{"@type":"Answer","text":"Je bent OSS-plichtig zodra je cross-border EU-omzet (aan consumenten buiten NL) meer dan €10.000 per jaar bedraagt. Onder deze grens mag je Nederlandse BTW rekenen op alle EU-verkopen."}},
+    {"@type":"Question","name":"Wat gebeurt er als ik de KOR-drempel overschrijd?","acceptedAnswer":{"@type":"Answer","text":"Zodra je de €20.000-grens overschrijdt, moet je per direct BTW rekenen op de transactie waarmee je de grens overschrijdt en alle volgende transacties. Er is geen terugwerkende kracht: omzet voor de overschrijding blijft vrijgesteld."}}
+  ]
+}
+</script>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f7f6f3;--wh:#ffffff;--s2:#f0ede8;--br:#e8e5de;--brs:#d4cfc5;
+  --ac:#1a4731;--acl:#e8f0ec;--acm:#2d6a4f;--acd:#143d28;
+  --tx:#1a1814;--tx2:#4a4640;--tx3:#8a847a;--tx4:#b8b2a8;
+  --sh:0 1px 4px rgba(0,0,0,.07);--shm:0 6px 20px rgba(0,0,0,.1);
+  --r:16px;--rs:12px;--nav-h:72px;
+  --green:#16a34a;--amber:#d97706;--red:#dc2626;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--bg);color:var(--tx);line-height:1.6}
+a{text-decoration:none;color:inherit}
+
+/* NAV */
+.nav{position:sticky;top:0;z-index:500;height:var(--nav-h);background:rgba(247,246,243,.95);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-bottom:1.5px solid var(--br);box-shadow:0 2px 12px rgba(0,0,0,.05);display:flex;align-items:center;padding:0 clamp(20px,4vw,56px);justify-content:space-between;gap:24px}
+.nav-logo{display:flex;align-items:center;gap:10px}
+.nav-logo-img{max-height:48px;width:auto}
+.nav-wordmark{font-family:'Fraunces',serif;font-size:22px;font-weight:700;letter-spacing:-.5px}
+.nav-wordmark em{color:var(--acm);font-style:normal}
+.nav-links{display:flex;align-items:center;gap:4px;flex:1;justify-content:center}
+.nav-link{padding:9px 16px;font-size:15px;font-weight:800;color:var(--tx2);border-radius:10px;transition:all .16s;letter-spacing:-.1px}
+.nav-link:hover{color:var(--ac);background:var(--acl)}
+.nav-dropdown{position:relative}
+.nav-dropdown-btn{padding:9px 16px;font-size:15px;font-weight:800;color:var(--ac);background:var(--acl);border-radius:10px;border:none;cursor:pointer;font-family:inherit;display:flex;align-items:center;gap:5px;letter-spacing:-.1px;transition:all .16s}
+.nav-dropdown-btn:hover{background:#d4e8dc}
+.nav-dropdown-arrow{font-size:10px;transition:transform .2s;display:inline-block}
+.nav-dropdown:hover .nav-dropdown-arrow{transform:rotate(180deg)}
+.nav-dropdown-menu{position:absolute;top:calc(100% + 8px);left:50%;transform:translateX(-50%) translateY(-4px);background:#fff;border-radius:14px;box-shadow:0 8px 32px rgba(0,0,0,.12),0 2px 8px rgba(0,0,0,.06);border:1.5px solid var(--br);min-width:250px;padding:8px;opacity:0;pointer-events:none;transition:opacity .18s,transform .18s;z-index:200}
+.nav-dropdown:hover .nav-dropdown-menu{opacity:1;pointer-events:all;transform:translateX(-50%) translateY(0)}
+.nav-dd-item{display:flex;align-items:center;gap:12px;padding:10px 14px;border-radius:10px;color:var(--tx2);transition:all .14s;font-size:14px;font-weight:600}
+.nav-dd-item:hover{background:var(--acl);color:var(--ac)}
+.nav-dd-item.current{background:var(--acl);color:var(--ac)}
+.nav-dd-icon{width:34px;height:34px;background:var(--acl);border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0}
+.nav-dd-label{font-weight:700;font-size:14px;line-height:1.2}
+.nav-dd-sub{font-size:12px;color:var(--tx3);font-weight:500;margin-top:1px}
+.nav-dd-sep{height:1px;background:var(--br);margin:6px 0}
+.nav-dd-all{display:block;padding:9px 14px;border-radius:10px;color:var(--ac);font-size:13px;font-weight:700;text-align:center;transition:background .14s}
+.nav-dd-all:hover{background:var(--acl)}
+.nav-cta{display:inline-flex;align-items:center;gap:8px;padding:11px 22px;background:var(--ac);color:#fff;border-radius:var(--rs);font-size:14px;font-weight:800;transition:all .2s;flex-shrink:0;box-shadow:0 4px 16px rgba(26,71,49,.3)}
+.nav-cta:hover{background:var(--acd);transform:translateY(-1px)}
+.nav-hamburger{display:none;flex-direction:column;justify-content:center;align-items:center;gap:5px;width:42px;height:42px;background:none;border:none;cursor:pointer;border-radius:10px}
+.nav-hamburger .hb{width:20px;height:2px;background:var(--tx2);border-radius:2px;transition:all .25s cubic-bezier(.16,1,.3,1);transform-origin:center}
+.nav-hamburger.open .hb:nth-child(1){transform:translateY(7px) rotate(45deg)}
+.nav-hamburger.open .hb:nth-child(2){opacity:0;transform:scaleX(0)}
+.nav-hamburger.open .hb:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+.mob-nav-overlay{position:fixed;inset:0;z-index:600;background:rgba(0,0,0,.45);backdrop-filter:blur(2px);display:none;opacity:0;transition:opacity .3s}
+.mob-nav-overlay.on{display:block;opacity:1}
+.mob-nav-drawer{position:fixed;top:0;right:0;bottom:0;width:min(300px,85vw);background:#fff;z-index:700;transform:translateX(100%);transition:transform .3s cubic-bezier(.16,1,.3,1);display:flex;flex-direction:column;overflow-y:auto}
+.mob-nav-drawer.on{transform:translateX(0)}
+.mob-nav-hd{display:flex;align-items:center;justify-content:space-between;padding:16px 18px;border-bottom:1.5px solid var(--br)}
+.mob-nav-close{background:none;border:none;cursor:pointer;font-size:18px;color:var(--tx2);width:36px;height:36px;display:flex;align-items:center;justify-content:center;border-radius:8px}
+.mob-nav-links{display:flex;flex-direction:column;padding:12px 0;flex:1}
+.mob-nav-link{padding:14px 22px;font-size:15px;font-weight:700;color:var(--tx2);border-left:3px solid transparent;text-decoration:none;transition:all .14s;display:block}
+.mob-nav-link:hover,.mob-nav-link.active{color:var(--ac);background:var(--acl);border-left-color:var(--ac)}
+.mob-nav-section{padding:8px 22px 4px;font-size:11px;font-weight:800;color:var(--tx4);letter-spacing:.08em;text-transform:uppercase}
+.mob-nav-sublink{padding:10px 22px 10px 34px;font-size:14px;font-weight:600;color:var(--tx2);text-decoration:none;display:block;border-left:3px solid transparent;transition:all .14s}
+.mob-nav-sublink:hover,.mob-nav-sublink.active{color:var(--ac);background:var(--acl);border-left-color:var(--ac)}
+.mob-nav-cta{display:flex;align-items:center;justify-content:center;margin:0 18px 28px;padding:14px 24px;background:var(--ac);color:#fff;border-radius:10px;font-size:15px;font-weight:800;box-shadow:0 4px 16px rgba(26,71,49,.35);text-decoration:none}
+@media(max-width:768px){.nav-links{display:none}.nav-cta{display:none}.nav-hamburger{display:flex}}
+
+/* BREADCRUMB */
+.breadcrumb{padding:12px clamp(20px,4vw,80px);font-size:13px;color:var(--tx3);display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+.breadcrumb a{color:var(--tx3);transition:color .14s}.breadcrumb a:hover{color:var(--ac)}
+
+/* HERO */
+.hero{padding:56px clamp(20px,4vw,80px) 48px;max-width:900px;margin:0 auto;text-align:center}
+.hero-badge{display:inline-flex;align-items:center;gap:8px;background:var(--acl);color:var(--acm);padding:6px 14px;border-radius:20px;font-size:13px;font-weight:700;margin-bottom:20px}
+.hero h1{font-family:'Fraunces',serif;font-size:clamp(32px,5vw,52px);font-weight:700;letter-spacing:-.5px;line-height:1.15;margin-bottom:16px}
+.hero p{font-size:18px;color:var(--tx2);max-width:600px;margin:0 auto}
+
+/* MAIN LAYOUT */
+.checker-wrap{max-width:960px;margin:0 auto;padding:0 clamp(20px,4vw,40px) 80px;display:grid;grid-template-columns:1fr 1fr;gap:24px;align-items:start}
+@media(max-width:768px){.checker-wrap{grid-template-columns:1fr}}
+
+/* CARD */
+.card{background:var(--wh);border-radius:var(--r);box-shadow:var(--sh);border:1.5px solid var(--br);overflow:hidden}
+.card-header{padding:18px 22px;border-bottom:1.5px solid var(--br);display:flex;align-items:center;gap:12px}
+.card-header-icon{width:36px;height:36px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
+.card-header-icon.green{background:var(--acl)}
+.card-header-icon.blue{background:#eff6ff}
+.card-title{font-family:'Fraunces',serif;font-size:17px;font-weight:700}
+.card-sub{font-size:12px;color:var(--tx3);margin-top:1px}
+.card-body{padding:22px}
+
+/* INPUT FIELDS */
+.field{margin-bottom:16px}
+.field:last-child{margin-bottom:0}
+.field label{display:block;font-size:13px;font-weight:700;color:var(--tx2);margin-bottom:6px}
+.field-hint{font-size:12px;color:var(--tx3);margin-top:4px;line-height:1.5}
+.euro-wrap{position:relative}
+.euro-prefix{position:absolute;left:13px;top:50%;transform:translateY(-50%);font-size:15px;font-weight:700;color:var(--tx3);font-family:'JetBrains Mono',monospace;pointer-events:none}
+.euro-wrap input{padding-left:32px}
+input[type=number]{width:100%;padding:11px 14px;border:1.5px solid var(--br);border-radius:9px;font-size:15px;font-family:'Plus Jakarta Sans',sans-serif;font-weight:600;color:var(--tx);background:var(--bg);transition:border-color .16s,box-shadow .16s;outline:none;-moz-appearance:textfield}
+input[type=number]::-webkit-inner-spin-button{-webkit-appearance:none}
+input:focus{border-color:var(--acm);box-shadow:0 0 0 3px rgba(26,71,49,.1);background:#fff}
+.q-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.q-label{font-size:11px;font-weight:700;color:var(--tx3);margin-bottom:5px;letter-spacing:.04em;text-transform:uppercase}
+.toggle-chip{display:flex;align-items:center;gap:8px;padding:10px 14px;border:1.5px solid var(--br);border-radius:9px;cursor:pointer;transition:all .14s;user-select:none;background:var(--bg)}
+.toggle-chip:hover{border-color:var(--acm);background:var(--acl)}
+.toggle-chip.on{border-color:var(--ac);background:var(--acl)}
+.toggle-chip input{display:none}
+.toggle-chip-dot{width:16px;height:16px;border-radius:50%;border:2px solid var(--br);transition:all .14s;flex-shrink:0}
+.toggle-chip.on .toggle-chip-dot{background:var(--ac);border-color:var(--ac)}
+.toggle-chip-label{font-size:13px;font-weight:700;color:var(--tx2)}
+.toggle-chip.on .toggle-chip-label{color:var(--ac)}
+
+/* DIVIDER */
+.divider{height:1px;background:var(--br);margin:16px 0}
+
+/* STATUS CARDS */
+.status-wrap{display:flex;flex-direction:column;gap:20px}
+.status-card{background:var(--wh);border-radius:var(--r);border:1.5px solid var(--br);overflow:hidden}
+.status-card-top{padding:20px 22px 16px}
+.status-card-label{font-size:11px;font-weight:800;color:var(--tx4);letter-spacing:.08em;text-transform:uppercase;margin-bottom:8px}
+.status-title-row{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:14px}
+.status-title{font-family:'Fraunces',serif;font-size:18px;font-weight:700}
+.status-badge{padding:4px 12px;border-radius:20px;font-size:12px;font-weight:800;letter-spacing:.02em}
+.badge-safe{background:#dcfce7;color:#166534}
+.badge-warn{background:#fef9c3;color:#854d0e}
+.badge-danger{background:#fee2e2;color:#991b1b}
+.badge-neutral{background:var(--s2);color:var(--tx3)}
+.progress-wrap{margin-bottom:10px}
+.progress-bar-bg{height:10px;background:var(--s2);border-radius:20px;overflow:hidden}
+.progress-bar-fill{height:100%;border-radius:20px;transition:width .6s cubic-bezier(.16,1,.3,1),background .3s}
+.progress-labels{display:flex;justify-content:space-between;margin-top:5px;font-size:12px;color:var(--tx3);font-weight:600}
+.progress-current{font-family:'JetBrains Mono',monospace;font-size:22px;font-weight:700;line-height:1;margin-bottom:4px}
+.progress-limit{font-size:13px;color:var(--tx3);font-weight:600}
+.status-card-body{padding:0 22px 20px;border-top:1px solid var(--br);margin-top:4px}
+.status-row{display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid var(--br);font-size:14px}
+.status-row:last-child{border-bottom:none}
+.status-row-label{color:var(--tx2);font-weight:600}
+.status-row-val{font-family:'JetBrains Mono',monospace;font-weight:600;font-size:13px}
+
+/* ADVIES */
+.advies-card{background:var(--wh);border-radius:var(--r);border:1.5px solid var(--br);overflow:hidden}
+.advies-header{padding:18px 22px;border-bottom:1.5px solid var(--br);font-family:'Fraunces',serif;font-size:18px;font-weight:700}
+.advies-body{padding:20px 22px}
+.advies-item{display:flex;gap:14px;padding:12px 0;border-bottom:1px solid var(--br)}
+.advies-item:last-child{border-bottom:none}
+.advies-icon{width:36px;height:36px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;margin-top:1px}
+.advies-icon.ok{background:#dcfce7}
+.advies-icon.warn{background:#fef9c3}
+.advies-icon.info{background:#eff6ff}
+.advies-icon.danger{background:#fee2e2}
+.advies-text h4{font-size:14px;font-weight:700;margin-bottom:3px}
+.advies-text p{font-size:13px;color:var(--tx2);line-height:1.6}
+.advies-text a{color:var(--ac);font-weight:700}
+
+/* PROGNOSE */
+.prognose-card{background:var(--wh);border-radius:var(--r);border:1.5px solid var(--br);overflow:hidden;grid-column:1/-1}
+.prognose-header{padding:18px 22px;border-bottom:1.5px solid var(--br);display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.prognose-title{font-family:'Fraunces',serif;font-size:18px;font-weight:700}
+.prognose-body{padding:22px;display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:16px}
+.prognose-item{text-align:center;padding:16px;background:var(--bg);border-radius:12px}
+.prognose-label{font-size:11px;font-weight:800;color:var(--tx4);letter-spacing:.06em;text-transform:uppercase;margin-bottom:6px}
+.prognose-val{font-family:'JetBrains Mono',monospace;font-size:20px;font-weight:700;color:var(--tx)}
+.prognose-val.green{color:var(--green)}
+.prognose-val.amber{color:var(--amber)}
+.prognose-val.red{color:var(--red)}
+.prognose-sub{font-size:12px;color:var(--tx3);margin-top:3px}
+
+/* INFO SECTION */
+.info-section{max-width:960px;margin:0 auto;padding:0 clamp(20px,4vw,40px) 60px}
+.info-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:20px;margin-bottom:48px}
+.info-card{background:var(--wh);border-radius:var(--r);border:1.5px solid var(--br);padding:24px}
+.info-card h3{font-family:'Fraunces',serif;font-size:17px;font-weight:700;margin-bottom:8px;display:flex;align-items:center;gap:8px}
+.info-card p{font-size:14px;color:var(--tx2);line-height:1.65}
+.info-card ul{margin-top:10px;padding-left:18px;font-size:14px;color:var(--tx2);line-height:1.8}
+
+/* FAQ */
+.faq-section{max-width:960px;margin:0 auto;padding:0 clamp(20px,4vw,40px) 60px}
+.faq-title{font-family:'Fraunces',serif;font-size:24px;font-weight:700;margin-bottom:20px}
+.faq-item{border:1.5px solid var(--br);border-radius:12px;margin-bottom:10px;overflow:hidden;background:var(--wh)}
+.faq-q{padding:17px 20px;font-size:15px;font-weight:700;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:16px;transition:background .14s}
+.faq-q:hover{background:var(--acl)}
+.faq-icon{font-size:18px;transition:transform .25s;flex-shrink:0;color:var(--tx3)}
+.faq-item.open .faq-icon{transform:rotate(180deg);color:var(--ac)}
+.faq-item.open .faq-q{background:var(--acl);color:var(--ac)}
+.faq-a{display:none;padding:0 20px 16px;font-size:14px;color:var(--tx2);line-height:1.7}
+.faq-item.open .faq-a{display:block}
+
+/* CTA */
+.cta-section{max-width:960px;margin:0 auto;padding:0 clamp(20px,4vw,40px) 80px}
+.cta-box{background:var(--ac);border-radius:var(--r);padding:48px;text-align:center;color:#fff}
+.cta-box h2{font-family:'Fraunces',serif;font-size:26px;font-weight:700;margin-bottom:12px}
+.cta-box p{font-size:16px;opacity:.85;margin-bottom:28px}
+.cta-box a{display:inline-flex;align-items:center;gap:8px;padding:14px 32px;background:#fff;color:var(--ac);border-radius:12px;font-size:16px;font-weight:800;transition:all .2s}
+.cta-box a:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,.2)}
+
+.empty-notice{text-align:center;padding:28px 20px;color:var(--tx3);font-size:14px;font-weight:600}
+.empty-notice span{font-size:28px;display:block;margin-bottom:8px;opacity:.4}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav">
+  <a href="/" class="nav-logo">
+    <img src="../logo.webp" alt="ZenBTW" class="nav-logo-img" width="120" height="44">
+    <span class="nav-wordmark">Zen<em>BTW</em></span>
+  </a>
+  <div class="nav-links">
+    <a href="/" class="nav-link">Home</a>
+    <a href="/blog/" class="nav-link">Blog</a>
+    <div class="nav-dropdown">
+      <button class="nav-dropdown-btn">Hulpmiddelen <span class="nav-dropdown-arrow">▾</span></button>
+      <div class="nav-dropdown-menu">
+        <a href="/hulpmiddelen/margeregeling-calculator.html" class="nav-dd-item">
+          <div class="nav-dd-icon">🧮</div>
+          <div><div class="nav-dd-label">Margeregeling Calculator</div><div class="nav-dd-sub">BTW berekenen op tweedehands</div></div>
+        </a>
+        <a href="/hulpmiddelen/kor-oss-checker.html" class="nav-dd-item current">
+          <div class="nav-dd-icon">📊</div>
+          <div><div class="nav-dd-label">KOR & OSS Checker</div><div class="nav-dd-sub">Check je drempelstatus direct</div></div>
+        </a>
+        <div class="nav-dd-sep"></div>
+        <a href="/hulpmiddelen/" class="nav-dd-all">Alle hulpmiddelen →</a>
+      </div>
+    </div>
+  </div>
+  <div style="display:flex;align-items:center;gap:10px;flex-shrink:0">
+    <a href="/app" class="nav-cta">Check mijn status →</a>
+    <button class="nav-hamburger" id="navHam" onclick="toggleMobNav()" aria-label="Menu">
+      <span class="hb"></span><span class="hb"></span><span class="hb"></span>
+    </button>
+  </div>
+</nav>
+
+<div class="mob-nav-overlay" id="mobOverlay" onclick="closeMobNav()"></div>
+<div class="mob-nav-drawer" id="mobDrawer">
+  <div class="mob-nav-hd">
+    <a href="/" class="nav-logo" onclick="closeMobNav()">
+      <img src="../logo.webp" alt="ZenBTW" style="height:32px;width:auto">
+    </a>
+    <button class="mob-nav-close" onclick="closeMobNav()">✕</button>
+  </div>
+  <nav class="mob-nav-links">
+    <a href="/" class="mob-nav-link" onclick="closeMobNav()">Home</a>
+    <a href="/blog/" class="mob-nav-link" onclick="closeMobNav()">Blog</a>
+    <div class="mob-nav-section">Hulpmiddelen</div>
+    <a href="/hulpmiddelen/margeregeling-calculator.html" class="mob-nav-sublink" onclick="closeMobNav()">🧮 Margeregeling Calculator</a>
+    <a href="/hulpmiddelen/kor-oss-checker.html" class="mob-nav-sublink active" onclick="closeMobNav()">📊 KOR & OSS Checker</a>
+    <a href="/hulpmiddelen/" class="mob-nav-link" onclick="closeMobNav()">Alle hulpmiddelen</a>
+  </nav>
+  <div style="padding:0 18px 28px">
+    <a href="/app" class="mob-nav-cta">Check mijn status →</a>
+  </div>
+</div>
+
+<!-- BREADCRUMB -->
+<div class="breadcrumb">
+  <a href="/">Home</a> › <a href="/hulpmiddelen/">Hulpmiddelen</a> › KOR & OSS Checker
+</div>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-badge">📊 Gratis checker</div>
+  <h1>KOR & OSS<br>Drempelchecker</h1>
+  <p>Vul je kwartaalomzet in en zie direct of je de KOR-drempel nadert en of je OSS-plichtig bent. Inclusief prognose en persoonlijk advies.</p>
+</div>
+
+<!-- CHECKER -->
+<div class="checker-wrap">
+
+  <!-- INPUT CARD -->
+  <div class="card" style="position:sticky;top:88px">
+    <div class="card-header">
+      <div class="card-header-icon green">📥</div>
+      <div>
+        <div class="card-title">Jouw omzetgegevens</div>
+        <div class="card-sub">Vul in wat van toepassing is — het mag ook gedeeltelijk</div>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="field">
+        <label>Jaar</label>
+        <select id="jaar" onchange="calc()" style="width:100%;padding:11px 14px;border:1.5px solid var(--br);border-radius:9px;font-size:15px;font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;background:var(--bg);color:var(--tx);outline:none;cursor:pointer">
+          <option>2026</option><option>2025</option>
+        </select>
+      </div>
+      <div class="divider"></div>
+      <div style="font-size:12px;font-weight:700;color:var(--tx3);letter-spacing:.05em;text-transform:uppercase;margin-bottom:12px">Totale omzet per kwartaal (incl. alles)</div>
+      <div class="q-grid">
+        <div>
+          <div class="q-label">Q1 Jan–Mrt</div>
+          <div class="euro-wrap"><span class="euro-prefix">€</span><input type="number" id="q1" placeholder="0" min="0" step="1" oninput="calc()"></div>
+        </div>
+        <div>
+          <div class="q-label">Q2 Apr–Jun</div>
+          <div class="euro-wrap"><span class="euro-prefix">€</span><input type="number" id="q2" placeholder="0" min="0" step="1" oninput="calc()"></div>
+        </div>
+        <div>
+          <div class="q-label">Q3 Jul–Sep</div>
+          <div class="euro-wrap"><span class="euro-prefix">€</span><input type="number" id="q3" placeholder="0" min="0" step="1" oninput="calc()"></div>
+        </div>
+        <div>
+          <div class="q-label">Q4 Okt–Dec</div>
+          <div class="euro-wrap"><span class="euro-prefix">€</span><input type="number" id="q4" placeholder="0" min="0" step="1" oninput="calc()"></div>
+        </div>
+      </div>
+      <div class="divider"></div>
+      <div style="font-size:12px;font-weight:700;color:var(--tx3);letter-spacing:.05em;text-transform:uppercase;margin-bottom:12px">Uitsplitsing omzet</div>
+      <div class="field">
+        <label for="platform">Platform-omzet (deemed supplier)</label>
+        <div class="euro-wrap"><span class="euro-prefix">€</span><input type="number" id="platform" placeholder="0" min="0" step="1" oninput="calc()"></div>
+        <div class="field-hint">Omzet waarbij Etsy/Vinted zelf BTW afdraagt aan EU-landen. Telt <strong>niet</strong> mee voor KOR.</div>
+      </div>
+      <div class="field">
+        <label for="eu_eigen">Eigen EU cross-border omzet (excl. NL)</label>
+        <div class="euro-wrap"><span class="euro-prefix">€</span><input type="number" id="eu_eigen" placeholder="0" min="0" step="1" oninput="calc()"></div>
+        <div class="field-hint">Verkopen buiten NL waarbij JIJ de BTW rekent (eigen facturen aan EU-klanten).</div>
+      </div>
+      <div class="divider"></div>
+      <label class="toggle-chip" id="korChip" onclick="toggleKor()">
+        <div class="toggle-chip-dot"></div>
+        <span class="toggle-chip-label">Ik ben aangemeld bij KOR</span>
+      </label>
+    </div>
+  </div>
+
+  <!-- STATUS CARDS -->
+  <div class="status-wrap">
+
+    <!-- KOR STATUS -->
+    <div class="status-card">
+      <div class="status-card-top">
+        <div class="status-card-label">Kleineondernemersregeling</div>
+        <div class="status-title-row">
+          <div class="status-title">KOR Drempel</div>
+          <div class="status-badge badge-neutral" id="korBadge">Voer omzet in</div>
+        </div>
+        <div class="progress-wrap">
+          <div class="progress-bar-bg">
+            <div class="progress-bar-fill" id="korBar" style="width:0%;background:var(--acm)"></div>
+          </div>
+          <div class="progress-labels">
+            <span id="korBarLabel">€ 0</span>
+            <span>€ 20.000</span>
+          </div>
+        </div>
+        <div class="progress-current" id="korCurrent">—</div>
+        <div class="progress-limit" id="korLimitText">van de €20.000 jaargrens</div>
+      </div>
+      <div class="status-card-body">
+        <div class="status-row">
+          <span class="status-row-label">Meetellende omzet</span>
+          <span class="status-row-val" id="korMeetellend">—</span>
+        </div>
+        <div class="status-row">
+          <span class="status-row-label">Platform-omzet (telt niet mee)</span>
+          <span class="status-row-val" id="korPlatform">—</span>
+        </div>
+        <div class="status-row">
+          <span class="status-row-label">Resterende ruimte</span>
+          <span class="status-row-val" id="korRest">—</span>
+        </div>
+        <div class="status-row">
+          <span class="status-row-label">Percentage gebruikt</span>
+          <span class="status-row-val" id="korPct">—</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- OSS STATUS -->
+    <div class="status-card">
+      <div class="status-card-top">
+        <div class="status-card-label">One Stop Shop — EU cross-border</div>
+        <div class="status-title-row">
+          <div class="status-title">OSS Drempel</div>
+          <div class="status-badge badge-neutral" id="ossBadge">Voer omzet in</div>
+        </div>
+        <div class="progress-wrap">
+          <div class="progress-bar-bg">
+            <div class="progress-bar-fill" id="ossBar" style="width:0%;background:#3b82f6"></div>
+          </div>
+          <div class="progress-labels">
+            <span id="ossBarLabel">€ 0</span>
+            <span>€ 10.000</span>
+          </div>
+        </div>
+        <div class="progress-current" id="ossCurrent">—</div>
+        <div class="progress-limit">van de €10.000 OSS-grens</div>
+      </div>
+      <div class="status-card-body">
+        <div class="status-row">
+          <span class="status-row-label">Eigen EU cross-border omzet</span>
+          <span class="status-row-val" id="ossEigen">—</span>
+        </div>
+        <div class="status-row">
+          <span class="status-row-label">Resterende OSS-ruimte</span>
+          <span class="status-row-val" id="ossRest">—</span>
+        </div>
+        <div class="status-row">
+          <span class="status-row-label">OSS verplichting</span>
+          <span class="status-row-val" id="ossPlicht">—</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ADVIES -->
+    <div class="advies-card">
+      <div class="advies-header">💡 Jouw situatie</div>
+      <div class="advies-body" id="adviesBody">
+        <div class="empty-notice"><span>📊</span>Vul je omzet in voor persoonlijk advies</div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- PROGNOSE (volle breedte) -->
+  <div class="prognose-card">
+    <div class="prognose-header">
+      <div class="prognose-title">📈 Prognose voor het hele jaar</div>
+      <div style="font-size:13px;color:var(--tx3)">Op basis van ingevulde kwartalen</div>
+    </div>
+    <div class="prognose-body" id="prognoseBody">
+      <div class="prognose-item">
+        <div class="prognose-label">Verwachte jaaromzet</div>
+        <div class="prognose-val" id="prog-jaar">—</div>
+        <div class="prognose-sub" id="prog-jaar-sub">KOR-meetellend</div>
+      </div>
+      <div class="prognose-item">
+        <div class="prognose-label">KOR-grens bereikt in</div>
+        <div class="prognose-val" id="prog-kor-kwartaal">—</div>
+        <div class="prognose-sub">verwacht kwartaal</div>
+      </div>
+      <div class="prognose-item">
+        <div class="prognose-label">Maandelijks gemiddelde</div>
+        <div class="prognose-val" id="prog-maand">—</div>
+        <div class="prognose-sub">KOR-meetellend</div>
+      </div>
+      <div class="prognose-item">
+        <div class="prognose-label">OSS-grens bereikt in</div>
+        <div class="prognose-val" id="prog-oss-kwartaal">—</div>
+        <div class="prognose-sub">verwacht kwartaal</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- INFO -->
+<div class="info-section">
+  <div class="info-grid">
+    <div class="info-card">
+      <h3>📋 Wat is de KOR?</h3>
+      <p>De Kleineondernemersregeling (KOR) geeft kleine ondernemers BTW-vrijstelling. Zolang je totale jaaromzet onder €20.000 blijft, hoef je geen BTW te rekenen, te betalen of aan te geven.</p>
+      <ul>
+        <li>Geen BTW op je facturen</li>
+        <li>Geen BTW-aangifte per kwartaal</li>
+        <li>Geen BTW-aftrek op inkopen</li>
+      </ul>
+    </div>
+    <div class="info-card">
+      <h3>⚠️ Wat bij overschrijding?</h3>
+      <p>Bij overschrijding van de €20.000 grens:</p>
+      <ul>
+        <li>Geen terugwerkende kracht — omzet vóór de grens blijft vrijgesteld</li>
+        <li>Vanaf de overschrijdende transactie direct BTW rekenen</li>
+        <li>Uitsluitingsperiode: rest van huidig jaar + volledig volgend jaar</li>
+        <li>Daarna mag je je opnieuw aanmelden bij KOR</li>
+      </ul>
+    </div>
+    <div class="info-card">
+      <h3>🌍 Wanneer ben je OSS-plichtig?</h3>
+      <p>Je bent OSS-plichtig als je eigen cross-border EU-omzet (aan consumenten buiten NL) meer dan <strong>€10.000/jaar</strong> bedraagt. Onder die grens mag je Nederlandse BTW rekenen op alle EU-verkopen en via je reguliere BTW-aangifte afdragen.</p>
+    </div>
+    <div class="info-card">
+      <h3>🏪 Deemed supplier platforms</h3>
+      <p>Etsy, Vinted, Amazon en Bol dragen voor B2C-verkopen aan EU-klanten buiten NL zelf BTW af. Dit heet de "deemed supplier"-regeling. Die omzet telt <strong>niet</strong> mee voor jouw KOR-drempel of OSS-verplichting.</p>
+    </div>
+  </div>
+</div>
+
+<!-- FAQ -->
+<div class="faq-section">
+  <div class="faq-title">Veelgestelde vragen</div>
+  <div class="faq-item">
+    <div class="faq-q" onclick="toggleFaq(this)"><span>Telt mijn totale Etsy-omzet mee voor de KOR?</span><span class="faq-icon">▾</span></div>
+    <div class="faq-a">Niet volledig. Alleen de omzet waarbij jij zelf de BTW-plichtige bent telt mee. Voor B2C-verkopen aan EU-klanten buiten NL draagt Etsy via de deemed supplier-regeling zelf BTW af. Die omzet telt in principe niet mee voor jouw KOR-grens. Verkopen aan Nederlandse klanten en zakelijke klanten tellen altijd wel mee.</div>
+  </div>
+  <div class="faq-item">
+    <div class="faq-q" onclick="toggleFaq(this)"><span>Mag ik me op elk moment afmelden bij KOR?</span><span class="faq-icon">▾</span></div>
+    <div class="faq-a">Vrijwillige afmelding bij KOR kan per kwartaal. Je moet dit minimaal 4 weken vóór het nieuwe kwartaal doorgeven aan de Belastingdienst. Gedwongen afmelding (bij overschrijding) werkt per direct: je rekent meteen BTW op de transactie waarmee je de grens overschrijdt.</div>
+  </div>
+  <div class="faq-item">
+    <div class="faq-q" onclick="toggleFaq(this)"><span>Hoe lang ben ik uitgesloten na overschrijding van de KOR-grens?</span><span class="faq-icon">▾</span></div>
+    <div class="faq-a">De uitsluitingsperiode is de rest van het huidige kalenderjaar plus het volledig volgende kalenderjaar. Voorbeeld: je overschrijdt de grens in augustus 2026. Dan ben je uitgesloten van KOR tot en met 31 december 2027. Vanaf 1 januari 2028 kun je je opnieuw aanmelden.</div>
+  </div>
+  <div class="faq-item">
+    <div class="faq-q" onclick="toggleFaq(this)"><span>Telt omzet uit 2025 mee voor de KOR-grens van 2026?</span><span class="faq-icon">▾</span></div>
+    <div class="faq-a">Nee. De KOR-grens wordt per kalenderjaar berekend. Je start elk jaar opnieuw bij €0. De omzet van vorige jaren telt niet mee, tenzij je vorig jaar al bent uitgesloten van KOR — dan geldt de uitsluitingsperiode.</div>
+  </div>
+  <div class="faq-item">
+    <div class="faq-q" onclick="toggleFaq(this)"><span>Kan ik KOR en OSS tegelijk hebben?</span><span class="faq-icon">▾</span></div>
+    <div class="faq-a">Nee. Als je aangemeld bent bij KOR, ben je BTW-vrijgesteld en hoef je geen BTW-aangifte te doen, ook niet voor EU-verkopen. Zodra je de KOR-grens overschrijdt of je afmeldt, kun je (verplicht) OSS gebruiken als je eigen EU cross-border omzet boven €10.000 uitkomt.</div>
+  </div>
+</div>
+
+<!-- CTA -->
+<div class="cta-section">
+  <div class="cta-box">
+    <h2>Wil je automatisch gewaarschuwd worden?</h2>
+    <p>ZenBTW bewaakt je KOR-drempel continu en stuurt een melding zodra je de grens nadert. Gratis, automatisch en privacy-proof.</p>
+    <a href="/app">Start gratis met ZenBTW →</a>
+  </div>
+</div>
+
+<script>
+let korAangemeld = false;
+
+function toggleKor() {
+  korAangemeld = !korAangemeld;
+  document.getElementById('korChip').classList.toggle('on', korAangemeld);
+  calc();
+}
+
+function getQ(id) { return parseFloat(document.getElementById(id).value) || 0; }
+
+function fmt(n) { return '€ ' + Math.round(n).toLocaleString('nl-NL'); }
+function fmtD(n) { return '€ ' + n.toFixed(2).replace('.',','); }
+
+function calc() {
+  const q1 = getQ('q1'), q2 = getQ('q2'), q3 = getQ('q3'), q4 = getQ('q4');
+  const platform = getQ('platform');
+  const euEigen = getQ('eu_eigen');
+
+  const totaal = q1 + q2 + q3 + q4;
+  const korMeetellend = Math.max(0, totaal - platform);
+  const korRest = Math.max(0, 20000 - korMeetellend);
+  const korPct = Math.min(100, (korMeetellend / 20000) * 100);
+  const ossRest = Math.max(0, 10000 - euEigen);
+  const ossPct = Math.min(100, (euEigen / 10000) * 100);
+
+  const hasData = totaal > 0 || platform > 0 || euEigen > 0;
+
+  // KOR STATUS
+  const korBar = document.getElementById('korBar');
+  korBar.style.width = korPct + '%';
+  korBar.style.background = korPct >= 100 ? '#dc2626' : korPct >= 80 ? '#d97706' : '#2d6a4f';
+
+  document.getElementById('korBarLabel').textContent = fmt(korMeetellend);
+  document.getElementById('korCurrent').textContent = hasData ? fmt(korMeetellend) : '—';
+  document.getElementById('korMeetellend').textContent = hasData ? fmt(korMeetellend) : '—';
+  document.getElementById('korPlatform').textContent = hasData ? fmt(platform) : '—';
+  document.getElementById('korRest').textContent = hasData ? fmt(korRest) : '—';
+  document.getElementById('korPct').textContent = hasData ? korPct.toFixed(1) + '%' : '—';
+
+  const korBadge = document.getElementById('korBadge');
+  if (!hasData) {
+    korBadge.textContent = 'Voer omzet in';
+    korBadge.className = 'status-badge badge-neutral';
+  } else if (korMeetellend >= 20000) {
+    korBadge.textContent = '🔴 Grens overschreden';
+    korBadge.className = 'status-badge badge-danger';
+  } else if (korPct >= 80) {
+    korBadge.textContent = '🟡 Let op: bijna vol';
+    korBadge.className = 'status-badge badge-warn';
+  } else {
+    korBadge.textContent = '🟢 Binnen KOR-grens';
+    korBadge.className = 'status-badge badge-safe';
+  }
+
+  // OSS STATUS
+  const ossBar = document.getElementById('ossBar');
+  ossBar.style.width = ossPct + '%';
+  ossBar.style.background = ossPct >= 100 ? '#dc2626' : ossPct >= 80 ? '#d97706' : '#3b82f6';
+
+  document.getElementById('ossBarLabel').textContent = fmt(euEigen);
+  document.getElementById('ossCurrent').textContent = hasData ? fmt(euEigen) : '—';
+  document.getElementById('ossEigen').textContent = hasData ? fmt(euEigen) : '—';
+  document.getElementById('ossRest').textContent = hasData ? fmt(ossRest) : '—';
+
+  const ossPlicht = document.getElementById('ossPlicht');
+  const ossBadge = document.getElementById('ossBadge');
+  if (!hasData) {
+    ossPlicht.textContent = '—';
+    ossBadge.textContent = 'Voer omzet in';
+    ossBadge.className = 'status-badge badge-neutral';
+  } else if (euEigen >= 10000) {
+    ossPlicht.textContent = 'Ja — verplicht';
+    ossPlicht.style.color = '#dc2626';
+    ossBadge.textContent = '🔴 OSS verplicht';
+    ossBadge.className = 'status-badge badge-danger';
+  } else if (ossPct >= 70) {
+    ossPlicht.textContent = 'Nog niet — let op';
+    ossPlicht.style.color = '#d97706';
+    ossBadge.textContent = '🟡 Bijna OSS-plichtig';
+    ossBadge.className = 'status-badge badge-warn';
+  } else {
+    ossPlicht.textContent = 'Nee — onder grens';
+    ossPlicht.style.color = '#16a34a';
+    ossBadge.textContent = '🟢 Onder OSS-grens';
+    ossBadge.className = 'status-badge badge-safe';
+  }
+
+  // PROGNOSE
+  const ingevuldQ = [q1,q2,q3,q4].filter(q => q > 0).length;
+  if (ingevuldQ > 0) {
+    const platformPer = ingevuldQ > 0 ? platform / ingevuldQ : 0;
+    const korPerQ = ingevuldQ > 0 ? korMeetellend / ingevuldQ : 0;
+    const progJaar = korPerQ * 4;
+    const progMaand = progJaar / 12;
+    document.getElementById('prog-jaar').textContent = fmt(progJaar);
+    document.getElementById('prog-jaar').className = 'prognose-val ' + (progJaar >= 20000 ? 'red' : progJaar >= 16000 ? 'amber' : 'green');
+    document.getElementById('prog-maand').textContent = fmt(progMaand);
+
+    // KOR kwartaal prognose
+    let korKw = '—';
+    if (korMeetellend >= 20000) {
+      korKw = 'Al bereikt';
+      document.getElementById('prog-kor-kwartaal').className = 'prognose-val red';
+    } else {
+      const qWhenKor = korPerQ > 0 ? Math.ceil(20000 / korPerQ) : null;
+      korKw = qWhenKor ? (qWhenKor <= 4 ? 'Q' + qWhenKor : 'Na 2026') : 'Niet dit jaar';
+      document.getElementById('prog-kor-kwartaal').className = 'prognose-val ' + (qWhenKor && qWhenKor <= 4 ? (qWhenKor <= 3 ? 'amber' : 'green') : 'green');
+    }
+    document.getElementById('prog-kor-kwartaal').textContent = korKw;
+
+    // OSS kwartaal prognose
+    const euPerQ = ingevuldQ > 0 ? euEigen / ingevuldQ : 0;
+    let ossKw = '—';
+    if (euEigen >= 10000) {
+      ossKw = 'Al bereikt';
+      document.getElementById('prog-oss-kwartaal').className = 'prognose-val red';
+    } else {
+      const qWhenOss = euPerQ > 0 ? Math.ceil(10000 / euPerQ) : null;
+      ossKw = qWhenOss ? (qWhenOss <= 4 ? 'Q' + qWhenOss : 'Na 2026') : 'Niet dit jaar';
+      document.getElementById('prog-oss-kwartaal').className = 'prognose-val ' + (qWhenOss && qWhenOss <= 4 ? 'amber' : 'green');
+    }
+    document.getElementById('prog-oss-kwartaal').textContent = ossKw;
+  } else {
+    ['prog-jaar','prog-maand','prog-kor-kwartaal','prog-oss-kwartaal'].forEach(id => {
+      document.getElementById(id).textContent = '—';
+      document.getElementById(id).className = 'prognose-val';
+    });
+  }
+
+  // ADVIES
+  renderAdvies(korMeetellend, korPct, euEigen, ossPct, hasData);
+}
+
+function renderAdvies(korMeetellend, korPct, euEigen, ossPct, hasData) {
+  const container = document.getElementById('adviesBody');
+  if (!hasData) {
+    container.innerHTML = '<div class="empty-notice"><span>📊</span>Vul je omzet in voor persoonlijk advies</div>';
+    return;
+  }
+
+  let items = [];
+
+  if (korMeetellend >= 20000) {
+    items.push({ icon: '🔴', type: 'danger', title: 'KOR-grens overschreden', text: 'Je hebt de €20.000-grens al overschreden. Reken vanaf de overschrijdende transactie direct BTW. Meld je af bij de Belastingdienst. Je bent uitgesloten voor de rest van dit jaar en heel volgend jaar.' });
+  } else if (korPct >= 90) {
+    items.push({ icon: '⚠️', type: 'warn', title: 'KOR-grens is nagenoeg bereikt', text: 'Je zit op meer dan 90% van je KOR-ruimte. Houd je verkopen nauwkeurig bij. Bij de volgende transactie die je over €20.000 brengt moet je direct BTW rekenen.' });
+  } else if (korPct >= 70) {
+    items.push({ icon: '🟡', type: 'warn', title: 'KOR-grens nadert', text: 'Je hebt meer dan 70% van je KOR-ruimte opgebruikt. Overweeg alvast een BTW-nummer te regelen en je verkoopstrategie te bepalen voor als je de grens bereikt.' });
+  } else {
+    items.push({ icon: '✅', type: 'ok', title: 'KOR: veilig', text: `Je zit nog comfortabel binnen de KOR-grens. Je hebt nog ${fmtD(Math.max(0,20000 - korMeetellend))} ruimte over. Blijf je omzet bijhouden.` });
+  }
+
+  if (euEigen >= 10000) {
+    items.push({ icon: '🌍', type: 'danger', title: 'OSS verplicht', text: 'Je eigen EU cross-border omzet heeft de €10.000-grens bereikt. Je bent verplicht om via OSS BTW per EU-land aan te geven. Registreer je bij de Belastingdienst voor OSS.' });
+  } else if (ossPct >= 70) {
+    items.push({ icon: '🌍', type: 'warn', title: 'OSS-grens nadert', text: 'Je eigen EU cross-border omzet nadert de €10.000. Zorg dat je weet hoe OSS werkt zodat je bij overschrijding direct kunt handelen.' });
+  } else if (euEigen > 0) {
+    items.push({ icon: '✅', type: 'ok', title: 'OSS: nog niet verplicht', text: 'Je eigen EU cross-border omzet is onder €10.000. Je mag Nederlandse BTW rekenen op al je EU-verkopen en die via je reguliere BTW-aangifte afdragen.' });
+  }
+
+  if (korAangemeld && korMeetellend < 20000) {
+    items.push({ icon: 'ℹ️', type: 'info', title: 'Je bent aangemeld bij KOR', text: 'Geen BTW-plicht zolang je onder €20.000 blijft. Vermeldt "BTW-vrijgesteld o.g.v. de kleineondernemersregeling" op je facturen. Houd rekening met de uitsluitingsperiode bij overschrijding.' });
+  }
+
+  items.push({ icon: '📱', type: 'info', title: 'Automatisch bijhouden met ZenBTW', text: 'Upload je Etsy/Vinted CSV en ZenBTW houdt automatisch bij hoeveel KOR-ruimte je nog hebt. <a href="/app">Gratis proberen →</a>' });
+
+  container.innerHTML = items.map(item => `
+    <div class="advies-item">
+      <div class="advies-icon ${item.type}">${item.icon}</div>
+      <div class="advies-text"><h4>${item.title}</h4><p>${item.text}</p></div>
+    </div>`).join('');
+}
+
+function toggleFaq(btn) {
+  const item = btn.closest('.faq-item');
+  const isOpen = item.classList.contains('open');
+  document.querySelectorAll('.faq-item.open').forEach(el => el.classList.remove('open'));
+  if (!isOpen) item.classList.add('open');
+}
+
+function toggleMobNav() {
+  const ham = document.getElementById('navHam');
+  const overlay = document.getElementById('mobOverlay');
+  const drawer = document.getElementById('mobDrawer');
+  const open = !ham.classList.contains('open');
+  ham.classList.toggle('open', open);
+  overlay.classList.toggle('on', open);
+  drawer.classList.toggle('on', open);
+  document.body.style.overflow = open ? 'hidden' : '';
+}
+function closeMobNav() {
+  document.getElementById('navHam').classList.remove('open');
+  document.getElementById('mobOverlay').classList.remove('on');
+  document.getElementById('mobDrawer').classList.remove('on');
+  document.body.style.overflow = '';
+}
+</script>
+</body>
+</html>
