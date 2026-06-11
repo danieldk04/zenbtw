@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gratis BTW-hulpmiddelen voor ZZP'ers — Calculators & Checkers | ZenBTW</title>
+<meta name="description" content="Gratis interactieve tools voor kleine ondernemers en marketplace-verkopers. Bereken je BTW met de margeregeling, check je KOR-drempel en OSS-status. Direct in je browser.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://zenbtw.nl/hulpmiddelen/">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<meta property="og:title" content="Gratis BTW-hulpmiddelen voor ZZP'ers | ZenBTW">
+<meta property="og:description" content="Gratis calculators en checkers voor marketplace-verkopers. Margeregeling, KOR-drempel, OSS-status — direct in je browser.">
+<meta property="og:url" content="https://zenbtw.nl/hulpmiddelen/">
+<meta property="og:type" content="website">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f7f6f3;--wh:#ffffff;--s2:#f0ede8;--br:#e8e5de;
+  --ac:#1a4731;--acl:#e8f0ec;--acm:#2d6a4f;--acd:#143d28;
+  --tx:#1a1814;--tx2:#4a4640;--tx3:#8a847a;--tx4:#b8b2a8;
+  --sh:0 1px 4px rgba(0,0,0,.07);--shm:0 6px 20px rgba(0,0,0,.1);
+  --r:16px;--rs:12px;--nav-h:72px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--bg);color:var(--tx);line-height:1.6}
+a{text-decoration:none;color:inherit}
+
+.nav{position:sticky;top:0;z-index:500;height:var(--nav-h);background:rgba(247,246,243,.95);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-bottom:1.5px solid var(--br);box-shadow:0 2px 12px rgba(0,0,0,.05);display:flex;align-items:center;padding:0 clamp(20px,4vw,56px);justify-content:space-between;gap:24px}
+.nav-logo{display:flex;align-items:center;gap:10px}
+.nav-logo-img{max-height:48px;width:auto}
+.nav-wordmark{font-family:'Fraunces',serif;font-size:22px;font-weight:700;letter-spacing:-.5px}
+.nav-wordmark em{color:var(--acm);font-style:normal}
+.nav-links{display:flex;align-items:center;gap:4px;flex:1;justify-content:center}
+.nav-link{padding:9px 16px;font-size:15px;font-weight:800;color:var(--tx2);border-radius:10px;transition:all .16s;letter-spacing:-.1px}
+.nav-link:hover{color:var(--ac);background:var(--acl)}
+.nav-dropdown{position:relative}
+.nav-dropdown-btn{padding:9px 16px;font-size:15px;font-weight:800;color:var(--ac);background:var(--acl);border-radius:10px;border:none;cursor:pointer;font-family:inherit;display:flex;align-items:center;gap:5px;letter-spacing:-.1px;transition:all .16s}
+.nav-dropdown-btn:hover{background:#d4e8dc}
+.nav-dropdown-arrow{font-size:10px;transition:transform .2s;display:inline-block}
+.nav-dropdown:hover .nav-dropdown-arrow{transform:rotate(180deg)}
+.nav-dropdown-menu{position:absolute;top:calc(100% + 8px);left:50%;transform:translateX(-50%) translateY(-4px);background:#fff;border-radius:14px;box-shadow:0 8px 32px rgba(0,0,0,.12),0 2px 8px rgba(0,0,0,.06);border:1.5px solid var(--br);min-width:250px;padding:8px;opacity:0;pointer-events:none;transition:opacity .18s,transform .18s;z-index:200}
+.nav-dropdown:hover .nav-dropdown-menu{opacity:1;pointer-events:all;transform:translateX(-50%) translateY(0)}
+.nav-dd-item{display:flex;align-items:center;gap:12px;padding:10px 14px;border-radius:10px;color:var(--tx2);transition:all .14s;font-size:14px;font-weight:600}
+.nav-dd-item:hover{background:var(--acl);color:var(--ac)}
+.nav-dd-icon{width:34px;height:34px;background:var(--acl);border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0}
+.nav-dd-label{font-weight:700;font-size:14px;line-height:1.2}
+.nav-dd-sub{font-size:12px;color:var(--tx3);font-weight:500;margin-top:1px}
+.nav-dd-sep{height:1px;background:var(--br);margin:6px 0}
+.nav-dd-all{display:block;padding:9px 14px;border-radius:10px;color:var(--ac);font-size:13px;font-weight:700;text-align:center;transition:background .14s}
+.nav-dd-all:hover{background:var(--acl)}
+.nav-cta{display:inline-flex;align-items:center;gap:8px;padding:11px 22px;background:var(--ac);color:#fff;border-radius:var(--rs);font-size:14px;font-weight:800;transition:all .2s;flex-shrink:0;box-shadow:0 4px 16px rgba(26,71,49,.3)}
+.nav-cta:hover{background:var(--acd);transform:translateY(-1px)}
+.nav-hamburger{display:none;flex-direction:column;justify-content:center;align-items:center;gap:5px;width:42px;height:42px;background:none;border:none;cursor:pointer;border-radius:10px}
+.nav-hamburger .hb{width:20px;height:2px;background:var(--tx2);border-radius:2px;transition:all .25s cubic-bezier(.16,1,.3,1);transform-origin:center}
+.nav-hamburger.open .hb:nth-child(1){transform:translateY(7px) rotate(45deg)}
+.nav-hamburger.open .hb:nth-child(2){opacity:0;transform:scaleX(0)}
+.nav-hamburger.open .hb:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+.mob-nav-overlay{position:fixed;inset:0;z-index:600;background:rgba(0,0,0,.45);backdrop-filter:blur(2px);display:none;opacity:0;transition:opacity .3s}
+.mob-nav-overlay.on{display:block;opacity:1}
+.mob-nav-drawer{position:fixed;top:0;right:0;bottom:0;width:min(300px,85vw);background:#fff;z-index:700;transform:translateX(100%);transition:transform .3s cubic-bezier(.16,1,.3,1);display:flex;flex-direction:column;overflow-y:auto}
+.mob-nav-drawer.on{transform:translateX(0)}
+.mob-nav-hd{display:flex;align-items:center;justify-content:space-between;padding:16px 18px;border-bottom:1.5px solid var(--br)}
+.mob-nav-close{background:none;border:none;cursor:pointer;font-size:18px;color:var(--tx2);width:36px;height:36px;display:flex;align-items:center;justify-content:center;border-radius:8px}
+.mob-nav-links{display:flex;flex-direction:column;padding:12px 0;flex:1}
+.mob-nav-link{padding:14px 22px;font-size:15px;font-weight:700;color:var(--tx2);border-left:3px solid transparent;text-decoration:none;transition:all .14s;display:block}
+.mob-nav-link:hover,.mob-nav-link.active{color:var(--ac);background:var(--acl);border-left-color:var(--ac)}
+.mob-nav-section{padding:8px 22px 4px;font-size:11px;font-weight:800;color:var(--tx4);letter-spacing:.08em;text-transform:uppercase}
+.mob-nav-sublink{padding:10px 22px 10px 34px;font-size:14px;font-weight:600;color:var(--tx2);text-decoration:none;display:block;border-left:3px solid transparent;transition:all .14s}
+.mob-nav-sublink:hover{color:var(--ac);background:var(--acl);border-left-color:var(--ac)}
+.mob-nav-cta{display:flex;align-items:center;justify-content:center;margin:0 18px 28px;padding:14px 24px;background:var(--ac);color:#fff;border-radius:10px;font-size:15px;font-weight:800;box-shadow:0 4px 16px rgba(26,71,49,.35);text-decoration:none}
+@media(max-width:768px){.nav-links{display:none}.nav-cta{display:none}.nav-hamburger{display:flex}}
+
+.breadcrumb{padding:12px clamp(20px,4vw,80px);font-size:13px;color:var(--tx3);display:flex;align-items:center;gap:6px}
+.breadcrumb a{color:var(--tx3)}.breadcrumb a:hover{color:var(--ac)}
+
+.hero{padding:60px clamp(20px,4vw,80px) 52px;max-width:820px;margin:0 auto;text-align:center}
+.hero-badge{display:inline-flex;align-items:center;gap:8px;background:var(--acl);color:var(--acm);padding:6px 14px;border-radius:20px;font-size:13px;font-weight:700;margin-bottom:20px}
+.hero h1{font-family:'Fraunces',serif;font-size:clamp(30px,4.5vw,48px);font-weight:700;letter-spacing:-.5px;line-height:1.2;margin-bottom:16px}
+.hero p{font-size:17px;color:var(--tx2);max-width:560px;margin:0 auto 32px}
+
+.tools-wrap{max-width:900px;margin:0 auto;padding:0 clamp(20px,4vw,40px) 80px}
+.tools-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:24px}
+.tool-card{background:var(--wh);border-radius:var(--r);border:1.5px solid var(--br);padding:32px;transition:all .2s;display:block;position:relative;overflow:hidden}
+.tool-card:hover{border-color:var(--acm);box-shadow:var(--shm);transform:translateY(-3px)}
+.tool-card::after{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;background:var(--ac);transform:scaleX(0);transition:transform .2s;transform-origin:left}
+.tool-card:hover::after{transform:scaleX(1)}
+.tool-icon{width:52px;height:52px;background:var(--acl);border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:26px;margin-bottom:18px}
+.tool-badge{display:inline-block;background:var(--acl);color:var(--acm);padding:3px 10px;border-radius:20px;font-size:11px;font-weight:800;letter-spacing:.04em;text-transform:uppercase;margin-bottom:10px}
+.tool-title{font-family:'Fraunces',serif;font-size:22px;font-weight:700;margin-bottom:8px;color:var(--tx)}
+.tool-desc{font-size:14px;color:var(--tx2);line-height:1.65;margin-bottom:20px}
+.tool-features{display:flex;flex-direction:column;gap:6px;margin-bottom:20px}
+.tool-feat{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--tx2);font-weight:600}
+.tool-feat::before{content:'✓';color:var(--acm);font-weight:800;flex-shrink:0}
+.tool-cta{display:inline-flex;align-items:center;gap:6px;padding:10px 20px;background:var(--ac);color:#fff;border-radius:10px;font-size:14px;font-weight:800;transition:all .2s}
+.tool-card:hover .tool-cta{background:var(--acm)}
+.tool-soon{opacity:.55;pointer-events:none}
+.tool-soon .tool-badge{background:var(--s2);color:var(--tx3)}
+.tool-soon .tool-cta{background:var(--tx4)}
+
+.stats-bar{background:var(--ac);padding:28px clamp(20px,4vw,80px);display:flex;justify-content:center;gap:clamp(24px,6vw,80px);flex-wrap:wrap;margin-bottom:0}
+.stat{text-align:center;color:#fff}
+.stat-num{font-family:'Fraunces',serif;font-size:28px;font-weight:700;line-height:1}
+.stat-label{font-size:13px;opacity:.75;margin-top:4px}
+
+.cta-section{max-width:900px;margin:32px auto 0;padding:0 clamp(20px,4vw,40px) 80px}
+.cta-box{background:var(--wh);border-radius:var(--r);border:1.5px solid var(--br);padding:40px;text-align:center}
+.cta-box h2{font-family:'Fraunces',serif;font-size:24px;font-weight:700;margin-bottom:10px}
+.cta-box p{font-size:15px;color:var(--tx2);margin-bottom:24px}
+.cta-box a{display:inline-flex;align-items:center;gap:8px;padding:13px 28px;background:var(--ac);color:#fff;border-radius:11px;font-size:15px;font-weight:800;transition:all .2s;box-shadow:0 4px 16px rgba(26,71,49,.3)}
+.cta-box a:hover{background:var(--acm);transform:translateY(-1px)}
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <a href="/" class="nav-logo">
+    <img src="../logo.webp" alt="ZenBTW" class="nav-logo-img" width="120" height="44">
+    <span class="nav-wordmark">Zen<em>BTW</em></span>
+  </a>
+  <div class="nav-links">
+    <a href="/" class="nav-link">Home</a>
+    <a href="/blog/" class="nav-link">Blog</a>
+    <div class="nav-dropdown">
+      <button class="nav-dropdown-btn">Hulpmiddelen <span class="nav-dropdown-arrow">▾</span></button>
+      <div class="nav-dropdown-menu">
+        <a href="/hulpmiddelen/margeregeling-calculator.html" class="nav-dd-item">
+          <div class="nav-dd-icon">🧮</div>
+          <div><div class="nav-dd-label">Margeregeling Calculator</div><div class="nav-dd-sub">BTW berekenen op tweedehands</div></div>
+        </a>
+        <a href="/hulpmiddelen/kor-oss-checker.html" class="nav-dd-item">
+          <div class="nav-dd-icon">📊</div>
+          <div><div class="nav-dd-label">KOR & OSS Checker</div><div class="nav-dd-sub">Check je drempelstatus direct</div></div>
+        </a>
+        <div class="nav-dd-sep"></div>
+        <a href="/hulpmiddelen/" class="nav-dd-all">Alle hulpmiddelen →</a>
+      </div>
+    </div>
+  </div>
+  <div style="display:flex;align-items:center;gap:10px;flex-shrink:0">
+    <a href="/app" class="nav-cta">Check mijn status →</a>
+    <button class="nav-hamburger" id="navHam" onclick="toggleMobNav()" aria-label="Menu">
+      <span class="hb"></span><span class="hb"></span><span class="hb"></span>
+    </button>
+  </div>
+</nav>
+
+<div class="mob-nav-overlay" id="mobOverlay" onclick="closeMobNav()"></div>
+<div class="mob-nav-drawer" id="mobDrawer">
+  <div class="mob-nav-hd">
+    <a href="/" class="nav-logo" onclick="closeMobNav()">
+      <img src="../logo.webp" alt="ZenBTW" style="height:32px;width:auto">
+    </a>
+    <button class="mob-nav-close" onclick="closeMobNav()">✕</button>
+  </div>
+  <nav class="mob-nav-links">
+    <a href="/" class="mob-nav-link" onclick="closeMobNav()">Home</a>
+    <a href="/blog/" class="mob-nav-link" onclick="closeMobNav()">Blog</a>
+    <div class="mob-nav-section">Hulpmiddelen</div>
+    <a href="/hulpmiddelen/margeregeling-calculator.html" class="mob-nav-sublink" onclick="closeMobNav()">🧮 Margeregeling Calculator</a>
+    <a href="/hulpmiddelen/kor-oss-checker.html" class="mob-nav-sublink" onclick="closeMobNav()">📊 KOR & OSS Checker</a>
+    <a href="/hulpmiddelen/" class="mob-nav-link active" onclick="closeMobNav()">Alle hulpmiddelen</a>
+  </nav>
+  <div style="padding:0 18px 28px">
+    <a href="/app" class="mob-nav-cta">Check mijn status →</a>
+  </div>
+</div>
+
+<div class="breadcrumb">
+  <a href="/">Home</a> › Hulpmiddelen
+</div>
+
+<div class="hero">
+  <div class="hero-badge">🛠 Gratis tools</div>
+  <h1>Hulpmiddelen voor<br>marketplace-verkopers</h1>
+  <p>Praktische calculators en checkers die je BTW-vragen in seconden beantwoorden. 100% gratis, geen account nodig.</p>
+</div>
+
+<div class="tools-wrap">
+  <div class="tools-grid">
+
+    <a href="/hulpmiddelen/margeregeling-calculator.html" class="tool-card">
+      <div class="tool-icon">🧮</div>
+      <div class="tool-badge">Calculator</div>
+      <div class="tool-title">Margeregeling Calculator</div>
+      <div class="tool-desc">Bereken precies hoeveel BTW je betaalt als je tweedehands verkoopt. Vergelijk margeregeling vs. standaard BTW en zie direct je besparing.</div>
+      <div class="tool-features">
+        <div class="tool-feat">Enkelvoudige én bulkberekening</div>
+        <div class="tool-feat">Vergelijking margeregeling vs. standaard</div>
+        <div class="tool-feat">21% en 9% BTW-tarief</div>
+        <div class="tool-feat">Export naar CSV</div>
+      </div>
+      <div class="tool-cta">Gebruik calculator →</div>
+    </a>
+
+    <a href="/hulpmiddelen/kor-oss-checker.html" class="tool-card">
+      <div class="tool-icon">📊</div>
+      <div class="tool-badge">Checker</div>
+      <div class="tool-title">KOR & OSS Drempelchecker</div>
+      <div class="tool-desc">Vul je kwartaalomzet in en zie direct hoe ver je van de KOR-grens (€20.000) en OSS-grens (€10.000) zit. Met prognose en persoonlijk advies.</div>
+      <div class="tool-features">
+        <div class="tool-feat">Visuele voortgangsbalk KOR & OSS</div>
+        <div class="tool-feat">Platform-omzet apart (deemed supplier)</div>
+        <div class="tool-feat">Prognose voor het hele jaar</div>
+        <div class="tool-feat">Situatie-specifiek advies</div>
+      </div>
+      <div class="tool-cta">Gebruik checker →</div>
+    </a>
+
+    <div class="tool-card tool-soon">
+      <div class="tool-icon">📈</div>
+      <div class="tool-badge">Binnenkort</div>
+      <div class="tool-title">Winstcalculator</div>
+      <div class="tool-desc">Bereken je netto winst per verkoop inclusief platformkosten, verzending en BTW. Speciaal voor Etsy, Vinted en Shopify-verkopers.</div>
+      <div class="tool-features">
+        <div class="tool-feat">Inclusief platform- en verzendkosten</div>
+        <div class="tool-feat">BTW-impact zichtbaar</div>
+        <div class="tool-feat">Per item of per maand</div>
+      </div>
+      <div class="tool-cta">Binnenkort beschikbaar</div>
+    </div>
+
+    <div class="tool-card tool-soon">
+      <div class="tool-icon">🧾</div>
+      <div class="tool-badge">Binnenkort</div>
+      <div class="tool-title">DAC7 Risico-Checker</div>
+      <div class="tool-desc">Ben jij een hobbyverkoper of ondernemer? De DAC7-regeling meldt je verkoopdata bij de Belastingdienst. Check je risico in 1 minuut.</div>
+      <div class="tool-features">
+        <div class="tool-feat">Drempel: 30 items of €2.000</div>
+        <div class="tool-feat">Stap-voor-stap flow</div>
+        <div class="tool-feat">Advies op maat</div>
+      </div>
+      <div class="tool-cta">Binnenkort beschikbaar</div>
+    </div>
+
+  </div>
+</div>
+
+<div class="stats-bar">
+  <div class="stat"><div class="stat-num">100%</div><div class="stat-label">Gratis — altijd</div></div>
+  <div class="stat"><div class="stat-num">0</div><div class="stat-label">Account nodig</div></div>
+  <div class="stat"><div class="stat-num">∞</div><div class="stat-label">Berekeningen per dag</div></div>
+  <div class="stat"><div class="stat-num">NL</div><div class="stat-label">Belastingdienst-regels 2026</div></div>
+</div>
+
+<div class="cta-section">
+  <div class="cta-box">
+    <h2>Wil je KOR automatisch bijgehouden hebben?</h2>
+    <p>ZenBTW importeert je Etsy/Vinted-data en bewaakt je drempel continu. Geen handmatig invoeren — gewoon uploaden en klaar.</p>
+    <a href="/app">Start gratis met ZenBTW →</a>
+  </div>
+</div>
+
+<script>
+function toggleMobNav() {
+  const ham = document.getElementById('navHam');
+  const overlay = document.getElementById('mobOverlay');
+  const drawer = document.getElementById('mobDrawer');
+  const open = !ham.classList.contains('open');
+  ham.classList.toggle('open', open);
+  overlay.classList.toggle('on', open);
+  drawer.classList.toggle('on', open);
+  document.body.style.overflow = open ? 'hidden' : '';
+}
+function closeMobNav() {
+  document.getElementById('navHam').classList.remove('open');
+  document.getElementById('mobOverlay').classList.remove('on');
+  document.getElementById('mobDrawer').classList.remove('on');
+  document.body.style.overflow = '';
+}
+</script>
+</body>
+</html>
