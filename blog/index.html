@@ -225,21 +225,6 @@ footer{background:var(--bg,#f7f6f3);border-top:1.5px solid var(--br,#e5e0d8);pad
     <a href="/app" class="mob-nav-cta">Check mijn status →</a>
   </div>
 </div>
-
-  <div class="mob-nav-links">
-    <a href="../index.html#functies" class="mob-nav-link" onclick="closeMobNav()">Functies</a>
-    <a href="../index.html#stappen" class="mob-nav-link" onclick="closeMobNav()">Hoe werkt het</a>
-    <a href="./" class="mob-nav-link active" onclick="closeMobNav()">Blog</a>
-    <div class="mob-nav-section">Hulpmiddelen</div>
-    <a href="/hulpmiddelen/margeregeling-calculator/" class="mob-nav-sublink" onclick="closeMobNav()">🧮 Margeregeling Calculator</a>
-    <a href="/hulpmiddelen/kor-oss-checker/" class="mob-nav-sublink" onclick="closeMobNav()">📊 KOR &amp; OSS Checker</a>
-    <a href="/hulpmiddelen/" class="mob-nav-link" onclick="closeMobNav()">Alle hulpmiddelen</a>
-    <a href="../index.html#prijzen" class="mob-nav-link" onclick="closeMobNav()">Prijzen</a>
-    <a href="../index.html#wachtlijst" class="mob-nav-link" onclick="closeMobNav()">PRO</a>
-    <a href="../index.html#faq" class="mob-nav-link" onclick="closeMobNav()">FAQ</a>
-  </div>
-  <a href="/app" class="mob-nav-cta">Check mijn status →</a>
-</div>
 <script>
 function toggleMobNav(){var h=document.getElementById('navHamburger'),o=document.getElementById('mobNavOverlay'),d=document.getElementById('mobNavDrawer'),op=!h.classList.contains('open');h.classList.toggle('open',op);o.classList.toggle('on',op);d.classList.toggle('on',op);document.body.style.overflow=op?'hidden':'';}
 function closeMobNav(){document.getElementById('navHamburger').classList.remove('open');document.getElementById('mobNavOverlay').classList.remove('on');document.getElementById('mobNavDrawer').classList.remove('on');document.body.style.overflow='';},300);b.classList.remove('open');b.setAttribute('aria-expanded','false');document.body.style.overflow='';}
