@@ -2,7 +2,8 @@ name: Keepalive — voorkom dat scheduled workflows worden uitgeschakeld
 
 on:
   schedule:
-    - cron: '0 6 * * 0'  # Elke zondag 06:00 UTC, vóór de maandagse runs
+    - cron: '0 6 * * 0'   # Elke zondag 06:00 UTC — keepalive
+    - cron: '30 8 * * *'  # Elke dag 08:30 UTC — watchdog controleert of blog al gedraaid heeft
   workflow_dispatch:
 
 permissions:
