@@ -137,5 +137,11 @@ p{font-size:15px;color:#8a847a;line-height:1.7;margin-bottom:32px}
     <a href="app.html" class="btn-app">📊 Open dashboard</a>
   </div>
 </div>
+</div>
+</div>
+<script>
+function toggleMobNav(){var h=document.getElementById('navHamburger'),o=document.getElementById('mobNavOverlay'),d=document.getElementById('mobNavDrawer'),op=!h.classList.contains('open');h.classList.toggle('open',op);o.classList.toggle('on',op);d.classList.toggle('on',op);document.body.style.overflow=op?'hidden':'';}
+function closeMobNav(){document.getElementById('navHamburger').classList.remove('open');document.getElementById('mobNavOverlay').classList.remove('on');document.getElementById('mobNavDrawer').classList.remove('on');document.body.style.overflow='';}
+</script>
 </body>
 </html>
