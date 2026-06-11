@@ -2087,27 +2087,15 @@ function clearInstagramLeads() {
   saveInstagramLeads([]); renderInstagramLeads(); updateInstagramKpis();
 }
 
-function switchIgTab(ri, key) {
-  ['helper', 'gesprek', 'pitch'].forEach(k => {
-    const tab = document.getElementById(`igtab-${ri}-${k}`);
-    const content = document.getElementById(`igtabcontent-${ri}-${k}`);
-    if (!tab || !content) return;
-    const active = k === key;
-    tab.style.background = active ? 'var(--acm)' : 'transparent';
-    tab.style.color = active ? '#fff' : 'var(--ac)';
-    content.style.display = active ? 'block' : 'none';
-  });
-}
-
-function copyIgTab(ri, key) {
+function copyIgDm(ri) {
   const leads = getInstagramLeads();
-  const tekst = leads[ri]?.berichten?.[key] || '';
+  const tekst = leads[ri]?.bericht || leads[ri]?.berichten?.helper || '';
   navigator.clipboard.writeText(tekst).then(() => {
-    const btn = document.getElementById(`igcopybtn-${ri}-${key}`);
+    const btn = document.getElementById(`igcopybtn-${ri}`);
     if (!btn) return;
     btn.textContent = '✓ Gekopieerd';
     btn.style.background = 'var(--green)';
-    setTimeout(() => { btn.textContent = 'Kopieer'; btn.style.background = 'var(--ac)'; }, 2000);
+    setTimeout(() => { btn.textContent = 'Kopieer DM'; btn.style.background = 'var(--ac)'; }, 2000);
   });
 }
 
@@ -2123,12 +2111,10 @@ function renderInstagramLeads() {
   const allLeads = getInstagramLeads();
   const sColor = { nieuw: 'var(--blue)', benaderd: 'var(--green)', genegeerd: 'var(--tx3)' };
   const sBg = { nieuw: 'var(--bluel)', benaderd: 'var(--greenl)', genegeerd: 'var(--bg)' };
-  const tabLabels = [['helper', '💬 Helper'], ['gesprek', '🗣 Gesprek'], ['pitch', '🎯 Pitch']];
 
   el.innerHTML = leads.map(l => {
     const ri = allLeads.findIndex(x => (x.id || x.username) === (l.id || l.username));
-    const b = l.berichten || {};
-    const hasB = b.helper || b.gesprek || b.pitch;
+    const dm = l.bericht || (l.berichten && (l.berichten.helper || l.berichten.gesprek || l.berichten.pitch)) || '';
     return `<div style="border-bottom:1px solid var(--br);padding:1rem 1.2rem">
       <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:1rem;flex-wrap:wrap">
         <div style="flex:1;min-width:0">
@@ -2152,24 +2138,14 @@ function renderInstagramLeads() {
           ${l.postUrl ? `<a href="${l.postUrl}" target="_blank" class="btn btn-ghost" style="padding:4px 10px;font-size:11px;text-decoration:none">→ Open post</a>` : ''}
         </div>
       </div>
-      ${hasB ? `
-      <div style="margin-top:10px;background:var(--acl);border-left:3px solid var(--acm);border-radius:0 6px 6px 0;overflow:hidden">
-        <div style="display:flex;border-bottom:1px solid rgba(0,0,0,.06)">
-          ${tabLabels.map(([key, label]) => `
-          <button onclick="switchIgTab(${ri},'${key}')" id="igtab-${ri}-${key}"
-            style="padding:7px 14px;font-size:11px;font-weight:600;border:none;cursor:pointer;background:${key === 'helper' ? 'var(--acm)' : 'transparent'};color:${key === 'helper' ? '#fff' : 'var(--ac)'};transition:all .15s">
-            ${label}
-          </button>`).join('')}
-        </div>
-        ${tabLabels.map(([key]) => `
-        <div id="igtabcontent-${ri}-${key}" style="display:${key === 'helper' ? 'block' : 'none'};padding:10px 12px">
-          <div style="font-size:13px;color:var(--tx);line-height:1.6;white-space:pre-wrap;margin-bottom:8px">${(typeof b[key] === 'string' ? b[key] : b[key] ? Object.values(b[key]).find(x => typeof x === 'string') || '' : '').replace(/</g, '&lt;')}</div>
-          <button onclick="copyIgTab(${ri},'${key}')" id="igcopybtn-${ri}-${key}"
-            style="padding:3px 10px;font-size:11px;background:var(--ac);color:#fff;border:none;border-radius:5px;cursor:pointer">
-            Kopieer
-          </button>
-        </div>`).join('')}
-      </div>` : `<div style="margin-top:8px;font-size:12px;color:var(--tx3)">Geen berichten gegenereerd (score te laag of ontbrekend).</div>`}
+      ${dm ? `
+      <div style="margin-top:10px;background:var(--acl);border-left:3px solid var(--acm);border-radius:0 6px 6px 0;padding:12px 14px">
+        <div style="font-size:13px;color:var(--tx);line-height:1.65;white-space:pre-wrap;margin-bottom:10px">${dm.replace(/</g, '&lt;')}</div>
+        <button onclick="copyIgDm(${ri})" id="igcopybtn-${ri}"
+          style="padding:4px 14px;font-size:12px;background:var(--ac);color:#fff;border:none;border-radius:5px;cursor:pointer;font-weight:600">
+          Kopieer DM
+        </button>
+      </div>` : `<div style="margin-top:8px;font-size:12px;color:var(--tx3)">Geen bericht gegenereerd.</div>`}
     </div>`;
   }).join('');
 }
