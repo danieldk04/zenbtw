@@ -100,30 +100,28 @@ async function scoreWithClaude(posts) {
   for (let i = 0; i < posts.length; i += 6) {
     const batch = posts.slice(i, i + 6);
 
-    const prompt = `Je schrijft persoonlijke Instagram DM's namens Daniel — eigenaar van vintage kledingwinkel Revaleur (700+ reviews op Vinted, Etsy en Shopify) en oprichter van ZenBTW.
-
-Daniel stuurt deze DM's vanuit @revaleur naar mensen die hij NIET kent. Hij benadert ze puur omdat hij zelf heeft geworsteld met KOR/BTW en denkt dat ze er wat aan hebben.
+    const prompt = `Je schrijft persoonlijke Instagram DM's namens Daniel. Hij verkoopt vintage kleding via @revaleur (700+ reviews op Vinted, Etsy en Shopify). Hij stuurt dit naar mensen die hij niet kent.
 
 FILTER (score):
 8-10: Verkoopt actief fysieke producten via Vinted/Etsy/Shopify/Depop/Marktplaats, Nederlandse kleine verkoper, omzet kan KOR-drempel (€20k/jaar) raken
 5-7: Mogelijk relevant maar onduidelijk
 1-4: Niet relevant
 
-Voor score ≥7: schrijf 3 varianten van een persoonlijke intro-DM.
+Voor score ≥7: schrijf 3 TOTAAL VERSCHILLENDE DM-varianten. ZenBTW mag alleen in variant 3 voorkomen. Varianten 1 en 2 zijn puur menselijk zonder enige verwijzing naar tools of software.
 
-STRUCTUUR VAN ELKE DM (in deze volgorde):
-1. Naam (voornaam of @username) — geen "Hoi"
-2. Één oprecht compliment over iets specifieks: hun product, shopnaam, wat ze maken
-3. Korte intro: "Ik ga er niet omheen draaien — ik heb zelf 700+ reviews op Vinted/Etsy/Shopify via mijn vintage shop Revaleur en heb hier zelf lang mee geworsteld."
-4. Afhankelijk van variant (zie onder)
-5. Altijd afsluiten met: "Groetjes, Daniel"
+VARIANT 1 "Echte reactie": reageer puur als iemand die hun werk mooi vindt. Benoem iets heel specifieks uit hun post of bio. Stel daarna één oprechte vraag over hun werk of verkoopervaring als collega-verkoper. Geen agenda. Sluit af met "Groetjes Daniel"
 
-STIJL: Informeel, menselijk, geen buzzwords, geen emoji, max 5 zinnen. Klinkt als een vriend die toevallig expert is.
+VARIANT 2 "Collega-herkenning": begin met hun naam, deel één herkenbaar moment vanuit je eigen ervaring als verkoper (iets concreets). Stel dan een vraag die je echt zou willen weten. Voelt als een gesprek tussen twee ondernemers. Sluit af met "Groetjes Daniel 👋"
 
-3 VARIANTEN:
-- helper: na intro → één concreet nuttig feit over hun specifieke situatie (geen ZenBTW) → "Check gerust ook mijn profiel @revaleur of zenbtw.nl als je meer wil weten, maar geen druk. Groetjes, Daniel"
-- gesprek: na intro → één gerichte vraag over hun situatie (bijv. hoe ze omzet bijhouden, hoeveel platforms) → "Groetjes, Daniel"
-- pitch: na intro → probleem kort uitleggen → "Daarvoor heb ik zenbtw.nl gebouwd, puur om het simpel te houden. Als het niks voor je is ook geen hard feelings. Groetjes, Daniel"
+VARIANT 3 "Zachte tip": begin met een compliment over iets specifieks. Vertel in één zin dat jij als verkoper lang hebt geworsteld met de KOR-administratie. Noem ZenBTW heel luchtig als "iets wat ik daarvoor heb gemaakt" zonder het aan te prijzen. Maak duidelijk dat er geen druk is. Sluit af met "Groetjes Daniel"
+
+REGELS:
+Gebruik NOOIT een streepje (geen gedachtestreepje, geen opsommingsstreepje, nergens)
+Geen "Hoi" aan het begin
+Max 4 zinnen per variant
+Geen buzzwords, geen marketingtaal
+Emojis spaarzaam (max 1 per bericht, alleen als het echt past)
+Klinkt als iemand die echt geïnteresseerd is, niet als iemand die iets verkoopt
 
 Antwoord UITSLUITEND als JSON array:
 [{"index":0,"score":8,"reden":"verkoopt vintage kleding op Etsy NL","username":"shopnaam","displayName":"Lisa","berichten":{"helper":"...","gesprek":"...","pitch":"..."}}]
