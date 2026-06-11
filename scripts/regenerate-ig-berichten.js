@@ -6,35 +6,30 @@ const ANTHROPIC_KEY = process.env.ANTHROPIC_API_KEY;
 const LEADS_FILE = 'instagram-leads.json';
 
 async function generateDMs(lead) {
-  const prompt = `Je schrijft 3 Instagram DM's namens Daniel. Hij is eigenaar van vintage kledingwinkel Revaleur (700+ reviews op Vinted, Etsy en Shopify) en heeft ZenBTW gebouwd. Hij stuurt dit vanuit @revaleur naar iemand die hij niet kent.
+  const prompt = `Je schrijft 3 Instagram DM's namens Daniel. Hij verkoopt vintage kleding via @revaleur (700+ reviews op Vinted, Etsy en Shopify). Hij stuurt dit naar iemand die hij niet kent.
 
 PROFIEL:
 @${lead.username} (${lead.displayName || lead.username})
 Bio: ${lead.bio || '(geen bio)'}
 Recente post: ${lead.snippet || '(geen post)'}
 
-Schrijf 3 TOTAAL VERSCHILLENDE DM's. Elke variant heeft een andere toon en aanpak. Kies de 3 beste stijlen uit onderstaande opties:
+Schrijf 3 DM's die TOTAAL ANDERS zijn qua toon. Belangrijk: ZenBTW mag alleen in variant 3 voorkomen. Varianten 1 en 2 zijn puur menselijk, zonder enige verwijzing naar tools of software.
 
-WARME COLLEGA: begin met voornaam, complimenteer iets specifieks aan hun shop, vertel kort over je eigen ervaring als verkoper op Revaleur, zeg dat je hebt geworsteld met BTW/KOR, stel één persoonlijke vraag. Sluit af met "Groetjes Daniel 👋"
+VARIANT 1 "Echte reactie": reageer puur als iemand die hun werk mooi vindt. Benoem iets heel specifieks uit hun post of bio (het materiaal, het product, de aanpak). Stel daarna één oprechte vraag over hun werk of verkoopervaring als collega-verkoper. Geen agenda. Sluit af met "Groetjes Daniel"
 
-ENTHOUSIASTE FAN: begin met hun naam + iets dat je echt aanspreekt in hun content (wees specifiek), zeg dat je zelf ook verkoopt via Revaleur en je herkent het, maak het probleem urgent maar luchtig (bijv. "de Belastingdienst kijkt namelijk naar je omzet, niet je winst 😅"), verwijs naar zenbtw.nl. Sluit af met "Groetjes Daniel"
+VARIANT 2 "Collega-herkenning": begin met hun naam, deel één herkenbaar moment vanuit je eigen ervaring als verkoper (iets concreets, geen BTW-gezeur). Stel dan een vraag die je echt zou willen weten als je hen tegenkwam. Voelt als een gesprek tussen twee ondernemers die elkaar net leren kennen. Sluit af met "Groetjes Daniel 👋"
 
-DIRECTE HELPER: geen omwegen, begin met compliment, zeg meteen "ik heb iets gebouwd dat jou waarschijnlijk tijd bespaart", leg in één zin uit wat ZenBTW doet, zeg dat hij het zelf ook gebruikt voor Revaleur. Sluit af met "Groetjes Daniel, @revaleur"
-
-NIEUWSGIERIGE VRAGEN-STELLER: begin met naam + observatie over hun shop, stel twee korte vragen over hoe zij hun administratie doen (bijv. hoe ze bijhouden wanneer ze de KOR-drempel raken), vertel daarna pas dat je dit zelf ook hebt meegemaakt en iets hebt gemaakt. Sluit af met "Groetjes Daniel"
-
-PERSOONLIJK VERHAAL: begin met hun naam, vertel een mini-verhaal van 2 zinnen over hoe jij (Daniel) dit probleem zelf tegenkwam bij Revaleur, trek de parallel naar hun situatie, bied hulp aan. Sluit af met "Groetjes Daniel 🙏"
-
-Kies de 3 stijlen die het BESTE passen bij dit specifieke profiel en schrijf ze uit.
+VARIANT 3 "Zachte tip": begin met een compliment over iets specifieks. Vertel in één zin dat jij als verkoper lang hebt geworsteld met de KOR-administratie. Noem ZenBTW heel luchtig als "iets wat ik daarvoor heb gemaakt" zonder het aan te prijzen. Maak duidelijk dat er geen druk is. Sluit af met "Groetjes Daniel"
 
 REGELS VOOR ALLE VARIANTEN:
-Gebruik NOOIT een streepje (geen gedachtestreepje, geen koppelteken aan het begin van een zin, geen opsomming met streepjes)
-Emojis zijn welkom maar gebruik ze spaarzaam (max 2 per bericht)
-Max 5 zinnen per variant
-Klinkt als een echt mens, niet als een template
-Noem altijd iets specifieks over hun profiel of post
+Gebruik NOOIT een streepje (geen gedachtestreepje, geen opsommingsstreepje, nergens)
+Geen "Hoi" aan het begin
+Max 4 zinnen
+Geen buzzwords, geen marketingtaal
+Emojis spaarzaam (max 1 per bericht, alleen als het echt past)
+Klinkt als iemand die echt geïnteresseerd is, niet als iemand die iets verkoopt
 
-Geef ALLEEN JSON terug (geen uitleg):
+Geef ALLEEN JSON terug:
 {"helper":"...","gesprek":"...","pitch":"..."}`;
 
   const r = await fetch('https://api.anthropic.com/v1/messages', {
