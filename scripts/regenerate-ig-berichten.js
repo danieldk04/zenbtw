@@ -6,31 +6,31 @@ const ANTHROPIC_KEY = process.env.ANTHROPIC_API_KEY;
 const LEADS_FILE = 'instagram-leads.json';
 
 async function generateDMs(lead) {
-  const prompt = `Je schrijft 3 Instagram DM's namens Daniel. Hij verkoopt vintage kleding via @revaleur (700+ reviews op Vinted, Etsy en Shopify). Hij stuurt dit naar iemand die hij niet kent.
+  const prompt = `Schrijf 3 korte Instagram DM's namens Daniel (@revaleur, vintage kleding, 700+ reviews op Vinted/Etsy/Shopify). Hij stuurt dit naar iemand die hij niet kent.
 
-PROFIEL:
+PROFIEL ONTVANGER:
 @${lead.username} (${lead.displayName || lead.username})
 Bio: ${lead.bio || '(geen bio)'}
 Recente post: ${lead.snippet || '(geen post)'}
 
-Schrijf 3 DM's die TOTAAL ANDERS zijn qua toon. Belangrijk: ZenBTW mag alleen in variant 3 voorkomen. Varianten 1 en 2 zijn puur menselijk, zonder enige verwijzing naar tools of software.
+Schrijf de VOLLEDIGE TEKST van 3 DM's. Geef GEEN beschrijvingen of labels, alleen de echte berichttekst die Daniel kan kopiëren en plakken.
 
-VARIANT 1 "Echte reactie": reageer puur als iemand die hun werk mooi vindt. Benoem iets heel specifieks uit hun post of bio (het materiaal, het product, de aanpak). Stel daarna één oprechte vraag over hun werk of verkoopervaring als collega-verkoper. Geen agenda. Sluit af met "Groetjes Daniel"
+DM 1 (sleutel "helper"): reageer als iemand die hun werk oprecht mooi vindt. Benoem iets heel specifieks uit hun post of bio. Stel daarna één echte vraag over hun werk als collega-verkoper. Geen agenda. Eindig met "Groetjes Daniel"
 
-VARIANT 2 "Collega-herkenning": begin met hun naam, deel één herkenbaar moment vanuit je eigen ervaring als verkoper (iets concreets, geen BTW-gezeur). Stel dan een vraag die je echt zou willen weten als je hen tegenkwam. Voelt als een gesprek tussen twee ondernemers die elkaar net leren kennen. Sluit af met "Groetjes Daniel 👋"
+DM 2 (sleutel "gesprek"): begin met hun naam, deel één herkenbaar eigen verkoopmoment (concreet, geen BTW). Stel een vraag die je echt zou willen weten. Twee ondernemers die elkaar leren kennen. Eindig met "Groetjes Daniel 👋"
 
-VARIANT 3 "Zachte tip": begin met een compliment over iets specifieks. Vertel in één zin dat jij als verkoper lang hebt geworsteld met de KOR-administratie. Noem ZenBTW heel luchtig als "iets wat ik daarvoor heb gemaakt" zonder het aan te prijzen. Maak duidelijk dat er geen druk is. Sluit af met "Groetjes Daniel"
+DM 3 (sleutel "pitch"): begin met een concreet compliment. Noem in één zin dat jij als verkoper lang hebt geworsteld met de KOR-administratie. Noem ZenBTW luchtig als "iets wat ik daarvoor heb gemaakt" zonder aanprijzing. Geen druk. Eindig met "Groetjes Daniel"
 
-REGELS VOOR ALLE VARIANTEN:
-Gebruik NOOIT een streepje (geen gedachtestreepje, geen opsommingsstreepje, nergens)
+REGELS:
+Geen streepjes als leesteken (geen gedachtestreepje, nergens)
 Geen "Hoi" aan het begin
-Max 4 zinnen
+Max 4 zinnen per DM
 Geen buzzwords, geen marketingtaal
-Emojis spaarzaam (max 1 per bericht, alleen als het echt past)
-Klinkt als iemand die echt geïnteresseerd is, niet als iemand die iets verkoopt
+Emojis spaarzaam (max 1 per bericht)
+ZenBTW alleen in DM 3
 
-Geef ALLEEN JSON terug:
-{"helper":"...","gesprek":"...","pitch":"..."}`;
+Geef UITSLUITEND dit JSON-object terug, niets anders, geen uitleg:
+{"helper":"[volledige DM-tekst 1]","gesprek":"[volledige DM-tekst 2]","pitch":"[volledige DM-tekst 3]"}`;
 
   const r = await fetch('https://api.anthropic.com/v1/messages', {
     method: 'POST',
