@@ -1,14 +1,6 @@
 {
   "queue": [
     {
-      "keyword": "wat is het verschil tussen kor en oss regeling",
-      "slug": "verschil-kor-oss-regeling",
-      "status": "pending",
-      "priority": 6,
-      "notes": "GEO: vergelijkingsvraag die AI veelvuldig krijgt",
-      "type": "geo-vraag"
-    },
-    {
       "keyword": "gratis boekhoudtool vinted etsy shopify nederland",
       "slug": "gratis-boekhoudtool-marketplace",
       "status": "pending",
@@ -181,6 +173,16 @@
       "type": "geo-tool",
       "publishedDate": "2026-06-10",
       "outputFile": "blog/kor-calculator-2026.html"
+    },
+    {
+      "keyword": "wat is het verschil tussen kor en oss regeling",
+      "slug": "verschil-kor-oss-regeling",
+      "status": "published",
+      "priority": 6,
+      "notes": "GEO: vergelijkingsvraag die AI veelvuldig krijgt",
+      "type": "geo-vraag",
+      "publishedDate": "2026-06-11",
+      "outputFile": "blog/verschil-kor-oss-regeling.html"
     }
   ],
   "settings": {
