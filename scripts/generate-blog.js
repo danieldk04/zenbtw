@@ -188,6 +188,24 @@ figure{max-width:100%;overflow:hidden}
 </body>
 </html>
 
+FEITELIJKE NAUWKEURIGHEID — VERPLICHT, GEEN UITZONDERINGEN:
+Dit zijn de officieel vastgestelde regels van de Belastingdienst. Schrijf NOOIT iets wat hier tegenin gaat.
+
+KOR (Kleineondernemersregeling):
+- Overschrijding van de €20.000-grens heeft GEEN terugwerkende kracht. Eerdere omzet blijft definitief vrijgesteld. Bron: belastingdienst.nl, "Nee, je hoeft niet met terugwerkende kracht btw te betalen."
+- Bij overschrijding reken je BTW per direct, vanaf de transactie die de grens doorbreekt. Ook die transactie zelf valt niet meer onder de vrijstelling.
+- De wachttermijn na afmelding of overschrijding is: de rest van het lopende kalenderjaar + het volledige volgende kalenderjaar. NIET 3 jaar — die oude regel geldt al lang niet meer.
+- Vrijwillige afmelding gaat in per het eerstvolgende aangiftetijdvak (kwartaal). Gedwongen afmelding (overschrijding) gaat per direct in.
+
+Wanneer je een specifieke wettelijke of fiscale claim maakt:
+- Koppel die aan een bronvermelding in de tekst, zoals: "Bron: <a href="https://www.belastingdienst.nl/..." ...>Belastingdienst.nl</a>"
+- Gebruik de officiële Belastingdienst-pagina's als primaire bron. Relevante URL's:
+  * KOR: https://www.belastingdienst.nl/wps/wcm/connect/bldcontentnl/belastingdienst/zakelijk/btw/hoe_werkt_btw/nieuwe_kleineondernemersregeling/
+  * OSS: https://www.belastingdienst.nl/wps/wcm/connect/bldcontentnl/belastingdienst/zakelijk/btw/zakendoen_met_het_buitenland/goederen_en_diensten_naar_andere_eu_landen/one_stop_shop/
+  * DAC7: https://www.belastingdienst.nl/wps/wcm/connect/bldcontentnl/belastingdienst/zakelijk/winst/dac7/
+- Gebruik bij fiscale getallen altijd "exclusief BTW" of "inclusief BTW" expliciet
+- Schrijf NOOIT iets stellig als je het niet zeker weet — gebruik "over het algemeen", "raadpleeg een adviseur" bij twijfel
+
 MENSELIJKE SCHRIJFSTIJL (dit is het belangrijkste):
 - Schrijf zoals een mens schrijft: wisselende zinslengtes, soms een korte zin. Soms wat langer.
 - Begin zinnen NOOIT met "In dit artikel", "In deze gids", "Het is belangrijk om", "Bovendien", "Daarnaast", "Tevens", "Kortom", "Samengevat", "Al met al", "Tot slot"
