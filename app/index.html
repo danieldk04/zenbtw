@@ -759,61 +759,36 @@ src="https://www.facebook.com/tr?id=964378096043237&ev=PageView&noscript=1"
 
 <div class="shell">
 <nav class="nav">
-  <a href="/" class="nav-logo">
-    <img src="/logo.webp" alt="ZenBTW" class="nav-logo-img" width="52" height="52">
-  </a>
-  <div class="nav-links">
-    <a href="/#functies" class="nav-link">Functies</a>
-    <a href="/#stappen" class="nav-link">Hoe werkt het</a>
-    <a href="/blog/" class="nav-link">Blog</a>
-    <div class="nav-dropdown">
-      <button class="nav-dropdown-btn">Hulpmiddelen <span class="nav-dropdown-arrow">▾</span></button>
-      <div class="nav-dropdown-menu">
-        <a href="/hulpmiddelen/margeregeling-calculator/" class="nav-dd-item">
-          <div class="nav-dd-icon">🧮</div>
-          <div><div class="nav-dd-label">Margeregeling Calculator</div><div class="nav-dd-sub">BTW berekenen op tweedehands</div></div>
-        </a>
-        <a href="/hulpmiddelen/kor-oss-checker/" class="nav-dd-item">
-          <div class="nav-dd-icon">📊</div>
-          <div><div class="nav-dd-label">KOR &amp; OSS Checker</div><div class="nav-dd-sub">Check je drempelstatus direct</div></div>
-        </a>
-        <div class="nav-dd-sep"></div>
-        <a href="/hulpmiddelen/" class="nav-dd-all">Alle hulpmiddelen →</a>
-      </div>
-    </div>
-    <a href="/#prijzen" class="nav-link">Prijzen</a>
-    <a href="/#faq" class="nav-link">FAQ</a>
+  <div class="nav-logo">
+    <a href="/"><img src="/logo.webp" alt="ZenBTW" style="height:36px;width:36px;border-radius:8px;object-fit:contain;display:block"></a>
   </div>
-  <div style="display:flex;align-items:center;gap:10px;flex-shrink:0">
-    <a href="/app" class="nav-cta">Check mijn status →</a>
-    <button class="nav-hamburger" id="navHamburger" onclick="toggleMobNav()" aria-label="Menu openen" aria-expanded="false">
-      <span class="hb"></span><span class="hb"></span><span class="hb"></span>
-    </button>
+  <div class="ns">
+    <div class="nsl">Overzicht</div>
+    <div class="ni on" id="niDash" onclick="sv('dashboard')"><span>📊</span> Dashboard</div>
+    <div class="ni" id="niTx" onclick="sv('transacties')"><span>🧾</span> Transacties</div>
+    <div class="ni" id="niProd" onclick="sv('producten')"><span>📦</span> Producten</div>
+    <div class="ni" id="niMarge" onclick="sv('marge')"><span>💰</span> Marge</div>
+    <div class="ni" id="niLanden" onclick="sv('landen')"><span>🌍</span> Landen</div>
+    <div class="ni" id="niJaar" onclick="sv('jaaroverzicht')"><span>📅</span> Jaaroverzicht</div>
+  </div>
+  <div class="ns">
+    <div class="nsl">Aangifte</div>
+    <div class="ni" onclick="exportXML()"><span>📄</span> XML exporteren</div>
+    <div class="ni" onclick="exportCSVFile()"><span>📊</span> CSV rapport</div>
+    <div class="ni" onclick="printRapport()"><span>🖨️</span> PDF afdrukken</div>
+  </div>
+  <div class="ns">
+    <div class="nsl">Tools</div>
+    <div class="ni" id="niOSS" onclick="sv('oss')"><span>✅</span> OSS Registratie</div>
+    <div class="ni" id="niAlert" onclick="sv('alerts')"><span>🔔</span> Meldingen</div>
+    <div class="ni" id="niHelp" onclick="sv('help')"><span>❓</span> Help &amp; Uitleg</div>
+    <div class="ni" onclick="openSettings()"><span>⚙️</span> Bedrijfsgegevens</div>
+    <div class="ni" onclick="syncToGoogle()"><span>☁️</span> Cloud Backup</div>
+  </div>
+  <div style="margin-top:auto;padding:10px 10px 20px">
+    <a href="/" style="display:flex;align-items:center;gap:6px;font-size:12px;color:var(--tx3);text-decoration:none;padding:6px 8px;border-radius:var(--rx)">← Terug naar home</a>
   </div>
 </nav>
-<div class="mob-nav-overlay" id="mobNavOverlay" onclick="closeMobNav()"></div>
-<div class="mob-nav-drawer" id="mobNavDrawer">
-  <div class="mob-nav-hd">
-    <a href="/" class="nav-logo" onclick="closeMobNav()">
-      <img src="/logo.webp" alt="ZenBTW" style="height:36px;width:36px;border-radius:8px;">
-    </a>
-    <button class="mob-nav-close" onclick="closeMobNav()" aria-label="Menu sluiten">✕</button>
-  </div>
-  <nav class="mob-nav-links">
-    <a href="/#functies" class="mob-nav-link" onclick="closeMobNav()">Functies</a>
-    <a href="/#stappen" class="mob-nav-link" onclick="closeMobNav()">Hoe werkt het</a>
-    <a href="/blog/" class="mob-nav-link" onclick="closeMobNav()">Blog</a>
-    <div class="mob-nav-section">Hulpmiddelen</div>
-    <a href="/hulpmiddelen/margeregeling-calculator/" class="mob-nav-sublink" onclick="closeMobNav()">🧮 Margeregeling Calculator</a>
-    <a href="/hulpmiddelen/kor-oss-checker/" class="mob-nav-sublink" onclick="closeMobNav()">📊 KOR &amp; OSS Checker</a>
-    <a href="/hulpmiddelen/" class="mob-nav-link" onclick="closeMobNav()">Alle hulpmiddelen</a>
-    <a href="/#prijzen" class="mob-nav-link" onclick="closeMobNav()">Prijzen</a>
-    <a href="/#faq" class="mob-nav-link" onclick="closeMobNav()">FAQ</a>
-  </nav>
-  <div style="padding:0 18px 28px">
-    <a href="/app" class="mob-nav-cta">Check mijn status →</a>
-  </div>
-</div>
 <div class="mob-topbar" id="mobTopbar">
   <div class="mtb-left">
     <picture>
