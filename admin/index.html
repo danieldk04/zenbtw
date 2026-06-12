@@ -1241,7 +1241,26 @@ async function loadAgent(){
 }
 
 // ── Traffic / Umami ───────────────────────────────────────────────────────────
-const UMAMI_TOKEN = localStorage.getItem('zenbtw_umami_token') || '';
+let UMAMI_TOKEN = localStorage.getItem('zenbtw_umami_token') || '';
+
+function saveUmamiToken(){
+  const val = document.getElementById('umami-token-input').value.trim();
+  if(!val){ alert('Voer een API token in'); return; }
+  localStorage.setItem('zenbtw_umami_token', val);
+  UMAMI_TOKEN = val;
+  document.getElementById('umami-token-input').value = '';
+  document.getElementById('umami-token-input').placeholder = '✓ Token opgeslagen';
+  loadUmami();
+}
+
+// Toon bestaand token hint op load
+(function(){
+  const saved = localStorage.getItem('zenbtw_umami_token');
+  if(saved){
+    const inp = document.getElementById('umami-token-input');
+    if(inp) inp.placeholder = '✓ Token opgeslagen (' + saved.slice(0,8) + '...)';
+  }
+})();
 
 // ── Contacten (Brevo lijst #3) ────────────────────────────────────────────────
 const BREVO_DEFAULT = '';
