@@ -2189,14 +2189,24 @@ function renderInstagramLeads() {
           ${l.postUrl ? `<a href="${l.postUrl}" target="_blank" class="btn btn-ghost" style="padding:4px 10px;font-size:11px;text-decoration:none">→ Open post</a>` : ''}
         </div>
       </div>
-      ${dm ? `
-      <div style="margin-top:10px;background:var(--acl);border-left:3px solid var(--acm);border-radius:0 6px 6px 0;padding:12px 14px">
-        <div style="font-size:13px;color:var(--tx);line-height:1.65;white-space:pre-wrap;margin-bottom:10px">${dm.replace(/</g, '&lt;')}</div>
-        <button onclick="copyIgDm(${ri})" id="igcopybtn-${ri}"
-          style="padding:4px 14px;font-size:12px;background:var(--ac);color:#fff;border:none;border-radius:5px;cursor:pointer;font-weight:600">
-          Kopieer DM
-        </button>
-      </div>` : `<div style="margin-top:8px;font-size:12px;color:var(--tx3)">Geen bericht gegenereerd.</div>`}
+      <div style="margin-top:10px">
+        ${dm ? `
+        <div style="background:var(--acl);border-left:3px solid var(--acm);border-radius:0 6px 6px 0;padding:12px 14px;margin-bottom:8px">
+          <div id="igdm-text-${ri}" style="font-size:13px;color:var(--tx);line-height:1.65;white-space:pre-wrap;margin-bottom:10px">${dm.replace(/</g, '&lt;')}</div>
+          <div style="display:flex;gap:8px;flex-wrap:wrap">
+            <button onclick="copyIgDm(${ri})" id="igcopybtn-${ri}"
+              style="padding:4px 14px;font-size:12px;background:var(--ac);color:#fff;border:none;border-radius:5px;cursor:pointer;font-weight:600">
+              Kopieer DM
+            </button>
+            <button onclick="genereerIgDm(${ri})" style="padding:4px 14px;font-size:12px;background:transparent;color:var(--acm);border:1px solid var(--acm);border-radius:5px;cursor:pointer;font-weight:600">
+              ↺ Opnieuw genereren
+            </button>
+          </div>
+        </div>` : `
+        <button onclick="genereerIgDm(${ri})" style="padding:6px 16px;font-size:12px;background:var(--ac);color:#fff;border:none;border-radius:6px;cursor:pointer;font-weight:600">
+          ✍️ Genereer DM
+        </button>`}
+      </div>
     </div>`;
   }).join('');
 }
