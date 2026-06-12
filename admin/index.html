@@ -561,11 +561,19 @@ footer{background:var(--bg,#f7f6f3);border-top:1.5px solid var(--br,#e5e0d8);pad
       </div>
 
       <div class="card">
+        <div class="card-head"><h3>Umami API token</h3></div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-bottom:4px">
+          <input type="password" id="umami-token-input" placeholder="Plak je Umami API token hier..." style="flex:1;min-width:200px;padding:8px 12px;border:1px solid var(--br);border-radius:8px;font-size:13px;font-family:monospace">
+          <button class="btn btn-primary" onclick="saveUmamiToken()" style="padding:8px 18px;font-size:13px">Opslaan &amp; laden</button>
+        </div>
+        <p style="font-size:12px;color:var(--tx3);margin:0">Te vinden op: <a href="https://cloud.umami.is/settings/api-keys" target="_blank" style="color:var(--acm)">cloud.umami.is → Instellingen → API sleutels</a></p>
+      </div>
+      <div class="card">
         <div class="card-head">
           <h3>Live statistieken — afgelopen 30 dagen</h3>
           <button class="btn btn-ghost" onclick="loadUmami()">↺ Vernieuwen</button>
         </div>
-        <div id="umami-stats"><div class="empty">Voer je Umami API token in om statistieken te laden.<br><br>Te vinden op: cloud.umami.is → Profiel → API tokens</div></div>
+        <div id="umami-stats"><div class="empty">Voer je Umami API token in en klik Opslaan.</div></div>
       </div>
 
       <div class="card">
