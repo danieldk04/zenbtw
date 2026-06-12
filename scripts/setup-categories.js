@@ -144,7 +144,7 @@ function updateBlogIndex(blogs) {
   html = html.replace(/<div class="cat-bar">[\s\S]*?<\/div>\s*<div class="cat-empty">.*?<\/div>/g, '');
   html = html.replace('<div class="section-label">Alle artikelen</div>', catBar);
   // If section-label was already gone, inject after the grid opens
-  if (!html.includes('class="cat-bar"')) {
+  if (!html.includes('class="filter-row"')) {
     html = html.replace('<div class="grid">', catBar + '\n  <div class="grid">');
   }
 
