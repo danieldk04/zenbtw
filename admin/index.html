@@ -341,63 +341,20 @@ footer{background:var(--bg,#f7f6f3);border-top:1.5px solid var(--br,#e5e0d8);pad
       <span>Zen<em>BTW</em></span>
     </div>
 
-    <nav class="nav">
-  <a href="/" class="nav-logo">
-    <img src="/logo.webp" alt="ZenBTW" class="nav-logo-img" width="52" height="52">
-    <span class="nav-wordmark">Zen<em>BTW</em></span>
-  </a>
-  <div class="nav-links">
-    <a href="/#functies" class="nav-link">Functies</a>
-    <a href="/#stappen" class="nav-link">Hoe werkt het</a>
-    <a href="/blog/" class="nav-link">Blog</a>
-    <div class="nav-dropdown">
-      <button class="nav-dropdown-btn">Hulpmiddelen <span class="nav-dropdown-arrow">▾</span></button>
-      <div class="nav-dropdown-menu">
-        <a href="/hulpmiddelen/margeregeling-calculator/" class="nav-dd-item">
-          <div class="nav-dd-icon">🧮</div>
-          <div><div class="nav-dd-label">Margeregeling Calculator</div><div class="nav-dd-sub">BTW berekenen op tweedehands</div></div>
-        </a>
-        <a href="/hulpmiddelen/kor-oss-checker/" class="nav-dd-item">
-          <div class="nav-dd-icon">📊</div>
-          <div><div class="nav-dd-label">KOR &amp; OSS Checker</div><div class="nav-dd-sub">Check je drempelstatus direct</div></div>
-        </a>
-        <div class="nav-dd-sep"></div>
-        <a href="/hulpmiddelen/" class="nav-dd-all">Alle hulpmiddelen →</a>
-      </div>
-    </div>
-    <a href="/#prijzen" class="nav-link">Prijzen</a>
-    <a href="/#faq" class="nav-link">FAQ</a>
-  </div>
-  <div style="display:flex;align-items:center;gap:10px;flex-shrink:0">
-    <a href="/app" class="nav-cta">Check mijn status →</a>
-    <button class="nav-hamburger" id="navHamburger" onclick="toggleMobNav()" aria-label="Menu openen" aria-expanded="false">
-      <span class="hb"></span><span class="hb"></span><span class="hb"></span>
-    </button>
-  </div>
-</nav>
-<div class="mob-nav-overlay" id="mobNavOverlay" onclick="closeMobNav()"></div>
-<div class="mob-nav-drawer" id="mobNavDrawer">
-  <div class="mob-nav-hd">
-    <a href="/" class="nav-logo" onclick="closeMobNav()">
-      <img src="/logo.webp" alt="ZenBTW" style="height:36px;width:36px;border-radius:8px;">
-    </a>
-    <button class="mob-nav-close" onclick="closeMobNav()" aria-label="Menu sluiten">✕</button>
-  </div>
-  <nav class="mob-nav-links">
-    <a href="/#functies" class="mob-nav-link" onclick="closeMobNav()">Functies</a>
-    <a href="/#stappen" class="mob-nav-link" onclick="closeMobNav()">Hoe werkt het</a>
-    <a href="/blog/" class="mob-nav-link" onclick="closeMobNav()">Blog</a>
-    <div class="mob-nav-section">Hulpmiddelen</div>
-    <a href="/hulpmiddelen/margeregeling-calculator/" class="mob-nav-sublink" onclick="closeMobNav()">🧮 Margeregeling Calculator</a>
-    <a href="/hulpmiddelen/kor-oss-checker/" class="mob-nav-sublink" onclick="closeMobNav()">📊 KOR &amp; OSS Checker</a>
-    <a href="/hulpmiddelen/" class="mob-nav-link" onclick="closeMobNav()">Alle hulpmiddelen</a>
-    <a href="/#prijzen" class="mob-nav-link" onclick="closeMobNav()">Prijzen</a>
-    <a href="/#faq" class="mob-nav-link" onclick="closeMobNav()">FAQ</a>
-  </nav>
-  <div style="padding:0 18px 28px">
-    <a href="/app" class="mob-nav-cta">Check mijn status →</a>
-  </div>
-</div>
+    <nav>
+      <a id="nav-home"     class="nav-item active"  onclick="go('home')">📊 Overzicht</a>
+      <a id="nav-blogs"    class="nav-item"         onclick="go('blogs')">📝 Blogs</a>
+      <a id="nav-queue"    class="nav-item"         onclick="go('queue')">🗂 Keywords queue</a>
+      <a id="nav-agent"    class="nav-item"         onclick="go('agent')">🤖 Content agent</a>
+      <a id="nav-style"    class="nav-item"         onclick="go('style')">✍️ Schrijfstijl</a>
+      <a id="nav-content"  class="nav-item"         onclick="go('content')">💡 Content intelligence</a>
+      <a id="nav-seo"      class="nav-item"         onclick="go('seo')">🔍 Keyword research</a>
+      <a id="nav-leads"    class="nav-item"         onclick="go('leads')">📬 Leads &amp; outreach</a>
+      <a id="nav-traffic"  class="nav-item"         onclick="go('traffic')">📈 Bezoekers &amp; verkeer</a>
+      <a id="nav-contacts" class="nav-item"         onclick="go('contacts')">👥 Contacten &amp; e-mails</a>
+      <a id="nav-fiscal"   class="nav-item"         onclick="go('fiscal')">⚖️ Fiscale logica</a>
+      <a id="nav-actions"  class="nav-item"         onclick="go('actions')">⚙️ GitHub Actions</a>
+    </nav>
 
 
     <div class="sidebar-foot">
