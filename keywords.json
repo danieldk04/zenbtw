@@ -1,14 +1,6 @@
 {
   "queue": [
     {
-      "keyword": "dac7 wat betekent dit voor mij als marketplace verkoper",
-      "slug": "dac7-uitleg-marketplace-verkoper",
-      "status": "pending",
-      "priority": 8,
-      "notes": "GEO: angst-gebaseerde directe vraag, AI geeft hier veel antwoorden op",
-      "type": "geo-vraag"
-    },
-    {
       "keyword": "btw berekenen shopify automatisch gratis",
       "slug": "btw-berekenen-shopify-automatisch",
       "status": "pending",
@@ -185,6 +177,16 @@
       "type": "geo-alternatief",
       "publishedDate": "2026-06-11",
       "outputFile": "blog/gratis-boekhoudtool-marketplace.html"
+    },
+    {
+      "keyword": "dac7 wat betekent dit voor mij als marketplace verkoper",
+      "slug": "dac7-uitleg-marketplace-verkoper",
+      "status": "published",
+      "priority": 8,
+      "notes": "GEO: angst-gebaseerde directe vraag, AI geeft hier veel antwoorden op",
+      "type": "geo-vraag",
+      "publishedDate": "2026-06-12",
+      "outputFile": "blog/dac7-uitleg-marketplace-verkoper.html"
     }
   ],
   "settings": {
