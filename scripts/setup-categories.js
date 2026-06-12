@@ -162,27 +162,48 @@ function updateBlogIndex(blogs) {
     );
   }
 
-  // ── 4. Filter JS (idempotent) ─────────────────────────────────────────────
-  if (!html.includes('dataset.filter')) {
-    const filterJs = `<script>
+  // ── 4. Filter + Sort JS (rebuild each run) ───────────────────────────────
+  // Always remove old script and re-inject so sort logic stays in sync
+  html = html.replace(/<script>\s*\(function\(\)\{[\s\S]*?dataset\.filter[\s\S]*?\}\)\(\);\s*<\/script>/g, '');
+  const filterJs = `<script>
 (function(){
   var btns=document.querySelectorAll('.cat-btn');
-  var cards=document.querySelectorAll('.card[data-cat]');
+  var grid=document.querySelector('.grid');
   var empty=document.querySelector('.cat-empty');
+  var sortBtn=document.getElementById('sortBtn');
+  var sortAsc=false;
+  function getCards(){return Array.from(document.querySelectorAll('.card[data-cat]'));}
+  function sortCards(){
+    var cards=getCards();
+    cards.sort(function(a,b){
+      var da=a.dataset.date||'2000-01-01';
+      var db=b.dataset.date||'2000-01-01';
+      return sortAsc?da.localeCompare(db):db.localeCompare(da);
+    });
+    cards.forEach(function(c){grid.appendChild(c);});
+    grid.appendChild(empty);
+  }
+  function activeFilter(){var a=document.querySelector('.cat-btn.active');return a?a.dataset.filter:'all';}
   function run(f){
     btns.forEach(function(b){b.classList.toggle('active',b.dataset.filter===f);});
     var n=0;
-    cards.forEach(function(c){var s=f==='all'||c.dataset.cat===f;c.classList.toggle('cat-hidden',!s);if(s)n++;});
+    getCards().forEach(function(c){var s=f==='all'||c.dataset.cat===f;c.classList.toggle('cat-hidden',!s);if(s)n++;});
     if(empty)empty.classList.toggle('on',n===0);
     history.replaceState(null,'',f==='all'?location.pathname:'#'+f);
   }
+  sortCards();
   btns.forEach(function(b){b.addEventListener('click',function(){run(b.dataset.filter);});});
+  if(sortBtn){sortBtn.addEventListener('click',function(){
+    sortAsc=!sortAsc;
+    sortBtn.classList.toggle('asc',sortAsc);
+    sortBtn.innerHTML='<span class="sort-icon">'+(sortAsc?'↑':'↓')+'<\/span> '+(sortAsc?'Oudste eerst':'Nieuwste eerst');
+    sortCards();run(activeFilter());
+  });}
   var h=location.hash.slice(1);
   if(h&&document.querySelector('[data-filter="'+h+'"]'))run(h);else run('all');
 })();
 </script>`;
-    html = html.replace('</body>', filterJs + '\n</body>');
-  }
+  html = html.replace('</body>', filterJs + '\n</body>');
 
   fs.writeFileSync(indexPath, html, 'utf8');
   console.log(`  blog/index.html — filter bar updated (${total} articles, ${Object.keys(counts).length} categories)`);
