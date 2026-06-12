@@ -2150,6 +2150,66 @@ function copyIgDm(ri) {
   });
 }
 
+function genereerIgDm(ri) {
+  const leads = getInstagramLeads();
+  const l = leads[ri];
+  if (!l) return;
+
+  // Haal naam op — displayName als beschikbaar, anders username
+  const naam = l.displayName && l.displayName !== l.username
+    ? l.displayName.split(' ')[0]
+    : null;
+
+  // Detecteer wat ze verkopen op basis van bio/snippet
+  const bioText = ((l.bio || '') + ' ' + (l.snippet || '')).toLowerCase();
+  const isLuxury = /luxury|designer|lv|gucci|chanel|prada|louis|hermes|vintage|preloved|pre-owned|pre owned|tweedehands|vintage|marktplaats|vinted|depop/i.test(bioText);
+  const isEtsy = /etsy/i.test(bioText);
+  const isShopify = /shopify/i.test(bioText);
+  const isVinted = /vinted/i.test(bioText);
+
+  // Opening: persoonlijk compliment afgestemd op hun niche
+  let opening;
+  if (isLuxury) {
+    opening = `Tof items op jouw pagina! Ziet er echt heel mooi en klassiek uit.`;
+  } else if (isEtsy) {
+    opening = `Mooie shop! Echt leuk wat je op Etsy hebt staan.`;
+  } else if (isVinted) {
+    opening = `Leuke items op jouw Vinted! Mooie selectie.`;
+  } else {
+    opening = `Tof profiel! Leuk wat je doet met je verkopen.`;
+  }
+
+  // Platform-mention in de body
+  const platform = isEtsy ? 'Etsy' : isVinted ? 'Vinted' : isShopify ? 'Shopify' : 'Etsy, Shopify of Vinted';
+
+  // Aanhef
+  const aanhef = naam ? `Hoi ${naam}!` : `Hoi!`;
+
+  const bericht =
+`${aanhef}
+
+${opening}
+
+Ik ben Daniel (22), doe zelf in pre-owned luxury met Revaleur. Daarnaast heb ik ZenBTW gebouwd. Omdat ik zelf in de resale zit, weet ik hoe snel je omzet kan groeien en hoe onoverzichtelijk de btw-regels en KOR-drempel worden.
+
+Geen verkoop-pitch, je hoeft niks te checken als je administratie al lekker loopt. Maar mocht die btw-rompslomp je gaan tegenstaan, dan is er een tool voor.
+
+Doe jij de btw en omzetmonitoring nu nog handmatig in Excel, of staat dat al op de automatische piloot?
+
+Succes met de verkoop! 🙌`;
+
+  leads[ri].bericht = bericht;
+  saveInstagramLeads(leads);
+
+  // Update de weergave zonder volledige re-render
+  const dmDiv = document.getElementById(`igdm-text-${ri}`);
+  if (dmDiv) {
+    dmDiv.textContent = bericht;
+  } else {
+    renderInstagramLeads();
+  }
+}
+
 function renderInstagramLeads() {
   const filter = document.getElementById('instagram-filter')?.value || 'all';
   let leads = getInstagramLeads();
