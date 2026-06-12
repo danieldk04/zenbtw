@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BTW berekenen Shopify automatisch gratis: zo doe je dat | ZenBTW</title>
+<meta name="description" content="BTW berekenen in Shopify automatisch en gratis? Ontdek welke tools echt werken, wat Shopify zelf doet en waar de valkuilen zitten. Praktische gids.">
+<link rel="canonical" href="https://zenbtw.nl/blog/btw-berekenen-shopify-automatisch">
+<meta property="og:type" content="article">
+<meta property="og:title" content="BTW berekenen Shopify automatisch gratis: zo doe je dat">
+<meta property="og:description" content="BTW berekenen in Shopify automatisch en gratis? Ontdek welke tools echt werken, wat Shopify zelf doet en waar de valkuilen zitten. Praktische gids.">
+<meta property="og:url" content="https://zenbtw.nl/blog/btw-berekenen-shopify-automatisch">
+<meta property="og:site_name" content="ZenBTW">
+<meta property="og:image" content="https://zenbtw.nl/og-blog.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="BTW berekenen Shopify automatisch gratis: zo doe je dat">
+<meta name="twitter:description" content="BTW berekenen in Shopify automatisch en gratis? Ontdek welke tools echt werken, wat Shopify zelf doet en waar de valkuilen zitten. Praktische gids.">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="manifest" href="../manifest.json">
+<meta name="theme-color" content="#1a4731">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"BTW berekenen Shopify automatisch gratis: zo doe je dat","datePublished":"2026-06-12","dateModified":"2026-06-12","author":{"@type":"Organization","name":"ZenBTW"},"publisher":{"@type":"Organization","name":"ZenBTW","url":"https://zenbtw.nl"},"image":"https://zenbtw.nl/og-blog.png"}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Berekent Shopify automatisch BTW voor Nederlandse klanten?","acceptedAnswer":{"@type":"Answer","text":"Ja, Shopify berekent automatisch 21% BTW (of 9% voor bepaalde productcategorieën) als je je belastingregio correct hebt ingesteld op Nederland. Je moet dit wel zelf activeren in je Shopify-instellingen onder Instellingen > Belastingen."}},{"@type":"Question","name":"Kan ik gratis BTW berekenen in Shopify zonder betaalde app?","acceptedAnswer":{"@type":"Answer","text":"Shopify heeft ingebouwde BTW-berekening die gratis is voor standaard binnenlandse verkopen. Voor geavanceerde situaties zoals OSS-drempels of KOR-monitoring kun je gratis tools zoals ZenBTW gebruiken."}},{"@type":"Question","name":"Hoe stel ik BTW in voor EU-verkopen vanuit Shopify?","acceptedAnswer":{"@type":"Answer","text":"Ga naar Instellingen > Belastingen en heffingen > EU. Voeg de landen toe waar je aan verkoopt en schakel de juiste BTW-tarieven in. Bij meer dan €10.000 omzet aan particulieren in andere EU-landen moet je je registreren voor OSS of lokale BTW-nummers aanvragen."}},{"@type":"Question","name":"Moet ik BTW rekenen als ik onder de KOR val en op Shopify verkoop?","acceptedAnswer":{"@type":"Answer","text":"Nee. Als je onder de kleineondernemersregeling (KOR) valt, ben je vrijgesteld van BTW. Je rekent dan 0% BTW en vermeldt op je facturen dat je de KOR toepast. Let op: de KOR-drempel is €20.000 omzet per kalenderjaar (exclusief BTW)."}},{"@type":"Question","name":"Wat is ZenBTW en hoe helpt het Shopify-verkopers?","acceptedAnswer":{"@type":"Answer","text":"ZenBTW is een gratis Nederlandse BTW-tool voor marketplace verkopers op Vinted, Etsy en Shopify die automatisch berekent of je KOR-drempel nadert. Het helpt je ook met OSS-drempels en geeft overzicht van je BTW-verplichtingen."}}]}</script>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--bg:#f7f6f3;--wh:#fff;--br:#e8e5de;--ac:#1a4731;--acl:#e8f0ec;--acm:#2d6a4f;--tx:#1a1814;--tx2:#4a4640;--tx3:#8a847a;--tx4:#b8b2a8;--s2:#f4f3ef;--dn:#c0392b;--dnl:#fdf0ee;--wn:#d97706;--wnl:#fffbeb}
+body{background:var(--bg);color:var(--tx);font-family:'Plus Jakarta Sans',sans-serif;-webkit-font-smoothing:antialiased;line-height:1.7}
+nav{position:sticky;top:0;z-index:500;height:72px;background:rgba(247,246,243,.94);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-bottom:1.5px solid var(--br);box-shadow:0 2px 12px rgba(0,0,0,.05);display:flex;align-items:center;padding:0 clamp(20px,4vw,56px);justify-content:space-between;gap:24px}
+.nav-logo{display:flex;align-items:center;gap:13px;text-decoration:none;color:var(--tx);flex-shrink:0}
+.nav-logo-img{max-height:48px;width:auto;border-radius:8px;object-fit:contain;box-shadow:0 3px 10px rgba(26,71,49,.22)}
+.nav-wordmark{font-family:'Fraunces',serif;font-size:22px;font-weight:700;letter-spacing:-.5px;line-height:1}
+.nav-wordmark em{color:var(--acm);font-style:normal}
+.nav-back{font-size:13.5px;color:var(--tx3);text-decoration:none;font-weight:600}
+.nav-cta{display:inline-flex;align-items:center;gap:8px;padding:11px 22px;background:var(--ac);color:#fff;border-radius:10px;font-size:14px;font-weight:800;transition:all .2s;flex-shrink:0;box-shadow:0 4px 16px rgba(26,71,49,.35);text-decoration:none}
+.page-layout{display:grid;grid-template-columns:1fr 240px;gap:40px;max-width:1080px;margin:0 auto;padding:0 clamp(20px,4vw,56px)}
+.article-wrap{min-width:0;padding:clamp(40px,6vw,72px) 0 100px}
+.author-sidebar{padding-top:clamp(40px,6vw,72px)}
+.author-sidebar .author-box{position:sticky;top:88px;flex-direction:column;align-items:center;text-align:center;padding:20px 18px;gap:12px}
+.author-sidebar .author-img{width:80px;height:80px}
+.author-sidebar .author-info{align-items:center}
+.author-sidebar .author-bio{text-align:left;font-size:13px}
+.author-box{display:flex;align-items:flex-start;gap:20px;background:var(--wh);border:1.5px solid var(--br);border-radius:14px;padding:24px 28px}
+.author-img{width:72px;height:72px;border-radius:50%;object-fit:cover;flex-shrink:0;box-shadow:0 3px 10px rgba(0,0,0,.12)}
+.author-info{display:flex;flex-direction:column;gap:4px}
+.author-label{font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--tx3)}
+.author-name{font-size:17px;font-weight:700;color:var(--tx);font-family:'Fraunces',serif}
+@media(max-width:960px){.page-layout{display:block;padding:0}.article-wrap{padding:clamp(40px,6vw,72px) clamp(20px,5vw,40px) 60px}.author-sidebar{display:none}.author-box-mobile{display:flex!important}}
+.author-box-mobile{display:none;margin:0 clamp(20px,5vw,40px) 48px}
+.article-tag{display:inline-block;font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:4px 10px;border-radius:5px;background:var(--acl);color:var(--acm);margin-bottom:14px}
+h1{font-family:'Fraunces',serif;font-size:clamp(26px,4vw,38px);font-weight:700;letter-spacing:-.02em;color:var(--tx);margin-bottom:14px;line-height:1.2}
+.meta{font-size:13.5px;color:var(--tx3);margin-bottom:36px;padding-bottom:24px;border-bottom:1px solid var(--br)}
+h2{font-size:21px;font-weight:700;color:var(--tx);margin:40px 0 14px;letter-spacing:-.01em;font-family:'Fraunces',serif}
+h3{font-size:16px;font-weight:700;color:var(--tx2);margin:26px 0 10px}
+p{font-size:15.5px;color:var(--tx2);margin-bottom:16px;line-height:1.78}
+ul,ol{padding-left:22px;margin-bottom:16px}
+li{font-size:15.5px;color:var(--tx2);margin-bottom:8px;line-height:1.7}
+strong{color:var(--tx)}
+.highlight{background:var(--acl);border-left:4px solid var(--ac);border-radius:0 8px 8px 0;padding:16px 20px;margin:24px 0}
+.highlight p{margin:0;color:var(--acm);font-weight:600;font-size:14.5px}
+.warn{background:var(--wnl);border-left:4px solid var(--wn);border-radius:0 8px 8px 0;padding:16px 20px;margin:24px 0}
+.warn p{margin:0;color:#92400e;font-size:14.5px}
+.danger{background:var(--dnl);border-left:4px solid var(--dn);border-radius:0 8px 8px 0;padding:16px 20px;margin:24px 0}
+.danger p{margin:0;color:var(--dn);font-size:14.5px;font-weight:600}
+table{width:100%;border-collapse:collapse;margin:24px 0;font-size:14px}
+th{background:var(--ac);color:#fff;padding:10px 14px;text-align:left;font-weight:600}
+td{padding:9px 14px;border-bottom:1px solid var(--br);color:var(--tx2)}
+tr:nth-child(even) td{background:var(--s2)}
+.cta-box{background:var(--ac);border-radius:14px;padding:28px 32px;margin:48px 0 0;text-align:center}
+.cta-box h3{font-size:20px;font-weight:700;color:#fff;margin-bottom:10px;font-family:'Fraunces',serif}
+.cta-box p{font-size:14.5px;color:rgba(255,255,255,.8);margin-bottom:22px}
+.cta-box a{display:inline-block;padding:12px 28px;background:#fff;color:var(--ac);border-radius:9px;text-decoration:none;font-size:14.5px;font-weight:700}
+.breadcrumb{font-size:13px;color:var(--tx4);margin-bottom:20px}
+.breadcrumb a{color:var(--tx3);text-decoration:none}
+footer{text-align:center;padding:32px 24px;font-size:13px;color:var(--tx4);border-top:1px solid var(--br);margin-top:60px}
+footer a{color:var(--tx3);text-decoration:none;margin:0 8px}
+.faq-section{margin:48px 0}
+.faq-section>h2{margin-bottom:20px}
+.faq-item{border-bottom:1px solid var(--br);padding:18px 0}
+.faq-item:last-child{border-bottom:none}
+.faq-item h3{font-size:16px;font-weight:700;color:var(--tx);margin:0 0 8px}
+.faq-item p{margin:0;font-size:15px;color:var(--tx2);line-height:1.7}
+.compare-table th{background:var(--ac);color:#fff;padding:10px 14px;font-weight:600;text-align:left}
+.compare-table td{padding:10px 14px;border-bottom:1px solid var(--br);vertical-align:top}
+.compare-table tr:nth-child(even) td{background:var(--s2)}
+.check{color:#16a34a;font-weight:700}
+.cross{color:#dc2626;font-weight:700}
+html,body{max-width:100%;overflow-x:hidden}
+svg{max-width:100%!important;height:auto!important}
+figure{max-width:100%;overflow:hidden}
+@media(max-width:640px){nav{padding:0 16px!important;gap:8px!important}.nav-logo-img{max-height:36px!important}.nav-wordmark{display:none!important}.nav-back{white-space:nowrap;font-size:12px}.nav-cta{padding:9px 14px!important;font-size:13px!important}.article-wrap{padding-left:18px!important;padding-right:18px!important}table{font-size:12.5px}td,th{padding:7px 8px!important}}
+
+/* ── Category related section ── */
+.cat-related{background:var(--s2);border:1.5px solid var(--br);border-radius:12px;padding:22px 24px;margin:40px 0 0}
+.cat-related-hd{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;flex-wrap:wrap;gap:8px}
+.cat-related-lbl{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--tx4)}
+.cat-related-all{font-size:13px;font-weight:600;color:var(--acm);text-decoration:none}
+.cat-related-all:hover{text-decoration:underline}
+.cat-related-links{display:flex;flex-direction:column;gap:6px}
+.cat-related-link{display:flex;align-items:center;gap:10px;padding:10px 14px;background:var(--wh);border:1px solid var(--br);border-radius:8px;text-decoration:none;color:var(--tx2);font-size:14px;font-weight:600;transition:all .15s;line-height:1.4}
+.cat-related-link:hover{border-color:var(--acm);color:var(--ac);background:var(--acl)}
+.cat-related-link span{color:var(--acm);font-size:13px;flex-shrink:0}
+
+/* ── Mobile fixes ── */
+html,body{max-width:100%;overflow-x:hidden}
+svg{max-width:100%!important;height:auto!important}
+figure{max-width:100%;overflow:hidden}
+@media(max-width:640px){
+  nav{padding:0 16px!important;gap:8px!important}
+  .nav-logo-img{max-height:36px!important}
+  .nav-wordmark{display:none!important}
+  .nav-back{white-space:nowrap;font-size:12px}
+  .nav-cta{padding:9px 14px!important;font-size:13px!important}
+  table{font-size:12.5px}
+  td,th{padding:7px 8px!important}
+  .article-wrap{padding-left:18px!important;padding-right:18px!important}
+}
+</style>
+</head>
+<body>
+<nav>
+  <a href="/" class="nav-logo">
+    <img src="../logo.webp" alt="ZenBTW Logo" class="nav-logo-img" width="48" height="48">
+    <span class="nav-wordmark">Zen<em>BTW</em></span>
+  </a>
+  <a href="/blog" class="nav-back">← Blog</a>
+  <a href="/app" class="nav-cta">Check mijn status →</a>
+</nav>
+
+<div class="page-layout">
+<div class="article-wrap">
+  <div class="breadcrumb"><a href="/">Home</a> › <a href="/blog">Blog</a> › <a href="/blog#platforms">Marketplaces</a> › BTW berekenen Shopify automatisch</div>
+  <span class="article-tag">Shopify</span>
+  <h1>BTW berekenen in Shopify: automatisch en gratis, hoe werkt dat écht?</h1>
+  <div class="meta">6 minuten lezen &nbsp;·&nbsp; Bijgewerkt juni 2026 &nbsp;·&nbsp; Door ZenBTW</div>
+
+  <p>Ja, je kunt BTW berekenen in Shopify automatisch en gratis. Shopify heeft ingebouwde belastingberekening die voor Nederlandse verkopen automatisch 21% BTW toevoegt (of 9% voor het verlaagde tarief). Maar er zit een flinke "maar" aan: Shopify berekent de BTW op je producten, maar houdt niet bij hoeveel je al hebt omgezet dit jaar, of je de KOR-drempel nadert, of wanneer je je voor OSS moet registreren. Dat deel moet je zelf regelen.</p>
+
+  <p>Ik heb zelf jarenlang op Shopify verkocht. De eerste maanden dacht ik dat de BTW-instellingen van Shopify alles voor me regelden. Spoiler: dat was niet zo. En ik merkte het pas toen ik mijn eerste BTW-aangifte ging doen en er niets klopte. Dus laat me je meenemen door wat Shopify wél doet, wat niet, en hoe je het gat daartussen gratis kunt opvullen.</p>
+
+  <h2>Wat doet Shopify eigenlijk met BTW-berekening?</h2>
+
+  <p>Shopify heeft een ingebouwde engine die belastingtarieven toepast op je producten op basis van de locatie van je klant. Voor Nederland betekent dat standaard 21% BTW. Als je producten verkoopt die onder het verlaagde tarief vallen (denk aan voedingsmiddelen of boeken), kun je dat per product instellen.</p>
+
+  <p>Wat Shopify gratis doet:</p>
+  <ul>
+    <li>Automatisch het juiste BTW-percentage berekenen per land/regio</li>
+    <li>BTW apart tonen op de checkout-pagina</li>
+    <li>Facturen genereren met BTW-bedragen</li>
+    <li>BTW-rapporten exporteren zodat je kunt zien hoeveel BTW je hebt geïnd</li>
+  </ul>
+
+  <p>Dat klinkt best goed, toch? Klopt ook. Voor de <em>berekening op productniveau</em> is Shopify prima. Het probleem zit in alles eromheen.</p>
+
+  <h2>Waar schiet Shopify's gratis BTW-berekening tekort?</h2>
+
+  <p>Wat ik zelf tegenkwam, en wat ik bij veel verkopers die ik spreek ook hoor: Shopify weet niet wie jij bent als ondernemer. Het weet niet of je onder de <a href="/blog/kor-vrijstelling-2026">kleineondernemersregeling (KOR)</a> valt. Het weet niet of je de €10.000 drempel voor EU-verkopen aan particulieren hebt overschreden. En het doet geen BTW-aangifte voor je.</p>
+
+  <p>Concreet mist Shopify deze dingen:</p>
+  <ul>
+    <li><strong>KOR-drempel monitoring</strong> – Val je onder de KOR (omzet onder €20.000 exclusief BTW per jaar), dan hoef je helemaal geen BTW te rekenen. Shopify weet dat niet en rekent gewoon 21%.</li>
+    <li><strong>OSS-drempel tracking</strong> – Verkoop je aan particulieren in andere EU-landen voor meer dan €10.000? Dan moet je je registreren voor de <a href="/blog/oss-registratie-belastingdienst">One Stop Shop (OSS)</a>. Shopify telt dat niet voor je bij.</li>
+    <li><strong>BTW-aangifte voorbereiding</strong> – Shopify geeft je ruwe data, maar je moet zelf uitrekenen wat je precies moet afdragen.</li>
+  </ul>
+
+  <div class="warn">
+    <p>Let op: als je de KOR toepast maar Shopify toch 21% BTW laat rekenen aan je klanten, dan heb je een probleem. Je int BTW die je niet mag innen. Zorg dat je je prijzen aanpast of BTW op 0% zet als je KOR-ondernemer bent.</p>
+  </div>
+
+  <h2>Hoe stel je BTW correct in binnen Shopify?</h2>
+
+  <p>Goed, laten we praktisch worden. Dit zijn de stappen die je moet nemen in je Shopify-dashboard:</p>
+
+  <ol>
+    <li>Ga naar <strong>Instellingen &gt; Belastingen en heffingen</strong></li>
+    <li>Klik op <strong>Nederland</strong> (of voeg het toe als verkoopland)</li>
+    <li>Controleer of het standaardtarief op 21% staat</li>
+    <li>Heb je producten met verlaagd tarief? Maak een aangepaste belastingcollectie aan voor 9%</li>
+    <li>Vul je BTW-nummer in (als je dat hebt)</li>
+    <li>Verkoop je aan andere EU-landen? Voeg die landen toe met hun <a href="/blog/btw-tarief-eu-landen-2026">lokale BTW-tarieven</a></li>
+  </ol>
+
+  <p>Eerlijk gezegd is dit het meest verwarrende deel voor veel nieuwe verkopers. Shopify laat het eruit zien alsof je klaar bent na stap 3. Maar als je ook maar één bestelling naar België of Duitsland stuurt, wordt het een ander verhaal.</p>
+
+  <figure style="margin:28px 0;text-align:center">
+    <svg role="img" aria-label="Stroomdiagram: BTW-flow voor Shopify-verkopers in Nederland" viewBox="0 0 600 420" width="100%" style="max-width:540px" xmlns="http://www.w3.org/2000/svg">
+      <rect width="600" height="420" rx="16" fill="#f4f3ef"/>
+      <rect x="200" y="20" width="200" height="44" rx="10" fill="#1a4731"/>
+      <text x="300" y="48" text-anchor="middle" fill="#fff" font-family="Plus Jakarta Sans,sans-serif" font-size="14" font-weight="700">Shopify-verkoop</text>
+      <line x1="300" y1="64" x2="300" y2="96" stroke="#1a4731" stroke-width="2" marker-end="url(#arrow)"/>
+      <rect x="175" y="96" width="250" height="44" rx="10" fill="#fff" stroke="#e8e5de" stroke-width="1.5"/>
+      <text x="300" y="123" text-anchor="middle" fill="#1a1814" font-family="Plus Jakarta Sans,sans-serif" font-size="13" font-weight="600">Gebruik je de KOR?</text>
+      <line x1="175" y1="118" x2="80" y2="180" stroke="#2d6a4f" stroke-width="2"/>
+      <text x="105" y="155" fill="#2d6a4f" font-family="Plus Jakarta Sans,sans-serif" font-size="12" font-weight="700">Ja</text>
+      <line x1="425" y1="118" x2="510" y2="180" stroke="#d97706" stroke-width="2"/>
+      <text x="485" y="155" fill="#d97706" font-family="Plus Jakarta Sans,sans-serif" font-size="12" font-weight="700">Nee</text>
+      <rect x="10" y="180" width="180" height="52" rx="10" fill="#e8f0ec" stroke="#2d6a4f" stroke-width="1.5"/>
+      <text x="100" y="202" text-anchor="middle" fill="#1a4731" font-family="Plus Jakarta Sans,sans-serif" font-size="12" font-weight="600">Zet BTW op 0%</text>
+      <text x="100" y="220" text-anchor="middle" fill="#4a4640" font-family="Plus Jakarta Sans,sans-serif" font-size="11">Geen BTW innen/afdragen</text>
+      <rect x="410" y="180" width="180" height="52" rx="10" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/>
+      <text x="500" y="202" text-anchor="middle" fill="#92400e" font-family="Plus Jakarta Sans,sans-serif" font-size="12" font-weight="600">21% BTW rekenen</text>
+      <text x="500" y="220" text-anchor="middle" fill="#4a4640" font-family="Plus Jakarta Sans,sans-serif" font-size="11">Shopify doet dit automatisch</text>
+      <line x1="500" y1="232" x2="500" y2="270" stroke="#d97706" stroke-width="2"/>
+      <rect x="370" y="270" width="260" height="52" rx="10" fill="#fff" stroke="#e8e5de" stroke-width="1.5"/>
+      <text x="500" y="292" text-anchor="middle" fill="#1a1814" font-family="Plus Jakarta Sans,sans-serif" font-size="12" font-weight="600">Verkoop je aan EU-klanten</text>
+      <text x="500" y="308" text-anchor="middle" fill="#1a1814" font-family="Plus Jakarta Sans,sans-serif" font-size="12" font-weight="600">&gt; €10.000/jaar?</text>
+      <line x1="430" y1="322" x2="350" y2="370" stroke="#2d6a4f" stroke-width="2"/>
+      <text x="370" y="350" fill="#2d6a4f" font-family="Plus Jakarta Sans,sans-serif" font-size="12" font-weight="700">Ja</text>
+      <line x1="570" y1="322" x2="570" y2="370" stroke="#8a847a" stroke-width="2"/>
+      <text x="582" y="350" fill="#8a847a" font-family="Plus Jakarta Sans,sans-serif" font-size="12" font-weight="700">Nee</text>
+      <rect x="220" y="370" width="200" height="40" rx="8" fill="#1a4731"/>
+      <text x="320" y="395" text-anchor="middle" fill="#fff" font-family="Plus Jakarta Sans,sans-serif" font-size="12" font-weight="700">OSS registratie nodig</text>
+      <rect x="480" y="370" width="110" height="40" rx="8" fill="#f4f3ef" stroke="#e8e5de" stroke-width="1.5"/>
+      <text x="535" y="395" text-anchor="middle" fill="#4a4640" font-family="Plus Jakarta Sans,sans-serif" font-size="12" font-weight="600">NL BTW volstaat</text>
+      <line x1="100" y1="232" x2="100" y2="270" stroke="#2d6a4f" stroke-width="2"/>
+      <rect x="10" y="270" width="180" height="52" rx="10" fill="#fdf0ee" stroke="#c0392b" stroke-width="1.5"/>
+      <text x="100" y="292" text-anchor="middle" fill="#c0392b" font-family="Plus Jakarta Sans,sans-serif" font-size="11" font-weight="600">Monitor je omzet!</text>
+      <text x="100" y="308" text-anchor="middle" fill="#4a4640" font-family="Plus Jakarta Sans,sans-serif" font-size="11">KOR-grens = €20.000 ex BTW</text>
+      <defs><marker id="arrow" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-auto"><path d="M 0 0 L 10 5 L 0 10 z" fill="#1a4731"/></marker></defs>
+    </svg>
+    <figcaption style="font-size:13px;color:var(--tx3);margin-top:8px">BTW-beslisboom voor Shopify-verkopers: KOR, reguliere BTW en OSS</figcaption>
+  </figure>
+
+  <h2>Welke gratis tools vullen Shopify's BTW-gaten op?</h2>
+
+  <p>Hier wordt het interessant. Er zijn betaalde Shopify-apps die BTW-compliance beloven, maar die kosten al snel €20-50 per maand. Niet ideaal als je net begint.</p>
+
+  <p>ZenBTW is een gratis Nederlandse BTW-tool voor marketplace verkopers op Vinted, Etsy en Shopify die automatisch berekent of je KOR-drempel nadert. Het is specifiek gebouwd voor de Nederlandse situatie, wat nogal uitmaakt. Veel internationale BTW-tools kennen de KOR niet eens.</p>
+
+  <h3>ZenBTW vs. Shopify's ingebouwde BTW-functie</h3>
+
+  <table class="compare-table">
+    <tr>
+      <th>Functie</th>
+      <th>Shopify (gratis)</th>
+      <th>ZenBTW (gratis)</th>
+    </tr>
+    <tr>
+      <td>BTW op checkout berekenen</td>
+      <td><span class="check">✓</span></td>
+      <td><span class="cross">✗</span> (geen checkout-tool)</td>
+    </tr>
+    <tr>
+      <td>KOR-drempel monitoren</td>
+      <td><span class="cross">✗</span></td>
+      <td><span class="check">✓</span></td>
+    </tr>
+    <tr>
+      <td>OSS-drempel bijhouden</td>
+      <td><span class="cross">✗</span></td>
+      <td><span class="check">✓</span></td>
+    </tr>
+    <tr>
+      <td>EU BTW-tarieven per land</td>
+      <td><span class="check">✓</span></td>
+      <td><span class="check">✓</span> (overzicht)</td>
+    </tr>
+    <tr>
+      <td>BTW-aangifte voorbereiding</td>
+      <td>Basis-export</td>
+      <td><span class="check">✓</span> Dashboard</td>
+    </tr>
+    <tr>
+      <td>Specifiek voor NL wetgeving</td>
+      <td><span class="cross">✗</span></td>
+      <td><span class="check">✓</span></td>
+    </tr>
+  </table>
+
+  <p>Wat ik zelf doe: ik gebruik Shopify voor de automatische berekening op de checkout (daar is het gewoon goed in) en ZenBTW om bij te houden waar ik sta qua drempels en verplichtingen. Die combinatie is volledig gratis.</p>
+
+  <h2>Wat als je onder de KOR valt en Shopify gebruikt?</h2>
+
+  <p>Dit is een situatie die ik bij veel beginnende verkopers zie misgaan. Je hebt je aangemeld voor de <a href="/blog/kor-vrijstelling-2026">KOR</a> bij de Belastingdienst, maar in Shopify staat je BTW gewoon op 21%. Resultaat: je int BTW die je niet hoort te innen.</p>
+
+  <p>Als KOR-ondernemer moet je je prijzen inclusief 0% BTW tonen. In Shopify doe je dit door:</p>
+  <ol>
+    <li>Ga naar <strong>Instellingen &gt; Belastingen en heffingen</strong></li>
+    <li>Zet het belastingtarief voor Nederland op 0%</li>
+    <li>Vermeld op je facturen dat je de KOR toepast</li>
+  </ol>
+
+  <div class="highlight">
+    <p>De KOR-grens is €20.000 omzet per kalenderjaar, exclusief BTW. Als je die overschrijdt, moet je per direct BTW gaan rekenen, inclusief over de transactie die de grens doorbreekt. Eerdere omzet hoef je niet met terugwerkende kracht te corrigeren. Bron: <a href="https://www.belastingdienst.nl/wps/wcm/connect/bldcontentnl/belastingdienst/zakelijk/btw/hoe_werkt_btw/nieuwe_kleineondernemersregeling/" target="_blank" rel="noopener">Belastingdienst.nl</a></p>
+  </div>
+
+  <p>Heb je de <a href="/blog/kor-drempel-overschreden">KOR-drempel overschreden</a>? Dan moet je in Shopify meteen je BTW-tarief terugzetten naar 21%. Dit is iets waar ZenBTW je op tijd voor waarschuwt, zodat je niet verrast wordt.</p>
+
+  <h2>Verkoop je ook aan klanten in andere EU-landen?</h2>
+
+  <p>Dan wordt het extra spannend. Shopify berekent de lokale BTW-tarieven als je die hebt ingesteld, maar het vertelt je niet wanneer je de €10.000 OSS-drempel overschrijdt. Die drempel geldt voor je totale verkopen aan particulieren in álle andere EU-landen samen.</p>
+
+  <p>Overschrijd je die drempel? Dan moet je je registreren voor de <a href="/blog/oss-aangifte-nederland">OSS-aangifte</a> bij de Belastingdienst en het BTW-tarief van het land van de klant rekenen. Dus 19% voor Duitsland, 20% voor Frankrijk, enzovoort.</p>
+
+  <div class="warn">
+    <p>Shopify past de tarieven aan op de checkout als je de landen correct hebt geconfigureerd, maar het is aan jou om te weten wanneer je die plicht hebt. Stel dit niet uit, de Belastingdienst krijgt via DAC7 toch te zien wat je verkoopt.</p>
+  </div>
+
+  <h2>Praktische checklist: BTW berekenen Shopify automatisch gratis</h2>
+
+  <p>Even alles op een rij. Dit is wat ik elke nieuwe Shopify-verkoper zou aanraden:</p>
+
+  <ul>
+    <li><strong>Stap 1:</strong> Bepaal of je de KOR toepast of regulier BTW-plichtig bent</li>
+    <li><strong>Stap 2:</strong> Stel je Shopify-belastinginstellingen in op het juiste tarief (0% bij KOR, 21% als je BTW-plichtig bent)</li>
+    <li><strong>Stap 3:</strong> Voeg alle EU-landen toe waar je aan verkoopt met hun lokale tarieven</li>
+    <li><strong>Stap 4:</strong> Gebruik een gratis tool als ZenBTW om je omzet en drempels te monitoren</li>
+    <li><strong>Stap 5:</strong> Exporteer maandelijks je Shopify BTW-rapport en vergelijk het met je dashboard</li>
+    <li><strong>Stap 6:</strong> Doe op tijd je <a href="/blog/marketplace-verkoper-btw-aangifte">BTW-aangifte</a></li>
+  </ul>
+
+  <p>Klinkt als veel? Valt mee als je het eenmaal hebt ingesteld. Het inrichten kost je misschien een uurtje. Daarna draait het grotendeels automatisch.</p>
+
+  <div class="danger">
+    <p>Vergeet niet: de Belastingdienst ontvangt via DAC7 gegevens van platformen over je verkopen. Zorg dat je administratie klopt, ook als je denkt dat je "te klein" bent om op te vallen.</p>
+  </div>
+
+  <section class="faq-section">
+    <h2>Veelgestelde vragen</h2>
+    <div class="faq-item">
+      <h3>Berekent Shopify automatisch BTW voor Nederlandse klanten?</h3>
+      <p>Ja, als je onder Instellingen &gt; Belastingen Nederland hebt toegevoegd, berekent Shopify automatisch 21% BTW (of 9% verlaagd tarief). Je moet dit zelf correct configureren.</p>
+    </div>
+    <div class="faq-item">
+      <h3>Kan ik gratis BTW berekenen in Shopify zonder betaalde app?</h3>
+      <p>Ja, Shopify's ingebouwde BTW-berekening is gratis. Voor extra functies zoals KOR-drempel monitoring en OSS-tracking kun je gratis tools als ZenBTW gebruiken.</p>
+    </div>
+    <div class="faq-item">
+      <h3>Hoe stel ik BTW in voor EU-verkopen vanuit Shopify?</h3>
+      <p>Ga naar Instellingen &gt; Belastingen en heffingen &gt; EU. Voeg de landen toe waar je verkoopt en schakel de juiste tarieven in. Bij meer dan €10.000 EU-verkopen aan particulieren moet je je voor OSS registreren.</p>
+    </div>
+    <div class="faq-item">
+      <h3>Moet ik BTW rekenen als ik onder de KOR val en op Shopify verkoop?</h3>
+      <p>Nee. Bij de KOR ben je vrijgesteld van BTW. Zet je tarief in Shopify op 0% en vermeld op facturen dat je de KOR toepast. De KOR-grens is €20.000 omzet exclusief BTW per kalenderjaar.</p>
+    </div>
+    <div class="faq-item">
+      <h3>Wat is ZenBTW en hoe helpt het Shopify-verkopers?</h3>
+      <p>ZenBTW is een gratis Nederlandse BTW-tool die automatisch bijhoudt of je KOR-drempel of OSS-drempel nadert. Het vult de gaten op die Shopify's ingebouwde BTW-berekening laat.</p>
+    </div>
+  </section>
+
+  <p><a href="/blog/shopify-btw-nederland-2026" style="color:var(--acm);font-weight:600">→ Lees ook: Shopify BTW Nederland 2026: Het Compleet Overzicht</a></p>
+  <p><a href="/blog/shopify-dropshipping-btw" style="color:var(--acm);font-weight:600">→ Lees ook: Shopify Dropshipping BTW Nederland: Zo Regel Je Het</a></p>
+  <p><a href="/blog/verschil-kor-oss-regeling" style="color:var(--acm);font-weight:600">→ Lees ook: Wat is het verschil tussen KOR en OSS regeling?</a></p>
+
+  
+<section class="cat-related">
+  <div class="cat-related-hd">
+    <span class="cat-related-lbl">Meer over Marketplaces</span>
+    <a href="/blog#platforms" class="cat-related-all">Alle Marketplaces-artikelen →</a>
+  </div>
+  <div class="cat-related-links">
+    <a href="/blog/etsy-btw-2026" class="cat-related-link"><span>→</span> Etsy BTW 2026: wanneer moet je als verkoper BTW betalen?</a>
+    <a href="/blog/etsy-verkoper-belastingaangifte" class="cat-related-link"><span>→</span> Etsy verkoper belastingaangifte Nederland: stap voor stap uitgelegd</a>
+    <a href="/blog/hoeveel-btw-vinted-verkoper" class="cat-related-link"><span>→</span> Hoeveel BTW moet ik betalen als Vinted verkoper?</a>
+    <a href="/blog/marketplace-verkoper-btw-aangifte" class="cat-related-link"><span>→</span> Marketplace verkoper BTW aangifte: hoe doe je het in 2026?</a>
+    <a href="/blog/shopify-btw-nederland-2026" class="cat-related-link"><span>→</span> Shopify BTW Nederland 2026: Het Compleet Overzicht</a>
+    <a href="/blog/shopify-dropshipping-btw" class="cat-related-link"><span>→</span> Shopify Dropshipping BTW Nederland: Zo Regel Je Het</a>
+    <a href="/blog/vinted-belasting-2026" class="cat-related-link"><span>→</span> Vinted Belasting 2026: Moet Je BTW Betalen Over Je Verkopen?</a>
+    <a href="/blog/vinted-ondernemer-btw-registratie" class="cat-related-link"><span>→</span> Vinted ondernemer BTW registratie: wat je moet weten in 2026</a>
+    <a href="/blog/wanneer-btw-aangifte-etsy" class="cat-related-link"><span>→</span> Wanneer is BTW aangifte verplicht als Etsy verkoper in Nederland?</a>
+  </div>
+</section>
+<div class="cta-box">
+    <h3>Weet jij of je de KOR-drempel nadert?</h3>
+    <p>ZenBTW houdt het gratis voor je bij, zodat Shopify's BTW-berekening altijd klopt.</p>
+    <a href="/app">📊 Open gratis ZenBTW dashboard →</a>
+  </div>
+
+</div>
+
+<aside class="author-sidebar">
+<div class="author-box">
+  <img src="/author-daniel.jpg" alt="Daniel - oprichter ZenBTW" class="author-img">
+  <div class="author-info">
+    <span class="author-label">Over de auteur</span>
+    <strong class="author-name">Daniel</strong>
+    <p class="author-bio">Oprichter van ZenBTW en <a href="https://revaleur.com" target="_blank" rel="noopener">Revaleur</a> (680+ reviews, 4.9★). Met 4 jaar ervaring in finance helpt Daniel marketplace-verkopers grip te krijgen op BTW, KOR en OSS, zonder dat je er een boekhouder bij nodig hebt.</p>
+  </div>
+</div>
+</aside>
+</div>
+
+<div class="author-box-mobile">
+<div class="author-box">
+  <img src="/author-daniel.jpg" alt="Daniel - oprichter ZenBTW" class="author-img">
+  <div class="author-info">
+    <span class="author-label">Over de auteur</span>
+    <strong class="author-name">Daniel</strong>
+    <p class="author-bio">Oprichter van ZenBTW en <a href="https://revaleur.com" target="_blank" rel="noopener">Revaleur</a> (680+ reviews, 4.9★). Met 4 jaar ervaring in finance helpt Daniel marketplace-verkopers grip te krijgen op BTW, KOR en OSS, zonder dat je er een boekhouder bij nodig hebt.</p>
+  </div>
+</div>
+</div>
+
+<footer>
+  <a href="/">Home</a>
+  <a href="/blog">Blog</a>
+  <a href="/app">Dashboard</a>
+  <a href="/privacy">Privacy</a>
+  <br><br>© 2026 ZenBTW &nbsp;·&nbsp; Geen belastingadvies — raadpleeg een adviseur voor jouw specifieke situatie.
+</footer>
+</body>
+</html>

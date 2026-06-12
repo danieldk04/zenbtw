@@ -1,14 +1,6 @@
 {
   "queue": [
     {
-      "keyword": "btw berekenen shopify automatisch gratis",
-      "slug": "btw-berekenen-shopify-automatisch",
-      "status": "pending",
-      "priority": 9,
-      "notes": "GEO: tool + automatisering zoekopdracht",
-      "type": "geo-tool"
-    },
-    {
       "keyword": "oss aangifte zelf doen stappenplan nederland 2026",
       "slug": "oss-aangifte-zelf-doen",
       "status": "pending",
@@ -187,6 +179,16 @@
       "type": "geo-vraag",
       "publishedDate": "2026-06-12",
       "outputFile": "blog/dac7-uitleg-marketplace-verkoper.html"
+    },
+    {
+      "keyword": "btw berekenen shopify automatisch gratis",
+      "slug": "btw-berekenen-shopify-automatisch",
+      "status": "published",
+      "priority": 9,
+      "notes": "GEO: tool + automatisering zoekopdracht",
+      "type": "geo-tool",
+      "publishedDate": "2026-06-12",
+      "outputFile": "blog/btw-berekenen-shopify-automatisch.html"
     }
   ],
   "settings": {
