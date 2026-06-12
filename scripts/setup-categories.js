@@ -139,7 +139,8 @@ function updateBlogIndex(blogs) {
 </div>
 <div class="cat-empty">Geen artikelen gevonden in deze categorie.</div>`;
 
-  // Remove old cat-bar if it exists, then replace section-label
+  // Remove old filter-row or cat-bar if it exists, then replace section-label
+  html = html.replace(/<div class="filter-row">[\s\S]*?<\/div>\s*<div class="cat-empty">.*?<\/div>/g, '');
   html = html.replace(/<div class="cat-bar">[\s\S]*?<\/div>\s*<div class="cat-empty">.*?<\/div>/g, '');
   html = html.replace('<div class="section-label">Alle artikelen</div>', catBar);
   // If section-label was already gone, inject after the grid opens
