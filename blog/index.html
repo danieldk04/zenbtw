@@ -252,15 +252,18 @@ function closeMobNav(){document.getElementById('navHamburger').classList.remove(
   
   
   
-  <div class="filter-row">
   
-  <div class="cat-bar">
+  
+  <div class="filter-row">
+<div class="cat-bar">
   <button class="cat-btn active" data-filter="all">Alle <span class="cat-count">23</span></button>
   <button class="cat-btn" data-filter="kor">KOR <span class="cat-count">5</span></button>
   <button class="cat-btn" data-filter="oss">OSS &amp; EU BTW <span class="cat-count">3</span></button>
   <button class="cat-btn" data-filter="platforms">Marketplaces <span class="cat-count">10</span></button>
   <button class="cat-btn" data-filter="dac7">DAC7 <span class="cat-count">2</span></button>
   <button class="cat-btn" data-filter="tools">Tools <span class="cat-count">3</span></button>
+</div>
+<button class="sort-btn" id="sortBtn"><span class="sort-icon">↓</span> Nieuwste eerst</button>
 </div>
 <div class="cat-empty">Geen artikelen gevonden in deze categorie.</div>
   <div class="grid">
@@ -546,19 +549,6 @@ function closeMobNav(){document.getElementById('navHamburger').classList.remove(
       </div>
     </a>
 
-  
-    <a href="/blog/btw-berekenen-shopify-automatisch" data-cat="platforms" class="card">
-      <div class="card-body">
-        <span class="card-tag">Shopify</span>
-        <h2>BTW berekenen in Shopify: automatisch en gratis, hoe werkt dat écht?</h2>
-        <p>BTW berekenen in Shopify automatisch en gratis? Ontdek welke tools echt werken, wat Shopify zelf doet en waar de valkuilen zitten. Praktische gids.</p>
-        <div class="card-meta">
-          <span>juni 2026</span>
-          <span class="card-read">Lees artikel →</span>
-        </div>
-      </div>
-    </a>
-
   </div>
 
   <div class="cta-strip">
@@ -587,6 +577,8 @@ function closeMobNav(){document.getElementById('navHamburger').classList.remove(
     <span class="footer-badge">🔒 Geen belastingadvies</span>
   </div>
 </footer>
+
+
 <script>
 (function(){
   var btns=document.querySelectorAll('.cat-btn');
@@ -594,9 +586,7 @@ function closeMobNav(){document.getElementById('navHamburger').classList.remove(
   var empty=document.querySelector('.cat-empty');
   var sortBtn=document.getElementById('sortBtn');
   var sortAsc=false;
-
   function getCards(){return Array.from(document.querySelectorAll('.card[data-cat]'));}
-
   function sortCards(){
     var cards=getCards();
     cards.sort(function(a,b){
@@ -607,9 +597,7 @@ function closeMobNav(){document.getElementById('navHamburger').classList.remove(
     cards.forEach(function(c){grid.appendChild(c);});
     grid.appendChild(empty);
   }
-
   function activeFilter(){var a=document.querySelector('.cat-btn.active');return a?a.dataset.filter:'all';}
-
   function run(f){
     btns.forEach(function(b){b.classList.toggle('active',b.dataset.filter===f);});
     var n=0;
@@ -617,19 +605,14 @@ function closeMobNav(){document.getElementById('navHamburger').classList.remove(
     if(empty)empty.classList.toggle('on',n===0);
     history.replaceState(null,'',f==='all'?location.pathname:'#'+f);
   }
-
   sortCards();
-
   btns.forEach(function(b){b.addEventListener('click',function(){run(b.dataset.filter);});});
-
-  sortBtn.addEventListener('click',function(){
+  if(sortBtn){sortBtn.addEventListener('click',function(){
     sortAsc=!sortAsc;
     sortBtn.classList.toggle('asc',sortAsc);
-    sortBtn.innerHTML='<span class="sort-icon">'+(sortAsc?'↑':'↓')+'<\/span> '+(sortAsc?'Oudste eerst':'Nieuwste eerst');
-    sortCards();
-    run(activeFilter());
-  });
-
+    sortBtn.innerHTML='<span class="sort-icon">'+(sortAsc?'↑':'↓')+'</span> '+(sortAsc?'Oudste eerst':'Nieuwste eerst');
+    sortCards();run(activeFilter());
+  });}
   var h=location.hash.slice(1);
   if(h&&document.querySelector('[data-filter="'+h+'"]'))run(h);else run('all');
 })();
