@@ -126,13 +126,16 @@ function updateBlogIndex(blogs) {
   }
   const total = blogs.length;
 
-  const catBar = `<div class="cat-bar">
+  const catBar = `<div class="filter-row">
+<div class="cat-bar">
   <button class="cat-btn active" data-filter="all">Alle <span class="cat-count">${total}</span></button>
   <button class="cat-btn" data-filter="kor">KOR <span class="cat-count">${counts.kor || 0}</span></button>
   <button class="cat-btn" data-filter="oss">OSS &amp; EU BTW <span class="cat-count">${counts.oss || 0}</span></button>
   <button class="cat-btn" data-filter="platforms">Marketplaces <span class="cat-count">${counts.platforms || 0}</span></button>
   <button class="cat-btn" data-filter="dac7">DAC7 <span class="cat-count">${counts.dac7 || 0}</span></button>
   <button class="cat-btn" data-filter="tools">Tools <span class="cat-count">${counts.tools || 0}</span></button>
+</div>
+<button class="sort-btn" id="sortBtn"><span class="sort-icon">↓</span> Nieuwste eerst</button>
 </div>
 <div class="cat-empty">Geen artikelen gevonden in deze categorie.</div>`;
 
