@@ -318,11 +318,10 @@ function updateBlogIndex(slug, title, description, tag) {
       </div>
     </a>`;
 
-  // Insert inside the .grid div, just before its closing tag
-  // The grid closes with "  </div>\n\n  <div class="cta-strip""
+  // Insert inside the .grid div, directly after the opening tag (newest first)
   html = html.replace(
-    /(\s*)<\/div>\s*\n\s*<div class="cta-strip"/,
-    `$1${card}\n\n  </div>\n\n  <div class="cta-strip"`
+    /(<div class="grid">\s*\n)/,
+    `$1\n${card}\n`
   );
 
   fs.writeFileSync(indexPath, html, 'utf8');
