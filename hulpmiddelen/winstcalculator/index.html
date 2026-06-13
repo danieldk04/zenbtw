@@ -1,0 +1,982 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Netto Winstcalculator — Gratis | ZenBTW</title>
+<meta name="description" content="Bereken gratis je nettowinst per verkoop inclusief platformkosten, verzending en BTW. Voor Etsy, Vinted en Shopify verkopers. Direct resultaat, geen registratie.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://zenbtw.nl/hulpmiddelen/winstcalculator/">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<meta property="og:title" content="Netto Winstcalculator — Bereken je winst per verkoop">
+<meta property="og:description" content="Bereken gratis je nettowinst inclusief Etsy-, Vinted- of Shopify-kosten, verzending en BTW. Direct inzicht in je winstmarge.">
+<meta property="og:url" content="https://zenbtw.nl/hulpmiddelen/winstcalculator/">
+<meta property="og:type" content="website">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "Netto Winstcalculator",
+  "url": "https://zenbtw.nl/hulpmiddelen/winstcalculator/",
+  "description": "Gratis winstcalculator voor marketplace verkopers. Berekent nettowinst per verkoop inclusief platformkosten, verzending en BTW. Voor Etsy, Vinted en Shopify.",
+  "applicationCategory": "FinanceApplication",
+  "operatingSystem": "Any",
+  "isAccessibleForFree": true,
+  "offers": {"@type":"Offer","price":"0","priceCurrency":"EUR"},
+  "provider": {"@type":"Organization","name":"ZenBTW","url":"https://zenbtw.nl"}
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {"@type":"Question","name":"Hoe bereken ik mijn nettowinst op Etsy?","acceptedAnswer":{"@type":"Answer","text":"Nettowinst op Etsy = verkoopprijs - transactiekosten (6,5%) - listingfee (€0,20) - betalingsverwerking (4% + €0,30) - verzendkosten - inkoopprijs - BTW-afdracht. Gebruik deze calculator om het direct te berekenen."}},
+    {"@type":"Question","name":"Betaal ik als Vinted verkoper platformkosten?","acceptedAnswer":{"@type":"Answer","text":"Nee. Op Vinted betaalt de koper de buyer protection fee (5%). Als verkoper betaal je geen platformkosten aan Vinted. Wel betaal je eventueel voor een verzendlabel via Vinted, maar die kosten zijn voor jouw rekening als je dat regelt."}},
+    {"@type":"Question","name":"Moet ik BTW rekenen op mijn verkoopprijs?","acceptedAnswer":{"@type":"Answer","text":"Dat hangt af van of je BTW-plichtig bent. Als je gebruik maakt van de KOR (Kleineondernemersregeling, tot €20.000 omzet per jaar) hoef je geen BTW te rekenen. Daarboven moet je 9% of 21% BTW rekenen afhankelijk van je productcategorie."}},
+    {"@type":"Question","name":"Wat is een goede winstmarge voor marketplace verkopen?","acceptedAnswer":{"@type":"Answer","text":"Een gezonde winstmarge voor marketplace verkopers ligt tussen de 20% en 40% na aftrek van alle kosten. Op Etsy eten platformkosten al snel 10-15% van je verkoopprijs op, dus houd hier rekening mee bij het bepalen van je verkoopprijs."}}
+  ]
+}
+</script>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f7f6f3;--wh:#ffffff;--s2:#f0ede8;--br:#e8e5de;--brs:#d4cfc5;
+  --ac:#1a4731;--acl:#e8f0ec;--acm:#2d6a4f;--acd:#143d28;
+  --tx:#1a1814;--tx2:#4a4640;--tx3:#8a847a;--tx4:#b8b2a8;
+  --sh:0 1px 4px rgba(0,0,0,.07);--shm:0 6px 20px rgba(0,0,0,.1);
+  --r:16px;--rs:12px;--nav-h:72px;
+  --green:#16a34a;--amber:#d97706;--red:#dc2626;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--bg);color:var(--tx);line-height:1.6}
+a{text-decoration:none;color:inherit}
+
+/* NAV */
+.nav{position:fixed;top:0;left:0;right:0;z-index:500;height:var(--nav-h);background:rgba(247,246,243,.95);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-bottom:1.5px solid var(--br);box-shadow:0 2px 12px rgba(0,0,0,.05);display:flex;align-items:center;padding:0 clamp(20px,4vw,56px);justify-content:space-between;gap:24px}
+.nav-logo{display:flex;align-items:center;gap:10px}
+.nav-logo-img{max-height:48px;width:auto}
+.nav-wordmark{font-family:'Fraunces',serif;font-size:22px;font-weight:700;letter-spacing:-.5px}
+.nav-wordmark em{color:var(--acm);font-style:normal}
+.nav-links{display:flex;align-items:center;gap:4px;flex:1;justify-content:center}
+.nav-link{padding:9px 16px;font-size:15px;font-weight:800;color:var(--tx2);border-radius:10px;transition:all .16s;letter-spacing:-.1px}
+.nav-link:hover{color:var(--ac);background:var(--acl)}
+.nav-dropdown{position:relative}
+.nav-dropdown-btn{padding:9px 16px;font-size:15px;font-weight:800;color:var(--ac);background:var(--acl);border-radius:10px;border:none;cursor:pointer;font-family:inherit;display:flex;align-items:center;gap:5px;letter-spacing:-.1px;transition:all .16s}
+.nav-dropdown-btn:hover{background:#d4e8dc}
+.nav-dropdown-arrow{font-size:10px;transition:transform .2s;display:inline-block}
+.nav-dropdown:hover .nav-dropdown-arrow{transform:rotate(180deg)}
+.nav-dropdown-menu{position:absolute;top:100%;left:50%;padding-top:8px;transform:translateX(-50%) translateY(0);background:#fff;border-radius:14px;box-shadow:0 8px 32px rgba(0,0,0,.12),0 2px 8px rgba(0,0,0,.06);border:1.5px solid var(--br);min-width:260px;padding:8px;opacity:0;pointer-events:none;transition:opacity .18s,transform .18s;z-index:200}
+.nav-dropdown:hover .nav-dropdown-menu{opacity:1;pointer-events:all;transform:translateX(-50%) translateY(0);padding-top:8px}
+.nav-dd-item{display:flex;align-items:center;gap:12px;padding:10px 14px;border-radius:10px;color:var(--tx2);transition:all .14s;font-size:14px;font-weight:600}
+.nav-dd-item:hover{background:var(--acl);color:var(--ac)}
+.nav-dd-item.current{background:var(--acl);color:var(--ac)}
+.nav-dd-icon{width:34px;height:34px;background:var(--acl);border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0}
+.nav-dd-label{font-weight:700;font-size:14px;line-height:1.2}
+.nav-dd-sub{font-size:12px;color:var(--tx3);font-weight:500;margin-top:1px}
+.nav-dd-sep{height:1px;background:var(--br);margin:6px 0}
+.nav-dd-all{display:block;padding:9px 14px;border-radius:10px;color:var(--ac);font-size:13px;font-weight:700;text-align:center;transition:background .14s}
+.nav-dd-all:hover{background:var(--acl)}
+.nav-cta{display:inline-flex;align-items:center;gap:8px;padding:11px 22px;background:var(--ac);color:#fff;border-radius:var(--rs);font-size:14px;font-weight:800;transition:all .2s;flex-shrink:0;box-shadow:0 4px 16px rgba(26,71,49,.3)}
+.nav-cta:hover{background:var(--acd);transform:translateY(-1px)}
+.nav-hamburger{display:none;flex-direction:column;justify-content:center;align-items:center;gap:5px;width:42px;height:42px;background:none;border:none;cursor:pointer;border-radius:10px}
+.nav-hamburger .hb{width:20px;height:2px;background:var(--tx2);border-radius:2px;transition:all .25s cubic-bezier(.16,1,.3,1);transform-origin:center}
+.nav-hamburger.open .hb:nth-child(1){transform:translateY(7px) rotate(45deg)}
+.nav-hamburger.open .hb:nth-child(2){opacity:0;transform:scaleX(0)}
+.nav-hamburger.open .hb:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+.mob-nav-overlay{position:fixed;inset:0;z-index:600;background:rgba(0,0,0,.45);backdrop-filter:blur(2px);display:none;opacity:0;transition:opacity .3s}
+.mob-nav-overlay.on{display:block;opacity:1}
+.mob-nav-drawer{position:fixed;top:0;right:0;bottom:0;width:min(300px,85vw);background:#fff;z-index:700;transform:translateX(100%);transition:transform .3s cubic-bezier(.16,1,.3,1);display:flex;flex-direction:column;overflow-y:auto}
+.mob-nav-drawer.on{transform:translateX(0)}
+.mob-nav-hd{display:flex;align-items:center;justify-content:space-between;padding:16px 18px;border-bottom:1.5px solid var(--br)}
+.mob-nav-close{background:none;border:none;cursor:pointer;font-size:18px;color:var(--tx2);width:36px;height:36px;display:flex;align-items:center;justify-content:center;border-radius:8px}
+.mob-nav-links{display:flex;flex-direction:column;padding:12px 0;flex:1}
+.mob-nav-link{padding:14px 22px;font-size:15px;font-weight:700;color:var(--tx2);border-left:3px solid transparent;text-decoration:none;transition:all .14s;display:block}
+.mob-nav-link:hover,.mob-nav-link.active{color:var(--ac);background:var(--acl);border-left-color:var(--ac)}
+.mob-nav-section{padding:8px 22px 4px;font-size:11px;font-weight:800;color:var(--tx4);letter-spacing:.08em;text-transform:uppercase}
+.mob-nav-sublink{padding:10px 22px 10px 34px;font-size:14px;font-weight:600;color:var(--tx2);text-decoration:none;display:block;border-left:3px solid transparent;transition:all .14s}
+.mob-nav-sublink:hover,.mob-nav-sublink.active{color:var(--ac);background:var(--acl);border-left-color:var(--ac)}
+.mob-nav-cta{display:flex;align-items:center;justify-content:center;margin:0 18px 28px;padding:14px 24px;background:var(--ac);color:#fff;border-radius:10px;font-size:15px;font-weight:800;box-shadow:0 4px 16px rgba(26,71,49,.35);text-decoration:none}
+@media(max-width:768px){.nav-links{display:none}.nav-cta{display:none}.nav-hamburger{display:flex}}
+
+/* BREADCRUMB */
+.breadcrumb{padding:12px clamp(20px,4vw,80px);font-size:13px;color:var(--tx3);display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+.breadcrumb a{color:var(--tx3);transition:color .14s}.breadcrumb a:hover{color:var(--ac)}
+
+/* HERO */
+.hero{padding:56px clamp(20px,4vw,80px) 48px;max-width:900px;margin:0 auto;text-align:center}
+.hero-badge{display:inline-flex;align-items:center;gap:8px;background:var(--acl);color:var(--acm);padding:6px 14px;border-radius:20px;font-size:13px;font-weight:700;margin-bottom:20px}
+.hero h1{font-family:'Fraunces',serif;font-size:clamp(32px,5vw,52px);font-weight:700;letter-spacing:-.5px;line-height:1.15;margin-bottom:16px}
+.hero p{font-size:18px;color:var(--tx2);max-width:600px;margin:0 auto}
+
+/* MAIN LAYOUT */
+.calc-wrap{max-width:980px;margin:0 auto;padding:0 clamp(20px,4vw,40px) 80px;display:grid;grid-template-columns:1fr 1fr;gap:24px;align-items:start}
+@media(max-width:768px){.calc-wrap{grid-template-columns:1fr}}
+
+/* CARD */
+.card{background:var(--wh);border-radius:var(--r);box-shadow:var(--sh);border:1.5px solid var(--br);overflow:hidden}
+.card-header{padding:18px 22px;border-bottom:1.5px solid var(--br);display:flex;align-items:center;gap:12px}
+.card-header-icon{width:36px;height:36px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;background:var(--acl)}
+.card-title{font-family:'Fraunces',serif;font-size:17px;font-weight:700}
+.card-sub{font-size:12px;color:var(--tx3);margin-top:1px}
+.card-body{padding:22px}
+
+/* PLATFORM PRESETS */
+.preset-row{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:18px}
+.preset-btn{padding:10px 6px;border:1.5px solid var(--br);border-radius:10px;font-size:13px;font-weight:700;text-align:center;cursor:pointer;transition:all .14s;color:var(--tx2);background:var(--bg);font-family:inherit}
+.preset-btn:hover{border-color:var(--acm);background:var(--acl);color:var(--ac)}
+.preset-btn.active{border-color:var(--ac);background:var(--acl);color:var(--ac)}
+.preset-btn .preset-icon{display:block;font-size:18px;margin-bottom:4px}
+.preset-btn .preset-label{display:block;font-size:11px;font-weight:800;letter-spacing:.02em}
+
+/* INPUT FIELDS */
+.field{margin-bottom:16px}
+.field:last-child{margin-bottom:0}
+.field label{display:block;font-size:13px;font-weight:700;color:var(--tx2);margin-bottom:6px}
+.field-hint{font-size:12px;color:var(--tx3);margin-top:4px;line-height:1.5}
+.euro-wrap{display:flex;align-items:center;border:1.5px solid var(--br);border-radius:9px;background:var(--bg);transition:border-color .16s,box-shadow .16s;overflow:hidden}
+.euro-prefix{padding:11px 4px 11px 13px;font-size:15px;font-weight:700;color:var(--tx3);font-family:'JetBrains Mono',monospace;pointer-events:none;flex-shrink:0;line-height:1}
+.euro-wrap input{flex:1;border:none!important;border-radius:0!important;background:transparent!important;padding:11px 12px 11px 2px;outline:none;box-shadow:none!important;font-size:15px;font-family:'Plus Jakarta Sans',sans-serif;font-weight:600;color:var(--tx);-moz-appearance:textfield}
+.euro-wrap input::-webkit-inner-spin-button{-webkit-appearance:none}
+.euro-wrap:focus-within{border-color:var(--acm);box-shadow:0 0 0 3px rgba(26,71,49,.1);background:#fff}
+.pct-wrap{display:flex;align-items:center;border:1.5px solid var(--br);border-radius:9px;background:var(--bg);transition:border-color .16s,box-shadow .16s;overflow:hidden}
+.pct-wrap input{flex:1;border:none!important;border-radius:0!important;background:transparent!important;padding:11px 4px 11px 13px;outline:none;box-shadow:none!important;font-size:15px;font-family:'Plus Jakarta Sans',sans-serif;font-weight:600;color:var(--tx);-moz-appearance:textfield;width:100%}
+.pct-wrap input::-webkit-inner-spin-button{-webkit-appearance:none}
+.pct-suffix{padding:11px 13px 11px 4px;font-size:15px;font-weight:700;color:var(--tx3);pointer-events:none;flex-shrink:0;line-height:1}
+.pct-wrap:focus-within{border-color:var(--acm);box-shadow:0 0 0 3px rgba(26,71,49,.1);background:#fff}
+.input-row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+select{width:100%;padding:11px 14px;border:1.5px solid var(--br);border-radius:9px;font-size:15px;font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;background:var(--bg);color:var(--tx);outline:none;cursor:pointer;transition:border-color .16s}
+select:focus{border-color:var(--acm);box-shadow:0 0 0 3px rgba(26,71,49,.1)}
+.toggle-chip{display:flex;align-items:center;gap:8px;padding:10px 14px;border:1.5px solid var(--br);border-radius:9px;cursor:pointer;transition:all .14s;user-select:none;background:var(--bg)}
+.toggle-chip:hover{border-color:var(--acm);background:var(--acl)}
+.toggle-chip.on{border-color:var(--ac);background:var(--acl)}
+.toggle-chip-dot{width:16px;height:16px;border-radius:50%;border:2px solid var(--br);transition:all .14s;flex-shrink:0}
+.toggle-chip.on .toggle-chip-dot{background:var(--ac);border-color:var(--ac)}
+.toggle-chip-label{font-size:13px;font-weight:700;color:var(--tx2)}
+.toggle-chip.on .toggle-chip-label{color:var(--ac)}
+
+/* DIVIDER */
+.divider{height:1px;background:var(--br);margin:16px 0}
+.section-label{font-size:11px;font-weight:800;color:var(--tx4);letter-spacing:.07em;text-transform:uppercase;margin-bottom:10px}
+
+/* RESULT PANEL */
+.result-card{background:var(--wh);border-radius:var(--r);box-shadow:var(--sh);border:1.5px solid var(--br);overflow:hidden}
+.result-header{padding:18px 22px;border-bottom:1.5px solid var(--br);display:flex;align-items:center;gap:12px}
+.result-body{padding:22px}
+
+.result-empty{text-align:center;padding:40px 20px;color:var(--tx3)}
+.result-empty-icon{font-size:40px;opacity:.4;display:block;margin-bottom:12px}
+.result-empty-text{font-size:14px;font-weight:600}
+
+.result-row{display:flex;justify-content:space-between;align-items:center;padding:9px 0;border-bottom:1px solid var(--br);font-size:14px}
+.result-row:last-child{border-bottom:none}
+.result-label{color:var(--tx2);font-weight:600}
+.result-label.sub{color:var(--tx3);font-size:13px;padding-left:12px}
+.result-val{font-family:'JetBrains Mono',monospace;font-weight:600;font-size:14px}
+.result-val.neg{color:var(--red)}
+.result-val.muted{color:var(--tx3)}
+
+.result-section-title{font-size:11px;font-weight:800;color:var(--tx4);letter-spacing:.07em;text-transform:uppercase;margin:16px 0 8px}
+.result-section-title:first-child{margin-top:0}
+
+/* NETTOWINST BOX */
+.winst-box{border-radius:12px;padding:18px 20px;margin-top:16px;border:1.5px solid}
+.winst-box.pos{background:var(--acl);border-color:var(--acm)}
+.winst-box.neg{background:#fee2e2;border-color:#fca5a5}
+.winst-box-label{font-size:12px;font-weight:800;color:var(--tx3);letter-spacing:.05em;text-transform:uppercase;margin-bottom:6px}
+.winst-box.pos .winst-box-label{color:var(--acm)}
+.winst-box.neg .winst-box-label{color:#b91c1c}
+.winst-box-amount{font-family:'JetBrains Mono',monospace;font-size:30px;font-weight:700;line-height:1}
+.winst-box.pos .winst-box-amount{color:var(--ac)}
+.winst-box.neg .winst-box-amount{color:var(--red)}
+.winst-box-marge{font-size:14px;font-weight:700;margin-top:6px}
+.winst-box.pos .winst-box-marge{color:var(--acm)}
+.winst-box.neg .winst-box-marge{color:#b91c1c}
+
+/* BREAKDOWN BAR */
+.breakdown-section{margin-top:20px}
+.breakdown-title{font-size:11px;font-weight:800;color:var(--tx4);letter-spacing:.07em;text-transform:uppercase;margin-bottom:10px}
+.breakdown-bar{display:flex;height:20px;border-radius:10px;overflow:hidden;gap:2px;margin-bottom:10px}
+.bar-seg{height:100%;transition:width .5s cubic-bezier(.16,1,.3,1);min-width:0}
+.bar-seg.winst{background:#16a34a}
+.bar-seg.btw{background:#f59e0b}
+.bar-seg.platform{background:#6366f1}
+.bar-seg.verzend{background:#06b6d4}
+.bar-seg.inkoop{background:#94a3b8}
+.breakdown-legend{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+.legend-item{display:flex;align-items:center;gap:6px;font-size:12px;font-weight:600;color:var(--tx2)}
+.legend-dot{width:10px;height:10px;border-radius:3px;flex-shrink:0}
+.legend-dot.winst{background:#16a34a}
+.legend-dot.btw{background:#f59e0b}
+.legend-dot.platform{background:#6366f1}
+.legend-dot.verzend{background:#06b6d4}
+.legend-dot.inkoop{background:#94a3b8}
+
+/* INFO SECTION */
+.info-section{max-width:980px;margin:0 auto;padding:0 clamp(20px,4vw,40px) 60px}
+.info-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:20px;margin-bottom:48px}
+.info-card{background:var(--wh);border-radius:var(--r);border:1.5px solid var(--br);padding:24px}
+.info-card h3{font-family:'Fraunces',serif;font-size:17px;font-weight:700;margin-bottom:8px;display:flex;align-items:center;gap:8px}
+.info-card p{font-size:14px;color:var(--tx2);line-height:1.65}
+.info-card ul{margin-top:10px;padding-left:18px;font-size:14px;color:var(--tx2);line-height:1.8}
+
+/* FAQ */
+.faq-section{max-width:980px;margin:0 auto;padding:0 clamp(20px,4vw,40px) 60px}
+.faq-title{font-family:'Fraunces',serif;font-size:24px;font-weight:700;margin-bottom:20px}
+.faq-item{border:1.5px solid var(--br);border-radius:12px;margin-bottom:10px;overflow:hidden;background:var(--wh)}
+.faq-q{padding:17px 20px;font-size:15px;font-weight:700;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:16px;transition:background .14s}
+.faq-q:hover{background:var(--acl)}
+.faq-icon{font-size:18px;transition:transform .25s;flex-shrink:0;color:var(--tx3)}
+.faq-item.open .faq-icon{transform:rotate(180deg);color:var(--ac)}
+.faq-item.open .faq-q{background:var(--acl);color:var(--ac)}
+.faq-a{display:none;padding:0 20px 16px;font-size:14px;color:var(--tx2);line-height:1.7}
+.faq-item.open .faq-a{display:block}
+
+/* CTA */
+.cta-section{max-width:980px;margin:0 auto;padding:0 clamp(20px,4vw,40px) 80px}
+.cta-box{background:var(--ac);border-radius:var(--r);padding:48px;text-align:center;color:#fff}
+.cta-box h2{font-family:'Fraunces',serif;font-size:26px;font-weight:700;margin-bottom:12px}
+.cta-box p{font-size:16px;opacity:.85;margin-bottom:28px}
+.cta-box a{display:inline-flex;align-items:center;gap:8px;padding:14px 32px;background:#fff;color:var(--ac);border-radius:12px;font-size:16px;font-weight:800;transition:all .2s}
+.cta-box a:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,.2)}
+
+/* === STANDAARD NAV === */
+:root{--nav-h:72px}
+body{padding-top:var(--nav-h,72px)!important}
+.nav{position:fixed;top:0;left:0;right:0;z-index:500;height:var(--nav-h);background:rgba(247,246,243,.95);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-bottom:1.5px solid var(--br,#e5e0d8);box-shadow:0 2px 12px rgba(0,0,0,.05);display:flex;align-items:center;padding:0 clamp(20px,4vw,56px);justify-content:space-between;gap:24px}
+.nav-logo{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--tx,#1a1a18);flex-shrink:0}
+.nav-logo-img{height:52px;width:52px;border-radius:10px;object-fit:contain}
+.nav-wordmark{font-family:'Fraunces',serif;font-size:22px;font-weight:700;letter-spacing:-.5px;line-height:1}
+.nav-wordmark em{color:var(--acm,#2d7a52);font-style:normal}
+.nav-links{display:flex;align-items:center;gap:4px;flex:1;justify-content:center}
+.nav-link{padding:9px 16px;font-size:15px;font-weight:800;color:var(--tx2,#4a4a46);border-radius:10px;transition:all .16s;letter-spacing:-.1px;text-decoration:none}
+.nav-link:hover{color:var(--ac,#1a4731);background:var(--acl,#eef7f2)}
+.nav-dropdown{position:relative}
+.nav-dropdown-btn{padding:9px 16px;font-size:15px;font-weight:800;color:var(--tx2,#4a4a46);background:none;border-radius:10px;border:none;cursor:pointer;font-family:inherit;display:flex;align-items:center;gap:5px;letter-spacing:-.1px;transition:all .16s}
+.nav-dropdown-btn:hover,.nav-dropdown:hover .nav-dropdown-btn{color:var(--ac,#1a4731);background:var(--acl,#eef7f2)}
+.nav-dropdown-arrow{font-size:10px;transition:transform .2s;display:inline-block}
+.nav-dropdown:hover .nav-dropdown-arrow{transform:rotate(180deg)}
+.nav-dropdown-menu{position:absolute;top:100%;left:50%;padding-top:8px;transform:translateX(-50%) translateY(0);background:#fff;border-radius:14px;box-shadow:0 8px 32px rgba(0,0,0,.12),0 2px 8px rgba(0,0,0,.06);border:1.5px solid var(--br,#e5e0d8);min-width:252px;padding:8px;opacity:0;pointer-events:none;transition:opacity .18s,transform .18s;z-index:200}
+.nav-dropdown:hover .nav-dropdown-menu{opacity:1;pointer-events:all;transform:translateX(-50%) translateY(0);padding-top:8px}
+.nav-dd-item{display:flex;align-items:center;gap:12px;padding:10px 14px;border-radius:10px;color:var(--tx2,#4a4a46);transition:all .14s;font-size:14px;font-weight:600;text-decoration:none}
+.nav-dd-item:hover{background:var(--acl,#eef7f2);color:var(--ac,#1a4731)}
+.nav-dd-icon{width:34px;height:34px;background:var(--acl,#eef7f2);border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0}
+.nav-dd-label{font-weight:700;font-size:14px;line-height:1.2}
+.nav-dd-sub{font-size:12px;color:var(--tx3,#7a7a74);font-weight:500;margin-top:1px}
+.nav-dd-sep{height:1px;background:var(--br,#e5e0d8);margin:6px 0}
+.nav-dd-all{display:block;padding:9px 14px;border-radius:10px;color:var(--ac,#1a4731);font-size:13px;font-weight:700;text-align:center;transition:background .14s;text-decoration:none}
+.nav-dd-all:hover{background:var(--acl,#eef7f2)}
+.nav-cta{display:inline-flex;align-items:center;gap:8px;padding:11px 22px;background:var(--ac,#1a4731);color:#fff;border-radius:12px;font-size:14px;font-weight:800;transition:all .2s;flex-shrink:0;box-shadow:0 4px 16px rgba(26,71,49,.3);text-decoration:none}
+.nav-cta:hover{background:var(--acd,#143825);transform:translateY(-1px)}
+.nav-hamburger{display:none;flex-direction:column;justify-content:center;align-items:center;gap:5px;width:42px;height:42px;background:none;border:none;cursor:pointer;border-radius:10px}
+.nav-hamburger .hb{width:20px;height:2px;background:var(--tx2,#4a4a46);border-radius:2px;transition:all .25s cubic-bezier(.16,1,.3,1);transform-origin:center}
+.nav-hamburger.open .hb:nth-child(1){transform:translateY(7px) rotate(45deg)}
+.nav-hamburger.open .hb:nth-child(2){opacity:0;transform:scaleX(0)}
+.nav-hamburger.open .hb:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+.mob-nav-overlay{position:fixed;inset:0;z-index:600;background:rgba(0,0,0,.45);backdrop-filter:blur(2px);display:none;opacity:0;transition:opacity .3s}
+.mob-nav-overlay.on{display:block;opacity:1}
+.mob-nav-drawer{position:fixed;top:0;right:0;bottom:0;width:min(300px,85vw);background:#fff;z-index:700;transform:translateX(100%);transition:transform .3s cubic-bezier(.16,1,.3,1);display:flex;flex-direction:column;overflow-y:auto}
+.mob-nav-drawer.on{transform:translateX(0)}
+.mob-nav-hd{display:flex;align-items:center;justify-content:space-between;padding:16px 18px;border-bottom:1.5px solid var(--br,#e5e0d8)}
+.mob-nav-close{background:none;border:none;cursor:pointer;font-size:18px;color:var(--tx2,#4a4a46);width:36px;height:36px;display:flex;align-items:center;justify-content:center;border-radius:8px}
+.mob-nav-links{display:flex;flex-direction:column;padding:12px 0;flex:1}
+.mob-nav-link{padding:14px 22px;font-size:15px;font-weight:700;color:var(--tx2,#4a4a46);border-left:3px solid transparent;text-decoration:none;transition:all .14s;display:block}
+.mob-nav-link:hover{color:var(--ac,#1a4731);background:var(--acl,#eef7f2);border-left-color:var(--ac,#1a4731)}
+.mob-nav-section{padding:8px 22px 4px;font-size:11px;font-weight:800;color:var(--tx4,#b8b2a8);letter-spacing:.08em;text-transform:uppercase}
+.mob-nav-sublink{padding:10px 22px 10px 34px;font-size:14px;font-weight:600;color:var(--tx2,#4a4a46);text-decoration:none;display:block;border-left:3px solid transparent;transition:all .14s}
+.mob-nav-sublink:hover{color:var(--ac,#1a4731);background:var(--acl,#eef7f2);border-left-color:var(--ac,#1a4731)}
+.mob-nav-cta{display:flex;align-items:center;justify-content:center;margin:0 18px 28px;padding:14px 24px;background:var(--ac,#1a4731);color:#fff;border-radius:10px;font-size:15px;font-weight:800;box-shadow:0 4px 16px rgba(26,71,49,.35);text-decoration:none}
+@media(max-width:768px){.nav-links{display:none!important}.nav-cta{display:none!important}.nav-hamburger{display:flex!important;flex-direction:column}}
+/* === STANDAARD FOOTER === */
+footer{background:var(--bg,#f7f6f3);border-top:1.5px solid var(--br,#e5e0d8);padding:28px clamp(20px,4vw,56px)}
+.footer-inner{max-width:1200px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap}
+.footer-logo{display:flex;align-items:center;gap:10px;color:var(--tx2,#4a4a46);text-decoration:none}
+.footer-logo img{width:34px;height:34px;border-radius:8px;object-fit:contain}
+.footer-name{font-family:'Fraunces',serif;font-size:18px;font-weight:700;color:var(--tx,#1a1a18)}
+.footer-name em{color:var(--acm,#2d7a52);font-style:normal}
+.footer-copy{font-size:12.5px;color:var(--tx4,#b8b2a8)}
+.footer-badge{display:inline-flex;align-items:center;gap:6px;padding:5px 13px;background:var(--acl,#eef7f2);border-radius:20px;font-size:12px;font-weight:600;color:var(--ac,#1a4731)}
+@media(max-width:600px){.footer-inner{flex-direction:column;align-items:flex-start;gap:14px}}
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <a href="/" class="nav-logo">
+    <img src="/logo.webp" alt="ZenBTW" class="nav-logo-img" width="52" height="52">
+    <span class="nav-wordmark">Zen<em>BTW</em></span>
+  </a>
+  <div class="nav-links">
+    <a href="/#functies" class="nav-link">Functies</a>
+    <a href="/#stappen" class="nav-link">Hoe werkt het</a>
+    <a href="/blog/" class="nav-link">Blog</a>
+    <div class="nav-dropdown">
+      <button class="nav-dropdown-btn">Hulpmiddelen <span class="nav-dropdown-arrow">▾</span></button>
+      <div class="nav-dropdown-menu">
+        <a href="/hulpmiddelen/margeregeling-calculator/" class="nav-dd-item">
+          <div class="nav-dd-icon">🧮</div>
+          <div><div class="nav-dd-label">Margeregeling Calculator</div><div class="nav-dd-sub">BTW berekenen op tweedehands</div></div>
+        </a>
+        <a href="/hulpmiddelen/kor-oss-checker/" class="nav-dd-item">
+          <div class="nav-dd-icon">📊</div>
+          <div><div class="nav-dd-label">KOR &amp; OSS Checker</div><div class="nav-dd-sub">Check je drempelstatus direct</div></div>
+        </a>
+        <a href="/hulpmiddelen/winstcalculator/" class="nav-dd-item current">
+          <div class="nav-dd-icon">📈</div>
+          <div><div class="nav-dd-label">Winstcalculator</div><div class="nav-dd-sub">Nettowinst per verkoop berekenen</div></div>
+        </a>
+        <a href="/hulpmiddelen/dac7-checker/" class="nav-dd-item">
+          <div class="nav-dd-icon">🧾</div>
+          <div><div class="nav-dd-label">DAC7 Checker</div><div class="nav-dd-sub">Check je rapportageverplichting</div></div>
+        </a>
+        <div class="nav-dd-sep"></div>
+        <a href="/hulpmiddelen/" class="nav-dd-all">Alle hulpmiddelen →</a>
+      </div>
+    </div>
+    <a href="/#prijzen" class="nav-link">Prijzen</a>
+    <a href="/#faq" class="nav-link">FAQ</a>
+  </div>
+  <div style="display:flex;align-items:center;gap:10px;flex-shrink:0">
+    <a href="/app" class="nav-cta">Check mijn status →</a>
+    <button class="nav-hamburger" id="navHamburger" onclick="toggleMobNav()" aria-label="Menu openen" aria-expanded="false">
+      <span class="hb"></span><span class="hb"></span><span class="hb"></span>
+    </button>
+  </div>
+</nav>
+<div class="mob-nav-overlay" id="mobNavOverlay" onclick="closeMobNav()"></div>
+<div class="mob-nav-drawer" id="mobNavDrawer">
+  <div class="mob-nav-hd">
+    <a href="/" class="nav-logo" onclick="closeMobNav()">
+      <img src="/logo.webp" alt="ZenBTW" style="height:36px;width:36px;border-radius:8px;">
+    </a>
+    <button class="mob-nav-close" onclick="closeMobNav()" aria-label="Menu sluiten">✕</button>
+  </div>
+  <nav class="mob-nav-links">
+    <a href="/#functies" class="mob-nav-link" onclick="closeMobNav()">Functies</a>
+    <a href="/#stappen" class="mob-nav-link" onclick="closeMobNav()">Hoe werkt het</a>
+    <a href="/blog/" class="mob-nav-link" onclick="closeMobNav()">Blog</a>
+    <div class="mob-nav-section">Hulpmiddelen</div>
+    <a href="/hulpmiddelen/margeregeling-calculator/" class="mob-nav-sublink" onclick="closeMobNav()">🧮 Margeregeling Calculator</a>
+    <a href="/hulpmiddelen/kor-oss-checker/" class="mob-nav-sublink" onclick="closeMobNav()">📊 KOR &amp; OSS Checker</a>
+    <a href="/hulpmiddelen/winstcalculator/" class="mob-nav-sublink active" onclick="closeMobNav()">📈 Winstcalculator</a>
+    <a href="/hulpmiddelen/dac7-checker/" class="mob-nav-sublink" onclick="closeMobNav()">🧾 DAC7 Checker</a>
+    <a href="/hulpmiddelen/" class="mob-nav-link" onclick="closeMobNav()">Alle hulpmiddelen</a>
+    <a href="/#prijzen" class="mob-nav-link" onclick="closeMobNav()">Prijzen</a>
+    <a href="/#faq" class="mob-nav-link" onclick="closeMobNav()">FAQ</a>
+  </nav>
+  <div style="padding:0 18px 28px">
+    <a href="/app" class="mob-nav-cta">Check mijn status →</a>
+  </div>
+</div>
+
+<!-- BREADCRUMB -->
+<div class="breadcrumb">
+  <a href="/">Home</a> › <a href="/hulpmiddelen/">Hulpmiddelen</a> › Winstcalculator
+</div>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-badge">📈 Gratis calculator</div>
+  <h1>Netto<br>Winstcalculator</h1>
+  <p>Bereken direct je nettowinst per verkoop inclusief platformkosten, verzending en BTW. Voor Etsy, Vinted en Shopify verkopers.</p>
+</div>
+
+<!-- CALCULATOR -->
+<div class="calc-wrap">
+
+  <!-- INPUT CARD -->
+  <div class="card" style="position:sticky;top:88px">
+    <div class="card-header">
+      <div class="card-header-icon">⚙️</div>
+      <div>
+        <div class="card-title">Jouw verkoopgegevens</div>
+        <div class="card-sub">Kies een platform of vul alles handmatig in</div>
+      </div>
+    </div>
+    <div class="card-body">
+
+      <!-- PLATFORM PRESETS -->
+      <div class="section-label">Platform kiezen</div>
+      <div class="preset-row">
+        <button class="preset-btn" id="preset-etsy" onclick="setPreset('etsy')">
+          <span class="preset-icon">🛍</span>
+          <span class="preset-label">Etsy</span>
+        </button>
+        <button class="preset-btn" id="preset-vinted" onclick="setPreset('vinted')">
+          <span class="preset-icon">👗</span>
+          <span class="preset-label">Vinted</span>
+        </button>
+        <button class="preset-btn" id="preset-shopify" onclick="setPreset('shopify')">
+          <span class="preset-icon">🏪</span>
+          <span class="preset-label">Shopify</span>
+        </button>
+        <button class="preset-btn" id="preset-handmatig" onclick="setPreset('handmatig')">
+          <span class="preset-icon">✏️</span>
+          <span class="preset-label">Handmatig</span>
+        </button>
+      </div>
+
+      <div class="divider"></div>
+
+      <!-- VERKOOPPRIJS + INKOOPPRIJS -->
+      <div class="field">
+        <label for="verkoopprijs">Verkoopprijs</label>
+        <div class="euro-wrap">
+          <span class="euro-prefix">€</span>
+          <input type="number" id="verkoopprijs" placeholder="0,00" min="0" step="0.01" oninput="calc()">
+        </div>
+        <div class="field-hint">De prijs die de koper betaalt (inclusief alles)</div>
+      </div>
+      <div class="field">
+        <label for="inkoopprijs">Inkoopprijs / kostprijs</label>
+        <div class="euro-wrap">
+          <span class="euro-prefix">€</span>
+          <input type="number" id="inkoopprijs" placeholder="0,00" min="0" step="0.01" oninput="calc()">
+        </div>
+        <div class="field-hint">Wat heb je betaald of gekost om dit item te maken/kopen?</div>
+      </div>
+
+      <div class="divider"></div>
+
+      <!-- PLATFORMKOSTEN -->
+      <div class="section-label">Platformkosten</div>
+      <div class="input-row">
+        <div class="field">
+          <label for="platform-pct">Transactiekosten %</label>
+          <div class="pct-wrap">
+            <input type="number" id="platform-pct" placeholder="0" min="0" max="100" step="0.1" oninput="calc()">
+            <span class="pct-suffix">%</span>
+          </div>
+        </div>
+        <div class="field">
+          <label for="platform-vast">Vaste kosten per verkoop</label>
+          <div class="euro-wrap">
+            <span class="euro-prefix">€</span>
+            <input type="number" id="platform-vast" placeholder="0,00" min="0" step="0.01" oninput="calc()">
+          </div>
+        </div>
+      </div>
+
+      <!-- BETALINGSVERWERKING -->
+      <div class="section-label">Betalingsverwerking</div>
+      <div class="input-row">
+        <div class="field">
+          <label for="betaling-pct">Kosten %</label>
+          <div class="pct-wrap">
+            <input type="number" id="betaling-pct" placeholder="0" min="0" max="100" step="0.1" oninput="calc()">
+            <span class="pct-suffix">%</span>
+          </div>
+        </div>
+        <div class="field">
+          <label for="betaling-vast">Vast per transactie</label>
+          <div class="euro-wrap">
+            <span class="euro-prefix">€</span>
+            <input type="number" id="betaling-vast" placeholder="0,00" min="0" step="0.01" oninput="calc()">
+          </div>
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <!-- VERZENDKOSTEN -->
+      <div class="field">
+        <label for="verzendkosten">Verzendkosten (voor jou)</label>
+        <div class="euro-wrap">
+          <span class="euro-prefix">€</span>
+          <input type="number" id="verzendkosten" placeholder="0,00" min="0" step="0.01" oninput="calc()">
+        </div>
+        <div class="field-hint">Wat betaal jij voor het verzendlabel?</div>
+      </div>
+
+      <div class="divider"></div>
+
+      <!-- BTW -->
+      <div class="section-label">BTW-instellingen</div>
+      <div class="field">
+        <label for="btw-tarief">BTW-tarief</label>
+        <select id="btw-tarief" onchange="calc()">
+          <option value="0">0% — KOR / BTW-vrijgesteld</option>
+          <option value="9">9% — Laag tarief</option>
+          <option value="21">21% — Standaard tarief</option>
+        </select>
+        <div class="field-hint">KOR = geen BTW als jaaromzet onder €20.000</div>
+      </div>
+      <label class="toggle-chip" id="btwInChip" onclick="toggleBtwIn()">
+        <div class="toggle-chip-dot"></div>
+        <span class="toggle-chip-label">BTW zit al in de verkoopprijs</span>
+      </label>
+      <div style="font-size:12px;color:var(--tx3);margin-top:6px;line-height:1.5">Aan = verkoopprijs is inclusief BTW (meest gebruikelijk). Uit = BTW wordt bovenop de prijs gerekend.</div>
+
+    </div>
+  </div>
+
+  <!-- RESULT CARD -->
+  <div id="resultCard">
+    <div class="result-card">
+      <div class="result-header">
+        <div class="card-header-icon">📊</div>
+        <div>
+          <div class="card-title">Berekening resultaat</div>
+          <div class="card-sub" id="result-platform-label">Kies een platform en vul je verkoopprijs in</div>
+        </div>
+      </div>
+      <div class="result-body" id="resultBody">
+        <div class="result-empty" id="resultEmpty">
+          <span class="result-empty-icon">📈</span>
+          <div class="result-empty-text">Vul je verkoopprijs in om de berekening te zien</div>
+        </div>
+        <div id="resultContent" style="display:none">
+
+          <div class="result-section-title">Omzet</div>
+          <div class="result-row">
+            <span class="result-label">Bruto verkoopprijs</span>
+            <span class="result-val" id="r-bruto">—</span>
+          </div>
+          <div class="result-row" id="r-btw-row">
+            <span class="result-label">Af: BTW-afdracht</span>
+            <span class="result-val neg" id="r-btw">—</span>
+          </div>
+          <div class="result-row">
+            <span class="result-label">Netto omzet (excl. BTW)</span>
+            <span class="result-val" id="r-netto-omzet">—</span>
+          </div>
+
+          <div class="result-section-title">Kosten</div>
+          <div class="result-row">
+            <span class="result-label">Platformkosten (transactie %)</span>
+            <span class="result-val neg" id="r-platform-pct">—</span>
+          </div>
+          <div class="result-row" id="r-platform-vast-row">
+            <span class="result-label">Platformkosten (vast)</span>
+            <span class="result-val neg" id="r-platform-vast-val">—</span>
+          </div>
+          <div class="result-row" id="r-betaling-pct-row">
+            <span class="result-label">Betalingsverwerking (%)</span>
+            <span class="result-val neg" id="r-betaling-pct-val">—</span>
+          </div>
+          <div class="result-row" id="r-betaling-vast-row">
+            <span class="result-label">Betalingsverwerking (vast)</span>
+            <span class="result-val neg" id="r-betaling-vast-val">—</span>
+          </div>
+          <div class="result-row">
+            <span class="result-label">Verzendkosten</span>
+            <span class="result-val neg" id="r-verzend">—</span>
+          </div>
+          <div class="result-row">
+            <span class="result-label">Inkoopprijs / kostprijs</span>
+            <span class="result-val neg" id="r-inkoop">—</span>
+          </div>
+          <div class="result-row" style="border-bottom:2px solid var(--br)">
+            <span class="result-label" style="font-weight:700">Totale kosten</span>
+            <span class="result-val neg" id="r-totaal-kosten" style="font-weight:700">—</span>
+          </div>
+
+          <!-- NETTOWINST BOX -->
+          <div class="winst-box pos" id="winstBox">
+            <div class="winst-box-label">Nettowinst</div>
+            <div class="winst-box-amount" id="r-nettowinst">—</div>
+            <div class="winst-box-marge" id="r-winstmarge">—% winstmarge</div>
+          </div>
+
+          <!-- BREAKDOWN BAR -->
+          <div class="breakdown-section">
+            <div class="breakdown-title">Verdeling van je verkoopprijs</div>
+            <div class="breakdown-bar" id="breakdownBar">
+              <div class="bar-seg winst" id="bar-winst" style="width:0%"></div>
+              <div class="bar-seg btw" id="bar-btw" style="width:0%"></div>
+              <div class="bar-seg platform" id="bar-platform" style="width:0%"></div>
+              <div class="bar-seg verzend" id="bar-verzend" style="width:0%"></div>
+              <div class="bar-seg inkoop" id="bar-inkoop" style="width:0%"></div>
+            </div>
+            <div class="breakdown-legend">
+              <div class="legend-item"><div class="legend-dot winst"></div><span id="legend-winst">Nettowinst</span></div>
+              <div class="legend-item"><div class="legend-dot btw"></div><span id="legend-btw">BTW</span></div>
+              <div class="legend-item"><div class="legend-dot platform"></div><span id="legend-platform">Platformkosten</span></div>
+              <div class="legend-item"><div class="legend-dot verzend"></div><span id="legend-verzend">Verzendkosten</span></div>
+              <div class="legend-item"><div class="legend-dot inkoop"></div><span id="legend-inkoop">Inkoopprijs</span></div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- INFO -->
+<div class="info-section">
+  <div class="info-grid">
+    <div class="info-card">
+      <h3>🛍 Etsy-kosten</h3>
+      <p>Etsy rekent meerdere kostenlagen per verkoop:</p>
+      <ul>
+        <li>Transactiekosten: 6,5% van verkoopprijs</li>
+        <li>Listingfee: €0,20 per item</li>
+        <li>Betalingsverwerking: 4% + €0,30</li>
+        <li>Totaal: al snel 10–12% van je prijs</li>
+      </ul>
+    </div>
+    <div class="info-card">
+      <h3>👗 Vinted-kosten</h3>
+      <p>Als Vinted verkoper betaal je geen platformkosten. De buyer protection fee (5%) wordt door de koper betaald. Je hebt alleen:</p>
+      <ul>
+        <li>Verzendkosten (eigen label of via Vinted)</li>
+        <li>Inkoopprijs van het item</li>
+        <li>Eventuele BTW bij hoge omzet</li>
+      </ul>
+    </div>
+    <div class="info-card">
+      <h3>🏪 Shopify-kosten</h3>
+      <p>Bij Shopify met eigen PSP (bijv. Mollie) zijn er geen transactiekosten van Shopify zelf. Je betaalt alleen:</p>
+      <ul>
+        <li>Betalingsverwerking: ca. 2% via PSP</li>
+        <li>Geen listingfee per item</li>
+        <li>Maandelijkse abonnementskosten (apart)</li>
+      </ul>
+    </div>
+    <div class="info-card">
+      <h3>💶 BTW en KOR</h3>
+      <p>Gebruik je de KOR (Kleineondernemersregeling)? Dan betaal je geen BTW zolang je onder de €20.000 jaaromzet blijft. Daarboven is je BTW-tarief 9% of 21% afhankelijk van je productcategorie.</p>
+    </div>
+  </div>
+</div>
+
+<!-- FAQ -->
+<div class="faq-section">
+  <div class="faq-title">Veelgestelde vragen</div>
+
+  <div class="faq-item">
+    <div class="faq-q" onclick="toggleFaq(this)">
+      <span>Hoe bereken ik mijn nettowinst op Etsy correct?</span>
+      <span class="faq-icon">▾</span>
+    </div>
+    <div class="faq-a">Nettowinst op Etsy = verkoopprijs − transactiekosten (6,5%) − listingfee (€0,20) − betalingsverwerking (4% + €0,30) − verzendkosten − inkoopprijs − BTW-afdracht. Vergeet de betalingsverwerkingskosten niet: die worden door veel verkopers over het hoofd gezien en eten al snel 4–5% van je prijs. Gebruik deze calculator om het precies te berekenen.</div>
+  </div>
+
+  <div class="faq-item">
+    <div class="faq-q" onclick="toggleFaq(this)">
+      <span>Betaal ik als Vinted verkoper platformkosten?</span>
+      <span class="faq-icon">▾</span>
+    </div>
+    <div class="faq-a">Nee. Op Vinted betaalt de koper de buyer protection fee (5% van de prijs). Als verkoper betaal je geen commissie of listingfee aan Vinted. Je kosten zijn dus alleen de verzendkosten (als je die voor eigen rekening neemt) en de inkoopprijs van het item. Houd er wel rekening mee dat je bij hogere omzetten BTW-plichtig kunt worden.</div>
+  </div>
+
+  <div class="faq-item">
+    <div class="faq-q" onclick="toggleFaq(this)">
+      <span>Wat is het verschil tussen BTW in de prijs en BTW bovenop de prijs?</span>
+      <span class="faq-icon">▾</span>
+    </div>
+    <div class="faq-a">Bij "BTW in de prijs" (inclusief BTW) is de BTW al verwerkt in je verkoopprijs. Dit is de situatie voor de meeste marketplace verkopers: je vraagt €25 en daarin zit de BTW verborgen. Bij "BTW bovenop" vermeld je een prijs exclusief BTW en rekent de klant er BTW bij. Dat is gebruikelijk voor B2B-facturen. Voor Etsy, Vinted en Shopify-webshops is "BTW in de prijs" de standaardsituatie.</div>
+  </div>
+
+  <div class="faq-item">
+    <div class="faq-q" onclick="toggleFaq(this)">
+      <span>Hoe verhoog ik mijn winstmarge als marketplace verkoper?</span>
+      <span class="faq-icon">▾</span>
+    </div>
+    <div class="faq-a">Er zijn drie manieren: (1) Verkoopprijs verhogen — dit heeft de grootste impact omdat kosten voor een deel procentueel zijn. (2) Inkoopprijs verlagen — zoek goedkopere bronnen of koop in grotere volumes. (3) Verzendkosten optimaliseren — vergelijk verzenddiensten en zorg dat je verzendkosten doorrekent in je prijs. Gebruik de calculator om te zien welk effect een prijswijziging heeft op je winstmarge.</div>
+  </div>
+
+</div>
+
+<!-- CTA -->
+<div class="cta-section">
+  <div class="cta-box">
+    <h2>Wil je je winst automatisch bijhouden?</h2>
+    <p>ZenBTW importeert je Etsy- of Vinted-transacties en berekent automatisch je nettowinst, BTW-afdracht en KOR-status. Gratis proberen.</p>
+    <a href="/app">Start gratis met ZenBTW →</a>
+  </div>
+</div>
+
+<script>
+// State
+let btwInPrijs = true;
+let activePreset = null;
+
+// Presets
+const PRESETS = {
+  etsy: {
+    label: 'Etsy',
+    platformPct: 6.5,
+    platformVast: 0.20,
+    betalingPct: 4,
+    betalingVast: 0.30
+  },
+  vinted: {
+    label: 'Vinted',
+    platformPct: 0,
+    platformVast: 0,
+    betalingPct: 0,
+    betalingVast: 0
+  },
+  shopify: {
+    label: 'Shopify',
+    platformPct: 0,
+    platformVast: 0,
+    betalingPct: 2,
+    betalingVast: 0
+  },
+  handmatig: {
+    label: 'Handmatig',
+    platformPct: null,
+    platformVast: null,
+    betalingPct: null,
+    betalingVast: null
+  }
+};
+
+function setPreset(name) {
+  activePreset = name;
+  // Update preset buttons
+  document.querySelectorAll('.preset-btn').forEach(btn => btn.classList.remove('active'));
+  document.getElementById('preset-' + name).classList.add('active');
+
+  const p = PRESETS[name];
+  if (name !== 'handmatig') {
+    setFieldVal('platform-pct', p.platformPct);
+    setFieldVal('platform-vast', p.platformVast);
+    setFieldVal('betaling-pct', p.betalingPct);
+    setFieldVal('betaling-vast', p.betalingVast);
+  }
+  calc();
+}
+
+function setFieldVal(id, val) {
+  const el = document.getElementById(id);
+  if (val === null || val === undefined) return;
+  el.value = val === 0 ? '' : val;
+}
+
+function getVal(id) {
+  return parseFloat(document.getElementById(id).value) || 0;
+}
+
+function toggleBtwIn() {
+  btwInPrijs = !btwInPrijs;
+  document.getElementById('btwInChip').classList.toggle('on', btwInPrijs);
+  calc();
+}
+
+// Format as euro string
+function fmtE(n) {
+  const abs = Math.abs(n);
+  const str = abs.toFixed(2).replace('.', ',');
+  return (n < 0 ? '−' : '') + '€ ' + str;
+}
+
+function fmtPct(n) {
+  return n.toFixed(1).replace('.', ',') + '%';
+}
+
+function calc() {
+  const verkoopprijs = getVal('verkoopprijs');
+  const inkoopprijs = getVal('inkoopprijs');
+  const platformPct = getVal('platform-pct');
+  const platformVast = getVal('platform-vast');
+  const betalingPct = getVal('betaling-pct');
+  const betalingVast = getVal('betaling-vast');
+  const verzendkosten = getVal('verzendkosten');
+  const btwTarief = parseFloat(document.getElementById('btw-tarief').value) || 0;
+
+  const empty = document.getElementById('resultEmpty');
+  const content = document.getElementById('resultContent');
+
+  if (verkoopprijs === 0) {
+    empty.style.display = 'block';
+    content.style.display = 'none';
+    return;
+  }
+
+  empty.style.display = 'none';
+  content.style.display = 'block';
+
+  // BTW berekening
+  // btwInPrijs = true: BTW zit al in de verkoopprijs (inclusiefprijs)
+  // btwInPrijs = false: BTW is bovenop de verkoopprijs
+  let btwBedrag = 0;
+  let brutoPrijs = verkoopprijs;
+
+  if (btwTarief > 0) {
+    if (btwInPrijs) {
+      // BTW is al in de prijs verwerkt: BTW = prijs * tarief / (100 + tarief)
+      btwBedrag = verkoopprijs * btwTarief / (100 + btwTarief);
+    } else {
+      // BTW bovenop: BTW = prijs * tarief / 100
+      btwBedrag = verkoopprijs * btwTarief / 100;
+      brutoPrijs = verkoopprijs + btwBedrag;
+    }
+  }
+
+  // Platformkosten (berekend over de bruto verkoopprijs die de koper betaalt)
+  const platformKostenPct = verkoopprijs * platformPct / 100;
+  const platformTotaal = platformKostenPct + platformVast;
+
+  // Betalingsverwerking (berekend over de bruto verkoopprijs)
+  const betalingKostenPct = verkoopprijs * betalingPct / 100;
+  const betalingTotaal = betalingKostenPct + betalingVast;
+
+  // Netto omzet (verkoopprijs min BTW)
+  const nettoOmzet = verkoopprijs - btwBedrag;
+
+  // Totale kosten (exclusief BTW, want die is al verwerkt)
+  const totaleKosten = platformTotaal + betalingTotaal + verzendkosten + inkoopprijs;
+
+  // Nettowinst
+  const nettowinst = nettoOmzet - totaleKosten;
+
+  // Winstmarge (ten opzichte van bruto verkoopprijs voor vergelijkbaarheid)
+  const winstmarge = verkoopprijs > 0 ? (nettowinst / verkoopprijs) * 100 : 0;
+
+  // Update resultaat platform label
+  let platformLabel = activePreset ? PRESETS[activePreset].label : 'Handmatig';
+  document.getElementById('result-platform-label').textContent = platformLabel + ' — per verkoop';
+
+  // Vul resultaten in
+  document.getElementById('r-bruto').textContent = fmtE(verkoopprijs);
+
+  // BTW row
+  const btwRow = document.getElementById('r-btw-row');
+  if (btwTarief > 0) {
+    btwRow.style.display = 'flex';
+    document.getElementById('r-btw').textContent = fmtE(-btwBedrag);
+  } else {
+    btwRow.style.display = 'none';
+  }
+
+  document.getElementById('r-netto-omzet').textContent = fmtE(nettoOmzet);
+
+  // Platformkosten
+  const pfPctRow = document.getElementById('r-platform-pct');
+  pfPctRow.textContent = platformPct > 0 ? fmtE(-platformKostenPct) : fmtE(0);
+  pfPctRow.className = 'result-val' + (platformKostenPct > 0 ? ' neg' : ' muted');
+
+  const pfVastRow = document.getElementById('r-platform-vast-row');
+  const pfVastVal = document.getElementById('r-platform-vast-val');
+  if (platformVast > 0) {
+    pfVastRow.style.display = 'flex';
+    pfVastVal.textContent = fmtE(-platformVast);
+  } else {
+    pfVastRow.style.display = 'none';
+  }
+
+  // Betalingsverwerking
+  const betPctRow = document.getElementById('r-betaling-pct-row');
+  const betPctVal = document.getElementById('r-betaling-pct-val');
+  if (betalingPct > 0) {
+    betPctRow.style.display = 'flex';
+    betPctVal.textContent = fmtE(-betalingKostenPct);
+  } else {
+    betPctRow.style.display = 'none';
+  }
+
+  const betVastRow = document.getElementById('r-betaling-vast-row');
+  const betVastVal = document.getElementById('r-betaling-vast-val');
+  if (betalingVast > 0) {
+    betVastRow.style.display = 'flex';
+    betVastVal.textContent = fmtE(-betalingVast);
+  } else {
+    betVastRow.style.display = 'none';
+  }
+
+  const verzendEl = document.getElementById('r-verzend');
+  verzendEl.textContent = fmtE(-verzendkosten);
+  verzendEl.className = 'result-val' + (verzendkosten > 0 ? ' neg' : ' muted');
+
+  const inkoopEl = document.getElementById('r-inkoop');
+  inkoopEl.textContent = fmtE(-inkoopprijs);
+  inkoopEl.className = 'result-val' + (inkoopprijs > 0 ? ' neg' : ' muted');
+
+  document.getElementById('r-totaal-kosten').textContent = fmtE(-totaleKosten);
+
+  // Nettowinst box
+  const winstBox = document.getElementById('winstBox');
+  const winstEl = document.getElementById('r-nettowinst');
+  const margeEl = document.getElementById('r-winstmarge');
+
+  winstEl.textContent = fmtE(nettowinst);
+  margeEl.textContent = fmtPct(winstmarge) + ' winstmarge';
+
+  if (nettowinst >= 0) {
+    winstBox.className = 'winst-box pos';
+  } else {
+    winstBox.className = 'winst-box neg';
+  }
+
+  // Breakdown bar
+  // We tonen de verdeling als percentage van bruto verkoopprijs
+  // Alles als positieve waarden voor de bar
+  const btwPart = Math.max(0, btwBedrag);
+  const platformPart = Math.max(0, platformTotaal + betalingTotaal);
+  const verzendPart = Math.max(0, verzendkosten);
+  const inkoopPart = Math.max(0, inkoopprijs);
+  const winstPart = Math.max(0, nettowinst);
+  const totalParts = btwPart + platformPart + verzendPart + inkoopPart + winstPart;
+
+  function barPct(v) {
+    return totalParts > 0 ? (v / totalParts * 100).toFixed(1) + '%' : '0%';
+  }
+
+  document.getElementById('bar-winst').style.width = barPct(winstPart);
+  document.getElementById('bar-btw').style.width = barPct(btwPart);
+  document.getElementById('bar-platform').style.width = barPct(platformPart);
+  document.getElementById('bar-verzend').style.width = barPct(verzendPart);
+  document.getElementById('bar-inkoop').style.width = barPct(inkoopPart);
+
+  // Legend labels with amounts
+  document.getElementById('legend-winst').textContent = 'Nettowinst (' + fmtE(winstPart) + ')';
+  document.getElementById('legend-btw').textContent = 'BTW (' + fmtE(btwPart) + ')';
+  document.getElementById('legend-platform').textContent = 'Platform (' + fmtE(platformPart) + ')';
+  document.getElementById('legend-verzend').textContent = 'Verzend (' + fmtE(verzendPart) + ')';
+  document.getElementById('legend-inkoop').textContent = 'Inkoop (' + fmtE(inkoopPart) + ')';
+}
+
+function toggleFaq(btn) {
+  const item = btn.closest('.faq-item');
+  const isOpen = item.classList.contains('open');
+  document.querySelectorAll('.faq-item.open').forEach(el => el.classList.remove('open'));
+  if (!isOpen) item.classList.add('open');
+}
+
+function toggleMobNav() {
+  const ham = document.getElementById('navHamburger');
+  const overlay = document.getElementById('mobNavOverlay');
+  const drawer = document.getElementById('mobNavDrawer');
+  const open = !ham.classList.contains('open');
+  ham.classList.toggle('open', open);
+  overlay.classList.toggle('on', open);
+  drawer.classList.toggle('on', open);
+  document.body.style.overflow = open ? 'hidden' : '';
+}
+function closeMobNav() {
+  document.getElementById('navHamburger').classList.remove('open');
+  document.getElementById('mobNavOverlay').classList.remove('on');
+  document.getElementById('mobNavDrawer').classList.remove('on');
+  document.body.style.overflow = '';
+}
+
+// Init: set BTW toggle to "aan" state visually
+document.getElementById('btwInChip').classList.add('on');
+document.querySelector('#btwInChip .toggle-chip-dot').style.background = 'var(--ac)';
+document.querySelector('#btwInChip .toggle-chip-dot').style.borderColor = 'var(--ac)';
+</script>
+
+<footer>
+  <div class="footer-inner">
+    <a href="/" class="footer-logo">
+      <img src="/logo.webp" alt="ZenBTW" style="width:34px;height:34px;border-radius:8px;object-fit:contain" loading="lazy">
+      <span class="footer-name">Zen<em>BTW</em></span>
+    </a>
+    <div style="display:flex;gap:20px;flex-wrap:wrap;align-items:center">
+      <a href="/kor-calculator/" style="font-size:12.5px;color:var(--tx3,#7a7a74);font-weight:500">BTW-check</a>
+      <a href="/hulpmiddelen/" style="font-size:12.5px;color:var(--tx3,#7a7a74);font-weight:500">Hulpmiddelen</a>
+      <a href="/blog/" style="font-size:12.5px;color:var(--tx3,#7a7a74);font-weight:500">Blog</a>
+      <a href="/app" style="font-size:12.5px;color:var(--tx3,#7a7a74);font-weight:500">App</a>
+      <a href="/privacy/" style="font-size:12.5px;color:var(--tx3,#7a7a74);font-weight:500">Privacy</a>
+      <span class="footer-copy">© 2026 ZenBTW</span>
+    </div>
+    <span class="footer-badge">🔒 Geen belastingadvies</span>
+  </div>
+</footer>
+</body>
+</html>
