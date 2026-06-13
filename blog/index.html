@@ -232,7 +232,7 @@ footer{background:var(--bg,#f7f6f3);border-top:1.5px solid var(--br,#e5e0d8);pad
 </div>
 <script>
 function toggleMobNav(){var h=document.getElementById('navHamburger'),o=document.getElementById('mobNavOverlay'),d=document.getElementById('mobNavDrawer'),op=!h.classList.contains('open');h.classList.toggle('open',op);o.classList.toggle('on',op);d.classList.toggle('on',op);document.body.style.overflow=op?'hidden':'';}
-function closeMobNav(){document.getElementById('navHamburger').classList.remove('open');document.getElementById('mobNavOverlay').classList.remove('on');document.getElementById('mobNavDrawer').classList.remove('on');document.body.style.overflow='';},300);b.classList.remove('open');b.setAttribute('aria-expanded','false');document.body.style.overflow='';}
+function closeMobNav(){var h=document.getElementById('navHamburger'),o=document.getElementById('mobNavOverlay'),d=document.getElementById('mobNavDrawer');h.classList.remove('open');h.setAttribute('aria-expanded','false');o.classList.remove('on');d.classList.remove('on');document.body.style.overflow='';}
 </script>
 
 <div class="hero">

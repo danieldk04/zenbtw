@@ -790,9 +790,9 @@ function toggleFaq(btn) {
 }
 
 function toggleMobNav() {
-  const ham = document.getElementById('navHam');
-  const overlay = document.getElementById('mobOverlay');
-  const drawer = document.getElementById('mobDrawer');
+  const ham = document.getElementById('navHamburger');
+  const overlay = document.getElementById('mobNavOverlay');
+  const drawer = document.getElementById('mobNavDrawer');
   const open = !ham.classList.contains('open');
   ham.classList.toggle('open', open);
   overlay.classList.toggle('on', open);
@@ -800,9 +800,9 @@ function toggleMobNav() {
   document.body.style.overflow = open ? 'hidden' : '';
 }
 function closeMobNav() {
-  document.getElementById('navHam').classList.remove('open');
-  document.getElementById('mobOverlay').classList.remove('on');
-  document.getElementById('mobDrawer').classList.remove('on');
+  document.getElementById('navHamburger').classList.remove('open');
+  document.getElementById('mobNavOverlay').classList.remove('on');
+  document.getElementById('mobNavDrawer').classList.remove('on');
   document.body.style.overflow = '';
 }
 </script>
