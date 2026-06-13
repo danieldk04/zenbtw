@@ -106,7 +106,20 @@ nav{position:sticky;top:0;z-index:500;height:72px;background:rgba(247,246,243,.9
 .nav-wordmark em{color:var(--acm);font-style:normal}
 .nav-back{font-size:13.5px;color:var(--tx3);text-decoration:none;font-weight:600}
 .nav-cta{display:inline-flex;align-items:center;gap:8px;padding:11px 22px;background:var(--ac);color:#fff;border-radius:10px;font-size:14px;font-weight:800;transition:all .2s;flex-shrink:0;box-shadow:0 4px 16px rgba(26,71,49,.35);text-decoration:none}
-.article-wrap{max-width:720px;margin:0 auto;padding:clamp(40px,6vw,72px) clamp(20px,5vw,40px) 100px}
+.page-layout{display:grid;grid-template-columns:1fr 240px;gap:40px;max-width:1080px;margin:0 auto;padding:0 clamp(20px,4vw,56px)}
+.article-wrap{min-width:0;padding:clamp(40px,6vw,72px) 0 100px}
+.author-sidebar{padding-top:clamp(40px,6vw,72px)}
+.author-sidebar .author-box{position:sticky;top:88px;flex-direction:column;align-items:center;text-align:center;padding:20px 18px;gap:12px}
+.author-sidebar .author-img{width:80px;height:80px}
+.author-sidebar .author-info{align-items:center}
+.author-sidebar .author-bio{text-align:left;font-size:13px}
+.author-box{display:flex;align-items:flex-start;gap:20px;background:var(--wh);border:1.5px solid var(--br);border-radius:14px;padding:24px 28px}
+.author-img{width:72px;height:72px;border-radius:50%;object-fit:cover;flex-shrink:0;box-shadow:0 3px 10px rgba(0,0,0,.12)}
+.author-info{display:flex;flex-direction:column;gap:4px}
+.author-label{font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--tx3)}
+.author-name{font-size:17px;font-weight:700;color:var(--tx);font-family:'Fraunces',serif}
+@media(max-width:960px){.page-layout{display:block;padding:0}.article-wrap{padding:clamp(40px,6vw,72px) clamp(20px,5vw,40px) 60px}.author-sidebar{display:none}.author-box-mobile{display:flex!important}}
+.author-box-mobile{display:none;margin:0 clamp(20px,5vw,40px) 48px}
 .article-tag{display:inline-block;font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:4px 10px;border-radius:5px;background:var(--acl);color:var(--acm);margin-bottom:14px}
 h1{font-family:'Fraunces',serif;font-size:clamp(26px,4vw,38px);font-weight:700;letter-spacing:-.02em;color:var(--tx);margin-bottom:14px;line-height:1.2}
 .meta{font-size:13.5px;color:var(--tx3);margin-bottom:36px;padding-bottom:24px;border-bottom:1px solid var(--br)}
@@ -161,6 +174,7 @@ figure{max-width:100%;overflow:hidden}
   <a href="/app" class="nav-cta">Check mijn status →</a>
 </nav>
 
+<div class="page-layout">
 <div class="article-wrap">
   <div class="breadcrumb"><a href="/">Home</a> › <a href="/blog">Blog</a> › [BREADCRUMB LABEL]</div>
   <span class="article-tag">[ARTIKEL TAG zoals "Shopify" of "BTW Tips"]</span>
@@ -178,6 +192,29 @@ figure{max-width:100%;overflow:hidden}
   [2-3 interne links naar gerelateerde blog artikelen, gebruik: <p><a href="/blog/[slug]" style="color:var(--acm);font-weight:600">→ Lees ook: [TITEL]</a></p>]
 </div>
 
+<aside class="author-sidebar">
+<div class="author-box">
+  <img src="/author-daniel.jpg" alt="Daniel - oprichter ZenBTW" class="author-img">
+  <div class="author-info">
+    <span class="author-label">Over de auteur</span>
+    <strong class="author-name">Daniel</strong>
+    <p class="author-bio">Oprichter van ZenBTW en <a href="https://revaleur.com" target="_blank" rel="noopener">Revaleur</a> (680+ reviews, 4.9★). Met 4 jaar ervaring in finance helpt Daniel marketplace-verkopers grip te krijgen op BTW, KOR en OSS, zonder dat je er een boekhouder bij nodig hebt.</p>
+  </div>
+</div>
+</aside>
+</div>
+
+<div class="author-box-mobile">
+<div class="author-box">
+  <img src="/author-daniel.jpg" alt="Daniel - oprichter ZenBTW" class="author-img">
+  <div class="author-info">
+    <span class="author-label">Over de auteur</span>
+    <strong class="author-name">Daniel</strong>
+    <p class="author-bio">Oprichter van ZenBTW en <a href="https://revaleur.com" target="_blank" rel="noopener">Revaleur</a> (680+ reviews, 4.9★). Met 4 jaar ervaring in finance helpt Daniel marketplace-verkopers grip te krijgen op BTW, KOR en OSS, zonder dat je er een boekhouder bij nodig hebt.</p>
+  </div>
+</div>
+</div>
+
 <footer>
   <a href="/">Home</a>
   <a href="/blog">Blog</a>
@@ -187,6 +224,24 @@ figure{max-width:100%;overflow:hidden}
 </footer>
 </body>
 </html>
+
+FEITELIJKE NAUWKEURIGHEID — VERPLICHT, GEEN UITZONDERINGEN:
+Dit zijn de officieel vastgestelde regels van de Belastingdienst. Schrijf NOOIT iets wat hier tegenin gaat.
+
+KOR (Kleineondernemersregeling):
+- Overschrijding van de €20.000-grens heeft GEEN terugwerkende kracht. Eerdere omzet blijft definitief vrijgesteld. Bron: belastingdienst.nl, "Nee, je hoeft niet met terugwerkende kracht btw te betalen."
+- Bij overschrijding reken je BTW per direct, vanaf de transactie die de grens doorbreekt. Ook die transactie zelf valt niet meer onder de vrijstelling.
+- De wachttermijn na afmelding of overschrijding is: de rest van het lopende kalenderjaar + het volledige volgende kalenderjaar. NIET 3 jaar — die oude regel geldt al lang niet meer.
+- Vrijwillige afmelding gaat in per het eerstvolgende aangiftetijdvak (kwartaal). Gedwongen afmelding (overschrijding) gaat per direct in.
+
+Wanneer je een specifieke wettelijke of fiscale claim maakt:
+- Koppel die aan een bronvermelding in de tekst, zoals: "Bron: <a href="https://www.belastingdienst.nl/..." ...>Belastingdienst.nl</a>"
+- Gebruik de officiële Belastingdienst-pagina's als primaire bron. Relevante URL's:
+  * KOR: https://www.belastingdienst.nl/wps/wcm/connect/bldcontentnl/belastingdienst/zakelijk/btw/hoe_werkt_btw/nieuwe_kleineondernemersregeling/
+  * OSS: https://www.belastingdienst.nl/wps/wcm/connect/bldcontentnl/belastingdienst/zakelijk/btw/zakendoen_met_het_buitenland/goederen_en_diensten_naar_andere_eu_landen/one_stop_shop/
+  * DAC7: https://www.belastingdienst.nl/wps/wcm/connect/bldcontentnl/belastingdienst/zakelijk/winst/dac7/
+- Gebruik bij fiscale getallen altijd "exclusief BTW" of "inclusief BTW" expliciet
+- Schrijf NOOIT iets stellig als je het niet zeker weet — gebruik "over het algemeen", "raadpleeg een adviseur" bij twijfel
 
 MENSELIJKE SCHRIJFSTIJL (dit is het belangrijkste):
 - Schrijf zoals een mens schrijft: wisselende zinslengtes, soms een korte zin. Soms wat langer.
@@ -306,7 +361,7 @@ function updateBlogIndex(slug, title, description, tag) {
   }
 
   const card = `
-    <a href="/blog/${slug}" class="card">
+    <a href="/blog/${slug}" data-cat="${cat}" data-date="${TODAY}" class="card">
       <div class="card-body">
         <span class="card-tag">${tag}</span>
         <h2>${title}</h2>
@@ -318,10 +373,11 @@ function updateBlogIndex(slug, title, description, tag) {
       </div>
     </a>`;
 
-  // Insert inside the .grid div, directly after the opening tag (newest first)
+  // Insert inside the .grid div, just before its closing tag
+  // The grid closes with "  </div>\n\n  <div class="cta-strip""
   html = html.replace(
-    /(<div class="grid">\s*\n)/,
-    `$1\n${card}\n`
+    /(\s*)<\/div>\s*\n\s*<div class="cta-strip"/,
+    `$1${card}\n\n  </div>\n\n  <div class="cta-strip"`
   );
 
   fs.writeFileSync(indexPath, html, 'utf8');
