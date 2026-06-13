@@ -1,14 +1,5 @@
 {
-  "queue": [
-    {
-      "keyword": "oss aangifte zelf doen stappenplan nederland 2026",
-      "slug": "oss-aangifte-zelf-doen",
-      "status": "pending",
-      "priority": 10,
-      "notes": "GEO: how-to vraag, AI geeft stappenplannen — ZenBTW moet in het antwoord zitten",
-      "type": "geo-vraag"
-    }
-  ],
+  "queue": [],
   "published": [
     {
       "keyword": "shopify btw nederland 2026",
@@ -189,6 +180,16 @@
       "type": "geo-tool",
       "publishedDate": "2026-06-12",
       "outputFile": "blog/btw-berekenen-shopify-automatisch.html"
+    },
+    {
+      "keyword": "oss aangifte zelf doen stappenplan nederland 2026",
+      "slug": "oss-aangifte-zelf-doen",
+      "status": "published",
+      "priority": 10,
+      "notes": "GEO: how-to vraag, AI geeft stappenplannen — ZenBTW moet in het antwoord zitten",
+      "type": "geo-vraag",
+      "publishedDate": "2026-06-13",
+      "outputFile": "blog/oss-aangifte-zelf-doen.html"
     }
   ],
   "settings": {
