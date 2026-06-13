@@ -11,7 +11,18 @@
     li { padding: 0.8rem 0; border-bottom: 1px solid #eee; }
     a { color: #4f46e5; text-decoration: none; font-weight: 500; }
     .date { color: #888; font-size: 0.85rem; margin-left: 1rem; }
-  </style>
+  body{padding-top:72px}
+/* === STANDAARD FOOTER === */
+footer{background:var(--bg,#f7f6f3);border-top:1.5px solid var(--br,#e5e0d8);padding:28px clamp(20px,4vw,56px)}
+.footer-inner{max-width:1200px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap}
+.footer-logo{display:flex;align-items:center;gap:10px;color:var(--tx2,#4a4a46);text-decoration:none}
+.footer-logo img{width:34px;height:34px;border-radius:8px;object-fit:contain}
+.footer-name{font-family:'Fraunces',serif;font-size:18px;font-weight:700;color:var(--tx,#1a1a18)}
+.footer-name em{color:var(--acm,#2d7a52);font-style:normal}
+.footer-copy{font-size:12.5px;color:var(--tx4,#b8b2a8)}
+.footer-badge{display:inline-flex;align-items:center;gap:6px;padding:5px 13px;background:var(--acl,#eef7f2);border-radius:20px;font-size:12px;font-weight:600;color:var(--ac,#1a4731)}
+@media(max-width:600px){.footer-inner{flex-direction:column;align-items:flex-start;gap:14px}}
+</style>
 </head>
 <body>
   <a href="https://zenbtw.nl" style="display:inline-flex;align-items:center;gap:8px;text-decoration:none;color:#4f46e5"><img src="https://zenbtw.nl/logo.webp" alt="ZENbtw Logo" style="height:28px;width:auto;border-radius:6px">&larr; ZENbtw</a>
@@ -22,5 +33,22 @@
     <li><a href="https://zenbtw.nl/blog/kleine-ondernemersregeling-2026">Kleine Ondernemersregeling 2026: wat verandert er (en wat niet)?</a> <span class="date">4 June 2026</span></li>
     <li><a href="https://zenbtw.nl/blog/toelichting-btw-aangifte-op-papier-uitgereikt">Toelichting BTW-aangifte op Papier Uitgereikt (2025)</a> <span class="date">4 June 2026</span></li>
   </ul>
+<footer>
+  <div class="footer-inner">
+    <a href="/" class="footer-logo">
+      <img src="/logo.webp" alt="ZenBTW" style="width:34px;height:34px;border-radius:8px;object-fit:contain" loading="lazy">
+      <span class="footer-name">Zen<em>BTW</em></span>
+    </a>
+    <div style="display:flex;gap:20px;flex-wrap:wrap;align-items:center">
+      <a href="/kor-calculator/" style="font-size:12.5px;color:var(--tx3,#7a7a74);font-weight:500">BTW-check</a>
+      <a href="/hulpmiddelen/" style="font-size:12.5px;color:var(--tx3,#7a7a74);font-weight:500">Hulpmiddelen</a>
+      <a href="/blog/" style="font-size:12.5px;color:var(--tx3,#7a7a74);font-weight:500">Blog</a>
+      <a href="/app" style="font-size:12.5px;color:var(--tx3,#7a7a74);font-weight:500">App</a>
+      <a href="/privacy/" style="font-size:12.5px;color:var(--tx3,#7a7a74);font-weight:500">Privacy</a>
+      <span class="footer-copy">© 2026 ZenBTW</span>
+    </div>
+    <span class="footer-badge">🔒 Geen belastingadvies</span>
+  </div>
+</footer>
 </body>
 </html>

@@ -157,8 +157,8 @@ a{text-decoration:none}
   color:var(--tx);flex-shrink:0
 }
 .nav-logo-img{
-  height:56px;width:auto;
-  border-radius:0;
+  height:52px;width:52px;
+  border-radius:10px;
   object-fit:contain;
   background:none;
   box-shadow:none
@@ -181,6 +181,25 @@ a{text-decoration:none}
   transition:all .16s;letter-spacing:-.1px
 }
 .nav-link:hover{color:var(--ac);background:var(--acl)}
+/* DROPDOWN NAV */
+.nav-dropdown{position:relative}
+.nav-dropdown-btn{padding:9px 16px;font-size:15px;font-weight:800;color:var(--tx2);background:none;border-radius:10px;border:none;cursor:pointer;font-family:inherit;display:flex;align-items:center;gap:5px;letter-spacing:-.1px;transition:all .16s}
+.nav-dropdown-btn:hover,.nav-dropdown:hover .nav-dropdown-btn{color:var(--ac);background:var(--acl)}
+.nav-dropdown-arrow{font-size:10px;transition:transform .2s;display:inline-block}
+.nav-dropdown:hover .nav-dropdown-arrow{transform:rotate(180deg)}
+.nav-dropdown-menu{position:absolute;top:100%;left:50%;padding-top:8px;transform:translateX(-50%) translateY(0);background:#fff;border-radius:14px;box-shadow:0 8px 32px rgba(0,0,0,.12),0 2px 8px rgba(0,0,0,.06);border:1.5px solid var(--br);min-width:252px;padding:8px;opacity:0;pointer-events:none;transition:opacity .18s,transform .18s;z-index:200}
+.nav-dropdown:hover .nav-dropdown-menu{opacity:1;pointer-events:all;transform:translateX(-50%) translateY(0);padding-top:8px}
+.nav-dd-item{display:flex;align-items:center;gap:12px;padding:10px 14px;border-radius:10px;color:var(--tx2);transition:all .14s;font-size:14px;font-weight:600;text-decoration:none}
+.nav-dd-item:hover{background:var(--acl);color:var(--ac)}
+.nav-dd-icon{width:34px;height:34px;background:var(--acl);border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0}
+.nav-dd-label{font-weight:700;font-size:14px;line-height:1.2}
+.nav-dd-sub{font-size:12px;color:var(--tx3);font-weight:500;margin-top:1px}
+.nav-dd-sep{height:1px;background:var(--br);margin:6px 0}
+.nav-dd-all{display:block;padding:9px 14px;border-radius:10px;color:var(--ac);font-size:13px;font-weight:700;text-align:center;transition:background .14s;text-decoration:none}
+.nav-dd-all:hover{background:var(--acl)}
+.mob-nav-section{padding:8px 22px 4px;font-size:11px;font-weight:800;color:var(--tx4);letter-spacing:.08em;text-transform:uppercase}
+.mob-nav-sublink{padding:10px 22px 10px 34px;font-size:14px;font-weight:600;color:var(--tx2);text-decoration:none;display:block;border-left:3px solid transparent;transition:all .14s}
+.mob-nav-sublink:hover{color:var(--ac);background:var(--acl);border-left-color:var(--ac)}
 /* CTA knop — hoog contrast */
 .nav-cta{
   display:inline-flex;align-items:center;gap:8px;
@@ -1031,6 +1050,16 @@ details.faq-item summary:hover{color:var(--acm)}
   .nav-hamburger{display:flex}
   .nav-cta{display:none}
 }
+/* === STANDAARD FOOTER === */
+footer{background:var(--bg,#f7f6f3);border-top:1.5px solid var(--br,#e5e0d8);padding:28px clamp(20px,4vw,56px)}
+.footer-inner{max-width:1200px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap}
+.footer-logo{display:flex;align-items:center;gap:10px;color:var(--tx2,#4a4a46);text-decoration:none}
+.footer-logo img{width:34px;height:34px;border-radius:8px;object-fit:contain}
+.footer-name{font-family:'Fraunces',serif;font-size:18px;font-weight:700;color:var(--tx,#1a1a18)}
+.footer-name em{color:var(--acm,#2d7a52);font-style:normal}
+.footer-copy{font-size:12.5px;color:var(--tx4,#b8b2a8)}
+.footer-badge{display:inline-flex;align-items:center;gap:6px;padding:5px 13px;background:var(--acl,#eef7f2);border-radius:20px;font-size:12px;font-weight:600;color:var(--ac,#1a4731)}
+@media(max-width:600px){.footer-inner{flex-direction:column;align-items:flex-start;gap:14px}}
 </style>
 
 <style>
@@ -1145,12 +1174,27 @@ src="https://www.facebook.com/tr?id=964378096043237&ev=PageView&noscript=1"
 <!-- ══════════════ NAV ══════════════ -->
 <nav class="nav">
   <a href="/" class="nav-logo">
-    <img src="./logo.webp" alt="ZenBTW Logo" class="nav-logo-img" width="154" height="56">
+    <img src="./logo.webp" alt="ZenBTW Logo" class="nav-logo-img" width="52" height="52">
   </a>
   <div class="nav-links">
     <a href="#functies" class="nav-link">Functies</a>
     <a href="#stappen" class="nav-link">Hoe werkt het</a>
     <a href="blog/" class="nav-link">Blog</a>
+    <div class="nav-dropdown">
+      <button class="nav-dropdown-btn">Hulpmiddelen <span class="nav-dropdown-arrow">▾</span></button>
+      <div class="nav-dropdown-menu">
+        <a href="/hulpmiddelen/margeregeling-calculator/" class="nav-dd-item">
+          <div class="nav-dd-icon">🧮</div>
+          <div><div class="nav-dd-label">Margeregeling Calculator</div><div class="nav-dd-sub">BTW berekenen op tweedehands</div></div>
+        </a>
+        <a href="/hulpmiddelen/kor-oss-checker/" class="nav-dd-item">
+          <div class="nav-dd-icon">📊</div>
+          <div><div class="nav-dd-label">KOR &amp; OSS Checker</div><div class="nav-dd-sub">Check je drempelstatus direct</div></div>
+        </a>
+        <div class="nav-dd-sep"></div>
+        <a href="/hulpmiddelen/" class="nav-dd-all">Alle hulpmiddelen →</a>
+      </div>
+    </div>
     <a href="#prijzen" class="nav-link">Prijzen</a>
     <a href="#faq" class="nav-link">FAQ</a>
   </div>
@@ -1179,6 +1223,10 @@ src="https://www.facebook.com/tr?id=964378096043237&ev=PageView&noscript=1"
     <a href="#functies" class="mob-nav-link" onclick="closeMobNav()">Functies</a>
     <a href="#stappen" class="mob-nav-link" onclick="closeMobNav()">Hoe werkt het</a>
     <a href="blog/" class="mob-nav-link" onclick="closeMobNav()">Blog</a>
+    <div class="mob-nav-section">Hulpmiddelen</div>
+    <a href="/hulpmiddelen/margeregeling-calculator/" class="mob-nav-sublink" onclick="closeMobNav()">🧮 Margeregeling Calculator</a>
+    <a href="/hulpmiddelen/kor-oss-checker/" class="mob-nav-sublink" onclick="closeMobNav()">📊 KOR &amp; OSS Checker</a>
+    <a href="/hulpmiddelen/" class="mob-nav-link" onclick="closeMobNav()">Alle hulpmiddelen</a>
     <a href="#prijzen" class="mob-nav-link" onclick="closeMobNav()">Prijzen</a>
     <a href="#faq" class="mob-nav-link" onclick="closeMobNav()">FAQ</a>
   </nav>
@@ -1715,21 +1763,18 @@ src="https://www.facebook.com/tr?id=964378096043237&ev=PageView&noscript=1"
 <footer>
   <div class="footer-inner">
     <a href="/" class="footer-logo">
-      <picture>
-        <source srcset="./logo.webp" type="image/webp">
-        <img src="./logo.webp" alt="ZenBTW Logo" style="max-height:36px;width:auto;border-radius:4px;object-fit:contain" width="66" height="36" loading="lazy">
-      </picture>
+      <img src="/logo.webp" alt="ZenBTW" style="width:34px;height:34px;border-radius:8px;object-fit:contain" loading="lazy">
       <span class="footer-name">Zen<em>BTW</em></span>
     </a>
     <div style="display:flex;gap:20px;flex-wrap:wrap;align-items:center">
-      <a href="/kor-calculator" style="font-size:12.5px;color:var(--tx3);font-weight:500" data-umami-event="footer-kor-calculator">BTW-check</a>
-      <a href="#prijzen" style="font-size:12.5px;color:var(--tx3);font-weight:500">Prijzen</a>
-      <a href="#faq" style="font-size:12.5px;color:var(--tx3);font-weight:500">FAQ</a>
-      <a href="/app" style="font-size:12.5px;color:var(--tx3);font-weight:500">App</a>
-      <a href="/privacy" style="font-size:12.5px;color:var(--tx3);font-weight:500">Privacy</a>
+      <a href="/kor-calculator/" style="font-size:12.5px;color:var(--tx3,#7a7a74);font-weight:500">BTW-check</a>
+      <a href="/hulpmiddelen/" style="font-size:12.5px;color:var(--tx3,#7a7a74);font-weight:500">Hulpmiddelen</a>
+      <a href="/blog/" style="font-size:12.5px;color:var(--tx3,#7a7a74);font-weight:500">Blog</a>
+      <a href="/app" style="font-size:12.5px;color:var(--tx3,#7a7a74);font-weight:500">App</a>
+      <a href="/privacy/" style="font-size:12.5px;color:var(--tx3,#7a7a74);font-weight:500">Privacy</a>
       <span class="footer-copy">© 2026 ZenBTW</span>
     </div>
-    <span class="footer-badge">🔒 Client-side encrypted</span>
+    <span class="footer-badge">🔒 Geen belastingadvies</span>
   </div>
 </footer>
 

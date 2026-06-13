@@ -1,0 +1,818 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Margeregeling Calculator — Gratis BTW berekenen op tweedehands | ZenBTW</title>
+<meta name="description" content="Bereken gratis je BTW-afdracht met de margeregeling. Voer inkoop- en verkoopprijs in en zie direct hoeveel je bespaart ten opzichte van standaard BTW. Voor vintage, Vinted en Etsy-verkopers.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://zenbtw.nl/hulpmiddelen/margeregeling-calculator">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<meta property="og:title" content="Margeregeling Calculator — Gratis BTW berekenen op tweedehands">
+<meta property="og:description" content="Bereken gratis je BTW-afdracht met de margeregeling. Zie direct je besparing vs. standaard BTW.">
+<meta property="og:url" content="https://zenbtw.nl/hulpmiddelen/margeregeling-calculator">
+<meta property="og:type" content="website">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "Margeregeling Calculator",
+  "url": "https://zenbtw.nl/hulpmiddelen/margeregeling-calculator",
+  "description": "Gratis BTW-calculator voor de margeregeling. Bereken hoeveel BTW je betaalt over tweedehands verkopen.",
+  "applicationCategory": "FinanceApplication",
+  "operatingSystem": "Any",
+  "isAccessibleForFree": true,
+  "offers": {"@type":"Offer","price":"0","priceCurrency":"EUR"},
+  "provider": {"@type":"Organization","name":"ZenBTW","url":"https://zenbtw.nl"}
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {"@type":"Question","name":"Wat is de margeregeling?","acceptedAnswer":{"@type":"Answer","text":"De margeregeling is een BTW-regeling voor handelaren in tweedehands goederen. Je berekent BTW niet over de volledige verkoopprijs, maar alleen over je winstmarge (verkoopprijs minus inkoopprijs)."}},
+    {"@type":"Question","name":"Wanneer mag ik de margeregeling toepassen?","acceptedAnswer":{"@type":"Answer","text":"Je mag de margeregeling toepassen als je tweedehands goederen verkoopt die je hebt ingekocht zonder BTW-factuur, bijvoorbeeld van particulieren of via markten."}},
+    {"@type":"Question","name":"Hoe bereken ik BTW met de margeregeling?","acceptedAnswer":{"@type":"Answer","text":"BTW = (Verkoopprijs - Inkoopprijs) × 21/121. De BTW is dus al begrepen in de winstmarge. Je hoeft geen extra BTW bovenop je prijs te rekenen."}},
+    {"@type":"Question","name":"Geldt de margeregeling voor Vinted en Etsy?","acceptedAnswer":{"@type":"Answer","text":"Ja, als je tweedehands spullen verkoopt die je zelf hebt ingekocht van particulieren, mag je de margeregeling toepassen, ongeacht het platform."}}
+  ]
+}
+</script>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f7f6f3;--wh:#ffffff;--s2:#f0ede8;--br:#e8e5de;--brs:#d4cfc5;
+  --ac:#1a4731;--acl:#e8f0ec;--acm:#2d6a4f;--acd:#143d28;
+  --tx:#1a1814;--tx2:#4a4640;--tx3:#8a847a;--tx4:#b8b2a8;
+  --sh:0 1px 4px rgba(0,0,0,.07);--shm:0 6px 20px rgba(0,0,0,.1);--shl:0 20px 60px rgba(0,0,0,.14);
+  --r:16px;--rs:12px;--nav-h:72px;
+  --green:#22c55e;--amber:#f59e0b;--red:#ef4444;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--bg);color:var(--tx);line-height:1.6}
+a{text-decoration:none;color:inherit}
+
+/* NAV */
+.nav{position:fixed;top:0;left:0;right:0;z-index:500;height:var(--nav-h);background:rgba(247,246,243,.95);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-bottom:1.5px solid var(--br);box-shadow:0 2px 12px rgba(0,0,0,.05);display:flex;align-items:center;padding:0 clamp(20px,4vw,56px);justify-content:space-between;gap:24px}
+.nav-logo{display:flex;align-items:center;gap:10px}
+.nav-logo-img{max-height:48px;width:auto}
+.nav-wordmark{font-family:'Fraunces',serif;font-size:22px;font-weight:700;letter-spacing:-.5px}
+.nav-wordmark em{color:var(--acm);font-style:normal}
+.nav-links{display:flex;align-items:center;gap:4px;flex:1;justify-content:center}
+.nav-link{padding:9px 16px;font-size:15px;font-weight:800;color:var(--tx2);border-radius:10px;transition:all .16s;letter-spacing:-.1px}
+.nav-link:hover{color:var(--ac);background:var(--acl)}
+.nav-link.active{color:var(--ac)}
+.nav-dropdown{position:relative}
+.nav-dropdown-btn{padding:9px 16px;font-size:15px;font-weight:800;color:var(--ac);background:var(--acl);border-radius:10px;border:none;cursor:pointer;font-family:inherit;display:flex;align-items:center;gap:5px;letter-spacing:-.1px;transition:all .16s}
+.nav-dropdown-btn:hover{background:#d4e8dc}
+.nav-dropdown-arrow{font-size:10px;transition:transform .2s;display:inline-block}
+.nav-dropdown:hover .nav-dropdown-arrow{transform:rotate(180deg)}
+.nav-dropdown-menu{position:absolute;top:100%;left:50%;padding-top:8px;transform:translateX(-50%) translateY(0);background:#fff;border-radius:14px;box-shadow:0 8px 32px rgba(0,0,0,.12),0 2px 8px rgba(0,0,0,.06);border:1.5px solid var(--br);min-width:250px;padding:8px;opacity:0;pointer-events:none;transition:opacity .18s,transform .18s;z-index:200}
+.nav-dropdown:hover .nav-dropdown-menu{opacity:1;pointer-events:all;transform:translateX(-50%) translateY(0);padding-top:8px}
+.nav-dd-item{display:flex;align-items:center;gap:12px;padding:10px 14px;border-radius:10px;color:var(--tx2);transition:all .14s;font-size:14px;font-weight:600}
+.nav-dd-item:hover{background:var(--acl);color:var(--ac)}
+.nav-dd-item.current{background:var(--acl);color:var(--ac)}
+.nav-dd-icon{width:34px;height:34px;background:var(--acl);border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0}
+.nav-dd-label{font-weight:700;font-size:14px;line-height:1.2}
+.nav-dd-sub{font-size:12px;color:var(--tx3);font-weight:500;margin-top:1px}
+.nav-dd-sep{height:1px;background:var(--br);margin:6px 0}
+.nav-dd-all{display:block;padding:9px 14px;border-radius:10px;color:var(--ac);font-size:13px;font-weight:700;text-align:center;transition:background .14s}
+.nav-dd-all:hover{background:var(--acl)}
+.nav-cta{display:inline-flex;align-items:center;gap:8px;padding:11px 22px;background:var(--ac);color:#fff;border-radius:var(--rs);font-size:14px;font-weight:800;transition:all .2s;flex-shrink:0;box-shadow:0 4px 16px rgba(26,71,49,.3)}
+.nav-cta:hover{background:var(--acd);transform:translateY(-1px)}
+.nav-hamburger{display:none;flex-direction:column;justify-content:center;align-items:center;gap:5px;width:42px;height:42px;background:none;border:none;cursor:pointer;border-radius:10px}
+.nav-hamburger .hb{width:20px;height:2px;background:var(--tx2);border-radius:2px;transition:all .25s cubic-bezier(.16,1,.3,1);transform-origin:center}
+.nav-hamburger.open .hb:nth-child(1){transform:translateY(7px) rotate(45deg)}
+.nav-hamburger.open .hb:nth-child(2){opacity:0;transform:scaleX(0)}
+.nav-hamburger.open .hb:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+.mob-nav-overlay{position:fixed;inset:0;z-index:600;background:rgba(0,0,0,.45);backdrop-filter:blur(2px);display:none;opacity:0;transition:opacity .3s}
+.mob-nav-overlay.on{display:block;opacity:1}
+.mob-nav-drawer{position:fixed;top:0;right:0;bottom:0;width:min(300px,85vw);background:#fff;z-index:700;transform:translateX(100%);transition:transform .3s cubic-bezier(.16,1,.3,1);display:flex;flex-direction:column;overflow-y:auto}
+.mob-nav-drawer.on{transform:translateX(0)}
+.mob-nav-hd{display:flex;align-items:center;justify-content:space-between;padding:16px 18px;border-bottom:1.5px solid var(--br)}
+.mob-nav-close{background:none;border:none;cursor:pointer;font-size:18px;color:var(--tx2);width:36px;height:36px;display:flex;align-items:center;justify-content:center;border-radius:8px}
+.mob-nav-links{display:flex;flex-direction:column;padding:12px 0;flex:1}
+.mob-nav-link{padding:14px 22px;font-size:15px;font-weight:700;color:var(--tx2);border-left:3px solid transparent;text-decoration:none;transition:all .14s;display:block}
+.mob-nav-link:hover,.mob-nav-link.active{color:var(--ac);background:var(--acl);border-left-color:var(--ac)}
+.mob-nav-section{padding:8px 22px 4px;font-size:11px;font-weight:800;color:var(--tx4);letter-spacing:.08em;text-transform:uppercase}
+.mob-nav-sublink{padding:10px 22px 10px 34px;font-size:14px;font-weight:600;color:var(--tx2);text-decoration:none;display:block;border-left:3px solid transparent;transition:all .14s}
+.mob-nav-sublink:hover,.mob-nav-sublink.active{color:var(--ac);background:var(--acl);border-left-color:var(--ac)}
+.mob-nav-cta{display:flex;align-items:center;justify-content:center;margin:0 18px 28px;padding:14px 24px;background:var(--ac);color:#fff;border-radius:10px;font-size:15px;font-weight:800;box-shadow:0 4px 16px rgba(26,71,49,.35);text-decoration:none}
+@media(max-width:768px){.nav-links{display:none}.nav-cta{display:none}.nav-hamburger{display:flex}}
+
+/* BREADCRUMB */
+.breadcrumb{padding:12px clamp(20px,4vw,80px);font-size:13px;color:var(--tx3);display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+.breadcrumb a{color:var(--tx3);transition:color .14s}.breadcrumb a:hover{color:var(--ac)}
+
+/* HERO */
+.hero{padding:56px clamp(20px,4vw,80px) 48px;max-width:900px;margin:0 auto;text-align:center}
+.hero-badge{display:inline-flex;align-items:center;gap:8px;background:var(--acl);color:var(--acm);padding:6px 14px;border-radius:20px;font-size:13px;font-weight:700;margin-bottom:20px}
+.hero h1{font-family:'Fraunces',serif;font-size:clamp(32px,5vw,52px);font-weight:700;letter-spacing:-.5px;line-height:1.15;color:var(--tx);margin-bottom:16px}
+.hero p{font-size:18px;color:var(--tx2);max-width:600px;margin:0 auto}
+
+/* CALCULATOR */
+.calc-wrap{max-width:920px;margin:0 auto;padding:0 clamp(20px,4vw,40px) 80px}
+
+.calc-card{background:var(--wh);border-radius:var(--r);box-shadow:var(--shm);border:1.5px solid var(--br);overflow:hidden;margin-bottom:32px}
+.calc-card-header{padding:20px 28px;border-bottom:1.5px solid var(--br);display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap}
+.calc-card-title{font-family:'Fraunces',serif;font-size:20px;font-weight:700}
+.calc-card-sub{font-size:13px;color:var(--tx3);font-weight:600}
+.calc-body{display:grid;grid-template-columns:1fr 1fr;gap:0}
+@media(max-width:640px){.calc-body{grid-template-columns:1fr}}
+
+/* INPUT PANEL */
+.calc-input-panel{padding:28px;border-right:1.5px solid var(--br)}
+@media(max-width:640px){.calc-input-panel{border-right:none;border-bottom:1.5px solid var(--br)}}
+.field{margin-bottom:20px}
+.field:last-child{margin-bottom:0}
+.field label{display:block;font-size:13px;font-weight:700;color:var(--tx2);margin-bottom:7px;letter-spacing:-.01em}
+.field-hint{font-size:12px;color:var(--tx3);margin-top:4px}
+.euro-wrap{display:flex;align-items:center;border:1.5px solid var(--br);border-radius:10px;background:var(--bg);transition:border-color .16s,box-shadow .16s;overflow:hidden}
+.euro-prefix{padding:12px 4px 12px 14px;font-size:16px;font-weight:700;color:var(--tx3);font-family:'JetBrains Mono',monospace;pointer-events:none;flex-shrink:0;line-height:1}
+.euro-wrap input{flex:1;border:none!important;border-radius:0!important;background:transparent!important;padding:12px 14px 12px 2px;outline:none;box-shadow:none!important}
+.euro-wrap:focus-within{border-color:var(--acm);box-shadow:0 0 0 3px rgba(26,71,49,.1);background:#fff}
+input[type=number],input[type=text],select{width:100%;padding:12px 16px;border:1.5px solid var(--br);border-radius:10px;font-size:16px;font-family:'Plus Jakarta Sans',sans-serif;font-weight:600;color:var(--tx);background:var(--bg);transition:border-color .16s,box-shadow .16s;outline:none;-moz-appearance:textfield}
+input[type=number]::-webkit-inner-spin-button{-webkit-appearance:none}
+input:focus{border-color:var(--acm);box-shadow:0 0 0 3px rgba(26,71,49,.1);background:#fff}
+.toggle-row{display:flex;align-items:center;gap:10px;cursor:pointer;user-select:none}
+.toggle-row input[type=checkbox]{width:18px;height:18px;accent-color:var(--ac);cursor:pointer;flex-shrink:0}
+.toggle-label{font-size:14px;font-weight:600;color:var(--tx2)}
+.btw-select-row{display:flex;gap:8px;margin-top:8px}
+.btw-opt{flex:1;padding:9px 6px;border:1.5px solid var(--br);border-radius:9px;font-size:13px;font-weight:700;text-align:center;cursor:pointer;transition:all .14s;color:var(--tx2);background:var(--bg)}
+.btw-opt.active{border-color:var(--ac);background:var(--acl);color:var(--ac)}
+.btw-opt:hover:not(.active){border-color:var(--acm);background:var(--s2)}
+
+/* RESULT PANEL */
+.calc-result-panel{padding:28px;background:var(--bg)}
+.result-empty{display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%;gap:12px;color:var(--tx3);text-align:center;padding:20px}
+.result-empty-icon{font-size:40px;opacity:.4}
+.result-section{margin-bottom:24px}
+.result-section:last-child{margin-bottom:0}
+.result-section-title{font-size:11px;font-weight:800;color:var(--tx4);letter-spacing:.08em;text-transform:uppercase;margin-bottom:10px}
+.result-row{display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid var(--br)}
+.result-row:last-child{border-bottom:none}
+.result-label{font-size:14px;font-weight:600;color:var(--tx2)}
+.result-val{font-family:'JetBrains Mono',monospace;font-size:15px;font-weight:600;color:var(--tx)}
+.result-val.green{color:#16a34a}
+.result-val.red{color:#dc2626}
+.result-val.muted{color:var(--tx3)}
+
+.besparing-box{background:var(--acl);border:1.5px solid var(--acm);border-radius:12px;padding:16px 18px;margin-top:16px}
+.besparing-box-label{font-size:13px;font-weight:700;color:var(--acm);margin-bottom:4px}
+.besparing-box-amount{font-family:'JetBrains Mono',monospace;font-size:26px;font-weight:700;color:var(--ac);line-height:1}
+.besparing-box-sub{font-size:12px;color:var(--acm);margin-top:4px}
+
+.negatief-warn{background:#fef9ec;border:1.5px solid #f59e0b;border-radius:10px;padding:12px 14px;font-size:13px;color:#92400e;font-weight:600;margin-top:12px}
+
+/* MULTI ITEM SECTION */
+.multi-card{background:var(--wh);border-radius:var(--r);box-shadow:var(--sh);border:1.5px solid var(--br);overflow:hidden;margin-bottom:32px}
+.multi-header{padding:20px 28px;border-bottom:1.5px solid var(--br);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px}
+.multi-title{font-family:'Fraunces',serif;font-size:18px;font-weight:700}
+.btn{padding:10px 18px;border-radius:10px;font-size:14px;font-weight:700;cursor:pointer;border:none;font-family:inherit;transition:all .16s;display:inline-flex;align-items:center;gap:6px}
+.btn-primary{background:var(--ac);color:#fff;box-shadow:0 3px 10px rgba(26,71,49,.25)}
+.btn-primary:hover{background:var(--acm);transform:translateY(-1px)}
+.btn-outline{background:var(--bg);color:var(--tx2);border:1.5px solid var(--br)}
+.btn-outline:hover{border-color:var(--acm);color:var(--ac);background:var(--acl)}
+.btn-sm{padding:7px 12px;font-size:13px}
+.btn-danger{background:#fee2e2;color:#dc2626;border:1.5px solid #fca5a5}
+.btn-danger:hover{background:#fca5a5}
+.multi-table-wrap{overflow-x:auto}
+table{width:100%;border-collapse:collapse}
+th{padding:10px 16px;font-size:12px;font-weight:800;color:var(--tx3);text-align:left;letter-spacing:.04em;text-transform:uppercase;border-bottom:1.5px solid var(--br);background:var(--bg);white-space:nowrap}
+td{padding:10px 16px;font-size:14px;border-bottom:1px solid var(--br);vertical-align:middle}
+tr:last-child td{border-bottom:none}
+.td-mono{font-family:'JetBrains Mono',monospace;font-size:13px}
+.td-input{padding:0}
+.td-input input{border:none;background:transparent;border-radius:0;padding:10px 16px;font-size:14px;border-bottom:1px solid transparent}
+.td-input input:focus{background:var(--acl);border-bottom-color:var(--acm)}
+.tr-totaal td{background:var(--bg);font-weight:700;border-top:2px solid var(--br);border-bottom:none}
+.tr-totaal .td-mono{color:var(--ac)}
+
+.multi-actions{padding:16px 28px;border-top:1.5px solid var(--br);display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+
+/* INFO SECTION */
+.info-section{max-width:920px;margin:0 auto;padding:0 clamp(20px,4vw,40px) 80px}
+.info-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:20px;margin-bottom:48px}
+.info-card{background:var(--wh);border-radius:var(--r);border:1.5px solid var(--br);padding:24px}
+.info-card-icon{font-size:28px;margin-bottom:12px}
+.info-card h3{font-family:'Fraunces',serif;font-size:18px;font-weight:700;margin-bottom:8px}
+.info-card p{font-size:14px;color:var(--tx2);line-height:1.65}
+
+.formula-box{background:var(--wh);border-radius:var(--r);border:1.5px solid var(--br);padding:28px;margin-bottom:48px}
+.formula-box h2{font-family:'Fraunces',serif;font-size:22px;font-weight:700;margin-bottom:20px}
+.formula{background:var(--bg);border-radius:10px;padding:20px 24px;margin-bottom:20px;font-family:'JetBrains Mono',monospace;font-size:15px;color:var(--ac);line-height:1.8}
+.formula span{color:var(--tx3)}
+.formula-example{background:var(--acl);border-radius:10px;padding:16px 20px;font-size:14px;color:var(--tx2);line-height:1.7}
+.formula-example strong{color:var(--ac)}
+
+/* FAQ */
+.faq-section{max-width:920px;margin:0 auto;padding:0 clamp(20px,4vw,40px) 80px}
+.faq-title{font-family:'Fraunces',serif;font-size:26px;font-weight:700;margin-bottom:24px}
+.faq-item{border:1.5px solid var(--br);border-radius:12px;margin-bottom:10px;overflow:hidden;background:var(--wh)}
+.faq-q{padding:18px 22px;font-size:15px;font-weight:700;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:16px;transition:background .14s}
+.faq-q:hover{background:var(--acl)}
+.faq-icon{font-size:18px;transition:transform .25s;flex-shrink:0;color:var(--tx3)}
+.faq-item.open .faq-icon{transform:rotate(180deg);color:var(--ac)}
+.faq-item.open .faq-q{background:var(--acl);color:var(--ac)}
+.faq-a{display:none;padding:0 22px 18px;font-size:14px;color:var(--tx2);line-height:1.7}
+.faq-item.open .faq-a{display:block}
+
+/* CTA */
+.cta-section{max-width:920px;margin:0 auto;padding:0 clamp(20px,4vw,40px) 80px}
+.cta-box{background:var(--ac);border-radius:var(--r);padding:48px;text-align:center;color:#fff}
+.cta-box h2{font-family:'Fraunces',serif;font-size:28px;font-weight:700;margin-bottom:12px}
+.cta-box p{font-size:16px;opacity:.85;margin-bottom:28px}
+.cta-box a{display:inline-flex;align-items:center;gap:8px;padding:14px 32px;background:#fff;color:var(--ac);border-radius:12px;font-size:16px;font-weight:800;transition:all .2s}
+.cta-box a:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,.2)}
+
+/* EMPTY STATE */
+.empty-row td{text-align:center;color:var(--tx3);font-style:italic;padding:24px}
+
+/* TOAST */
+.toast{position:fixed;bottom:24px;right:24px;background:var(--ac);color:#fff;padding:12px 20px;border-radius:10px;font-size:14px;font-weight:700;box-shadow:var(--shm);z-index:1000;transform:translateY(80px);transition:transform .3s cubic-bezier(.16,1,.3,1);pointer-events:none}
+.toast.show{transform:translateY(0)}
+/* === STANDAARD NAV === */
+:root{--nav-h:72px}
+body{padding-top:var(--nav-h,72px)!important}
+.nav{position:fixed;top:0;left:0;right:0;z-index:500;height:var(--nav-h);background:rgba(247,246,243,.95);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-bottom:1.5px solid var(--br,#e5e0d8);box-shadow:0 2px 12px rgba(0,0,0,.05);display:flex;align-items:center;padding:0 clamp(20px,4vw,56px);justify-content:space-between;gap:24px}
+.nav-logo{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--tx,#1a1a18);flex-shrink:0}
+.nav-logo-img{height:52px;width:52px;border-radius:10px;object-fit:contain}
+.nav-wordmark{font-family:'Fraunces',serif;font-size:22px;font-weight:700;letter-spacing:-.5px;line-height:1}
+.nav-wordmark em{color:var(--acm,#2d7a52);font-style:normal}
+.nav-links{display:flex;align-items:center;gap:4px;flex:1;justify-content:center}
+.nav-link{padding:9px 16px;font-size:15px;font-weight:800;color:var(--tx2,#4a4a46);border-radius:10px;transition:all .16s;letter-spacing:-.1px;text-decoration:none}
+.nav-link:hover{color:var(--ac,#1a4731);background:var(--acl,#eef7f2)}
+.nav-dropdown{position:relative}
+.nav-dropdown-btn{padding:9px 16px;font-size:15px;font-weight:800;color:var(--tx2,#4a4a46);background:none;border-radius:10px;border:none;cursor:pointer;font-family:inherit;display:flex;align-items:center;gap:5px;letter-spacing:-.1px;transition:all .16s}
+.nav-dropdown-btn:hover,.nav-dropdown:hover .nav-dropdown-btn{color:var(--ac,#1a4731);background:var(--acl,#eef7f2)}
+.nav-dropdown-arrow{font-size:10px;transition:transform .2s;display:inline-block}
+.nav-dropdown:hover .nav-dropdown-arrow{transform:rotate(180deg)}
+.nav-dropdown-menu{position:absolute;top:100%;left:50%;padding-top:8px;transform:translateX(-50%) translateY(0);background:#fff;border-radius:14px;box-shadow:0 8px 32px rgba(0,0,0,.12),0 2px 8px rgba(0,0,0,.06);border:1.5px solid var(--br,#e5e0d8);min-width:252px;padding:8px;opacity:0;pointer-events:none;transition:opacity .18s,transform .18s;z-index:200}
+.nav-dropdown:hover .nav-dropdown-menu{opacity:1;pointer-events:all;transform:translateX(-50%) translateY(0);padding-top:8px}
+.nav-dd-item{display:flex;align-items:center;gap:12px;padding:10px 14px;border-radius:10px;color:var(--tx2,#4a4a46);transition:all .14s;font-size:14px;font-weight:600;text-decoration:none}
+.nav-dd-item:hover{background:var(--acl,#eef7f2);color:var(--ac,#1a4731)}
+.nav-dd-icon{width:34px;height:34px;background:var(--acl,#eef7f2);border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0}
+.nav-dd-label{font-weight:700;font-size:14px;line-height:1.2}
+.nav-dd-sub{font-size:12px;color:var(--tx3,#7a7a74);font-weight:500;margin-top:1px}
+.nav-dd-sep{height:1px;background:var(--br,#e5e0d8);margin:6px 0}
+.nav-dd-all{display:block;padding:9px 14px;border-radius:10px;color:var(--ac,#1a4731);font-size:13px;font-weight:700;text-align:center;transition:background .14s;text-decoration:none}
+.nav-dd-all:hover{background:var(--acl,#eef7f2)}
+.nav-cta{display:inline-flex;align-items:center;gap:8px;padding:11px 22px;background:var(--ac,#1a4731);color:#fff;border-radius:12px;font-size:14px;font-weight:800;transition:all .2s;flex-shrink:0;box-shadow:0 4px 16px rgba(26,71,49,.3);text-decoration:none}
+.nav-cta:hover{background:var(--acd,#143825);transform:translateY(-1px)}
+.nav-hamburger{display:none;flex-direction:column;justify-content:center;align-items:center;gap:5px;width:42px;height:42px;background:none;border:none;cursor:pointer;border-radius:10px}
+.nav-hamburger .hb{width:20px;height:2px;background:var(--tx2,#4a4a46);border-radius:2px;transition:all .25s cubic-bezier(.16,1,.3,1);transform-origin:center}
+.nav-hamburger.open .hb:nth-child(1){transform:translateY(7px) rotate(45deg)}
+.nav-hamburger.open .hb:nth-child(2){opacity:0;transform:scaleX(0)}
+.nav-hamburger.open .hb:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+.mob-nav-overlay{position:fixed;inset:0;z-index:600;background:rgba(0,0,0,.45);backdrop-filter:blur(2px);display:none;opacity:0;transition:opacity .3s}
+.mob-nav-overlay.on{display:block;opacity:1}
+.mob-nav-drawer{position:fixed;top:0;right:0;bottom:0;width:min(300px,85vw);background:#fff;z-index:700;transform:translateX(100%);transition:transform .3s cubic-bezier(.16,1,.3,1);display:flex;flex-direction:column;overflow-y:auto}
+.mob-nav-drawer.on{transform:translateX(0)}
+.mob-nav-hd{display:flex;align-items:center;justify-content:space-between;padding:16px 18px;border-bottom:1.5px solid var(--br,#e5e0d8)}
+.mob-nav-close{background:none;border:none;cursor:pointer;font-size:18px;color:var(--tx2,#4a4a46);width:36px;height:36px;display:flex;align-items:center;justify-content:center;border-radius:8px}
+.mob-nav-links{display:flex;flex-direction:column;padding:12px 0;flex:1}
+.mob-nav-link{padding:14px 22px;font-size:15px;font-weight:700;color:var(--tx2,#4a4a46);border-left:3px solid transparent;text-decoration:none;transition:all .14s;display:block}
+.mob-nav-link:hover{color:var(--ac,#1a4731);background:var(--acl,#eef7f2);border-left-color:var(--ac,#1a4731)}
+.mob-nav-section{padding:8px 22px 4px;font-size:11px;font-weight:800;color:var(--tx4,#b8b2a8);letter-spacing:.08em;text-transform:uppercase}
+.mob-nav-sublink{padding:10px 22px 10px 34px;font-size:14px;font-weight:600;color:var(--tx2,#4a4a46);text-decoration:none;display:block;border-left:3px solid transparent;transition:all .14s}
+.mob-nav-sublink:hover{color:var(--ac,#1a4731);background:var(--acl,#eef7f2);border-left-color:var(--ac,#1a4731)}
+.mob-nav-cta{display:flex;align-items:center;justify-content:center;margin:0 18px 28px;padding:14px 24px;background:var(--ac,#1a4731);color:#fff;border-radius:10px;font-size:15px;font-weight:800;box-shadow:0 4px 16px rgba(26,71,49,.35);text-decoration:none}
+@media(max-width:768px){.nav-links{display:none!important}.nav-cta{display:none!important}.nav-hamburger{display:flex!important;flex-direction:column}}
+/* === STANDAARD FOOTER === */
+footer{background:var(--bg,#f7f6f3);border-top:1.5px solid var(--br,#e5e0d8);padding:28px clamp(20px,4vw,56px)}
+.footer-inner{max-width:1200px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap}
+.footer-logo{display:flex;align-items:center;gap:10px;color:var(--tx2,#4a4a46);text-decoration:none}
+.footer-logo img{width:34px;height:34px;border-radius:8px;object-fit:contain}
+.footer-name{font-family:'Fraunces',serif;font-size:18px;font-weight:700;color:var(--tx,#1a1a18)}
+.footer-name em{color:var(--acm,#2d7a52);font-style:normal}
+.footer-copy{font-size:12.5px;color:var(--tx4,#b8b2a8)}
+.footer-badge{display:inline-flex;align-items:center;gap:6px;padding:5px 13px;background:var(--acl,#eef7f2);border-radius:20px;font-size:12px;font-weight:600;color:var(--ac,#1a4731)}
+@media(max-width:600px){.footer-inner{flex-direction:column;align-items:flex-start;gap:14px}}
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <a href="/" class="nav-logo">
+    <img src="/logo.webp" alt="ZenBTW" class="nav-logo-img" width="52" height="52">
+    <span class="nav-wordmark">Zen<em>BTW</em></span>
+  </a>
+  <div class="nav-links">
+    <a href="/#functies" class="nav-link">Functies</a>
+    <a href="/#stappen" class="nav-link">Hoe werkt het</a>
+    <a href="/blog/" class="nav-link">Blog</a>
+    <div class="nav-dropdown">
+      <button class="nav-dropdown-btn">Hulpmiddelen <span class="nav-dropdown-arrow">▾</span></button>
+      <div class="nav-dropdown-menu">
+        <a href="/hulpmiddelen/margeregeling-calculator/" class="nav-dd-item">
+          <div class="nav-dd-icon">🧮</div>
+          <div><div class="nav-dd-label">Margeregeling Calculator</div><div class="nav-dd-sub">BTW berekenen op tweedehands</div></div>
+        </a>
+        <a href="/hulpmiddelen/kor-oss-checker/" class="nav-dd-item">
+          <div class="nav-dd-icon">📊</div>
+          <div><div class="nav-dd-label">KOR &amp; OSS Checker</div><div class="nav-dd-sub">Check je drempelstatus direct</div></div>
+        </a>
+        <div class="nav-dd-sep"></div>
+        <a href="/hulpmiddelen/" class="nav-dd-all">Alle hulpmiddelen →</a>
+      </div>
+    </div>
+    <a href="/#prijzen" class="nav-link">Prijzen</a>
+    <a href="/#faq" class="nav-link">FAQ</a>
+  </div>
+  <div style="display:flex;align-items:center;gap:10px;flex-shrink:0">
+    <a href="/app" class="nav-cta">Check mijn status →</a>
+    <button class="nav-hamburger" id="navHamburger" onclick="toggleMobNav()" aria-label="Menu openen" aria-expanded="false">
+      <span class="hb"></span><span class="hb"></span><span class="hb"></span>
+    </button>
+  </div>
+</nav>
+<div class="mob-nav-overlay" id="mobNavOverlay" onclick="closeMobNav()"></div>
+<div class="mob-nav-drawer" id="mobNavDrawer">
+  <div class="mob-nav-hd">
+    <a href="/" class="nav-logo" onclick="closeMobNav()">
+      <img src="/logo.webp" alt="ZenBTW" style="height:36px;width:36px;border-radius:8px;">
+    </a>
+    <button class="mob-nav-close" onclick="closeMobNav()" aria-label="Menu sluiten">✕</button>
+  </div>
+  <nav class="mob-nav-links">
+    <a href="/#functies" class="mob-nav-link" onclick="closeMobNav()">Functies</a>
+    <a href="/#stappen" class="mob-nav-link" onclick="closeMobNav()">Hoe werkt het</a>
+    <a href="/blog/" class="mob-nav-link" onclick="closeMobNav()">Blog</a>
+    <div class="mob-nav-section">Hulpmiddelen</div>
+    <a href="/hulpmiddelen/margeregeling-calculator/" class="mob-nav-sublink" onclick="closeMobNav()">🧮 Margeregeling Calculator</a>
+    <a href="/hulpmiddelen/kor-oss-checker/" class="mob-nav-sublink" onclick="closeMobNav()">📊 KOR &amp; OSS Checker</a>
+    <a href="/hulpmiddelen/" class="mob-nav-link" onclick="closeMobNav()">Alle hulpmiddelen</a>
+    <a href="/#prijzen" class="mob-nav-link" onclick="closeMobNav()">Prijzen</a>
+    <a href="/#faq" class="mob-nav-link" onclick="closeMobNav()">FAQ</a>
+  </nav>
+  <div style="padding:0 18px 28px">
+    <a href="/app" class="mob-nav-cta">Check mijn status →</a>
+  </div>
+</div>
+<!-- BREADCRUMB -->
+<div class="breadcrumb">
+  <a href="/">Home</a> › <a href="/hulpmiddelen/">Hulpmiddelen</a> › Margeregeling Calculator
+</div>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-badge">🧮 Gratis calculator</div>
+  <h1>Margeregeling<br>Calculator</h1>
+  <p>Bereken direct hoeveel BTW je betaalt als je tweedehands verkoopt. Vergelijk margeregeling vs. standaard BTW en zie je besparing.</p>
+</div>
+
+<!-- CALCULATOR SINGLE -->
+<div class="calc-wrap">
+
+  <div class="calc-card">
+    <div class="calc-card-header">
+      <div>
+        <div class="calc-card-title">Enkelvoudige berekening</div>
+        <div class="calc-card-sub">Vul inkoop- en verkoopprijs in — resultaten verschijnen direct</div>
+      </div>
+    </div>
+    <div class="calc-body">
+      <!-- INPUT -->
+      <div class="calc-input-panel">
+        <div class="field">
+          <label for="inkoop">Inkoopprijs (wat je betaald hebt)</label>
+          <div class="euro-wrap">
+            <span class="euro-prefix">€</span>
+            <input type="number" id="inkoop" placeholder="0,00" min="0" step="0.01" oninput="calcSingle()">
+          </div>
+          <div class="field-hint">Prijs betaald aan particulier of marktplaats — zonder BTW-factuur</div>
+        </div>
+        <div class="field">
+          <label for="verkoop">Verkoopprijs (wat je vraagt)</label>
+          <div class="euro-wrap">
+            <span class="euro-prefix">€</span>
+            <input type="number" id="verkoop" placeholder="0,00" min="0" step="0.01" oninput="calcSingle()">
+          </div>
+          <div class="field-hint">De prijs die de koper betaalt (inclusief alles)</div>
+        </div>
+        <div class="field">
+          <label>BTW-tarief</label>
+          <div class="btw-select-row">
+            <div class="btw-opt active" id="opt21" onclick="setBtw(21)">21% <span style="font-weight:500;font-size:11px">(standaard)</span></div>
+            <div class="btw-opt" id="opt9" onclick="setBtw(9)">9% <span style="font-weight:500;font-size:11px">(laag)</span></div>
+          </div>
+          <div class="field-hint">Kleding, elektronica etc.: 21%. Voedsel, boeken: 9%</div>
+        </div>
+      </div>
+      <!-- OUTPUT -->
+      <div class="calc-result-panel" id="singleResult">
+        <div class="result-empty" id="emptyState">
+          <div class="result-empty-icon">🧮</div>
+          <div style="font-size:14px;font-weight:600">Vul inkoop- en verkoopprijs in</div>
+          <div style="font-size:13px">Resultaten verschijnen automatisch</div>
+        </div>
+        <div id="resultContent" style="display:none">
+          <div class="result-section">
+            <div class="result-section-title">Margeregeling (jouw situatie)</div>
+            <div class="result-row">
+              <span class="result-label">Winstmarge</span>
+              <span class="result-val" id="r-marge">—</span>
+            </div>
+            <div class="result-row">
+              <span class="result-label">BTW te betalen</span>
+              <span class="result-val" id="r-btw-marge">—</span>
+            </div>
+            <div class="result-row">
+              <span class="result-label">Netto winst na BTW</span>
+              <span class="result-val green" id="r-netto-marge">—</span>
+            </div>
+          </div>
+          <div class="result-section">
+            <div class="result-section-title">Standaard BTW (ter vergelijking)</div>
+            <div class="result-row">
+              <span class="result-label">BTW te betalen</span>
+              <span class="result-val red" id="r-btw-std">—</span>
+            </div>
+            <div class="result-row">
+              <span class="result-label">Netto winst na BTW</span>
+              <span class="result-val muted" id="r-netto-std">—</span>
+            </div>
+          </div>
+          <div class="besparing-box" id="besparingBox">
+            <div class="besparing-box-label">💚 Jouw besparing met margeregeling</div>
+            <div class="besparing-box-amount" id="r-besparing">—</div>
+            <div class="besparing-box-sub" id="r-besparing-pct">minder BTW</div>
+          </div>
+          <div class="negatief-warn" id="negatief-warn" style="display:none">
+            ⚠️ Je verkoopt onder inkoopprijs. Controleer de bedragen — er is geen BTW-afdracht bij een negatieve marge.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MULTI ITEM -->
+  <div class="multi-card">
+    <div class="multi-header">
+      <div>
+        <div class="multi-title">Meerdere items berekenen</div>
+        <div style="font-size:13px;color:var(--tx3);margin-top:2px">Voeg meerdere producten toe en zie je totale BTW-afdracht</div>
+      </div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap">
+        <button class="btn btn-outline btn-sm" onclick="exportCSV()">⬇ Export CSV</button>
+        <button class="btn btn-primary btn-sm" onclick="addRow()">+ Item toevoegen</button>
+      </div>
+    </div>
+    <div class="multi-table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Omschrijving</th>
+            <th>Inkoopprijs</th>
+            <th>Verkoopprijs</th>
+            <th>Marge</th>
+            <th>BTW (marge)</th>
+            <th>BTW (std)</th>
+            <th>Besparing</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody id="itemsBody">
+          <tr class="empty-row" id="emptyRow">
+            <td colspan="8">Nog geen items — klik op "+ Item toevoegen"</td>
+          </tr>
+        </tbody>
+        <tfoot>
+          <tr class="tr-totaal" id="totaalRow" style="display:none">
+            <td><strong>Totaal</strong></td>
+            <td class="td-mono" id="t-inkoop">—</td>
+            <td class="td-mono" id="t-verkoop">—</td>
+            <td class="td-mono" id="t-marge">—</td>
+            <td class="td-mono" id="t-btw-m">—</td>
+            <td class="td-mono" id="t-btw-s">—</td>
+            <td class="td-mono" id="t-besp">—</td>
+            <td></td>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+    <div class="multi-actions" id="multiActions" style="display:none">
+      <button class="btn btn-outline btn-sm" onclick="clearAll()">🗑 Alles wissen</button>
+    </div>
+  </div>
+
+</div>
+
+<!-- INFO -->
+<div class="info-section">
+  <div class="info-grid">
+    <div class="info-card">
+      <div class="info-card-icon">📦</div>
+      <h3>Wat is de margeregeling?</h3>
+      <p>De margeregeling is een BTW-regeling voor handelaren in tweedehands goederen, kunst, antiek en verzamelobjecten. Je berekent BTW alleen over de winstmarge, niet over de volledige verkoopprijs.</p>
+    </div>
+    <div class="info-card">
+      <div class="info-card-icon">✅</div>
+      <h3>Wanneer mag je het toepassen?</h3>
+      <p>Je mag de margeregeling gebruiken als je goederen inkoopt zonder BTW-factuur — dus van particulieren, op markten, via Marktplaats, of uit erfenissen. Je moet wel BTW-plichtig ondernemer zijn.</p>
+    </div>
+    <div class="info-card">
+      <div class="info-card-icon">📝</div>
+      <h3>Wat moet op de factuur?</h3>
+      <p>Op je factuur staat: "BTW-margeregeling van toepassing" of "winstmargeregeling". Je vermeld géén apart BTW-bedrag op de factuur — de BTW zit verborgen in de prijs.</p>
+    </div>
+    <div class="info-card">
+      <div class="info-card-icon">🚫</div>
+      <h3>Wanneer geldt het niet?</h3>
+      <p>De margeregeling geldt niet als je inkoopt met een BTW-factuur (bijv. van een bedrijf). Dan gebruik je gewone BTW met vooraftrek. Ook voor nieuwe producten geldt altijd standaard BTW.</p>
+    </div>
+  </div>
+
+  <div class="formula-box">
+    <h2>Hoe werkt de berekening?</h2>
+    <div class="formula">
+      BTW margeregeling<span> = (Verkoopprijs − Inkoopprijs) × 21/121</span><br>
+      BTW standaard<span> = Verkoopprijs × 21/121</span><br>
+      Besparing<span> = Inkoopprijs × 21/121</span>
+    </div>
+    <div class="formula-example">
+      <strong>Voorbeeld:</strong> Je koopt een vintage jas voor <strong>€15</strong> en verkoopt hem voor <strong>€50</strong>.<br>
+      — Marge = €50 − €15 = <strong>€35</strong><br>
+      — BTW margeregeling = €35 × 21/121 = <strong>€6,07</strong><br>
+      — BTW standaard = €50 × 21/121 = <strong>€8,68</strong><br>
+      — Besparing = <strong>€2,61</strong> minder BTW dankzij margeregeling<br>
+      — Netto winst na BTW (marge) = €35 − €6,07 = <strong>€28,93</strong>
+    </div>
+  </div>
+</div>
+
+<!-- FAQ -->
+<div class="faq-section">
+  <div class="faq-title">Veelgestelde vragen</div>
+
+  <div class="faq-item">
+    <div class="faq-q" onclick="toggleFaq(this)">
+      <span>Mag ik de margeregeling combineren met KOR?</span>
+      <span class="faq-icon">▾</span>
+    </div>
+    <div class="faq-a">Ja, je kunt de margeregeling combineren met de KOR (Kleineondernemersregeling). Zolang je totale omzet onder de €20.000 blijft, hoef je helemaal geen BTW af te dragen. De margeregeling is dan pas relevant zodra je boven de KOR-grens komt.</div>
+  </div>
+
+  <div class="faq-item">
+    <div class="faq-q" onclick="toggleFaq(this)">
+      <span>Telt mijn omzet via Etsy of Vinted mee voor de KOR-drempel?</span>
+      <span class="faq-icon">▾</span>
+    </div>
+    <div class="faq-a">Dat hangt ervan af. Voor B2C-verkopen aan EU-klanten buiten Nederland geldt vaak de "deemed supplier"-regeling: het platform draagt zelf BTW af en die omzet telt niet mee voor jouw KOR-drempel. Verkopen aan Nederlandse klanten of zakelijke klanten tellen wel altijd mee. Gebruik onze <a href="/hulpmiddelen/kor-oss-checker/" style="color:var(--ac);font-weight:700">KOR & OSS Checker</a> voor een persoonlijk overzicht.</div>
+  </div>
+
+  <div class="faq-item">
+    <div class="faq-q" onclick="toggleFaq(this)">
+      <span>Moet ik een aparte administratie bijhouden voor de margeregeling?</span>
+      <span class="faq-icon">▾</span>
+    </div>
+    <div class="faq-a">Ja. De Belastingdienst eist een inkoopboek en verkoopboek voor de margeregeling. Daarin noteer je per item de inkoopprijs, aankoopdatum, omschrijving en verkoopprijs. Je mag ook met een globale methode werken: dan tel je alle inkopen en verkopen per BTW-aangifte periode bij elkaar op.</div>
+  </div>
+
+  <div class="faq-item">
+    <div class="faq-q" onclick="toggleFaq(this)">
+      <span>Wat als mijn inkoopprijs hoger is dan de verkoopprijs?</span>
+      <span class="faq-icon">▾</span>
+    </div>
+    <div class="faq-a">Dan is er sprake van een negatieve marge. Bij de margeregeling kun je bij een negatieve marge de negatieve marge verrekenen met positieve marges in dezelfde aangifteperiode. Je betaalt dan geen BTW over dat verlieslatende item zolang het totaalsaldo negatief is.</div>
+  </div>
+
+  <div class="faq-item">
+    <div class="faq-q" onclick="toggleFaq(this)">
+      <span>Kan ik BTW terugvragen op mijn inkopen bij de margeregeling?</span>
+      <span class="faq-icon">▾</span>
+    </div>
+    <div class="faq-a">Nee. Als je de margeregeling toepast op een product, kun je geen BTW terugvragen op de inkoop. De regeling is bedoeld voor goederen ingekocht zonder BTW-factuur (van particulieren). Als je wel met een BTW-factuur hebt ingekocht, gebruik je het normale BTW-stelsel met vooraftrek.</div>
+  </div>
+
+  <div class="faq-item">
+    <div class="faq-q" onclick="toggleFaq(this)">
+      <span>Geldt de margeregeling ook voor verkopen aan het buitenland?</span>
+      <span class="faq-icon">▾</span>
+    </div>
+    <div class="faq-a">Voor verkopen binnen de EU aan particulieren kun je de margeregeling toepassen. Voor export buiten de EU (bijv. naar het VK of VS) geldt 0% BTW (export). De margeregeling is dan niet relevant, maar je mag hem wel toepassen — het maakt dan weinig verschil omdat er sowieso 0% BTW geldt.</div>
+  </div>
+</div>
+
+<!-- CTA -->
+<div class="cta-section">
+  <div class="cta-box">
+    <h2>Weet jij al of je de KOR-drempel haalt?</h2>
+    <p>ZenBTW bewaakt automatisch je €20.000-grens en waarschuwt je op tijd. Gratis, privacy-proof en direct klaar.</p>
+    <a href="/app">Start gratis met ZenBTW →</a>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+let btwPct = 21;
+let items = [];
+let nextId = 1;
+
+function setBtw(pct) {
+  btwPct = pct;
+  document.getElementById('opt21').classList.toggle('active', pct === 21);
+  document.getElementById('opt9').classList.toggle('active', pct === 9);
+  calcSingle();
+  recalcItems();
+}
+
+function fmt(n) {
+  return '€ ' + n.toFixed(2).replace('.', ',');
+}
+
+function calcSingle() {
+  const inkoop = parseFloat(document.getElementById('inkoop').value) || 0;
+  const verkoop = parseFloat(document.getElementById('verkoop').value) || 0;
+  const empty = document.getElementById('emptyState');
+  const content = document.getElementById('resultContent');
+  const negWarn = document.getElementById('negatief-warn');
+
+  if (inkoop === 0 && verkoop === 0) {
+    empty.style.display = 'flex';
+    content.style.display = 'none';
+    return;
+  }
+
+  empty.style.display = 'none';
+  content.style.display = 'block';
+
+  const f = btwPct / (100 + btwPct);
+  const marge = verkoop - inkoop;
+  const btwMarge = marge > 0 ? marge * f : 0;
+  const btwStd = verkoop * f;
+  const besparing = btwStd - btwMarge;
+  const nettoMarge = marge - btwMarge;
+  const nettoStd = marge - btwStd;
+
+  document.getElementById('r-marge').textContent = fmt(marge);
+  document.getElementById('r-btw-marge').textContent = fmt(btwMarge);
+  document.getElementById('r-netto-marge').textContent = fmt(nettoMarge);
+  document.getElementById('r-netto-marge').className = 'result-val ' + (nettoMarge >= 0 ? 'green' : 'red');
+  document.getElementById('r-btw-std').textContent = fmt(btwStd);
+  document.getElementById('r-netto-std').textContent = fmt(nettoStd);
+  document.getElementById('r-besparing').textContent = fmt(besparing);
+
+  const pct = btwStd > 0 ? ((besparing / btwStd) * 100).toFixed(0) : 0;
+  document.getElementById('r-besparing-pct').textContent = pct + '% minder BTW dan standaard';
+
+  negWarn.style.display = marge < 0 ? 'block' : 'none';
+}
+
+function addRow() {
+  const id = nextId++;
+  items.push({ id, name: '', inkoop: 0, verkoop: 0 });
+  renderItems();
+  const nameInput = document.getElementById('name-' + id);
+  if (nameInput) nameInput.focus();
+}
+
+function removeRow(id) {
+  items = items.filter(i => i.id !== id);
+  renderItems();
+}
+
+function updateItem(id, field, val) {
+  const item = items.find(i => i.id === id);
+  if (!item) return;
+  item[field] = field === 'name' ? val : (parseFloat(val) || 0);
+  recalcItems();
+}
+
+function recalcItems() {
+  const f = btwPct / (100 + btwPct);
+  items.forEach(item => {
+    item.marge = item.verkoop - item.inkoop;
+    item.btwM = item.marge > 0 ? item.marge * f : 0;
+    item.btwS = item.verkoop * f;
+    item.besp = item.btwS - item.btwM;
+  });
+  renderTotals();
+}
+
+function renderItems() {
+  recalcItems();
+  const tbody = document.getElementById('itemsBody');
+  document.getElementById('emptyRow').style.display = items.length ? 'none' : 'table-row';
+  document.getElementById('totaalRow').style.display = items.length ? 'table-row' : 'none';
+  document.getElementById('multiActions').style.display = items.length ? 'flex' : 'none';
+
+  const existing = new Set(items.map(i => i.id));
+  Array.from(tbody.querySelectorAll('tr[data-id]')).forEach(tr => {
+    if (!existing.has(parseInt(tr.dataset.id))) tr.remove();
+  });
+
+  items.forEach(item => {
+    if (!document.getElementById('row-' + item.id)) {
+      const tr = document.createElement('tr');
+      tr.id = 'row-' + item.id;
+      tr.dataset.id = item.id;
+      tr.innerHTML = `
+        <td class="td-input"><input type="text" id="name-${item.id}" placeholder="Omschrijving..." value="${item.name}" oninput="updateItem(${item.id},'name',this.value)" style="width:100%;min-width:130px"></td>
+        <td class="td-input"><input type="number" id="inkoop-${item.id}" placeholder="0,00" min="0" step="0.01" value="${item.inkoop||''}" oninput="updateItem(${item.id},'inkoop',this.value)" style="width:100%;min-width:90px"></td>
+        <td class="td-input"><input type="number" id="verkoop-${item.id}" placeholder="0,00" min="0" step="0.01" value="${item.verkoop||''}" oninput="updateItem(${item.id},'verkoop',this.value)" style="width:100%;min-width:90px"></td>
+        <td class="td-mono" id="marge-${item.id}">—</td>
+        <td class="td-mono" id="btwm-${item.id}">—</td>
+        <td class="td-mono" id="btws-${item.id}">—</td>
+        <td class="td-mono" id="besp-${item.id}">—</td>
+        <td><button class="btn btn-danger btn-sm" onclick="removeRow(${item.id})">✕</button></td>`;
+      tbody.insertBefore(tr, document.getElementById('emptyRow'));
+    }
+    document.getElementById('marge-' + item.id).textContent = item.marge !== undefined ? fmt(item.marge) : '—';
+    document.getElementById('btwm-' + item.id).textContent = item.btwM !== undefined ? fmt(item.btwM) : '—';
+    document.getElementById('btws-' + item.id).textContent = item.btwS !== undefined ? fmt(item.btwS) : '—';
+    document.getElementById('besp-' + item.id).textContent = item.besp !== undefined ? fmt(item.besp) : '—';
+  });
+}
+
+function renderTotals() {
+  if (!items.length) return;
+  const sumInkoop = items.reduce((s,i) => s + i.inkoop, 0);
+  const sumVerkoop = items.reduce((s,i) => s + i.verkoop, 0);
+  const sumMarge = items.reduce((s,i) => s + (i.marge||0), 0);
+  const sumBtwM = items.reduce((s,i) => s + (i.btwM||0), 0);
+  const sumBtwS = items.reduce((s,i) => s + (i.btwS||0), 0);
+  const sumBesp = items.reduce((s,i) => s + (i.besp||0), 0);
+  document.getElementById('t-inkoop').textContent = fmt(sumInkoop);
+  document.getElementById('t-verkoop').textContent = fmt(sumVerkoop);
+  document.getElementById('t-marge').textContent = fmt(sumMarge);
+  document.getElementById('t-btw-m').textContent = fmt(sumBtwM);
+  document.getElementById('t-btw-s').textContent = fmt(sumBtwS);
+  document.getElementById('t-besp').textContent = fmt(sumBesp);
+}
+
+function clearAll() {
+  if (!confirm('Weet je zeker dat je alle items wilt verwijderen?')) return;
+  items = [];
+  renderItems();
+}
+
+function exportCSV() {
+  if (!items.length) { showToast('Voeg eerst items toe'); return; }
+  const f = btwPct / (100 + btwPct);
+  let csv = 'Omschrijving,Inkoopprijs,Verkoopprijs,Marge,BTW (margeregeling),BTW (standaard),Besparing\n';
+  items.forEach(item => {
+    const marge = item.verkoop - item.inkoop;
+    const btwM = marge > 0 ? marge * f : 0;
+    const btwS = item.verkoop * f;
+    csv += `"${item.name}",${item.inkoop.toFixed(2)},${item.verkoop.toFixed(2)},${marge.toFixed(2)},${btwM.toFixed(2)},${btwS.toFixed(2)},${(btwS-btwM).toFixed(2)}\n`;
+  });
+  const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'margeregeling-berekening.csv';
+  a.click();
+  showToast('CSV gedownload!');
+}
+
+function toggleFaq(btn) {
+  const item = btn.closest('.faq-item');
+  const isOpen = item.classList.contains('open');
+  document.querySelectorAll('.faq-item.open').forEach(el => el.classList.remove('open'));
+  if (!isOpen) item.classList.add('open');
+}
+
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2800);
+}
+
+function toggleMobNav() {
+  const ham = document.getElementById('navHam');
+  const overlay = document.getElementById('mobOverlay');
+  const drawer = document.getElementById('mobDrawer');
+  const open = !ham.classList.contains('open');
+  ham.classList.toggle('open', open);
+  overlay.classList.toggle('on', open);
+  drawer.classList.toggle('on', open);
+  document.body.style.overflow = open ? 'hidden' : '';
+}
+function closeMobNav() {
+  document.getElementById('navHam').classList.remove('open');
+  document.getElementById('mobOverlay').classList.remove('on');
+  document.getElementById('mobDrawer').classList.remove('on');
+  document.body.style.overflow = '';
+}
+</script>
+<footer>
+  <div class="footer-inner">
+    <a href="/" class="footer-logo">
+      <img src="/logo.webp" alt="ZenBTW" style="width:34px;height:34px;border-radius:8px;object-fit:contain" loading="lazy">
+      <span class="footer-name">Zen<em>BTW</em></span>
+    </a>
+    <div style="display:flex;gap:20px;flex-wrap:wrap;align-items:center">
+      <a href="/kor-calculator/" style="font-size:12.5px;color:var(--tx3,#7a7a74);font-weight:500">BTW-check</a>
+      <a href="/hulpmiddelen/" style="font-size:12.5px;color:var(--tx3,#7a7a74);font-weight:500">Hulpmiddelen</a>
+      <a href="/blog/" style="font-size:12.5px;color:var(--tx3,#7a7a74);font-weight:500">Blog</a>
+      <a href="/app" style="font-size:12.5px;color:var(--tx3,#7a7a74);font-weight:500">App</a>
+      <a href="/privacy/" style="font-size:12.5px;color:var(--tx3,#7a7a74);font-weight:500">Privacy</a>
+      <span class="footer-copy">© 2026 ZenBTW</span>
+    </div>
+    <span class="footer-badge">🔒 Geen belastingadvies</span>
+  </div>
+</footer>
+</body>
+</html>

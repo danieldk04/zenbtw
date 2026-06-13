@@ -35,7 +35,7 @@
     #app.show{display:flex}
 
     /* ── Sidebar ── */
-    .sidebar{width:220px;background:var(--sidebar);flex-shrink:0;display:flex;flex-direction:column;min-height:100vh;position:sticky;top:0;overflow-y:auto}
+    .sidebar{width:220px;background:var(--sidebar);flex-shrink:0;display:flex;flex-direction:column;min-height:100vh;position:sticky;top:0;overflow-y:visible}
     .sidebar-logo{padding:1.2rem 1.1rem 1rem;display:flex;align-items:center;gap:10px;border-bottom:1px solid rgba(255,255,255,.08)}
     .sidebar-logo img{height:36px;border-radius:7px}
     .sidebar-logo span{font-weight:800;font-size:1rem;color:#fff}
@@ -242,7 +242,64 @@
       .mob-topbar{display:none}
       .sidebar-overlay{display:none!important}
     }
-  </style>
+  /* === STANDAARD NAV === */
+:root{--nav-h:72px}
+body{padding-top:var(--nav-h,72px)!important}
+.nav{position:fixed;top:0;left:0;right:0;z-index:500;height:var(--nav-h);background:rgba(247,246,243,.95);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-bottom:1.5px solid var(--br,#e5e0d8);box-shadow:0 2px 12px rgba(0,0,0,.05);display:flex;align-items:center;padding:0 clamp(20px,4vw,56px);justify-content:space-between;gap:24px}
+.nav-logo{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--tx,#1a1a18);flex-shrink:0}
+.nav-logo-img{height:52px;width:52px;border-radius:10px;object-fit:contain}
+.nav-wordmark{font-family:'Fraunces',serif;font-size:22px;font-weight:700;letter-spacing:-.5px;line-height:1}
+.nav-wordmark em{color:var(--acm,#2d7a52);font-style:normal}
+.nav-links{display:flex;align-items:center;gap:4px;flex:1;justify-content:center}
+.nav-link{padding:9px 16px;font-size:15px;font-weight:800;color:var(--tx2,#4a4a46);border-radius:10px;transition:all .16s;letter-spacing:-.1px;text-decoration:none}
+.nav-link:hover{color:var(--ac,#1a4731);background:var(--acl,#eef7f2)}
+.nav-dropdown{position:relative}
+.nav-dropdown-btn{padding:9px 16px;font-size:15px;font-weight:800;color:var(--tx2,#4a4a46);background:none;border-radius:10px;border:none;cursor:pointer;font-family:inherit;display:flex;align-items:center;gap:5px;letter-spacing:-.1px;transition:all .16s}
+.nav-dropdown-btn:hover,.nav-dropdown:hover .nav-dropdown-btn{color:var(--ac,#1a4731);background:var(--acl,#eef7f2)}
+.nav-dropdown-arrow{font-size:10px;transition:transform .2s;display:inline-block}
+.nav-dropdown:hover .nav-dropdown-arrow{transform:rotate(180deg)}
+.nav-dropdown-menu{position:absolute;top:100%;left:50%;padding-top:8px;transform:translateX(-50%) translateY(0);background:#fff;border-radius:14px;box-shadow:0 8px 32px rgba(0,0,0,.12),0 2px 8px rgba(0,0,0,.06);border:1.5px solid var(--br,#e5e0d8);min-width:252px;padding:8px;opacity:0;pointer-events:none;transition:opacity .18s,transform .18s;z-index:200}
+.nav-dropdown:hover .nav-dropdown-menu{opacity:1;pointer-events:all;transform:translateX(-50%) translateY(0);padding-top:8px}
+.nav-dd-item{display:flex;align-items:center;gap:12px;padding:10px 14px;border-radius:10px;color:var(--tx2,#4a4a46);transition:all .14s;font-size:14px;font-weight:600;text-decoration:none}
+.nav-dd-item:hover{background:var(--acl,#eef7f2);color:var(--ac,#1a4731)}
+.nav-dd-icon{width:34px;height:34px;background:var(--acl,#eef7f2);border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0}
+.nav-dd-label{font-weight:700;font-size:14px;line-height:1.2}
+.nav-dd-sub{font-size:12px;color:var(--tx3,#7a7a74);font-weight:500;margin-top:1px}
+.nav-dd-sep{height:1px;background:var(--br,#e5e0d8);margin:6px 0}
+.nav-dd-all{display:block;padding:9px 14px;border-radius:10px;color:var(--ac,#1a4731);font-size:13px;font-weight:700;text-align:center;transition:background .14s;text-decoration:none}
+.nav-dd-all:hover{background:var(--acl,#eef7f2)}
+.nav-cta{display:inline-flex;align-items:center;gap:8px;padding:11px 22px;background:var(--ac,#1a4731);color:#fff;border-radius:12px;font-size:14px;font-weight:800;transition:all .2s;flex-shrink:0;box-shadow:0 4px 16px rgba(26,71,49,.3);text-decoration:none}
+.nav-cta:hover{background:var(--acd,#143825);transform:translateY(-1px)}
+.nav-hamburger{display:none;flex-direction:column;justify-content:center;align-items:center;gap:5px;width:42px;height:42px;background:none;border:none;cursor:pointer;border-radius:10px}
+.nav-hamburger .hb{width:20px;height:2px;background:var(--tx2,#4a4a46);border-radius:2px;transition:all .25s cubic-bezier(.16,1,.3,1);transform-origin:center}
+.nav-hamburger.open .hb:nth-child(1){transform:translateY(7px) rotate(45deg)}
+.nav-hamburger.open .hb:nth-child(2){opacity:0;transform:scaleX(0)}
+.nav-hamburger.open .hb:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+.mob-nav-overlay{position:fixed;inset:0;z-index:600;background:rgba(0,0,0,.45);backdrop-filter:blur(2px);display:none;opacity:0;transition:opacity .3s}
+.mob-nav-overlay.on{display:block;opacity:1}
+.mob-nav-drawer{position:fixed;top:0;right:0;bottom:0;width:min(300px,85vw);background:#fff;z-index:700;transform:translateX(100%);transition:transform .3s cubic-bezier(.16,1,.3,1);display:flex;flex-direction:column;overflow-y:auto}
+.mob-nav-drawer.on{transform:translateX(0)}
+.mob-nav-hd{display:flex;align-items:center;justify-content:space-between;padding:16px 18px;border-bottom:1.5px solid var(--br,#e5e0d8)}
+.mob-nav-close{background:none;border:none;cursor:pointer;font-size:18px;color:var(--tx2,#4a4a46);width:36px;height:36px;display:flex;align-items:center;justify-content:center;border-radius:8px}
+.mob-nav-links{display:flex;flex-direction:column;padding:12px 0;flex:1}
+.mob-nav-link{padding:14px 22px;font-size:15px;font-weight:700;color:var(--tx2,#4a4a46);border-left:3px solid transparent;text-decoration:none;transition:all .14s;display:block}
+.mob-nav-link:hover{color:var(--ac,#1a4731);background:var(--acl,#eef7f2);border-left-color:var(--ac,#1a4731)}
+.mob-nav-section{padding:8px 22px 4px;font-size:11px;font-weight:800;color:var(--tx4,#b8b2a8);letter-spacing:.08em;text-transform:uppercase}
+.mob-nav-sublink{padding:10px 22px 10px 34px;font-size:14px;font-weight:600;color:var(--tx2,#4a4a46);text-decoration:none;display:block;border-left:3px solid transparent;transition:all .14s}
+.mob-nav-sublink:hover{color:var(--ac,#1a4731);background:var(--acl,#eef7f2);border-left-color:var(--ac,#1a4731)}
+.mob-nav-cta{display:flex;align-items:center;justify-content:center;margin:0 18px 28px;padding:14px 24px;background:var(--ac,#1a4731);color:#fff;border-radius:10px;font-size:15px;font-weight:800;box-shadow:0 4px 16px rgba(26,71,49,.35);text-decoration:none}
+@media(max-width:768px){.nav-links{display:none!important}.nav-cta{display:none!important}.nav-hamburger{display:flex!important;flex-direction:column}}
+/* === STANDAARD FOOTER === */
+footer{background:var(--bg,#f7f6f3);border-top:1.5px solid var(--br,#e5e0d8);padding:28px clamp(20px,4vw,56px)}
+.footer-inner{max-width:1200px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap}
+.footer-logo{display:flex;align-items:center;gap:10px;color:var(--tx2,#4a4a46);text-decoration:none}
+.footer-logo img{width:34px;height:34px;border-radius:8px;object-fit:contain}
+.footer-name{font-family:'Fraunces',serif;font-size:18px;font-weight:700;color:var(--tx,#1a1a18)}
+.footer-name em{color:var(--acm,#2d7a52);font-style:normal}
+.footer-copy{font-size:12.5px;color:var(--tx4,#b8b2a8)}
+.footer-badge{display:inline-flex;align-items:center;gap:6px;padding:5px 13px;background:var(--acl,#eef7f2);border-radius:20px;font-size:12px;font-weight:600;color:var(--ac,#1a4731)}
+@media(max-width:600px){.footer-inner{flex-direction:column;align-items:flex-start;gap:14px}}
+</style>
 </head>
 <body>
 
@@ -281,41 +338,23 @@
   <aside class="sidebar">
     <div class="sidebar-logo">
       <img src="../logo.webp" alt="ZenBTW">
-      <span>Zen<em>BTW</em></span>
     </div>
 
     <nav>
-      <div class="nav-group">
-        <div class="nav-label">Overzicht</div>
-        <a class="nav-item active" onclick="go('home')" id="nav-home"><span class="nav-icon">🏠</span> Home</a>
-      </div>
-      <div class="nav-group">
-        <div class="nav-label">Content</div>
-        <a class="nav-item" onclick="go('blogs')" id="nav-blogs"><span class="nav-icon">📝</span> Blogs</a>
-        <a class="nav-item" onclick="go('queue')" id="nav-queue"><span class="nav-icon">📋</span> Keywords queue</a>
-        <a class="nav-item" onclick="go('style')" id="nav-style"><span class="nav-icon">✍️</span> Schrijfstijl</a>
-      </div>
-      <div class="nav-group">
-        <div class="nav-label">Bezoekers</div>
-        <a class="nav-item" onclick="go('traffic')" id="nav-traffic"><span class="nav-icon">📊</span> Verkeer</a>
-        <a class="nav-item" onclick="go('contacts')" id="nav-contacts"><span class="nav-icon">📧</span> Contacten</a>
-        <a class="nav-item" onclick="go('leads')" id="nav-leads"><span class="nav-icon">🎯</span> Leads</a>
-      </div>
-      <div class="nav-group">
-        <div class="nav-label">SEO</div>
-        <a class="nav-item" onclick="go('seo')" id="nav-seo"><span class="nav-icon">🔍</span> Keyword research</a>
-      </div>
-      <div class="nav-group">
-        <div class="nav-label">SEO</div>
-        <a class="nav-item" onclick="go('seo')" id="nav-seo"><span class="nav-icon">🔍</span> Keyword research</a>
-      </div>
-      <div class="nav-group">
-        <div class="nav-label">Systeem</div>
-        <a class="nav-item" onclick="go('agent')" id="nav-agent"><span class="nav-icon">🤖</span> Content agent</a>
-        <a class="nav-item" onclick="go('fiscal')" id="nav-fiscal"><span class="nav-icon">🧮</span> Fiscale logica</a>
-        <a class="nav-item" onclick="go('actions')" id="nav-actions"><span class="nav-icon">⚙️</span> GitHub Actions</a>
-      </div>
+      <a id="nav-home"     class="nav-item active"  onclick="go('home')">📊 Overzicht</a>
+      <a id="nav-blogs"    class="nav-item"         onclick="go('blogs')">📝 Blogs</a>
+      <a id="nav-queue"    class="nav-item"         onclick="go('queue')">🗂 Keywords queue</a>
+      <a id="nav-agent"    class="nav-item"         onclick="go('agent')">🤖 Content agent</a>
+      <a id="nav-style"    class="nav-item"         onclick="go('style')">✍️ Schrijfstijl</a>
+      <a id="nav-content"  class="nav-item"         onclick="go('content')">💡 Content intelligence</a>
+      <a id="nav-seo"      class="nav-item"         onclick="go('seo')">🔍 Keyword research</a>
+      <a id="nav-leads"    class="nav-item"         onclick="go('leads')">📬 Leads &amp; outreach</a>
+      <a id="nav-traffic"  class="nav-item"         onclick="go('traffic')">📈 Bezoekers &amp; verkeer</a>
+      <a id="nav-contacts" class="nav-item"         onclick="go('contacts')">👥 Contacten &amp; e-mails</a>
+      <a id="nav-fiscal"   class="nav-item"         onclick="go('fiscal')">⚖️ Fiscale logica</a>
+      <a id="nav-actions"  class="nav-item"         onclick="go('actions')">⚙️ GitHub Actions</a>
     </nav>
+
 
     <div class="sidebar-foot">
       <button class="logout-btn" onclick="logout()">Uitloggen</button>
@@ -521,12 +560,8 @@
         <a href="https://cloud.umami.is/websites/9cb58ff4-cf6e-4773-8dd5-f2f0b6ad5510" target="_blank" class="btn btn-primary">Open Umami →</a>
       </div>
 
-      <div class="card">
-        <div class="card-head">
-          <h3>Live statistieken — afgelopen 30 dagen</h3>
-          <button class="btn btn-ghost" onclick="loadUmami()">↺ Vernieuwen</button>
-        </div>
-        <div id="umami-stats"><div class="empty">Voer je Umami API token in om statistieken te laden.<br><br>Te vinden op: cloud.umami.is → Profiel → API tokens</div></div>
+      <div class="card" style="padding:0;overflow:hidden">
+        <iframe src="https://cloud.umami.is/share/pIShMYUw8XgJB3mB" style="width:100%;height:700px;border:none;display:block" loading="lazy" title="ZenBTW Analytics"></iframe>
       </div>
 
       <div class="card">
@@ -574,40 +609,178 @@
           Maak aan op <a href="https://console.apify.com/account/integrations" target="_blank">console.apify.com → Settings → Integrations → API tokens</a>.
         </div>
       </div>
-      <div class="kpi-grid" id="kpi-leads"></div>
-      <div class="card" style="margin-bottom:1.2rem">
-        <div class="card-head">
-          <h3>🔍 Zoekwoorden</h3>
-          <button class="btn" onclick="runLeadScrape()" id="leads-scrape-btn" style="padding:6px 14px;font-size:13px">▶ Scrape starten</button>
-        </div>
-        <div style="padding:1rem 1.2rem;display:flex;flex-wrap:wrap;gap:6px" id="leads-keywords-list"></div>
-        <div style="padding:0 1.2rem 1rem;display:flex;gap:8px;align-items:center">
-          <input type="text" id="leads-kw-input" placeholder="Nieuw zoekwoord..." style="flex:1;padding:7px 10px;border:1px solid var(--br);border-radius:7px;font-size:13px">
-          <button class="btn btn-ghost" onclick="addLeadKeyword()" style="padding:7px 12px;font-size:13px">+ Toevoegen</button>
-        </div>
-        <div id="leads-scrape-status" style="padding:0 1.2rem 1rem;font-size:12px;color:var(--tx3)"></div>
+
+      <!-- Platform tabs -->
+      <div style="display:flex;gap:0;margin-bottom:1.2rem;border-bottom:2px solid var(--br)">
+        <button onclick="switchLeadPlatform('reddit')" id="platform-tab-reddit"
+          style="padding:9px 20px;font-size:13px;font-weight:600;border:none;cursor:pointer;background:transparent;color:var(--acm);border-bottom:2px solid var(--acm);margin-bottom:-2px;transition:all .15s">
+          🔴 Reddit
+        </button>
+        <button onclick="switchLeadPlatform('instagram')" id="platform-tab-instagram"
+          style="padding:9px 20px;font-size:13px;font-weight:600;border:none;cursor:pointer;background:transparent;color:var(--tx3);border-bottom:2px solid transparent;margin-bottom:-2px;transition:all .15s">
+          📸 Instagram
+        </button>
       </div>
-      <div class="card">
-        <div class="card-head">
-          <h3>📋 Lead lijst</h3>
-          <div style="display:flex;gap:6px;align-items:center;flex-wrap:wrap">
-            <select id="leads-filter" onchange="renderLeads()" style="padding:5px 8px;border:1px solid var(--br);border-radius:7px;font-size:12px;background:var(--wh)">
-              <option value="all">Alle statussen</option>
-              <option value="nieuw">Nieuw</option>
-              <option value="benaderd">Benaderd</option>
-              <option value="genegeerd">Genegeerd</option>
-            </select>
-            <select id="leads-age-filter" onchange="renderLeads()" style="padding:5px 8px;border:1px solid var(--br);border-radius:7px;font-size:12px;background:var(--wh)">
-              <option value="365">Afgelopen jaar</option>
-              <option value="90">Afgelopen 3 maanden</option>
-              <option value="30">Afgelopen maand</option>
-              <option value="7">Afgelopen week</option>
-              <option value="0">Alle datums</option>
-            </select>
-            <button class="btn btn-ghost" onclick="clearLeads()" style="padding:5px 10px;font-size:12px;color:var(--red)">Wis alles</button>
+
+      <!-- Reddit sectie -->
+      <div id="leads-section-reddit">
+        <div class="kpi-grid" id="kpi-leads"></div>
+        <div class="card" style="margin-bottom:1.2rem">
+          <div class="card-head">
+            <h3>🔍 Zoekwoorden</h3>
+            <button class="btn" onclick="runLeadScrape()" id="leads-scrape-btn" style="padding:6px 14px;font-size:13px">▶ Scrape starten</button>
+          </div>
+          <div style="padding:1rem 1.2rem;display:flex;flex-wrap:wrap;gap:6px" id="leads-keywords-list"></div>
+          <div style="padding:0 1.2rem 1rem;display:flex;gap:8px;align-items:center">
+            <input type="text" id="leads-kw-input" placeholder="Nieuw zoekwoord..." style="flex:1;padding:7px 10px;border:1px solid var(--br);border-radius:7px;font-size:13px">
+            <button class="btn btn-ghost" onclick="addLeadKeyword()" style="padding:7px 12px;font-size:13px">+ Toevoegen</button>
+          </div>
+          <div id="leads-scrape-status" style="padding:0 1.2rem 1rem;font-size:12px;color:var(--tx3)"></div>
+        </div>
+        <div class="card">
+          <div class="card-head">
+            <h3>📋 Reddit leads</h3>
+            <div style="display:flex;gap:6px;align-items:center;flex-wrap:wrap">
+              <select id="leads-filter" onchange="renderLeads()" style="padding:5px 8px;border:1px solid var(--br);border-radius:7px;font-size:12px;background:var(--wh)">
+                <option value="all">Alle statussen</option>
+                <option value="nieuw">Nieuw</option>
+                <option value="benaderd">Benaderd</option>
+                <option value="genegeerd">Genegeerd</option>
+              </select>
+              <select id="leads-age-filter" onchange="renderLeads()" style="padding:5px 8px;border:1px solid var(--br);border-radius:7px;font-size:12px;background:var(--wh)">
+                <option value="365">Afgelopen jaar</option>
+                <option value="90">Afgelopen 3 maanden</option>
+                <option value="30">Afgelopen maand</option>
+                <option value="7">Afgelopen week</option>
+                <option value="0">Alle datums</option>
+              </select>
+              <button class="btn btn-ghost" onclick="clearLeads()" style="padding:5px 10px;font-size:12px;color:var(--red)">Wis alles</button>
+            </div>
+          </div>
+          <div id="leads-table" style="overflow-x:auto"></div>
+        </div>
+      </div>
+
+      <!-- Instagram sectie -->
+      <div id="leads-section-instagram" style="display:none">
+        <div class="kpi-grid" id="kpi-instagram"></div>
+        <div class="card" style="margin-bottom:1.2rem">
+          <div class="card-head">
+            <h3>📸 Instagram scraper</h3>
+            <div style="display:flex;gap:6px">
+              <button class="btn btn-ghost" onclick="syncInstagramFromGithub()" style="padding:6px 14px;font-size:13px">↻ Sync</button>
+            </div>
+          </div>
+          <div style="padding:.8rem 1.2rem;font-size:12px;color:var(--tx3);line-height:1.7">
+            Scrapet wekelijks automatisch (maandag 08:00) via GitHub Action op hashtags:<br>
+            <code style="font-size:11px">#vintedverkoper #tweedehandskleding #etsyverkoper #etsyshopnederland #vintednederland #resellernederland</code>
+          </div>
+          <div id="instagram-scrape-status" style="padding:0 1.2rem .8rem;font-size:12px;color:var(--tx3)"></div>
+        </div>
+        <div class="card">
+          <div class="card-head">
+            <h3>📋 Instagram leads</h3>
+            <div style="display:flex;gap:6px;align-items:center;flex-wrap:wrap">
+              <select id="instagram-filter" onchange="renderInstagramLeads()" style="padding:5px 8px;border:1px solid var(--br);border-radius:7px;font-size:12px;background:var(--wh)">
+                <option value="all">Alle statussen</option>
+                <option value="nieuw">Nieuw</option>
+                <option value="benaderd">Benaderd</option>
+                <option value="genegeerd">Genegeerd</option>
+              </select>
+              <button class="btn btn-ghost" onclick="clearInstagramLeads()" style="padding:5px 10px;font-size:12px;color:var(--red)">Wis alles</button>
+            </div>
+          </div>
+          <div id="instagram-table" style="overflow-x:auto"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── CONTENT INTELLIGENCE ── -->
+    <div class="page" id="page-content">
+
+      <!-- Setup kaart -->
+      <div class="card" id="content-setup-card" style="margin-bottom:1.2rem">
+        <div class="card-head"><h3>🔑 Instagram API instellen</h3>
+          <button class="btn btn-ghost" onclick="document.getElementById('content-setup-card').style.display='none'" style="font-size:11px;padding:4px 10px">Verberg</button>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;padding:.5rem 0">
+          <div>
+            <label style="font-size:12px;font-weight:600;color:var(--tx2);display:block;margin-bottom:4px">Instagram Access Token</label>
+            <input type="password" id="ig-token-input" placeholder="EAAx..." style="width:100%;padding:7px 10px;border:1px solid var(--br);border-radius:7px;font-size:12px;font-family:monospace">
+          </div>
+          <div>
+            <label style="font-size:12px;font-weight:600;color:var(--tx2);display:block;margin-bottom:4px">Instagram User ID</label>
+            <input type="text" id="ig-userid-input" placeholder="17841400..." style="width:100%;padding:7px 10px;border:1px solid var(--br);border-radius:7px;font-size:12px;font-family:monospace">
+          </div>
+          <div>
+            <label style="font-size:12px;font-weight:600;color:var(--tx2);display:block;margin-bottom:4px">TikTok username</label>
+            <input type="text" id="tiktok-user-input" placeholder="revaleur.nl" style="width:100%;padding:7px 10px;border:1px solid var(--br);border-radius:7px;font-size:12px">
+          </div>
+          <div style="display:flex;align-items:flex-end">
+            <button class="btn" onclick="saveContentSettings()" style="padding:7px 18px;font-size:13px">Opslaan</button>
           </div>
         </div>
-        <div id="leads-table" style="overflow-x:auto"></div>
+        <div style="font-size:11.5px;color:var(--tx3);margin-top:4px">
+          Token aanmaken: <a href="https://developers.facebook.com/tools/explorer/" target="_blank">Facebook Graph Explorer</a> → selecteer je Instagram Business app → voeg <code>instagram_basic,instagram_manage_insights,pages_read_engagement</code> toe.
+          Sla token + User ID op als GitHub Secrets: <code>IG_ACCESS_TOKEN</code>, <code>IG_USER_ID</code>, <code>TIKTOK_USERNAME</code>.
+        </div>
+      </div>
+
+      <!-- KPI balk -->
+      <div class="kpi-grid" id="kpi-content" style="margin-bottom:1.2rem"></div>
+
+      <!-- Sync + status -->
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:1.2rem">
+        <button class="btn" onclick="syncContentMemory()" id="content-sync-btn" style="padding:8px 18px;font-size:13px">↻ Sync learnings</button>
+        <span id="content-sync-status" style="font-size:12px;color:var(--tx3)"></span>
+      </div>
+
+      <!-- Waarom 13k + analyse -->
+      <div id="content-waarom" style="display:none;margin-bottom:1.2rem"></div>
+
+      <!-- Aanbevelingen -->
+      <div class="card" style="margin-bottom:1.2rem">
+        <div class="card-head"><h3>🎯 Aanbevelingen voor deze week</h3><span id="content-rec-date" style="font-size:11px;color:var(--tx3)"></span></div>
+        <div id="content-recommendations"><div class="empty" style="padding:1.5rem">Klik op "Sync learnings" om aanbevelingen te laden.</div></div>
+      </div>
+
+      <!-- Learnings geheugen -->
+      <div class="card" style="margin-bottom:1.2rem">
+        <div class="card-head"><h3>🧠 Wat werkt (opgebouwd geheugen)</h3></div>
+        <div id="content-learnings"><div class="empty" style="padding:1.5rem">Nog geen learnings.</div></div>
+      </div>
+
+      <!-- Patronen grid -->
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.2rem;margin-bottom:1.2rem">
+        <div class="card">
+          <div class="card-head"><h3>🪝 Hook patronen</h3></div>
+          <div id="content-hooks" style="padding:.8rem 1.2rem"><div class="empty">Geen data.</div></div>
+        </div>
+        <div class="card">
+          <div class="card-head"><h3>📌 Topic patronen</h3></div>
+          <div id="content-topics" style="padding:.8rem 1.2rem"><div class="empty">Geen data.</div></div>
+        </div>
+        <div class="card">
+          <div class="card-head"><h3>🎬 Format patronen</h3></div>
+          <div id="content-format" style="padding:.8rem 1.2rem"><div class="empty">Geen data.</div></div>
+        </div>
+        <div class="card">
+          <div class="card-head"><h3>⏰ Timing patronen</h3></div>
+          <div id="content-timing" style="padding:.8rem 1.2rem"><div class="empty">Geen data.</div></div>
+        </div>
+      </div>
+
+      <!-- Post geschiedenis -->
+      <div class="card">
+        <div class="card-head">
+          <h3>📊 Post geschiedenis</h3>
+          <select id="content-platform-filter" onchange="renderContentPosts()" style="padding:5px 8px;border:1px solid var(--br);border-radius:7px;font-size:12px;background:var(--wh)">
+            <option value="all">Alle platforms</option>
+            <option value="instagram">Instagram</option>
+            <option value="tiktok">TikTok</option>
+          </select>
+        </div>
+        <div id="content-posts-table"></div>
       </div>
     </div>
 
@@ -865,7 +1038,7 @@ const PAGE_TITLES = {
   home:'Overzicht', blogs:'Blogs', queue:'Keywords queue',
   style:'Schrijfstijl', traffic:'Bezoekers & verkeer', contacts:'Contacten & e-mails',
   seo:'Keyword research', leads:'Leads & outreach',
-  agent:'Content agent', fiscal:'Fiscale logica', actions:'GitHub Actions'
+  content:'Content intelligence', agent:'Content agent', fiscal:'Fiscale logica', actions:'GitHub Actions'
 };
 
 function go(name){
@@ -879,6 +1052,7 @@ function go(name){
   if(name==='traffic') loadUmami();
   if(name==='contacts') loadContacts();
   if(name==='leads') initLeads();
+  if(name==='content') initContent();
   closeSidebar();
 }
 
@@ -1055,7 +1229,26 @@ async function loadAgent(){
 }
 
 // ── Traffic / Umami ───────────────────────────────────────────────────────────
-const UMAMI_TOKEN = localStorage.getItem('zenbtw_umami_token') || '';
+let UMAMI_TOKEN = localStorage.getItem('zenbtw_umami_token') || '';
+
+function saveUmamiToken(){
+  const val = document.getElementById('umami-token-input').value.trim();
+  if(!val){ alert('Voer een API token in'); return; }
+  localStorage.setItem('zenbtw_umami_token', val);
+  UMAMI_TOKEN = val;
+  document.getElementById('umami-token-input').value = '';
+  document.getElementById('umami-token-input').placeholder = '✓ Token opgeslagen';
+  loadUmami();
+}
+
+// Toon bestaand token hint op load
+(function(){
+  const saved = localStorage.getItem('zenbtw_umami_token');
+  if(saved){
+    const inp = document.getElementById('umami-token-input');
+    if(inp) inp.placeholder = '✓ Token opgeslagen (' + saved.slice(0,8) + '...)';
+  }
+})();
 
 // ── Contacten (Brevo lijst #3) ────────────────────────────────────────────────
 const BREVO_DEFAULT = '';
@@ -1530,19 +1723,14 @@ async function syncLeadsFromGithub(){
     if(!res.ok) return;
     const remote = await res.json();
     if(!Array.isArray(remote) || remote.length === 0) return;
-    // Merge: remote als basis, lokale status-wijzigingen bewaren
+    // Remote is leidend — bewaar alleen status/note van lokale aanpassingen
     const local = getLeads();
     const localMap = Object.fromEntries(local.map(l => [l.id||l.url, l]));
     const merged = remote.map(r => {
-      const key = r.id || r.url;
-      const loc = localMap[key];
-      // Bewaar status en note als die lokaal aangepast zijn
+      const loc = localMap[r.id||r.url];
       if(loc && loc.status !== 'nieuw') return { ...r, status: loc.status, note: loc.note };
       return r;
     });
-    // Voeg puur lokale leads toe die niet in remote zitten
-    const remoteKeys = new Set(remote.map(r => r.id||r.url));
-    for(const l of local) if(!remoteKeys.has(l.id||l.url)) merged.push(l);
     saveLeadsData(merged);
     console.log(`Leads gesynchroniseerd: ${merged.length} totaal`);
   } catch(e) {
@@ -1733,10 +1921,376 @@ function copyTab(ri, key){
   });
 }
 
+// ── Content Intelligence ─────────────────────────────────────────
+
+let _contentMemory = null;
+
+function saveContentSettings(){
+  const token = document.getElementById('ig-token-input').value.trim();
+  const userId = document.getElementById('ig-userid-input').value.trim();
+  const tiktok = document.getElementById('tiktok-user-input').value.trim();
+  if(token) localStorage.setItem('ig_access_token', token);
+  if(userId) localStorage.setItem('ig_user_id', userId);
+  if(tiktok) localStorage.setItem('tiktok_username', tiktok);
+  alert('Instellingen opgeslagen. Sla IG_ACCESS_TOKEN, IG_USER_ID en TIKTOK_USERNAME ook op als GitHub Secrets voor de automatische analyse.');
+}
+
+async function initContent(){
+  // Vul opgeslagen waarden in
+  const token = localStorage.getItem('ig_access_token');
+  const userId = localStorage.getItem('ig_user_id');
+  const tiktok = localStorage.getItem('tiktok_username');
+  if(token) document.getElementById('ig-token-input').placeholder = '✓ Token opgeslagen';
+  if(userId) document.getElementById('ig-userid-input').value = userId;
+  if(tiktok) document.getElementById('tiktok-user-input').value = tiktok;
+  await syncContentMemory();
+}
+
+async function syncContentMemory(){
+  const btn = document.getElementById('content-sync-btn');
+  const status = document.getElementById('content-sync-status');
+  btn.disabled = true; btn.textContent = 'Laden...';
+  status.textContent = 'Sync met GitHub...';
+  try {
+    const res = await fetch('https://raw.githubusercontent.com/danieldk04/zenbtw/main/content-memory.json?t=' + Date.now());
+    if(!res.ok){ status.textContent = 'Nog geen content-memory.json — run de GitHub Action eerst.'; btn.disabled=false; btn.textContent='↻ Sync learnings'; return; }
+    _contentMemory = await res.json();
+    renderContentDashboard();
+    status.textContent = `✓ Bijgewerkt op ${new Date(_contentMemory.lastUpdated||Date.now()).toLocaleDateString('nl')}`;
+  } catch(e){
+    status.textContent = 'Sync mislukt: ' + e.message;
+  }
+  btn.disabled=false; btn.textContent='↻ Sync learnings';
+}
+
+function renderContentDashboard(){
+  if(!_contentMemory) return;
+  const m = _contentMemory;
+  const posts = m.posts || [];
+
+  // KPI's
+  const igPosts = posts.filter(p=>p.platform==='instagram');
+  const ttPosts = posts.filter(p=>p.platform==='tiktok');
+  const topPost = [...posts].sort((a,b)=>(b.metrics?.reach||b.metrics?.views||0)-(a.metrics?.reach||a.metrics?.views||0))[0];
+  const avgReach = posts.length ? Math.round(posts.reduce((s,p)=>s+(p.metrics?.reach||p.metrics?.views||0),0)/posts.length) : 0;
+  document.getElementById('kpi-content').innerHTML = `
+    <div class="kpi"><div class="kpi-label">Posts geanalyseerd</div><div class="kpi-value">${posts.length}</div><div class="kpi-icon">📊</div></div>
+    <div class="kpi"><div class="kpi-label">Instagram posts</div><div class="kpi-value">${igPosts.length}</div><div class="kpi-icon">📸</div></div>
+    <div class="kpi"><div class="kpi-label">TikTok posts</div><div class="kpi-value">${ttPosts.length}</div><div class="kpi-icon">🎵</div></div>
+    <div class="kpi"><div class="kpi-label">Gemiddeld bereik</div><div class="kpi-value">${avgReach.toLocaleString('nl')}</div><div class="kpi-icon">👁</div></div>`;
+
+  // Waarom 13k
+  const w13k = document.getElementById('content-waarom');
+  if(m.waarom13k){
+    w13k.style.display='';
+    w13k.innerHTML=`<div class="card" style="border-left:4px solid var(--acm)">
+      <div class="card-head"><h3>💡 Waarom scoorde jouw 13k reel?</h3></div>
+      <div style="padding:.8rem 1.2rem;font-size:13px;color:var(--tx);line-height:1.7">${m.waarom13k}</div>
+    </div>`;
+  }
+
+  // Aanbevelingen
+  const recs = m.recommendations || [];
+  document.getElementById('content-rec-date').textContent = m.lastUpdated ? 'Gegenereerd op ' + new Date(m.lastUpdated).toLocaleDateString('nl') : '';
+  document.getElementById('content-recommendations').innerHTML = recs.length ? recs.map((r,i)=>`
+    <div style="border-bottom:1px solid var(--br);padding:1rem 1.2rem;${i===recs.length-1?'border:none':''}">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px">
+        <span style="background:var(--acm);color:#fff;border-radius:50%;width:22px;height:22px;display:inline-flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0">${i+1}</span>
+        <strong style="font-size:13px">${r.titel||'Aanbeveling'}</strong>
+        <span style="font-size:11px;color:var(--tx3);margin-left:auto">${r.postMoment||''}</span>
+      </div>
+      <div style="font-size:12px;background:var(--acl);padding:6px 10px;border-radius:6px;margin-bottom:6px;font-style:italic">"${r.hook||''}"</div>
+      <div style="font-size:12px;color:var(--tx2)">${r.format||''}</div>
+      ${r.rationale?`<div style="font-size:11.5px;color:var(--tx3);margin-top:4px">↳ ${r.rationale}</div>`:''}
+    </div>`).join('') : '<div class="empty" style="padding:1.5rem">Geen aanbevelingen. Run de Content Intelligence Action.</div>';
+
+  // Learnings
+  const learnings = m.learnings || [];
+  document.getElementById('content-learnings').innerHTML = learnings.length ? `<ul style="padding:.8rem 1.2rem 1rem;display:flex;flex-direction:column;gap:6px">
+    ${learnings.map(l=>`<li style="font-size:13px;color:var(--tx);line-height:1.6;padding-left:4px">✓ ${l}</li>`).join('')}
+  </ul>` : '<div class="empty" style="padding:1rem">Nog geen learnings opgebouwd.</div>';
+
+  // Patroon kaarten
+  const renderList = (id, items) => {
+    document.getElementById(id).innerHTML = (items||[]).length
+      ? `<ul style="display:flex;flex-direction:column;gap:5px">${(items||[]).map(i=>`<li style="font-size:12px;color:var(--tx2);line-height:1.5">• ${i}</li>`).join('')}</ul>`
+      : '<div class="empty" style="padding:.5rem">Geen data.</div>';
+  };
+  renderList('content-hooks', m.patterns?.hooks);
+  renderList('content-topics', m.patterns?.topics);
+  renderList('content-format', m.patterns?.format);
+  renderList('content-timing', m.patterns?.timing);
+
+  renderContentPosts();
+}
+
+function renderContentPosts(){
+  if(!_contentMemory) return;
+  const filter = document.getElementById('content-platform-filter')?.value||'all';
+  let posts = (_contentMemory.posts||[]).filter(p=>filter==='all'||p.platform===filter);
+  posts = [...posts].sort((a,b)=>new Date(b.date)-new Date(a.date));
+  const el = document.getElementById('content-posts-table');
+  if(!posts.length){ el.innerHTML='<div class="empty" style="padding:1.5rem">Geen posts.</div>'; return; }
+  const platIcon = {instagram:'📸',tiktok:'🎵'};
+  el.innerHTML = posts.map(p=>{
+    const reach = p.metrics?.reach||p.metrics?.views||0;
+    const eng = ((p.metrics?.likes||0)+(p.metrics?.comments||0)+(p.metrics?.shares||0)+(p.metrics?.saves||0));
+    const engRate = reach>0 ? ((eng/reach)*100).toFixed(1) : '–';
+    const isTop = reach > 5000;
+    return `<div style="border-bottom:1px solid var(--br);padding:.85rem 1.2rem;${isTop?'background:var(--acl)':''}">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:1rem;flex-wrap:wrap">
+        <div style="flex:1;min-width:0">
+          <div style="display:flex;align-items:center;gap:6px;margin-bottom:4px">
+            <span style="font-size:12px">${platIcon[p.platform]||'📄'} ${p.platform}</span>
+            <span style="font-size:11px;color:var(--tx3)">${p.date}</span>
+            <span style="font-size:11px;font-weight:600;color:var(--tx2);text-transform:uppercase">${p.type}</span>
+            ${isTop?'<span style="background:var(--acm);color:#fff;font-size:10px;padding:1px 7px;border-radius:99px;font-weight:700">TOP</span>':''}
+          </div>
+          <div style="font-size:12px;color:var(--tx2);line-height:1.5">${(p.caption||'').slice(0,120)}${(p.caption||'').length>120?'…':''}</div>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(4,auto);gap:6px 16px;text-align:right;flex-shrink:0">
+          <div><div style="font-size:10px;color:var(--tx3)">Bereik</div><div style="font-size:13px;font-weight:700;color:${reach>5000?'var(--acm)':'var(--tx)'}">${reach.toLocaleString('nl')}</div></div>
+          <div><div style="font-size:10px;color:var(--tx3)">Likes</div><div style="font-size:13px;font-weight:600">${(p.metrics?.likes||0).toLocaleString('nl')}</div></div>
+          <div><div style="font-size:10px;color:var(--tx3)">Saves</div><div style="font-size:13px;font-weight:600">${(p.metrics?.saves||0).toLocaleString('nl')}</div></div>
+          <div><div style="font-size:10px;color:var(--tx3)">Eng%</div><div style="font-size:13px;font-weight:600">${engRate}%</div></div>
+          ${p.metrics?.avgWatchTime?`<div style="grid-column:span 4;text-align:right"><span style="font-size:10px;color:var(--tx3)">Gem. kijktijd: </span><span style="font-size:12px;font-weight:600">${(p.metrics.avgWatchTime/1000).toFixed(1)}s</span></div>`:''}
+        </div>
+      </div>
+    </div>`;
+  }).join('');
+}
+
 function clearLeads(){
   if(!confirm('Weet je zeker dat je alle leads wilt verwijderen?')) return;
   saveLeadsData([]); renderLeads(); updateLeadKpis();
 }
+
+// ── Instagram leads ──────────────────────────────────────────────
+
+let _currentLeadPlatform = 'reddit';
+
+function switchLeadPlatform(platform) {
+  _currentLeadPlatform = platform;
+  document.getElementById('leads-section-reddit').style.display = platform === 'reddit' ? '' : 'none';
+  document.getElementById('leads-section-instagram').style.display = platform === 'instagram' ? '' : 'none';
+  const rTab = document.getElementById('platform-tab-reddit');
+  const iTab = document.getElementById('platform-tab-instagram');
+  rTab.style.color = platform === 'reddit' ? 'var(--acm)' : 'var(--tx3)';
+  rTab.style.borderBottomColor = platform === 'reddit' ? 'var(--acm)' : 'transparent';
+  iTab.style.color = platform === 'instagram' ? 'var(--acm)' : 'var(--tx3)';
+  iTab.style.borderBottomColor = platform === 'instagram' ? 'var(--acm)' : 'transparent';
+  if (platform === 'instagram') {
+    syncInstagramFromGithub();
+  }
+}
+
+function getInstagramLeads() {
+  try { return JSON.parse(localStorage.getItem('zenbtw_instagram_leads') || '[]'); } catch { return []; }
+}
+function saveInstagramLeads(data) {
+  localStorage.setItem('zenbtw_instagram_leads', JSON.stringify(data));
+}
+
+async function syncInstagramFromGithub() {
+  const status = document.getElementById('instagram-scrape-status');
+  if (status) status.textContent = 'Synchroniseren...';
+  try {
+    const res = await fetch('https://raw.githubusercontent.com/danieldk04/zenbtw/main/instagram-leads.json?t=' + Date.now());
+    if (!res.ok) { if (status) status.textContent = 'Nog geen Instagram-leads gevonden op GitHub.'; return; }
+    const remote = await res.json();
+    if (!Array.isArray(remote) || remote.length === 0) { if (status) status.textContent = 'Geen leads in instagram-leads.json.'; return; }
+    const local = getInstagramLeads();
+    const localMap = Object.fromEntries(local.map(l => [l.id || l.username, l]));
+    const merged = remote.map(r => {
+      const loc = localMap[r.id || r.username];
+      if (loc && loc.status !== 'nieuw') return { ...r, status: loc.status, note: loc.note };
+      return r;
+    });
+    saveInstagramLeads(merged);
+    renderInstagramLeads();
+    updateInstagramKpis();
+    if (status) status.textContent = `✓ ${merged.length} leads gesynchroniseerd`;
+  } catch (e) {
+    if (status) status.textContent = 'Sync mislukt: ' + e.message;
+  }
+}
+
+function updateInstagramKpis() {
+  const leads = getInstagramLeads();
+  const nieuw = leads.filter(l => l.status === 'nieuw').length;
+  const benaderd = leads.filter(l => l.status === 'benaderd').length;
+  document.getElementById('kpi-instagram').innerHTML = `
+    <div class="kpi"><div class="kpi-label">Totaal leads</div><div class="kpi-value">${leads.length}</div><div class="kpi-icon">📸</div></div>
+    <div class="kpi"><div class="kpi-label">Nieuw</div><div class="kpi-value" style="color:var(--blue)">${nieuw}</div><div class="kpi-icon">✨</div></div>
+    <div class="kpi"><div class="kpi-label">Benaderd</div><div class="kpi-value" style="color:var(--green)">${benaderd}</div><div class="kpi-icon">✉️</div></div>
+    <div class="kpi"><div class="kpi-label">Conversie</div><div class="kpi-value">${leads.length ? Math.round(benaderd / leads.length * 100) : 0}%</div><div class="kpi-icon">📈</div></div>`;
+}
+
+function updateInstagramStatus(idx, status) {
+  const leads = getInstagramLeads();
+  if (leads[idx]) leads[idx].status = status;
+  saveInstagramLeads(leads);
+  updateInstagramKpis();
+}
+
+function clearInstagramLeads() {
+  if (!confirm('Weet je zeker dat je alle Instagram-leads wilt verwijderen?')) return;
+  saveInstagramLeads([]); renderInstagramLeads(); updateInstagramKpis();
+}
+
+function copyIgDm(ri) {
+  const leads = getInstagramLeads();
+  const tekst = leads[ri]?.bericht || leads[ri]?.berichten?.helper || '';
+  navigator.clipboard.writeText(tekst).then(() => {
+    const btn = document.getElementById(`igcopybtn-${ri}`);
+    if (!btn) return;
+    btn.textContent = '✓ Gekopieerd';
+    btn.style.background = 'var(--green)';
+    setTimeout(() => { btn.textContent = 'Kopieer DM'; btn.style.background = 'var(--ac)'; }, 2000);
+  });
+}
+
+function genereerIgDm(ri) {
+  const leads = getInstagramLeads();
+  const l = leads[ri];
+  if (!l) return;
+
+  // Haal naam op — displayName als beschikbaar, anders username
+  const naam = l.displayName && l.displayName !== l.username
+    ? l.displayName.split(' ')[0]
+    : null;
+
+  // Detecteer wat ze verkopen op basis van bio/snippet
+  const bioText = ((l.bio || '') + ' ' + (l.snippet || '')).toLowerCase();
+  const isLuxury = /luxury|designer|lv|gucci|chanel|prada|louis|hermes|vintage|preloved|pre-owned|pre owned|tweedehands|vintage|marktplaats|vinted|depop/i.test(bioText);
+  const isEtsy = /etsy/i.test(bioText);
+  const isShopify = /shopify/i.test(bioText);
+  const isVinted = /vinted/i.test(bioText);
+
+  // Opening: persoonlijk compliment afgestemd op hun niche
+  let opening;
+  if (isLuxury) {
+    opening = `Tof items op jouw pagina! Ziet er echt heel mooi en klassiek uit.`;
+  } else if (isEtsy) {
+    opening = `Mooie shop! Echt leuk wat je op Etsy hebt staan.`;
+  } else if (isVinted) {
+    opening = `Leuke items op jouw Vinted! Mooie selectie.`;
+  } else {
+    opening = `Tof profiel! Leuk wat je doet met je verkopen.`;
+  }
+
+  // Platform-mention in de body
+  const platform = isEtsy ? 'Etsy' : isVinted ? 'Vinted' : isShopify ? 'Shopify' : 'Etsy, Shopify of Vinted';
+
+  // Aanhef
+  const aanhef = naam ? `Hoi ${naam}!` : `Hoi!`;
+
+  const bericht =
+`${aanhef}
+
+${opening}
+
+Ik ben Daniel (22), doe zelf in pre-owned luxury met Revaleur. Daarnaast heb ik ZenBTW gebouwd. Omdat ik zelf in de resale zit, weet ik hoe snel je omzet kan groeien en hoe onoverzichtelijk de btw-regels en KOR-drempel worden.
+
+Geen verkoop-pitch, je hoeft niks te checken als je administratie al lekker loopt. Maar mocht die btw-rompslomp je gaan tegenstaan, dan is er een tool voor.
+
+Doe jij de btw en omzetmonitoring nu nog handmatig in Excel, of staat dat al op de automatische piloot?
+
+Succes met de verkoop! 🙌`;
+
+  leads[ri].bericht = bericht;
+  saveInstagramLeads(leads);
+
+  // Update de weergave zonder volledige re-render
+  const dmDiv = document.getElementById(`igdm-text-${ri}`);
+  if (dmDiv) {
+    dmDiv.textContent = bericht;
+  } else {
+    renderInstagramLeads();
+  }
+}
+
+function renderInstagramLeads() {
+  const filter = document.getElementById('instagram-filter')?.value || 'all';
+  let leads = getInstagramLeads();
+  if (filter !== 'all') leads = leads.filter(l => l.status === filter);
+  const el = document.getElementById('instagram-table');
+  if (!leads.length) {
+    el.innerHTML = `<div class="empty" style="padding:2rem">Geen Instagram-leads. De GitHub Action scrapet elke maandag automatisch, of klik Sync.</div>`;
+    return;
+  }
+  const allLeads = getInstagramLeads();
+  const sColor = { nieuw: 'var(--blue)', benaderd: 'var(--green)', genegeerd: 'var(--tx3)' };
+  const sBg = { nieuw: 'var(--bluel)', benaderd: 'var(--greenl)', genegeerd: 'var(--bg)' };
+
+  el.innerHTML = leads.map(l => {
+    const ri = allLeads.findIndex(x => (x.id || x.username) === (l.id || l.username));
+    const dm = l.bericht || (l.berichten && (l.berichten.helper || l.berichten.gesprek || l.berichten.pitch)) || '';
+    return `<div style="border-bottom:1px solid var(--br);padding:1rem 1.2rem">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:1rem;flex-wrap:wrap">
+        <div style="flex:1;min-width:0">
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;flex-wrap:wrap">
+            <span style="font-size:11px;background:#fce4ec;color:#c2185b;padding:2px 7px;border-radius:5px;font-weight:600">📸 Instagram</span>
+            <a href="${l.url}" target="_blank" style="color:var(--ac);font-weight:700;font-size:13px;text-decoration:none">@${l.username}</a>
+            ${l.displayName && l.displayName !== l.username ? `<span style="font-size:12px;color:var(--tx2)">${l.displayName}</span>` : ''}
+            <span style="font-size:11px;color:var(--tx3)">👥 ${l.followers?.toLocaleString('nl') || '?'} volgers</span>
+          </div>
+          ${l.bio ? `<div style="font-size:12px;color:var(--tx2);margin-bottom:4px;font-style:italic">"${l.bio}"</div>` : ''}
+          ${l.snippet ? `<div style="font-size:12px;color:var(--tx3);line-height:1.5">${l.snippet}</div>` : ''}
+          ${l.reden ? `<div style="font-size:11px;color:var(--acm);margin-top:4px">✓ ${l.reden}</div>` : ''}
+        </div>
+        <div style="display:flex;flex-direction:column;gap:6px;align-items:flex-end;flex-shrink:0">
+          <select onchange="updateInstagramStatus(${ri},this.value)" style="padding:4px 8px;border-radius:6px;border:1px solid var(--br);font-size:12px;background:${sBg[l.status] || 'var(--bg)'};color:${sColor[l.status] || 'var(--tx)'}">
+            <option value="nieuw" ${l.status === 'nieuw' ? 'selected' : ''}>Nieuw</option>
+            <option value="benaderd" ${l.status === 'benaderd' ? 'selected' : ''}>Benaderd</option>
+            <option value="genegeerd" ${l.status === 'genegeerd' ? 'selected' : ''}>Negeren</option>
+          </select>
+          <a href="${l.url}" target="_blank" class="btn btn-ghost" style="padding:4px 10px;font-size:11px;text-decoration:none">→ Open profiel</a>
+          ${l.postUrl ? `<a href="${l.postUrl}" target="_blank" class="btn btn-ghost" style="padding:4px 10px;font-size:11px;text-decoration:none">→ Open post</a>` : ''}
+        </div>
+      </div>
+      <div style="margin-top:10px">
+        ${dm ? `
+        <div style="background:var(--acl);border-left:3px solid var(--acm);border-radius:0 6px 6px 0;padding:12px 14px;margin-bottom:8px">
+          <div id="igdm-text-${ri}" style="font-size:13px;color:var(--tx);line-height:1.65;white-space:pre-wrap;margin-bottom:10px">${dm.replace(/</g, '&lt;')}</div>
+          <div style="display:flex;gap:8px;flex-wrap:wrap">
+            <button onclick="copyIgDm(${ri})" id="igcopybtn-${ri}"
+              style="padding:4px 14px;font-size:12px;background:var(--ac);color:#fff;border:none;border-radius:5px;cursor:pointer;font-weight:600">
+              Kopieer DM
+            </button>
+            <button onclick="genereerIgDm(${ri})" style="padding:4px 14px;font-size:12px;background:transparent;color:var(--acm);border:1px solid var(--acm);border-radius:5px;cursor:pointer;font-weight:600">
+              ↺ Opnieuw genereren
+            </button>
+          </div>
+        </div>` : `
+        <button onclick="genereerIgDm(${ri})" style="padding:6px 16px;font-size:12px;background:var(--ac);color:#fff;border:none;border-radius:6px;cursor:pointer;font-weight:600">
+          ✍️ Genereer DM
+        </button>`}
+      </div>
+    </div>`;
+  }).join('');
+}
 </script>
+<script>
+function toggleMobNav(){var h=document.getElementById('navHamburger'),o=document.getElementById('mobNavOverlay'),d=document.getElementById('mobNavDrawer'),op=!h.classList.contains('open');h.classList.toggle('open',op);o.classList.toggle('on',op);d.classList.toggle('on',op);document.body.style.overflow=op?'hidden':'';}
+function closeMobNav(){document.getElementById('navHamburger').classList.remove('open');document.getElementById('mobNavOverlay').classList.remove('on');document.getElementById('mobNavDrawer').classList.remove('on');document.body.style.overflow='';}
+</script>
+<footer>
+  <div class="footer-inner">
+    <a href="/" class="footer-logo">
+      <img src="/logo.webp" alt="ZenBTW" style="width:34px;height:34px;border-radius:8px;object-fit:contain" loading="lazy">
+      <span class="footer-name">Zen<em>BTW</em></span>
+    </a>
+    <div style="display:flex;gap:20px;flex-wrap:wrap;align-items:center">
+      <a href="/kor-calculator/" style="font-size:12.5px;color:var(--tx3,#7a7a74);font-weight:500">BTW-check</a>
+      <a href="/hulpmiddelen/" style="font-size:12.5px;color:var(--tx3,#7a7a74);font-weight:500">Hulpmiddelen</a>
+      <a href="/blog/" style="font-size:12.5px;color:var(--tx3,#7a7a74);font-weight:500">Blog</a>
+      <a href="/app" style="font-size:12.5px;color:var(--tx3,#7a7a74);font-weight:500">App</a>
+      <a href="/privacy/" style="font-size:12.5px;color:var(--tx3,#7a7a74);font-weight:500">Privacy</a>
+      <span class="footer-copy">© 2026 ZenBTW</span>
+    </div>
+    <span class="footer-badge">🔒 Geen belastingadvies</span>
+  </div>
+</footer>
 </body>
 </html>

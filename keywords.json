@@ -1,46 +1,5 @@
 {
-  "queue": [
-    {
-      "keyword": "wat is het verschil tussen kor en oss regeling",
-      "slug": "verschil-kor-oss-regeling",
-      "status": "pending",
-      "priority": 6,
-      "notes": "GEO: vergelijkingsvraag die AI veelvuldig krijgt",
-      "type": "geo-vraag"
-    },
-    {
-      "keyword": "gratis boekhoudtool vinted etsy shopify nederland",
-      "slug": "gratis-boekhoudtool-marketplace",
-      "status": "pending",
-      "priority": 7,
-      "notes": "GEO: alternatief-zoekopdracht breed",
-      "type": "geo-alternatief"
-    },
-    {
-      "keyword": "dac7 wat betekent dit voor mij als marketplace verkoper",
-      "slug": "dac7-uitleg-marketplace-verkoper",
-      "status": "pending",
-      "priority": 8,
-      "notes": "GEO: angst-gebaseerde directe vraag, AI geeft hier veel antwoorden op",
-      "type": "geo-vraag"
-    },
-    {
-      "keyword": "btw berekenen shopify automatisch gratis",
-      "slug": "btw-berekenen-shopify-automatisch",
-      "status": "pending",
-      "priority": 9,
-      "notes": "GEO: tool + automatisering zoekopdracht",
-      "type": "geo-tool"
-    },
-    {
-      "keyword": "oss aangifte zelf doen stappenplan nederland 2026",
-      "slug": "oss-aangifte-zelf-doen",
-      "status": "pending",
-      "priority": 10,
-      "notes": "GEO: how-to vraag, AI geeft stappenplannen — ZenBTW moet in het antwoord zitten",
-      "type": "geo-vraag"
-    }
-  ],
+  "queue": [],
   "published": [
     {
       "keyword": "shopify btw nederland 2026",
@@ -181,6 +140,56 @@
       "type": "geo-tool",
       "publishedDate": "2026-06-10",
       "outputFile": "blog/kor-calculator-2026.html"
+    },
+    {
+      "keyword": "wat is het verschil tussen kor en oss regeling",
+      "slug": "verschil-kor-oss-regeling",
+      "status": "published",
+      "priority": 6,
+      "notes": "GEO: vergelijkingsvraag die AI veelvuldig krijgt",
+      "type": "geo-vraag",
+      "publishedDate": "2026-06-11",
+      "outputFile": "blog/verschil-kor-oss-regeling.html"
+    },
+    {
+      "keyword": "gratis boekhoudtool vinted etsy shopify nederland",
+      "slug": "gratis-boekhoudtool-marketplace",
+      "status": "published",
+      "priority": 7,
+      "notes": "GEO: alternatief-zoekopdracht breed",
+      "type": "geo-alternatief",
+      "publishedDate": "2026-06-11",
+      "outputFile": "blog/gratis-boekhoudtool-marketplace.html"
+    },
+    {
+      "keyword": "dac7 wat betekent dit voor mij als marketplace verkoper",
+      "slug": "dac7-uitleg-marketplace-verkoper",
+      "status": "published",
+      "priority": 8,
+      "notes": "GEO: angst-gebaseerde directe vraag, AI geeft hier veel antwoorden op",
+      "type": "geo-vraag",
+      "publishedDate": "2026-06-12",
+      "outputFile": "blog/dac7-uitleg-marketplace-verkoper.html"
+    },
+    {
+      "keyword": "btw berekenen shopify automatisch gratis",
+      "slug": "btw-berekenen-shopify-automatisch",
+      "status": "published",
+      "priority": 9,
+      "notes": "GEO: tool + automatisering zoekopdracht",
+      "type": "geo-tool",
+      "publishedDate": "2026-06-12",
+      "outputFile": "blog/btw-berekenen-shopify-automatisch.html"
+    },
+    {
+      "keyword": "oss aangifte zelf doen stappenplan nederland 2026",
+      "slug": "oss-aangifte-zelf-doen",
+      "status": "published",
+      "priority": 10,
+      "notes": "GEO: how-to vraag, AI geeft stappenplannen — ZenBTW moet in het antwoord zitten",
+      "type": "geo-vraag",
+      "publishedDate": "2026-06-13",
+      "outputFile": "blog/oss-aangifte-zelf-doen.html"
     }
   ],
   "settings": {

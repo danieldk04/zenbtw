@@ -2,7 +2,9 @@ name: Keepalive — voorkom dat scheduled workflows worden uitgeschakeld
 
 on:
   schedule:
-    - cron: '0 6 * * 0'  # Elke zondag 06:00 UTC, vóór de maandagse runs
+    - cron: '0 6 * * 0'   # Elke zondag 06:00 UTC — keepalive commit
+  push:
+    branches: [main]       # Draait bij elke push — betrouwbaar als watchdog
   workflow_dispatch:
 
 permissions:
@@ -12,27 +14,29 @@ permissions:
 jobs:
   keepalive:
     runs-on: ubuntu-latest
+    if: github.event_name == 'schedule'
     steps:
       - uses: actions/checkout@v4
-
       - name: Keepalive — voorkom 60-dagen inactiviteitsdisable
         uses: gautamkrishnar/keepalive-workflow@v2
 
   watchdog:
     runs-on: ubuntu-latest
-    needs: keepalive
+    # Draait onafhankelijk — niet gebonden aan keepalive job
     steps:
-      - name: Trigger auto-blog als die deze week nog niet heeft gedraaid
+      - name: Trigger auto-blog als die meer dan 20 uur geleden heeft gedraaid
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           LAST=$(gh run list --repo ${{ github.repository }} --workflow auto-blog.yml \
             --status completed --limit 1 --json createdAt --jq '.[0].createdAt // "2000-01-01"')
-          DAYS=$(( ( $(date +%s) - $(date -d "$LAST" +%s) ) / 86400 ))
-          echo "Laatste auto-blog run: $LAST ($DAYS dagen geleden)"
-          if [ "$DAYS" -ge 2 ]; then
-            echo "Meer dan 2 dagen geleden — trigger auto-blog nu"
+          NOW=$(date +%s)
+          LAST_TS=$(date -d "$LAST" +%s 2>/dev/null || echo 0)
+          HOURS=$(( ( NOW - LAST_TS ) / 3600 ))
+          echo "Laatste auto-blog run: $LAST ($HOURS uur geleden)"
+          if [ "$HOURS" -ge 20 ]; then
+            echo "Meer dan 20 uur geleden — trigger auto-blog nu"
             gh workflow run auto-blog.yml --repo ${{ github.repository }} --ref main
           else
-            echo "Recentelijk gedraaid — geen actie nodig"
+            echo "Recentelijk gedraaid ($HOURS uur geleden) — geen actie nodig"
           fi

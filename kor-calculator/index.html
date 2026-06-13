@@ -13,206 +13,63 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 
-<!-- Umami analytics -->
-<script defer src="https://cloud.umami.is/script.js" data-website-id="3ab77c3e-51b5-4b42-9e90-c0f8cc39a7ee"></script>
-
-<style>
-  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-
-  :root{
-    --ac:#1a4731;--acm:#2d7a50;--acl:#e8f5ee;--acll:#f0faf4;
-    --tx:#12100e;--tx2:#3d3830;--tx3:#7a7068;--tx4:#a89f95;
-    --bg:#faf9f7;--wh:#ffffff;--br:#e5e0d8;--br2:#d4cec5;
-    --s1:#f5f2ee;--s2:#efeae3;
-    --warn:#fef3c7;--warnb:#d97706;
-    --ok:#dcfce7;--okb:#16a34a;
-    --danger:#fee2e2;--dangerb:#dc2626;
-    --rs:10px;
-    --shadow:0 4px 24px rgba(26,71,49,.08);
-    --shadow-lg:0 16px 48px rgba(26,71,49,.12);
-  }
-
-  body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--tx);min-height:100vh;-webkit-font-smoothing:antialiased}
-
-  /* ── NAV ── */
-  nav{display:flex;align-items:center;justify-content:space-between;padding:16px 24px;max-width:760px;margin:0 auto}
-  .nav-logo{display:flex;align-items:center;gap:8px;text-decoration:none}
-  .nav-logo-box{width:30px;height:30px;background:var(--ac);border-radius:7px;display:flex;align-items:center;justify-content:center;color:#fff;font-family:'Fraunces',serif;font-size:14px;font-weight:800}
-  .nav-logo-name{font-family:'Fraunces',serif;font-size:18px;font-weight:700;color:var(--tx)}
-  .nav-logo-name em{color:var(--acm);font-style:normal}
-  .nav-cta{font-size:13px;font-weight:600;color:var(--ac);text-decoration:none;padding:7px 14px;border:1.5px solid var(--ac);border-radius:8px;transition:all .15s}
-  .nav-cta:hover{background:var(--ac);color:#fff}
-
-  /* ── HERO ── */
-  .hero{text-align:center;padding:36px 24px 32px;max-width:620px;margin:0 auto}
-  .hero-badge{display:inline-flex;align-items:center;gap:6px;background:var(--acl);color:var(--ac);font-size:12px;font-weight:700;padding:5px 12px;border-radius:20px;margin-bottom:16px;letter-spacing:.02em;text-transform:uppercase}
-  .hero h1{font-family:'Fraunces',serif;font-size:clamp(26px,5vw,38px);font-weight:800;line-height:1.15;letter-spacing:-.03em;color:var(--tx);margin-bottom:14px}
-  .hero h1 em{color:var(--acm);font-style:normal}
-  .hero-sub{font-size:16px;color:var(--tx3);line-height:1.65;max-width:480px;margin:0 auto 28px}
-  .hero-stats{display:flex;align-items:center;justify-content:center;gap:20px;flex-wrap:wrap}
-  .stat{display:flex;align-items:center;gap:6px;font-size:13px;color:var(--tx3);font-weight:500}
-  .stat-dot{width:6px;height:6px;background:var(--acm);border-radius:50%}
-
-  /* ── CARD ── */
-  .card-wrap{max-width:580px;margin:0 auto;padding:0 16px 60px}
-  .card{background:var(--wh);border:1.5px solid var(--br);border-radius:20px;padding:32px;box-shadow:var(--shadow);overflow:hidden}
-
-  /* ── PROGRESS ── */
-  .progress-row{display:flex;align-items:center;gap:8px;margin-bottom:28px}
-  .progress-step{display:flex;align-items:center;gap:6px;font-size:12px;font-weight:600;color:var(--tx4)}
-  .progress-step.active{color:var(--ac)}
-  .progress-step.done{color:var(--acm)}
-  .progress-num{width:22px;height:22px;border-radius:50%;border:2px solid var(--br2);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;transition:all .2s}
-  .progress-step.active .progress-num{border-color:var(--ac);background:var(--ac);color:#fff}
-  .progress-step.done .progress-num{border-color:var(--acm);background:var(--acm);color:#fff}
-  .progress-line{flex:1;height:2px;background:var(--br);border-radius:2px;transition:background .3s}
-  .progress-line.done{background:var(--acm)}
-
-  /* ── STEP CONTENT ── */
-  .step{display:none}
-  .step.active{display:block}
-  .step-title{font-family:'Fraunces',serif;font-size:20px;font-weight:700;color:var(--tx);margin-bottom:6px;letter-spacing:-.02em}
-  .step-sub{font-size:13.5px;color:var(--tx3);margin-bottom:22px;line-height:1.6}
-
-  /* ── PLATFORM BUTTONS ── */
-  .platform-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:10px}
-  .plat-btn{padding:14px 10px;border:2px solid var(--br);border-radius:13px;background:var(--wh);cursor:pointer;font-family:'Inter',sans-serif;transition:all .15s;text-align:center;width:100%}
-  .plat-btn:hover{border-color:var(--acm);background:var(--acll)}
-  .plat-btn.sel{border-color:var(--ac);background:var(--acl)}
-  .plat-icon{font-size:22px;display:block;margin-bottom:5px}
-  .plat-name{font-size:13px;font-weight:600;color:var(--tx2)}
-  .plat-btn.sel .plat-name{color:var(--ac)}
-  .plat-btn-other{grid-column:1/-1;padding:10px;border:2px solid var(--br);border-radius:10px;background:var(--wh);cursor:pointer;font-family:'Inter',sans-serif;font-size:13px;font-weight:600;color:var(--tx3);transition:all .15s}
-  .plat-btn-other.sel{border-color:var(--ac);background:var(--acl);color:var(--ac)}
-
-  /* ── INPUTS ── */
-  .field-label{font-size:13px;font-weight:600;color:var(--tx2);margin-bottom:6px;display:block}
-  .field-hint{font-size:11.5px;color:var(--tx4);margin-bottom:8px}
-  .field{width:100%;padding:12px 14px;border:1.5px solid var(--br);border-radius:var(--rs);font-family:'Inter',sans-serif;font-size:15px;color:var(--tx);background:var(--wh);outline:none;transition:border-color .15s}
-  .field:focus{border-color:var(--ac)}
-  .field-prefix{position:relative}
-  .field-prefix .field{padding-left:30px}
-  .prefix-sym{position:absolute;left:12px;top:50%;transform:translateY(-50%);font-size:15px;color:var(--tx3);pointer-events:none}
-  .field-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:18px}
-  .field-group{margin-bottom:18px}
-
-  /* ── SELECT ── */
-  select.field{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' fill='none'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%237a7068' stroke-width='1.5' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 12px center;padding-right:32px;cursor:pointer}
-
-  /* ── SLIDER ── */
-  .slider-wrap{margin-bottom:4px}
-  input[type=range]{width:100%;-webkit-appearance:none;height:5px;border-radius:5px;background:linear-gradient(to right,var(--ac) 0%,var(--ac) var(--val,0%),var(--br2) var(--val,0%),var(--br2) 100%);outline:none;margin:10px 0}
-  input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:20px;height:20px;border-radius:50%;background:var(--ac);cursor:pointer;border:3px solid #fff;box-shadow:0 2px 8px rgba(26,71,49,.25)}
-  .slider-labels{display:flex;justify-content:space-between;font-size:11px;color:var(--tx4);margin-top:2px}
-
-  /* ── AMOUNT DISPLAY ── */
-  .amount-display{text-align:center;padding:14px;background:var(--s1);border-radius:10px;margin-bottom:16px;border:1.5px solid var(--br)}
-  .amount-big{font-family:'Fraunces',serif;font-size:28px;font-weight:800;color:var(--tx);letter-spacing:-.03em}
-  .amount-label{font-size:12px;color:var(--tx3);margin-top:2px}
-
-  /* ── RADIO PILLS ── */
-  .radio-group{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:4px}
-  .radio-pill input{display:none}
-  .radio-pill label{padding:8px 14px;border:1.5px solid var(--br);border-radius:20px;font-size:13px;font-weight:500;color:var(--tx2);cursor:pointer;transition:all .15s;display:block}
-  .radio-pill input:checked+label{border-color:var(--ac);background:var(--acl);color:var(--ac);font-weight:600}
-
-  /* ── EMAIL STEP ── */
-  .email-preview{background:var(--s1);border:1.5px solid var(--br);border-radius:12px;padding:16px 18px;margin-bottom:20px}
-  .email-preview-title{font-size:12px;font-weight:700;color:var(--tx3);text-transform:uppercase;letter-spacing:.04em;margin-bottom:10px}
-  .preview-row{display:flex;justify-content:space-between;align-items:center;padding:6px 0;border-bottom:1px solid var(--br)}
-  .preview-row:last-child{border-bottom:none}
-  .preview-key{font-size:12.5px;color:var(--tx3)}
-  .preview-val{font-size:13px;font-weight:600;color:var(--tx)}
-  .preview-val.green{color:var(--okb)}
-  .preview-val.orange{color:var(--warnb)}
-  .preview-val.red{color:var(--dangerb)}
-
-  /* ── BUTTONS ── */
-  .btn-primary{width:100%;padding:14px;background:var(--ac);color:#fff;border:none;border-radius:11px;font-family:'Inter',sans-serif;font-size:15px;font-weight:700;cursor:pointer;transition:all .18s;letter-spacing:.01em}
-  .btn-primary:hover{background:#153b27;transform:translateY(-1px);box-shadow:0 6px 20px rgba(26,71,49,.25)}
-  .btn-primary:disabled{opacity:.5;cursor:not-allowed;transform:none}
-  .btn-secondary{width:100%;padding:11px;background:transparent;border:1.5px solid var(--br);border-radius:10px;font-family:'Inter',sans-serif;font-size:13px;font-weight:600;color:var(--tx3);cursor:pointer;transition:all .15s;margin-top:8px}
-  .btn-secondary:hover{background:var(--s1)}
-
-  /* ── RESULT ── */
-  #result-step{display:none}
-  .result-badge{display:inline-flex;align-items:center;gap:8px;padding:8px 16px;border-radius:30px;font-size:14px;font-weight:700;margin-bottom:18px}
-  .result-badge.green{background:var(--ok);color:var(--okb)}
-  .result-badge.orange{background:var(--warn);color:var(--warnb)}
-  .result-badge.red{background:var(--danger);color:var(--dangerb)}
-
-  .result-meter{margin:20px 0}
-  .meter-label{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
-  .meter-label-txt{font-size:12.5px;font-weight:600;color:var(--tx2)}
-  .meter-label-val{font-size:12.5px;font-weight:700;color:var(--tx)}
-  .meter-track{height:10px;background:var(--br);border-radius:10px;overflow:hidden}
-  .meter-fill{height:100%;border-radius:10px;transition:width 1s cubic-bezier(.4,0,.2,1);background:var(--ac)}
-  .meter-fill.orange{background:#f59e0b}
-  .meter-fill.red{background:#ef4444}
-  .meter-markers{position:relative;height:14px;margin-top:2px}
-  .meter-marker{position:absolute;transform:translateX(-50%);font-size:10px;color:var(--tx4);white-space:nowrap}
-
-  .result-blocks{display:flex;flex-direction:column;gap:10px;margin:20px 0}
-  .result-block{padding:13px 15px;border-radius:11px;border:1.5px solid transparent}
-  .result-block.green{background:var(--ok);border-color:#bbf7d0}
-  .result-block.orange{background:var(--warn);border-color:#fde68a}
-  .result-block.red{background:var(--danger);border-color:#fecaca}
-  .result-block.neutral{background:var(--s1);border-color:var(--br)}
-  .rb-head{display:flex;align-items:center;gap:8px;margin-bottom:4px}
-  .rb-icon{font-size:16px}
-  .rb-title{font-size:13px;font-weight:700}
-  .rb-body{font-size:12.5px;line-height:1.6;color:var(--tx2)}
-
-  .result-actions{margin-top:22px;display:flex;flex-direction:column;gap:8px}
-  .btn-result-main{width:100%;padding:14px;background:var(--ac);color:#fff;border:none;border-radius:11px;font-family:'Inter',sans-serif;font-size:14px;font-weight:700;cursor:pointer;transition:all .18s;text-decoration:none;display:block;text-align:center}
-  .btn-result-main:hover{background:#153b27}
-  .btn-share{width:100%;padding:11px;background:transparent;border:1.5px solid var(--br);border-radius:10px;font-family:'Inter',sans-serif;font-size:13px;font-weight:600;color:var(--tx2);cursor:pointer;transition:all .15s;display:flex;align-items:center;justify-content:center;gap:6px}
-  .btn-share:hover{background:var(--s1)}
-
-  /* ── SOCIAL PROOF ── */
-  .social-proof{text-align:center;padding:20px 0 0;font-size:12px;color:var(--tx4)}
-  .sp-avatars{display:flex;justify-content:center;margin-bottom:6px}
-  .sp-av{width:28px;height:28px;border-radius:50%;border:2px solid var(--wh);background:var(--s2);margin-left:-6px;font-size:13px;display:flex;align-items:center;justify-content:center}
-  .sp-av:first-child{margin-left:0}
-
-  /* ── TRUST BAR ── */
-  .trust-bar{display:flex;align-items:center;justify-content:center;gap:16px;flex-wrap:wrap;padding:20px 16px;margin-top:16px}
-  .trust-item{display:flex;align-items:center;gap:5px;font-size:12px;color:var(--tx4);font-weight:500}
-
-  /* ── ERROR ── */
-  .err-txt{font-size:11.5px;color:#dc2626;margin-top:4px;display:none}
-
-  /* ── ANIMATIONS ── */
-  @keyframes fadeUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
-  .step.active{animation:fadeUp .25s ease}
-  @keyframes countUp{from{opacity:0;transform:scale(.95)}to{opacity:1;transform:scale(1)}}
-  .amount-big{animation:countUp .3s ease}
-
-  /* ── FOOTER ── */
-  footer{text-align:center;padding:24px 16px;font-size:12px;color:var(--tx4)}
-  footer a{color:var(--tx4);text-decoration:none}
-  footer a:hover{color:var(--ac)}
-
-  @media(max-width:460px){
-    .card{padding:22px 18px}
-    .platform-grid{grid-template-columns:repeat(3,1fr)}
-    .field-row{grid-template-columns:1fr}
-  }
-</style>
-</head>
-<body>
-
-<!-- NAV -->
-<nav>
-  <a class="nav-logo" href="https://zenbtw.nl">
-    <div class="nav-logo-box">Z</div>
-    <span class="nav-logo-name">Zen<em>BTW</em></span>
+<nav class="nav">
+  <a href="/" class="nav-logo">
+    <img src="/logo.webp" alt="ZenBTW" class="nav-logo-img" width="52" height="52">
+    <span class="nav-wordmark">Zen<em>BTW</em></span>
   </a>
-  <a class="nav-link-back" href="https://zenbtw.nl" style="font-size:13px;font-weight:500;color:var(--tx3);text-decoration:none;margin-right:8px">← Home</a>
-  <a class="nav-cta" href="https://zenbtw.nl/app" data-umami-event="kor-calc-nav-cta">Open dashboard →</a>
+  <div class="nav-links">
+    <a href="/#functies" class="nav-link">Functies</a>
+    <a href="/#stappen" class="nav-link">Hoe werkt het</a>
+    <a href="/blog/" class="nav-link">Blog</a>
+    <div class="nav-dropdown">
+      <button class="nav-dropdown-btn">Hulpmiddelen <span class="nav-dropdown-arrow">▾</span></button>
+      <div class="nav-dropdown-menu">
+        <a href="/hulpmiddelen/margeregeling-calculator/" class="nav-dd-item">
+          <div class="nav-dd-icon">🧮</div>
+          <div><div class="nav-dd-label">Margeregeling Calculator</div><div class="nav-dd-sub">BTW berekenen op tweedehands</div></div>
+        </a>
+        <a href="/hulpmiddelen/kor-oss-checker/" class="nav-dd-item">
+          <div class="nav-dd-icon">📊</div>
+          <div><div class="nav-dd-label">KOR &amp; OSS Checker</div><div class="nav-dd-sub">Check je drempelstatus direct</div></div>
+        </a>
+        <div class="nav-dd-sep"></div>
+        <a href="/hulpmiddelen/" class="nav-dd-all">Alle hulpmiddelen →</a>
+      </div>
+    </div>
+    <a href="/#prijzen" class="nav-link">Prijzen</a>
+    <a href="/#faq" class="nav-link">FAQ</a>
+  </div>
+  <div style="display:flex;align-items:center;gap:10px;flex-shrink:0">
+    <a href="/app" class="nav-cta">Check mijn status →</a>
+    <button class="nav-hamburger" id="navHamburger" onclick="toggleMobNav()" aria-label="Menu openen" aria-expanded="false">
+      <span class="hb"></span><span class="hb"></span><span class="hb"></span>
+    </button>
+  </div>
 </nav>
-
-<!-- HERO -->
+<div class="mob-nav-overlay" id="mobNavOverlay" onclick="closeMobNav()"></div>
+<div class="mob-nav-drawer" id="mobNavDrawer">
+  <div class="mob-nav-hd">
+    <a href="/" class="nav-logo" onclick="closeMobNav()">
+      <img src="/logo.webp" alt="ZenBTW" style="height:36px;width:36px;border-radius:8px;">
+    </a>
+    <button class="mob-nav-close" onclick="closeMobNav()" aria-label="Menu sluiten">✕</button>
+  </div>
+  <nav class="mob-nav-links">
+    <a href="/#functies" class="mob-nav-link" onclick="closeMobNav()">Functies</a>
+    <a href="/#stappen" class="mob-nav-link" onclick="closeMobNav()">Hoe werkt het</a>
+    <a href="/blog/" class="mob-nav-link" onclick="closeMobNav()">Blog</a>
+    <div class="mob-nav-section">Hulpmiddelen</div>
+    <a href="/hulpmiddelen/margeregeling-calculator/" class="mob-nav-sublink" onclick="closeMobNav()">🧮 Margeregeling Calculator</a>
+    <a href="/hulpmiddelen/kor-oss-checker/" class="mob-nav-sublink" onclick="closeMobNav()">📊 KOR &amp; OSS Checker</a>
+    <a href="/hulpmiddelen/" class="mob-nav-link" onclick="closeMobNav()">Alle hulpmiddelen</a>
+    <a href="/#prijzen" class="mob-nav-link" onclick="closeMobNav()">Prijzen</a>
+    <a href="/#faq" class="mob-nav-link" onclick="closeMobNav()">FAQ</a>
+  </nav>
+  <div style="padding:0 18px 28px">
+    <a href="/app" class="mob-nav-cta">Check mijn status →</a>
+  </div>
+</div>
 <div class="hero">
   <div class="hero-badge">⚡ Gratis tool</div>
   <h1>Bereken in <em>3 minuten</em> of jij dit jaar BTW-plichtig wordt</h1>
@@ -431,8 +288,21 @@
 </div><!-- /card-wrap -->
 
 <footer>
-  <p>© 2026 ZenBTW · <a href="https://zenbtw.nl/privacy">Privacy</a> · <a href="https://zenbtw.nl">Terug naar home</a></p>
-  <p style="margin-top:6px">⚠️ Dit is een indicatieve berekening. Raadpleeg een boekhouder bij twijfel.</p>
+  <div class="footer-inner">
+    <a href="/" class="footer-logo">
+      <img src="/logo.webp" alt="ZenBTW" style="width:34px;height:34px;border-radius:8px;object-fit:contain" loading="lazy">
+      <span class="footer-name">Zen<em>BTW</em></span>
+    </a>
+    <div style="display:flex;gap:20px;flex-wrap:wrap;align-items:center">
+      <a href="/kor-calculator/" style="font-size:12.5px;color:var(--tx3,#7a7a74);font-weight:500">BTW-check</a>
+      <a href="/hulpmiddelen/" style="font-size:12.5px;color:var(--tx3,#7a7a74);font-weight:500">Hulpmiddelen</a>
+      <a href="/blog/" style="font-size:12.5px;color:var(--tx3,#7a7a74);font-weight:500">Blog</a>
+      <a href="/app" style="font-size:12.5px;color:var(--tx3,#7a7a74);font-weight:500">App</a>
+      <a href="/privacy/" style="font-size:12.5px;color:var(--tx3,#7a7a74);font-weight:500">Privacy</a>
+      <span class="footer-copy">© 2026 ZenBTW</span>
+    </div>
+    <span class="footer-badge">🔒 Geen belastingadvies</span>
+  </div>
 </footer>
 
 <script>
@@ -710,6 +580,10 @@ function resetCalc(){
   document.getElementById('kor-fill').style.width = '0%';
   setStep(1);
 }
+</script>
+<script>
+function toggleMobNav(){var h=document.getElementById('navHamburger'),o=document.getElementById('mobNavOverlay'),d=document.getElementById('mobNavDrawer'),op=!h.classList.contains('open');h.classList.toggle('open',op);o.classList.toggle('on',op);d.classList.toggle('on',op);document.body.style.overflow=op?'hidden':'';}
+function closeMobNav(){document.getElementById('navHamburger').classList.remove('open');document.getElementById('mobNavOverlay').classList.remove('on');document.getElementById('mobNavDrawer').classList.remove('on');document.body.style.overflow='';}
 </script>
 </body>
 </html>

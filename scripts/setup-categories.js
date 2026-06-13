@@ -80,13 +80,18 @@ function readBlogs() {
 
 const INDEX_CSS = `
 /* ── Category filter ── */
-.cat-bar{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:32px}
+.filter-row{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:32px}
+.cat-bar{display:flex;gap:8px;flex-wrap:wrap;flex:1}
 .cat-btn{display:inline-flex;align-items:center;gap:7px;padding:9px 18px;border-radius:30px;border:1.5px solid var(--br);background:var(--wh);color:var(--tx2);font-size:13px;font-weight:700;cursor:pointer;transition:all .16s;white-space:nowrap;font-family:inherit;letter-spacing:-.1px}
 .cat-btn:hover{border-color:var(--acm);color:var(--acm);background:var(--acl)}
 .cat-btn.active{background:var(--ac);border-color:var(--ac);color:#fff;box-shadow:0 4px 14px rgba(26,71,49,.28)}
 .cat-count{display:inline-flex;align-items:center;justify-content:center;min-width:20px;height:18px;padding:0 5px;border-radius:9px;font-size:11px;font-weight:700}
 .cat-btn.active .cat-count{background:rgba(255,255,255,.22);color:#fff}
 .cat-btn:not(.active) .cat-count{background:var(--s2);color:var(--tx4)}
+.sort-btn{display:inline-flex;align-items:center;gap:6px;padding:9px 16px;border-radius:30px;border:1.5px solid var(--br);background:var(--wh);color:var(--tx2);font-size:13px;font-weight:700;cursor:pointer;transition:all .16s;white-space:nowrap;font-family:inherit;flex-shrink:0}
+.sort-btn:hover{border-color:var(--acm);color:var(--acm);background:var(--acl)}
+.sort-icon{font-size:14px;transition:transform .25s}
+.sort-btn.asc .sort-icon{transform:rotate(180deg)}
 .card.cat-hidden{display:none}
 .cat-empty{display:none;grid-column:1/-1;text-align:center;padding:48px 20px;color:var(--tx3);font-size:15px}
 .cat-empty.on{display:block}`;
@@ -121,7 +126,8 @@ function updateBlogIndex(blogs) {
   }
   const total = blogs.length;
 
-  const catBar = `<div class="cat-bar">
+  const catBar = `<div class="filter-row">
+<div class="cat-bar">
   <button class="cat-btn active" data-filter="all">Alle <span class="cat-count">${total}</span></button>
   <button class="cat-btn" data-filter="kor">KOR <span class="cat-count">${counts.kor || 0}</span></button>
   <button class="cat-btn" data-filter="oss">OSS &amp; EU BTW <span class="cat-count">${counts.oss || 0}</span></button>
@@ -129,13 +135,16 @@ function updateBlogIndex(blogs) {
   <button class="cat-btn" data-filter="dac7">DAC7 <span class="cat-count">${counts.dac7 || 0}</span></button>
   <button class="cat-btn" data-filter="tools">Tools <span class="cat-count">${counts.tools || 0}</span></button>
 </div>
+<button class="sort-btn" id="sortBtn"><span class="sort-icon">↓</span> Nieuwste eerst</button>
+</div>
 <div class="cat-empty">Geen artikelen gevonden in deze categorie.</div>`;
 
-  // Remove old cat-bar if it exists, then replace section-label
+  // Remove old filter-row or cat-bar if it exists, then replace section-label
+  html = html.replace(/<div class="filter-row">[\s\S]*?<\/div>\s*<div class="cat-empty">.*?<\/div>/g, '');
   html = html.replace(/<div class="cat-bar">[\s\S]*?<\/div>\s*<div class="cat-empty">.*?<\/div>/g, '');
   html = html.replace('<div class="section-label">Alle artikelen</div>', catBar);
   // If section-label was already gone, inject after the grid opens
-  if (!html.includes('class="cat-bar"')) {
+  if (!html.includes('class="filter-row"')) {
     html = html.replace('<div class="grid">', catBar + '\n  <div class="grid">');
   }
 
@@ -153,27 +162,48 @@ function updateBlogIndex(blogs) {
     );
   }
 
-  // ── 4. Filter JS (idempotent) ─────────────────────────────────────────────
-  if (!html.includes('dataset.filter')) {
-    const filterJs = `<script>
+  // ── 4. Filter + Sort JS (rebuild each run) ───────────────────────────────
+  // Always remove old script and re-inject so sort logic stays in sync
+  html = html.replace(/<script>\s*\(function\(\)\{[\s\S]*?dataset\.filter[\s\S]*?\}\)\(\);\s*<\/script>/g, '');
+  const filterJs = `<script>
 (function(){
   var btns=document.querySelectorAll('.cat-btn');
-  var cards=document.querySelectorAll('.card[data-cat]');
+  var grid=document.querySelector('.grid');
   var empty=document.querySelector('.cat-empty');
+  var sortBtn=document.getElementById('sortBtn');
+  var sortAsc=false;
+  function getCards(){return Array.from(document.querySelectorAll('.card[data-cat]'));}
+  function sortCards(){
+    var cards=getCards();
+    cards.sort(function(a,b){
+      var da=a.dataset.date||'2000-01-01';
+      var db=b.dataset.date||'2000-01-01';
+      return sortAsc?da.localeCompare(db):db.localeCompare(da);
+    });
+    cards.forEach(function(c){grid.appendChild(c);});
+    grid.appendChild(empty);
+  }
+  function activeFilter(){var a=document.querySelector('.cat-btn.active');return a?a.dataset.filter:'all';}
   function run(f){
     btns.forEach(function(b){b.classList.toggle('active',b.dataset.filter===f);});
     var n=0;
-    cards.forEach(function(c){var s=f==='all'||c.dataset.cat===f;c.classList.toggle('cat-hidden',!s);if(s)n++;});
+    getCards().forEach(function(c){var s=f==='all'||c.dataset.cat===f;c.classList.toggle('cat-hidden',!s);if(s)n++;});
     if(empty)empty.classList.toggle('on',n===0);
     history.replaceState(null,'',f==='all'?location.pathname:'#'+f);
   }
+  sortCards();
   btns.forEach(function(b){b.addEventListener('click',function(){run(b.dataset.filter);});});
+  if(sortBtn){sortBtn.addEventListener('click',function(){
+    sortAsc=!sortAsc;
+    sortBtn.classList.toggle('asc',sortAsc);
+    sortBtn.innerHTML='<span class="sort-icon">'+(sortAsc?'↑':'↓')+'<\/span> '+(sortAsc?'Oudste eerst':'Nieuwste eerst');
+    sortCards();run(activeFilter());
+  });}
   var h=location.hash.slice(1);
   if(h&&document.querySelector('[data-filter="'+h+'"]'))run(h);else run('all');
 })();
 </script>`;
-    html = html.replace('</body>', filterJs + '\n</body>');
-  }
+  html = html.replace('</body>', filterJs + '\n</body>');
 
   fs.writeFileSync(indexPath, html, 'utf8');
   console.log(`  blog/index.html — filter bar updated (${total} articles, ${Object.keys(counts).length} categories)`);
