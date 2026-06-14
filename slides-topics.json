@@ -1,14 +1,6 @@
 {
   "queue": [
     {
-      "topic": "Verkopen op meerdere platforms tegelijk: zo houd je BTW overzicht",
-      "slug": "multi-platform-btw-overzicht",
-      "type": "carousel",
-      "status": "pending",
-      "priority": 1,
-      "notes": "Split + persona templates — meerdere persona's met verschillende platforms"
-    },
-    {
       "topic": "ZenBTW uitgelegd: wat doet de tool precies voor jou?",
       "slug": "zenbtw-tool-uitleg",
       "type": "carousel",
@@ -23,22 +15,6 @@
       "status": "pending",
       "priority": 3,
       "notes": "Stappenplan + dark hook — actiegericht"
-    },
-    {
-      "topic": "Wat is het verschil tussen BTW-vrijstelling en de KOR?",
-      "slug": "btw-vrijstelling-vs-kor",
-      "type": "carousel",
-      "status": "pending",
-      "priority": 4,
-      "notes": "Compare + split — veelgestelde vraag"
-    },
-    {
-      "topic": "30 verkopen op Vinted — wat gebeurt er nu precies met jouw gegevens?",
-      "slug": "vinted-30-verkopen-dac7",
-      "type": "poster",
-      "status": "pending",
-      "priority": 5,
-      "notes": "Stat poster — concreet getal als haak"
     }
   ],
   "published": [
@@ -201,6 +177,36 @@
       "notes": "Vergelijkingscarrousel met persona of compare template",
       "publishedDate": "2026-06-14",
       "outputDir": "slides/2026-06-14-platform-vergelijking-btw"
+    },
+    {
+      "topic": "Verkopen op meerdere platforms tegelijk: zo houd je BTW overzicht",
+      "slug": "multi-platform-btw-overzicht",
+      "type": "carousel",
+      "status": "published",
+      "priority": 1,
+      "notes": "Split + persona templates — meerdere persona's met verschillende platforms",
+      "publishedDate": "2026-06-14",
+      "outputDir": "slides/2026-06-14-multi-platform-btw-overzicht"
+    },
+    {
+      "topic": "Wat is het verschil tussen BTW-vrijstelling en de KOR?",
+      "slug": "btw-vrijstelling-vs-kor",
+      "type": "carousel",
+      "status": "published",
+      "priority": 4,
+      "notes": "Compare + split — veelgestelde vraag",
+      "publishedDate": "2026-06-14",
+      "outputDir": "slides/2026-06-14-btw-vrijstelling-vs-kor"
+    },
+    {
+      "topic": "30 verkopen op Vinted — wat gebeurt er nu precies met jouw gegevens?",
+      "slug": "vinted-30-verkopen-dac7",
+      "type": "poster",
+      "status": "published",
+      "priority": 5,
+      "notes": "Stat poster — concreet getal als haak",
+      "publishedDate": "2026-06-14",
+      "outputDir": "slides/2026-06-14-vinted-30-verkopen-dac7"
     }
   ],
   "settings": {
