@@ -1,6 +1,150 @@
 {
   "sets": [
     {
+      "id": "2026-06-14-platform-vergelijking-btw",
+      "topic": "Marktplaats vs Vinted vs Etsy: welk platform heeft de strengste BTW-regels?",
+      "date": "2026-06-14",
+      "type": "carousel",
+      "slides": 7,
+      "files": [
+        "slides/2026-06-14-platform-vergelijking-btw/01.html",
+        "slides/2026-06-14-platform-vergelijking-btw/02.html",
+        "slides/2026-06-14-platform-vergelijking-btw/03.html",
+        "slides/2026-06-14-platform-vergelijking-btw/04.html",
+        "slides/2026-06-14-platform-vergelijking-btw/05.html",
+        "slides/2026-06-14-platform-vergelijking-btw/06.html",
+        "slides/2026-06-14-platform-vergelijking-btw/07.html"
+      ],
+      "pngs": [
+        "slides/2026-06-14-platform-vergelijking-btw/01.png",
+        "slides/2026-06-14-platform-vergelijking-btw/02.png",
+        "slides/2026-06-14-platform-vergelijking-btw/03.png",
+        "slides/2026-06-14-platform-vergelijking-btw/04.png",
+        "slides/2026-06-14-platform-vergelijking-btw/05.png",
+        "slides/2026-06-14-platform-vergelijking-btw/06.png",
+        "slides/2026-06-14-platform-vergelijking-btw/07.png"
+      ],
+      "caption": "Drie platforms. Drie totaal verschillende benaderingen van BTW.\n\nEn veel verkopers weten dat niet — tot ze een brief van de Belastingdienst krijgen.\n\n---\n\nWat ik steeds vaker zie: mensen die op Vinted, Etsy én Marktplaats verkopen, maar geen idee hebben welk platform wat doorstuurt naar de fiscus. Of wat dat voor hun eigen aangifte betekent.\n\nDat is niet hun schuld. De regels zijn echt niet overzichtelijk.\n\n---\n\nWat je moet weten:\n\nVinted rapporteert automatisch via DAC7 als je 30+ transacties hebt én meer dan €2.000 verdient. Ze houden het bij. De Belastingdienst krijgt dat gewoon door.\n\nEtsy is een ander verhaal. Zij zijn een \"deemed supplier\" — ze dragen zelf BTW af op digitale verkopen naar andere EU-landen. Maar jij blijft verantwoordelijk voor je eigen omzetdrempels. Zeker als je boven de €10.000 uitkomt (OSS-grens).\n\nMarktplaats is het meest hands-off. Zij faciliteren, maar jij regelt je eigen fiscale situatie. Geen automatische afdracht, geen drempelwaarschuwing.\n\n---\n\nEn dan de vraag die er écht toe doet:\n\nZit jij onder de KOR-grens van €20.000? Dan hoef je geen BTW te berekenen. Maar je moet die grens wél zelf bewaken — over álle platforms samen.\n\n---\n\nSwipe door de slides voor het overzicht per platform, inclusief wie wat moet regelen afhankelijk van jouw situatie.\n\nEn kom je er niet uit? Op zenbtw.nl zet ik het gewoon in gewone taal voor je uiteen.\n\n---\n\n#btw #belasting #vinted #etsy #marktplaats #vintedverkoper #etsyshop #korregeling #belastingdienst #ondernemen #zzpnederland #webshopnederland"
+    },
+    {
+      "id": "2026-06-14-btw-boete-te-laat",
+      "topic": "Wat kost het je als je BTW te laat afdraagt?",
+      "date": "2026-06-14",
+      "type": "poster",
+      "slides": 1,
+      "files": [
+        "slides/2026-06-14-btw-boete-te-laat/01.html"
+      ],
+      "pngs": [
+        "slides/2026-06-14-btw-boete-te-laat/01.png"
+      ],
+      "caption": "Te laat je BTW afdragen voelt misschien niet zo erg.\n\nMaar de Belastingdienst denkt daar anders over.\n\nIk zie het regelmatig: ondernemers die niet wisten dat ze BTW moesten afdragen, of die het steeds uitstelden. En dan komen de naheffingen.\n\nWat het je kan kosten:\n\nEen verzuimboete van 3% over het te betalen bedrag (minimaal €50, maximaal €5.514). En als het patroon zich herhaalt? Dan loopt dat op.\n\nVerkoop je via Vinted, Etsy of Marktplaats? Dan kijkt de Belastingdienst mee via DAC7. Zodra je meer dan 30 transacties hebt of meer dan €2.000 verdient, worden jouw gegevens automatisch gedeeld.\n\nZit je onder de €20.000 omzet? Dan kom je waarschijnlijk in aanmerking voor de KOR-regeling en hoef je helemaal geen BTW af te dragen.\n\nVerkoop je ook in andere EU-landen? Dan geldt de OSS-regeling zodra je meer dan €10.000 omzet haalt buiten Nederland.\n\nDe meeste problemen ontstaan niet door kwade wil — maar door onduidelijkheid.\n\nWil je weten waar jij staat? Kijk op zenbtw.nl\n\n#btw #belasting #ondernemen #zzp #btwregeling #korregeling #ossregeling #vintedverkoper #etsyshop #marktplaatsverkoper #dac7 #belastingdienst"
+    },
+    {
+      "id": "2026-06-14-kor-aanmelden-stappenplan",
+      "topic": "KOR aanmelden: dit moet je weten voordat je de knop indrukt",
+      "date": "2026-06-14",
+      "type": "carousel",
+      "slides": 7,
+      "files": [
+        "slides/2026-06-14-kor-aanmelden-stappenplan/01.html",
+        "slides/2026-06-14-kor-aanmelden-stappenplan/02.html",
+        "slides/2026-06-14-kor-aanmelden-stappenplan/03.html",
+        "slides/2026-06-14-kor-aanmelden-stappenplan/04.html",
+        "slides/2026-06-14-kor-aanmelden-stappenplan/05.html",
+        "slides/2026-06-14-kor-aanmelden-stappenplan/06.html",
+        "slides/2026-06-14-kor-aanmelden-stappenplan/07.html"
+      ],
+      "pngs": [
+        "slides/2026-06-14-kor-aanmelden-stappenplan/01.png",
+        "slides/2026-06-14-kor-aanmelden-stappenplan/02.png",
+        "slides/2026-06-14-kor-aanmelden-stappenplan/03.png",
+        "slides/2026-06-14-kor-aanmelden-stappenplan/04.png",
+        "slides/2026-06-14-kor-aanmelden-stappenplan/05.png",
+        "slides/2026-06-14-kor-aanmelden-stappenplan/06.png",
+        "slides/2026-06-14-kor-aanmelden-stappenplan/07.png"
+      ],
+      "caption": "Veel mensen melden zich aan voor de KOR zonder te weten wat ze precies doen.\n\nDat is niet hun schuld — de Belastingdienst legt het niet bepaald helder uit.\n\nDe KOR (Kleineondernemersregeling) is een vrijstelling van BTW voor ondernemers die onder de €20.000 omzet per jaar blijven. Je berekent geen BTW, je draagt niets af, en je doet geen BTW-aangifte.\n\nKlinkt simpel. En dat is het ook — als je weet waar je op moet letten.\n\nWant er zijn een paar dingen die ik zie misgaan:\n\nMensen melden zich aan terwijl ze ook in het buitenland verkopen. Dan geldt de OSS-drempel van €10.000 — en die telt wél mee.\n\nOf ze zitten al op DAC7-rapportage (30 transacties + €2.000 via platforms zoals Vinted of Etsy) en weten niet hoe dat samenhangt met de KOR.\n\nOf ze vergeten dat ze met de KOR ook geen BTW terugvragen op zakelijke kosten.\n\nIn deze carousel loop ik het stap voor stap door.\n\nWat de KOR is, wanneer het slim is, wanneer niet, en hoe je je aanmeldt als je besluit dat het bij jou past.\n\nBen je benieuwd of de KOR voor jou werkt? Kijk dan op zenbtw.nl — daar vind je ook de KOR-check.\n\n#btw #belasting #korregeling #kleineondernemersregeling #btwvrijstelling #vintedverkoper #etsyshop #ondernemen #zzp #webshop #belastingdienst #btwondernemer"
+    },
+    {
+      "id": "2026-06-14-bolcom-btw-verplichtingen",
+      "topic": "Bol.com verkoper en BTW: wat zijn je verplichtingen in 2026?",
+      "date": "2026-06-14",
+      "type": "carousel",
+      "slides": 7,
+      "files": [
+        "slides/2026-06-14-bolcom-btw-verplichtingen/01.html",
+        "slides/2026-06-14-bolcom-btw-verplichtingen/02.html",
+        "slides/2026-06-14-bolcom-btw-verplichtingen/03.html",
+        "slides/2026-06-14-bolcom-btw-verplichtingen/04.html",
+        "slides/2026-06-14-bolcom-btw-verplichtingen/05.html",
+        "slides/2026-06-14-bolcom-btw-verplichtingen/06.html",
+        "slides/2026-06-14-bolcom-btw-verplichtingen/07.html"
+      ],
+      "pngs": [
+        "slides/2026-06-14-bolcom-btw-verplichtingen/01.png",
+        "slides/2026-06-14-bolcom-btw-verplichtingen/02.png",
+        "slides/2026-06-14-bolcom-btw-verplichtingen/03.png",
+        "slides/2026-06-14-bolcom-btw-verplichtingen/04.png",
+        "slides/2026-06-14-bolcom-btw-verplichtingen/05.png",
+        "slides/2026-06-14-bolcom-btw-verplichtingen/06.png",
+        "slides/2026-06-14-bolcom-btw-verplichtingen/07.png"
+      ],
+      "caption": "Veel Bol.com verkopers denken dat ze pas iets met BTW hoeven te doen als het \"echt groot\" wordt.\n\nMaar wat groot is, is concreter dan je denkt.\n\nIk zie het steeds vaker: verkopers die gewoon wat artikelen doorverkopen, en opeens merken dat Bol.com hun gegevens deelt met de Belastingdienst. Dat is DAC7 — en dat geldt al vanaf 30 transacties én €2.000 omzet per jaar.\n\nDat is niet veel.\n\nZodra je omzet richting de €20.000 gaat, wordt het nóg belangrijker om te weten waar je staat. Want dan vervalt de KOR — de kleineondernemersregeling — en ben je gewoon BTW-plichtig.\n\nVerkoop je ook aan klanten buiten Nederland? Dan komt er nog een drempel bij: €10.000 voor de OSS-regeling. Daarboven geef je BTW aan in elk land waar je verkoopt. Klinkt ingewikkeld, maar met OSS regel je dat gewoon in één aangifte.\n\nWat ik merk is dat veel verkopers de keuze tussen KOR en OSS niet bewust maken. Ze rollen er gewoon in — en ontdekken achteraf dat er iets niet klopte.\n\nSwipe door de carousel en kijk welke situatie op jou lijkt.\n\nEn als je daarna wil weten wat dit concreet voor jóuw Bol.com-winkel betekent, vind je op zenbtw.nl een duidelijk overzicht zonder vakjargon.\n\n#btw #belasting #bolcomverkoper #ondernemen #zzpnederland #korregeling #ossregeling #webshophouder #kleineondernemer #belastingdienst #ecommercenederland #btwregels"
+    },
+    {
+      "id": "2026-06-14-btw-fouten-marketplace",
+      "topic": "5 BTW-fouten die marketplace verkopers maken (en hoe je ze vermijdt)",
+      "date": "2026-06-14",
+      "type": "carousel",
+      "slides": 7,
+      "files": [
+        "slides/2026-06-14-btw-fouten-marketplace/01.html",
+        "slides/2026-06-14-btw-fouten-marketplace/02.html",
+        "slides/2026-06-14-btw-fouten-marketplace/03.html",
+        "slides/2026-06-14-btw-fouten-marketplace/04.html",
+        "slides/2026-06-14-btw-fouten-marketplace/05.html",
+        "slides/2026-06-14-btw-fouten-marketplace/06.html",
+        "slides/2026-06-14-btw-fouten-marketplace/07.html"
+      ],
+      "pngs": [
+        "slides/2026-06-14-btw-fouten-marketplace/01.png",
+        "slides/2026-06-14-btw-fouten-marketplace/02.png",
+        "slides/2026-06-14-btw-fouten-marketplace/03.png",
+        "slides/2026-06-14-btw-fouten-marketplace/04.png",
+        "slides/2026-06-14-btw-fouten-marketplace/05.png",
+        "slides/2026-06-14-btw-fouten-marketplace/06.png",
+        "slides/2026-06-14-btw-fouten-marketplace/07.png"
+      ],
+      "caption": "Veel verkopers die ik spreek denken dat ze geen BTW hoeven te regelen. Totdat ze een brief van de Belastingdienst krijgen.\n\nEn dan blijkt: ze hadden al jaren over een grens gezeten zonder het te weten.\n\nDit zijn de fouten die ik het meest zie:\n\nDe KOR-grens ligt op €20.000 per jaar. Niet per platform, maar totaal. Dus Vinted + Etsy + Marktplaats bij elkaar opgeteld.\n\nDe OSS-regeling geldt zodra je voor meer dan €10.000 verkoopt aan mensen in andere EU-landen. Dan gelden de BTW-regels van dat land, niet van Nederland.\n\nPlatforms als Etsy en Amazon zijn intussen verplicht om jouw verkopen door te geven aan de Belastingdienst. Dit heet DAC7. De grens: 30 transacties óf €2.000 per jaar. Daarna gaat er automatisch een melding.\n\nVeel verkopers weten dit niet. Of ze denken: \"Ik doe het toch hobbymatig.\"\n\nMaar de Belastingdienst kijkt naar cijfers, niet naar intentie.\n\nWeet jij wat je de afgelopen 12 maanden precies hebt omgezet, inclusief alle platforms bij elkaar?\n\nAls je dat niet zeker weet, is dat al een reden om het even na te gaan.\n\nOp zenbtw.nl kun je checken welke regeling voor jou geldt. Gewoon gratis, zonder gedoe.\n\n—\n\n#btw #belasting #zzp #ondernemen #marketplace #vintedverkoper #etsyshop #korregeling #dac7 #btwplicht #webshop #freelancer"
+    },
+    {
+      "id": "2026-06-14-vinted-aangifte-2026",
+      "topic": "Vinted 2026: zo geef je je verkopen correct op bij de Belastingdienst",
+      "date": "2026-06-14",
+      "type": "carousel",
+      "slides": 7,
+      "files": [
+        "slides/2026-06-14-vinted-aangifte-2026/01.html",
+        "slides/2026-06-14-vinted-aangifte-2026/02.html",
+        "slides/2026-06-14-vinted-aangifte-2026/03.html",
+        "slides/2026-06-14-vinted-aangifte-2026/04.html",
+        "slides/2026-06-14-vinted-aangifte-2026/05.html",
+        "slides/2026-06-14-vinted-aangifte-2026/06.html",
+        "slides/2026-06-14-vinted-aangifte-2026/07.html"
+      ],
+      "pngs": [
+        "slides/2026-06-14-vinted-aangifte-2026/01.png",
+        "slides/2026-06-14-vinted-aangifte-2026/02.png",
+        "slides/2026-06-14-vinted-aangifte-2026/03.png",
+        "slides/2026-06-14-vinted-aangifte-2026/04.png",
+        "slides/2026-06-14-vinted-aangifte-2026/05.png",
+        "slides/2026-06-14-vinted-aangifte-2026/06.png",
+        "slides/2026-06-14-vinted-aangifte-2026/07.png"
+      ],
+      "caption": "Veel Vinted-verkopers weten het niet, maar vanaf 2025 deelt Vinted jouw verkoopdata automatisch met de Belastingdienst.\n\nDat heet DAC7. En het betekent: zodra je 30 transacties én meer dan €2.000 omzet hebt in een jaar, wordt jouw account gemeld.\n\nGeen uitzondering voor tweedehands. Geen uitzondering voor bijverdienste.\n\nIk zie dat veel verkopers denken: \"Ik verkoop gewoon oude spullen, dat telt toch niet?\" Maar de Belastingdienst kijkt niet naar jouw intentie — die kijkt naar patronen.\n\nRegelmatig verkopen, winst maken op inkopen, een eigen Vinted-shop met reviews? Dan ben je voor de fiscus ondernemer.\n\nEn dan gelden de regels gewoon.\n\nWat je dan moet weten:\n→ Onder €20.000 omzet? Je kunt de KOR gebruiken — geen BTW aanrekenen, geen BTW afdragen\n→ Verkoop je ook in andere EU-landen? Dan geldt de OSS-drempel van €10.000\n→ Boven de €20.000? Gewone BTW-aangifte, elk kwartaal\n\nHet goede nieuws: als je weet waar je staat, is het goed te regelen.\n\nVeel verkopers vertellen me dat ze gewoon niet wisten dat dit al gold. Dat is begrijpelijk. Maar 2026 is een goed moment om het netjes te zetten.\n\nWil je weten of jij iets moet doen? Check zenbtw.nl — ik leg het stap voor stap uit, zonder vakjargon.\n\n#btw #belasting #vinted #vintedverkoper #korregeling #dac7 #belastingdienst #ondernemen #zzp #webshop #etsyshop #btwvrij"
+    },
+    {
       "id": "2026-06-14-shopify-btw-automatisch",
       "topic": "Shopify in Nederland — zo werkt BTW automatisch in 2026",
       "date": "2026-06-14",

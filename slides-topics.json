@@ -1,54 +1,5 @@
 {
-  "queue": [
-    {
-      "topic": "Vinted 2026: zo geef je je verkopen correct op bij de Belastingdienst",
-      "slug": "vinted-aangifte-2026",
-      "type": "carousel",
-      "status": "pending",
-      "priority": 1,
-      "notes": "Praktische stap-voor-stap voor Vinted verkopers"
-    },
-    {
-      "topic": "5 BTW-fouten die marketplace verkopers maken (en hoe je ze vermijdt)",
-      "slug": "btw-fouten-marketplace",
-      "type": "carousel",
-      "status": "pending",
-      "priority": 2,
-      "notes": "Fouten-format werkt goed op social"
-    },
-    {
-      "topic": "Bol.com verkoper en BTW: wat zijn je verplichtingen in 2026?",
-      "slug": "bolcom-btw-verplichtingen",
-      "type": "carousel",
-      "status": "pending",
-      "priority": 3,
-      "notes": "Platform-specifiek voor Bol.com verkopers"
-    },
-    {
-      "topic": "KOR aanmelden: dit moet je weten voordat je de knop indrukt",
-      "slug": "kor-aanmelden-stappenplan",
-      "type": "carousel",
-      "status": "pending",
-      "priority": 4,
-      "notes": "Actiegerichte carrousel met persona vergelijking"
-    },
-    {
-      "topic": "Wat kost het je als je BTW te laat afdraagt?",
-      "slug": "btw-boete-te-laat",
-      "type": "poster",
-      "status": "pending",
-      "priority": 5,
-      "notes": "Stat poster met boete bedragen"
-    },
-    {
-      "topic": "Marktplaats vs Vinted vs Etsy: welk platform heeft de strengste BTW-regels?",
-      "slug": "platform-vergelijking-btw",
-      "type": "carousel",
-      "status": "pending",
-      "priority": 6,
-      "notes": "Vergelijkingscarrousel met persona of compare template"
-    }
-  ],
+  "queue": [],
   "published": [
     {
       "topic": "DAC7 & Vinted: wat meldt het platform aan de Belastingdienst?",
@@ -149,6 +100,66 @@
       "notes": "Platform-specifiek",
       "publishedDate": "2026-06-14",
       "outputDir": "slides/2026-06-14-shopify-btw-automatisch"
+    },
+    {
+      "topic": "Vinted 2026: zo geef je je verkopen correct op bij de Belastingdienst",
+      "slug": "vinted-aangifte-2026",
+      "type": "carousel",
+      "status": "published",
+      "priority": 1,
+      "notes": "Praktische stap-voor-stap voor Vinted verkopers",
+      "publishedDate": "2026-06-14",
+      "outputDir": "slides/2026-06-14-vinted-aangifte-2026"
+    },
+    {
+      "topic": "5 BTW-fouten die marketplace verkopers maken (en hoe je ze vermijdt)",
+      "slug": "btw-fouten-marketplace",
+      "type": "carousel",
+      "status": "published",
+      "priority": 2,
+      "notes": "Fouten-format werkt goed op social",
+      "publishedDate": "2026-06-14",
+      "outputDir": "slides/2026-06-14-btw-fouten-marketplace"
+    },
+    {
+      "topic": "Bol.com verkoper en BTW: wat zijn je verplichtingen in 2026?",
+      "slug": "bolcom-btw-verplichtingen",
+      "type": "carousel",
+      "status": "published",
+      "priority": 3,
+      "notes": "Platform-specifiek voor Bol.com verkopers",
+      "publishedDate": "2026-06-14",
+      "outputDir": "slides/2026-06-14-bolcom-btw-verplichtingen"
+    },
+    {
+      "topic": "KOR aanmelden: dit moet je weten voordat je de knop indrukt",
+      "slug": "kor-aanmelden-stappenplan",
+      "type": "carousel",
+      "status": "published",
+      "priority": 4,
+      "notes": "Actiegerichte carrousel met persona vergelijking",
+      "publishedDate": "2026-06-14",
+      "outputDir": "slides/2026-06-14-kor-aanmelden-stappenplan"
+    },
+    {
+      "topic": "Wat kost het je als je BTW te laat afdraagt?",
+      "slug": "btw-boete-te-laat",
+      "type": "poster",
+      "status": "published",
+      "priority": 5,
+      "notes": "Stat poster met boete bedragen",
+      "publishedDate": "2026-06-14",
+      "outputDir": "slides/2026-06-14-btw-boete-te-laat"
+    },
+    {
+      "topic": "Marktplaats vs Vinted vs Etsy: welk platform heeft de strengste BTW-regels?",
+      "slug": "platform-vergelijking-btw",
+      "type": "carousel",
+      "status": "published",
+      "priority": 6,
+      "notes": "Vergelijkingscarrousel met persona of compare template",
+      "publishedDate": "2026-06-14",
+      "outputDir": "slides/2026-06-14-platform-vergelijking-btw"
     }
   ],
   "settings": {
