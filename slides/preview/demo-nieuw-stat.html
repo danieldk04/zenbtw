@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=1080">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,700;9..144,900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{width:1080px;height:1920px;overflow:hidden;-webkit-font-smoothing:antialiased}
+</style>
+</head>
+<body>
+
+<!-- STAT POSTER — nieuwe stijl met mascot -->
+<div style="width:1080px;height:1920px;position:relative;overflow:hidden;background:#0f2d1e">
+
+  <!-- Achtergrond: mesh gradient -->
+  <div style="position:absolute;inset:0;background:radial-gradient(ellipse 800px 800px at 20% 30%,#1a4731 0%,transparent 60%),radial-gradient(ellipse 600px 600px at 80% 70%,#2d6a4f 0%,transparent 55%),#0f2d1e"></div>
+
+  <!-- Subtiele grid lijnen -->
+  <svg style="position:absolute;inset:0;width:100%;height:100%;opacity:0.05" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <pattern id="grid" x="0" y="0" width="80" height="80" patternUnits="userSpaceOnUse">
+        <path d="M 80 0 L 0 0 0 80" fill="none" stroke="#4ade80" stroke-width="1"/>
+      </pattern>
+    </defs>
+    <rect width="1080" height="1920" fill="url(#grid)"/>
+  </svg>
+
+  <!-- Grote getal achtergrond (outline effect) -->
+  <div style="position:absolute;top:180px;left:-20px;font-family:'Fraunces',serif;font-size:380px;font-weight:900;color:transparent;-webkit-text-stroke:2px rgba(255,255,255,0.06);line-height:1;pointer-events:none;user-select:none;letter-spacing:-0.04em">30</div>
+
+  <!-- Logo + tag bovenin -->
+  <div style="position:absolute;top:60px;left:72px;right:72px;display:flex;align-items:center;justify-content:space-between">
+    <div style="display:flex;align-items:center;gap:12px">
+      <div style="width:38px;height:38px;background:rgba(255,255,255,0.12);border-radius:9px;display:flex;align-items:center;justify-content:center">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M12 2L3 7v5c0 5.25 3.75 10.15 9 11.35C17.25 22.15 21 17.25 21 12V7L12 2z" fill="rgba(255,255,255,0.85)"/></svg>
+      </div>
+      <span style="font-family:'Fraunces',serif;font-size:22px;font-weight:700;color:rgba(255,255,255,0.85)">ZenBTW</span>
+    </div>
+    <div style="background:rgba(74,222,128,0.15);border:1.5px solid rgba(74,222,128,0.35);border-radius:100px;padding:8px 20px;font-size:16px;font-weight:700;color:#4ade80;letter-spacing:0.06em;text-transform:uppercase;font-family:'Plus Jakarta Sans',sans-serif">DAC7 · 2026</div>
+  </div>
+
+  <!-- HOOFDCONTENT -->
+  <div style="position:absolute;top:200px;left:72px;right:72px">
+
+    <!-- Eyebrow -->
+    <div style="display:flex;align-items:center;gap:16px;margin-bottom:36px">
+      <div style="width:44px;height:3px;background:rgba(255,255,255,0.35);border-radius:2px"></div>
+      <span style="font-size:19px;font-weight:700;color:rgba(255,255,255,0.5);letter-spacing:0.1em;text-transform:uppercase;font-family:'Plus Jakarta Sans',sans-serif">Rapportagegrens Vinted</span>
+    </div>
+
+    <!-- Groot getal — gesplitst voor dramatisch effect -->
+    <div style="margin-bottom:16px">
+      <span style="font-family:'Fraunces',serif;font-size:220px;font-weight:900;color:#fff;line-height:0.85;letter-spacing:-0.05em">30</span>
+      <span style="font-family:'Plus Jakarta Sans',sans-serif;font-size:36px;font-weight:800;color:rgba(255,255,255,0.4);vertical-align:middle;margin-left:16px">verkopen</span>
+    </div>
+    <div style="display:flex;align-items:center;gap:24px;margin-bottom:16px">
+      <div style="height:3px;width:80px;background:linear-gradient(to right,rgba(255,255,255,0.6),rgba(255,255,255,0.1));border-radius:2px"></div>
+      <span style="font-size:24px;font-weight:700;color:rgba(255,255,255,0.35);letter-spacing:0.12em;font-family:'Plus Jakarta Sans',sans-serif">PLUS</span>
+      <div style="height:3px;flex:1;background:linear-gradient(to right,rgba(255,255,255,0.1),transparent);border-radius:2px"></div>
+    </div>
+    <div style="margin-bottom:48px">
+      <span style="font-family:'Fraunces',serif;font-size:170px;font-weight:900;color:#4ade80;line-height:0.85;letter-spacing:-0.04em">€2.000</span>
+      <span style="font-family:'Plus Jakarta Sans',sans-serif;font-size:36px;font-weight:800;color:rgba(255,255,255,0.4);vertical-align:middle;margin-left:16px">omzet</span>
+    </div>
+
+    <!-- Label -->
+    <div style="font-family:'Plus Jakarta Sans',sans-serif;font-size:36px;font-weight:600;color:rgba(255,255,255,0.82);line-height:1.35;margin-bottom:40px;max-width:840px">
+      = automatische melding aan de Belastingdienst — van <em>elk EU-platform</em>
+    </div>
+
+    <!-- Beide moeten gehaald — glassmorphism card -->
+    <div style="background:rgba(255,255,255,0.07);border:1.5px solid rgba(255,255,255,0.12);border-radius:20px;padding:28px 36px;margin-bottom:32px;backdrop-filter:blur(8px)">
+      <div style="display:flex;align-items:flex-start;gap:20px">
+        <span style="font-size:36px;flex-shrink:0;margin-top:2px">⚠️</span>
+        <div>
+          <div style="font-size:22px;font-weight:800;color:#fff;margin-bottom:8px;font-family:'Plus Jakarta Sans',sans-serif">Beide drempels moeten gehaald zijn</div>
+          <div style="font-size:20px;color:rgba(255,255,255,0.65);line-height:1.5;font-family:'Plus Jakarta Sans',sans-serif">28 verkopen maar €5.000 omzet? Veilig. 50 verkopen maar €1.800? Ook veilig. Pas bij <strong style="color:rgba(255,255,255,0.9)">allebei</strong> volgt een melding.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── MASCOT onderin rechts ── -->
+  <svg style="position:absolute;right:40px;bottom:120px;width:260px;height:390px" viewBox="0 0 200 300" xmlns="http://www.w3.org/2000/svg">
+    <ellipse cx="100" cy="296" rx="55" ry="7" fill="rgba(0,0,0,0.3)"/>
+    <rect x="60" y="220" width="28" height="68" rx="14" fill="#0a1f12"/>
+    <rect x="112" y="220" width="28" height="68" rx="14" fill="#0a1f12"/>
+    <ellipse cx="74" cy="286" rx="22" ry="9" fill="#111"/>
+    <ellipse cx="126" cy="286" rx="22" ry="9" fill="#111"/>
+    <path d="M 28 148 Q 28 235 172 235 Q 172 148 172 148 Q 148 128 100 124 Q 52 128 28 148 Z" fill="#1a4731"/>
+    <polygon points="84,128 100,158 116,128" fill="#fff"/>
+    <polygon points="97,148 100,172 103,148 101,134 99,134" fill="#0f2d1e"/>
+    <rect x="97" y="155" width="6" height="4" rx="2" fill="#4ade80"/>
+    <!-- linkerarm omhoog — duim omhoog -->
+    <path d="M 28 165 Q -5 148 5 120 Q 10 105 24 110 Q 16 132 28 165 Z" fill="#1a4731"/>
+    <circle cx="12" cy="108" r="13" fill="#FDBCB4"/>
+    <rect x="8" y="82" width="8" height="28" rx="4" fill="#FDBCB4"/>
+    <!-- rechterarm -->
+    <path d="M 172 168 Q 196 185 192 165 Q 188 148 175 155 Z" fill="#1a4731"/>
+    <circle cx="192" cy="162" r="13" fill="#FDBCB4"/>
+    <rect x="84" y="100" width="32" height="30" rx="16" fill="#FDBCB4"/>
+    <ellipse cx="100" cy="76" rx="54" ry="56" fill="#FDBCB4"/>
+    <path d="M 50 58 Q 58 18 100 14 Q 142 18 150 58 Q 138 34 100 32 Q 62 34 50 58 Z" fill="#2C1A10"/>
+    <rect x="44" y="54" width="11" height="28" rx="5.5" fill="#2C1A10"/>
+    <rect x="145" y="54" width="11" height="28" rx="5.5" fill="#2C1A10"/>
+    <path d="M 58 52 Q 70 44 80 50" stroke="#2C1A10" stroke-width="3.5" fill="none" stroke-linecap="round"/>
+    <path d="M 120 50 Q 130 44 142 52" stroke="#2C1A10" stroke-width="3.5" fill="none" stroke-linecap="round"/>
+    <ellipse cx="72" cy="66" rx="11" ry="12" fill="white"/>
+    <ellipse cx="128" cy="66" rx="11" ry="12" fill="white"/>
+    <circle cx="74" cy="67" r="7.5" fill="#2C1A10"/>
+    <circle cx="130" cy="67" r="7.5" fill="#2C1A10"/>
+    <circle cx="76" cy="64" r="2.5" fill="white"/>
+    <circle cx="132" cy="64" r="2.5" fill="white"/>
+    <path d="M 97 83 Q 100 89 103 83" fill="none" stroke="#e8a070" stroke-width="2.5" stroke-linecap="round"/>
+    <path d="M 74 95 Q 100 114 126 95" fill="none" stroke="#c97050" stroke-width="4" stroke-linecap="round"/>
+    <path d="M 74 95 Q 100 107 126 95" fill="none" stroke="#fff" stroke-width="5" stroke-linecap="round" stroke-dasharray="6 2"/>
+    <ellipse cx="58" cy="88" rx="13" ry="8" fill="#FF9090" opacity="0.38"/>
+    <ellipse cx="142" cy="88" rx="13" ry="8" fill="#FF9090" opacity="0.38"/>
+    <path d="M 84 178 L 100 170 L 116 178 L 116 192 Q 100 202 84 192 Z" fill="rgba(255,255,255,0.12)" stroke="rgba(255,255,255,0.25)" stroke-width="1"/>
+    <text x="100" y="190" text-anchor="middle" fill="rgba(255,255,255,0.8)" font-size="7" font-weight="700" font-family="sans-serif">BTW</text>
+  </svg>
+
+  <!-- Bron -->
+  <div style="position:absolute;bottom:105px;left:72px;font-size:17px;color:rgba(255,255,255,0.28);font-weight:500;font-family:'Plus Jakarta Sans',sans-serif">Bron: EU-richtlijn DAC7 · Belastingdienst.nl</div>
+
+  <!-- Footer -->
+  <div style="position:absolute;bottom:0;left:0;right:0;padding:24px 72px;display:flex;align-items:center;justify-content:space-between;border-top:1px solid rgba(255,255,255,0.1)">
+    <div style="display:flex;align-items:center;gap:13px">
+      <div style="width:36px;height:36px;background:rgba(255,255,255,0.1);border-radius:9px;display:flex;align-items:center;justify-content:center">
+        <svg width="19" height="19" viewBox="0 0 24 24" fill="none"><path d="M12 2L3 7v5c0 5.25 3.75 10.15 9 11.35C17.25 22.15 21 17.25 21 12V7L12 2z" fill="rgba(255,255,255,0.7)"/></svg>
+      </div>
+      <span style="font-family:'Fraunces',serif;font-size:24px;font-weight:700;color:rgba(255,255,255,0.8)">ZenBTW</span>
+    </div>
+    <span style="font-size:18px;color:rgba(255,255,255,0.35);font-weight:500;font-family:'Plus Jakarta Sans',sans-serif">zenbtw.nl</span>
+  </div>
+
+</div>
+</body>
+</html>
