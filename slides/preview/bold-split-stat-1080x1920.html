@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=1080">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,700;9..144,900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{width:1080px;height:1920px;overflow:hidden;-webkit-font-smoothing:antialiased}
+</style>
+</head>
+<body>
+<div style="width:1080px;height:1920px;position:relative;overflow:hidden;background:#f5f3ee">
+
+  <!-- Dot patroon crème -->
+  <svg style="position:absolute;inset:0;width:100%;height:100%;opacity:0.04" xmlns="http://www.w3.org/2000/svg">
+    <defs><pattern id="d" x="0" y="0" width="40" height="40" patternUnits="userSpaceOnUse"><circle cx="20" cy="20" r="1.5" fill="#1a4731"/></pattern></defs>
+    <rect width="1080" height="1920" fill="url(#d)"/>
+  </svg>
+
+  <!-- Diagonale groene split -->
+  <div style="position:absolute;bottom:0;left:0;right:0;height:920px;background:#1a4731;clip-path:polygon(0 110px,100% 0,100% 100%,0 100%)"></div>
+
+  <!-- Grid in groene sectie -->
+  <svg style="position:absolute;bottom:0;left:0;width:100%;height:920px;opacity:0.035" xmlns="http://www.w3.org/2000/svg">
+    <defs><pattern id="g" x="0" y="0" width="64" height="64" patternUnits="userSpaceOnUse"><path d="M 64 0 L 0 0 0 64" fill="none" stroke="#fff" stroke-width="0.6"/></pattern></defs>
+    <rect width="1080" height="920" fill="url(#g)"/>
+  </svg>
+
+  <!-- Grote outline "30" als decoratie — overlapt de split -->
+  <div style="position:absolute;top:180px;left:-15px;font-family:'Fraunces',serif;font-size:520px;font-weight:900;color:transparent;-webkit-text-stroke:2px rgba(26,71,49,0.06);line-height:1;letter-spacing:-0.06em;pointer-events:none;user-select:none">30</div>
+
+  <!-- ══ HEADER ══ -->
+  <div style="position:absolute;top:60px;left:72px;right:72px;display:flex;align-items:center;justify-content:space-between;z-index:10">
+    <div style="display:flex;align-items:center;gap:12px">
+      <div style="width:38px;height:38px;background:#1a4731;border-radius:9px;display:flex;align-items:center;justify-content:center">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M12 2L3 7v5c0 5.25 3.75 10.15 9 11.35C17.25 22.15 21 17.25 21 12V7L12 2z" fill="#fff"/></svg>
+      </div>
+      <span style="font-family:'Fraunces',serif;font-size:26px;font-weight:700;color:#1a1814">ZenBTW</span>
+    </div>
+    <div style="background:rgba(26,71,49,0.1);border:1.5px solid rgba(26,71,49,0.22);border-radius:100px;padding:9px 22px;font-family:'Plus Jakarta Sans',sans-serif;font-size:15px;font-weight:800;color:#1a4731;letter-spacing:0.08em;text-transform:uppercase">DAC7 · 2026</div>
+  </div>
+
+  <!-- ══ EYEBROW ══ -->
+  <div style="position:absolute;top:190px;left:72px;display:flex;align-items:center;gap:16px;z-index:5">
+    <div style="width:44px;height:3px;background:#1a4731;border-radius:2px"></div>
+    <span style="font-family:'Plus Jakarta Sans',sans-serif;font-size:18px;font-weight:700;color:#7a7470;letter-spacing:0.12em;text-transform:uppercase">Rapportagegrens Vinted</span>
+  </div>
+
+  <!-- ══ STATS ══ -->
+  <div style="position:absolute;top:265px;left:72px;right:72px;z-index:5">
+
+    <!-- 30 verkopen — crème sectie -->
+    <div style="display:flex;align-items:flex-end;gap:18px;margin-bottom:0">
+      <span style="font-family:'Fraunces',serif;font-size:290px;font-weight:900;color:#1a1814;line-height:0.82;letter-spacing:-0.05em">30</span>
+      <span style="font-family:'Plus Jakarta Sans',sans-serif;font-size:32px;font-weight:700;color:#7a7470;padding-bottom:46px">verkopen</span>
+    </div>
+
+    <!-- PLUS -->
+    <div style="display:flex;align-items:center;gap:20px;margin:6px 0 10px">
+      <span style="font-family:'Plus Jakarta Sans',sans-serif;font-size:52px;font-weight:900;color:rgba(26,71,49,0.2)">+</span>
+      <div style="height:2px;flex:1;background:linear-gradient(to right,rgba(26,71,49,0.2),transparent)"></div>
+    </div>
+
+    <!-- €2k — kleurt groen, net over de split -->
+    <div style="display:flex;align-items:flex-end;gap:18px;margin-bottom:64px">
+      <span style="font-family:'Fraunces',serif;font-size:240px;font-weight:900;color:#1a4731;line-height:0.82;letter-spacing:-0.04em">€2k</span>
+      <span style="font-family:'Plus Jakarta Sans',sans-serif;font-size:32px;font-weight:700;color:#7a7470;padding-bottom:36px">omzet</span>
+    </div>
+
+    <!-- Resultaat label — nu op groene achtergrond -->
+    <div style="font-family:'Plus Jakarta Sans',sans-serif;font-size:34px;font-weight:600;color:rgba(255,255,255,0.82);line-height:1.35;margin-bottom:40px;max-width:760px">
+      = <strong style="color:#fff">automatische melding</strong> aan de Belastingdienst
+    </div>
+
+    <!-- Warning card -->
+    <div style="background:rgba(255,255,255,0.09);border:1px solid rgba(255,255,255,0.16);border-radius:20px;padding:26px 30px;backdrop-filter:blur(10px);margin-bottom:28px">
+      <div style="display:grid;grid-template-columns:auto 1fr;gap:18px;align-items:start">
+        <span style="font-size:28px">⚠️</span>
+        <div>
+          <div style="font-family:'Plus Jakarta Sans',sans-serif;font-size:19px;font-weight:800;color:#fff;margin-bottom:6px">Beide drempels moeten tegelijk gehaald zijn</div>
+          <div style="font-family:'Plus Jakarta Sans',sans-serif;font-size:17px;color:rgba(255,255,255,0.6);line-height:1.55">50 verkopen maar €1.800? Veilig. €5.000 maar 28 verkopen? Ook veilig. Pas bij <em style="color:rgba(255,255,255,0.88)">allebei</em> volgt een rapport.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bron -->
+    <div style="font-family:'Plus Jakarta Sans',sans-serif;font-size:15px;color:rgba(255,255,255,0.28);font-weight:500">Bron: EU-richtlijn DAC7 · Belastingdienst.nl</div>
+  </div>
+
+  <!-- ══ DANIEL rechtsonder ══ -->
+  <img src="../assets/daniel-presentator.png"
+       style="position:absolute;bottom:-50px;right:-70px;width:490px;height:auto;z-index:7"
+       alt="Daniel - ZenBTW presentator">
+
+  <!-- Speech bubble -->
+  <div style="position:absolute;bottom:490px;right:385px;z-index:8;background:#fff;border-radius:18px 18px 4px 18px;padding:14px 20px;box-shadow:0 8px 36px rgba(0,0,0,0.25);max-width:198px">
+    <div style="font-family:'Plus Jakarta Sans',sans-serif;font-size:17px;font-weight:800;color:#1a1814;line-height:1.35">Check je situatie<br>gratis 👇</div>
+    <div style="position:absolute;right:-10px;bottom:10px;width:0;height:0;border-top:11px solid transparent;border-bottom:0;border-left:13px solid #fff"></div>
+  </div>
+
+  <!-- FOOTER -->
+  <div style="position:absolute;bottom:0;left:0;right:0;padding:24px 72px;display:flex;align-items:center;justify-content:space-between;border-top:1px solid rgba(255,255,255,0.1);z-index:10">
+    <div style="display:flex;align-items:center;gap:12px">
+      <div style="width:36px;height:36px;background:rgba(255,255,255,0.12);border-radius:8px;display:flex;align-items:center;justify-content:center">
+        <svg width="19" height="19" viewBox="0 0 24 24" fill="none"><path d="M12 2L3 7v5c0 5.25 3.75 10.15 9 11.35C17.25 22.15 21 17.25 21 12V7L12 2z" fill="rgba(255,255,255,0.8)"/></svg>
+      </div>
+      <span style="font-family:'Fraunces',serif;font-size:24px;font-weight:700;color:rgba(255,255,255,0.85)">ZenBTW</span>
+    </div>
+    <span style="font-family:'Plus Jakarta Sans',sans-serif;font-size:17px;color:rgba(255,255,255,0.35);font-weight:600">zenbtw.nl</span>
+  </div>
+
+</div>
+</body>
+</html>
