@@ -1,5 +1,126 @@
 {
-  "queue": [],
+  "queue": [
+    {
+      "keyword": "margeregeling tweedehands goederen btw berekenen",
+      "slug": "margeregeling-tweedehands-btw",
+      "status": "pending",
+      "priority": 1,
+      "notes": "Direct aansluitend op onze margeregeling calculator tool",
+      "type": "seo-tool"
+    },
+    {
+      "keyword": "nihil aangifte btw kor ondernemer",
+      "slug": "nihil-aangifte-btw-kor",
+      "status": "pending",
+      "priority": 2,
+      "notes": "Veel verwarring over of je nihil moet indienen onder KOR",
+      "type": "geo-vraag"
+    },
+    {
+      "keyword": "etsy deemed supplier btw nederland uitleg",
+      "slug": "etsy-deemed-supplier-btw",
+      "status": "pending",
+      "priority": 3,
+      "notes": "Veel verwarring: telt Etsy-omzet mee voor KOR of niet?",
+      "type": "geo-vraag"
+    },
+    {
+      "keyword": "kor opzeggen hoe stappen belastingdienst",
+      "slug": "kor-opzeggen-hoe",
+      "status": "pending",
+      "priority": 4,
+      "notes": "KOR stopzetten als je drempel nadert — hoge intent",
+      "type": "seo-informationeel"
+    },
+    {
+      "keyword": "amazon verkoper btw nederland 2026",
+      "slug": "amazon-verkoper-btw-nederland",
+      "status": "pending",
+      "priority": 5,
+      "notes": "Amazon groeit hard in NL, nog weinig NL content",
+      "type": "seo-platform"
+    },
+    {
+      "keyword": "inkomstenbelasting marketplace verkoper 2026",
+      "slug": "inkomstenbelasting-marketplace-verkoper",
+      "status": "pending",
+      "priority": 6,
+      "notes": "IB vs BTW — meest gestelde vraag op Reddit/forums",
+      "type": "geo-vraag"
+    },
+    {
+      "keyword": "tweedehands spullen verkopen belasting 2026 wanneer",
+      "slug": "tweedehands-verkopen-belasting-2026",
+      "status": "pending",
+      "priority": 7,
+      "notes": "Brede zoekopdracht, hobbyist vs ondernemer",
+      "type": "geo-vraag"
+    },
+    {
+      "keyword": "factuur sturen als kor ondernemer verplicht",
+      "slug": "factuur-sturen-kor-ondernemer",
+      "status": "pending",
+      "priority": 8,
+      "notes": "Praktische vraag, weinig goede NL content",
+      "type": "seo-informationeel"
+    },
+    {
+      "keyword": "vinted dac7 2026 wat wordt gemeld belastingdienst",
+      "slug": "vinted-dac7-2026-gemeld",
+      "status": "pending",
+      "priority": 9,
+      "notes": "Angst-gedreven, hoge click-through op dit specifieke platform",
+      "type": "geo-vraag"
+    },
+    {
+      "keyword": "oss deadline kwartaal aangifte 2026",
+      "slug": "oss-deadline-kwartaal-2026",
+      "status": "pending",
+      "priority": 10,
+      "notes": "Evergreen praktisch, deadlines zijn tijdgevoelig",
+      "type": "seo-informationeel"
+    },
+    {
+      "keyword": "shopify payments btw afdragen nederland",
+      "slug": "shopify-payments-btw-afdragen",
+      "status": "pending",
+      "priority": 11,
+      "notes": "Shopify Payments nu beschikbaar in NL — nieuw en actueel",
+      "type": "seo-platform"
+    },
+    {
+      "keyword": "winstmarge berekenen online verkopen nederland",
+      "slug": "winstmarge-berekenen-online-verkopen",
+      "status": "pending",
+      "priority": 12,
+      "notes": "Aansluitend op nieuwe winstcalculator tool",
+      "type": "seo-tool"
+    },
+    {
+      "keyword": "etsy inkomsten opgeven belastingdienst nederland",
+      "slug": "etsy-inkomsten-opgeven-belastingdienst",
+      "status": "pending",
+      "priority": 13,
+      "notes": "GEO: hoe geef je Etsy-inkomsten op bij IB-aangifte",
+      "type": "geo-vraag"
+    },
+    {
+      "keyword": "marktplaats verkoper belasting 2026 wanneer",
+      "slug": "marktplaats-verkoper-belasting-2026",
+      "status": "pending",
+      "priority": 14,
+      "notes": "Marktplaats.nl groot platform, weinig BTW-content",
+      "type": "seo-platform"
+    },
+    {
+      "keyword": "kor drempel 20000 of 10000 verschil uitleg",
+      "slug": "kor-drempel-20000-of-10000",
+      "status": "pending",
+      "priority": 15,
+      "notes": "KOR €20k vs OSS €10k verwarring — zeer gesteld",
+      "type": "geo-vraag"
+    }
+  ],
   "published": [
     {
       "keyword": "shopify btw nederland 2026",
