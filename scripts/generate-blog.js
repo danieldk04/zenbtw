@@ -360,6 +360,13 @@ function updateBlogIndex(slug, title, description, tag) {
     return;
   }
 
+  const tagLower = (tag || '').toLowerCase();
+  let cat = 'platforms';
+  if (tagLower.includes('kor')) cat = 'kor';
+  else if (tagLower.includes('oss') || tagLower.includes('eu btw')) cat = 'oss';
+  else if (tagLower.includes('dac7')) cat = 'dac7';
+  else if (tagLower.includes('tool') || tagLower.includes('calculator') || tagLower.includes('checker')) cat = 'tools';
+
   const card = `
     <a href="/blog/${slug}" data-cat="${cat}" data-date="${TODAY}" class="card">
       <div class="card-body">
