@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Margeregeling tweedehands goederen: BTW berekenen | ZenBTW</title>
+<meta name="description" content="Margeregeling tweedehands goederen BTW berekenen? Zo werkt het écht: formules, rekenvoorbeelden en valkuilen voor marketplace verkopers.">
+<link rel="canonical" href="https://zenbtw.nl/blog/margeregeling-tweedehands-btw">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Margeregeling tweedehands goederen: BTW berekenen">
+<meta property="og:description" content="Margeregeling tweedehands goederen BTW berekenen? Zo werkt het écht: formules, rekenvoorbeelden en valkuilen voor marketplace verkopers.">
+<meta property="og:url" content="https://zenbtw.nl/blog/margeregeling-tweedehands-btw">
+<meta property="og:site_name" content="ZenBTW">
+<meta property="og:image" content="https://zenbtw.nl/og-blog.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Margeregeling tweedehands goederen: BTW berekenen">
+<meta name="twitter:description" content="Margeregeling tweedehands goederen BTW berekenen? Zo werkt het écht: formules, rekenvoorbeelden en valkuilen voor marketplace verkopers.">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="manifest" href="../manifest.json">
+<meta name="theme-color" content="#1a4731">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"Margeregeling tweedehands goederen: BTW berekenen","datePublished":"2026-06-14","dateModified":"2026-06-14","author":{"@type":"Organization","name":"ZenBTW"},"publisher":{"@type":"Organization","name":"ZenBTW","url":"https://zenbtw.nl"},"image":"https://zenbtw.nl/og-blog.png"}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Hoe bereken je BTW bij de margeregeling voor tweedehands goederen?","acceptedAnswer":{"@type":"Answer","text":"Je berekent BTW alleen over de winstmarge (verkoopprijs minus inkoopprijs). Het BTW-bedrag is 21/121 van die marge. Verkoop je iets voor €150 dat je voor €80 inkocht, dan is de marge €70 en de BTW €12,15."}},{"@type":"Question","name":"Wanneer mag je de margeregeling toepassen?","acceptedAnswer":{"@type":"Answer","text":"Je mag de margeregeling toepassen als je tweedehands goederen inkoopt van particulieren, andere margehandelaren, of vrijgestelde ondernemers. De leverancier mag géén BTW op de factuur hebben vermeld."}},{"@type":"Question","name":"Mag je de margeregeling gebruiken op Vinted of Etsy?","acceptedAnswer":{"@type":"Answer","text":"Ja, als je als ondernemer tweedehands goederen verkoopt die je zonder BTW hebt ingekocht van particulieren, kun je de margeregeling toepassen. Dit geldt ongeacht het verkoopkanaal."}},{"@type":"Question","name":"Wat als mijn marge negatief is bij de margeregeling?","acceptedAnswer":{"@type":"Answer","text":"Bij een negatieve marge (je verkoopt onder de inkoopprijs) is de verschuldigde BTW €0. Je kunt een negatieve marge niet verrekenen met positieve marges op andere producten, tenzij je de globalisatieregeling toepast."}},{"@type":"Question","name":"Mag ik de margeregeling combineren met de KOR?","acceptedAnswer":{"@type":"Answer","text":"Ja. Als je onder de KOR valt, ben je sowieso vrijgesteld van BTW zolang je omzet onder €20.000 exclusief BTW blijft. De margeregeling wordt dan pas relevant als je boven die drempel komt."}}]}</script>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--bg:#f7f6f3;--wh:#fff;--br:#e8e5de;--ac:#1a4731;--acl:#e8f0ec;--acm:#2d6a4f;--tx:#1a1814;--tx2:#4a4640;--tx3:#8a847a;--tx4:#b8b2a8;--s2:#f4f3ef;--dn:#c0392b;--dnl:#fdf0ee;--wn:#d97706;--wnl:#fffbeb}
+body{background:var(--bg);color:var(--tx);font-family:'Plus Jakarta Sans',sans-serif;-webkit-font-smoothing:antialiased;line-height:1.7}
+nav{position:sticky;top:0;z-index:500;height:72px;background:rgba(247,246,243,.94);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-bottom:1.5px solid var(--br);box-shadow:0 2px 12px rgba(0,0,0,.05);display:flex;align-items:center;padding:0 clamp(20px,4vw,56px);justify-content:space-between;gap:24px}
+.nav-logo{display:flex;align-items:center;gap:13px;text-decoration:none;color:var(--tx);flex-shrink:0}
+.nav-logo-img{max-height:48px;width:auto;border-radius:8px;object-fit:contain;box-shadow:0 3px 10px rgba(26,71,49,.22)}
+.nav-wordmark{font-family:'Fraunces',serif;font-size:22px;font-weight:700;letter-spacing:-.5px;line-height:1}
+.nav-wordmark em{color:var(--acm);font-style:normal}
+.nav-back{font-size:13.5px;color:var(--tx3);text-decoration:none;font-weight:600}
+.nav-cta{display:inline-flex;align-items:center;gap:8px;padding:11px 22px;background:var(--ac);color:#fff;border-radius:10px;font-size:14px;font-weight:800;transition:all .2s;flex-shrink:0;box-shadow:0 4px 16px rgba(26,71,49,.35);text-decoration:none}
+.page-layout{display:grid;grid-template-columns:1fr 240px;gap:40px;max-width:1080px;margin:0 auto;padding:0 clamp(20px,4vw,56px)}
+.article-wrap{min-width:0;padding:clamp(40px,6vw,72px) 0 100px}
+.author-sidebar{padding-top:clamp(40px,6vw,72px)}
+.author-sidebar .author-box{position:sticky;top:88px;flex-direction:column;align-items:center;text-align:center;padding:20px 18px;gap:12px}
+.author-sidebar .author-img{width:80px;height:80px}
+.author-sidebar .author-info{align-items:center}
+.author-sidebar .author-bio{text-align:left;font-size:13px}
+.author-box{display:flex;align-items:flex-start;gap:20px;background:var(--wh);border:1.5px solid var(--br);border-radius:14px;padding:24px 28px}
+.author-img{width:72px;height:72px;border-radius:50%;object-fit:cover;flex-shrink:0;box-shadow:0 3px 10px rgba(0,0,0,.12)}
+.author-info{display:flex;flex-direction:column;gap:4px}
+.author-label{font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--tx3)}
+.author-name{font-size:17px;font-weight:700;color:var(--tx);font-family:'Fraunces',serif}
+@media(max-width:960px){.page-layout{display:block;padding:0}.article-wrap{padding:clamp(40px,6vw,72px) clamp(20px,5vw,40px) 60px}.author-sidebar{display:none}.author-box-mobile{display:flex!important}}
+.author-box-mobile{display:none;margin:0 clamp(20px,5vw,40px) 48px}
+.article-tag{display:inline-block;font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:4px 10px;border-radius:5px;background:var(--acl);color:var(--acm);margin-bottom:14px}
+h1{font-family:'Fraunces',serif;font-size:clamp(26px,4vw,38px);font-weight:700;letter-spacing:-.02em;color:var(--tx);margin-bottom:14px;line-height:1.2}
+.meta{font-size:13.5px;color:var(--tx3);margin-bottom:36px;padding-bottom:24px;border-bottom:1px solid var(--br)}
+h2{font-size:21px;font-weight:700;color:var(--tx);margin:40px 0 14px;letter-spacing:-.01em;font-family:'Fraunces',serif}
+h3{font-size:16px;font-weight:700;color:var(--tx2);margin:26px 0 10px}
+p{font-size:15.5px;color:var(--tx2);margin-bottom:16px;line-height:1.78}
+ul,ol{padding-left:22px;margin-bottom:16px}
+li{font-size:15.5px;color:var(--tx2);margin-bottom:8px;line-height:1.7}
+strong{color:var(--tx)}
+.highlight{background:var(--acl);border-left:4px solid var(--ac);border-radius:0 8px 8px 0;padding:16px 20px;margin:24px 0}
+.highlight p{margin:0;color:var(--acm);font-weight:600;font-size:14.5px}
+.warn{background:var(--wnl);border-left:4px solid var(--wn);border-radius:0 8px 8px 0;padding:16px 20px;margin:24px 0}
+.warn p{margin:0;color:#92400e;font-size:14.5px}
+.danger{background:var(--dnl);border-left:4px solid var(--dn);border-radius:0 8px 8px 0;padding:16px 20px;margin:24px 0}
+.danger p{margin:0;color:var(--dn);font-size:14.5px;font-weight:600}
+table{width:100%;border-collapse:collapse;margin:24px 0;font-size:14px}
+th{background:var(--ac);color:#fff;padding:10px 14px;text-align:left;font-weight:600}
+td{padding:9px 14px;border-bottom:1px solid var(--br);color:var(--tx2)}
+tr:nth-child(even) td{background:var(--s2)}
+.cta-box{background:var(--ac);border-radius:14px;padding:28px 32px;margin:48px 0 0;text-align:center}
+.cta-box h3{font-size:20px;font-weight:700;color:#fff;margin-bottom:10px;font-family:'Fraunces',serif}
+.cta-box p{font-size:14.5px;color:rgba(255,255,255,.8);margin-bottom:22px}
+.cta-box a{display:inline-block;padding:12px 28px;background:#fff;color:var(--ac);border-radius:9px;text-decoration:none;font-size:14.5px;font-weight:700}
+.breadcrumb{font-size:13px;color:var(--tx4);margin-bottom:20px}
+.breadcrumb a{color:var(--tx3);text-decoration:none}
+footer{text-align:center;padding:32px 24px;font-size:13px;color:var(--tx4);border-top:1px solid var(--br);margin-top:60px}
+footer a{color:var(--tx3);text-decoration:none;margin:0 8px}
+.faq-section{margin:48px 0}
+.faq-section>h2{margin-bottom:20px}
+.faq-item{border-bottom:1px solid var(--br);padding:18px 0}
+.faq-item:last-child{border-bottom:none}
+.faq-item h3{font-size:16px;font-weight:700;color:var(--tx);margin:0 0 8px}
+.faq-item p{margin:0;font-size:15px;color:var(--tx2);line-height:1.7}
+.compare-table th{background:var(--ac);color:#fff;padding:10px 14px;font-weight:600;text-align:left}
+.compare-table td{padding:10px 14px;border-bottom:1px solid var(--br);vertical-align:top}
+.compare-table tr:nth-child(even) td{background:var(--s2)}
+.check{color:#16a34a;font-weight:700}
+.cross{color:#dc2626;font-weight:700}
+html,body{max-width:100%;overflow-x:hidden}
+svg{max-width:100%!important;height:auto!important}
+figure{max-width:100%;overflow:hidden}
+@media(max-width:640px){nav{padding:0 16px!important;gap:8px!important}.nav-logo-img{max-height:36px!important}.nav-wordmark{display:none!important}.nav-back{white-space:nowrap;font-size:12px}.nav-cta{padding:9px 14px!important;font-size:13px!important}.article-wrap{padding-left:18px!important;padding-right:18px!important}table{font-size:12.5px}td,th{padding:7px 8px!important}}
+
+/* ── Category related section ── */
+.cat-related{background:var(--s2);border:1.5px solid var(--br);border-radius:12px;padding:22px 24px;margin:40px 0 0}
+.cat-related-hd{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;flex-wrap:wrap;gap:8px}
+.cat-related-lbl{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--tx4)}
+.cat-related-all{font-size:13px;font-weight:600;color:var(--acm);text-decoration:none}
+.cat-related-all:hover{text-decoration:underline}
+.cat-related-links{display:flex;flex-direction:column;gap:6px}
+.cat-related-link{display:flex;align-items:center;gap:10px;padding:10px 14px;background:var(--wh);border:1px solid var(--br);border-radius:8px;text-decoration:none;color:var(--tx2);font-size:14px;font-weight:600;transition:all .15s;line-height:1.4}
+.cat-related-link:hover{border-color:var(--acm);color:var(--ac);background:var(--acl)}
+.cat-related-link span{color:var(--acm);font-size:13px;flex-shrink:0}
+
+/* ── Mobile fixes ── */
+html,body{max-width:100%;overflow-x:hidden}
+svg{max-width:100%!important;height:auto!important}
+figure{max-width:100%;overflow:hidden}
+@media(max-width:640px){
+  nav{padding:0 16px!important;gap:8px!important}
+  .nav-logo-img{max-height:36px!important}
+  .nav-wordmark{display:none!important}
+  .nav-back{white-space:nowrap;font-size:12px}
+  .nav-cta{padding:9px 14px!important;font-size:13px!important}
+  table{font-size:12.5px}
+  td,th{padding:7px 8px!important}
+  .article-wrap{padding-left:18px!important;padding-right:18px!important}
+}
+</style>
+</head>
+<body>
+<nav>
+  <a href="/" class="nav-logo">
+    <img src="../logo.webp" alt="ZenBTW Logo" class="nav-logo-img" width="48" height="48">
+    <span class="nav-wordmark">Zen<em>BTW</em></span>
+  </a>
+  <a href="/blog" class="nav-back">← Blog</a>
+  <a href="/app" class="nav-cta">Check mijn status →</a>
+</nav>
+
+<div class="page-layout">
+<div class="article-wrap">
+  <div class="breadcrumb"><a href="/">Home</a> › <a href="/blog">Blog</a> › <a href="/blog#platforms">Marketplaces</a> › Margeregeling tweedehands BTW</div>
+  <span class="article-tag">BTW Tips</span>
+  <h1>Margeregeling tweedehands goederen: zo bereken je de BTW</h1>
+  <div class="meta">6 minuten lezen &nbsp;·&nbsp; Bijgewerkt juni 2026 &nbsp;·&nbsp; Door ZenBTW</div>
+
+  <p>Bij de margeregeling tweedehands goederen bereken je BTW alleen over je <strong>winstmarge</strong>, niet over de volledige verkoopprijs. De formule: neem je verkoopprijs, trek de inkoopprijs af, en bereken 21/121 over dat verschil. Verkoop je een vintage jas voor €120 die je voor €50 inkocht? Dan is je marge €70 en je BTW €12,15. Niet €25,20 zoals bij de normale regeling.</p>
+
+  <p>Klinkt simpel, toch? In theorie is het dat ook. Maar in de praktijk zag ik bij mezelf en bij verkopers die ik spreek steeds dezelfde vragen terugkomen. Wanneer mag je die margeregeling eigenlijk gebruiken? Hoe zit het met je administratie? En wat als je op Vinted of Etsy verkoopt?</p>
+
+  <p>ZenBTW is een gratis Nederlandse BTW-tool voor marketplace verkopers op Vinted, Etsy en Shopify die automatisch berekent of je <a href="/blog/kor-vrijstelling-2026">KOR-drempel</a> nadert. Handig als je wilt weten of de margeregeling überhaupt relevant voor je wordt.</p>
+
+  <h2>Wanneer mag je de margeregeling toepassen?</h2>
+
+  <p>Niet iedereen mag zomaar de margeregeling gebruiken. Er zijn een paar harde voorwaarden:</p>
+
+  <ul>
+    <li>Je koopt tweedehands goederen in van <strong>particulieren</strong> (dus niet van BTW-plichtige bedrijven die BTW op hun factuur zetten)</li>
+    <li>Of je koopt in van andere margehandelaren, vrijgestelde ondernemers, of overheidslichamen</li>
+    <li>Je bent zelf ondernemer voor de BTW</li>
+    <li>Het gaat om gebruikte goederen, kunstvoorwerpen, voorwerpen voor verzamelingen, of antiquiteiten</li>
+  </ul>
+
+  <p>De kern: je leverancier heeft géén BTW in rekening gebracht. Dat is logisch als je erover nadenkt. Een particulier op Marktplaats rekent geen BTW. Een andere margehandelaar ook niet (die vermeldt de BTW niet apart op de factuur). Koop je iets in bij een regulier bedrijf mét BTW op de factuur? Dan val je terug op de normale BTW-regeling en kun je die BTW als voorbelasting aftrekken.</p>
+
+  <div class="warn">
+    <p>⚠️ Je mag per product kiezen of je de margeregeling of de normale regeling toepast, maar niet beide tegelijk op hetzelfde product. Hou dit goed bij in je administratie.</p>
+  </div>
+
+  <h2>Hoe bereken je de BTW bij de margeregeling stap voor stap?</h2>
+
+  <p>Oké, dit is het deel waar veel verkopers vastlopen. Eerlijk gezegd is de berekening zelf niet moeilijk, maar het is wél anders dan je gewend bent. Laat me het stap voor stap doorlopen.</p>
+
+  <h3>De basisformule</h3>
+
+  <p>De marge is <strong>inclusief BTW</strong>. Dat vergeten veel mensen. Je berekent de BTW dus niet óver de marge, maar uit de marge. De formule bij 21% BTW:</p>
+
+  <div class="highlight">
+    <p>BTW = (Verkoopprijs − Inkoopprijs) × 21/121</p>
+  </div>
+
+  <h3>Rekenvoorbeeld 1: vintage lamp</h3>
+  <p>Je koopt een vintage lamp van een particulier voor €40. Je verkoopt hem op Etsy voor €95.</p>
+  <ul>
+    <li>Marge: €95 − €40 = <strong>€55</strong></li>
+    <li>BTW: €55 × 21/121 = <strong>€9,55</strong></li>
+    <li>Netto winst vóór andere kosten: €55 − €9,55 = €45,45</li>
+  </ul>
+
+  <p>Bij de normale regeling had je 21% BTW over de volle €95 moeten afdragen: €16,49. Scheelt je bijna €7 per lamp. Bij grotere volumes tikt dat flink aan.</p>
+
+  <h3>Rekenvoorbeeld 2: designer tas</h3>
+  <p>Inkoop op een vlooienmarkt: €200. Verkoop via je eigen Shopify-shop: €475.</p>
+  <ul>
+    <li>Marge: €475 − €200 = <strong>€275</strong></li>
+    <li>BTW: €275 × 21/121 = <strong>€47,73</strong></li>
+  </ul>
+
+  <p>Zonder margeregeling: €475 × 21/121 = €82,44 BTW. Je bespaart hier €34,71.</p>
+
+  <figure style="margin:28px 0;text-align:center">
+    <svg role="img" aria-label="Vergelijking BTW-berekening: normale regeling versus margeregeling" viewBox="0 0 520 280" width="520" height="280" xmlns="http://www.w3.org/2000/svg" style="max-width:100%;height:auto">
+      <rect width="520" height="280" rx="14" fill="#f4f3ef"/>
+      <text x="260" y="30" text-anchor="middle" font-family="Plus Jakarta Sans,sans-serif" font-size="14" font-weight="700" fill="#1a1814">Voorbeeld: Inkoop €200 · Verkoop €475</text>
+      <!-- Normale regeling -->
+      <rect x="30" y="55" width="220" height="195" rx="10" fill="#fff" stroke="#e8e5de" stroke-width="1.5"/>
+      <text x="140" y="80" text-anchor="middle" font-family="Fraunces,serif" font-size="15" font-weight="700" fill="#1a4731">Normale regeling</text>
+      <text x="140" y="108" text-anchor="middle" font-family="Plus Jakarta Sans,sans-serif" font-size="12" fill="#4a4640">BTW over volledige verkoopprijs</text>
+      <text x="140" y="140" text-anchor="middle" font-family="Plus Jakarta Sans,sans-serif" font-size="13" fill="#8a847a">€475 × 21/121</text>
+      <rect x="70" y="158" width="140" height="38" rx="8" fill="#fdf0ee"/>
+      <text x="140" y="182" text-anchor="middle" font-family="Plus Jakarta Sans,sans-serif" font-size="18" font-weight="700" fill="#c0392b">€82,44 BTW</text>
+      <text x="140" y="235" text-anchor="middle" font-family="Plus Jakarta Sans,sans-serif" font-size="11" fill="#8a847a">Netto: €192,56</text>
+      <!-- Margeregeling -->
+      <rect x="270" y="55" width="220" height="195" rx="10" fill="#fff" stroke="#e8e5de" stroke-width="1.5"/>
+      <text x="380" y="80" text-anchor="middle" font-family="Fraunces,serif" font-size="15" font-weight="700" fill="#1a4731">Margeregeling</text>
+      <text x="380" y="108" text-anchor="middle" font-family="Plus Jakarta Sans,sans-serif" font-size="12" fill="#4a4640">BTW alleen over de marge</text>
+      <text x="380" y="140" text-anchor="middle" font-family="Plus Jakarta Sans,sans-serif" font-size="13" fill="#8a847a">€275 × 21/121</text>
+      <rect x="310" y="158" width="140" height="38" rx="8" fill="#e8f0ec"/>
+      <text x="380" y="182" text-anchor="middle" font-family="Plus Jakarta Sans,sans-serif" font-size="18" font-weight="700" fill="#1a4731">€47,73 BTW</text>
+      <text x="380" y="235" text-anchor="middle" font-family="Plus Jakarta Sans,sans-serif" font-size="11" fill="#2d6a4f">Netto: €227,27 (+€34,71)</text>
+      <!-- Arrow -->
+      <text x="260" y="270" text-anchor="middle" font-family="Plus Jakarta Sans,sans-serif" font-size="12" font-weight="600" fill="#2d6a4f">↑ Je bespaart €34,71 per product</text>
+    </svg>
+    <figcaption style="font-size:13px;color:var(--tx3);margin-top:8px">Vergelijking BTW: normale regeling vs. margeregeling bij dezelfde verkoop</figcaption>
+  </figure>
+
+  <h2>Wat als je marge negatief is?</h2>
+
+  <p>Soms verkoop je iets onder de inkoopprijs. Gebeurt gewoon. Misschien is dat vintage bureautje toch niet zo populair als je dacht. Bij een negatieve marge is de verschuldigde BTW gewoon <strong>€0</strong>. Je krijgt geen BTW terug van de Belastingdienst voor het verlies.</p>
+
+  <p>Let op: bij de individuele methode (per product) mag je een negatieve marge niet wegstrepen tegen een positieve marge op een ander product. Wil je dat wél? Dan kun je de <strong>globalisatieregeling</strong> overwegen. Daarbij bereken je de totale marge per aangiftetijdvak over álle producten samen. Dat kan voordeliger uitpakken als je veel wisselende marges hebt.</p>
+
+  <h2>Welke administratie moet je bijhouden?</h2>
+
+  <p>De Belastingdienst verwacht dat je een aparte administratie voert voor je margeverkopen. Wat ik zelf altijd bijhield:</p>
+
+  <ul>
+    <li><strong>Inkoopgegevens:</strong> van wie je het product kocht, datum, beschrijving, inkoopprijs</li>
+    <li><strong>Verkoopgegevens:</strong> aan wie, datum, verkoopprijs</li>
+    <li><strong>Margeberekening:</strong> per product (of per tijdvak bij globalisatie)</li>
+  </ul>
+
+  <p>Op je factuur aan de koper vermeld je géén BTW apart. Je vermeldt alleen de totaalprijs en de tekst "margeregeling - tweedehands goederen" (of de toepasselijke categorie). Dit is verplicht. Bron: <a href="https://www.belastingdienst.nl/wps/wcm/connect/bldcontentnl/belastingdienst/zakelijk/btw/hoe_werkt_btw/bijzondere_regelingen/margeregeling/" target="_blank" rel="noopener">Belastingdienst.nl</a>.</p>
+
+  <div class="danger">
+    <p>🚫 Vermeld je per ongeluk wél BTW apart op je factuur bij een margeverkoop? Dan ben je die BTW gewoon verschuldigd, én verlies je het voordeel van de margeregeling voor dat product.</p>
+  </div>
+
+  <h2>Margeregeling en de KOR: hoe zit dat samen?</h2>
+
+  <p>Veel verkopers die ik spreek zitten nog onder de <a href="/blog/kor-drempel-overschreden">KOR-drempel van €20.000</a> (exclusief BTW). Als je onder de KOR valt, betaal je sowieso geen BTW. De margeregeling wordt dan pas relevant op het moment dat je die grens overschrijdt.</p>
+
+  <p>Goed om te weten: bij de margeregeling telt voor de KOR-omzetgrens de <strong>verkoopprijs</strong> mee, niet alleen de marge. Verkoop je voor €18.000 aan tweedehands spullen, dan telt die €18.000 mee voor je KOR-berekening, ook al is je marge maar €6.000.</p>
+
+  <h2>Margeregeling bij verkopen naar het buitenland</h2>
+
+  <p>Verkoop je tweedehands goederen aan klanten in andere EU-landen? Dan geldt de margeregeling ook. Je hoeft bij margeverkopen in de meeste gevallen <strong>niet</strong> te maken te hebben met de <a href="/blog/oss-aangifte-nederland">OSS-regeling</a>. De BTW wordt geheven in het land waar jij als verkoper bent gevestigd, dus Nederland.</p>
+
+  <p>Dit is eigenlijk een van de grote voordelen: je hoeft je niet druk te maken over <a href="/blog/btw-tarief-eu-landen-2026">verschillende BTW-tarieven per EU-land</a>. Je rekent gewoon 21% over de marge, of je nu aan iemand in Duitsland of Spanje verkoopt.</p>
+
+  <div class="warn">
+    <p>⚠️ Deze uitzondering geldt alleen voor margeverkopen. Verkoop je óók nieuwe producten naar andere EU-landen? Dan gelden de normale OSS-regels wél voor dat deel van je verkopen.</p>
+  </div>
+
+  <h2>De BTW-aangifte: waar vul je het in?</h2>
+
+  <p>In je <a href="/blog/marketplace-verkoper-btw-aangifte">BTW-aangifte</a> vul je margeverkopen anders in dan reguliere verkopen. Je zet de verschuldigde BTW bij rubriek 1a (leveringen belast met 21%), maar als bedrag vul je alleen de <strong>marge</strong> in als belaste omzet, niet de volledige verkoopprijs.</p>
+
+  <p>In ZenBTW kun je je margeverkopen apart taggen, zodat de tool automatisch de juiste bedragen berekent voor je aangifte. Scheelt je een hoop gegoochel met spreadsheets.</p>
+
+  <h2>Individuele methode vs. globalisatie: wat is slimmer?</h2>
+
+  <table>
+    <tr>
+      <th>Aspect</th>
+      <th>Individuele methode</th>
+      <th>Globalisatie</th>
+    </tr>
+    <tr>
+      <td>Berekening</td>
+      <td>Per product apart</td>
+      <td>Totale marge per tijdvak</td>
+    </tr>
+    <tr>
+      <td>Negatieve marge</td>
+      <td>Niet verrekenbaar</td>
+      <td>Wél verrekenbaar met positieve marges</td>
+    </tr>
+    <tr>
+      <td>Administratie</td>
+      <td>Meer werk per product</td>
+      <td>Eenvoudiger totaaloverzicht</td>
+    </tr>
+    <tr>
+      <td>Beste voor</td>
+      <td>Weinig producten, stabiele marges</td>
+      <td>Veel producten, wisselende marges</td>
+    </tr>
+  </table>
+
+  <p>Wat ik zelf deed toen ik veel vintage kleding verkocht: globalisatie. Ik had regelmatig items die ik onder de inkoopprijs moest dumpen, en dan is het fijn als die negatieve marges je totale BTW-last drukken.</p>
+
+  <section class="faq-section">
+    <h2>Veelgestelde vragen</h2>
+    <div class="faq-item">
+      <h3>Hoe bereken je BTW bij de margeregeling voor tweedehands goederen?</h3>
+      <p>Je berekent BTW alleen over de winstmarge (verkoopprijs minus inkoopprijs). Het BTW-bedrag is 21/121 van die marge. Verkoop je iets voor €150 dat je voor €80 inkocht, dan is de marge €70 en de BTW €12,15.</p>
+    </div>
+    <div class="faq-item">
+      <h3>Wanneer mag je de margeregeling toepassen?</h3>
+      <p>Je mag de margeregeling toepassen als je tweedehands goederen inkoopt van particulieren, andere margehandelaren, of vrijgestelde ondernemers. De leverancier mag géén BTW op de factuur hebben vermeld.</p>
+    </div>
+    <div class="faq-item">
+      <h3>Mag je de margeregeling gebruiken op Vinted of Etsy?</h3>
+      <p>Ja, als je als ondernemer tweedehands goederen verkoopt die je zonder BTW hebt ingekocht van particulieren, kun je de margeregeling toepassen. Dit geldt ongeacht het verkoopkanaal.</p>
+    </div>
+    <div class="faq-item">
+      <h3>Wat als mijn marge negatief is bij de margeregeling?</h3>
+      <p>Bij een negatieve marge (je verkoopt onder de inkoopprijs) is de verschuldigde BTW €0. Je kunt een negatieve marge niet verrekenen met positieve marges op andere producten, tenzij je de globalisatieregeling toepast.</p>
+    </div>
+    <div class="faq-item">
+      <h3>Mag ik de margeregeling combineren met de KOR?</h3>
+      <p>Ja. Als je onder de KOR valt, ben je sowieso vrijgesteld van BTW zolang je omzet onder €20.000 exclusief BTW blijft. De margeregeling wordt dan pas relevant als je boven die drempel komt.</p>
+    </div>
+  </section>
+
+  <p><a href="/blog/vinted-belasting-2026" style="color:var(--acm);font-weight:600">→ Lees ook: Vinted Belasting 2026: Moet Je BTW Betalen Over Je Verkopen?</a></p>
+  <p><a href="/blog/etsy-verkoper-belastingaangifte" style="color:var(--acm);font-weight:600">→ Lees ook: Etsy verkoper belastingaangifte Nederland: stap voor stap uitgelegd</a></p>
+  <p><a href="/blog/gratis-btw-tool-marketplace" style="color:var(--acm);font-weight:600">→ Lees ook: Gratis BTW tool voor marketplace verkopers in Nederland: wat werkt écht?</a></p>
+
+  
+<section class="cat-related">
+  <div class="cat-related-hd">
+    <span class="cat-related-lbl">Meer over Marketplaces</span>
+    <a href="/blog#platforms" class="cat-related-all">Alle Marketplaces-artikelen →</a>
+  </div>
+  <div class="cat-related-links">
+    <a href="/blog/btw-berekenen-shopify-automatisch" class="cat-related-link"><span>→</span> BTW berekenen in Shopify: automatisch en gratis, hoe werkt dat écht?</a>
+    <a href="/blog/etsy-btw-2026" class="cat-related-link"><span>→</span> Etsy BTW 2026: wanneer moet je als verkoper BTW betalen?</a>
+    <a href="/blog/etsy-verkoper-belastingaangifte" class="cat-related-link"><span>→</span> Etsy verkoper belastingaangifte Nederland: stap voor stap uitgelegd</a>
+    <a href="/blog/hoeveel-btw-vinted-verkoper" class="cat-related-link"><span>→</span> Hoeveel BTW moet ik betalen als Vinted verkoper?</a>
+    <a href="/blog/marketplace-verkoper-btw-aangifte" class="cat-related-link"><span>→</span> Marketplace verkoper BTW aangifte: hoe doe je het in 2026?</a>
+    <a href="/blog/shopify-btw-nederland-2026" class="cat-related-link"><span>→</span> Shopify BTW Nederland 2026: Het Compleet Overzicht</a>
+    <a href="/blog/shopify-dropshipping-btw" class="cat-related-link"><span>→</span> Shopify Dropshipping BTW Nederland: Zo Regel Je Het</a>
+    <a href="/blog/vinted-belasting-2026" class="cat-related-link"><span>→</span> Vinted Belasting 2026: Moet Je BTW Betalen Over Je Verkopen?</a>
+    <a href="/blog/vinted-ondernemer-btw-registratie" class="cat-related-link"><span>→</span> Vinted ondernemer BTW registratie: wat je moet weten in 2026</a>
+    <a href="/blog/wanneer-btw-aangifte-etsy" class="cat-related-link"><span>→</span> Wanneer is BTW aangifte verplicht als Etsy verkoper in Nederland?</a>
+  </div>
+</section>
+<div class="cta-box">
+    <h3>Weet jij hoeveel BTW je écht verschuldigd bent?</h3>
+    <p>ZenBTW berekent automatisch je omzet, marge en BTW-positie als marketplace verkoper.</p>
+    <a href="/app">📊 Open gratis ZenBTW dashboard →</a>
+  </div>
+</div>
+
+<aside class="author-sidebar">
+<div class="author-box">
+  <img src="/author-daniel.jpg" alt="Daniel - oprichter ZenBTW" class="author-img">
+  <div class="author-info">
+    <span class="author-label">Over de auteur</span>
+    <strong class="author-name">Daniel</strong>
+    <p class="author-bio">Oprichter van ZenBTW en <a href="https://revaleur.com" target="_blank" rel="noopener">Revaleur</a> (680+ reviews, 4.9★). Met 4 jaar ervaring in finance helpt Daniel marketplace-verkopers grip te krijgen op BTW, KOR en OSS, zonder dat je er een boekhouder bij nodig hebt.</p>
+  </div>
+</div>
+</aside>
+</div>
+
+<div class="author-box-mobile">
+<div class="author-box">
+  <img src="/author-daniel.jpg" alt="Daniel - oprichter ZenBTW" class="author-img">
+  <div class="author-info">
+    <span class="author-label">Over de auteur</span>
+    <strong class="author-name">Daniel</strong>
+    <p class="author-bio">Oprichter van ZenBTW en <a href="https://revaleur.com" target="_blank" rel="noopener">Revaleur</a> (680+ reviews, 4.9★). Met 4 jaar ervaring in finance helpt Daniel marketplace-verkopers grip te krijgen op BTW, KOR en OSS, zonder dat je er een boekhouder bij nodig hebt.</p>
+  </div>
+</div>
+</div>
+
+<footer>
+  <a href="/">Home</a>
+  <a href="/blog">Blog</a>
+  <a href="/app">Dashboard</a>
+  <a href="/privacy">Privacy</a>
+  <br><br>© 2026 ZenBTW &nbsp;·&nbsp; Geen belastingadvies — raadpleeg een adviseur voor jouw specifieke situatie.
+</footer>
+</body>
+</html>

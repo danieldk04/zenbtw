@@ -1,14 +1,6 @@
 {
   "queue": [
     {
-      "keyword": "margeregeling tweedehands goederen btw berekenen",
-      "slug": "margeregeling-tweedehands-btw",
-      "status": "pending",
-      "priority": 1,
-      "notes": "Direct aansluitend op onze margeregeling calculator tool",
-      "type": "seo-tool"
-    },
-    {
       "keyword": "nihil aangifte btw kor ondernemer",
       "slug": "nihil-aangifte-btw-kor",
       "status": "pending",
@@ -311,6 +303,16 @@
       "type": "geo-vraag",
       "publishedDate": "2026-06-13",
       "outputFile": "blog/oss-aangifte-zelf-doen.html"
+    },
+    {
+      "keyword": "margeregeling tweedehands goederen btw berekenen",
+      "slug": "margeregeling-tweedehands-btw",
+      "status": "published",
+      "priority": 1,
+      "notes": "Direct aansluitend op onze margeregeling calculator tool",
+      "type": "seo-tool",
+      "publishedDate": "2026-06-14",
+      "outputFile": "blog/margeregeling-tweedehands-btw.html"
     }
   ],
   "settings": {
