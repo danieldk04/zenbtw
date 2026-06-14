@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="nl"><head><meta charset="UTF-8"><meta name="viewport" content="width=1080"><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{width:1080px;height:1920px;background:#f7f6f3;font-family:'Inter',sans-serif;overflow:hidden;-webkit-font-smoothing:antialiased;color:#1a1814}
+</style></head><body>
+<div style="width:1080px;height:1920px;display:flex;flex-direction:column">
+  <div style="height:10px;background:#1a4731;flex-shrink:0"></div>
+
+  <!-- Header with blurred site screenshot background -->
+  <div style="flex-shrink:0;height:180px;position:relative;overflow:hidden">
+    <img src="../assets/site-tools.png" style="width:100%;position:absolute;top:0;left:0;filter:brightness(0.35) saturate(0.5)" />
+    <div style="position:absolute;inset:0;padding:0 56px;display:flex;flex-direction:column;justify-content:center">
+      <h1 style="font-family:'Inter',sans-serif;font-size:50px;font-weight:700;color:#fff;line-height:1.1;letter-spacing:-0.02em;text-shadow:0 2px 12px rgba(0,0,0,0.4)">Shopify BTW 2026</h1>
+      <p style="font-size:22px;color:rgba(255,255,255,0.7);font-weight:500;margin-top:8px">Wie moet wat regelen?</p>
+    </div>
+  </div>
+
+  <!-- Avatar row -->
+  <div style="display:grid;grid-template-columns:190px repeat(2,1fr);padding:0 56px;flex-shrink:0;background:#fff;border-bottom:1.5px solid #e8e5de">
+    <div></div>
+    
+    <div style="display:flex;flex-direction:column;align-items:center;padding:18px 8px">
+      <div style="width:76px;height:76px;border-radius:50%;background:#e8f0ec;border:3px solid #1a4731;display:flex;align-items:center;justify-content:center;font-family:'Inter',sans-serif;font-size:24px;font-weight:700;color:#1a4731;margin-bottom:8px">TK</div>
+      <div style="font-size:19px;font-weight:700;color:#1a1814">Tom</div>
+      <div style="font-size:15px;color:#8a847a">(29)</div>
+    </div>
+    <div style="display:flex;flex-direction:column;align-items:center;padding:18px 8px">
+      <div style="width:76px;height:76px;border-radius:50%;background:#f0ece8;border:3px solid #1a4731;display:flex;align-items:center;justify-content:center;font-family:'Inter',sans-serif;font-size:24px;font-weight:700;color:#1a4731;margin-bottom:8px">SB</div>
+      <div style="font-size:19px;font-weight:700;color:#1a1814">Sara</div>
+      <div style="font-size:15px;color:#8a847a">(37)</div>
+    </div>
+  </div>
+
+  <!-- Table rows -->
+  <div style="flex:1;padding:0 56px;display:flex;flex-direction:column;justify-content:center">
+    
+    <div style="display:grid;grid-template-columns:190px repeat(2,1fr);background:#fff;border-bottom:1px solid #e8e5de;border-top:1px solid #e8e5de">
+      <div style="padding:16px 14px;font-size:17px;font-weight:700;color:#4a4640;border-right:1.5px solid #e8e5de;display:flex;align-items:center">Platform</div>
+      <div style="padding:13px 10px;display:flex;align-items:center;justify-content:center;border-right:1px solid #e8e5de"><span style="font-size:17px;font-weight:500;color:#1a1814">Shopify</span></div><div style="padding:13px 10px;display:flex;align-items:center;justify-content:center;border-right:1px solid #e8e5de"><span style="font-size:17px;font-weight:500;color:#1a1814">Shopify</span></div>
+    </div>
+    <div style="display:grid;grid-template-columns:190px repeat(2,1fr);background:#f7f6f3;border-bottom:1px solid #e8e5de;">
+      <div style="padding:16px 14px;font-size:17px;font-weight:700;color:#4a4640;border-right:1.5px solid #e8e5de;display:flex;align-items:center">Omzet NL</div>
+      <div style="padding:13px 10px;display:flex;align-items:center;justify-content:center;border-right:1px solid #e8e5de"><span style="font-size:17px;font-weight:500;color:#1a1814">€14.000</span></div><div style="padding:13px 10px;display:flex;align-items:center;justify-content:center;border-right:1px solid #e8e5de"><span style="font-size:17px;font-weight:500;color:#1a1814">€18.000</span></div>
+    </div>
+    <div style="display:grid;grid-template-columns:190px repeat(2,1fr);background:#fff;border-bottom:1px solid #e8e5de;">
+      <div style="padding:16px 14px;font-size:17px;font-weight:700;color:#4a4640;border-right:1.5px solid #e8e5de;display:flex;align-items:center">Omzet EU</div>
+      <div style="padding:13px 10px;display:flex;align-items:center;justify-content:center;border-right:1px solid #e8e5de"><span style="font-size:17px;font-weight:500;color:#1a1814">€2.000</span></div><div style="padding:13px 10px;display:flex;align-items:center;justify-content:center;border-right:1px solid #e8e5de"><span style="font-size:17px;font-weight:500;color:#1a1814">€9.000</span></div>
+    </div>
+    <div style="display:grid;grid-template-columns:190px repeat(2,1fr);background:#f7f6f3;border-bottom:1px solid #e8e5de;">
+      <div style="padding:16px 14px;font-size:17px;font-weight:700;color:#4a4640;border-right:1.5px solid #e8e5de;display:flex;align-items:center">Totaal</div>
+      <div style="padding:13px 10px;display:flex;align-items:center;justify-content:center;border-right:1px solid #e8e5de"><span style="font-size:19px;font-weight:700;color:#1a1814">€16.000</span></div><div style="padding:13px 10px;display:flex;align-items:center;justify-content:center;border-right:1px solid #e8e5de"><span style="font-size:19px;font-weight:700;color:#1a1814">€27.000</span></div>
+    </div>
+    <div style="display:grid;grid-template-columns:190px repeat(2,1fr);background:#fff;border-bottom:1px solid #e8e5de;">
+      <div style="padding:16px 14px;font-size:17px;font-weight:700;color:#4a4640;border-right:1.5px solid #e8e5de;display:flex;align-items:center">KOR (€20k)</div>
+      <div style="padding:13px 10px;display:flex;align-items:center;justify-content:center;border-right:1px solid #e8e5de"><div style="display:flex;align-items:center;justify-content:center;gap:5px"><span style="font-size:22px">❌</span><span style="font-size:15px;font-weight:700;color:#dc2626">Over</span></div></div><div style="padding:13px 10px;display:flex;align-items:center;justify-content:center;border-right:1px solid #e8e5de"><div style="display:flex;align-items:center;justify-content:center;gap:5px"><span style="font-size:22px">✅</span><span style="font-size:15px;font-weight:700;color:#16a34a">Veilig</span></div></div>
+    </div>
+    <div style="display:grid;grid-template-columns:190px repeat(2,1fr);background:#f7f6f3;border-bottom:1px solid #e8e5de;">
+      <div style="padding:16px 14px;font-size:17px;font-weight:700;color:#4a4640;border-right:1.5px solid #e8e5de;display:flex;align-items:center">OSS (€10k)</div>
+      <div style="padding:13px 10px;display:flex;align-items:center;justify-content:center;border-right:1px solid #e8e5de"><div style="display:flex;align-items:center;justify-content:center;gap:5px"><span style="font-size:22px">✅</span><span style="font-size:15px;font-weight:700;color:#16a34a">Veilig</span></div></div><div style="padding:13px 10px;display:flex;align-items:center;justify-content:center;border-right:1px solid #e8e5de"><div style="display:flex;align-items:center;justify-content:center;gap:5px"><span style="font-size:22px">❌</span><span style="font-size:15px;font-weight:700;color:#dc2626">Over</span></div></div>
+    </div>
+    <div style="display:grid;grid-template-columns:190px repeat(2,1fr);background:#fff;border-bottom:1px solid #e8e5de;">
+      <div style="padding:16px 14px;font-size:17px;font-weight:700;color:#4a4640;border-right:1.5px solid #e8e5de;display:flex;align-items:center">BTW-plicht</div>
+      <div style="padding:13px 10px;display:flex;align-items:center;justify-content:center;border-right:1px solid #e8e5de"><div style="display:flex;align-items:center;justify-content:center;gap:5px"><span style="font-size:22px">✅</span><span style="font-size:15px;font-weight:700;color:#16a34a">Veilig</span></div></div><div style="padding:13px 10px;display:flex;align-items:center;justify-content:center;border-right:1px solid #e8e5de"><div style="display:flex;align-items:center;justify-content:center;gap:5px"><span style="font-size:22px">❌</span><span style="font-size:15px;font-weight:700;color:#dc2626">Over</span></div></div>
+    </div>
+    <div style="display:grid;grid-template-columns:190px repeat(2,1fr);background:#f7f6f3;border-bottom:1px solid #e8e5de;">
+      <div style="padding:16px 14px;font-size:17px;font-weight:700;color:#4a4640;border-right:1.5px solid #e8e5de;display:flex;align-items:center">Advies</div>
+      <div style="padding:13px 10px;display:flex;align-items:center;justify-content:center;border-right:1px solid #e8e5de"><div style="padding:7px 10px;background:#f0fdf4;border-radius:8px;font-size:16px;font-weight:800;color:#16a34a;text-align:center;line-height:1.2">KOR actief — geen aangifte nodig</div></div><div style="padding:13px 10px;display:flex;align-items:center;justify-content:center;border-right:1px solid #e8e5de"><div style="padding:7px 10px;background:#fef2f2;border-radius:8px;font-size:16px;font-weight:800;color:#dc2626;text-align:center;line-height:1.2">Registreer voor OSS aangifte</div></div>
+    </div>
+  </div>
+
+  
+<div style="flex-shrink:0;padding:30px 72px;display:flex;align-items:center;justify-content:space-between;border-top:1.5px solid #e8e5de">
+  <div style="display:flex;align-items:center;gap:13px">
+    <div style="width:40px;height:40px;background:#1a4731;border-radius:10px;display:flex;align-items:center;justify-content:center">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M12 2L3 7v5c0 5.25 3.75 10.15 9 11.35C17.25 22.15 21 17.25 21 12V7L12 2z" fill="#fff"/></svg>
+    </div>
+    <span style="font-family:'Inter',sans-serif;font-size:27px;font-weight:700;color:#1a4731">Zen<span style="color:#2d6a4f">BTW</span></span>
+  </div>
+  <span style="font-size:19px;color:#8a847a;font-weight:500">zenbtw.nl</span>
+</div>
+</div>
+</body></html>
