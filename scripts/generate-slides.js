@@ -226,7 +226,7 @@ const BASE = (bg = '#f7f6f3') => `<!DOCTYPE html>
 <html lang="nl"><head><meta charset="UTF-8"><meta name="viewport" content="width=1080">${FONTS}
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-body{width:1080px;height:1920px;background:${bg};font-family:'Inter',sans-serif;overflow:hidden;-webkit-font-smoothing:antialiased;color:#1a1814}
+body{width:1080px;height:1350px;background:${bg};font-family:'Inter',sans-serif;overflow:hidden;-webkit-font-smoothing:antialiased;color:#1a1814}
 </style></head><body>`;
 
 // Inline dashboard mockup (no screenshot needed — avoids network dependency)
@@ -285,7 +285,7 @@ const TAG = (text) => `<div style="font-size:15px;font-weight:700;color:#4ade80;
 const CHROME = (slideNum, totalNum, category) => `
   <div style="position:absolute;top:0;right:88px;width:52px;height:96px;background:#1a4731;clip-path:polygon(0 0,100% 0,100% 100%,50% 78%,0 100%);z-index:10"></div>
   <div style="position:absolute;left:0;top:0;bottom:0;width:8px;background:#1a4731;z-index:10"></div>
-  <div style="position:absolute;top:60px;right:-20px;font-size:480px;font-weight:900;color:rgba(26,71,49,0.05);line-height:1;pointer-events:none;user-select:none;letter-spacing:-0.06em;z-index:1">${slideNum}</div>
+  <div style="position:absolute;top:40px;right:-20px;font-size:360px;font-weight:900;color:rgba(26,71,49,0.05);line-height:1;pointer-events:none;user-select:none;letter-spacing:-0.06em;z-index:1">${slideNum}</div>
   <div style="position:absolute;top:68px;left:56px;z-index:5">
     <div style="font-size:15px;font-weight:800;color:#1a4731;letter-spacing:0.12em;text-transform:uppercase">${category}</div>
     <div style="font-size:14px;color:#9a9088;font-weight:500;margin-top:3px">Slide ${slideNum} van ${totalNum}</div>
@@ -299,39 +299,42 @@ const HOOK = (s, index = 0, total = 5) => {
   const fs       = titleLen > 50 ? '58' : titleLen > 35 ? '66' : '72';
 
   return `${BASE('#f5f0e8')}
-<div style="width:1080px;height:1920px;position:relative;overflow:hidden;background:#f5f0e8">
+<div style="width:1080px;height:1350px;position:relative;overflow:hidden;background:#f5f0e8">
   ${CHROME(slideNum, totalNum, s.tag || 'ZenBTW')}
 
-  <!-- Daniel presentator -->
+  <!-- Daniel presentator — kleiner voor het kortere format -->
   <img src="../assets/daniel-presentator.png"
-       style="position:absolute;top:110px;right:-40px;width:460px;height:auto;z-index:4"
+       style="position:absolute;top:80px;right:-30px;width:340px;height:auto;z-index:4"
        alt="Daniel">
 
   <!-- Headline links -->
-  <div style="position:absolute;top:170px;left:56px;right:490px;z-index:5">
+  <div style="position:absolute;top:140px;left:56px;right:370px;z-index:5">
     ${s.highlight ? TAG(s.highlight) : ''}
     <h1 style="font-size:${fs}px;font-weight:900;color:#1a1814;line-height:0.93;letter-spacing:-0.03em">${(s.title || '').replace(/\n/g, '<br>')}</h1>
   </div>
 
   <!-- Scheidingslijn -->
-  <div style="position:absolute;top:660px;left:56px;right:56px;height:1.5px;background:rgba(26,71,49,0.15);z-index:5"></div>
+  <div style="position:absolute;top:430px;left:56px;right:56px;height:1.5px;background:rgba(26,71,49,0.15);z-index:5"></div>
 
-  <!-- Body content -->
-  <div style="position:absolute;top:698px;left:56px;right:56px;z-index:5">
-    ${s.sub ? `<p style="font-size:32px;font-weight:500;color:#3a3530;line-height:1.5;margin-bottom:44px">${s.sub}</p>` : ''}
+  <!-- Body content — van 460px tot footer -->
+  <div style="position:absolute;top:0;left:56px;right:56px;bottom:0;display:flex;flex-direction:column;z-index:5;padding-top:460px;padding-bottom:88px">
 
-    ${DASHBOARD_MOCKUP()}
+    ${s.sub ? `<p style="font-size:27px;font-weight:500;color:#3a3530;line-height:1.5;margin-bottom:28px;flex-shrink:0">${s.sub}</p>` : ''}
 
-    ${s.pill ? `<div style="background:#1a4731;border-radius:16px;padding:24px 30px;display:flex;align-items:center;gap:16px;margin-top:36px;margin-bottom:44px">
-      <span style="font-size:28px;flex-shrink:0">📋</span>
-      <div style="font-size:18px;font-weight:700;color:#fff;line-height:1.4">${s.pill}</div>
-    </div>` : '<div style="margin-top:36px"></div>'}
+    <div style="flex:1;display:flex;flex-direction:column;gap:0;min-height:0">
+      <div style="flex:1">${DASHBOARD_MOCKUP()}</div>
 
-    <div style="display:flex;align-items:center;gap:14px">
-      <div style="width:44px;height:44px;border-radius:50%;background:#1a4731;display:flex;align-items:center;justify-content:center;flex-shrink:0">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M9 18l6-6-6-6" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      ${s.pill ? `<div style="background:#1a4731;border-radius:14px;padding:20px 26px;display:flex;align-items:center;gap:14px;margin-top:20px;flex-shrink:0">
+        <span style="font-size:24px;flex-shrink:0">📋</span>
+        <div style="font-size:17px;font-weight:700;color:#fff;line-height:1.4">${s.pill}</div>
+      </div>` : ''}
+
+      <div style="display:flex;align-items:center;gap:12px;margin-top:20px;flex-shrink:0">
+        <div style="width:40px;height:40px;border-radius:50%;background:#1a4731;display:flex;align-items:center;justify-content:center;flex-shrink:0">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M9 18l6-6-6-6" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <span style="font-size:20px;font-weight:700;color:#1a1814">Swipe voor meer</span>
       </div>
-      <span style="font-size:22px;font-weight:700;color:#1a1814">Swipe voor meer</span>
     </div>
   </div>
 
@@ -340,31 +343,46 @@ const HOOK = (s, index = 0, total = 5) => {
 </body></html>`;
 };
 
-// ── STAT template (breadcrumb stijl met witte kaarten) ────────────────────────
+// ── STAT template ─────────────────────────────────────────────────────────────
 const STAT = (s, index = 0, total = 5) => {
   const slideNum = String(index + 1).padStart(2, '0');
   const totalNum = String(total).padStart(2, '0');
   const numLen   = (s.number || '').length;
-  const numFs    = numLen > 7 ? '100' : numLen > 5 ? '120' : '150';
+  const numFs    = numLen > 7 ? '120' : numLen > 5 ? '150' : '190';
+  const labelLen = (s.label || '').length;
+  const labelFs  = labelLen > 50 ? '48' : labelLen > 35 ? '56' : '64';
 
   return `${BASE('#f5f0e8')}
-<div style="width:1080px;height:1920px;position:relative;overflow:hidden;background:#f5f0e8">
+<div style="width:1080px;height:1350px;position:relative;overflow:hidden;background:#f5f0e8">
   ${CHROME(slideNum, totalNum, s.eyebrow || 'De cijfers')}
 
-  <div style="position:absolute;top:200px;left:56px;right:56px;z-index:5">
-    <h1 style="font-size:${(s.label || '').length > 40 ? '52' : '64'}px;font-weight:900;color:#1a1814;line-height:0.96;letter-spacing:-0.03em;margin-bottom:52px">${s.label || ''}</h1>
+  <!-- Full-height flex content -->
+  <div style="position:absolute;top:0;left:56px;right:56px;bottom:0;display:flex;flex-direction:column;z-index:5;padding-top:160px;padding-bottom:88px">
 
-    <!-- Groot getal in witte kaart -->
-    <div style="background:#fff;border-radius:20px;padding:44px;margin-bottom:32px;position:relative;overflow:hidden">
-      <div style="position:absolute;top:0;left:0;bottom:0;width:6px;background:#1a4731"></div>
-      <div style="font-size:${numFs}px;font-weight:900;color:#1a4731;line-height:0.85;letter-spacing:-0.04em;margin-bottom:10px">${s.number || ''}</div>
+    <!-- Headline -->
+    <div style="flex-shrink:0;padding-bottom:36px">
+      <h1 style="font-size:${labelFs}px;font-weight:900;color:#1a1814;line-height:0.96;letter-spacing:-0.03em">${s.label || ''}</h1>
     </div>
 
-    ${s.context ? `<div style="font-size:30px;font-weight:500;color:#3a3530;line-height:1.5;margin-bottom:40px">${s.context}</div>` : ''}
+    <!-- Giant number card — neemt het meeste ruimte in -->
+    <div style="flex:2;background:#fff;border-radius:24px;position:relative;overflow:hidden;display:flex;flex-direction:column;justify-content:center;padding:52px 56px;margin-bottom:24px;min-height:340px">
+      <div style="position:absolute;top:0;left:0;bottom:0;width:8px;background:#1a4731"></div>
+      <div style="font-size:${numFs}px;font-weight:900;color:#1a4731;line-height:0.85;letter-spacing:-0.05em">${s.number || ''}</div>
+      ${s.source ? `<div style="margin-top:28px;font-size:17px;color:#9a9088;font-weight:500">${s.source}</div>` : ''}
+    </div>
 
-    ${s.source ? `<div style="background:#fff;border:1.5px solid rgba(26,71,49,0.15);border-left:5px solid #1a4731;border-radius:0 14px 14px 0;padding:22px 28px">
-      <div style="font-size:16px;color:#9a9088;font-weight:500">${s.source}</div>
+    <!-- Context tekst -->
+    ${s.context ? `<div style="flex-shrink:0;background:#fff;border-radius:18px;padding:32px 36px;margin-bottom:20px">
+      <p style="font-size:28px;font-weight:500;color:#3a3530;line-height:1.5">${s.context}</p>
     </div>` : ''}
+
+    <!-- Spacer + tip box onderaan -->
+    <div style="flex:1;display:flex;flex-direction:column;justify-content:flex-end">
+      <div style="background:#1a4731;border-radius:18px;padding:28px 32px;display:flex;align-items:center;gap:18px">
+        <span style="font-size:28px;flex-shrink:0">💡</span>
+        <div style="font-size:19px;font-weight:600;color:#fff;line-height:1.45">Gebruik de gratis ZenBTW hulpmiddelen om te checken waar jij staat — geen account nodig.</div>
+      </div>
+    </div>
   </div>
 
   ${FOOTER(false, index, total)}
@@ -386,22 +404,29 @@ const INFO = (s, index = 0, total = 5) => {
   const twoCol   = cards.length === 4;
   const slideNum = String(index + 1).padStart(2, '0');
   const totalNum = String(total).padStart(2, '0');
+  const titleLen = (s.title || '').length;
 
   return `${BASE('#f5f0e8')}
-<div style="width:1080px;height:1920px;position:relative;overflow:hidden;background:#f5f0e8">
+<div style="width:1080px;height:1350px;position:relative;overflow:hidden;background:#f5f0e8">
   ${CHROME(slideNum, totalNum, s.tag || 'Uitleg')}
 
-  <div style="position:absolute;top:190px;left:56px;right:56px;z-index:5">
-    <h1 style="font-size:${(s.title || '').length > 42 ? '52' : '62'}px;font-weight:900;color:#1a1814;line-height:0.96;letter-spacing:-0.03em;margin-bottom:44px">${s.title || ''}</h1>
-    <div style="display:${twoCol ? 'grid' : 'flex'};${twoCol ? 'grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;gap:20px' : 'flex-direction:column;gap:20px'}">
+  <div style="position:absolute;top:0;left:56px;right:56px;bottom:0;display:flex;flex-direction:column;z-index:5;padding-top:160px;padding-bottom:88px">
+
+    <!-- Headline -->
+    <div style="flex-shrink:0;padding-bottom:36px">
+      <h1 style="font-size:${titleLen > 42 ? '50' : titleLen > 28 ? '60' : '70'}px;font-weight:900;color:#1a1814;line-height:0.95;letter-spacing:-0.03em">${s.title || ''}</h1>
+    </div>
+
+    <!-- Cards vullen de rest van de hoogte -->
+    <div style="flex:1;display:${twoCol ? 'grid' : 'flex'};${twoCol ? 'grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr' : 'flex-direction:column'};gap:18px;min-height:0">
       ${cards.map(c => {
         const a = accentStyles[c.accent] || accentStyles.neutral;
-        return `<div style="background:#fff;border:1.5px solid ${a.border};border-left:6px solid ${a.bar};border-radius:0 18px 18px 0;padding:${twoCol ? '28px 28px' : '30px 36px'};display:flex;flex-direction:column;gap:12px">
-          <div style="display:flex;align-items:center;gap:16px">
-            <div style="font-size:${twoCol ? '38' : '42'}px;flex-shrink:0">${c.icon || '•'}</div>
-            <h3 style="font-size:${twoCol ? '22' : '26'}px;font-weight:800;color:${a.title};line-height:1.2">${c.title || ''}</h3>
+        return `<div style="background:#fff;border:1.5px solid ${a.border};border-left:6px solid ${a.bar};border-radius:0 20px 20px 0;padding:${twoCol ? '32px 28px' : '36px 40px'};display:flex;flex-direction:column;gap:16px;overflow:hidden">
+          <div style="display:flex;align-items:center;gap:16px;flex-shrink:0">
+            <div style="font-size:${twoCol ? '40' : '46'}px;flex-shrink:0">${c.icon || '•'}</div>
+            <h3 style="font-size:${twoCol ? '23' : '28'}px;font-weight:800;color:${a.title};line-height:1.2">${c.title || ''}</h3>
           </div>
-          <p style="font-size:${twoCol ? '20' : '23'}px;color:${a.body};line-height:1.55;font-weight:500">${c.body || c.text || ''}</p>
+          <p style="font-size:${twoCol ? '21' : '25'}px;color:${a.body};line-height:1.55;font-weight:500;flex:1">${c.body || c.text || ''}</p>
         </div>`;
       }).join('')}
     </div>
@@ -414,31 +439,34 @@ const INFO = (s, index = 0, total = 5) => {
 
 // ── STEPS template ────────────────────────────────────────────────────────────
 const STEPS = (s, index = 0, total = 5) => {
-  const steps     = (s.steps || []).slice(0, 5);
-  const manySteps = steps.length >= 4;
-  const fs        = manySteps ? '21' : '24';
-  const titleFs   = manySteps ? '22' : '25';
-  const pad       = manySteps ? '24px 30px' : '28px 36px';
-  const slideNum  = String(index + 1).padStart(2, '0');
-  const totalNum  = String(total).padStart(2, '0');
+  const steps    = (s.steps || []).slice(0, 5);
+  const slideNum = String(index + 1).padStart(2, '0');
+  const totalNum = String(total).padStart(2, '0');
+  const titleLen = (s.title || '').length;
 
   return `${BASE('#f5f0e8')}
-<div style="width:1080px;height:1920px;position:relative;overflow:hidden;background:#f5f0e8">
+<div style="width:1080px;height:1350px;position:relative;overflow:hidden;background:#f5f0e8">
   ${CHROME(slideNum, totalNum, s.tag || 'Stappenplan')}
 
-  <div style="position:absolute;top:190px;left:56px;right:56px;z-index:5">
-    <h1 style="font-size:${(s.title || '').length > 42 ? '52' : '62'}px;font-weight:900;color:#1a1814;line-height:0.96;letter-spacing:-0.03em;margin-bottom:${s.subtitle ? '14px' : '44px'}">${s.title || ''}</h1>
-    ${s.subtitle ? `<p style="font-size:24px;color:#9a9088;font-weight:500;margin-bottom:40px">${s.subtitle}</p>` : ''}
-    <div style="display:flex;flex-direction:column;gap:16px">
+  <div style="position:absolute;top:0;left:56px;right:56px;bottom:0;display:flex;flex-direction:column;z-index:5;padding-top:160px;padding-bottom:88px">
+
+    <!-- Headline -->
+    <div style="flex-shrink:0;padding-bottom:32px">
+      <h1 style="font-size:${titleLen > 42 ? '50' : titleLen > 28 ? '60' : '70'}px;font-weight:900;color:#1a1814;line-height:0.95;letter-spacing:-0.03em${s.subtitle ? ';margin-bottom:12px' : ''}">${s.title || ''}</h1>
+      ${s.subtitle ? `<p style="font-size:24px;color:#9a9088;font-weight:500">${s.subtitle}</p>` : ''}
+    </div>
+
+    <!-- Steps vullen de rest van de hoogte -->
+    <div style="flex:1;display:flex;flex-direction:column;gap:0;justify-content:space-between;min-height:0">
       ${steps.map((st, i) => `
-      <div style="display:flex;gap:24px;align-items:stretch">
-        <div style="display:flex;flex-direction:column;align-items:center;flex-shrink:0">
-          <div style="width:60px;height:60px;background:#1a4731;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:700;color:#fff;flex-shrink:0">${String(i + 1).padStart(2, '0')}</div>
-          ${i < steps.length - 1 ? `<div style="width:2px;flex:1;background:linear-gradient(to bottom,#1a4731 0%,rgba(26,71,49,0.1) 100%);margin:5px 0;min-height:16px"></div>` : ''}
+      <div style="display:flex;gap:24px;align-items:stretch;flex:1;${i < steps.length - 1 ? 'margin-bottom:16px' : ''}">
+        <div style="display:flex;flex-direction:column;align-items:center;flex-shrink:0;width:68px">
+          <div style="width:68px;height:68px;background:#1a4731;border-radius:16px;display:flex;align-items:center;justify-content:center;font-size:24px;font-weight:700;color:#fff;flex-shrink:0">${String(i + 1).padStart(2, '0')}</div>
+          ${i < steps.length - 1 ? `<div style="width:2px;flex:1;background:linear-gradient(to bottom,#1a4731 0%,rgba(26,71,49,0.08) 100%);margin:8px 0"></div>` : ''}
         </div>
-        <div style="background:#fff;border:1.5px solid rgba(26,71,49,0.12);border-radius:16px;padding:${pad};flex:1">
-          <h4 style="font-size:${titleFs}px;font-weight:700;color:#1a1814;margin-bottom:7px;line-height:1.2">${st.title || ''}</h4>
-          <p style="font-size:${fs}px;color:#4a4640;line-height:1.5">${st.body || st.text || ''}</p>
+        <div style="background:#fff;border:1.5px solid rgba(26,71,49,0.1);border-radius:18px;padding:32px 36px;flex:1;display:flex;flex-direction:column;justify-content:center">
+          <h4 style="font-size:26px;font-weight:800;color:#1a1814;margin-bottom:10px;line-height:1.2">${st.title || ''}</h4>
+          <p style="font-size:22px;color:#4a4640;line-height:1.55;font-weight:500">${st.body || st.text || ''}</p>
         </div>
       </div>`).join('')}
     </div>
@@ -458,36 +486,49 @@ const COMPARE = (s, index = 0, total = 5) => {
   const colorB   = s.col_b_color || '#2563eb';
   const slideNum = String(index + 1).padStart(2, '0');
   const totalNum = String(total).padStart(2, '0');
+  const titleLen = (s.title || '').length;
 
   return `${BASE('#f5f0e8')}
-<div style="width:1080px;height:1920px;position:relative;overflow:hidden;background:#f5f0e8">
+<div style="width:1080px;height:1350px;position:relative;overflow:hidden;background:#f5f0e8">
   ${CHROME(slideNum, totalNum, s.tag || 'Vergelijking')}
 
-  <div style="position:absolute;top:190px;left:56px;right:56px;z-index:5">
-    <h1 style="font-size:${(s.title || '').length > 38 ? '52' : '64'}px;font-weight:900;color:#1a1814;line-height:0.96;letter-spacing:-0.03em;margin-bottom:44px">${s.title || ''}</h1>
+  <div style="position:absolute;top:0;left:56px;right:56px;bottom:0;display:flex;flex-direction:column;z-index:5;padding-top:160px;padding-bottom:88px">
 
-    <div style="display:grid;grid-template-columns:220px 1fr 1fr;margin-bottom:10px">
-      <div></div>
-      <div style="background:${colorA};border-radius:14px 14px 0 0;padding:18px 20px;text-align:center">
-        <span style="font-size:28px;font-weight:700;color:#fff">${colA}</span>
-      </div>
-      <div style="background:${colorB};border-radius:14px 14px 0 0;padding:18px 20px;text-align:center;margin-left:8px">
-        <span style="font-size:28px;font-weight:700;color:#fff">${colB}</span>
-      </div>
+    <div style="flex-shrink:0;padding-bottom:36px">
+      <h1 style="font-size:${titleLen > 38 ? '50' : titleLen > 24 ? '60' : '70'}px;font-weight:900;color:#1a1814;line-height:0.95;letter-spacing:-0.03em">${s.title || ''}</h1>
     </div>
-    ${rows.map((r, i) => `
-    <div style="display:grid;grid-template-columns:220px 1fr 1fr;margin-bottom:8px">
-      <div style="background:#fff;border:1.5px solid rgba(26,71,49,0.12);border-radius:12px;padding:18px 20px;display:flex;align-items:center">
-        <span style="font-size:19px;font-weight:700;color:#1a1814">${r.label || ''}</span>
+
+    <!-- Tabel vult de rest -->
+    <div style="flex:1;display:flex;flex-direction:column;min-height:0">
+      <!-- Header row -->
+      <div style="display:grid;grid-template-columns:200px 1fr 1fr;margin-bottom:8px;flex-shrink:0">
+        <div></div>
+        <div style="background:${colorA};border-radius:16px 16px 0 0;padding:22px 20px;text-align:center">
+          <span style="font-size:30px;font-weight:800;color:#fff">${colA}</span>
+        </div>
+        <div style="background:${colorB};border-radius:16px 16px 0 0;padding:22px 20px;text-align:center;margin-left:10px">
+          <span style="font-size:30px;font-weight:800;color:#fff">${colB}</span>
+        </div>
       </div>
-      <div style="background:${r.highlight ? '#f0fdf4' : '#fff'};border:1.5px solid ${r.highlight ? '#86efac' : 'rgba(26,71,49,0.12)'};border-radius:12px;padding:18px 20px;text-align:center;margin-left:8px;display:flex;align-items:center;justify-content:center">
-        <span style="font-size:19px;color:#1a1814;font-weight:500">${r.a || ''}</span>
+
+      <!-- Data rows -->
+      <div style="flex:1;display:flex;flex-direction:column;gap:8px;justify-content:space-between">
+        ${rows.map((r) => `
+        <div style="display:grid;grid-template-columns:200px 1fr 1fr;flex:1">
+          <div style="background:#fff;border:1.5px solid rgba(26,71,49,0.1);border-radius:14px;padding:20px 22px;display:flex;align-items:center">
+            <span style="font-size:20px;font-weight:700;color:#1a1814">${r.label || ''}</span>
+          </div>
+          <div style="background:${r.highlight ? '#f0fdf4' : '#fff'};border:1.5px solid ${r.highlight ? '#86efac' : 'rgba(26,71,49,0.1)'};border-radius:14px;padding:20px 22px;text-align:center;margin-left:10px;display:flex;align-items:center;justify-content:center">
+            <span style="font-size:20px;color:#1a1814;font-weight:600">${r.a || ''}</span>
+          </div>
+          <div style="background:${r.highlight ? '#eff6ff' : '#fff'};border:1.5px solid ${r.highlight ? '#bfdbfe' : 'rgba(26,71,49,0.1)'};border-radius:14px;padding:20px 22px;text-align:center;margin-left:10px;display:flex;align-items:center;justify-content:center">
+            <span style="font-size:20px;color:#1a1814;font-weight:600">${r.b || ''}</span>
+          </div>
+        </div>`).join('')}
       </div>
-      <div style="background:${r.highlight ? '#eff6ff' : '#fff'};border:1.5px solid ${r.highlight ? '#bfdbfe' : 'rgba(26,71,49,0.12)'};border-radius:12px;padding:18px 20px;text-align:center;margin-left:8px;display:flex;align-items:center;justify-content:center">
-        <span style="font-size:19px;color:#1a1814;font-weight:500">${r.b || ''}</span>
-      </div>
-    </div>`).join('')}
-    ${s.footer_note ? `<div style="margin-top:20px;background:#fff;border:1.5px solid rgba(26,71,49,0.15);border-left:5px solid #1a4731;border-radius:0 12px 12px 0;padding:18px 24px;font-size:21px;color:#1a4731;font-weight:600">${s.footer_note}</div>` : ''}
+
+      ${s.footer_note ? `<div style="flex-shrink:0;margin-top:20px;background:#fff;border:1.5px solid rgba(26,71,49,0.15);border-left:5px solid #1a4731;border-radius:0 14px 14px 0;padding:22px 28px;font-size:22px;color:#1a4731;font-weight:700">${s.footer_note}</div>` : ''}
+    </div>
   </div>
 
   ${FOOTER(false, index, total)}
@@ -519,37 +560,43 @@ const PERSONA = (s, index = 0, total = 5) => {
   ];
 
   return `${BASE('#f5f0e8')}
-<div style="width:1080px;height:1920px;position:relative;overflow:hidden;background:#f5f0e8">
+<div style="width:1080px;height:1350px;position:relative;overflow:hidden;background:#f5f0e8">
   ${CHROME(slideNum, totalNum, s.tag || 'Vergelijking')}
 
-  <div style="position:absolute;top:190px;left:56px;right:56px;z-index:5">
-    <h1 style="font-size:56px;font-weight:900;color:#1a1814;line-height:0.96;letter-spacing:-0.03em;margin-bottom:${s.subtitle ? '10px' : '32px'}">${s.title || ''}</h1>
-    ${s.subtitle ? `<p style="font-size:22px;color:#9a9088;font-weight:500;margin-bottom:28px">${s.subtitle}</p>` : ''}
+  <div style="position:absolute;top:0;left:56px;right:56px;bottom:0;display:flex;flex-direction:column;z-index:5;padding-top:160px;padding-bottom:88px">
 
-    <div style="background:#fff;border-radius:18px;overflow:hidden;border:1.5px solid rgba(26,71,49,0.12)">
+    <div style="flex-shrink:0;padding-bottom:28px">
+      <h1 style="font-size:${(s.title||'').length > 38 ? '50' : '62'}px;font-weight:900;color:#1a1814;line-height:0.95;letter-spacing:-0.03em${s.subtitle ? ';margin-bottom:10px' : ''}">${s.title || ''}</h1>
+      ${s.subtitle ? `<p style="font-size:23px;color:#9a9088;font-weight:500">${s.subtitle}</p>` : ''}
+    </div>
+
+    <!-- Tabel vult de rest -->
+    <div style="flex:1;background:#fff;border-radius:20px;overflow:hidden;border:1.5px solid rgba(26,71,49,0.12);display:flex;flex-direction:column;min-height:0">
       <!-- Avatar row -->
-      <div style="display:grid;grid-template-columns:160px repeat(${personas.length},1fr);border-bottom:1.5px solid rgba(26,71,49,0.1)">
-        <div style="background:#f5f0e8"></div>
+      <div style="display:grid;grid-template-columns:150px repeat(${personas.length},1fr);background:#f5f0e8;flex-shrink:0;border-bottom:2px solid rgba(26,71,49,0.1)">
+        <div></div>
         ${personas.map(p => `
-        <div style="display:flex;flex-direction:column;align-items:center;padding:18px 8px;background:#f5f0e8">
-          <div style="width:68px;height:68px;border-radius:50%;background:${p.color || '#e8f0ec'};border:3px solid #1a4731;display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:700;color:#1a4731;margin-bottom:8px">${p.initials || (p.name || '?').slice(0, 2)}</div>
-          <div style="font-size:18px;font-weight:700;color:#1a1814">${p.name}</div>
-          <div style="font-size:14px;color:#9a9088">(${p.age})</div>
+        <div style="display:flex;flex-direction:column;align-items:center;padding:22px 8px">
+          <div style="width:76px;height:76px;border-radius:50%;background:${p.color || '#e8f0ec'};border:3px solid #1a4731;display:flex;align-items:center;justify-content:center;font-size:24px;font-weight:700;color:#1a4731;margin-bottom:10px">${p.initials || (p.name || '?').slice(0, 2)}</div>
+          <div style="font-size:20px;font-weight:800;color:#1a1814">${p.name}</div>
+          <div style="font-size:15px;color:#9a9088">(${p.age})</div>
         </div>`).join('')}
       </div>
-      <!-- Table rows -->
-      ${rows.map((r, ri) => `
-      <div style="display:grid;grid-template-columns:160px repeat(${personas.length},1fr);background:${ri % 2 === 0 ? '#fff' : '#f9f8f5'};border-bottom:1px solid rgba(26,71,49,0.08)">
-        <div style="padding:14px 16px;font-size:16px;font-weight:700;color:#4a4640;border-right:1.5px solid rgba(26,71,49,0.08);display:flex;align-items:center">${r.label}</div>
-        ${personas.map(p => {
-          const val = p[r.key];
-          let cell = '';
-          if (r.type === 'bool') cell = boolIcon(val);
-          else if (r.type === 'advies') cell = `<div style="padding:6px 10px;background:${adviesBg[p.advies_kleur] || '#f0fdf4'};border-radius:8px;font-size:15px;font-weight:800;color:${adviesColor[p.advies_kleur] || '#16a34a'};text-align:center">${val || ''}</div>`;
-          else cell = `<span style="font-size:${r.bold ? '18' : '16'}px;font-weight:${r.bold ? '700' : '500'};color:#1a1814">${val || ''}</span>`;
-          return `<div style="padding:12px 10px;display:flex;align-items:center;justify-content:center;border-right:1px solid rgba(26,71,49,0.08)">${cell}</div>`;
-        }).join('')}
-      </div>`).join('')}
+      <!-- Data rows vullen height -->
+      <div style="flex:1;display:flex;flex-direction:column">
+        ${rows.map((r, ri) => `
+        <div style="display:grid;grid-template-columns:150px repeat(${personas.length},1fr);flex:1;background:${ri % 2 === 0 ? '#fff' : '#f9f8f5'};border-bottom:1px solid rgba(26,71,49,0.07)">
+          <div style="padding:0 18px;font-size:17px;font-weight:700;color:#4a4640;border-right:1.5px solid rgba(26,71,49,0.07);display:flex;align-items:center">${r.label}</div>
+          ${personas.map(p => {
+            const val = p[r.key];
+            let cell = '';
+            if (r.type === 'bool') cell = boolIcon(val);
+            else if (r.type === 'advies') cell = `<div style="padding:8px 12px;background:${adviesBg[p.advies_kleur] || '#f0fdf4'};border-radius:10px;font-size:16px;font-weight:800;color:${adviesColor[p.advies_kleur] || '#16a34a'};text-align:center;line-height:1.3">${val || ''}</div>`;
+            else cell = `<span style="font-size:${r.bold ? '20' : '18'}px;font-weight:${r.bold ? '800' : '500'};color:#1a1814">${val || ''}</span>`;
+            return `<div style="padding:0 12px;display:flex;align-items:center;justify-content:center;border-right:1px solid rgba(26,71,49,0.07)">${cell}</div>`;
+          }).join('')}
+        </div>`).join('')}
+      </div>
     </div>
   </div>
 
@@ -563,20 +610,26 @@ const LIST = (s, index = 0, total = 5) => {
   const items    = s.items || [];
   const slideNum = String(index + 1).padStart(2, '0');
   const totalNum = String(total).padStart(2, '0');
+  const titleLen = (s.title || '').length;
 
   return `${BASE('#f5f0e8')}
-<div style="width:1080px;height:1920px;position:relative;overflow:hidden;background:#f5f0e8">
+<div style="width:1080px;height:1350px;position:relative;overflow:hidden;background:#f5f0e8">
   ${CHROME(slideNum, totalNum, s.tag || 'Checklist')}
 
-  <div style="position:absolute;top:190px;left:56px;right:56px;z-index:5">
-    <h1 style="font-size:${(s.title || '').length > 40 ? '52' : '64'}px;font-weight:900;color:#1a1814;line-height:0.96;letter-spacing:-0.03em;margin-bottom:44px">${s.title || ''}</h1>
-    <div style="display:flex;flex-direction:column;gap:18px">
+  <div style="position:absolute;top:0;left:56px;right:56px;bottom:0;display:flex;flex-direction:column;z-index:5;padding-top:160px;padding-bottom:88px">
+
+    <div style="flex-shrink:0;padding-bottom:36px">
+      <h1 style="font-size:${titleLen > 40 ? '50' : titleLen > 26 ? '60' : '70'}px;font-weight:900;color:#1a1814;line-height:0.95;letter-spacing:-0.03em">${s.title || ''}</h1>
+    </div>
+
+    <!-- Items vullen de rest van de hoogte -->
+    <div style="flex:1;display:flex;flex-direction:column;gap:14px;justify-content:space-between;min-height:0">
       ${items.map(it => `
-      <div style="display:flex;align-items:center;gap:24px;background:#fff;border:1.5px solid ${it.done ? '#86efac' : 'rgba(26,71,49,0.12)'};border-left:6px solid ${it.done ? '#22c55e' : '#c8c2b8'};border-radius:0 16px 16px 0;padding:26px 32px">
-        <div style="width:50px;height:50px;border-radius:50%;background:${it.done ? '#f0fdf4' : '#f5f0e8'};border:2.5px solid ${it.done ? '#22c55e' : '#c8c2b8'};display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:24px">${it.done ? '✅' : '○'}</div>
-        <span style="font-size:25px;color:${it.done ? '#1a1814' : '#6b7280'};font-weight:${it.done ? '600' : '500'}">${it.text || ''}</span>
+      <div style="display:flex;align-items:center;gap:24px;background:#fff;border:1.5px solid ${it.done ? '#86efac' : 'rgba(26,71,49,0.1)'};border-left:6px solid ${it.done ? '#22c55e' : '#c8c2b8'};border-radius:0 18px 18px 0;padding:28px 34px;flex:1">
+        <div style="width:56px;height:56px;border-radius:50%;background:${it.done ? '#f0fdf4' : '#f5f0e8'};border:2.5px solid ${it.done ? '#22c55e' : '#c8c2b8'};display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:26px">${it.done ? '✅' : '○'}</div>
+        <span style="font-size:26px;color:${it.done ? '#1a1814' : '#6b7280'};font-weight:${it.done ? '700' : '500'};line-height:1.3">${it.text || ''}</span>
       </div>`).join('')}
-      ${s.note ? `<div style="margin-top:6px;background:#fff;border:1.5px solid rgba(26,71,49,0.15);border-left:5px solid #1a4731;border-radius:0 14px 14px 0;padding:22px 28px;font-size:20px;color:#1a4731;font-weight:600">${s.note}</div>` : ''}
+      ${s.note ? `<div style="flex-shrink:0;background:#1a4731;border-radius:16px;padding:24px 30px;font-size:20px;color:#fff;font-weight:600;line-height:1.4">${s.note}</div>` : ''}
     </div>
   </div>
 
@@ -590,7 +643,7 @@ const CTA = (s, index = 0, total = 5) => {
   const features = s.features || ['100% gratis', 'Alle platforms', 'Direct resultaat'];
 
   return `${BASE('#1a4731')}
-<div style="width:1080px;height:1920px;position:relative;overflow:hidden;background:#1a4731">
+<div style="width:1080px;height:1350px;position:relative;overflow:hidden;background:#1a4731">
   <div style="position:absolute;width:900px;height:900px;border-radius:50%;background:rgba(255,255,255,0.03);top:-350px;left:-200px;pointer-events:none"></div>
   <div style="position:absolute;top:0;right:88px;width:52px;height:96px;background:rgba(255,255,255,0.15);clip-path:polygon(0 0,100% 0,100% 100%,50% 78%,0 100%);z-index:10"></div>
   <div style="position:absolute;left:0;top:0;bottom:0;width:8px;background:rgba(255,255,255,0.15);z-index:10"></div>
@@ -635,10 +688,10 @@ function renderSlide(slide, index = 0, total = 5) {
 // ── Screenshot ────────────────────────────────────────────────────────────────
 async function screenshot(browser, htmlPath, pngPath) {
   const page = await browser.newPage();
-  await page.setViewport({ width: 1080, height: 1920, deviceScaleFactor: 2 });
+  await page.setViewport({ width: 1080, height: 1350, deviceScaleFactor: 2 });
   await page.goto(`file://${htmlPath}`, { waitUntil: 'networkidle0', timeout: 30000 });
   await new Promise(r => setTimeout(r, 1200));
-  await page.screenshot({ path: pngPath, type: 'png', clip: { x: 0, y: 0, width: 1080, height: 1920 } });
+  await page.screenshot({ path: pngPath, type: 'png', clip: { x: 0, y: 0, width: 1080, height: 1350 } });
   await page.close();
   console.log(`    📸 ${path.basename(pngPath)}`);
 }
