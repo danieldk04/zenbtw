@@ -209,9 +209,12 @@ STIJLREGELS:
 - Schrijf menselijk, toegankelijk Nederlands — informatief en concreet, niet bang-makend
 - Geen woorden als "pas op", "gevaar", "belasting-bom" — wel: "goed om te weten", "zo zit het"
 - Persona-template = meest engaging, gebruik hem als je een vergelijking maakt
-- Wissel lichte en donkere slides af voor visuele dynamiek (stat en cta zijn donker)
-- Poster = 1 slide: gebruik "stat" of "hook" met dark:true
+- Poster = 1 slide: gebruik "stat" of "hook"
 - CTA: vriendelijk en laagdrempelig — uitnodigend, niet urgent
+- "highlight" bij hook = het label bovenin de groene pil (bijv. "Goed om te weten", "Let op")
+- "title" bij hook = de grote vetgedrukte headline, max 8 woorden
+- "sub" bij hook = de uitleg onder de separator, max 2 zinnen
+- "pill" bij hook = een feitenpil onderaan, bijv. "DAC7 · 30 verkopen + €2k = automatische melding"
 
 Geef ALLEEN de JSON terug.`;
 }
@@ -226,147 +229,145 @@ const BASE = (bg = '#f7f6f3') => `<!DOCTYPE html>
 body{width:1080px;height:1920px;background:${bg};font-family:'Inter',sans-serif;overflow:hidden;-webkit-font-smoothing:antialiased;color:#1a1814}
 </style></head><body>`;
 
-// Browser mockup frame wrapping a screenshot
-const MOCKUP = (src, urlLabel = 'zenbtw.nl', maxH = 340) => {
-  if (!src) return '';
-  return `<div style="border-radius:14px;overflow:hidden;box-shadow:0 16px 56px rgba(0,0,0,0.2);border:1px solid rgba(0,0,0,0.07)">
-  <div style="background:#1c1c1e;padding:13px 16px;display:flex;align-items:center;gap:8px">
-    <div style="display:flex;gap:7px;flex-shrink:0">
-      <div style="width:12px;height:12px;border-radius:50%;background:#ff5f57"></div>
-      <div style="width:12px;height:12px;border-radius:50%;background:#febc2e"></div>
-      <div style="width:12px;height:12px;border-radius:50%;background:#28c840"></div>
+// Inline dashboard mockup (no screenshot needed — avoids network dependency)
+const DASHBOARD_MOCKUP = () => `
+<div style="border-radius:18px;overflow:hidden;box-shadow:0 12px 48px rgba(0,0,0,0.13);border:1.5px solid rgba(26,71,49,0.15)">
+  <div style="background:#1a4731;padding:12px 18px;display:flex;align-items:center;gap:10px">
+    <div style="display:flex;gap:6px">
+      <div style="width:11px;height:11px;border-radius:50%;background:rgba(255,255,255,0.2)"></div>
+      <div style="width:11px;height:11px;border-radius:50%;background:rgba(255,255,255,0.2)"></div>
+      <div style="width:11px;height:11px;border-radius:50%;background:#4ade80"></div>
     </div>
-    <div style="flex:1;background:#2c2c2e;border-radius:7px;padding:6px 14px;margin:0 8px;font-size:13px;color:#888;font-family:-apple-system,sans-serif;white-space:nowrap;overflow:hidden">🔒 ${urlLabel}</div>
+    <div style="flex:1;background:rgba(255,255,255,0.1);border-radius:6px;padding:5px 12px;font-size:13px;color:rgba(255,255,255,0.65)">🔒 zenbtw.nl/hulpmiddelen</div>
   </div>
-  <div style="overflow:hidden;height:${maxH}px">
-    <img src="${src}" style="width:100%;display:block" />
+  <div style="background:#fff;padding:28px 28px 24px">
+    <div style="font-size:18px;font-weight:800;color:#1a1814;margin-bottom:18px">Hulpmiddelen</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px">
+      <div style="background:#f5f0e8;border-radius:12px;padding:18px 20px;border-left:4px solid #1a4731">
+        <div style="font-size:11px;font-weight:700;color:#1a4731;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:8px">BTW berekenen</div>
+        <div style="font-size:26px;font-weight:900;color:#1a1814;margin-bottom:4px">€ 2.310</div>
+        <div style="font-size:11px;color:#9a9088">Omzet: €11.000</div>
+      </div>
+      <div style="background:#f5f0e8;border-radius:12px;padding:18px 20px;border-left:4px solid #4ade80">
+        <div style="font-size:11px;font-weight:700;color:#1a4731;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:8px">KOR drempel</div>
+        <div style="font-size:26px;font-weight:900;color:#1a4731;margin-bottom:4px">✓ Vrij</div>
+        <div style="font-size:11px;color:#9a9088">Onder €20.000</div>
+      </div>
+    </div>
+    <div style="display:flex;gap:10px;align-items:center">
+      <div style="flex:1;background:#f5f0e8;border-radius:10px;padding:12px 16px">
+        <div style="font-size:11px;color:#9a9088;margin-bottom:2px">Jaarlijkse omzet</div>
+        <div style="font-size:17px;font-weight:700;color:#1a1814">€ 11.000</div>
+      </div>
+      <div style="background:#1a4731;border-radius:10px;padding:13px 22px">
+        <span style="font-size:14px;font-weight:700;color:#fff">Bereken →</span>
+      </div>
+    </div>
   </div>
+</div>`;
+
+// Breadcrumb footer with progress dots
+const FOOTER = (dark = false, index = 0, total = 5) => {
+  const dots = Array.from({ length: total }, (_, i) =>
+    `<div style="width:28px;height:4px;border-radius:2px;background:${i === index ? (dark ? '#fff' : '#1a4731') : (dark ? 'rgba(255,255,255,0.25)' : '#c8c2b8')}"></div>`
+  ).join('');
+  return `<div style="position:absolute;bottom:0;left:0;right:0;padding:22px 56px;display:flex;align-items:center;justify-content:space-between;border-top:1.5px solid ${dark ? 'rgba(255,255,255,0.12)' : 'rgba(26,71,49,0.12)'}">
+  <span style="font-size:15px;color:${dark ? 'rgba(255,255,255,0.4)' : '#9a9088'};font-weight:500">zenbtw.nl</span>
+  <div style="display:flex;gap:6px">${dots}</div>
+  <span style="font-size:15px;color:${dark ? 'rgba(255,255,255,0.4)' : '#9a9088'};font-weight:500">@zenbtw</span>
 </div>`;
 };
 
-// Shared footer strip with shield logo + wordmark
-const FOOTER = (dark = false) => `
-<div style="flex-shrink:0;padding:30px 72px;display:flex;align-items:center;justify-content:space-between;border-top:${dark ? '1px solid rgba(255,255,255,0.12)' : '1.5px solid #e8e5de'}">
-  <div style="display:flex;align-items:center;gap:13px">
-    <div style="width:40px;height:40px;background:${dark ? 'rgba(255,255,255,0.14)' : '#1a4731'};border-radius:10px;display:flex;align-items:center;justify-content:center">
-      <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M12 2L3 7v5c0 5.25 3.75 10.15 9 11.35C17.25 22.15 21 17.25 21 12V7L12 2z" fill="${dark ? '#1a4731' : '#fff'}"/></svg>
-    </div>
-    <span style="font-family:'Inter',sans-serif;font-size:27px;font-weight:700;color:${dark ? '#fff' : '#1a4731'}">Zen<span style="color:${dark ? '#4ade80' : '#2d6a4f'}">BTW</span></span>
-  </div>
-  <span style="font-size:19px;color:${dark ? 'rgba(255,255,255,0.4)' : '#8a847a'};font-weight:500">zenbtw.nl</span>
-</div>`;
+// Tag label pill (green badge)
+const TAG = (text) => `<div style="font-size:15px;font-weight:700;color:#4ade80;letter-spacing:0.06em;text-transform:uppercase;margin-bottom:14px;background:#1a4731;display:inline-block;padding:5px 14px;border-radius:6px">${text}</div>`;
 
-// Tag pill
-const TAG = (text, dark = false) => `<div style="display:inline-flex;align-items:center;padding:10px 22px;background:${dark ? 'rgba(255,255,255,0.12)' : '#e8f0ec'};border-radius:100px;font-size:17px;font-weight:700;color:${dark ? 'rgba(255,255,255,0.85)' : '#1a4731'};letter-spacing:0.05em;text-transform:uppercase;margin-bottom:28px">${text}</div>`;
+// Breadcrumb chrome (bookmark + left bar + ghost number + header)
+const CHROME = (slideNum, totalNum, category) => `
+  <div style="position:absolute;top:0;right:88px;width:52px;height:96px;background:#1a4731;clip-path:polygon(0 0,100% 0,100% 100%,50% 78%,0 100%);z-index:10"></div>
+  <div style="position:absolute;left:0;top:0;bottom:0;width:8px;background:#1a4731;z-index:10"></div>
+  <div style="position:absolute;top:60px;right:-20px;font-size:480px;font-weight:900;color:rgba(26,71,49,0.05);line-height:1;pointer-events:none;user-select:none;letter-spacing:-0.06em;z-index:1">${slideNum}</div>
+  <div style="position:absolute;top:68px;left:56px;z-index:5">
+    <div style="font-size:15px;font-weight:800;color:#1a4731;letter-spacing:0.12em;text-transform:uppercase">${category}</div>
+    <div style="font-size:14px;color:#9a9088;font-weight:500;margin-top:3px">Slide ${slideNum} van ${totalNum}</div>
+  </div>`;
 
-// ── HOOK template ─────────────────────────────────────────────────────────────
-const HOOK = (s) => {
-  const dark      = s.dark === true;
-  const bg        = dark ? '#1a4731' : '#f7f6f3';
-  const tx        = dark ? '#fff'    : '#1a1814';
-  const tx2       = dark ? 'rgba(255,255,255,0.72)' : '#4a4640';
-  const hl        = dark ? '#4ade80' : '#1a4731';
-  const titleLen  = (s.title || '').replace(/\n/g, '').length;
-  const fs        = titleLen > 55 ? '70' : titleLen > 38 ? '80' : '90';
-  const assetSrc  = ASSETS[s.asset] || ASSETS.tools || ASSETS.home || null;
+// ── HOOK template (breadcrumb editorial) ──────────────────────────────────────
+const HOOK = (s, index = 0, total = 5) => {
+  const slideNum = String(index + 1).padStart(2, '0');
+  const totalNum = String(total).padStart(2, '0');
+  const titleLen = (s.title || '').replace(/\n/g, '').length;
+  const fs       = titleLen > 50 ? '58' : titleLen > 35 ? '66' : '72';
 
-  if (dark) {
-    return `${BASE(bg)}
-<div style="width:1080px;height:1920px;position:relative;overflow:hidden">
-  <!-- Diagonale crème-sectie bovenin voor Daniel -->
-  <div style="position:absolute;top:0;left:0;right:0;height:860px;background:#f5f3ee;clip-path:polygon(0 0,100% 0,100% 720px,0 860px)"></div>
-
-  <!-- Dot patroon crème sectie -->
-  <svg style="position:absolute;top:0;left:0;width:100%;height:860px;opacity:0.04" xmlns="http://www.w3.org/2000/svg">
-    <defs><pattern id="dots" x="0" y="0" width="40" height="40" patternUnits="userSpaceOnUse"><circle cx="20" cy="20" r="1.5" fill="#1a4731"/></pattern></defs>
-    <rect width="1080" height="860" fill="url(#dots)"/>
-  </svg>
-
-  <!-- Groene ondersectie -->
-  <div style="position:absolute;bottom:0;left:0;right:0;height:1120px;background:#1a4731"></div>
-  <svg style="position:absolute;bottom:0;left:0;width:100%;height:1120px;opacity:0.03" xmlns="http://www.w3.org/2000/svg">
-    <defs><pattern id="grid" x="0" y="0" width="64" height="64" patternUnits="userSpaceOnUse"><path d="M 64 0 L 0 0 0 64" fill="none" stroke="#fff" stroke-width="0.6"/></pattern></defs>
-    <rect width="1080" height="1120" fill="url(#grid)"/>
-  </svg>
-
-  <!-- Badge linksboven -->
-  ${s.tag ? `<div style="position:absolute;top:68px;left:72px;z-index:10;display:inline-flex;align-items:center;gap:10px;background:#1a4731;border-radius:100px;padding:10px 24px">
-    <div style="width:7px;height:7px;border-radius:50%;background:#4ade80"></div>
-    <span style="font-size:16px;font-weight:800;color:#fff;letter-spacing:0.08em;text-transform:uppercase">${s.tag}</span>
-  </div>` : ''}
+  return `${BASE('#f5f0e8')}
+<div style="width:1080px;height:1920px;position:relative;overflow:hidden;background:#f5f0e8">
+  ${CHROME(slideNum, totalNum, s.tag || 'ZenBTW')}
 
   <!-- Daniel presentator -->
   <img src="../assets/daniel-presentator.png"
-       style="position:absolute;top:30px;right:-20px;width:410px;height:auto;z-index:6"
-       alt="Daniel - ZenBTW">
+       style="position:absolute;top:110px;right:-40px;width:460px;height:auto;z-index:4"
+       alt="Daniel">
 
-  <!-- Speech bubble bij Daniel -->
-  ${s.sub ? `<div style="position:absolute;top:330px;right:355px;z-index:7;background:#fff;border-radius:18px 18px 18px 4px;padding:15px 20px;box-shadow:0 6px 28px rgba(0,0,0,0.1);max-width:210px">
-    <div style="font-size:17px;font-weight:700;color:#1a1814;line-height:1.35">${s.sub}</div>
-    <div style="position:absolute;left:18px;bottom:-12px;width:0;height:0;border-left:12px solid transparent;border-right:0;border-top:12px solid #fff"></div>
-  </div>` : ''}
-
-  <!-- Hoofd content onderste sectie -->
-  <div style="position:absolute;top:810px;left:0;right:0;padding:0 72px;z-index:8">
-    <h1 style="font-size:${fs}px;font-weight:900;line-height:0.94;letter-spacing:-0.04em;color:#fff;margin-bottom:20px;white-space:pre-line">${(s.title || '').replace(/<[^>]+>/g, '')}${s.highlight ? `\n<span style="color:#4ade80">${s.highlight}</span>` : ''}</h1>
-    ${assetSrc ? `<div style="margin-bottom:36px">${MOCKUP(assetSrc, 'zenbtw.nl', 260)}</div>` : ''}
-    ${s.pill ? `<div style="display:inline-flex;align-items:center;gap:12px;background:rgba(255,255,255,0.1);border:2px solid rgba(255,255,255,0.18);border-radius:100px;padding:16px 34px;font-size:24px;font-weight:700;color:rgba(255,255,255,0.9);margin-top:24px">${s.pill}</div>` : ''}
+  <!-- Headline links -->
+  <div style="position:absolute;top:170px;left:56px;right:490px;z-index:5">
+    ${s.highlight ? TAG(s.highlight) : ''}
+    <h1 style="font-size:${fs}px;font-weight:900;color:#1a1814;line-height:0.93;letter-spacing:-0.03em">${(s.title || '').replace(/\n/g, '<br>')}</h1>
   </div>
 
-  ${FOOTER(true)}
-</div>
-</body></html>`;
-  }
+  <!-- Scheidingslijn -->
+  <div style="position:absolute;top:660px;left:56px;right:56px;height:1.5px;background:rgba(26,71,49,0.15);z-index:5"></div>
 
-  // Light variant — browser mockup fills top, text below
-  return `${BASE(bg)}
-<div style="width:1080px;height:1920px;display:flex;flex-direction:column;position:relative;overflow:hidden">
-  <div style="position:absolute;left:0;top:0;bottom:0;width:10px;background:#1a4731"></div>
-  <div style="height:10px;background:#1a4731;flex-shrink:0"></div>
+  <!-- Body content -->
+  <div style="position:absolute;top:698px;left:56px;right:56px;z-index:5">
+    ${s.sub ? `<p style="font-size:32px;font-weight:500;color:#3a3530;line-height:1.5;margin-bottom:44px">${s.sub}</p>` : ''}
 
-  ${assetSrc ? `<div style="padding:44px 72px 0;flex-shrink:0;position:relative;z-index:2">${MOCKUP(assetSrc, 'zenbtw.nl', 360)}</div>` : ''}
+    ${DASHBOARD_MOCKUP()}
 
-  <div style="flex:1;display:flex;flex-direction:column;justify-content:center;padding:36px 80px 36px 90px;position:relative;z-index:2">
-    ${s.tag ? TAG(s.tag) : ''}
-    <h1 style="font-family:'Inter',sans-serif;font-size:${fs}px;font-weight:900;line-height:1.08;letter-spacing:-0.03em;color:${tx};margin-bottom:26px;white-space:pre-line">${(s.title || '').replace(/<[^>]+>/g, '')}${s.highlight ? `\n<span style="color:${hl}">${s.highlight}</span>` : ''}</h1>
-    ${s.sub ? `<p style="font-size:30px;color:${tx2};line-height:1.5;font-weight:500;max-width:860px;margin-bottom:44px">${s.sub}</p>` : ''}
-    ${s.pill ? `<div style="display:inline-flex;align-items:center;gap:12px;background:#fff3cd;border:2px solid #f0c040;border-radius:100px;padding:16px 34px;font-size:26px;font-weight:700;color:#7a5c00;width:fit-content">${s.pill}</div>` : ''}
+    ${s.pill ? `<div style="background:#1a4731;border-radius:16px;padding:24px 30px;display:flex;align-items:center;gap:16px;margin-top:36px;margin-bottom:44px">
+      <span style="font-size:28px;flex-shrink:0">📋</span>
+      <div style="font-size:18px;font-weight:700;color:#fff;line-height:1.4">${s.pill}</div>
+    </div>` : '<div style="margin-top:36px"></div>'}
+
+    <div style="display:flex;align-items:center;gap:14px">
+      <div style="width:44px;height:44px;border-radius:50%;background:#1a4731;display:flex;align-items:center;justify-content:center;flex-shrink:0">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M9 18l6-6-6-6" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+      <span style="font-size:22px;font-weight:700;color:#1a1814">Swipe voor meer</span>
+    </div>
   </div>
-  ${FOOTER()}
+
+  ${FOOTER(false, index, total)}
 </div>
 </body></html>`;
 };
 
-// ── STAT template ─────────────────────────────────────────────────────────────
-const STAT = (s) => {
+// ── STAT template (breadcrumb stijl met witte kaarten) ────────────────────────
+const STAT = (s, index = 0, total = 5) => {
+  const slideNum = String(index + 1).padStart(2, '0');
+  const totalNum = String(total).padStart(2, '0');
   const numLen   = (s.number || '').length;
-  const numFs    = numLen > 7 ? '120' : numLen > 5 ? '148' : numLen > 3 ? '180' : '210';
-  const assetSrc = ASSETS[s.asset] || ASSETS.home || null;
+  const numFs    = numLen > 7 ? '100' : numLen > 5 ? '120' : '150';
 
-  return `${BASE('#1a4731')}
-<div style="width:1080px;height:1920px;display:flex;flex-direction:column;position:relative;overflow:hidden">
-  <div style="position:absolute;width:1100px;height:1100px;border-radius:50%;background:rgba(255,255,255,0.03);top:-500px;right:-350px;pointer-events:none"></div>
-  <div style="position:absolute;right:0;bottom:0;width:400px;height:400px;background:rgba(255,255,255,0.03);border-radius:400px 0 0 0;pointer-events:none"></div>
-  <div style="height:10px;background:rgba(255,255,255,0.18);flex-shrink:0"></div>
+  return `${BASE('#f5f0e8')}
+<div style="width:1080px;height:1920px;position:relative;overflow:hidden;background:#f5f0e8">
+  ${CHROME(slideNum, totalNum, s.eyebrow || 'De cijfers')}
 
-  <div style="flex:1;display:flex;flex-direction:column;justify-content:center;padding:72px 90px 40px;position:relative;z-index:2">
-    ${s.eyebrow ? `<div style="display:flex;align-items:center;gap:16px;margin-bottom:44px">
-      <div style="width:48px;height:3px;background:rgba(255,255,255,0.4);border-radius:2px"></div>
-      <span style="font-size:20px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,255,255,0.55)">${s.eyebrow}</span>
+  <div style="position:absolute;top:200px;left:56px;right:56px;z-index:5">
+    <h1 style="font-size:${(s.label || '').length > 40 ? '52' : '64'}px;font-weight:900;color:#1a1814;line-height:0.96;letter-spacing:-0.03em;margin-bottom:52px">${s.label || ''}</h1>
+
+    <!-- Groot getal in witte kaart -->
+    <div style="background:#fff;border-radius:20px;padding:44px;margin-bottom:32px;position:relative;overflow:hidden">
+      <div style="position:absolute;top:0;left:0;bottom:0;width:6px;background:#1a4731"></div>
+      <div style="font-size:${numFs}px;font-weight:900;color:#1a4731;line-height:0.85;letter-spacing:-0.04em;margin-bottom:10px">${s.number || ''}</div>
+    </div>
+
+    ${s.context ? `<div style="font-size:30px;font-weight:500;color:#3a3530;line-height:1.5;margin-bottom:40px">${s.context}</div>` : ''}
+
+    ${s.source ? `<div style="background:#fff;border:1.5px solid rgba(26,71,49,0.15);border-left:5px solid #1a4731;border-radius:0 14px 14px 0;padding:22px 28px">
+      <div style="font-size:16px;color:#9a9088;font-weight:500">${s.source}</div>
     </div>` : ''}
-
-    <div style="font-family:'Inter',sans-serif;font-size:${numFs}px;font-weight:900;color:#fff;line-height:0.88;letter-spacing:-0.04em;margin-bottom:28px">${s.number || ''}</div>
-    <div style="font-size:40px;color:rgba(255,255,255,0.88);font-weight:600;line-height:1.28;max-width:840px;margin-bottom:40px">${s.label || ''}</div>
-
-    ${s.context ? `<div style="background:rgba(255,255,255,0.09);border:1.5px solid rgba(255,255,255,0.13);border-radius:18px;padding:28px 36px;margin-bottom:40px">
-      <p style="font-size:25px;color:rgba(255,255,255,0.72);line-height:1.55">${s.context}</p>
-    </div>` : ''}
-
-    ${assetSrc ? MOCKUP(assetSrc, 'zenbtw.nl · BTW checker', 310) : ''}
-
-    ${s.source ? `<div style="margin-top:24px;font-size:18px;color:rgba(255,255,255,0.3);font-weight:500">${s.source}</div>` : ''}
   </div>
-  ${FOOTER(true)}
+
+  ${FOOTER(false, index, total)}
 </div>
 </body></html>`;
 };
@@ -380,127 +381,116 @@ const accentStyles = {
   neutral: { bg: '#fff',    border: '#e8e5de', bar: '#94a3b8', title: '#1a1814', body: '#4a4640' },
 };
 
-const INFO = (s) => {
+const INFO = (s, index = 0, total = 5) => {
   const cards    = (s.cards || []).slice(0, 4);
   const twoCol   = cards.length === 4;
-  const assetSrc = ASSETS[s.asset] || ASSETS.tools || ASSETS.home || null;
+  const slideNum = String(index + 1).padStart(2, '0');
+  const totalNum = String(total).padStart(2, '0');
 
-  return `${BASE()}
-<div style="width:1080px;height:1920px;display:flex;flex-direction:column">
-  <div style="height:10px;background:#1a4731;flex-shrink:0"></div>
+  return `${BASE('#f5f0e8')}
+<div style="width:1080px;height:1920px;position:relative;overflow:hidden;background:#f5f0e8">
+  ${CHROME(slideNum, totalNum, s.tag || 'Uitleg')}
 
-  <div style="padding:48px 72px 24px;flex-shrink:0">
-    <h1 style="font-family:'Inter',sans-serif;font-size:${(s.title || '').length > 42 ? '50' : '58'}px;font-weight:700;color:#1a1814;line-height:1.1;letter-spacing:-0.02em">${s.title || ''}</h1>
+  <div style="position:absolute;top:190px;left:56px;right:56px;z-index:5">
+    <h1 style="font-size:${(s.title || '').length > 42 ? '52' : '62'}px;font-weight:900;color:#1a1814;line-height:0.96;letter-spacing:-0.03em;margin-bottom:44px">${s.title || ''}</h1>
+    <div style="display:${twoCol ? 'grid' : 'flex'};${twoCol ? 'grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;gap:20px' : 'flex-direction:column;gap:20px'}">
+      ${cards.map(c => {
+        const a = accentStyles[c.accent] || accentStyles.neutral;
+        return `<div style="background:#fff;border:1.5px solid ${a.border};border-left:6px solid ${a.bar};border-radius:0 18px 18px 0;padding:${twoCol ? '28px 28px' : '30px 36px'};display:flex;flex-direction:column;gap:12px">
+          <div style="display:flex;align-items:center;gap:16px">
+            <div style="font-size:${twoCol ? '38' : '42'}px;flex-shrink:0">${c.icon || '•'}</div>
+            <h3 style="font-size:${twoCol ? '22' : '26'}px;font-weight:800;color:${a.title};line-height:1.2">${c.title || ''}</h3>
+          </div>
+          <p style="font-size:${twoCol ? '20' : '23'}px;color:${a.body};line-height:1.55;font-weight:500">${c.body || c.text || ''}</p>
+        </div>`;
+      }).join('')}
+    </div>
   </div>
 
-  ${assetSrc ? `<div style="padding:0 72px 28px;flex-shrink:0">${MOCKUP(assetSrc, 'zenbtw.nl', 240)}</div>` : ''}
-
-  <div style="flex:1;padding:0 72px;display:${twoCol ? 'grid' : 'flex'};${twoCol ? 'grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;gap:20px' : 'flex-direction:column;gap:20px'};align-content:center">
-    ${cards.map(c => {
-      const a = accentStyles[c.accent] || accentStyles.neutral;
-      return `<div style="background:${a.bg};border:1.5px solid ${a.border};border-left:6px solid ${a.bar};border-radius:0 18px 18px 0;padding:${twoCol ? '28px 32px' : '30px 40px'};display:flex;flex-direction:column;gap:12px">
-        <div style="display:flex;align-items:center;gap:16px">
-          <div style="font-size:${twoCol ? '40' : '44'}px;flex-shrink:0">${c.icon || '•'}</div>
-          <h3 style="font-size:${twoCol ? '24' : '28'}px;font-weight:800;color:${a.title};line-height:1.2">${c.title || ''}</h3>
-        </div>
-        <p style="font-size:${twoCol ? '21' : '24'}px;color:${a.body};line-height:1.55;font-weight:500">${c.body || c.text || ''}</p>
-      </div>`;
-    }).join('')}
-  </div>
-
-  ${FOOTER()}
+  ${FOOTER(false, index, total)}
 </div>
 </body></html>`;
 };
 
 // ── STEPS template ────────────────────────────────────────────────────────────
-const STEPS = (s) => {
-  const steps    = (s.steps || []).slice(0, 5);
+const STEPS = (s, index = 0, total = 5) => {
+  const steps     = (s.steps || []).slice(0, 5);
   const manySteps = steps.length >= 4;
-  const fs       = manySteps ? '21' : '24';
-  const titleFs  = manySteps ? '22' : '25';
-  const pad      = manySteps ? '24px 30px' : '28px 36px';
-  const assetSrc = ASSETS[s.asset] || ASSETS.tools || ASSETS.home || null;
+  const fs        = manySteps ? '21' : '24';
+  const titleFs   = manySteps ? '22' : '25';
+  const pad       = manySteps ? '24px 30px' : '28px 36px';
+  const slideNum  = String(index + 1).padStart(2, '0');
+  const totalNum  = String(total).padStart(2, '0');
 
-  return `${BASE()}
-<div style="width:1080px;height:1920px;display:flex;flex-direction:column">
-  <div style="height:10px;background:#1a4731;flex-shrink:0"></div>
+  return `${BASE('#f5f0e8')}
+<div style="width:1080px;height:1920px;position:relative;overflow:hidden;background:#f5f0e8">
+  ${CHROME(slideNum, totalNum, s.tag || 'Stappenplan')}
 
-  <div style="padding:48px 72px 24px;flex-shrink:0">
-    <h1 style="font-family:'Inter',sans-serif;font-size:${(s.title || '').length > 42 ? '50' : '56'}px;font-weight:700;color:#1a1814;line-height:1.1;letter-spacing:-0.02em;margin-bottom:${s.subtitle ? '14px' : '0'}">${s.title || ''}</h1>
-    ${s.subtitle ? `<p style="font-size:25px;color:#8a847a;font-weight:500">${s.subtitle}</p>` : ''}
+  <div style="position:absolute;top:190px;left:56px;right:56px;z-index:5">
+    <h1 style="font-size:${(s.title || '').length > 42 ? '52' : '62'}px;font-weight:900;color:#1a1814;line-height:0.96;letter-spacing:-0.03em;margin-bottom:${s.subtitle ? '14px' : '44px'}">${s.title || ''}</h1>
+    ${s.subtitle ? `<p style="font-size:24px;color:#9a9088;font-weight:500;margin-bottom:40px">${s.subtitle}</p>` : ''}
+    <div style="display:flex;flex-direction:column;gap:16px">
+      ${steps.map((st, i) => `
+      <div style="display:flex;gap:24px;align-items:stretch">
+        <div style="display:flex;flex-direction:column;align-items:center;flex-shrink:0">
+          <div style="width:60px;height:60px;background:#1a4731;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:700;color:#fff;flex-shrink:0">${String(i + 1).padStart(2, '0')}</div>
+          ${i < steps.length - 1 ? `<div style="width:2px;flex:1;background:linear-gradient(to bottom,#1a4731 0%,rgba(26,71,49,0.1) 100%);margin:5px 0;min-height:16px"></div>` : ''}
+        </div>
+        <div style="background:#fff;border:1.5px solid rgba(26,71,49,0.12);border-radius:16px;padding:${pad};flex:1">
+          <h4 style="font-size:${titleFs}px;font-weight:700;color:#1a1814;margin-bottom:7px;line-height:1.2">${st.title || ''}</h4>
+          <p style="font-size:${fs}px;color:#4a4640;line-height:1.5">${st.body || st.text || ''}</p>
+        </div>
+      </div>`).join('')}
+    </div>
   </div>
 
-  ${assetSrc ? `<div style="padding:0 72px 24px;flex-shrink:0">${MOCKUP(assetSrc, 'zenbtw.nl', 240)}</div>` : ''}
-
-  <div style="flex:1;padding:0 72px;display:flex;flex-direction:column;gap:16px;justify-content:center">
-    ${steps.map((st, i) => `
-    <div style="display:flex;gap:24px;align-items:stretch">
-      <div style="display:flex;flex-direction:column;align-items:center;flex-shrink:0">
-        <div style="width:60px;height:60px;background:#1a4731;border-radius:14px;display:flex;align-items:center;justify-content:center;font-family:'Inter',sans-serif;font-size:24px;font-weight:700;color:#fff;flex-shrink:0">${String(i + 1).padStart(2, '0')}</div>
-        ${i < steps.length - 1 ? `<div style="width:2px;flex:1;background:linear-gradient(to bottom,#1a4731 0%,rgba(26,71,49,0.1) 100%);margin:5px 0;min-height:16px"></div>` : ''}
-      </div>
-      <div style="background:#fff;border:1.5px solid #e8e5de;border-radius:16px;padding:${pad};flex:1">
-        <h4 style="font-size:${titleFs}px;font-weight:700;color:#1a1814;margin-bottom:7px;line-height:1.2">${st.title || ''}</h4>
-        <p style="font-size:${fs}px;color:#4a4640;line-height:1.5">${st.body || st.text || ''}</p>
-      </div>
-    </div>`).join('')}
-  </div>
-
-  ${FOOTER()}
+  ${FOOTER(false, index, total)}
 </div>
 </body></html>`;
 };
 
 // ── COMPARE template ──────────────────────────────────────────────────────────
-const COMPARE = (s) => {
-  const rows   = s.rows || [];
-  const colA   = s.col_a   || 'A';
-  const colB   = s.col_b   || 'B';
-  const colorA = s.col_a_color || '#1a4731';
-  const colorB = s.col_b_color || '#2563eb';
+const COMPARE = (s, index = 0, total = 5) => {
+  const rows     = s.rows || [];
+  const colA     = s.col_a   || 'A';
+  const colB     = s.col_b   || 'B';
+  const colorA   = s.col_a_color || '#1a4731';
+  const colorB   = s.col_b_color || '#2563eb';
+  const slideNum = String(index + 1).padStart(2, '0');
+  const totalNum = String(total).padStart(2, '0');
 
-  return `${BASE()}
-<div style="width:1080px;height:1920px;display:flex;flex-direction:column">
-  <div style="height:10px;background:#1a4731;flex-shrink:0"></div>
+  return `${BASE('#f5f0e8')}
+<div style="width:1080px;height:1920px;position:relative;overflow:hidden;background:#f5f0e8">
+  ${CHROME(slideNum, totalNum, s.tag || 'Vergelijking')}
 
-  <!-- Top accent strip with tiny mockup -->
-  ${ASSETS.tools ? `<div style="flex-shrink:0;margin:0;overflow:hidden;height:200px;position:relative">
-    <img src="${ASSETS.tools}" style="width:100%;position:absolute;top:0;left:0;filter:brightness(0.4) saturate(0.6)" />
-    <div style="position:absolute;inset:0;display:flex;align-items:center;padding:0 72px">
-      <h1 style="font-family:'Inter',sans-serif;font-size:${(s.title || '').length > 38 ? '46' : '54'}px;font-weight:700;color:#fff;line-height:1.1;letter-spacing:-0.02em;text-shadow:0 2px 16px rgba(0,0,0,0.4)">${s.title || ''}</h1>
-    </div>
-  </div>` : `<div style="padding:52px 72px 24px;flex-shrink:0">
-    <h1 style="font-family:'Inter',sans-serif;font-size:${(s.title || '').length > 38 ? '48' : '56'}px;font-weight:700;color:#1a1814;line-height:1.1;letter-spacing:-0.02em">${s.title || ''}</h1>
-  </div>`}
+  <div style="position:absolute;top:190px;left:56px;right:56px;z-index:5">
+    <h1 style="font-size:${(s.title || '').length > 38 ? '52' : '64'}px;font-weight:900;color:#1a1814;line-height:0.96;letter-spacing:-0.03em;margin-bottom:44px">${s.title || ''}</h1>
 
-  <div style="flex:1;padding:${ASSETS.tools ? '28px' : '0'} 72px;display:flex;flex-direction:column;justify-content:center">
-    <!-- Header row -->
-    <div style="display:grid;grid-template-columns:260px 1fr 1fr;margin-bottom:10px">
+    <div style="display:grid;grid-template-columns:220px 1fr 1fr;margin-bottom:10px">
       <div></div>
-      <div style="background:${colorA};border-radius:14px 14px 0 0;padding:20px 24px;text-align:center">
-        <span style="font-family:'Inter',sans-serif;font-size:30px;font-weight:700;color:#fff">${colA}</span>
+      <div style="background:${colorA};border-radius:14px 14px 0 0;padding:18px 20px;text-align:center">
+        <span style="font-size:28px;font-weight:700;color:#fff">${colA}</span>
       </div>
-      <div style="background:${colorB};border-radius:14px 14px 0 0;padding:20px 24px;text-align:center;margin-left:8px">
-        <span style="font-family:'Inter',sans-serif;font-size:30px;font-weight:700;color:#fff">${colB}</span>
+      <div style="background:${colorB};border-radius:14px 14px 0 0;padding:18px 20px;text-align:center;margin-left:8px">
+        <span style="font-size:28px;font-weight:700;color:#fff">${colB}</span>
       </div>
     </div>
     ${rows.map((r, i) => `
-    <div style="display:grid;grid-template-columns:260px 1fr 1fr;margin-bottom:8px">
-      <div style="background:${r.highlight ? '#f0fdf4' : '#fff'};border:1.5px solid ${r.highlight ? '#86efac' : '#e8e5de'};border-radius:12px;padding:18px 20px;display:flex;align-items:center">
-        <span style="font-size:20px;font-weight:700;color:#1a1814">${r.label || ''}</span>
+    <div style="display:grid;grid-template-columns:220px 1fr 1fr;margin-bottom:8px">
+      <div style="background:#fff;border:1.5px solid rgba(26,71,49,0.12);border-radius:12px;padding:18px 20px;display:flex;align-items:center">
+        <span style="font-size:19px;font-weight:700;color:#1a1814">${r.label || ''}</span>
       </div>
-      <div style="background:${r.highlight ? '#f0fdf4' : (i % 2 === 0 ? '#fff' : '#f9f8f5')};border:1.5px solid ${r.highlight ? '#86efac' : '#e8e5de'};border-radius:12px;padding:18px 24px;text-align:center;margin-left:8px;display:flex;align-items:center;justify-content:center">
-        <span style="font-size:20px;color:#1a1814;font-weight:500">${r.a || ''}</span>
+      <div style="background:${r.highlight ? '#f0fdf4' : '#fff'};border:1.5px solid ${r.highlight ? '#86efac' : 'rgba(26,71,49,0.12)'};border-radius:12px;padding:18px 20px;text-align:center;margin-left:8px;display:flex;align-items:center;justify-content:center">
+        <span style="font-size:19px;color:#1a1814;font-weight:500">${r.a || ''}</span>
       </div>
-      <div style="background:${r.highlight ? '#eff6ff' : (i % 2 === 0 ? '#fff' : '#f9f8f5')};border:1.5px solid ${r.highlight ? '#bfdbfe' : '#e8e5de'};border-radius:12px;padding:18px 24px;text-align:center;margin-left:8px;display:flex;align-items:center;justify-content:center">
-        <span style="font-size:20px;color:#1a1814;font-weight:500">${r.b || ''}</span>
+      <div style="background:${r.highlight ? '#eff6ff' : '#fff'};border:1.5px solid ${r.highlight ? '#bfdbfe' : 'rgba(26,71,49,0.12)'};border-radius:12px;padding:18px 20px;text-align:center;margin-left:8px;display:flex;align-items:center;justify-content:center">
+        <span style="font-size:19px;color:#1a1814;font-weight:500">${r.b || ''}</span>
       </div>
     </div>`).join('')}
-    ${s.footer_note ? `<div style="margin-top:20px;background:#e8f0ec;border-radius:12px;padding:18px 24px;font-size:21px;color:#1a4731;font-weight:600;text-align:center">${s.footer_note}</div>` : ''}
+    ${s.footer_note ? `<div style="margin-top:20px;background:#fff;border:1.5px solid rgba(26,71,49,0.15);border-left:5px solid #1a4731;border-radius:0 12px 12px 0;padding:18px 24px;font-size:21px;color:#1a4731;font-weight:600">${s.footer_note}</div>` : ''}
   </div>
 
-  ${FOOTER()}
+  ${FOOTER(false, index, total)}
 </div>
 </body></html>`;
 };
@@ -513,8 +503,10 @@ const boolIcon = (over) => over
 const adviesColor = { red: '#dc2626', orange: '#d97706', green: '#16a34a' };
 const adviesBg    = { red: '#fef2f2', orange: '#fffbeb', green: '#f0fdf4' };
 
-const PERSONA = (s) => {
+const PERSONA = (s, index = 0, total = 5) => {
   const personas = (s.personas || []).slice(0, 3);
+  const slideNum = String(index + 1).padStart(2, '0');
+  const totalNum = String(total).padStart(2, '0');
   const rows = [
     { label: 'Platform',    key: 'platform',   type: 'text' },
     { label: 'Omzet NL',   key: 'omzet_nl',   type: 'text' },
@@ -526,132 +518,117 @@ const PERSONA = (s) => {
     { label: 'Advies',     key: 'advies',     type: 'advies' },
   ];
 
-  return `${BASE()}
-<div style="width:1080px;height:1920px;display:flex;flex-direction:column">
-  <div style="height:10px;background:#1a4731;flex-shrink:0"></div>
+  return `${BASE('#f5f0e8')}
+<div style="width:1080px;height:1920px;position:relative;overflow:hidden;background:#f5f0e8">
+  ${CHROME(slideNum, totalNum, s.tag || 'Vergelijking')}
 
-  <!-- Header with blurred site screenshot background -->
-  ${ASSETS.tools ? `<div style="flex-shrink:0;height:180px;position:relative;overflow:hidden">
-    <img src="${ASSETS.tools}" style="width:100%;position:absolute;top:0;left:0;filter:brightness(0.35) saturate(0.5)" />
-    <div style="position:absolute;inset:0;padding:0 56px;display:flex;flex-direction:column;justify-content:center">
-      <h1 style="font-family:'Inter',sans-serif;font-size:50px;font-weight:700;color:#fff;line-height:1.1;letter-spacing:-0.02em;text-shadow:0 2px 12px rgba(0,0,0,0.4)">${s.title || ''}</h1>
-      ${s.subtitle ? `<p style="font-size:22px;color:rgba(255,255,255,0.7);font-weight:500;margin-top:8px">${s.subtitle}</p>` : ''}
+  <div style="position:absolute;top:190px;left:56px;right:56px;z-index:5">
+    <h1 style="font-size:56px;font-weight:900;color:#1a1814;line-height:0.96;letter-spacing:-0.03em;margin-bottom:${s.subtitle ? '10px' : '32px'}">${s.title || ''}</h1>
+    ${s.subtitle ? `<p style="font-size:22px;color:#9a9088;font-weight:500;margin-bottom:28px">${s.subtitle}</p>` : ''}
+
+    <div style="background:#fff;border-radius:18px;overflow:hidden;border:1.5px solid rgba(26,71,49,0.12)">
+      <!-- Avatar row -->
+      <div style="display:grid;grid-template-columns:160px repeat(${personas.length},1fr);border-bottom:1.5px solid rgba(26,71,49,0.1)">
+        <div style="background:#f5f0e8"></div>
+        ${personas.map(p => `
+        <div style="display:flex;flex-direction:column;align-items:center;padding:18px 8px;background:#f5f0e8">
+          <div style="width:68px;height:68px;border-radius:50%;background:${p.color || '#e8f0ec'};border:3px solid #1a4731;display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:700;color:#1a4731;margin-bottom:8px">${p.initials || (p.name || '?').slice(0, 2)}</div>
+          <div style="font-size:18px;font-weight:700;color:#1a1814">${p.name}</div>
+          <div style="font-size:14px;color:#9a9088">(${p.age})</div>
+        </div>`).join('')}
+      </div>
+      <!-- Table rows -->
+      ${rows.map((r, ri) => `
+      <div style="display:grid;grid-template-columns:160px repeat(${personas.length},1fr);background:${ri % 2 === 0 ? '#fff' : '#f9f8f5'};border-bottom:1px solid rgba(26,71,49,0.08)">
+        <div style="padding:14px 16px;font-size:16px;font-weight:700;color:#4a4640;border-right:1.5px solid rgba(26,71,49,0.08);display:flex;align-items:center">${r.label}</div>
+        ${personas.map(p => {
+          const val = p[r.key];
+          let cell = '';
+          if (r.type === 'bool') cell = boolIcon(val);
+          else if (r.type === 'advies') cell = `<div style="padding:6px 10px;background:${adviesBg[p.advies_kleur] || '#f0fdf4'};border-radius:8px;font-size:15px;font-weight:800;color:${adviesColor[p.advies_kleur] || '#16a34a'};text-align:center">${val || ''}</div>`;
+          else cell = `<span style="font-size:${r.bold ? '18' : '16'}px;font-weight:${r.bold ? '700' : '500'};color:#1a1814">${val || ''}</span>`;
+          return `<div style="padding:12px 10px;display:flex;align-items:center;justify-content:center;border-right:1px solid rgba(26,71,49,0.08)">${cell}</div>`;
+        }).join('')}
+      </div>`).join('')}
     </div>
-  </div>` : `<div style="padding:44px 56px 20px;flex-shrink:0">
-    <h1 style="font-family:'Inter',sans-serif;font-size:50px;font-weight:700;color:#1a1814;line-height:1.1;letter-spacing:-0.02em">${s.title || ''}</h1>
-    ${s.subtitle ? `<p style="font-size:22px;color:#8a847a;font-weight:500;margin-top:8px">${s.subtitle}</p>` : ''}
-  </div>`}
-
-  <!-- Avatar row -->
-  <div style="display:grid;grid-template-columns:190px repeat(${personas.length},1fr);padding:0 56px;flex-shrink:0;background:#fff;border-bottom:1.5px solid #e8e5de">
-    <div></div>
-    ${personas.map(p => `
-    <div style="display:flex;flex-direction:column;align-items:center;padding:18px 8px">
-      <div style="width:76px;height:76px;border-radius:50%;background:${p.color || '#e8f0ec'};border:3px solid #1a4731;display:flex;align-items:center;justify-content:center;font-family:'Inter',sans-serif;font-size:24px;font-weight:700;color:#1a4731;margin-bottom:8px">${p.initials || (p.name || '?').slice(0, 2)}</div>
-      <div style="font-size:19px;font-weight:700;color:#1a1814">${p.name}</div>
-      <div style="font-size:15px;color:#8a847a">(${p.age})</div>
-    </div>`).join('')}
   </div>
 
-  <!-- Table rows -->
-  <div style="flex:1;padding:0 56px;display:flex;flex-direction:column;justify-content:center">
-    ${rows.map((r, ri) => `
-    <div style="display:grid;grid-template-columns:190px repeat(${personas.length},1fr);background:${ri % 2 === 0 ? '#fff' : '#f7f6f3'};border-bottom:1px solid #e8e5de;${ri === 0 ? 'border-top:1px solid #e8e5de' : ''}">
-      <div style="padding:16px 14px;font-size:17px;font-weight:700;color:#4a4640;border-right:1.5px solid #e8e5de;display:flex;align-items:center">${r.label}</div>
-      ${personas.map(p => {
-        const val = p[r.key];
-        let cell = '';
-        if (r.type === 'bool') cell = boolIcon(val);
-        else if (r.type === 'advies') cell = `<div style="padding:7px 10px;background:${adviesBg[p.advies_kleur] || '#f0fdf4'};border-radius:8px;font-size:16px;font-weight:800;color:${adviesColor[p.advies_kleur] || '#16a34a'};text-align:center;line-height:1.2">${val || ''}</div>`;
-        else cell = `<span style="font-size:${r.bold ? '19' : '17'}px;font-weight:${r.bold ? '700' : '500'};color:#1a1814">${val || ''}</span>`;
-        return `<div style="padding:13px 10px;display:flex;align-items:center;justify-content:center;border-right:1px solid #e8e5de">${cell}</div>`;
-      }).join('')}
-    </div>`).join('')}
-  </div>
-
-  ${FOOTER()}
+  ${FOOTER(false, index, total)}
 </div>
 </body></html>`;
 };
 
 // ── LIST template ─────────────────────────────────────────────────────────────
-const LIST = (s) => {
+const LIST = (s, index = 0, total = 5) => {
   const items    = s.items || [];
-  const assetSrc = ASSETS[s.asset] || ASSETS.tools || ASSETS.home || null;
+  const slideNum = String(index + 1).padStart(2, '0');
+  const totalNum = String(total).padStart(2, '0');
 
-  return `${BASE()}
-<div style="width:1080px;height:1920px;display:flex;flex-direction:column">
-  <div style="height:10px;background:#1a4731;flex-shrink:0"></div>
+  return `${BASE('#f5f0e8')}
+<div style="width:1080px;height:1920px;position:relative;overflow:hidden;background:#f5f0e8">
+  ${CHROME(slideNum, totalNum, s.tag || 'Checklist')}
 
-  <div style="padding:48px 72px 20px;flex-shrink:0">
-    ${s.tag ? TAG(s.tag) : ''}
-    <h1 style="font-family:'Inter',sans-serif;font-size:${(s.title || '').length > 40 ? '50' : '58'}px;font-weight:700;color:#1a1814;line-height:1.1;letter-spacing:-0.02em">${s.title || ''}</h1>
+  <div style="position:absolute;top:190px;left:56px;right:56px;z-index:5">
+    <h1 style="font-size:${(s.title || '').length > 40 ? '52' : '64'}px;font-weight:900;color:#1a1814;line-height:0.96;letter-spacing:-0.03em;margin-bottom:44px">${s.title || ''}</h1>
+    <div style="display:flex;flex-direction:column;gap:18px">
+      ${items.map(it => `
+      <div style="display:flex;align-items:center;gap:24px;background:#fff;border:1.5px solid ${it.done ? '#86efac' : 'rgba(26,71,49,0.12)'};border-left:6px solid ${it.done ? '#22c55e' : '#c8c2b8'};border-radius:0 16px 16px 0;padding:26px 32px">
+        <div style="width:50px;height:50px;border-radius:50%;background:${it.done ? '#f0fdf4' : '#f5f0e8'};border:2.5px solid ${it.done ? '#22c55e' : '#c8c2b8'};display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:24px">${it.done ? '✅' : '○'}</div>
+        <span style="font-size:25px;color:${it.done ? '#1a1814' : '#6b7280'};font-weight:${it.done ? '600' : '500'}">${it.text || ''}</span>
+      </div>`).join('')}
+      ${s.note ? `<div style="margin-top:6px;background:#fff;border:1.5px solid rgba(26,71,49,0.15);border-left:5px solid #1a4731;border-radius:0 14px 14px 0;padding:22px 28px;font-size:20px;color:#1a4731;font-weight:600">${s.note}</div>` : ''}
+    </div>
   </div>
 
-  ${assetSrc ? `<div style="padding:0 72px 24px;flex-shrink:0">${MOCKUP(assetSrc, 'zenbtw.nl · hulpmiddelen', 240)}</div>` : ''}
-
-  <div style="flex:1;padding:0 72px;display:flex;flex-direction:column;gap:18px;justify-content:center">
-    ${items.map(it => `
-    <div style="display:flex;align-items:center;gap:24px;background:#fff;border:1.5px solid ${it.done ? '#86efac' : '#e8e5de'};border-left:6px solid ${it.done ? '#22c55e' : '#d1d5db'};border-radius:0 16px 16px 0;padding:26px 32px">
-      <div style="width:52px;height:52px;border-radius:50%;background:${it.done ? '#f0fdf4' : '#f9f8f5'};border:2.5px solid ${it.done ? '#22c55e' : '#d1d5db'};display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:26px">${it.done ? '✅' : '○'}</div>
-      <span style="font-size:26px;color:${it.done ? '#1a1814' : '#6b7280'};font-weight:${it.done ? '600' : '500'}">${it.text || ''}</span>
-    </div>`).join('')}
-    ${s.note ? `<div style="margin-top:6px;background:#e8f0ec;border-radius:14px;padding:22px 28px;font-size:21px;color:#1a4731;font-weight:600">${s.note}</div>` : ''}
-  </div>
-
-  ${FOOTER()}
+  ${FOOTER(false, index, total)}
 </div>
 </body></html>`;
 };
 
-// ── CTA template ──────────────────────────────────────────────────────────────
-const CTA = (s) => {
+// ── CTA template (donkergroen, eindslide) ─────────────────────────────────────
+const CTA = (s, index = 0, total = 5) => {
   const features = s.features || ['100% gratis', 'Alle platforms', 'Direct resultaat'];
-  const assetSrc = ASSETS.home || ASSETS.tools || null;
 
   return `${BASE('#1a4731')}
-<div style="width:1080px;height:1920px;display:flex;flex-direction:column;position:relative;overflow:hidden">
-  <div style="position:absolute;width:900px;height:900px;border-radius:50%;background:rgba(255,255,255,0.04);top:-350px;left:-200px;pointer-events:none"></div>
-  <div style="height:10px;background:rgba(255,255,255,0.15);flex-shrink:0"></div>
+<div style="width:1080px;height:1920px;position:relative;overflow:hidden;background:#1a4731">
+  <div style="position:absolute;width:900px;height:900px;border-radius:50%;background:rgba(255,255,255,0.03);top:-350px;left:-200px;pointer-events:none"></div>
+  <div style="position:absolute;top:0;right:88px;width:52px;height:96px;background:rgba(255,255,255,0.15);clip-path:polygon(0 0,100% 0,100% 100%,50% 78%,0 100%);z-index:10"></div>
+  <div style="position:absolute;left:0;top:0;bottom:0;width:8px;background:rgba(255,255,255,0.15);z-index:10"></div>
 
-  <div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:60px 80px 40px;position:relative;z-index:2;text-align:center">
-    <!-- Shield icon -->
-    <div style="width:100px;height:100px;background:rgba(255,255,255,0.1);border-radius:24px;display:flex;align-items:center;justify-content:center;margin-bottom:40px">
-      <svg width="52" height="52" viewBox="0 0 24 24" fill="none"><path d="M12 2L3 7v5c0 5.25 3.75 10.15 9 11.35C17.25 22.15 21 17.25 21 12V7L12 2z" fill="rgba(255,255,255,0.9)"/></svg>
+  <div style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:80px 80px 100px;text-align:center;z-index:2">
+    <div style="width:96px;height:96px;background:rgba(255,255,255,0.1);border-radius:24px;display:flex;align-items:center;justify-content:center;margin-bottom:44px">
+      <svg width="50" height="50" viewBox="0 0 24 24" fill="none"><path d="M12 2L3 7v5c0 5.25 3.75 10.15 9 11.35C17.25 22.15 21 17.25 21 12V7L12 2z" fill="rgba(255,255,255,0.9)"/></svg>
     </div>
 
-    <h1 style="font-family:'Inter',sans-serif;font-size:76px;font-weight:900;color:#fff;line-height:1.05;letter-spacing:-0.03em;margin-bottom:28px">${s.question || 'Weet jij waar jij staat?'}</h1>
-    <p style="font-size:30px;color:rgba(255,255,255,0.7);line-height:1.48;max-width:800px;margin-bottom:44px;font-weight:500">${s.sub || 'Controleer gratis in 30 seconden — geen account nodig'}</p>
+    <h1 style="font-size:74px;font-weight:900;color:#fff;line-height:1.05;letter-spacing:-0.03em;margin-bottom:28px">${s.question || 'Weet jij waar jij staat?'}</h1>
+    <p style="font-size:30px;color:rgba(255,255,255,0.7);line-height:1.48;max-width:800px;margin-bottom:56px;font-weight:500">${s.sub || 'Controleer gratis in 30 seconden — geen account nodig'}</p>
 
-    <!-- Product screenshot -->
-    ${assetSrc ? `<div style="width:100%;margin-bottom:44px">${MOCKUP(assetSrc, 'zenbtw.nl', 360)}</div>` : ''}
+    ${DASHBOARD_MOCKUP()}
 
-    <!-- CTA button -->
-    <div style="background:#fff;border-radius:18px;padding:28px 64px;font-size:32px;font-weight:800;color:#1a4731;margin-bottom:36px;letter-spacing:-0.01em">${s.button || 'Check mijn BTW-status →'}</div>
+    <div style="background:#fff;border-radius:18px;padding:28px 64px;font-size:30px;font-weight:800;color:#1a4731;margin-top:44px;margin-bottom:36px">${s.button || 'Check mijn BTW-status →'}</div>
 
-    <!-- Feature pills -->
     <div style="display:flex;gap:14px;flex-wrap:wrap;justify-content:center">
-      ${features.map(f => `<div style="background:rgba(255,255,255,0.09);border:1px solid rgba(255,255,255,0.18);border-radius:100px;padding:11px 24px;font-size:20px;color:rgba(255,255,255,0.72);font-weight:600">✓ ${f}</div>`).join('')}
+      ${features.map(f => `<div style="background:rgba(255,255,255,0.09);border:1px solid rgba(255,255,255,0.2);border-radius:100px;padding:11px 24px;font-size:20px;color:rgba(255,255,255,0.75);font-weight:600">✓ ${f}</div>`).join('')}
     </div>
   </div>
 
-  ${FOOTER(true)}
+  ${FOOTER(true, index, total)}
 </div>
 </body></html>`;
 };
 
 // ── Renderer ──────────────────────────────────────────────────────────────────
-function renderSlide(slide) {
+function renderSlide(slide, index = 0, total = 5) {
   switch (slide.template) {
-    case 'hook':    return HOOK(slide);
-    case 'stat':    return STAT(slide);
-    case 'info':    return INFO(slide);
-    case 'steps':   return STEPS(slide);
-    case 'compare': return COMPARE(slide);
-    case 'persona': return PERSONA(slide);
-    case 'list':    return LIST(slide);
-    case 'cta':     return CTA(slide);
-    default:        return HOOK(slide);
+    case 'hook':    return HOOK(slide, index, total);
+    case 'stat':    return STAT(slide, index, total);
+    case 'info':    return INFO(slide, index, total);
+    case 'steps':   return STEPS(slide, index, total);
+    case 'compare': return COMPARE(slide, index, total);
+    case 'persona': return PERSONA(slide, index, total);
+    case 'list':    return LIST(slide, index, total);
+    case 'cta':     return CTA(slide, index, total);
+    default:        return HOOK(slide, index, total);
   }
 }
 
@@ -724,7 +701,7 @@ async function main() {
       const htmlPath = path.join(setDir, `${num}.html`);
       const pngPath  = path.join(setDir, `${num}.png`);
 
-      fs.writeFileSync(htmlPath, renderSlide(slides[i]), 'utf8');
+      fs.writeFileSync(htmlPath, renderSlide(slides[i], i, slides.length), 'utf8');
       await screenshot(browser, htmlPath, pngPath);
 
       htmlFiles.push(`slides/${setId}/${num}.html`);
