@@ -194,6 +194,33 @@ Steps: 2-5 stuks.
   "note": "Gebruik ZenBTW om dit gratis bij te houden."
 }
 
+━━━ "split" ━━━ (tekst links, ZenBTW dashboard screenshot rechts)
+{
+  "template": "split",
+  "tag": "Vinted | Etsy | KOR | OSS",
+  "title": "Grote headline\nmax 2 regels",
+  "highlight": "Optionele groene pil boven de titel",
+  "sub": "Korte ondertitel, 1 zin",
+  "bullets": [
+    { "icon": "📋", "text": "Concrete bullet met feit of tip" },
+    { "icon": "✅", "text": "Nog een punt" }
+  ],
+  "cta_label": "Swipe voor meer",
+  "dark": false
+}
+Gebruik dit template wanneer je een tool of feature wil laten zien naast inhoudelijke tekst.
+dark:true maakt de achtergrond donkergroen (sterke visuele afwisseling).
+
+━━━ "dashboard" ━━━ (ZenBTW tool centerstage — 4-kaarten mockup)
+{
+  "template": "dashboard",
+  "tag": "ZenBTW Tool",
+  "title": "Zo gebruik je ZenBTW",
+  "sub": "Optionele ondertitel, 1 zin",
+  "features": ["100% gratis", "Alle platforms", "Geen account", "Direct resultaat"]
+}
+Gebruik dit template als je ZenBTW als product wilt laten zien. De slide toont een groot interactief dashboard-mockup met BTW berekenen / KOR drempel / OSS check / Advies.
+
 ━━━ "cta" ━━━ (ALTIJD de LAATSTE slide van een carrousel)
 {
   "template": "cta",
@@ -215,6 +242,13 @@ STIJLREGELS:
 - "title" bij hook = de grote vetgedrukte headline, max 8 woorden
 - "sub" bij hook = de uitleg onder de separator, max 2 zinnen
 - "pill" bij hook = een feitenpil onderaan, bijv. "DAC7 · 30 verkopen + €2k = automatische melding"
+
+VARIATIE-REGELS (BELANGRIJK — volg deze altijd):
+- Gebruik in elke carrousel minstens 3 VERSCHILLENDE templates (nooit 4× info of 3× steps)
+- Gebruik "split" of "dashboard" minstens 1× per carrousel om visuele variatie te brengen
+- Gebruik dark:true op de hook-slide van ~50% van de carrousels voor een sterke openingsimpact
+- Wissel af tussen lichte en donkere slides binnen één carrousel
+- Persona-template is het meest engaging — gebruik hem telkens als het onderwerp een vergelijking bevat
 
 Geef ALLEEN de JSON terug.`;
 }
@@ -291,54 +325,69 @@ const CHROME = (slideNum, totalNum, category) => `
     <div style="font-size:14px;color:#9a9088;font-weight:500;margin-top:3px">Slide ${slideNum} van ${totalNum}</div>
   </div>`;
 
-// ── HOOK template (breadcrumb editorial) ──────────────────────────────────────
+// ── HOOK template — light (cream) + dark (green) variant ─────────────────────
 const HOOK = (s, index = 0, total = 5) => {
   const slideNum = String(index + 1).padStart(2, '0');
   const totalNum = String(total).padStart(2, '0');
   const titleLen = (s.title || '').replace(/\n/g, '').length;
   const fs       = titleLen > 50 ? '58' : titleLen > 35 ? '66' : '72';
+  const dark     = !!s.dark;
+  const bg       = dark ? '#1a4731' : '#f5f0e8';
+  const txHead   = dark ? '#fff' : '#1a1814';
+  const txBody   = dark ? 'rgba(255,255,255,0.82)' : '#3a3530';
+  const txMeta   = dark ? 'rgba(255,255,255,0.38)' : '#9a9088';
+  const sep      = dark ? 'rgba(255,255,255,0.12)' : 'rgba(26,71,49,0.15)';
+  const swipeBtn = dark ? 'rgba(255,255,255,0.15)' : '#1a4731';
+  const pillBg   = dark ? 'rgba(255,255,255,0.1)' : '#1a4731';
 
-  return `${BASE('#f5f0e8')}
-<div style="width:1080px;height:1350px;position:relative;overflow:hidden;background:#f5f0e8">
-  ${CHROME(slideNum, totalNum, s.tag || 'ZenBTW')}
+  const chromeDark = `
+  <div style="position:absolute;top:0;right:88px;width:52px;height:96px;background:rgba(255,255,255,0.15);clip-path:polygon(0 0,100% 0,100% 100%,50% 78%,0 100%);z-index:10"></div>
+  <div style="position:absolute;left:0;top:0;bottom:0;width:8px;background:rgba(255,255,255,0.15);z-index:10"></div>
+  <div style="position:absolute;top:40px;right:-20px;font-size:360px;font-weight:900;color:rgba(255,255,255,0.04);line-height:1;pointer-events:none;user-select:none;letter-spacing:-0.06em;z-index:1">${slideNum}</div>
+  <div style="position:absolute;top:68px;left:56px;z-index:5">
+    <div style="font-size:15px;font-weight:800;color:#4ade80;letter-spacing:0.12em;text-transform:uppercase">${s.tag || 'ZenBTW'}</div>
+    <div style="font-size:14px;color:${txMeta};font-weight:500;margin-top:3px">Slide ${slideNum} van ${totalNum}</div>
+  </div>`;
 
-  <!-- Daniel presentator — kleiner voor het kortere format -->
-  <img src="../assets/daniel-presentator.png"
+  return `${BASE(bg)}
+<div style="width:1080px;height:1350px;position:relative;overflow:hidden;background:${bg}">
+  ${dark ? chromeDark : CHROME(slideNum, totalNum, s.tag || 'ZenBTW')}
+
+  ${!dark ? `<img src="../assets/daniel-presentator.png"
        style="position:absolute;top:80px;right:-30px;width:340px;height:auto;z-index:4"
-       alt="Daniel">
+       alt="Daniel">` : ''}
 
-  <!-- Headline links -->
-  <div style="position:absolute;top:140px;left:56px;right:370px;z-index:5">
+  <!-- Headline -->
+  <div style="position:absolute;top:140px;left:56px;right:${dark ? '56' : '370'}px;z-index:5">
     ${s.highlight ? TAG(s.highlight) : ''}
-    <h1 style="font-size:${fs}px;font-weight:900;color:#1a1814;line-height:0.93;letter-spacing:-0.03em">${(s.title || '').replace(/\n/g, '<br>')}</h1>
+    <h1 style="font-size:${fs}px;font-weight:900;color:${txHead};line-height:0.93;letter-spacing:-0.03em">${(s.title || '').replace(/\n/g, '<br>')}</h1>
   </div>
 
   <!-- Scheidingslijn -->
-  <div style="position:absolute;top:430px;left:56px;right:56px;height:1.5px;background:rgba(26,71,49,0.15);z-index:5"></div>
+  <div style="position:absolute;top:430px;left:56px;right:56px;height:1.5px;background:${sep};z-index:5"></div>
 
-  <!-- Body content — van 460px tot footer -->
+  <!-- Body -->
   <div style="position:absolute;top:0;left:56px;right:56px;bottom:0;display:flex;flex-direction:column;z-index:5;padding-top:460px;padding-bottom:88px">
-
-    ${s.sub ? `<p style="font-size:27px;font-weight:500;color:#3a3530;line-height:1.5;margin-bottom:28px;flex-shrink:0">${s.sub}</p>` : ''}
+    ${s.sub ? `<p style="font-size:27px;font-weight:500;color:${txBody};line-height:1.5;margin-bottom:28px;flex-shrink:0">${s.sub}</p>` : ''}
 
     <div style="flex:1;display:flex;flex-direction:column;gap:0;min-height:0">
       <div style="flex:1">${DASHBOARD_MOCKUP()}</div>
 
-      ${s.pill ? `<div style="background:#1a4731;border-radius:14px;padding:20px 26px;display:flex;align-items:center;gap:14px;margin-top:20px;flex-shrink:0">
+      ${s.pill ? `<div style="background:${pillBg};border-radius:14px;padding:20px 26px;display:flex;align-items:center;gap:14px;margin-top:20px;flex-shrink:0;${dark ? 'border:1px solid rgba(255,255,255,0.12)' : ''}">
         <span style="font-size:24px;flex-shrink:0">📋</span>
         <div style="font-size:17px;font-weight:700;color:#fff;line-height:1.4">${s.pill}</div>
       </div>` : ''}
 
       <div style="display:flex;align-items:center;gap:12px;margin-top:20px;flex-shrink:0">
-        <div style="width:40px;height:40px;border-radius:50%;background:#1a4731;display:flex;align-items:center;justify-content:center;flex-shrink:0">
+        <div style="width:40px;height:40px;border-radius:50%;background:${swipeBtn};display:flex;align-items:center;justify-content:center;flex-shrink:0">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M9 18l6-6-6-6" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </div>
-        <span style="font-size:20px;font-weight:700;color:#1a1814">Swipe voor meer</span>
+        <span style="font-size:20px;font-weight:700;color:${txHead}">Swipe voor meer</span>
       </div>
     </div>
   </div>
 
-  ${FOOTER(false, index, total)}
+  ${FOOTER(dark, index, total)}
 </div>
 </body></html>`;
 };
@@ -643,6 +692,160 @@ const LIST = (s, index = 0, total = 5) => {
 </body></html>`;
 };
 
+// ── SPLIT template — tekst links, dashboard rechts ───────────────────────────
+const SPLIT = (s, index = 0, total = 5) => {
+  const slideNum = String(index + 1).padStart(2, '0');
+  const totalNum = String(total).padStart(2, '0');
+  const dark     = !!s.dark;
+  const bg       = dark ? '#1a4731' : '#f5f0e8';
+  const txHead   = dark ? '#fff' : '#1a1814';
+  const txBody   = dark ? 'rgba(255,255,255,0.78)' : '#3a3530';
+  const cardBg   = dark ? 'rgba(255,255,255,0.07)' : '#fff';
+  const cardBord = dark ? 'rgba(255,255,255,0.12)' : 'rgba(26,71,49,0.12)';
+  const swipeBtn = dark ? 'rgba(255,255,255,0.15)' : '#1a4731';
+
+  const chromeDark = `
+  <div style="position:absolute;top:0;right:88px;width:52px;height:96px;background:rgba(255,255,255,0.15);clip-path:polygon(0 0,100% 0,100% 100%,50% 78%,0 100%);z-index:10"></div>
+  <div style="position:absolute;left:0;top:0;bottom:0;width:8px;background:rgba(255,255,255,0.15);z-index:10"></div>
+  <div style="position:absolute;top:40px;right:-20px;font-size:360px;font-weight:900;color:rgba(255,255,255,0.04);line-height:1;pointer-events:none;letter-spacing:-0.06em;z-index:1">${slideNum}</div>
+  <div style="position:absolute;top:68px;left:56px;z-index:5">
+    <div style="font-size:15px;font-weight:800;color:#4ade80;letter-spacing:0.12em;text-transform:uppercase">${s.tag || 'ZenBTW'}</div>
+    <div style="font-size:14px;color:rgba(255,255,255,0.35);font-weight:500;margin-top:3px">Slide ${slideNum} van ${totalNum}</div>
+  </div>`;
+
+  const bullets = (s.bullets || []).slice(0, 4).map(b =>
+    typeof b === 'string' ? { icon: '✓', text: b } : { icon: b.icon || '✓', text: b.text || String(b) }
+  );
+
+  return `${BASE(bg)}
+<div style="width:1080px;height:1350px;position:relative;overflow:hidden;background:${bg}">
+  ${dark ? chromeDark : CHROME(slideNum, totalNum, s.tag || 'ZenBTW')}
+
+  <!-- Split layout: left text + right dashboard -->
+  <div style="position:absolute;top:0;left:0;right:0;bottom:0;display:flex;z-index:5;padding-top:168px;padding-bottom:96px;padding-left:56px;padding-right:48px;gap:44px">
+
+    <!-- Left: text column -->
+    <div style="flex:1;display:flex;flex-direction:column;justify-content:center;gap:28px;min-width:0">
+      ${s.highlight ? TAG(s.highlight) : ''}
+      <h1 style="font-size:${(s.title||'').length > 40 ? '54' : '64'}px;font-weight:900;color:${txHead};line-height:0.93;letter-spacing:-0.03em">${(s.title || '').replace(/\n/g, '<br>')}</h1>
+      ${s.sub ? `<p style="font-size:23px;font-weight:500;color:${txBody};line-height:1.55">${s.sub}</p>` : ''}
+      ${bullets.length ? `<div style="display:flex;flex-direction:column;gap:16px">
+        ${bullets.map(b => `<div style="display:flex;align-items:center;gap:18px;background:${cardBg};border:1.5px solid ${cardBord};border-radius:14px;padding:20px 24px">
+          <div style="font-size:30px;flex-shrink:0">${b.icon}</div>
+          <span style="font-size:21px;font-weight:600;color:${txHead};line-height:1.3">${b.text}</span>
+        </div>`).join('')}
+      </div>` : ''}
+      <div style="display:flex;align-items:center;gap:12px;margin-top:4px">
+        <div style="width:40px;height:40px;border-radius:50%;background:${swipeBtn};display:flex;align-items:center;justify-content:center;flex-shrink:0">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M9 18l6-6-6-6" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <span style="font-size:19px;font-weight:700;color:${txHead}">${s.cta_label || 'Swipe voor meer'}</span>
+      </div>
+    </div>
+
+    <!-- Right: dashboard -->
+    <div style="width:390px;flex-shrink:0;display:flex;flex-direction:column;justify-content:center;gap:18px">
+      ${DASHBOARD_MOCKUP()}
+      <div style="background:${dark ? 'rgba(74,222,128,0.15)' : '#1a4731'};border-radius:12px;padding:16px 22px;text-align:center;border:${dark ? '1px solid rgba(74,222,128,0.3)' : 'none'}">
+        <div style="font-size:17px;font-weight:700;color:${dark ? '#4ade80' : '#fff'}">zenbtw.nl — 100% gratis</div>
+      </div>
+    </div>
+  </div>
+
+  ${FOOTER(dark, index, total)}
+</div>
+</body></html>`;
+};
+
+// ── DASHBOARD template — tool centerstage ─────────────────────────────────────
+const DASHBOARD = (s, index = 0, total = 5) => {
+  const slideNum = String(index + 1).padStart(2, '0');
+  const totalNum = String(total).padStart(2, '0');
+  const features = (s.features || ['100% gratis', 'Alle platforms', 'Geen account', 'Direct resultaat']).slice(0, 4);
+  const titleLen = (s.title || '').length;
+
+  return `${BASE('#f5f0e8')}
+<div style="width:1080px;height:1350px;position:relative;overflow:hidden;background:#f5f0e8">
+  ${CHROME(slideNum, totalNum, s.tag || 'ZenBTW Tool')}
+
+  <div style="position:absolute;top:0;left:56px;right:56px;bottom:0;display:flex;flex-direction:column;z-index:5;padding-top:168px;padding-bottom:96px">
+
+    <!-- Title -->
+    <div style="flex-shrink:0;margin-bottom:32px">
+      <h1 style="font-size:${titleLen > 38 ? '56' : '68'}px;font-weight:900;color:#1a1814;line-height:0.93;letter-spacing:-0.03em">${s.title || 'ZenBTW in actie'}</h1>
+      ${s.sub ? `<p style="font-size:23px;font-weight:500;color:#4a4640;line-height:1.5;margin-top:14px">${s.sub}</p>` : ''}
+    </div>
+
+    <!-- Extended dashboard mockup — fills available height -->
+    <div style="flex:1;min-height:0;display:flex;flex-direction:column;gap:20px">
+      <div style="flex:1;min-height:0;border-radius:20px;overflow:hidden;box-shadow:0 20px 64px rgba(0,0,0,0.18);border:1.5px solid rgba(26,71,49,0.15)">
+        <!-- Browser chrome -->
+        <div style="background:#1a4731;padding:14px 18px;display:flex;align-items:center;gap:10px;flex-shrink:0">
+          <div style="display:flex;gap:6px">
+            <div style="width:12px;height:12px;border-radius:50%;background:rgba(255,255,255,0.2)"></div>
+            <div style="width:12px;height:12px;border-radius:50%;background:rgba(255,255,255,0.2)"></div>
+            <div style="width:12px;height:12px;border-radius:50%;background:#4ade80"></div>
+          </div>
+          <div style="flex:1;background:rgba(255,255,255,0.1);border-radius:6px;padding:6px 14px;font-size:14px;color:rgba(255,255,255,0.7)">🔒 zenbtw.nl/hulpmiddelen</div>
+        </div>
+        <!-- Dashboard content — full 4-card grid -->
+        <div style="background:#fff;padding:28px;flex:1;display:flex;flex-direction:column;gap:18px">
+          <div style="font-size:19px;font-weight:800;color:#1a1814">Hulpmiddelen</div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;flex:1">
+            <div style="background:#f5f0e8;border-radius:14px;padding:22px;border-left:4px solid #1a4731;display:flex;flex-direction:column;justify-content:space-between">
+              <div style="font-size:11px;font-weight:700;color:#1a4731;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:8px">BTW berekenen</div>
+              <div style="font-size:32px;font-weight:900;color:#1a1814">€ 2.310</div>
+              <div>
+                <div style="font-size:11px;color:#9a9088;margin-bottom:4px">55% van KOR-grens benut</div>
+                <div style="height:4px;background:#e8e5de;border-radius:2px"><div style="width:55%;height:100%;background:#1a4731;border-radius:2px"></div></div>
+              </div>
+            </div>
+            <div style="background:#f5f0e8;border-radius:14px;padding:22px;border-left:4px solid #4ade80;display:flex;flex-direction:column;justify-content:space-between">
+              <div style="font-size:11px;font-weight:700;color:#1a4731;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:8px">KOR drempel</div>
+              <div style="font-size:32px;font-weight:900;color:#1a4731">✓ Vrij</div>
+              <div>
+                <div style="font-size:11px;color:#9a9088;margin-bottom:4px">€11.000 / €20.000</div>
+                <div style="height:4px;background:#e8e5de;border-radius:2px"><div style="width:55%;height:100%;background:#4ade80;border-radius:2px"></div></div>
+              </div>
+            </div>
+            <div style="background:#f5f0e8;border-radius:14px;padding:22px;border-left:4px solid #2563eb;display:flex;flex-direction:column;justify-content:space-between">
+              <div style="font-size:11px;font-weight:700;color:#2563eb;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:8px">OSS check</div>
+              <div style="font-size:32px;font-weight:900;color:#1a1814">✗ Nee</div>
+              <div>
+                <div style="font-size:11px;color:#9a9088;margin-bottom:4px">€800 / €10.000 EU</div>
+                <div style="height:4px;background:#e8e5de;border-radius:2px"><div style="width:8%;height:100%;background:#2563eb;border-radius:2px"></div></div>
+              </div>
+            </div>
+            <div style="background:#1a4731;border-radius:14px;padding:22px;display:flex;flex-direction:column;justify-content:space-between">
+              <div style="font-size:11px;font-weight:700;color:#4ade80;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:8px">Jouw advies</div>
+              <div style="font-size:26px;font-weight:900;color:#fff;line-height:1.1">KOR<br>aanbevolen</div>
+              <div style="font-size:11px;color:rgba(255,255,255,0.6)">Geen BTW afdragen ✓</div>
+            </div>
+          </div>
+          <div style="display:flex;gap:10px;align-items:center;flex-shrink:0">
+            <div style="flex:1;background:#f5f0e8;border-radius:10px;padding:13px 16px">
+              <div style="font-size:11px;color:#9a9088;margin-bottom:2px">Jaarlijkse omzet</div>
+              <div style="font-size:17px;font-weight:700;color:#1a1814">€ 11.000</div>
+            </div>
+            <div style="background:#1a4731;border-radius:10px;padding:14px 26px">
+              <span style="font-size:14px;font-weight:700;color:#fff">Bereken →</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Feature pills -->
+      <div style="display:flex;gap:12px;flex-wrap:wrap;flex-shrink:0">
+        ${features.map(f => `<div style="background:#fff;border:1.5px solid rgba(26,71,49,0.15);border-radius:100px;padding:12px 22px;font-size:17px;font-weight:600;color:#1a4731">✓ ${f}</div>`).join('')}
+      </div>
+    </div>
+  </div>
+
+  ${FOOTER(false, index, total)}
+</div>
+</body></html>`;
+};
+
 // ── CTA template (donkergroen, eindslide) ─────────────────────────────────────
 const CTA = (s, index = 0, total = 5) => {
   const features = s.features || ['100% gratis', 'Alle platforms', 'Direct resultaat'];
@@ -678,15 +881,17 @@ const CTA = (s, index = 0, total = 5) => {
 // ── Renderer ──────────────────────────────────────────────────────────────────
 function renderSlide(slide, index = 0, total = 5) {
   switch (slide.template) {
-    case 'hook':    return HOOK(slide, index, total);
-    case 'stat':    return STAT(slide, index, total);
-    case 'info':    return INFO(slide, index, total);
-    case 'steps':   return STEPS(slide, index, total);
-    case 'compare': return COMPARE(slide, index, total);
-    case 'persona': return PERSONA(slide, index, total);
-    case 'list':    return LIST(slide, index, total);
-    case 'cta':     return CTA(slide, index, total);
-    default:        return HOOK(slide, index, total);
+    case 'hook':      return HOOK(slide, index, total);
+    case 'stat':      return STAT(slide, index, total);
+    case 'info':      return INFO(slide, index, total);
+    case 'steps':     return STEPS(slide, index, total);
+    case 'compare':   return COMPARE(slide, index, total);
+    case 'persona':   return PERSONA(slide, index, total);
+    case 'list':      return LIST(slide, index, total);
+    case 'split':     return SPLIT(slide, index, total);
+    case 'dashboard': return DASHBOARD(slide, index, total);
+    case 'cta':       return CTA(slide, index, total);
+    default:          return HOOK(slide, index, total);
   }
 }
 
