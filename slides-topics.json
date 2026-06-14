@@ -1,5 +1,46 @@
 {
-  "queue": [],
+  "queue": [
+    {
+      "topic": "Verkopen op meerdere platforms tegelijk: zo houd je BTW overzicht",
+      "slug": "multi-platform-btw-overzicht",
+      "type": "carousel",
+      "status": "pending",
+      "priority": 1,
+      "notes": "Split + persona templates — meerdere persona's met verschillende platforms"
+    },
+    {
+      "topic": "ZenBTW uitgelegd: wat doet de tool precies voor jou?",
+      "slug": "zenbtw-tool-uitleg",
+      "type": "carousel",
+      "status": "pending",
+      "priority": 2,
+      "notes": "Dashboard-heavy — goede kans voor dashboard + split templates"
+    },
+    {
+      "topic": "KOR opzeggen: wanneer moet je stoppen en hoe doe je dat?",
+      "slug": "kor-opzeggen-wanneer",
+      "type": "carousel",
+      "status": "pending",
+      "priority": 3,
+      "notes": "Stappenplan + dark hook — actiegericht"
+    },
+    {
+      "topic": "Wat is het verschil tussen BTW-vrijstelling en de KOR?",
+      "slug": "btw-vrijstelling-vs-kor",
+      "type": "carousel",
+      "status": "pending",
+      "priority": 4,
+      "notes": "Compare + split — veelgestelde vraag"
+    },
+    {
+      "topic": "30 verkopen op Vinted — wat gebeurt er nu precies met jouw gegevens?",
+      "slug": "vinted-30-verkopen-dac7",
+      "type": "poster",
+      "status": "pending",
+      "priority": 5,
+      "notes": "Stat poster — concreet getal als haak"
+    }
+  ],
   "published": [
     {
       "topic": "DAC7 & Vinted: wat meldt het platform aan de Belastingdienst?",
