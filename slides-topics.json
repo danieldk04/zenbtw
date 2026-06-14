@@ -1,0 +1,90 @@
+{
+  "queue": [
+    {
+      "topic": "DAC7 & Vinted: wat meldt het platform aan de Belastingdienst?",
+      "slug": "dac7-vinted-2026",
+      "type": "carousel",
+      "status": "pending",
+      "priority": 1,
+      "notes": "Trending - DAC7 handhaving op stoom, angst-gedreven"
+    },
+    {
+      "topic": "KOR drempel €20.000 — wanneer ben je de grens gepasseerd?",
+      "slug": "kor-drempel-uitleg",
+      "type": "poster",
+      "status": "pending",
+      "priority": 2,
+      "notes": "Losse statposter - groot cijfer, duidelijke boodschap"
+    },
+    {
+      "topic": "Etsy verkoper? Dit moet je weten over belasting in 2026",
+      "slug": "etsy-belasting-checklist",
+      "type": "carousel",
+      "status": "pending",
+      "priority": 3,
+      "notes": "Carrousel met checklist-stijl"
+    },
+    {
+      "topic": "Hobby of ondernemer op Marktplaats? Dit is het verschil",
+      "slug": "marktplaats-hobby-ondernemer",
+      "type": "carousel",
+      "status": "pending",
+      "priority": 4,
+      "notes": "Vergelijkingstabel stijl"
+    },
+    {
+      "topic": "OSS registratie: wanneer ben je verplicht en hoe doe je het?",
+      "slug": "oss-registratie-uitleg",
+      "type": "carousel",
+      "status": "pending",
+      "priority": 5,
+      "notes": "Stappenplan carrousel"
+    },
+    {
+      "topic": "€10.000 EU-grens — dit is wat OSS voor jou betekent",
+      "slug": "oss-drempel-poster",
+      "type": "poster",
+      "status": "pending",
+      "priority": 6,
+      "notes": "Losse poster OSS drempel"
+    },
+    {
+      "topic": "Tweedehands spullen verkopen: wanneer betaal je belasting?",
+      "slug": "tweedehands-belasting-grens",
+      "type": "carousel",
+      "status": "pending",
+      "priority": 7,
+      "notes": "Hook-stijl carrousel"
+    },
+    {
+      "topic": "Airbnb verhuren? BTW is in 2026 gestegen van 9% naar 21%",
+      "slug": "airbnb-btw-21-procent",
+      "type": "poster",
+      "status": "pending",
+      "priority": 8,
+      "notes": "Urgente poster - actuele wetswijziging"
+    },
+    {
+      "topic": "KOR vs OSS: welke regeling past bij jou als marketplace verkoper?",
+      "slug": "kor-vs-oss-vergelijking",
+      "type": "carousel",
+      "status": "pending",
+      "priority": 9,
+      "notes": "Vergelijkingscarrousel"
+    },
+    {
+      "topic": "Shopify in Nederland — zo werkt BTW automatisch in 2026",
+      "slug": "shopify-btw-automatisch",
+      "type": "carousel",
+      "status": "pending",
+      "priority": 10,
+      "notes": "Platform-specifiek"
+    }
+  ],
+  "published": [],
+  "settings": {
+    "maxPerRun": 8,
+    "model": "claude-sonnet-4-6",
+    "outputDir": "slides"
+  }
+}

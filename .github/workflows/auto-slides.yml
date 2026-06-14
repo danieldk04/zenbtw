@@ -1,0 +1,100 @@
+name: Auto Slides Generator
+
+on:
+  schedule:
+    # Elke zondag 08:00 CET (07:00 UTC)
+    - cron: '0 7 * * 0'
+
+  workflow_dispatch:
+    inputs:
+      max_sets:
+        description: 'Max aantal sets om te genereren (standaard: alle pending)'
+        required: false
+        type: string
+
+permissions:
+  contents: write
+
+jobs:
+  generate-slides:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies (incl. Puppeteer + Chromium)
+        run: npm ci
+
+      - name: Install Chromium dependencies
+        run: |
+          sudo apt-get update -q
+          sudo apt-get install -y -q \
+            libgbm-dev \
+            libnss3 \
+            libatk-bridge2.0-0 \
+            libdrm2 \
+            libxkbcommon0 \
+            libxcomposite1 \
+            libxdamage1 \
+            libxfixes3 \
+            libxrandr2 \
+            libglib2.0-0 \
+            libpango-1.0-0 \
+            libcairo2 \
+            libasound2t64 || true
+
+      - name: Check for pending topics
+        id: check_queue
+        run: |
+          PENDING=$(node -e "
+            const d = JSON.parse(require('fs').readFileSync('slides-topics.json','utf8'));
+            const p = d.queue.filter(t => t.status === 'pending');
+            console.log(p.length);
+          ")
+          echo "pending_count=$PENDING" >> $GITHUB_OUTPUT
+          echo "Pending topics: $PENDING"
+
+      - name: Generate slides
+        if: steps.check_queue.outputs.pending_count != '0'
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: node scripts/generate-slides.js
+
+      - name: Check if files changed
+        id: check_changes
+        run: |
+          if git diff --quiet && git diff --staged --quiet; then
+            echo "changed=false" >> $GITHUB_OUTPUT
+          else
+            echo "changed=true" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Commit and push generated slides
+        if: steps.check_changes.outputs.changed == 'true'
+        run: |
+          git config --local user.email "actions@github.com"
+          git config --local user.name "ZenBTW Bot"
+          git add slides/ slides-topics.json
+          COUNT=$(jq '.published | length' slides-topics.json)
+          git commit -m "feat: auto-generate slides batch (${COUNT} sets total)"
+          git push
+
+      - name: Summary
+        run: |
+          PENDING=$(jq '.queue | map(select(.status=="pending")) | length' slides-topics.json)
+          TOTAL=$(jq '.published | length' slides-topics.json)
+          echo "### Slides Generation" >> $GITHUB_STEP_SUMMARY
+          echo "- **Sets gegenereerd deze run:** ${{ steps.check_queue.outputs.pending_count }}" >> $GITHUB_STEP_SUMMARY
+          echo "- **Totaal gepubliceerd:** $TOTAL sets" >> $GITHUB_STEP_SUMMARY
+          echo "- **Topics resterend:** $PENDING" >> $GITHUB_STEP_SUMMARY
+          echo "- **Bekijk in admin:** https://zenbtw.nl/admin → Social slides" >> $GITHUB_STEP_SUMMARY
