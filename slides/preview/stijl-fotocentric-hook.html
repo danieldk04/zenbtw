@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=1080">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{width:1080px;height:1920px;overflow:hidden;-webkit-font-smoothing:antialiased;font-family:'Inter',sans-serif}
+</style>
+</head>
+<body>
+<div style="width:1080px;height:1920px;position:relative;overflow:hidden">
+
+  <!-- Foto achtergrond — volledig scherm -->
+  <img src="../assets/daniel-real.jpg"
+       style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center top"
+       alt="Daniel">
+
+  <!-- Gradient overlay — transparant boven, donker onder -->
+  <div style="position:absolute;inset:0;background:linear-gradient(to bottom,rgba(0,0,0,0.15) 0%,rgba(0,0,0,0.3) 40%,rgba(0,0,0,0.82) 70%,rgba(0,0,0,0.95) 100%)"></div>
+
+  <!-- Groene accent strip linksboven -->
+  <div style="position:absolute;top:0;left:0;width:100%;height:6px;background:#4ade80"></div>
+
+  <!-- ZenBTW badge rechtsboven -->
+  <div style="position:absolute;top:52px;right:56px;z-index:10;display:flex;align-items:center;gap:8px;background:rgba(255,255,255,0.12);border:1px solid rgba(255,255,255,0.2);border-radius:100px;padding:8px 18px;backdrop-filter:blur(8px)">
+    <div style="width:7px;height:7px;border-radius:50%;background:#4ade80"></div>
+    <span style="font-size:15px;font-weight:700;color:#fff">ZenBTW</span>
+  </div>
+
+  <!-- Platform tag linksboven -->
+  <div style="position:absolute;top:56px;left:56px;z-index:10">
+    <span style="font-size:15px;font-weight:800;color:#4ade80;letter-spacing:0.12em;text-transform:uppercase">Vinted verkopers</span>
+  </div>
+
+  <!-- Hoofd tekst — onderin, bold news-stijl -->
+  <div style="position:absolute;bottom:140px;left:56px;right:56px;z-index:5">
+
+    <!-- Klein label -->
+    <div style="font-size:19px;font-weight:600;color:rgba(255,255,255,0.6);margin-bottom:20px;letter-spacing:0.02em">De Belastingdienst over jou:</div>
+
+    <!-- Headline — groot, bold, uppercase -->
+    <h1 style="font-size:102px;font-weight:900;color:#fff;line-height:0.92;letter-spacing:-0.03em;text-transform:uppercase;margin-bottom:28px">
+      JE VER&shy;DIENDE<br>
+      <span style="color:#4ade80">€3.400</span><br>
+      OP VINTED.
+    </h1>
+
+    <!-- Subline -->
+    <div style="font-size:34px;font-weight:700;color:rgba(255,255,255,0.75);line-height:1.2;margin-bottom:44px">
+      Ze weten het ook — en ze rapporteren het.
+    </div>
+
+    <!-- Feit pill -->
+    <div style="display:inline-flex;align-items:center;gap:12px;background:rgba(255,255,255,0.1);border:1.5px solid rgba(255,255,255,0.2);border-radius:100px;padding:14px 28px;backdrop-filter:blur(8px)">
+      <span style="font-size:22px">📋</span>
+      <span style="font-size:20px;font-weight:700;color:#fff">DAC7 · 30 verkopen + €2k = automatische melding</span>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <div style="position:absolute;bottom:0;left:0;right:0;padding:20px 56px;display:flex;align-items:center;justify-content:space-between">
+    <span style="font-size:16px;color:rgba(255,255,255,0.4);font-weight:500">zenbtw.nl</span>
+    <div style="display:flex;gap:6px">
+      <div style="width:28px;height:4px;border-radius:2px;background:#fff"></div>
+      <div style="width:28px;height:4px;border-radius:2px;background:rgba(255,255,255,0.3)"></div>
+      <div style="width:28px;height:4px;border-radius:2px;background:rgba(255,255,255,0.3)"></div>
+      <div style="width:28px;height:4px;border-radius:2px;background:rgba(255,255,255,0.3)"></div>
+    </div>
+    <span style="font-size:16px;color:rgba(255,255,255,0.4);font-weight:500">@zenbtw</span>
+  </div>
+
+</div>
+</body>
+</html>
