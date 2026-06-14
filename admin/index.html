@@ -994,14 +994,18 @@ footer{background:var(--bg,#f7f6f3);border-top:1.5px solid var(--br,#e5e0d8);pad
         .slides-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:1rem;margin-bottom:1rem}
         .slide-set-card{background:var(--wh);border:1px solid var(--br);border-radius:10px;overflow:hidden;transition:box-shadow .15s}
         .slide-set-card:hover{box-shadow:0 4px 16px rgba(0,0,0,.08)}
+        .slide-set-card.slide-posted{border-color:#22c55e;opacity:.7}
         .slide-set-thumb{height:140px;background:var(--bg);border-bottom:1px solid var(--br);display:flex;align-items:center;justify-content:center;font-size:2.5rem;position:relative;overflow:hidden}
         .slide-set-thumb iframe{width:100%;height:100%;border:none;pointer-events:none;transform-origin:top left;position:absolute;top:0;left:0}
         .slide-count-badge{position:absolute;top:8px;right:8px;background:rgba(0,0,0,.55);color:#fff;font-size:.65rem;font-weight:700;padding:2px 7px;border-radius:99px}
+        .slide-posted-badge{position:absolute;top:8px;left:8px;background:#22c55e;color:#fff;font-size:.65rem;font-weight:700;padding:2px 7px;border-radius:99px}
         .slide-set-body{padding:.75rem}
         .slide-set-topic{font-size:.82rem;font-weight:700;color:var(--tx);margin-bottom:.25rem;line-height:1.3}
         .slide-set-meta{font-size:.72rem;color:var(--tx3);margin-bottom:.6rem}
-        .slide-set-actions{display:flex;gap:.4rem;flex-wrap:wrap}
+        .slide-set-actions{display:flex;gap:.4rem;flex-wrap:wrap;align-items:center}
         .slides-empty{text-align:center;padding:3rem;color:var(--tx3);font-size:.85rem}
+        .caption-box{background:var(--bg);border:1px solid var(--br);border-radius:10px;padding:1rem;margin-bottom:1rem}
+        .caption-text{white-space:pre-wrap;font-size:.82rem;color:var(--tx2);line-height:1.6;max-height:260px;overflow-y:auto}
         .slides-kpi{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:.8rem;margin-bottom:1.2rem}
         .type-badge-poster{background:#eff6ff;color:#2563eb}
         .type-badge-carousel{background:#f5f3ff;color:#7c3aed}
@@ -2416,12 +2420,14 @@ function slideSetCard(s) {
   const thumbContent = firstFile
     ? `<iframe src="${firstFile}" scrolling="no" style="width:300%;height:300%;transform:scale(0.333);transform-origin:top left;border:none;pointer-events:none"></iframe>`
     : `<span>${s.type === 'poster' ? '📌' : '📱'}</span>`;
+  const posted = !!localStorage.getItem('zenbtw_posted_' + s.id);
 
   return `
-    <div class="slide-set-card">
+    <div class="slide-set-card${posted ? ' slide-posted' : ''}" data-id="${s.id}">
       <div class="slide-set-thumb" onclick="openSlideDetail('${s.id}')" style="cursor:pointer">
         ${thumbContent}
         <div class="slide-count-badge">${s.slides || 1} slide${s.slides !== 1 ? 's' : ''}</div>
+        <div class="slide-posted-badge" style="${posted ? '' : 'display:none'}">✓ Gepost</div>
       </div>
       <div class="slide-set-body">
         <div class="slide-set-topic">${s.topic}</div>
@@ -2432,10 +2438,24 @@ function slideSetCard(s) {
         <div class="slide-set-actions">
           <button class="btn btn-primary" style="font-size:.72rem;padding:.3rem .6rem" onclick="openSlideDetail('${s.id}')">👁 Bekijk</button>
           ${s.pngs && s.pngs.length ? `<button class="btn btn-ghost" style="font-size:.72rem;padding:.3rem .6rem" onclick="downloadZip('${s.id}')">⬇ ZIP</button>` : ''}
+          <label style="display:flex;align-items:center;gap:4px;cursor:pointer;font-size:.72rem;color:var(--tx3);margin-left:auto;white-space:nowrap">
+            <input type="checkbox" ${posted ? 'checked' : ''} onchange="togglePosted('${s.id}',this.checked)" style="cursor:pointer;width:13px;height:13px;accent-color:var(--green)">
+            Gepost
+          </label>
         </div>
       </div>
     </div>
   `;
+}
+
+function togglePosted(id, checked) {
+  if (checked) localStorage.setItem('zenbtw_posted_' + id, '1');
+  else localStorage.removeItem('zenbtw_posted_' + id);
+  const card = document.querySelector(`.slide-set-card[data-id="${id}"]`);
+  if (!card) return;
+  card.classList.toggle('slide-posted', checked);
+  const badge = card.querySelector('.slide-posted-badge');
+  if (badge) badge.style.display = checked ? '' : 'none';
 }
 
 function openSlideDetail(id) {
@@ -2444,6 +2464,14 @@ function openSlideDetail(id) {
   document.getElementById('slideDetailTitle').textContent = s.topic;
   const files = s.files || [];
   document.getElementById('slideDetailBody').innerHTML = `
+    ${s.caption ? `
+    <div class="caption-box">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:.5rem">
+        <div style="font-size:.78rem;font-weight:700;color:var(--tx2)">📝 Instagram caption</div>
+        <button class="btn btn-ghost" style="font-size:.72rem;padding:.25rem .6rem" onclick="copyCaption('${id}')">📋 Kopieer</button>
+      </div>
+      <div class="caption-text">${(s.caption||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/\n/g,'<br>')}</div>
+    </div>` : ''}
     ${s.pngs && s.pngs.length ? `<div style="padding:.5rem 0"><button class="btn btn-primary" onclick="downloadZip('${s.id}')">⬇ Download alle slides als ZIP</button></div>` : ''}
     ${files.length ? files.map((f, i) => `
       <div class="slide-preview-row">
@@ -2458,6 +2486,17 @@ function openSlideDetail(id) {
       </div>`).join('') : '<div class="empty">Geen bestanden gevonden.</div>'}
   `;
   document.getElementById('slideDetailModal').classList.add('open');
+}
+
+function copyCaption(id) {
+  const s = (slidesData.sets || []).find(x => x.id === id);
+  if (!s || !s.caption) return;
+  navigator.clipboard.writeText(s.caption).then(() => {
+    const btn = event.currentTarget || event.target;
+    const orig = btn.textContent;
+    btn.textContent = '✓ Gekopieerd!';
+    setTimeout(() => { btn.textContent = orig; }, 2000);
+  });
 }
 
 function closeSlideDetail() {

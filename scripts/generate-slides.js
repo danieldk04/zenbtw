@@ -685,6 +685,42 @@ function renderSlide(slide, index = 0, total = 5) {
   }
 }
 
+// ── Caption generator ─────────────────────────────────────────────────────────
+async function generateCaption(topic, slides, client) {
+  const summary = slides.map((s, i) => {
+    const desc = s.title || s.question || s.eyebrow || s.tag || '';
+    return `${i + 1}. [${s.template}] ${desc}`;
+  }).join('\n');
+
+  const prompt = `Je schrijft een Instagram caption voor een carousel-post van @zenbtw over: "${topic}"
+
+De slides:
+${summary}
+
+Schrijf de caption in deze stijl (persoonlijk, menselijk, concreet — geen marketing-taal):
+- Begin direct met een herkenbaar inzicht of feit
+- Schrijf vanuit eigen perspectief ("ik zie dat...", "veel verkopers vertellen me...")
+- Gebruik echte bedragen: KOR-grens €20.000, OSS €10.000, DAC7: 30 transacties + €2.000
+- Korte alinea's — soms maar 1 zin
+- Sluit af met een zachte CTA naar zenbtw.nl
+- Daarna 8-12 hashtags: mix van breed (#btw #belasting) en niche (#vintedverkoper #etsyshop #korregeling)
+- Schrijf in het Nederlands
+
+Geef ALLEEN de caption terug (geen extra uitleg, geen aanhalingstekens).`;
+
+  try {
+    const msg = await client.messages.create({
+      model: 'claude-sonnet-4-6',
+      max_tokens: 600,
+      messages: [{ role: 'user', content: prompt }],
+    });
+    return msg.content[0].text.trim();
+  } catch (e) {
+    console.warn(`  ⚠️  Caption generation failed: ${e.message}`);
+    return '';
+  }
+}
+
 // ── Screenshot ────────────────────────────────────────────────────────────────
 async function screenshot(browser, htmlPath, pngPath) {
   const page = await browser.newPage();
@@ -763,9 +799,13 @@ async function main() {
 
     console.log(`  ✅ ${slides.length} slides saved to slides/${setId}/`);
 
+    console.log('  Generating caption...');
+    const caption = await generateCaption(item.topic, slides, client);
+    if (caption) console.log('  ✍️  Caption ready');
+
     manifest.sets.unshift({
       id: setId, topic: item.topic, date: TODAY, type: item.type,
-      slides: slides.length, files: htmlFiles, pngs: pngFiles,
+      slides: slides.length, files: htmlFiles, pngs: pngFiles, caption,
     });
 
     const idx = data.queue.findIndex(t => t.slug === item.slug);
