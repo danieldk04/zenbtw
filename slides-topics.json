@@ -1,5 +1,30 @@
 {
-  "queue": [],
+  "queue": [
+    {
+      "topic": "KOR drempel €20.000 — wanneer ben je de grens gepasseerd?",
+      "slug": "kor-drempel-uitleg",
+      "type": "poster",
+      "status": "pending",
+      "priority": 2,
+      "notes": "Losse statposter - groot cijfer, duidelijke boodschap"
+    },
+    {
+      "topic": "KOR vs OSS: welke regeling past bij jou als marketplace verkoper?",
+      "slug": "kor-vs-oss-vergelijking",
+      "type": "carousel",
+      "status": "pending",
+      "priority": 9,
+      "notes": "Vergelijkingscarrousel"
+    },
+    {
+      "topic": "Shopify in Nederland — zo werkt BTW automatisch in 2026",
+      "slug": "shopify-btw-automatisch",
+      "type": "carousel",
+      "status": "pending",
+      "priority": 10,
+      "notes": "Platform-specifiek"
+    }
+  ],
   "published": [
     {
       "topic": "DAC7 & Vinted: wat meldt het platform aan de Belastingdienst?",
@@ -70,36 +95,6 @@
       "notes": "Urgente poster - actuele wetswijziging",
       "publishedDate": "2026-06-14",
       "outputDir": "slides/2026-06-14-airbnb-btw-21-procent"
-    },
-    {
-      "topic": "KOR drempel €20.000 — wanneer ben je de grens gepasseerd?",
-      "slug": "kor-drempel-uitleg",
-      "type": "poster",
-      "status": "published",
-      "priority": 2,
-      "notes": "Losse statposter - groot cijfer, duidelijke boodschap",
-      "publishedDate": "2026-06-14",
-      "outputDir": "slides/2026-06-14-kor-drempel-uitleg"
-    },
-    {
-      "topic": "KOR vs OSS: welke regeling past bij jou als marketplace verkoper?",
-      "slug": "kor-vs-oss-vergelijking",
-      "type": "carousel",
-      "status": "published",
-      "priority": 9,
-      "notes": "Vergelijkingscarrousel",
-      "publishedDate": "2026-06-14",
-      "outputDir": "slides/2026-06-14-kor-vs-oss-vergelijking"
-    },
-    {
-      "topic": "Shopify in Nederland — zo werkt BTW automatisch in 2026",
-      "slug": "shopify-btw-automatisch",
-      "type": "carousel",
-      "status": "published",
-      "priority": 10,
-      "notes": "Platform-specifiek",
-      "publishedDate": "2026-06-14",
-      "outputDir": "slides/2026-06-14-shopify-btw-automatisch"
     }
   ],
   "settings": {
