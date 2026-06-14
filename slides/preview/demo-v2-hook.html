@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=1080">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,700;9..144,900&family=Plus+Jakarta+Sans:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{width:1080px;height:1920px;overflow:hidden;-webkit-font-smoothing:antialiased}
+</style>
+</head>
+<body>
+<div style="width:1080px;height:1920px;position:relative;overflow:hidden;background:#f7f5f0">
+
+  <!-- ═══════════════════════════════════
+       ACHTERGROND ELEMENTEN
+  ═══════════════════════════════════ -->
+
+  <!-- Subtiele noise/grain texture via SVG filter -->
+  <svg style="position:absolute;width:0;height:0">
+    <defs>
+      <filter id="grain">
+        <feTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="3" stitchTiles="stitch"/>
+        <feColorMatrix type="saturate" values="0"/>
+        <feBlend in="SourceGraphic" mode="overlay" result="blend"/>
+        <feComposite in="blend" in2="SourceGraphic" operator="in"/>
+      </filter>
+    </defs>
+  </svg>
+
+  <!-- Grote kleurblok rechtsboven — warm groen -->
+  <div style="position:absolute;top:-80px;right:-80px;width:680px;height:680px;border-radius:50%;background:radial-gradient(circle at 40% 40%,#1a4731,#0e2318);opacity:0.95"></div>
+
+  <!-- Klein accent cirkel linksonder -->
+  <div style="position:absolute;bottom:160px;left:-60px;width:300px;height:300px;border-radius:50%;background:#e8f0ec;opacity:0.6"></div>
+
+  <!-- Subtiele lijn decoratie -->
+  <svg style="position:absolute;inset:0;width:100%;height:100%;pointer-events:none" xmlns="http://www.w3.org/2000/svg">
+    <line x1="0" y1="980" x2="1080" y2="980" stroke="#1a4731" stroke-width="1.5" opacity="0.08"/>
+    <line x1="72" y1="0" x2="72" y2="1920" stroke="#1a4731" stroke-width="1" opacity="0.06"/>
+  </svg>
+
+  <!-- ═══════════════════════════════════
+       MASCOT — "Max de BTW-expert"
+       (rechtsboven, geïntegreerd in cirkel)
+  ═══════════════════════════════════ -->
+  <svg style="position:absolute;top:-10px;right:-30px;width:640px;height:640px" viewBox="0 0 320 320" xmlns="http://www.w3.org/2000/svg">
+
+    <!-- Schaduw onder figuur -->
+    <ellipse cx="162" cy="308" rx="64" ry="9" fill="rgba(0,0,0,0.22)"/>
+
+    <!-- ── BENEN ── -->
+    <rect x="110" y="236" width="28" height="66" rx="14" fill="#0a1f12"/>
+    <rect x="150" y="236" width="28" height="66" rx="14" fill="#0a1f12"/>
+
+    <!-- ── SCHOENEN (strakker, cleaner) ── -->
+    <path d="M 97 298 Q 112 290 140 294 L 140 308 Q 115 314 97 308 Z" fill="#0d1117"/>
+    <path d="M 148 294 Q 165 288 184 296 L 184 308 Q 163 314 148 308 Z" fill="#0d1117"/>
+
+    <!-- ── LICHAAM / BLAZER ── -->
+    <path d="M 75 158 Q 72 252 248 252 Q 248 158 248 158 Q 222 136 162 132 Q 102 136 75 158 Z" fill="#1a4731"/>
+
+    <!-- Blazer revers (lapels) -->
+    <polygon points="138,134 162,160 186,134 175,128 162,145 149,128" fill="#155c38"/>
+
+    <!-- Wit overhemd visible -->
+    <polygon points="148,134 162,158 176,134" fill="#f8fafc"/>
+
+    <!-- Knopen -->
+    <circle cx="162" cy="185" r="3" fill="#155c38"/>
+    <circle cx="162" cy="202" r="3" fill="#155c38"/>
+    <circle cx="162" cy="219" r="3" fill="#155c38"/>
+
+    <!-- ── LINKERAM — wijsvinger omhoog ── -->
+    <path d="M 75 168 Q 38 155 44 120 Q 48 103 64 110 Q 54 130 75 168 Z" fill="#1a4731"/>
+    <!-- Hand -->
+    <circle cx="50" cy="108" r="14" fill="#c8856a"/>
+    <!-- Vinger omhoog -->
+    <rect x="45" y="80" width="10" height="30" rx="5" fill="#c8856a"/>
+    <!-- Knokkel detail -->
+    <path d="M 46 96 Q 50 93 54 96" fill="none" stroke="#b8705a" stroke-width="1.5" stroke-linecap="round"/>
+
+    <!-- ── RECHTERARM — hip ── -->
+    <path d="M 248 170 Q 278 185 275 162 Q 272 143 256 152 Z" fill="#1a4731"/>
+    <circle cx="276" cy="160" r="14" fill="#c8856a"/>
+
+    <!-- ── NEK ── -->
+    <rect x="148" y="112" width="28" height="28" rx="14" fill="#c8856a"/>
+
+    <!-- ── HOOFD ── -->
+    <ellipse cx="162" cy="80" rx="58" ry="60" fill="#c8856a"/>
+
+    <!-- ── HAAR — zijscheiding, strak ── -->
+    <!-- Hoofdmassa haar -->
+    <path d="M 106 58 Q 114 10 162 6 Q 210 10 218 58 Q 204 20 162 18 Q 120 20 106 58 Z" fill="#1a0d05"/>
+    <!-- Rechts scheiding naar achter gekamd -->
+    <path d="M 106 58 Q 112 34 126 24 Q 112 38 108 60 Z" fill="#1a0d05"/>
+    <!-- Volume linksboven -->
+    <path d="M 114 18 Q 138 8 162 7 L 118 30 Z" fill="#261308"/>
+    <!-- Zijstukken voor oren -->
+    <rect x="100" y="53" width="10" height="34" rx="5" fill="#1a0d05"/>
+    <rect x="210" y="53" width="10" height="34" rx="5" fill="#1a0d05"/>
+
+    <!-- ── OREN ── -->
+    <ellipse cx="104" cy="82" rx="8" ry="10" fill="#b87060"/>
+    <ellipse cx="220" cy="82" rx="8" ry="10" fill="#b87060"/>
+    <!-- Oorschelp detail -->
+    <path d="M 100 76 Q 104 82 100 88" fill="none" stroke="#a0604e" stroke-width="1.5" stroke-linecap="round"/>
+
+    <!-- ── WENKBRAUWEN — één iets omhoog, weet-je-veel blik ── -->
+    <path d="M 118 54 Q 130 47 140 52" stroke="#1a0d05" stroke-width="4.5" fill="none" stroke-linecap="round"/>
+    <!-- Rechterbrauw iets hoger = knowing look -->
+    <path d="M 184 50 Q 194 44 206 52" stroke="#1a0d05" stroke-width="4.5" fill="none" stroke-linecap="round"/>
+
+    <!-- ── OGEN — amandelvormig, zelfverzekerd ── -->
+    <!-- Linkeroog -->
+    <ellipse cx="132" cy="70" rx="14" ry="12" fill="white"/>
+    <!-- Iets dichtgeknepen bovenste ooglid -->
+    <path d="M 118 64 Q 132 59 146 64" fill="#c8856a" opacity="0.5"/>
+    <circle cx="133" cy="71" r="8.5" fill="#1a0d05"/>
+    <circle cx="136" cy="68" r="3" fill="white"/>
+
+    <!-- Rechteroog -->
+    <ellipse cx="192" cy="70" rx="14" ry="12" fill="white"/>
+    <path d="M 178 64 Q 192 59 206 64" fill="#c8856a" opacity="0.5"/>
+    <circle cx="193" cy="71" r="8.5" fill="#1a0d05"/>
+    <circle cx="196" cy="68" r="3" fill="white"/>
+
+    <!-- ── NEUS — minimaal, clean ── -->
+    <path d="M 157 91 Q 162 97 167 91" fill="none" stroke="#a86448" stroke-width="2.5" stroke-linecap="round"/>
+    <ellipse cx="156" cy="91" rx="4.5" ry="3.5" fill="#b07060" opacity="0.55"/>
+    <ellipse cx="168" cy="91" rx="4.5" ry="3.5" fill="#b07060" opacity="0.55"/>
+
+    <!-- ── MOND — zelfverzekerde, lichte smirk ── -->
+    <path d="M 142 106 Q 162 117 180 106" fill="none" stroke="#8a4030" stroke-width="4" stroke-linecap="round"/>
+    <!-- subtiele wangboog (geen blush-vlekken) -->
+    <path d="M 142 106 Q 150 110 155 108" fill="none" stroke="#c87060" stroke-width="2" stroke-linecap="round" opacity="0.4"/>
+    <path d="M 169 108 Q 174 110 180 106" fill="none" stroke="#c87060" stroke-width="2" stroke-linecap="round" opacity="0.4"/>
+
+    <!-- ── REVERS SPELD — ZenBTW shield ── -->
+    <path d="M 120 168 L 128 163 L 136 168 L 136 178 Q 128 184 120 178 Z" fill="#e8f0ec" stroke="#2d6a4f" stroke-width="1.5"/>
+    <svg x="116" y="161" width="24" height="24" viewBox="0 0 24 24" fill="none">
+      <path d="M12 2L5 5.5v4.5c0 4.2 3 8.1 7 9.1 4-1 7-4.9 7-9.1V5.5L12 2z" fill="#1a4731"/>
+    </svg>
+
+  </svg>
+
+  <!-- ═══════════════════════════════════
+       BADGE / TAG
+  ═══════════════════════════════════ -->
+  <div style="position:absolute;top:68px;left:72px;display:inline-flex;align-items:center;gap:10px;background:#1a4731;border-radius:100px;padding:10px 22px">
+    <div style="width:7px;height:7px;border-radius:50%;background:#4ade80"></div>
+    <span style="font-family:'Plus Jakarta Sans',sans-serif;font-size:16px;font-weight:800;color:#fff;letter-spacing:0.1em;text-transform:uppercase">Vinted verkopers</span>
+  </div>
+
+  <!-- ═══════════════════════════════════
+       GROTE HEADLINE
+  ═══════════════════════════════════ -->
+  <div style="position:absolute;top:440px;left:72px;right:72px">
+
+    <!-- Subkopje -->
+    <div style="font-family:'Plus Jakarta Sans',sans-serif;font-size:22px;font-weight:700;color:#8a847a;letter-spacing:0.04em;margin-bottom:20px">Dit zegt de Belastingdienst over jou →</div>
+
+    <!-- Hoofd statement — Fraunces, zwaar -->
+    <h1 style="font-family:'Fraunces',serif;font-size:116px;font-weight:900;color:#1a1814;line-height:0.94;letter-spacing:-0.04em;margin-bottom:20px">
+      Je ver&shy;diende<br>
+      <span style="color:#1a4731">€3.400</span><br>
+      op Vinted.
+    </h1>
+
+    <!-- Tweede deel headline — iets kleiner, eigen kleur -->
+    <div style="font-family:'Fraunces',serif;font-size:60px;font-weight:700;color:#4a4640;line-height:1.1;margin-bottom:52px">Ze weten het <span style="color:#1a4731;text-decoration:underline;text-decoration-color:rgba(26,71,49,0.3);text-underline-offset:6px">ook.</span></div>
+
+    <!-- Fact strip -->
+    <div style="display:flex;align-items:center;gap:0;background:#fff;border-radius:18px;overflow:hidden;box-shadow:0 4px 28px rgba(0,0,0,0.07);margin-bottom:48px">
+      <div style="background:#1a4731;padding:26px 28px;display:flex;align-items:center">
+        <span style="font-size:36px">📋</span>
+      </div>
+      <div style="padding:22px 28px;flex:1">
+        <div style="font-family:'Plus Jakarta Sans',sans-serif;font-size:22px;font-weight:800;color:#1a1814;margin-bottom:5px">DAC7 — van kracht in heel de EU</div>
+        <div style="font-family:'Plus Jakarta Sans',sans-serif;font-size:19px;color:#4a4640;font-weight:500">30+ verkopen én €2.000+ omzet = automatische melding</div>
+      </div>
+    </div>
+
+    <!-- Swipe CTA -->
+    <div style="display:inline-flex;align-items:center;gap:16px;background:#fff3cd;border:2.5px solid #f0c040;border-radius:100px;padding:18px 40px">
+      <span style="font-size:28px">⚠️</span>
+      <span style="font-family:'Plus Jakarta Sans',sans-serif;font-size:25px;font-weight:800;color:#7a5c00">Swipe — dit moet je weten</span>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════
+       FOOTER
+  ═══════════════════════════════════ -->
+  <div style="position:absolute;bottom:0;left:0;right:0;padding:26px 72px;display:flex;align-items:center;justify-content:space-between;background:#f7f5f0;border-top:1.5px solid #e5e0d8">
+    <div style="display:flex;align-items:center;gap:13px">
+      <div style="width:38px;height:38px;background:#1a4731;border-radius:9px;display:flex;align-items:center;justify-content:center">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M12 2L3 7v5c0 5.25 3.75 10.15 9 11.35C17.25 22.15 21 17.25 21 12V7L12 2z" fill="#fff"/></svg>
+      </div>
+      <span style="font-family:'Fraunces',serif;font-size:26px;font-weight:700;color:#1a4731">Zen<span style="color:#2d6a4f">BTW</span></span>
+    </div>
+    <div style="display:flex;align-items:center;gap:10px">
+      <span style="font-size:17px;color:#8a847a;font-weight:600;font-family:'Plus Jakarta Sans',sans-serif">zenbtw.nl</span>
+      <div style="width:4px;height:4px;border-radius:50%;background:#c8c2b8"></div>
+      <span style="font-size:17px;color:#8a847a;font-weight:600;font-family:'Plus Jakarta Sans',sans-serif">@zenbtw</span>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>
