@@ -2419,7 +2419,7 @@ function slideSetCard(s) {
 
   return `
     <div class="slide-set-card">
-      <div class="slide-set-thumb">
+      <div class="slide-set-thumb" onclick="openSlideDetail('${s.id}')" style="cursor:pointer">
         ${thumbContent}
         <div class="slide-count-badge">${s.slides || 1} slide${s.slides !== 1 ? 's' : ''}</div>
       </div>
@@ -2431,7 +2431,7 @@ function slideSetCard(s) {
         </div>
         <div class="slide-set-actions">
           <button class="btn btn-primary" style="font-size:.72rem;padding:.3rem .6rem" onclick="openSlideDetail('${s.id}')">👁 Bekijk</button>
-          ${s.pngs && s.pngs.length ? `<a href="${RAW}/${s.pngs[0]}" download class="btn btn-ghost" style="font-size:.72rem;padding:.3rem .6rem">⬇ Download</a>` : ''}
+          ${s.pngs && s.pngs.length ? `<button class="btn btn-ghost" style="font-size:.72rem;padding:.3rem .6rem" onclick="downloadZip('${s.id}')">⬇ ZIP</button>` : ''}
         </div>
       </div>
     </div>
@@ -2443,25 +2443,64 @@ function openSlideDetail(id) {
   if (!s) return;
   document.getElementById('slideDetailTitle').textContent = s.topic;
   const files = s.files || [];
-  document.getElementById('slideDetailBody').innerHTML = files.length
-    ? files.map((f, i) => `
-        <div class="slide-preview-row">
-          <div class="slide-preview-num">${String(i+1).padStart(2,'0')}</div>
-          <div class="slide-preview-info">
-            <span>${f.split('/').pop()}</span>
-            <div style="display:flex;gap:.4rem">
-              <a href="${RAW}/${f}" target="_blank" class="btn btn-ghost" style="font-size:.72rem;padding:.3rem .6rem">↗ Preview</a>
-              ${s.pngs && s.pngs[i] ? `<a href="${RAW}/${s.pngs[i]}" download class="btn btn-primary" style="font-size:.72rem;padding:.3rem .6rem">⬇ PNG</a>` : ''}
-            </div>
+  document.getElementById('slideDetailBody').innerHTML = `
+    ${s.pngs && s.pngs.length ? `<div style="padding:.5rem 0"><button class="btn btn-primary" onclick="downloadZip('${s.id}')">⬇ Download alle slides als ZIP</button></div>` : ''}
+    ${files.length ? files.map((f, i) => `
+      <div class="slide-preview-row">
+        <div class="slide-preview-num">${String(i+1).padStart(2,'0')}</div>
+        <div class="slide-preview-info">
+          <span>${f.split('/').pop()}</span>
+          <div style="display:flex;gap:.4rem">
+            <a href="${RAW}/${f}" target="_blank" rel="noopener" class="btn btn-ghost" style="font-size:.72rem;padding:.3rem .6rem">↗ Preview</a>
+            ${s.pngs && s.pngs[i] ? `<a href="${RAW}/${s.pngs[i]}" target="_blank" download class="btn btn-primary" style="font-size:.72rem;padding:.3rem .6rem">⬇ PNG</a>` : ''}
           </div>
         </div>
-      `).join('')
-    : '<div class="empty">Geen bestanden gevonden.</div>';
+      </div>`).join('') : '<div class="empty">Geen bestanden gevonden.</div>'}
+  `;
   document.getElementById('slideDetailModal').classList.add('open');
 }
 
 function closeSlideDetail() {
   document.getElementById('slideDetailModal').classList.remove('open');
+}
+
+async function downloadZip(id) {
+  const s = (slidesData.sets || []).find(x => x.id === id);
+  if (!s || !s.pngs || !s.pngs.length) { alert('Geen PNG bestanden beschikbaar.'); return; }
+
+  // Load JSZip dynamically
+  if (!window.JSZip) {
+    await new Promise((resolve, reject) => {
+      const sc = document.createElement('script');
+      sc.src = 'https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js';
+      sc.onload = resolve; sc.onerror = reject;
+      document.head.appendChild(sc);
+    });
+  }
+
+  const btn = event.target;
+  const orig = btn.textContent;
+  btn.textContent = 'Laden...'; btn.disabled = true;
+
+  try {
+    const zip = new JSZip();
+    for (let i = 0; i < s.pngs.length; i++) {
+      const url  = RAW + '/' + s.pngs[i];
+      const resp = await fetch(url);
+      if (!resp.ok) throw new Error(`Kon ${s.pngs[i]} niet ophalen`);
+      const blob = await resp.blob();
+      zip.file(s.pngs[i].split('/').pop(), blob);
+    }
+    const content = await zip.generateAsync({ type: 'blob' });
+    const link = document.createElement('a');
+    link.href = URL.createObjectURL(content);
+    link.download = `zenbtw-${id}.zip`;
+    link.click();
+  } catch (e) {
+    alert('Download mislukt: ' + e.message);
+  } finally {
+    btn.textContent = orig; btn.disabled = false;
+  }
 }
 
 function toggleMobNav(){var h=document.getElementById('navHamburger'),o=document.getElementById('mobNavOverlay'),d=document.getElementById('mobNavDrawer'),op=!h.classList.contains('open');h.classList.toggle('open',op);o.classList.toggle('on',op);d.classList.toggle('on',op);document.body.style.overflow=op?'hidden':'';}
