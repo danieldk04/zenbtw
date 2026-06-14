@@ -1,68 +1,12 @@
 {
   "queue": [
     {
-      "topic": "DAC7 & Vinted: wat meldt het platform aan de Belastingdienst?",
-      "slug": "dac7-vinted-2026",
-      "type": "carousel",
-      "status": "pending",
-      "priority": 1,
-      "notes": "Trending - DAC7 handhaving op stoom, angst-gedreven"
-    },
-    {
       "topic": "KOR drempel €20.000 — wanneer ben je de grens gepasseerd?",
       "slug": "kor-drempel-uitleg",
       "type": "poster",
       "status": "pending",
       "priority": 2,
       "notes": "Losse statposter - groot cijfer, duidelijke boodschap"
-    },
-    {
-      "topic": "Etsy verkoper? Dit moet je weten over belasting in 2026",
-      "slug": "etsy-belasting-checklist",
-      "type": "carousel",
-      "status": "pending",
-      "priority": 3,
-      "notes": "Carrousel met checklist-stijl"
-    },
-    {
-      "topic": "Hobby of ondernemer op Marktplaats? Dit is het verschil",
-      "slug": "marktplaats-hobby-ondernemer",
-      "type": "carousel",
-      "status": "pending",
-      "priority": 4,
-      "notes": "Vergelijkingstabel stijl"
-    },
-    {
-      "topic": "OSS registratie: wanneer ben je verplicht en hoe doe je het?",
-      "slug": "oss-registratie-uitleg",
-      "type": "carousel",
-      "status": "pending",
-      "priority": 5,
-      "notes": "Stappenplan carrousel"
-    },
-    {
-      "topic": "€10.000 EU-grens — dit is wat OSS voor jou betekent",
-      "slug": "oss-drempel-poster",
-      "type": "poster",
-      "status": "pending",
-      "priority": 6,
-      "notes": "Losse poster OSS drempel"
-    },
-    {
-      "topic": "Tweedehands spullen verkopen: wanneer betaal je belasting?",
-      "slug": "tweedehands-belasting-grens",
-      "type": "carousel",
-      "status": "pending",
-      "priority": 7,
-      "notes": "Hook-stijl carrousel"
-    },
-    {
-      "topic": "Airbnb verhuren? BTW is in 2026 gestegen van 9% naar 21%",
-      "slug": "airbnb-btw-21-procent",
-      "type": "poster",
-      "status": "pending",
-      "priority": 8,
-      "notes": "Urgente poster - actuele wetswijziging"
     },
     {
       "topic": "KOR vs OSS: welke regeling past bij jou als marketplace verkoper?",
@@ -81,7 +25,78 @@
       "notes": "Platform-specifiek"
     }
   ],
-  "published": [],
+  "published": [
+    {
+      "topic": "DAC7 & Vinted: wat meldt het platform aan de Belastingdienst?",
+      "slug": "dac7-vinted-2026",
+      "type": "carousel",
+      "status": "published",
+      "priority": 1,
+      "notes": "Trending - DAC7 handhaving op stoom, angst-gedreven",
+      "publishedDate": "2026-06-14",
+      "outputDir": "slides/2026-06-14-dac7-vinted-2026"
+    },
+    {
+      "topic": "Etsy verkoper? Dit moet je weten over belasting in 2026",
+      "slug": "etsy-belasting-checklist",
+      "type": "carousel",
+      "status": "published",
+      "priority": 3,
+      "notes": "Carrousel met checklist-stijl",
+      "publishedDate": "2026-06-14",
+      "outputDir": "slides/2026-06-14-etsy-belasting-checklist"
+    },
+    {
+      "topic": "Hobby of ondernemer op Marktplaats? Dit is het verschil",
+      "slug": "marktplaats-hobby-ondernemer",
+      "type": "carousel",
+      "status": "published",
+      "priority": 4,
+      "notes": "Vergelijkingstabel stijl",
+      "publishedDate": "2026-06-14",
+      "outputDir": "slides/2026-06-14-marktplaats-hobby-ondernemer"
+    },
+    {
+      "topic": "OSS registratie: wanneer ben je verplicht en hoe doe je het?",
+      "slug": "oss-registratie-uitleg",
+      "type": "carousel",
+      "status": "published",
+      "priority": 5,
+      "notes": "Stappenplan carrousel",
+      "publishedDate": "2026-06-14",
+      "outputDir": "slides/2026-06-14-oss-registratie-uitleg"
+    },
+    {
+      "topic": "€10.000 EU-grens — dit is wat OSS voor jou betekent",
+      "slug": "oss-drempel-poster",
+      "type": "poster",
+      "status": "published",
+      "priority": 6,
+      "notes": "Losse poster OSS drempel",
+      "publishedDate": "2026-06-14",
+      "outputDir": "slides/2026-06-14-oss-drempel-poster"
+    },
+    {
+      "topic": "Tweedehands spullen verkopen: wanneer betaal je belasting?",
+      "slug": "tweedehands-belasting-grens",
+      "type": "carousel",
+      "status": "published",
+      "priority": 7,
+      "notes": "Hook-stijl carrousel",
+      "publishedDate": "2026-06-14",
+      "outputDir": "slides/2026-06-14-tweedehands-belasting-grens"
+    },
+    {
+      "topic": "Airbnb verhuren? BTW is in 2026 gestegen van 9% naar 21%",
+      "slug": "airbnb-btw-21-procent",
+      "type": "poster",
+      "status": "published",
+      "priority": 8,
+      "notes": "Urgente poster - actuele wetswijziging",
+      "publishedDate": "2026-06-14",
+      "outputDir": "slides/2026-06-14-airbnb-btw-21-procent"
+    }
+  ],
   "settings": {
     "maxPerRun": 8,
     "model": "claude-sonnet-4-6",
