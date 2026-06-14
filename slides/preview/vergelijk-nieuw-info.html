@@ -10,79 +10,99 @@ body{width:1080px;height:1920px;background:#f7f6f3;font-family:'Plus Jakarta San
 </style>
 </head>
 <body>
-<div style="width:1080px;height:1920px;display:flex;flex-direction:column;position:relative;overflow:hidden">
-  <!-- Left accent stripe -->
-  <div style="position:absolute;left:0;top:0;bottom:0;width:10px;background:#1a4731"></div>
-  <!-- Top bar -->
+<div style="width:1080px;height:1920px;display:flex;flex-direction:column">
   <div style="height:10px;background:#1a4731;flex-shrink:0"></div>
 
-  <!-- Header -->
-  <div style="padding:52px 80px 32px 90px;flex-shrink:0">
-    <div style="display:inline-flex;align-items:center;padding:10px 22px;background:#e8f0ec;border-radius:100px;font-size:18px;font-weight:700;color:#1a4731;letter-spacing:0.04em;text-transform:uppercase;margin-bottom:28px">DAC7 — slide 2 van 6</div>
-    <h1 style="font-family:'Fraunces',serif;font-size:68px;font-weight:900;line-height:1.08;letter-spacing:-0.03em;color:#1a1814">Wanneer meldt<br>Vinted jou aan<br>de Belastingdienst?</h1>
+  <div style="padding:48px 72px 24px;flex-shrink:0">
+    <h1 style="font-family:'Fraunces',serif;font-size:58px;font-weight:700;color:#1a1814;line-height:1.1;letter-spacing:-0.02em">Wanneer meldt Vinted<br>jou aan?</h1>
   </div>
 
-  <!-- Cards -->
-  <div style="flex:1;padding:8px 80px 20px 90px;display:flex;flex-direction:column;gap:22px;justify-content:center">
-
-    <!-- Card 1 — accent left border, numbered -->
-    <div style="background:#fff;border-radius:20px;border:1.5px solid #e8e5de;display:flex;overflow:hidden;box-shadow:0 2px 12px rgba(0,0,0,0.04)">
-      <div style="width:8px;background:#1a4731;flex-shrink:0"></div>
-      <div style="padding:32px 36px;flex:1;display:flex;gap:24px;align-items:flex-start">
-        <div style="width:52px;height:52px;border-radius:14px;background:#1a4731;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-family:'Fraunces',serif;font-size:28px;font-weight:900;color:#fff">1</div>
-        <div>
-          <h4 style="font-size:28px;font-weight:800;color:#1a1814;margin-bottom:10px">De dubbele drempel</h4>
-          <p style="font-size:24px;color:#4a4640;line-height:1.55">Meer dan <strong style="color:#1a4731">30 verkopen</strong> én meer dan <strong style="color:#1a4731">€2.000 omzet</strong> in één kalenderjaar — beide moeten zijn overschreden.</p>
+  <!-- Browser mockup (simulated) -->
+  <div style="padding:0 72px 28px;flex-shrink:0">
+    <div style="border-radius:14px;overflow:hidden;box-shadow:0 16px 56px rgba(0,0,0,0.18);border:1px solid rgba(0,0,0,0.07)">
+      <div style="background:#1c1c1e;padding:13px 16px;display:flex;align-items:center;gap:8px">
+        <div style="display:flex;gap:7px;flex-shrink:0">
+          <div style="width:12px;height:12px;border-radius:50%;background:#ff5f57"></div>
+          <div style="width:12px;height:12px;border-radius:50%;background:#febc2e"></div>
+          <div style="width:12px;height:12px;border-radius:50%;background:#28c840"></div>
+        </div>
+        <div style="flex:1;background:#2c2c2e;border-radius:7px;padding:6px 14px;margin:0 8px;font-size:13px;color:#888;font-family:-apple-system,sans-serif">🔒 zenbtw.nl</div>
+      </div>
+      <!-- Simulated site UI -->
+      <div style="height:240px;background:#f7f6f3;display:flex;gap:0;overflow:hidden">
+        <div style="width:220px;background:#1a4731;padding:20px;display:flex;flex-direction:column;gap:12px">
+          <div style="font-size:13px;font-weight:700;color:rgba(255,255,255,0.5);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:4px">Hulpmiddelen</div>
+          <div style="background:rgba(255,255,255,0.12);border-radius:8px;padding:10px 14px;font-size:13px;color:#fff;font-weight:600">✓ BTW checker</div>
+          <div style="padding:8px 14px;font-size:13px;color:rgba(255,255,255,0.6)">📊 KOR calculator</div>
+          <div style="padding:8px 14px;font-size:13px;color:rgba(255,255,255,0.6)">🌍 OSS drempel</div>
+          <div style="padding:8px 14px;font-size:13px;color:rgba(255,255,255,0.6)">📋 DAC7 check</div>
+        </div>
+        <div style="flex:1;padding:20px 24px;display:flex;flex-direction:column;gap:12px">
+          <div style="font-size:15px;font-weight:700;color:#1a1814">DAC7 rapportage check</div>
+          <div style="display:flex;gap:12px">
+            <div style="flex:1;background:#fff;border-radius:10px;padding:12px;border:1.5px solid #e8e5de">
+              <div style="font-size:11px;color:#8a847a;margin-bottom:4px">Aantal verkopen</div>
+              <div style="font-size:20px;font-weight:800;color:#1a1814">45</div>
+            </div>
+            <div style="flex:1;background:#fff;border-radius:10px;padding:12px;border:1.5px solid #e8e5de">
+              <div style="font-size:11px;color:#8a847a;margin-bottom:4px">Omzet</div>
+              <div style="font-size:20px;font-weight:800;color:#1a1814">€3.400</div>
+            </div>
+          </div>
+          <div style="background:#fef2f2;border:1.5px solid #fecaca;border-radius:10px;padding:12px 16px;display:flex;align-items:center;gap:10px">
+            <span style="font-size:20px">⚠️</span>
+            <span style="font-size:13px;font-weight:700;color:#dc2626">Beide drempels overschreden — melding verwacht</span>
+          </div>
         </div>
       </div>
     </div>
+  </div>
 
-    <!-- Card 2 — warning -->
-    <div style="background:#fffbeb;border-radius:20px;border:1.5px solid #f0c040;display:flex;overflow:hidden;box-shadow:0 2px 12px rgba(0,0,0,0.04)">
-      <div style="width:8px;background:#f0c040;flex-shrink:0"></div>
-      <div style="padding:32px 36px;flex:1;display:flex;gap:24px;align-items:flex-start">
-        <div style="width:52px;height:52px;border-radius:14px;background:#fff3cd;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:30px">⚠️</div>
-        <div>
-          <h4 style="font-size:28px;font-weight:800;color:#1a1814;margin-bottom:10px">Wat Vinted precies deelt</h4>
-          <p style="font-size:24px;color:#4a4640;line-height:1.55">Naam, adres, BSN, rekeningnummer <em>én</em> totale omzet gaan automatisch naar de Belastingdienst.</p>
-        </div>
+  <!-- Info cards — 2×2 grid -->
+  <div style="flex:1;padding:0 72px;display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;gap:20px;align-content:center">
+
+    <div style="background:#f0fdf4;border:1.5px solid #86efac;border-left:6px solid #22c55e;border-radius:0 18px 18px 0;padding:28px 32px;display:flex;flex-direction:column;gap:12px">
+      <div style="display:flex;align-items:center;gap:16px">
+        <div style="font-size:40px">🎯</div>
+        <h3 style="font-size:24px;font-weight:800;color:#15803d;line-height:1.2">De dubbele drempel</h3>
       </div>
+      <p style="font-size:21px;color:#166534;line-height:1.55;font-weight:500">Meer dan <strong>30 verkopen</strong> én meer dan <strong>€2.000 omzet</strong> — beide moeten zijn overschreden.</p>
     </div>
 
-    <!-- Card 3 — positive -->
-    <div style="background:#f0fdf4;border-radius:20px;border:1.5px solid #86efac;display:flex;overflow:hidden;box-shadow:0 2px 12px rgba(0,0,0,0.04)">
-      <div style="width:8px;background:#22c55e;flex-shrink:0"></div>
-      <div style="padding:32px 36px;flex:1;display:flex;gap:24px;align-items:flex-start">
-        <div style="width:52px;height:52px;border-radius:14px;background:#dcfce7;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:30px">✅</div>
-        <div>
-          <h4 style="font-size:28px;font-weight:800;color:#1a1814;margin-bottom:10px">Eén drempel? Geen melding.</h4>
-          <p style="font-size:24px;color:#4a4640;line-height:1.55">50 verkopen maar €1.800 omzet? Of €5.000 maar slechts 28 verkopen? Dan blijf je buiten beeld.</p>
-        </div>
+    <div style="background:#fef2f2;border:1.5px solid #fecaca;border-left:6px solid #ef4444;border-radius:0 18px 18px 0;padding:28px 32px;display:flex;flex-direction:column;gap:12px">
+      <div style="display:flex;align-items:center;gap:16px">
+        <div style="font-size:40px">⚠️</div>
+        <h3 style="font-size:24px;font-weight:800;color:#dc2626;line-height:1.2">Wat Vinted deelt</h3>
       </div>
+      <p style="font-size:21px;color:#7f1d1d;line-height:1.55;font-weight:500">Naam, adres, BSN, rekeningnummer én totale omzet gaan naar de Belastingdienst.</p>
     </div>
 
-    <!-- Card 4 — neutral -->
-    <div style="background:#fff;border-radius:20px;border:1.5px solid #e8e5de;display:flex;overflow:hidden;box-shadow:0 2px 12px rgba(0,0,0,0.04)">
-      <div style="width:8px;background:#94a3b8;flex-shrink:0"></div>
-      <div style="padding:32px 36px;flex:1;display:flex;gap:24px;align-items:flex-start">
-        <div style="width:52px;height:52px;border-radius:14px;background:#f1f5f9;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:30px">📅</div>
-        <div>
-          <h4 style="font-size:28px;font-weight:800;color:#1a1814;margin-bottom:10px">Wanneer?</h4>
-          <p style="font-size:24px;color:#4a4640;line-height:1.55">Vinted rapporteert jaarlijks — uiterlijk <strong>31 januari</strong> — over het voorgaande kalenderjaar.</p>
-        </div>
+    <div style="background:#fffbeb;border:1.5px solid #fde68a;border-left:6px solid #f59e0b;border-radius:0 18px 18px 0;padding:28px 32px;display:flex;flex-direction:column;gap:12px">
+      <div style="display:flex;align-items:center;gap:16px">
+        <div style="font-size:40px">✅</div>
+        <h3 style="font-size:24px;font-weight:800;color:#d97706;line-height:1.2">Eén drempel? Veilig.</h3>
       </div>
+      <p style="font-size:21px;color:#78350f;line-height:1.55;font-weight:500">50 verkopen maar €1.800? Of €5.000 maar 28 verkopen? Dan blijf je buiten beeld.</p>
+    </div>
+
+    <div style="background:#fff;border:1.5px solid #e8e5de;border-left:6px solid #94a3b8;border-radius:0 18px 18px 0;padding:28px 32px;display:flex;flex-direction:column;gap:12px">
+      <div style="display:flex;align-items:center;gap:16px">
+        <div style="font-size:40px">📅</div>
+        <h3 style="font-size:24px;font-weight:800;color:#1a1814;line-height:1.2">Wanneer?</h3>
+      </div>
+      <p style="font-size:21px;color:#4a4640;line-height:1.55;font-weight:500">Vinted rapporteert jaarlijks — uiterlijk <strong>31 januari</strong> over het voorgaande jaar.</p>
     </div>
   </div>
 
   <!-- Footer -->
-  <div style="flex-shrink:0;padding:28px 72px;display:flex;align-items:center;justify-content:space-between;border-top:1.5px solid #e8e5de">
-    <div style="display:flex;align-items:center;gap:14px">
+  <div style="flex-shrink:0;padding:30px 72px;display:flex;align-items:center;justify-content:space-between;border-top:1.5px solid #e8e5de">
+    <div style="display:flex;align-items:center;gap:13px">
       <div style="width:40px;height:40px;background:#1a4731;border-radius:10px;display:flex;align-items:center;justify-content:center">
         <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M12 2L3 7v5c0 5.25 3.75 10.15 9 11.35C17.25 22.15 21 17.25 21 12V7L12 2z" fill="#fff"/></svg>
       </div>
-      <span style="font-family:'Fraunces',serif;font-size:28px;font-weight:700;color:#1a4731">Zen<span style="color:#2d6a4f">BTW</span></span>
+      <span style="font-family:'Fraunces',serif;font-size:27px;font-weight:700;color:#1a4731">Zen<span style="color:#2d6a4f">BTW</span></span>
     </div>
-    <span style="font-size:20px;color:#8a847a;font-weight:500">zenbtw.nl</span>
+    <span style="font-size:19px;color:#8a847a;font-weight:500">zenbtw.nl</span>
   </div>
 </div>
 </body>
