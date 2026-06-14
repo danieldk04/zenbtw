@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=1080">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700;9..144,900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    width: 1080px;
+    height: 1920px;
+    background: #f7f6f3;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    overflow: hidden;
+    position: relative;
+  }
+
+  /* Background: subtle grain texture */
+  body::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  .slide {
+    width: 1080px;
+    height: 1920px;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+  }
+
+  /* Top accent bar */
+  .top-bar {
+    height: 8px;
+    background: linear-gradient(90deg, #1a4731, #2d6a4f, #1a4731);
+  }
+
+  /* Main content area */
+  .content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 80px 90px;
+    position: relative;
+    z-index: 2;
+  }
+
+  /* Slide number */
+  .slide-num {
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #2d6a4f;
+    margin-bottom: 60px;
+    opacity: 0.7;
+  }
+
+  /* Hook quote mark */
+  .quote-mark {
+    font-family: 'Fraunces', serif;
+    font-size: 200px;
+    color: #1a4731;
+    opacity: 0.08;
+    line-height: 1;
+    margin-bottom: -80px;
+    margin-left: -10px;
+  }
+
+  /* Main hook text */
+  .hook-text {
+    font-family: 'Fraunces', serif;
+    font-size: 88px;
+    font-weight: 700;
+    line-height: 1.12;
+    color: #1a1814;
+    letter-spacing: -0.02em;
+    margin-bottom: 50px;
+  }
+
+  .hook-text em {
+    color: #1a4731;
+    font-style: normal;
+  }
+
+  /* Sub text */
+  .sub-text {
+    font-size: 36px;
+    color: #4a4640;
+    line-height: 1.5;
+    font-weight: 500;
+    margin-bottom: 80px;
+    padding-left: 4px;
+  }
+
+  /* Punchline pill */
+  .punchline {
+    display: inline-flex;
+    align-items: center;
+    gap: 14px;
+    background: #fff3cd;
+    border: 2px solid #f0c040;
+    border-radius: 100px;
+    padding: 18px 36px;
+    font-size: 30px;
+    font-weight: 700;
+    color: #7a5c00;
+    width: fit-content;
+  }
+
+  /* Swipe hint */
+  .swipe-hint {
+    position: absolute;
+    bottom: 90px;
+    left: 0;
+    right: 0;
+    text-align: center;
+    font-size: 26px;
+    color: #8a847a;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+  }
+
+  .swipe-dots {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+  }
+
+  .dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #c8c2b8;
+  }
+
+  .dot.active {
+    width: 28px;
+    border-radius: 4px;
+    background: #1a4731;
+  }
+
+  /* Bottom brand strip */
+  .brand-strip {
+    padding: 36px 90px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-top: 1.5px solid #e8e5de;
+    position: relative;
+    z-index: 2;
+  }
+
+  .brand-name {
+    font-family: 'Fraunces', serif;
+    font-size: 32px;
+    font-weight: 700;
+    color: #1a4731;
+    letter-spacing: -0.5px;
+  }
+
+  .brand-name span { color: #2d6a4f; }
+
+  .brand-tag {
+    font-size: 22px;
+    color: #8a847a;
+    font-weight: 500;
+  }
+</style>
+</head>
+<body>
+<div class="slide">
+  <div class="top-bar"></div>
+
+  <div class="content">
+    <div class="slide-num">01 / 06 &nbsp;·&nbsp; DAC7 & jij</div>
+
+    <div class="quote-mark">"</div>
+
+    <h1 class="hook-text">
+      Je hebt vorig jaar<br>
+      <em>€3.400</em> verdiend<br>
+      op Vinted.<br>
+      De Belastingdienst<br>
+      weet het ook.
+    </h1>
+
+    <p class="sub-text">
+      Wat DAC7 precies rapporteert<br>
+      — en wat jij nu moet doen.
+    </p>
+
+    <div class="punchline">
+      ⚠️ &nbsp;Swipe voor de feiten
+    </div>
+  </div>
+
+  <div class="swipe-hint">
+    <div class="swipe-dots">
+      <div class="dot active"></div>
+      <div class="dot"></div>
+      <div class="dot"></div>
+      <div class="dot"></div>
+      <div class="dot"></div>
+      <div class="dot"></div>
+    </div>
+  </div>
+
+  <div class="brand-strip">
+    <div class="brand-name">Zen<span>BTW</span></div>
+    <div class="brand-tag">BTW checker voor verkopers</div>
+  </div>
+</div>
+</body>
+</html>
