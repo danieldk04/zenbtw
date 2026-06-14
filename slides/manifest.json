@@ -64,6 +64,69 @@
       ]
     },
     {
+      "id": "2026-06-14-shopify-btw-automatisch",
+      "topic": "Shopify in Nederland — zo werkt BTW automatisch in 2026",
+      "date": "2026-06-14",
+      "type": "carousel",
+      "slides": 7,
+      "files": [
+        "slides/2026-06-14-shopify-btw-automatisch/01.html",
+        "slides/2026-06-14-shopify-btw-automatisch/02.html",
+        "slides/2026-06-14-shopify-btw-automatisch/03.html",
+        "slides/2026-06-14-shopify-btw-automatisch/04.html",
+        "slides/2026-06-14-shopify-btw-automatisch/05.html",
+        "slides/2026-06-14-shopify-btw-automatisch/06.html",
+        "slides/2026-06-14-shopify-btw-automatisch/07.html"
+      ],
+      "pngs": [
+        "slides/2026-06-14-shopify-btw-automatisch/01.png",
+        "slides/2026-06-14-shopify-btw-automatisch/02.png",
+        "slides/2026-06-14-shopify-btw-automatisch/03.png",
+        "slides/2026-06-14-shopify-btw-automatisch/04.png",
+        "slides/2026-06-14-shopify-btw-automatisch/05.png",
+        "slides/2026-06-14-shopify-btw-automatisch/06.png",
+        "slides/2026-06-14-shopify-btw-automatisch/07.png"
+      ]
+    },
+    {
+      "id": "2026-06-14-kor-vs-oss-vergelijking",
+      "topic": "KOR vs OSS: welke regeling past bij jou als marketplace verkoper?",
+      "date": "2026-06-14",
+      "type": "carousel",
+      "slides": 7,
+      "files": [
+        "slides/2026-06-14-kor-vs-oss-vergelijking/01.html",
+        "slides/2026-06-14-kor-vs-oss-vergelijking/02.html",
+        "slides/2026-06-14-kor-vs-oss-vergelijking/03.html",
+        "slides/2026-06-14-kor-vs-oss-vergelijking/04.html",
+        "slides/2026-06-14-kor-vs-oss-vergelijking/05.html",
+        "slides/2026-06-14-kor-vs-oss-vergelijking/06.html",
+        "slides/2026-06-14-kor-vs-oss-vergelijking/07.html"
+      ],
+      "pngs": [
+        "slides/2026-06-14-kor-vs-oss-vergelijking/01.png",
+        "slides/2026-06-14-kor-vs-oss-vergelijking/02.png",
+        "slides/2026-06-14-kor-vs-oss-vergelijking/03.png",
+        "slides/2026-06-14-kor-vs-oss-vergelijking/04.png",
+        "slides/2026-06-14-kor-vs-oss-vergelijking/05.png",
+        "slides/2026-06-14-kor-vs-oss-vergelijking/06.png",
+        "slides/2026-06-14-kor-vs-oss-vergelijking/07.png"
+      ]
+    },
+    {
+      "id": "2026-06-14-kor-drempel-uitleg",
+      "topic": "KOR drempel €20.000 — wanneer ben je de grens gepasseerd?",
+      "date": "2026-06-14",
+      "type": "poster",
+      "slides": 1,
+      "files": [
+        "slides/2026-06-14-kor-drempel-uitleg/01.html"
+      ],
+      "pngs": [
+        "slides/2026-06-14-kor-drempel-uitleg/01.png"
+      ]
+    },
+    {
       "id": "2026-06-14-airbnb-btw-21-procent",
       "topic": "Airbnb verhuren? BTW is in 2026 gestegen van 9% naar 21%",
       "date": "2026-06-14",
