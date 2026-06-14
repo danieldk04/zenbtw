@@ -1,0 +1,17 @@
+{
+  "sets": [
+    {
+      "id": "preview-dac7",
+      "topic": "DAC7 & Vinted — wat meldt het platform aan de Belastingdienst?",
+      "date": "2026-06-14",
+      "type": "carousel",
+      "slides": 3,
+      "files": [
+        "slides/preview/slide-01-hook.html",
+        "slides/preview/slide-02-info.html",
+        "slides/preview/slide-03-stat.html"
+      ],
+      "pngs": []
+    }
+  ]
+}

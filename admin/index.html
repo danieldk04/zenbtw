@@ -352,6 +352,7 @@ footer{background:var(--bg,#f7f6f3);border-top:1.5px solid var(--br,#e5e0d8);pad
       <a id="nav-traffic"  class="nav-item"         onclick="go('traffic')">📈 Bezoekers &amp; verkeer</a>
       <a id="nav-contacts" class="nav-item"         onclick="go('contacts')">👥 Contacten &amp; e-mails</a>
       <a id="nav-fiscal"   class="nav-item"         onclick="go('fiscal')">⚖️ Fiscale logica</a>
+      <a id="nav-slides"   class="nav-item"         onclick="go('slides')">🖼️ Social slides</a>
       <a id="nav-actions"  class="nav-item"         onclick="go('actions')">⚙️ GitHub Actions</a>
     </nav>
 
@@ -985,6 +986,79 @@ footer{background:var(--bg,#f7f6f3);border-top:1.5px solid var(--br,#e5e0d8);pad
 
     </div>
 
+    <!-- ── SLIDES ── -->
+    <div class="page" id="page-slides">
+
+      <style>
+        .slides-week-header{font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--tx3);margin:1.5rem 0 .6rem;padding-bottom:.4rem;border-bottom:1px solid var(--br)}
+        .slides-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:1rem;margin-bottom:1rem}
+        .slide-set-card{background:var(--wh);border:1px solid var(--br);border-radius:10px;overflow:hidden;transition:box-shadow .15s}
+        .slide-set-card:hover{box-shadow:0 4px 16px rgba(0,0,0,.08)}
+        .slide-set-thumb{height:140px;background:var(--bg);border-bottom:1px solid var(--br);display:flex;align-items:center;justify-content:center;font-size:2.5rem;position:relative;overflow:hidden}
+        .slide-set-thumb iframe{width:100%;height:100%;border:none;pointer-events:none;transform-origin:top left;position:absolute;top:0;left:0}
+        .slide-count-badge{position:absolute;top:8px;right:8px;background:rgba(0,0,0,.55);color:#fff;font-size:.65rem;font-weight:700;padding:2px 7px;border-radius:99px}
+        .slide-set-body{padding:.75rem}
+        .slide-set-topic{font-size:.82rem;font-weight:700;color:var(--tx);margin-bottom:.25rem;line-height:1.3}
+        .slide-set-meta{font-size:.72rem;color:var(--tx3);margin-bottom:.6rem}
+        .slide-set-actions{display:flex;gap:.4rem;flex-wrap:wrap}
+        .slides-empty{text-align:center;padding:3rem;color:var(--tx3);font-size:.85rem}
+        .slides-kpi{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:.8rem;margin-bottom:1.2rem}
+        .type-badge-poster{background:#eff6ff;color:#2563eb}
+        .type-badge-carousel{background:#f5f3ff;color:#7c3aed}
+        .slide-detail-modal{position:fixed;inset:0;z-index:2000;background:rgba(0,0,0,.75);display:none;align-items:center;justify-content:center;padding:1rem}
+        .slide-detail-modal.open{display:flex}
+        .slide-detail-inner{background:var(--wh);border-radius:14px;width:100%;max-width:860px;max-height:90vh;overflow:hidden;display:flex;flex-direction:column}
+        .slide-detail-head{padding:1rem 1.2rem;border-bottom:1px solid var(--br);display:flex;align-items:center;justify-content:space-between}
+        .slide-detail-head h3{font-size:.95rem;font-weight:700}
+        .slide-detail-scroll{overflow-y:auto;padding:1rem 1.2rem;display:flex;flex-direction:column;gap:.8rem}
+        .slide-preview-row{border:1.5px solid var(--br);border-radius:10px;overflow:hidden;display:flex;align-items:stretch;gap:0}
+        .slide-preview-num{background:var(--bg);padding:.5rem .7rem;font-size:.72rem;font-weight:700;color:var(--tx3);display:flex;align-items:center;border-right:1px solid var(--br);min-width:36px;justify-content:center}
+        .slide-preview-info{flex:1;padding:.6rem .9rem;display:flex;align-items:center;justify-content:space-between;gap:.5rem}
+        .slide-preview-info span{font-size:.8rem;color:var(--tx2)}
+      </style>
+
+      <div class="slides-kpi" id="slides-kpi"></div>
+
+      <div class="card" style="margin-bottom:1.2rem">
+        <div class="card-head">
+          <h3>🖼️ Gegenereerde social content</h3>
+          <div style="display:flex;gap:.4rem;align-items:center">
+            <select id="slides-type-filter" onchange="renderSlides()" style="padding:5px 8px;border:1px solid var(--br);border-radius:7px;font-size:12px;background:var(--wh)">
+              <option value="all">Alle types</option>
+              <option value="carousel">Carrousels</option>
+              <option value="poster">Posters</option>
+            </select>
+            <button class="btn btn-ghost" onclick="loadSlides()">↺</button>
+          </div>
+        </div>
+        <div style="padding:1rem 1.2rem">
+          <div id="slides-list"><div class="empty">Laden...</div></div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-head"><h3>⚙️ Slides generator</h3><span class="badge bb">Elke zondag 08:00</span></div>
+        <div class="info-row"><span class="info-label">Script</span><span class="info-value mono">scripts/generate-slides.js</span></div>
+        <div class="info-row"><span class="info-label">Output</span><span class="info-value mono">slides/[datum-topic]/01.html … 07.html + manifest.json</span></div>
+        <div class="info-row"><span class="info-label">Mix</span><span class="info-value">~4 carrousels (4-7 slides) + ~3 losse posters per week</span></div>
+        <div class="info-row"><span class="info-label">Stijl</span><span class="info-value">ZenBTW kleurenpalet · Fraunces + Plus Jakarta Sans · geen logo op elke slide</span></div>
+        <div class="info-row"><span class="info-label">Kosten</span><span class="info-value">~$1-2 per run (Claude Sonnet 4.6) · GitHub Actions gratis</span></div>
+        <div class="info-row"><span class="info-label">Trigger</span><span class="info-value"><a href="https://github.com/danieldk04/zenbtw/actions" target="_blank">Handmatig triggeren via GitHub Actions →</a></span></div>
+      </div>
+
+    </div><!-- /page-slides -->
+
+    <!-- Slide detail modal -->
+    <div class="slide-detail-modal" id="slideDetailModal">
+      <div class="slide-detail-inner">
+        <div class="slide-detail-head">
+          <h3 id="slideDetailTitle">Slides</h3>
+          <button class="btn btn-ghost" onclick="closeSlideDetail()">✕ Sluiten</button>
+        </div>
+        <div class="slide-detail-scroll" id="slideDetailBody"></div>
+      </div>
+    </div>
+
   </div><!-- /main -->
 </div><!-- /app -->
 
@@ -1038,7 +1112,8 @@ const PAGE_TITLES = {
   home:'Overzicht', blogs:'Blogs', queue:'Keywords queue',
   style:'Schrijfstijl', traffic:'Bezoekers & verkeer', contacts:'Contacten & e-mails',
   seo:'Keyword research', leads:'Leads & outreach',
-  content:'Content intelligence', agent:'Content agent', fiscal:'Fiscale logica', actions:'GitHub Actions'
+  content:'Content intelligence', agent:'Content agent', fiscal:'Fiscale logica',
+  slides:'Social slides', actions:'GitHub Actions'
 };
 
 function go(name){
@@ -1053,6 +1128,7 @@ function go(name){
   if(name==='contacts') loadContacts();
   if(name==='leads') initLeads();
   if(name==='content') initContent();
+  if(name==='slides') loadSlides();
   closeSidebar();
 }
 
@@ -2272,6 +2348,122 @@ function renderInstagramLeads() {
 }
 </script>
 <script>
+// ── Slides ────────────────────────────────────────────────────────────────────
+let slidesData = null;
+
+async function loadSlides() {
+  const el = document.getElementById('slides-list');
+  el.innerHTML = '<div class="empty">Laden...</div>';
+  try {
+    slidesData = await get('/slides/manifest.json');
+    renderSlides();
+    renderSlidesKpi();
+  } catch(e) {
+    el.innerHTML = '<div class="slides-empty">Nog geen slides gegenereerd.<br><span style="font-size:.75rem;margin-top:.3rem;display:block">Trigger de workflow op zondag of via GitHub Actions.</span></div>';
+    document.getElementById('slides-kpi').innerHTML = '';
+  }
+}
+
+function renderSlidesKpi() {
+  if (!slidesData) return;
+  const sets = slidesData.sets || [];
+  const total = sets.reduce((a, s) => a + (s.slides || 1), 0);
+  const carousels = sets.filter(s => s.type === 'carousel').length;
+  const posters = sets.filter(s => s.type === 'poster').length;
+  const lastDate = sets.length ? sets[0].date : '—';
+  document.getElementById('slides-kpi').innerHTML = `
+    <div class="kpi"><div class="kpi-label">Totaal sets</div><div class="kpi-value">${sets.length}</div><div class="kpi-sub">${total} slides totaal</div><div class="kpi-icon">🖼️</div></div>
+    <div class="kpi"><div class="kpi-label">Carrousels</div><div class="kpi-value">${carousels}</div><div class="kpi-sub">meerdere slides</div><div class="kpi-icon">📱</div></div>
+    <div class="kpi"><div class="kpi-label">Posters</div><div class="kpi-value">${posters}</div><div class="kpi-sub">losse posts</div><div class="kpi-icon">📌</div></div>
+    <div class="kpi"><div class="kpi-label">Laatste batch</div><div class="kpi-value" style="font-size:1.2rem">${lastDate || '—'}</div><div class="kpi-sub">volgende: zondag</div><div class="kpi-icon">📅</div></div>
+  `;
+}
+
+function renderSlides() {
+  if (!slidesData) return;
+  const filter = document.getElementById('slides-type-filter').value;
+  const sets = (slidesData.sets || []).filter(s => filter === 'all' || s.type === filter);
+  const el = document.getElementById('slides-list');
+
+  if (!sets.length) {
+    el.innerHTML = '<div class="slides-empty">Geen slides voor dit filter.</div>';
+    return;
+  }
+
+  // Group by week
+  const weeks = {};
+  sets.forEach(s => {
+    const d = new Date(s.date);
+    const monday = new Date(d);
+    monday.setDate(d.getDate() - ((d.getDay() + 6) % 7));
+    const wk = monday.toLocaleDateString('nl-NL', { day: 'numeric', month: 'long', year: 'numeric' });
+    if (!weeks[wk]) weeks[wk] = [];
+    weeks[wk].push(s);
+  });
+
+  el.innerHTML = Object.entries(weeks).map(([week, items]) => `
+    <div class="slides-week-header">Week van ${week}</div>
+    <div class="slides-grid">
+      ${items.map(s => slideSetCard(s)).join('')}
+    </div>
+  `).join('');
+}
+
+function slideSetCard(s) {
+  const typeClass = s.type === 'poster' ? 'type-badge-poster' : 'type-badge-carousel';
+  const typeLabel = s.type === 'poster' ? 'Poster' : 'Carrousel';
+  const firstFile = (s.files && s.files[0]) ? RAW + '/' + s.files[0] : null;
+  const thumbContent = firstFile
+    ? `<iframe src="${firstFile}" scrolling="no" style="width:300%;height:300%;transform:scale(0.333);transform-origin:top left;border:none;pointer-events:none"></iframe>`
+    : `<span>${s.type === 'poster' ? '📌' : '📱'}</span>`;
+
+  return `
+    <div class="slide-set-card">
+      <div class="slide-set-thumb">
+        ${thumbContent}
+        <div class="slide-count-badge">${s.slides || 1} slide${s.slides !== 1 ? 's' : ''}</div>
+      </div>
+      <div class="slide-set-body">
+        <div class="slide-set-topic">${s.topic}</div>
+        <div class="slide-set-meta">
+          <span class="badge ${typeClass}">${typeLabel}</span>
+          &nbsp;${fmtDate(s.date)}
+        </div>
+        <div class="slide-set-actions">
+          <button class="btn btn-primary" style="font-size:.72rem;padding:.3rem .6rem" onclick="openSlideDetail('${s.id}')">👁 Bekijk</button>
+          ${s.pngs && s.pngs.length ? `<a href="${RAW}/${s.pngs[0]}" download class="btn btn-ghost" style="font-size:.72rem;padding:.3rem .6rem">⬇ Download</a>` : ''}
+        </div>
+      </div>
+    </div>
+  `;
+}
+
+function openSlideDetail(id) {
+  const s = (slidesData.sets || []).find(x => x.id === id);
+  if (!s) return;
+  document.getElementById('slideDetailTitle').textContent = s.topic;
+  const files = s.files || [];
+  document.getElementById('slideDetailBody').innerHTML = files.length
+    ? files.map((f, i) => `
+        <div class="slide-preview-row">
+          <div class="slide-preview-num">${String(i+1).padStart(2,'0')}</div>
+          <div class="slide-preview-info">
+            <span>${f.split('/').pop()}</span>
+            <div style="display:flex;gap:.4rem">
+              <a href="${RAW}/${f}" target="_blank" class="btn btn-ghost" style="font-size:.72rem;padding:.3rem .6rem">↗ Preview</a>
+              ${s.pngs && s.pngs[i] ? `<a href="${RAW}/${s.pngs[i]}" download class="btn btn-primary" style="font-size:.72rem;padding:.3rem .6rem">⬇ PNG</a>` : ''}
+            </div>
+          </div>
+        </div>
+      `).join('')
+    : '<div class="empty">Geen bestanden gevonden.</div>';
+  document.getElementById('slideDetailModal').classList.add('open');
+}
+
+function closeSlideDetail() {
+  document.getElementById('slideDetailModal').classList.remove('open');
+}
+
 function toggleMobNav(){var h=document.getElementById('navHamburger'),o=document.getElementById('mobNavOverlay'),d=document.getElementById('mobNavDrawer'),op=!h.classList.contains('open');h.classList.toggle('open',op);o.classList.toggle('on',op);d.classList.toggle('on',op);document.body.style.overflow=op?'hidden':'';}
 function closeMobNav(){document.getElementById('navHamburger').classList.remove('open');document.getElementById('mobNavOverlay').classList.remove('on');document.getElementById('mobNavDrawer').classList.remove('on');document.body.style.overflow='';}
 </script>
