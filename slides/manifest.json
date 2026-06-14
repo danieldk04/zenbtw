@@ -23,7 +23,8 @@
         "slides/2026-06-14-shopify-btw-automatisch/05.png",
         "slides/2026-06-14-shopify-btw-automatisch/06.png",
         "slides/2026-06-14-shopify-btw-automatisch/07.png"
-      ]
+      ],
+      "caption": "Shopify heeft in Nederland een BTW-integratie die best goed werkt — maar er zijn een paar dingen die ik bij vrijwel elke Shopify-ondernemer zie misgaan.\n\nHet platform berekent BTW automatisch. Maar 'automatisch' betekent niet 'altijd correct'. Zeker niet als je ook buiten Nederland levert.\n\nWat ik zelf merkte: zodra je Belgische of Duitse klanten krijgt, kom je in OSS-territorium. Dan is het tarief van het land van de klant leidend — niet het Nederlandse 21%. Shopify weet dat, maar jij moet het wel instellen.\n\nEn de KOR-grens van €20.000? Die geldt voor je totale omzet, ook als Shopify de BTW al 'afdraagt' via hun systeem.\n\nSwipe door voor wat je in 2026 concreet moet regelen als je via Shopify verkoopt.\n\nCheck zenbtw.nl om snel te zien of jij BTW-plichtig bent — geen account nodig.\n\n#shopify #btw #shopifynederland #ondernemer #webshop #kor #korregeling #ossregeling #belasting #ecommerce #nederlandsondernemer #shopifyverkoper"
     },
     {
       "id": "2026-06-14-kor-vs-oss-vergelijking",
@@ -48,7 +49,8 @@
         "slides/2026-06-14-kor-vs-oss-vergelijking/05.png",
         "slides/2026-06-14-kor-vs-oss-vergelijking/06.png",
         "slides/2026-06-14-kor-vs-oss-vergelijking/07.png"
-      ]
+      ],
+      "caption": "KOR of OSS — de vraag die ik het meest krijg van marketplace verkopers die doorgroeien.\n\nKort door de bocht: KOR is voor verkopers die voornamelijk in Nederland verkopen en onder de €20.000 omzet blijven. OSS is voor iedereen die ook naar andere EU-landen levert en daar de €10.000-grens overschrijdt.\n\nWat ik zelf zag bij Revaleur: zodra je een handvol Belgische en Duitse klanten hebt, zit je al snel boven die €10.000 EU-drempel. Dan hoort de BTW thuis in het land van de klant, niet in Nederland.\n\nDe twee regelingen combineren? Dat kan niet. Je moet kiezen.\n\nEn de keuze heeft gevolgen: KOR aanvragen doe je voor minimaal drie jaar. OSS heeft minder verplichtingen maar meer administratie.\n\nSwipe voor het volledige overzicht — inclusief wie welke regeling het beste kan kiezen.\n\nZenbtw.nl helpt je in 30 seconden bepalen waar jij staat → gratis, geen account.\n\n#kor #oss #btw #marketplace #belasting #korregeling #ossregeling #vinted #etsy #bol #ondernemer #belastingdienst"
     },
     {
       "id": "2026-06-14-kor-drempel-uitleg",
@@ -61,133 +63,8 @@
       ],
       "pngs": [
         "slides/2026-06-14-kor-drempel-uitleg/01.png"
-      ]
-    },
-    {
-      "id": "2026-06-14-shopify-btw-automatisch",
-      "topic": "Shopify in Nederland — zo werkt BTW automatisch in 2026",
-      "date": "2026-06-14",
-      "type": "carousel",
-      "slides": 7,
-      "files": [
-        "slides/2026-06-14-shopify-btw-automatisch/01.html",
-        "slides/2026-06-14-shopify-btw-automatisch/02.html",
-        "slides/2026-06-14-shopify-btw-automatisch/03.html",
-        "slides/2026-06-14-shopify-btw-automatisch/04.html",
-        "slides/2026-06-14-shopify-btw-automatisch/05.html",
-        "slides/2026-06-14-shopify-btw-automatisch/06.html",
-        "slides/2026-06-14-shopify-btw-automatisch/07.html"
       ],
-      "pngs": [
-        "slides/2026-06-14-shopify-btw-automatisch/01.png",
-        "slides/2026-06-14-shopify-btw-automatisch/02.png",
-        "slides/2026-06-14-shopify-btw-automatisch/03.png",
-        "slides/2026-06-14-shopify-btw-automatisch/04.png",
-        "slides/2026-06-14-shopify-btw-automatisch/05.png",
-        "slides/2026-06-14-shopify-btw-automatisch/06.png",
-        "slides/2026-06-14-shopify-btw-automatisch/07.png"
-      ]
-    },
-    {
-      "id": "2026-06-14-kor-vs-oss-vergelijking",
-      "topic": "KOR vs OSS: welke regeling past bij jou als marketplace verkoper?",
-      "date": "2026-06-14",
-      "type": "carousel",
-      "slides": 7,
-      "files": [
-        "slides/2026-06-14-kor-vs-oss-vergelijking/01.html",
-        "slides/2026-06-14-kor-vs-oss-vergelijking/02.html",
-        "slides/2026-06-14-kor-vs-oss-vergelijking/03.html",
-        "slides/2026-06-14-kor-vs-oss-vergelijking/04.html",
-        "slides/2026-06-14-kor-vs-oss-vergelijking/05.html",
-        "slides/2026-06-14-kor-vs-oss-vergelijking/06.html",
-        "slides/2026-06-14-kor-vs-oss-vergelijking/07.html"
-      ],
-      "pngs": [
-        "slides/2026-06-14-kor-vs-oss-vergelijking/01.png",
-        "slides/2026-06-14-kor-vs-oss-vergelijking/02.png",
-        "slides/2026-06-14-kor-vs-oss-vergelijking/03.png",
-        "slides/2026-06-14-kor-vs-oss-vergelijking/04.png",
-        "slides/2026-06-14-kor-vs-oss-vergelijking/05.png",
-        "slides/2026-06-14-kor-vs-oss-vergelijking/06.png",
-        "slides/2026-06-14-kor-vs-oss-vergelijking/07.png"
-      ]
-    },
-    {
-      "id": "2026-06-14-kor-drempel-uitleg",
-      "topic": "KOR drempel €20.000 — wanneer ben je de grens gepasseerd?",
-      "date": "2026-06-14",
-      "type": "poster",
-      "slides": 1,
-      "files": [
-        "slides/2026-06-14-kor-drempel-uitleg/01.html"
-      ],
-      "pngs": [
-        "slides/2026-06-14-kor-drempel-uitleg/01.png"
-      ]
-    },
-    {
-      "id": "2026-06-14-shopify-btw-automatisch",
-      "topic": "Shopify in Nederland — zo werkt BTW automatisch in 2026",
-      "date": "2026-06-14",
-      "type": "carousel",
-      "slides": 7,
-      "files": [
-        "slides/2026-06-14-shopify-btw-automatisch/01.html",
-        "slides/2026-06-14-shopify-btw-automatisch/02.html",
-        "slides/2026-06-14-shopify-btw-automatisch/03.html",
-        "slides/2026-06-14-shopify-btw-automatisch/04.html",
-        "slides/2026-06-14-shopify-btw-automatisch/05.html",
-        "slides/2026-06-14-shopify-btw-automatisch/06.html",
-        "slides/2026-06-14-shopify-btw-automatisch/07.html"
-      ],
-      "pngs": [
-        "slides/2026-06-14-shopify-btw-automatisch/01.png",
-        "slides/2026-06-14-shopify-btw-automatisch/02.png",
-        "slides/2026-06-14-shopify-btw-automatisch/03.png",
-        "slides/2026-06-14-shopify-btw-automatisch/04.png",
-        "slides/2026-06-14-shopify-btw-automatisch/05.png",
-        "slides/2026-06-14-shopify-btw-automatisch/06.png",
-        "slides/2026-06-14-shopify-btw-automatisch/07.png"
-      ]
-    },
-    {
-      "id": "2026-06-14-kor-vs-oss-vergelijking",
-      "topic": "KOR vs OSS: welke regeling past bij jou als marketplace verkoper?",
-      "date": "2026-06-14",
-      "type": "carousel",
-      "slides": 7,
-      "files": [
-        "slides/2026-06-14-kor-vs-oss-vergelijking/01.html",
-        "slides/2026-06-14-kor-vs-oss-vergelijking/02.html",
-        "slides/2026-06-14-kor-vs-oss-vergelijking/03.html",
-        "slides/2026-06-14-kor-vs-oss-vergelijking/04.html",
-        "slides/2026-06-14-kor-vs-oss-vergelijking/05.html",
-        "slides/2026-06-14-kor-vs-oss-vergelijking/06.html",
-        "slides/2026-06-14-kor-vs-oss-vergelijking/07.html"
-      ],
-      "pngs": [
-        "slides/2026-06-14-kor-vs-oss-vergelijking/01.png",
-        "slides/2026-06-14-kor-vs-oss-vergelijking/02.png",
-        "slides/2026-06-14-kor-vs-oss-vergelijking/03.png",
-        "slides/2026-06-14-kor-vs-oss-vergelijking/04.png",
-        "slides/2026-06-14-kor-vs-oss-vergelijking/05.png",
-        "slides/2026-06-14-kor-vs-oss-vergelijking/06.png",
-        "slides/2026-06-14-kor-vs-oss-vergelijking/07.png"
-      ]
-    },
-    {
-      "id": "2026-06-14-kor-drempel-uitleg",
-      "topic": "KOR drempel €20.000 — wanneer ben je de grens gepasseerd?",
-      "date": "2026-06-14",
-      "type": "poster",
-      "slides": 1,
-      "files": [
-        "slides/2026-06-14-kor-drempel-uitleg/01.html"
-      ],
-      "pngs": [
-        "slides/2026-06-14-kor-drempel-uitleg/01.png"
-      ]
+      "caption": "De KOR-grens is €20.000. Niet 'ergens rond de twintig'. Precies twintig.\n\nVeel verkopers die ik spreek denken dat ze veilig zijn omdat ze 'niet echt een bedrijf' runnen. Maar de Belastingdienst kijkt naar omzet — niet naar intentie.\n\nWat ik zelf deed toen ik begon: bijhouden per kwartaal, niet achteraf. Want als je de grens passeert, ben je met terugwerkende kracht BTW-plichtig.\n\nKOR aanvragen kan, maar daarna zit je er drie jaar aan vast. Dus weet wanneer je er klaar voor bent.\n\nMeer weten? Check zenbtw.nl — gratis, zonder account.\n\n#kor #korregeling #btw #belasting #marketplace #vinted #etsy #ondernemer #kleinondernemer #belastingdienst #nederlandsondernemer"
     },
     {
       "id": "2026-06-14-airbnb-btw-21-procent",
@@ -200,7 +77,8 @@
       ],
       "pngs": [
         "slides/2026-06-14-airbnb-btw-21-procent/01.png"
-      ]
+      ],
+      "caption": "Airbnb verhuren en denken dat je BTW-vrij bent — dat is in 2026 niet meer vanzelfsprekend.\n\nHet verlaagde BTW-tarief van 9% voor kortverblijf is per 2026 afgeschaft. Je betaalt nu 21% over je verhuurinkomsten als je boven de KOR-grens uitkomt.\n\nIk zie dit bij veel verhuurders mis gaan: ze tellen hun Airbnb-omzet niet mee in hun totale omzetcheck. Terwijl dat wettelijk wel verplicht is.\n\nStaat je totale omzet (inclusief verhuur) boven €20.000? Dan ben je BTW-plichtig — ook als je maar af en toe verhuurt.\n\nCheck zenbtw.nl om snel te zien waar jij staat → gratis, geen account nodig.\n\n#airbnb #btw #verhuur #belasting #korregeling #airbnbverhuurder #kortverblijf #ondernemer #belastingdienst #nederlandsondernemer"
     },
     {
       "id": "2026-06-14-tweedehands-belasting-grens",
@@ -223,7 +101,8 @@
         "slides/2026-06-14-tweedehands-belasting-grens/04.png",
         "slides/2026-06-14-tweedehands-belasting-grens/05.png",
         "slides/2026-06-14-tweedehands-belasting-grens/06.png"
-      ]
+      ],
+      "caption": "Je oude kleren, meubels of elektronica verkopen — wanneer word je belastingplichtig?\n\nDe grens is niet een bedrag. Het gaat om de vraag of je 'deelneemt aan het economische verkeer' — en dat is eerder het geval dan je denkt.\n\nWat ik in de praktijk zie: wie structureel inkoopt om door te verkopen, telt als ondernemer. Dan telt ook je DAC7-rapportage mee: Vinted en Marktplaats melden je automatisch aan de Belastingdienst bij 30 transacties én €2.000 omzet.\n\nVerkoop je incidenteel je eigen oude spullen? Dan zit je in een andere categorie — maar de grens is grijs.\n\nSwipe voor de concrete grenzen per situatie.\n\nCheck snel of jij belasting moet afdragen via zenbtw.nl — geen account, geen gedoe.\n\n#tweedehands #vinted #marktplaats #belasting #btw #dac7 #reseller #vintedverkoper #belastingdienst #ondernemer #kor #tweedehandskleding"
     },
     {
       "id": "2026-06-14-oss-drempel-poster",
@@ -236,7 +115,8 @@
       ],
       "pngs": [
         "slides/2026-06-14-oss-drempel-poster/01.png"
-      ]
+      ],
+      "caption": "€10.000 EU-omzet. Dat is de grens waarboven je BTW moet afdragen in het land van je klant.\n\nNiet in Nederland. In het land waar de klant woont.\n\nVeel verkopers op Etsy of Shopify denken dat ze dit pas hoeven te regelen als het 'groot' wordt. Maar €10.000 aan EU-verkopen bereik je sneller dan je denkt — zeker als je op meerdere platforms zit.\n\nOSS (One Stop Shop) is de oplossing: één kwartaalaangifte via de Nederlandse Belastingdienst voor al je EU-landen.\n\nBen je er al aan toe? Check het gratis via zenbtw.nl.\n\n#oss #ossregeling #btw #eu #belasting #marketplace #etsy #shopify #ondernemer #belastingdienst #crossborder #europaverkoop"
     },
     {
       "id": "2026-06-14-oss-registratie-uitleg",
@@ -259,7 +139,8 @@
         "slides/2026-06-14-oss-registratie-uitleg/04.png",
         "slides/2026-06-14-oss-registratie-uitleg/05.png",
         "slides/2026-06-14-oss-registratie-uitleg/06.png"
-      ]
+      ],
+      "caption": "OSS registreren klinkt ingewikkeld. Het valt mee — maar je moet weten wanneer je het nodig hebt.\n\nDe trigger: je verkoopt naar andere EU-landen en je totale EU-omzet zit boven de €10.000. Dan hoor je BTW af te dragen in het land van de klant.\n\nOSS lost dat op: je doet één kwartaalaangifte in Nederland voor alle EU-landen samen. Geen registratie in Duitsland, België, Frankrijk apart.\n\nWat ik zelf merkte: de aanmelding via Mijn Belastingdienst Zakelijk duurt 10-15 minuten. De administratie erna vraagt meer aandacht — je moet per land en per BTW-tarief bijhouden wat je hebt verkocht.\n\nSwipe voor hoe je het stap voor stap aanpakt.\n\nTwijfel je of OSS voor jou geldt? Zenbtw.nl berekent het gratis.\n\n#oss #ossregistratie #btw #belasting #eu #marketplace #etsy #shopify #ondernemer #belastingdienst #crossborder #kwartaalaangifte"
     },
     {
       "id": "2026-06-14-marktplaats-hobby-ondernemer",
@@ -282,7 +163,8 @@
         "slides/2026-06-14-marktplaats-hobby-ondernemer/04.png",
         "slides/2026-06-14-marktplaats-hobby-ondernemer/05.png",
         "slides/2026-06-14-marktplaats-hobby-ondernemer/06.png"
-      ]
+      ],
+      "caption": "'Ik doe het gewoon als hobby' — ik hoor het regelmatig. Maar de Belastingdienst hanteert een andere definitie van hobby dan jij.\n\nWanneer je structureel inkoopt om door te verkopen, winst maakt, of meer dan 30 transacties per jaar hebt op Marktplaats of Vinted — dan kun je ondernemer zijn. Of je dat wil of niet.\n\nDe DAC7-richtlijn maakt dit concreter: platforms rapporteren jouw verkoopdata automatisch bij 30+ transacties én €2.000+ omzet. De Belastingdienst krijgt dat gewoon in z'n mail.\n\nHet verschil tussen hobby en ondernemer is niet altijd scherp — maar de gevolgen wel.\n\nSwipe voor de concrete criteria die de Belastingdienst hanteert.\n\nBen jij hobby of ondernemer? Zenbtw.nl geeft snel duidelijkheid → gratis, geen account.\n\n#marktplaats #vinted #belasting #btw #dac7 #hobby #ondernemer #belastingdienst #tweedehands #reseller #vintedverkoper #marktplaatsverkoper"
     },
     {
       "id": "2026-06-14-etsy-belasting-checklist",
@@ -305,7 +187,8 @@
         "slides/2026-06-14-etsy-belasting-checklist/04.png",
         "slides/2026-06-14-etsy-belasting-checklist/05.png",
         "slides/2026-06-14-etsy-belasting-checklist/06.png"
-      ]
+      ],
+      "caption": "Etsy verkopers in Nederland lopen tegen een specifiek probleem aan: Etsy int zelf BTW van klanten in sommige landen, maar dat betekent niet dat jij niks hoeft te doen.\n\nWat ik veel zie: Etsy draagt BTW af namens jou aan bepaalde landen — maar jouw eigen Nederlandse BTW-plicht is daar los van. Als je totale omzet boven de €20.000 komt, ben jij in Nederland BTW-plichtig.\n\nEn als je klanten in meerdere EU-landen hebt en je totale EU-omzet boven de €10.000 ligt, kom je in OSS-territorium.\n\nEtsy geeft je wel omzetrapportages — maar het BTW-gedeelte moet je zelf uitzoeken.\n\nSwipe voor de volledige checklist voor Etsy verkopers in 2026.\n\nWeet jij al waar jij staat? Check het gratis op zenbtw.nl.\n\n#etsy #etsyverkoper #etsyshop #etsynederland #btw #belasting #kor #oss #ondernemer #belastingdienst #handmade #etsyseller"
     },
     {
       "id": "2026-06-14-dac7-vinted-2026",
@@ -328,7 +211,8 @@
         "slides/2026-06-14-dac7-vinted-2026/04.png",
         "slides/2026-06-14-dac7-vinted-2026/05.png",
         "slides/2026-06-14-dac7-vinted-2026/06.png"
-      ]
+      ],
+      "caption": "Vinted meldt jou aan bij de Belastingdienst. Automatisch. Zonder dat je er iets voor hoeft te doen.\n\nDit is geen theorie — dit is DAC7 in de praktijk. De EU-richtlijn die platforms verplicht om verkoopdata te delen met belastingdiensten in heel Europa.\n\nDe drempel: 30 transacties én €2.000 omzet in één jaar. Beide tegelijk. Haal je er maar één? Dan hoeft Vinted niks te melden.\n\nMaar weet dit: de Belastingdienst weet het dan toch al eerder dan jij denkt. Ze kopen ook data in van andere bronnen.\n\nWat ik verkopers aanraad: ga er vanuit dat je zichtbaar bent. Hou je omzet bij. Zorg dat je KOR-status klopt.\n\nSwipe voor wat er precies gemeld wordt en wat jij er aan kunt doen.\n\nCheck je BTW-status gratis via zenbtw.nl — ook als Vinted-verkoper.\n\n#vinted #dac7 #belasting #btw #belastingdienst #vintedverkoper #vintednederland #reseller #tweedehandskleding #kor #ondernemer #marketplace"
     },
     {
       "id": "preview-dac7",
