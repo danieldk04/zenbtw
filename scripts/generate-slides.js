@@ -418,15 +418,20 @@ const INFO = (s, index = 0, total = 5) => {
     </div>
 
     <!-- Cards vullen de rest van de hoogte -->
-    <div style="flex:1;display:${twoCol ? 'grid' : 'flex'};${twoCol ? 'grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr' : 'flex-direction:column'};gap:18px;min-height:0">
+    <div style="flex:1;display:${twoCol ? 'grid' : 'flex'};${twoCol ? 'grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr' : 'flex-direction:column'};gap:${twoCol ? '18' : '24'}px;min-height:0">
       ${cards.map(c => {
         const a = accentStyles[c.accent] || accentStyles.neutral;
-        return `<div style="background:#fff;border:1.5px solid ${a.border};border-left:6px solid ${a.bar};border-radius:0 20px 20px 0;padding:${twoCol ? '32px 28px' : '36px 40px'};display:flex;flex-direction:column;gap:16px;overflow:hidden">
-          <div style="display:flex;align-items:center;gap:16px;flex-shrink:0">
-            <div style="font-size:${twoCol ? '40' : '46'}px;flex-shrink:0">${c.icon || '•'}</div>
-            <h3 style="font-size:${twoCol ? '23' : '28'}px;font-weight:800;color:${a.title};line-height:1.2">${c.title || ''}</h3>
+        const iconSz  = twoCol ? '40' : '56';
+        const titleSz = twoCol ? '23' : '32';
+        const bodySz  = twoCol ? '21' : '27';
+        const pad     = twoCol ? '32px 28px' : '44px 48px';
+        const cardFlex = !twoCol ? 'flex:1;' : '';
+        return `<div style="background:#fff;border:1.5px solid ${a.border};border-left:6px solid ${a.bar};border-radius:0 20px 20px 0;padding:${pad};display:flex;flex-direction:column;justify-content:center;gap:${twoCol ? '16' : '24'}px;overflow:hidden;${cardFlex}">
+          <div style="display:flex;align-items:center;gap:${twoCol ? '16' : '22'}px;flex-shrink:0">
+            <div style="font-size:${iconSz}px;flex-shrink:0">${c.icon || '•'}</div>
+            <h3 style="font-size:${titleSz}px;font-weight:800;color:${a.title};line-height:1.15">${c.title || ''}</h3>
           </div>
-          <p style="font-size:${twoCol ? '21' : '25'}px;color:${a.body};line-height:1.55;font-weight:500;flex:1">${c.body || c.text || ''}</p>
+          <p style="font-size:${bodySz}px;color:${a.body};line-height:1.55;font-weight:500">${c.body || c.text || ''}</p>
         </div>`;
       }).join('')}
     </div>
