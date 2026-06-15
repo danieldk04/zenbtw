@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  width: 1080px;
+  height: 1350px;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  background: #f0ede4;
+  overflow: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── HEADER ── */
+.header {
+  background: #1a4731;
+  padding: 52px 64px 40px;
+  text-align: center;
+  position: relative;
+}
+.header-top {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  margin-bottom: 14px;
+}
+.folder-icon {
+  font-size: 48px;
+  line-height: 1;
+}
+.header-titles {
+  text-align: left;
+}
+.header-eyebrow {
+  font-size: 17px;
+  font-weight: 600;
+  color: rgba(255,255,255,0.65);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  margin-bottom: 2px;
+}
+.header-title {
+  font-size: 38px;
+  font-weight: 800;
+  color: #fff;
+  line-height: 1.15;
+}
+.header-sub {
+  font-size: 19px;
+  font-weight: 500;
+  color: rgba(255,255,255,0.7);
+  margin-top: 8px;
+}
+.cta-pill {
+  display: inline-block;
+  margin-top: 22px;
+  background: #2d6a4f;
+  color: #fff;
+  border-radius: 100px;
+  padding: 13px 32px;
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+}
+
+/* ── PERSONA SECTION ── */
+.personas-row {
+  display: flex;
+  padding: 28px 40px 0;
+  background: #f0ede4;
+  gap: 0;
+}
+.persona-col {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  padding: 0 8px;
+}
+.persona-col:first-child { padding-left: 0; }
+.persona-col:last-child { padding-right: 0; }
+.avatar {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 3px solid #fff;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+}
+.avatar img { width: 100%; height: 100%; object-fit: cover; }
+.persona-name {
+  font-size: 20px;
+  font-weight: 800;
+  color: #1a1814;
+  text-align: center;
+  line-height: 1.2;
+}
+
+/* ── TABLE ── */
+.table-wrap {
+  margin: 18px 28px 0;
+  border-radius: 18px;
+  overflow: hidden;
+  border: 1.5px solid #d8d3c8;
+  background: #fff;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+}
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+.col-label { width: 30%; }
+.col-val { width: 23.3%; text-align: center; }
+
+/* Header row */
+thead tr th {
+  padding: 14px 10px;
+  font-size: 17px;
+  font-weight: 800;
+  text-align: center;
+}
+thead tr th:first-child {
+  background: #1a4731;
+  color: rgba(255,255,255,0);
+  width: 30%;
+}
+thead tr th:not(:first-child) {
+  background: #1a4731;
+  color: #fff;
+}
+
+/* Body rows */
+tbody tr { border-top: 1px solid #e8e3d8; }
+tbody tr:nth-child(even) td { background: #f7f5f0; }
+tbody tr:nth-child(odd) td { background: #fff; }
+
+td {
+  padding: 13px 12px;
+  font-size: 16px;
+  color: #3a3630;
+  vertical-align: middle;
+}
+td:first-child {
+  font-weight: 600;
+  color: #6a6460;
+  font-size: 15px;
+  line-height: 1.3;
+}
+td:not(:first-child) {
+  text-align: center;
+  font-weight: 600;
+  color: #1a1814;
+}
+
+/* Status indicators */
+.check { color: #16a34a; font-size: 22px; }
+.cross {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+}
+.cross-icon { color: #dc2626; font-size: 20px; }
+.cross-label { font-size: 11px; color: #dc2626; font-weight: 700; }
+
+.dot-ja {
+  display: inline-block;
+  width: 18px; height: 18px;
+  border-radius: 50%;
+  background: #ef4444;
+}
+.dot-nee {
+  display: inline-block;
+  width: 18px; height: 18px;
+  border-radius: 50%;
+  background: #6b7280;
+}
+.dot-label { font-size: 13px; color: #6a6460; display: block; margin-top: 2px; font-weight: 500; }
+
+.advice-red { color: #dc2626; font-weight: 800; font-size: 15px; line-height: 1.3; }
+.advice-orange { color: #d97706; font-weight: 800; font-size: 14px; line-height: 1.3; }
+.advice-green { color: #16a34a; font-weight: 800; font-size: 15px; line-height: 1.3; }
+
+/* total row */
+.row-total td { background: #f0ede4 !important; }
+.row-total td:first-child { color: #1a1814; font-weight: 700; font-size: 16px; }
+.row-total td:not(:first-child) { font-size: 18px; font-weight: 800; color: #1a1814; }
+
+/* ── FOOTER ── */
+.footer {
+  position: absolute;
+  bottom: 0;
+  left: 0; right: 0;
+  padding: 18px 40px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.footer-logo {
+  font-size: 22px;
+  font-weight: 800;
+  color: #1a4731;
+  letter-spacing: -0.5px;
+}
+.footer-logo span { color: #2d6a4f; }
+.footer-sub { font-size: 15px; color: #9a9490; font-weight: 500; }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="header">
+  <div class="header-top">
+    <div class="folder-icon">📁</div>
+    <div class="header-titles">
+      <div class="header-eyebrow">KOR/OSS</div>
+      <div class="header-title">E-COMMERCE BTW IN 2026?<br>CONTROLEER JE BTW-GRENS</div>
+    </div>
+  </div>
+  <div class="header-sub">Check je ZenBTW Status</div>
+  <div class="cta-pill">Bekijk de voorbeelden hieronder</div>
+</div>
+
+<!-- PERSONAS -->
+<div class="personas-row">
+  <div class="persona-col"></div>
+  <div class="persona-col">
+    <div class="avatar">
+      <!-- Sophie: woman, auburn hair, green top -->
+      <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+        <rect width="100" height="100" fill="#dbeafe"/>
+        <!-- body -->
+        <ellipse cx="50" cy="88" rx="28" ry="18" fill="#1a6641"/>
+        <!-- neck -->
+        <rect x="44" y="62" width="12" height="14" rx="4" fill="#f5c5a0"/>
+        <!-- head -->
+        <ellipse cx="50" cy="52" rx="22" ry="24" fill="#f5c5a0"/>
+        <!-- hair back -->
+        <ellipse cx="50" cy="38" rx="24" ry="16" fill="#7c3a1a"/>
+        <!-- hair sides -->
+        <ellipse cx="28" cy="58" rx="8" ry="18" fill="#7c3a1a"/>
+        <ellipse cx="72" cy="58" rx="8" ry="18" fill="#7c3a1a"/>
+        <!-- hair top -->
+        <ellipse cx="50" cy="32" rx="22" ry="14" fill="#8b4513"/>
+        <!-- eyes -->
+        <ellipse cx="42" cy="52" rx="3.5" ry="4" fill="#fff"/>
+        <ellipse cx="58" cy="52" rx="3.5" ry="4" fill="#fff"/>
+        <circle cx="42" cy="52" r="2.2" fill="#3b2314"/>
+        <circle cx="58" cy="52" r="2.2" fill="#3b2314"/>
+        <!-- eyebrows -->
+        <path d="M38 46 Q42 44 46 46" stroke="#5c2a0a" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+        <path d="M54 46 Q58 44 62 46" stroke="#5c2a0a" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+        <!-- smile -->
+        <path d="M43 62 Q50 68 57 62" stroke="#c47a5a" stroke-width="2" fill="none" stroke-linecap="round"/>
+        <!-- nose -->
+        <ellipse cx="50" cy="57" rx="2" ry="1.5" fill="#e0a882"/>
+      </svg>
+    </div>
+    <div class="persona-name">Sophie<br>(28)</div>
+  </div>
+  <div class="persona-col">
+    <div class="avatar">
+      <!-- Thomas: man, light brown hair -->
+      <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+        <rect width="100" height="100" fill="#e0e7ff"/>
+        <!-- body -->
+        <ellipse cx="50" cy="88" rx="28" ry="18" fill="#3b5bdb"/>
+        <!-- neck -->
+        <rect x="44" y="62" width="12" height="14" rx="4" fill="#f0c090"/>
+        <!-- head -->
+        <ellipse cx="50" cy="52" rx="22" ry="23" fill="#f0c090"/>
+        <!-- hair -->
+        <ellipse cx="50" cy="34" rx="22" ry="12" fill="#8B6914"/>
+        <rect x="28" y="32" width="8" height="16" rx="4" fill="#8B6914"/>
+        <rect x="64" y="32" width="8" height="16" rx="4" fill="#8B6914"/>
+        <!-- ears -->
+        <ellipse cx="28" cy="52" rx="5" ry="7" fill="#f0c090"/>
+        <ellipse cx="72" cy="52" rx="5" ry="7" fill="#f0c090"/>
+        <!-- eyes -->
+        <ellipse cx="42" cy="51" rx="3.5" ry="4" fill="#fff"/>
+        <ellipse cx="58" cy="51" rx="3.5" ry="4" fill="#fff"/>
+        <circle cx="42" cy="51" r="2.2" fill="#2c1a0e"/>
+        <circle cx="58" cy="51" r="2.2" fill="#2c1a0e"/>
+        <!-- eyebrows -->
+        <path d="M38 45 Q42 43 46 45" stroke="#5a3e10" stroke-width="2" fill="none" stroke-linecap="round"/>
+        <path d="M54 45 Q58 43 62 45" stroke="#5a3e10" stroke-width="2" fill="none" stroke-linecap="round"/>
+        <!-- stubble suggestion -->
+        <ellipse cx="50" cy="64" rx="10" ry="5" fill="#d4a870" opacity="0.4"/>
+        <!-- smile -->
+        <path d="M43 61 Q50 67 57 61" stroke="#b07840" stroke-width="2" fill="none" stroke-linecap="round"/>
+        <!-- nose -->
+        <ellipse cx="50" cy="57" rx="2" ry="1.5" fill="#d4956a"/>
+      </svg>
+    </div>
+    <div class="persona-name">Thomas<br>(33)</div>
+  </div>
+  <div class="persona-col">
+    <div class="avatar">
+      <!-- Nadir: man, darker complexion -->
+      <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+        <rect width="100" height="100" fill="#fce7f3"/>
+        <!-- body -->
+        <ellipse cx="50" cy="88" rx="28" ry="18" fill="#1e40af"/>
+        <!-- neck -->
+        <rect x="44" y="62" width="12" height="14" rx="4" fill="#c8854e"/>
+        <!-- head -->
+        <ellipse cx="50" cy="52" rx="22" ry="23" fill="#c8854e"/>
+        <!-- hair -->
+        <ellipse cx="50" cy="34" rx="22" ry="13" fill="#1a0f00"/>
+        <rect x="28" y="32" width="7" height="14" rx="3" fill="#1a0f00"/>
+        <rect x="65" y="32" width="7" height="14" rx="3" fill="#1a0f00"/>
+        <!-- ears -->
+        <ellipse cx="28" cy="52" rx="5" ry="7" fill="#c8854e"/>
+        <ellipse cx="72" cy="52" rx="5" ry="7" fill="#c8854e"/>
+        <!-- eyes -->
+        <ellipse cx="42" cy="51" rx="3.5" ry="4" fill="#fff"/>
+        <ellipse cx="58" cy="51" rx="3.5" ry="4" fill="#fff"/>
+        <circle cx="42" cy="51" r="2.5" fill="#1a0f00"/>
+        <circle cx="58" cy="51" r="2.5" fill="#1a0f00"/>
+        <!-- eyebrows -->
+        <path d="M38 44 Q42 42 46 44" stroke="#0d0700" stroke-width="2.2" fill="none" stroke-linecap="round"/>
+        <path d="M54 44 Q58 42 62 44" stroke="#0d0700" stroke-width="2.2" fill="none" stroke-linecap="round"/>
+        <!-- smile -->
+        <path d="M43 62 Q50 68 57 62" stroke="#a06030" stroke-width="2" fill="none" stroke-linecap="round"/>
+        <!-- nose -->
+        <ellipse cx="50" cy="57" rx="2.5" ry="2" fill="#a86030"/>
+      </svg>
+    </div>
+    <div class="persona-name">Nadir<br>(25)</div>
+  </div>
+</div>
+
+<!-- TABLE -->
+<div class="table-wrap">
+  <table>
+    <thead>
+      <tr>
+        <th></th>
+        <th>Sophie<br>(28)</th>
+        <th>Thomas<br>(33)</th>
+        <th>Nadir<br>(25)</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Verkoop­platform</td>
+        <td>Shopify<br><small style="font-weight:400;color:#9a9490;font-size:12px">(+ WooCommerce)</small></td>
+        <td>Etsy</td>
+        <td>Vinted</td>
+      </tr>
+      <tr>
+        <td>Omzet NL</td>
+        <td>€16.000</td>
+        <td>€3.500</td>
+        <td>€18.000</td>
+      </tr>
+      <tr>
+        <td>Omzet EU</td>
+        <td>€5.000</td>
+        <td>€8.500</td>
+        <td>€0</td>
+      </tr>
+      <tr class="row-total">
+        <td>Totaal Omzet</td>
+        <td>€21.000</td>
+        <td>€12.000</td>
+        <td>€18.000</td>
+      </tr>
+      <tr>
+        <td>KOR-grens<br>(€20k)</td>
+        <td>
+          <div class="cross">
+            <span class="cross-icon">✗</span>
+            <span class="cross-label">Overschreden</span>
+          </div>
+        </td>
+        <td><span class="check">✓</span> Veilig</td>
+        <td><span class="check">✓</span> Veilig</td>
+      </tr>
+      <tr>
+        <td>OSS-grens<br>(€10k)</td>
+        <td><span class="check">✓</span> Veilig</td>
+        <td><span class="check">✓</span> Veilig</td>
+        <td><span class="check">✓</span> Veilig</td>
+      </tr>
+      <tr>
+        <td>BTW-<br>afracht?</td>
+        <td>
+          <span class="dot-ja"></span>
+          <span class="dot-label">Ja</span>
+        </td>
+        <td>
+          <span class="dot-ja"></span>
+          <span class="dot-label">Ja</span>
+        </td>
+        <td>
+          <span class="dot-nee"></span>
+          <span class="dot-label">Nee</span>
+        </td>
+      </tr>
+      <tr>
+        <td><strong>Advies</strong></td>
+        <td><span class="advice-red">KOR<br>vervalt</span></td>
+        <td><span class="advice-orange">Geef verlegde<br>Etsy btw aan</span></td>
+        <td><span class="advice-green">Geen actie<br>nodig</span></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- FOOTER -->
+<div class="footer">
+  <div class="footer-logo">Zen<span>BTW</span></div>
+  <div class="footer-sub">BTW checker voor verkopers</div>
+</div>
+
+</body>
+</html>
