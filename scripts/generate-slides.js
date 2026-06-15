@@ -93,7 +93,7 @@ function buildPrompt(topic, type, targetSlides = 6, rotationIndex = 0) {
     `STIJL VOOR DEZE CARROUSEL: Gebruik dark:false op de hook. Verplicht: gebruik dark:true op de steps-slide. Gebruik persona-template. Voeg een info-slide toe.`,
   ];
   const variationInstruction = type === 'poster'
-    ? `POSTER-MODUS: Dit is een losse stat-poster. Gebruik UITSLUITEND het "stat" of "hook" template. VERBODEN voor posters: dashboard, split, compare, persona, info, steps, list, cta.`
+    ? `POSTER-MODUS: Dit is een losse stat-poster. Gebruik UITSLUITEND het "stat" template met een groot concreet getal als hero (bijv. "30", "€100.000", "€20.000"). VERBODEN: hook, dashboard, split, compare, persona, info, steps, list, cta.`
     : styleVariations[rotationIndex % styleVariations.length];
 
   return `Je maakt informatieve social media content voor Nederlandse marketplace verkopers (Vinted, Etsy, Shopify, Marktplaats, Bol.com).
@@ -249,11 +249,13 @@ Gebruik dit template als je ZenBTW als product wilt laten zien. De slide toont e
 
 STIJLREGELS:
 - Carrousel: altijd beginnen met "hook", eindigen met "cta"
-- Gebruik ECHTE bedragen: KOR €20k NL · OSS €10k EU · DAC7: 30 transacties EN €2.000
+- Gebruik ECHTE bedragen: KOR €20k NL · OSS €10k EU · EU-KOR €100k totale EU-omzet · DAC7: 30 transacties EN €2.000
+- EU-KOR drempel = €100.000 totale EU-omzet per jaar (NIET €10k — dat is de OSS-drempel)
 - Schrijf menselijk, toegankelijk Nederlands — informatief en concreet, niet bang-makend
 - Geen woorden als "pas op", "gevaar", "belasting-bom" — wel: "goed om te weten", "zo zit het"
 - Persona-template = meest engaging, gebruik hem als je een vergelijking maakt
-- Poster = 1 slide: gebruik "stat" of "hook"
+- Poster = 1 slide: gebruik UITSLUITEND "stat" — GEEN hook, dashboard of andere templates
+- dashboard-template = ALLEEN gebruiken als het topic expliciet over de ZenBTW tool gaat — NIET in educatieve carrousels
 - CTA: vriendelijk en laagdrempelig — uitnodigend, niet urgent
 - "highlight" bij hook = het label bovenin de groene pil (bijv. "Goed om te weten", "Let op")
 - "title" bij hook = de grote vetgedrukte headline, max 8 woorden
