@@ -17,44 +17,12 @@
       "notes": "🔥 TRENDING — De 3-jaar verplichting is weg. Je kunt nu op elk moment uitstappen. Dark hook + compare: oud vs nieuw. Actiegericht voor verkopers die KOR wilden maar terugschrokken."
     },
     {
-      "topic": "DAC7 handhaving 2026: de Belastingdienst heeft nu écht jouw platformdata",
-      "slug": "dac7-handhaving-2026",
-      "type": "poster",
-      "status": "pending",
-      "priority": 1,
-      "notes": "🔥 TRENDING — 2026 = eerste volledige handhavingsjaar na overgangsperiode. Stat-poster: groot cijfer 30 transacties + €2.000 = melding. Urgente toon maar feitelijk."
-    },
-    {
-      "topic": "Vinted hobby of ondernemer? Hoe de Belastingdienst naar jouw verkopen kijkt",
-      "slug": "vinted-hobby-of-ondernemer",
-      "type": "carousel",
-      "status": "pending",
-      "priority": 3,
-      "notes": "🔥 TRENDING — Veel verwarring over dit onderscheid. Criteria BD: structureel, winstoogmerk, professionele technieken. Persona-template: hobbyist vs ondernemer. Concrete grens uitleggen."
-    },
-    {
       "topic": "Shopify dropshipping 2026: de €150-douanevrijstelling bestaat niet meer",
       "slug": "shopify-dropshipping-douane-2026",
       "type": "carousel",
       "status": "pending",
       "priority": 4,
       "notes": "🔥 TRENDING — Per 2026 geen €150-vrijstelling meer. Elke zending buiten EU vereist douaneaangifte. IOSS als oplossing. Steps-template + split met dashboard."
-    },
-    {
-      "topic": "EU-KOR vs OSS: welke regeling past bij jou als je ook in het buitenland verkoopt?",
-      "slug": "eu-kor-vs-oss-vergelijking",
-      "type": "carousel",
-      "status": "pending",
-      "priority": 5,
-      "notes": "Vergelijking twee EU-regelingen. EU-KOR: BTW-vrijstelling in andere EU-landen (max €100k EU). OSS: BTW afdragen per EU-land via één loket. Compare-template met persona's."
-    },
-    {
-      "topic": "KOR opzeggen: wanneer moet je stoppen en hoe doe je dat?",
-      "slug": "kor-opzeggen-wanneer",
-      "type": "carousel",
-      "status": "pending",
-      "priority": 6,
-      "notes": "Stappenplan + dark hook — actiegericht"
     }
   ],
   "published": [
@@ -257,6 +225,46 @@
       "notes": "Dashboard-heavy — goede kans voor dashboard + split templates",
       "publishedDate": "2026-06-15",
       "outputDir": "slides/2026-06-15-zenbtw-tool-uitleg"
+    },
+    {
+      "topic": "DAC7 handhaving 2026: de Belastingdienst heeft nu écht jouw platformdata",
+      "slug": "dac7-handhaving-2026",
+      "type": "poster",
+      "status": "published",
+      "priority": 1,
+      "notes": "🔥 TRENDING — 2026 = eerste volledige handhavingsjaar na overgangsperiode. Stat-poster: groot cijfer 30 transacties + €2.000 = melding. Urgente toon maar feitelijk.",
+      "publishedDate": "2026-06-15",
+      "outputDir": "slides/2026-06-15-dac7-handhaving-2026"
+    },
+    {
+      "topic": "Vinted hobby of ondernemer? Hoe de Belastingdienst naar jouw verkopen kijkt",
+      "slug": "vinted-hobby-of-ondernemer",
+      "type": "carousel",
+      "status": "published",
+      "priority": 3,
+      "notes": "🔥 TRENDING — Veel verwarring over dit onderscheid. Criteria BD: structureel, winstoogmerk, professionele technieken. Persona-template: hobbyist vs ondernemer. Concrete grens uitleggen.",
+      "publishedDate": "2026-06-15",
+      "outputDir": "slides/2026-06-15-vinted-hobby-of-ondernemer"
+    },
+    {
+      "topic": "EU-KOR vs OSS: welke regeling past bij jou als je ook in het buitenland verkoopt?",
+      "slug": "eu-kor-vs-oss-vergelijking",
+      "type": "carousel",
+      "status": "published",
+      "priority": 5,
+      "notes": "Vergelijking twee EU-regelingen. EU-KOR: BTW-vrijstelling in andere EU-landen (max €100k EU). OSS: BTW afdragen per EU-land via één loket. Compare-template met persona's.",
+      "publishedDate": "2026-06-15",
+      "outputDir": "slides/2026-06-15-eu-kor-vs-oss-vergelijking"
+    },
+    {
+      "topic": "KOR opzeggen: wanneer moet je stoppen en hoe doe je dat?",
+      "slug": "kor-opzeggen-wanneer",
+      "type": "carousel",
+      "status": "published",
+      "priority": 6,
+      "notes": "Stappenplan + dark hook — actiegericht",
+      "publishedDate": "2026-06-15",
+      "outputDir": "slides/2026-06-15-kor-opzeggen-wanneer"
     }
   ],
   "settings": {
