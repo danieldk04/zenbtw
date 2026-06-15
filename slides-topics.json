@@ -1,6 +1,14 @@
 {
   "queue": [
     {
+      "topic": "DAC7 handhaving 2026: de Belastingdienst heeft nu écht jouw platformdata",
+      "slug": "dac7-handhaving-2026",
+      "type": "poster",
+      "status": "pending",
+      "priority": 1,
+      "notes": "🔥 TRENDING — 2026 = eerste volledige handhavingsjaar na overgangsperiode. Stat-poster: groot cijfer 30 transacties + €2.000 = melding. Urgente toon maar feitelijk."
+    },
+    {
       "topic": "EU-KOR: de nieuwe Europese BTW-vrijstelling voor Etsy- en Shopify-verkopers",
       "slug": "eu-kor-europese-vrijstelling",
       "type": "carousel",
@@ -225,16 +233,6 @@
       "notes": "Dashboard-heavy — goede kans voor dashboard + split templates",
       "publishedDate": "2026-06-15",
       "outputDir": "slides/2026-06-15-zenbtw-tool-uitleg"
-    },
-    {
-      "topic": "DAC7 handhaving 2026: de Belastingdienst heeft nu écht jouw platformdata",
-      "slug": "dac7-handhaving-2026",
-      "type": "poster",
-      "status": "published",
-      "priority": 1,
-      "notes": "🔥 TRENDING — 2026 = eerste volledige handhavingsjaar na overgangsperiode. Stat-poster: groot cijfer 30 transacties + €2.000 = melding. Urgente toon maar feitelijk.",
-      "publishedDate": "2026-06-15",
-      "outputDir": "slides/2026-06-15-dac7-handhaving-2026"
     },
     {
       "topic": "Vinted hobby of ondernemer? Hoe de Belastingdienst naar jouw verkopen kijkt",

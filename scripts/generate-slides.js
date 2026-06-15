@@ -92,7 +92,9 @@ function buildPrompt(topic, type, targetSlides = 6, rotationIndex = 0) {
     `STIJL VOOR DEZE CARROUSEL: Gebruik dark:true op de hook. Verplicht: gebruik list-template als checklist. Voeg een stat-slide toe. Eindig sterk met persona of compare.`,
     `STIJL VOOR DEZE CARROUSEL: Gebruik dark:false op de hook. Verplicht: gebruik persona-template met 2-3 persona's. Voeg een steps-slide toe met een stappenplan.`,
   ];
-  const variationInstruction = styleVariations[rotationIndex % styleVariations.length];
+  const variationInstruction = type === 'poster'
+    ? `POSTER-MODUS: Dit is een losse stat-poster. Gebruik UITSLUITEND het "stat" of "hook" template. VERBODEN voor posters: dashboard, split, compare, persona, info, steps, list, cta.`
+    : styleVariations[rotationIndex % styleVariations.length];
 
   return `Je maakt informatieve social media content voor Nederlandse marketplace verkopers (Vinted, Etsy, Shopify, Marktplaats, Bol.com).
 
@@ -1038,8 +1040,13 @@ async function main() {
         max_tokens: 4096,
         messages: [{ role: 'user', content: buildPrompt(item.topic, item.type, targetSlides, rotationIndex) }],
       });
-      const raw = msg.content[0].text.trim()
+      let raw = msg.content[0].text.trim()
         .replace(/^```json\s*/i, '').replace(/^```\s*/i, '').replace(/\s*```$/i, '');
+      // Escape literal control characters inside JSON string values
+      raw = raw.replace(/"(?:[^"\\]|\\.)*"/g, s =>
+        s.replace(/[\x00-\x08\x0b\x0c\x0e-\x1f]/g, c =>
+          '\\u' + c.charCodeAt(0).toString(16).padStart(4, '0'))
+      );
       slideData = JSON.parse(raw);
     } catch (err) {
       console.error(`  ❌ Claude/parse error: ${err.message}`);
