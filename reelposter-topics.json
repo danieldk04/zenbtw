@@ -1,0 +1,138 @@
+{
+  "queue": [
+    {
+      "topic": "EU-KOR: verkoop je ook in andere EU-landen? Dit is de nieuwe vrijstelling",
+      "slug": "eu-kor-nieuwe-vrijstelling",
+      "template": "checklist",
+      "status": "pending",
+      "priority": 1,
+      "notes": "🔥 TRENDING — EU-KOR seit jan 2025. Checklist: voldoe je aan de voorwaarden? Drempel €100k EU-omzet totaal. Voor Etsy/Shopify EU-verkopers."
+    },
+    {
+      "topic": "De 3-jaar KOR-wachttermijn bestaat niet meer — wat verandert er voor jou?",
+      "slug": "kor-wachttermijn-weg-2026",
+      "template": "myth",
+      "status": "pending",
+      "priority": 2,
+      "notes": "🔥 TRENDING — Mythe vs werkelijkheid: oude regels vs nieuwe regels. Je kunt nu op elk moment stoppen met KOR. Zeer herkenbaar voor mensen die terugschrokken."
+    },
+    {
+      "topic": "Vinted hobby checklist: wanneer word jij door de Belastingdienst gezien als ondernemer?",
+      "slug": "vinted-hobby-ondernemer-checklist",
+      "template": "checklist",
+      "status": "pending",
+      "priority": 3,
+      "notes": "🔥 TRENDING — Criteria BD voor ondernemerschap: structureel, winstoogmerk, professionele aanpak. Praktische checklist met warn/good noten."
+    },
+    {
+      "topic": "Shopify dropshipping 2026: dit kost je de nieuwe douaneregel",
+      "slug": "shopify-douane-kosten-2026",
+      "template": "rekensommetje",
+      "status": "pending",
+      "priority": 4,
+      "notes": "🔥 TRENDING — €150-vrijstelling weg. Rekensom: zending €80 uit China → vroeger gratis → nu douanekosten + BTW. IOSS als oplossing."
+    },
+    {
+      "topic": "Welk platform rapporteert jouw omzet aan de Belastingdienst?",
+      "slug": "dac7-platforms-vergelijking",
+      "template": "compare",
+      "status": "pending",
+      "priority": 5,
+      "notes": "Vergelijkingstabel Vinted/Etsy/Bol/Shopify/Airbnb met DAC7-drempels, KOR-mogelijkheid, risico"
+    },
+    {
+      "topic": "Zo berekent de Belastingdienst jouw BTW-schuld als je de KOR overschrijdt",
+      "slug": "btw-schuld-berekening-kor",
+      "template": "rekensommetje",
+      "status": "pending",
+      "priority": 6,
+      "notes": "Stap-voor-stap berekening: omzet boven €20k × 21% + eventuele boete"
+    },
+    {
+      "topic": "Wanneer word je BTW-plichtig? Tijdlijn voor Vinted-verkopers",
+      "slug": "vinted-btw-plichtig-tijdlijn",
+      "template": "tijdlijn",
+      "status": "pending",
+      "priority": 7,
+      "notes": "Maand-voor-maand tijdlijn van €0 naar €20.000 KOR-grens overschrijding"
+    },
+    {
+      "topic": "Moet jij BTW afdragen? Doorloop de checklist",
+      "slug": "btw-afdragen-checklist",
+      "template": "checklist",
+      "status": "pending",
+      "priority": 8,
+      "notes": "Beslischecklist met vragen over omzet, platform, KOR-aanmelding, OSS-drempel"
+    },
+    {
+      "topic": "3 BTW-mythes die marketplace-verkopers geld kosten",
+      "slug": "btw-mythes-marketplace",
+      "template": "myth",
+      "status": "pending",
+      "priority": 9,
+      "notes": "Mythe vs. werkelijkheid: KOR automatisch, tweede account helpt, Vinted meldt niet"
+    },
+    {
+      "topic": "DAC7 uitgelegd: wat deelt Etsy écht met de Belastingdienst?",
+      "slug": "dac7-etsy-uitleg",
+      "template": "compare",
+      "status": "pending",
+      "priority": 10,
+      "notes": "Vergelijkingstabel welke data Etsy deelt vs. wat BD ermee doet"
+    },
+    {
+      "topic": "KOR overschreden in oktober: wat zijn de gevolgen voor 2027?",
+      "slug": "kor-overschreden-gevolgen",
+      "template": "tijdlijn",
+      "status": "pending",
+      "priority": 11,
+      "notes": "Tijdlijn die laat zien hoe lang je BTW-plichtig blijft na overschrijding"
+    },
+    {
+      "topic": "OSS vs KOR: welke regeling is goedkoper voor jou als Bol.com verkoper?",
+      "slug": "oss-vs-kor-bol-vergelijking",
+      "template": "rekensommetje",
+      "status": "pending",
+      "priority": 12,
+      "notes": "Rekensom met twee scenario's: KOR €19.999 vs OSS €25.000 EU-omzet"
+    },
+    {
+      "topic": "Shopify verkoper in Nederland: dit zijn jouw BTW-verplichtingen in 2026",
+      "slug": "shopify-btw-verplichtingen-checklist",
+      "template": "checklist",
+      "status": "pending",
+      "priority": 13,
+      "notes": "Checklist specifiek voor Shopify: eigen webshop, geen DAC7-melding, wél KOR mogelijk"
+    },
+    {
+      "topic": "5 fouten die Vinted-verkopers maken bij hun belastingaangifte",
+      "slug": "vinted-aangifte-fouten-mythes",
+      "template": "myth",
+      "status": "pending",
+      "priority": 14,
+      "notes": "Mythe vs werkelijkheid over gebruikelijke fouten: tweedehands vrijstelling, hobby-status, etc."
+    },
+    {
+      "topic": "Van €0 naar €20.000: zo verloopt een jaar als Etsy-verkoper (met BTW-gevolgen)",
+      "slug": "etsy-jaar-tijdlijn-btw",
+      "template": "tijdlijn",
+      "status": "pending",
+      "priority": 15,
+      "notes": "Maandelijkse tijdlijn Etsy-verkoper met handmade items, EU-klanten en OSS-drempel"
+    },
+    {
+      "topic": "Welke marketplace-platforms melden automatisch aan de BD en welke niet?",
+      "slug": "platform-automatisch-melden-vergelijking",
+      "template": "compare",
+      "status": "pending",
+      "priority": 16,
+      "notes": "Uitgebreide vergelijkingstabel met alle grote platforms inclusief Marktplaats, Facebook Marketplace"
+    }
+  ],
+  "published": [],
+  "settings": {
+    "maxPerRun": 4,
+    "model": "claude-sonnet-4-6",
+    "outputDir": "reelposters"
+  }
+}

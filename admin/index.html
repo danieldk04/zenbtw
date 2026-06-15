@@ -352,8 +352,9 @@ footer{background:var(--bg,#f7f6f3);border-top:1.5px solid var(--br,#e5e0d8);pad
       <a id="nav-traffic"  class="nav-item"         onclick="go('traffic')">📈 Bezoekers &amp; verkeer</a>
       <a id="nav-contacts" class="nav-item"         onclick="go('contacts')">👥 Contacten &amp; e-mails</a>
       <a id="nav-fiscal"   class="nav-item"         onclick="go('fiscal')">⚖️ Fiscale logica</a>
-      <a id="nav-slides"   class="nav-item"         onclick="go('slides')">🖼️ Social slides</a>
-      <a id="nav-actions"  class="nav-item"         onclick="go('actions')">⚙️ GitHub Actions</a>
+      <a id="nav-slides"       class="nav-item"         onclick="go('slides')">🖼️ Social slides</a>
+      <a id="nav-reelposters" class="nav-item"         onclick="go('reelposters')">🎬 Reelposters</a>
+      <a id="nav-actions"     class="nav-item"         onclick="go('actions')">⚙️ GitHub Actions</a>
     </nav>
 
 
@@ -1052,6 +1053,31 @@ footer{background:var(--bg,#f7f6f3);border-top:1.5px solid var(--br,#e5e0d8);pad
 
     </div><!-- /page-slides -->
 
+    <!-- ── REELPOSTERS ── -->
+    <div class="page" id="page-reelposters">
+      <div class="slides-kpi" id="reelposters-kpi"></div>
+
+      <div class="card" style="margin-bottom:1.2rem">
+        <div class="card-head">
+          <h3>🎬 Reelposters</h3>
+          <button class="btn btn-ghost" onclick="loadReelposters()">↺</button>
+        </div>
+        <div style="padding:1rem 1.2rem">
+          <div id="reelposters-list"><div class="empty">Laden...</div></div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-head"><h3>⚙️ Reelposters generator</h3><span class="badge bb">Elke woensdag 08:00</span></div>
+        <div class="info-row"><span class="info-label">Script</span><span class="info-value mono">scripts/generate-reelposters.js</span></div>
+        <div class="info-row"><span class="info-label">Output</span><span class="info-value mono">reelposters/[datum-topic]/poster.html + poster.png + description.txt</span></div>
+        <div class="info-row"><span class="info-label">Templates</span><span class="info-value">Vergelijking · Rekensommetje · Tijdlijn · Checklist · Mythe vs. werkelijkheid</span></div>
+        <div class="info-row"><span class="info-label">Formaat</span><span class="info-value">1080×1350px · Overlay op standaard Reel-video</span></div>
+        <div class="info-row"><span class="info-label">Kosten</span><span class="info-value">~€0.10-0.20 per poster (Claude Sonnet 4.6 + Haiku)</span></div>
+        <div class="info-row"><span class="info-label">Trigger</span><span class="info-value"><a href="https://github.com/danieldk04/zenbtw/actions" target="_blank">Handmatig via GitHub Actions →</a></span></div>
+      </div>
+    </div><!-- /page-reelposters -->
+
     <!-- Slide detail modal -->
     <div class="slide-detail-modal" id="slideDetailModal">
       <div class="slide-detail-inner">
@@ -1117,7 +1143,7 @@ const PAGE_TITLES = {
   style:'Schrijfstijl', traffic:'Bezoekers & verkeer', contacts:'Contacten & e-mails',
   seo:'Keyword research', leads:'Leads & outreach',
   content:'Content intelligence', agent:'Content agent', fiscal:'Fiscale logica',
-  slides:'Social slides', actions:'GitHub Actions'
+  slides:'Social slides', reelposters:'Reelposters', actions:'GitHub Actions'
 };
 
 function go(name){
@@ -1133,6 +1159,7 @@ function go(name){
   if(name==='leads') initLeads();
   if(name==='content') initContent();
   if(name==='slides') loadSlides();
+  if(name==='reelposters') loadReelposters();
   closeSidebar();
 }
 
@@ -2544,6 +2571,123 @@ async function downloadZip(id) {
 
 function toggleMobNav(){var h=document.getElementById('navHamburger'),o=document.getElementById('mobNavOverlay'),d=document.getElementById('mobNavDrawer'),op=!h.classList.contains('open');h.classList.toggle('open',op);o.classList.toggle('on',op);d.classList.toggle('on',op);document.body.style.overflow=op?'hidden':'';}
 function closeMobNav(){document.getElementById('navHamburger').classList.remove('open');document.getElementById('mobNavOverlay').classList.remove('on');document.getElementById('mobNavDrawer').classList.remove('on');document.body.style.overflow='';}
+
+// ── Reelposters ───────────────────────────────────────────────────────────────
+let reelpostersData = null;
+
+async function loadReelposters() {
+  const el = document.getElementById('reelposters-list');
+  el.innerHTML = '<div class="empty">Laden...</div>';
+  try {
+    reelpostersData = await get('/reelposters/manifest.json');
+    renderReelposters();
+    renderReelpostersKpi();
+  } catch(e) {
+    el.innerHTML = '<div class="slides-empty">Nog geen reelposters gegenereerd.<br><span style="font-size:.75rem;margin-top:.3rem;display:block">Trigger de workflow via GitHub Actions → Reelposters.</span></div>';
+    document.getElementById('reelposters-kpi').innerHTML = '';
+  }
+}
+
+function renderReelpostersKpi() {
+  if (!reelpostersData) return;
+  const sets = reelpostersData.sets || [];
+  const templates = {};
+  sets.forEach(s => { templates[s.template] = (templates[s.template]||0)+1; });
+  const topTpl = Object.entries(templates).sort((a,b)=>b[1]-a[1])[0];
+  const lastDate = sets.length ? sets[0].date : '—';
+  document.getElementById('reelposters-kpi').innerHTML = `
+    <div class="kpi"><div class="kpi-label">Totaal posters</div><div class="kpi-value">${sets.length}</div><div class="kpi-sub">gegenereerd</div><div class="kpi-icon">🎬</div></div>
+    <div class="kpi"><div class="kpi-label">Meest gebruikt</div><div class="kpi-value" style="font-size:1rem;padding-top:.4rem">${topTpl?topTpl[0]:'—'}</div><div class="kpi-sub">template</div><div class="kpi-icon">📐</div></div>
+    <div class="kpi"><div class="kpi-label">Laatste batch</div><div class="kpi-value" style="font-size:1.2rem">${lastDate}</div><div class="kpi-sub">volgende: woensdag</div><div class="kpi-icon">📅</div></div>
+  `;
+}
+
+function renderReelposters() {
+  if (!reelpostersData) return;
+  const sets = reelpostersData.sets || [];
+  const el = document.getElementById('reelposters-list');
+  if (!sets.length) { el.innerHTML = '<div class="slides-empty">Geen reelposters gevonden.</div>'; return; }
+  const weeks = {};
+  sets.forEach(s => {
+    const d = new Date(s.date), mon = new Date(d);
+    mon.setDate(d.getDate() - ((d.getDay()+6)%7));
+    const wk = mon.toLocaleDateString('nl-NL',{day:'numeric',month:'long',year:'numeric'});
+    if(!weeks[wk]) weeks[wk]=[];
+    weeks[wk].push(s);
+  });
+  el.innerHTML = Object.entries(weeks).map(([week,items]) => `
+    <div class="slides-week-header">Week van ${week}</div>
+    <div class="slides-grid">${items.map(s => reelposterCard(s)).join('')}</div>
+  `).join('');
+}
+
+const RP_COLORS = { compare:'#eff6ff', rekensommetje:'#fdf4ff', tijdlijn:'#f0fdf4', checklist:'#f5f3ff', myth:'#fff7ed' };
+
+function reelposterCard(s) {
+  const firstFile = s.file ? RAW+'/'+s.file : null;
+  const thumb = firstFile
+    ? `<iframe src="${firstFile}" scrolling="no" style="width:300%;height:300%;transform:scale(0.333);transform-origin:top left;border:none;pointer-events:none"></iframe>`
+    : `<span>🎬</span>`;
+  const posted = !!localStorage.getItem('zenbtw_rp_'+s.id);
+  const tplBg = RP_COLORS[s.template]||'#f1f0ec';
+  return `
+    <div class="slide-set-card${posted?' slide-posted':''}" data-rp-id="${s.id}">
+      <div class="slide-set-thumb" style="cursor:pointer" onclick="openReelposterDetail('${s.id}')">
+        ${thumb}
+        <div class="slide-count-badge">${s.template||'poster'}</div>
+        <div class="slide-posted-badge" style="${posted?'':'display:none'}">✓ Gepost</div>
+      </div>
+      <div class="slide-set-body">
+        <div class="slide-set-topic">${s.topic}</div>
+        <div class="slide-set-meta"><span class="badge" style="background:${tplBg};color:#333">${s.template}</span> &nbsp;${fmtDate(s.date)}</div>
+        <div class="slide-set-actions">
+          <button class="btn btn-primary" style="font-size:.72rem;padding:.3rem .6rem" onclick="openReelposterDetail('${s.id}')">👁 Bekijk</button>
+          ${s.png?`<a href="${RAW}/${s.png}" target="_blank" download class="btn btn-ghost" style="font-size:.72rem;padding:.3rem .6rem">⬇ PNG</a>`:''}
+          <label style="display:flex;align-items:center;gap:4px;cursor:pointer;font-size:.72rem;color:var(--tx3);margin-left:auto">
+            <input type="checkbox" ${posted?'checked':''} onchange="toggleRpPosted('${s.id}',this.checked)" style="cursor:pointer;width:13px;height:13px;accent-color:var(--green)">
+            Gepost
+          </label>
+        </div>
+      </div>
+    </div>`;
+}
+
+function toggleRpPosted(id, checked) {
+  if(checked) localStorage.setItem('zenbtw_rp_'+id,'1');
+  else localStorage.removeItem('zenbtw_rp_'+id);
+  const card = document.querySelector(`.slide-set-card[data-rp-id="${id}"]`);
+  if(!card) return;
+  card.classList.toggle('slide-posted',checked);
+  const badge = card.querySelector('.slide-posted-badge');
+  if(badge) badge.style.display = checked?'':'none';
+}
+
+function openReelposterDetail(id) {
+  const s = (reelpostersData.sets||[]).find(x=>x.id===id);
+  if(!s) return;
+  document.getElementById('slideDetailTitle').textContent = s.topic;
+  const desc = (s.threadsDescription||s.description||'');
+  document.getElementById('slideDetailBody').innerHTML = `
+    ${desc?`<div class="caption-box">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:.5rem">
+        <div style="font-size:.78rem;font-weight:700;color:var(--tx2)">📝 Threads beschrijving</div>
+        <button class="btn btn-ghost" style="font-size:.72rem;padding:.25rem .6rem"
+          onclick="navigator.clipboard.writeText(${JSON.stringify(desc)}).then(()=>{this.textContent='✓ Gekopieerd!';setTimeout(()=>this.textContent='📋 Kopieer',2000)})">📋 Kopieer</button>
+      </div>
+      <div class="caption-text">${desc.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/\n/g,'<br>')}</div>
+    </div>`:''}
+    <div class="slide-preview-row">
+      <div class="slide-preview-num">01</div>
+      <div class="slide-preview-info">
+        <span>poster.html · template: <strong>${s.template}</strong></span>
+        <div style="display:flex;gap:.4rem">
+          ${s.file?`<a href="${RAW}/${s.file}" target="_blank" class="btn btn-ghost" style="font-size:.72rem;padding:.3rem .6rem">↗ Preview</a>`:''}
+          ${s.png?`<a href="${RAW}/${s.png}" target="_blank" download class="btn btn-primary" style="font-size:.72rem;padding:.3rem .6rem">⬇ PNG</a>`:''}
+        </div>
+      </div>
+    </div>`;
+  document.getElementById('slideDetailModal').classList.add('open');
+}
 </script>
 <footer>
   <div class="footer-inner">
