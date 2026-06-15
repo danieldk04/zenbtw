@@ -1,28 +1,12 @@
 {
   "queue": [
     {
-      "topic": "DAC7 handhaving 2026: de Belastingdienst heeft nu écht jouw platformdata",
-      "slug": "dac7-handhaving-2026",
-      "type": "poster",
-      "status": "pending",
-      "priority": 1,
-      "notes": "🔥 TRENDING — 2026 = eerste volledige handhavingsjaar na overgangsperiode. Stat-poster: groot cijfer 30 transacties + €2.000 = melding. Urgente toon maar feitelijk."
-    },
-    {
       "topic": "EU-KOR: de nieuwe Europese BTW-vrijstelling voor Etsy- en Shopify-verkopers",
       "slug": "eu-kor-europese-vrijstelling",
       "type": "carousel",
       "status": "pending",
       "priority": 1,
       "notes": "🔥 TRENDING — EU-KOR actief sinds jan 2025. Drempel €100k EU-omzet. Persona-template: NL-only vs EU-verkoper. Inclusief aanmeldstap en kwartaalrapportage."
-    },
-    {
-      "topic": "KOR wachttermijn afgeschaft: dit verandert voor marketplace-verkopers in 2026",
-      "slug": "kor-wachttermijn-afgeschaft-2026",
-      "type": "carousel",
-      "status": "pending",
-      "priority": 2,
-      "notes": "🔥 TRENDING — De 3-jaar verplichting is weg. Je kunt nu op elk moment uitstappen. Dark hook + compare: oud vs nieuw. Actiegericht voor verkopers die KOR wilden maar terugschrokken."
     },
     {
       "topic": "Shopify dropshipping 2026: de €150-douanevrijstelling bestaat niet meer",
@@ -263,6 +247,26 @@
       "notes": "Stappenplan + dark hook — actiegericht",
       "publishedDate": "2026-06-15",
       "outputDir": "slides/2026-06-15-kor-opzeggen-wanneer"
+    },
+    {
+      "topic": "DAC7 handhaving 2026: de Belastingdienst heeft nu écht jouw platformdata",
+      "slug": "dac7-handhaving-2026",
+      "type": "poster",
+      "status": "published",
+      "priority": 1,
+      "notes": "🔥 TRENDING — 2026 = eerste volledige handhavingsjaar na overgangsperiode. Stat-poster: groot cijfer 30 transacties + €2.000 = melding. Urgente toon maar feitelijk.",
+      "publishedDate": "2026-06-15",
+      "outputDir": "slides/2026-06-15-dac7-handhaving-2026"
+    },
+    {
+      "topic": "KOR wachttermijn afgeschaft: dit verandert voor marketplace-verkopers in 2026",
+      "slug": "kor-wachttermijn-afgeschaft-2026",
+      "type": "carousel",
+      "status": "published",
+      "priority": 2,
+      "notes": "🔥 TRENDING — De 3-jaar verplichting is weg. Je kunt nu op elk moment uitstappen. Dark hook + compare: oud vs nieuw. Actiegericht voor verkopers die KOR wilden maar terugschrokken.",
+      "publishedDate": "2026-06-15",
+      "outputDir": "slides/2026-06-15-kor-wachttermijn-afgeschaft-2026"
     }
   ],
   "settings": {
