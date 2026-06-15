@@ -235,11 +235,8 @@ KOR (Kleineondernemersregeling):
 - Vrijwillige afmelding gaat in per het eerstvolgende aangiftetijdvak (kwartaal). Gedwongen afmelding (overschrijding) gaat per direct in.
 
 Wanneer je een specifieke wettelijke of fiscale claim maakt:
-- Koppel die aan een bronvermelding in de tekst, zoals: "Bron: <a href="https://www.belastingdienst.nl/..." ...>Belastingdienst.nl</a>"
-- Gebruik de officiële Belastingdienst-pagina's als primaire bron. Relevante URL's:
-  * KOR: https://www.belastingdienst.nl/wps/wcm/connect/bldcontentnl/belastingdienst/zakelijk/btw/hoe_werkt_btw/nieuwe_kleineondernemersregeling/
-  * OSS: https://www.belastingdienst.nl/wps/wcm/connect/bldcontentnl/belastingdienst/zakelijk/btw/zakendoen_met_het_buitenland/goederen_en_diensten_naar_andere_eu_landen/one_stop_shop/
-  * DAC7: https://www.belastingdienst.nl/wps/wcm/connect/bldcontentnl/belastingdienst/zakelijk/winst/dac7/
+- Koppel die aan een bronvermelding in de tekst, zoals: "Bron: <a href="https://www.belastingdienst.nl" target="_blank" rel="noopener">Belastingdienst.nl</a>"
+- KRITISCH: Gebruik ALTIJD en UITSLUITEND https://www.belastingdienst.nl als link-URL. NOOIT een dieper pad of subpagina-URL — die veranderen regelmatig en zijn snel verouderd. Dus NOOIT iets als /wps/wcm/connect/... of /zakelijk/btw/... in een href.
 - Gebruik bij fiscale getallen altijd "exclusief BTW" of "inclusief BTW" expliciet
 - Schrijf NOOIT iets stellig als je het niet zeker weet — gebruik "over het algemeen", "raadpleeg een adviseur" bij twijfel
 
