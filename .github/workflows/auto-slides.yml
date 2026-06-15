@@ -87,6 +87,7 @@ jobs:
           git add slides/ slides-topics.json
           COUNT=$(jq '.published | length' slides-topics.json)
           git commit -m "feat: auto-generate slides batch (${COUNT} sets total)"
+          git pull --rebase origin main
           git push
 
       - name: Summary

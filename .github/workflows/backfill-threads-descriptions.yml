@@ -37,4 +37,5 @@ jobs:
           git config --local user.name "ZenBTW Bot"
           git add slides/manifest.json slides/
           git diff --staged --quiet || git commit -m "feat: backfill Threads descriptions for existing slide sets"
+          git pull --rebase origin main
           git push
