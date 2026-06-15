@@ -2104,6 +2104,7 @@ function render(){
   if(document.getElementById('vwlanden').classList.contains('on')) renderLanden();
   if(document.getElementById('vwjaaroverzicht').classList.contains('on')) renderJDetail();
   if(document.getElementById('vwmarge')&&document.getElementById('vwmarge').classList.contains('on')) renderMarge();
+  if(document.getElementById('vwproducten')&&document.getElementById('vwproducten').classList.contains('on')) renderProducts();
 }
 
 function calcYearOrders(){
@@ -2317,6 +2318,9 @@ function updUitleg(ossPct, ossRem, yearCB, tot, korPct, korRem, yearTot, ossLimi
   const curTot = fmt(Math.round(yearTot));
   const en = window._lang === 'en';
   const pct = ossPct; // alias for existing logic below
+  const cur = curCB;       // cross-border EU revenue (formatted)
+  const lim = ossLimFmt;   // OSS threshold (formatted)
+  const rem = ossRem;      // remaining headroom
 
   if (korPct >= 100) {
     // KOR-grens overschreden — NL BTW-registratie verplicht
@@ -3249,6 +3253,216 @@ function loadDemoData(){
     showLog();
     if(!S.company)openSettings();
   },300);
+}
+
+// ── PRODUCTEN view ────────────────────────────────────────────────────────────
+let _prodTab = 'brand';
+function setProdTab(tab){
+  _prodTab = tab;
+  document.getElementById('ptBrand').classList.toggle('on', tab==='brand');
+  document.getElementById('ptItem').classList.toggle('on', tab==='item');
+  renderProducts();
+}
+
+function renderProducts(){
+  const items = (S.lineItems||[]).filter(i=>i.quarter===S.quarter && i.platform==='shopify');
+  const vendorFilter = (document.getElementById('prodVendorFilter')||{}).value || '';
+
+  // Stats
+  const allVendors = [...new Set(items.map(i=>i.vendor||'Overig'))].sort();
+  const sel = document.getElementById('prodVendorFilter');
+  if(sel){
+    const cur = sel.value;
+    sel.innerHTML = '<option value="">Alle merken</option>' + allVendors.map(v=>`<option value="${v}"${v===cur?' selected':''}>${v}</option>`).join('');
+  }
+
+  const filtered = vendorFilter ? items.filter(i=>(i.vendor||'Overig')===vendorFilter) : items;
+  const totalRev = filtered.reduce((s,i)=>s+(i.price*i.qty),0);
+  const totalQty = filtered.reduce((s,i)=>s+i.qty,0);
+  const uniqueSkus = new Set(filtered.map(i=>i.sku||i.title)).size;
+
+  // Best vendor by revenue
+  const byVendor = {};
+  filtered.forEach(i=>{const v=i.vendor||'Overig';if(!byVendor[v])byVendor[v]={rev:0,qty:0};byVendor[v].rev+=i.price*i.qty;byVendor[v].qty+=i.qty;});
+  const topVendor = Object.entries(byVendor).sort((a,b)=>b[1].rev-a[1].rev)[0];
+
+  document.getElementById('prodCount').textContent = uniqueSkus || '—';
+  document.getElementById('prodCountSub').textContent = uniqueSkus ? uniqueSkus+' unieke producten' : 'Upload Shopify CSV';
+  document.getElementById('prodTopBrand').textContent = topVendor ? topVendor[0] : '—';
+  document.getElementById('prodTopBrandSub').textContent = topVendor ? '€'+topVendor[1].rev.toFixed(0)+' omzet' : 'op omzet';
+  document.getElementById('prodAvgPrice').textContent = totalQty ? '€'+(totalRev/totalQty).toFixed(2) : '—';
+  document.getElementById('prodRevTotal').textContent = totalRev ? '€'+totalRev.toFixed(0) : '—';
+  document.getElementById('prodRevSub').textContent = totalQty ? totalQty+' items' : 'via Shopify';
+
+  const body = document.getElementById('productenBody');
+  if(!filtered.length){
+    body.innerHTML='<div class="es"><div class="esi">📦</div><div class="est">Geen productdata</div><div class="ess">Upload je Shopify CSV om productverkopen te zien</div></div>';
+    document.getElementById('prodCardTitle').textContent='Omzet per '+(_prodTab==='brand'?'merk':'product');
+    document.getElementById('prodCardSub').textContent='Shopify verkopen';
+    document.getElementById('prodTag').textContent='—';
+    return;
+  }
+
+  if(_prodTab==='brand'){
+    document.getElementById('prodCardTitle').textContent='Omzet per merk';
+    document.getElementById('prodCardSub').textContent=Object.keys(byVendor).length+' merken';
+    document.getElementById('prodTag').textContent=Object.keys(byVendor).length+' merken';
+    const sorted = Object.entries(byVendor).sort((a,b)=>b[1].rev-a[1].rev);
+    const maxRev = sorted[0][1].rev;
+    body.innerHTML = `
+      <div class="marge-hd"><span>Merk</span><span style="text-align:right">Omzet</span><span style="text-align:right">Stuks</span><span class="mh4" style="text-align:right">% van totaal</span></div>
+      ${sorted.map(([v,d])=>`
+      <div class="marge-row">
+        <div class="marge-title-cell"><div class="marge-title-txt">${v}</div></div>
+        <div class="marge-rev-cell" style="text-align:right">€${d.rev.toFixed(0)}</div>
+        <div class="marge-rev-cell" style="text-align:right">${d.qty}</div>
+        <div class="marge-rev-cell mh4" style="text-align:right">
+          <div style="display:flex;align-items:center;gap:8px;justify-content:flex-end">
+            <div style="width:60px;height:4px;background:var(--s2);border-radius:2px;overflow:hidden"><div style="width:${Math.round(d.rev/maxRev*100)}%;height:100%;background:var(--ac);border-radius:2px"></div></div>
+            ${Math.round(d.rev/totalRev*100)}%
+          </div>
+        </div>
+      </div>`).join('')}`;
+  } else {
+    // Per product (by sku/title)
+    const byProd = {};
+    filtered.forEach(i=>{const k=i.sku||i.title;if(!byProd[k])byProd[k]={title:i.title,sku:i.sku||'',vendor:i.vendor||'',rev:0,qty:0};byProd[k].rev+=i.price*i.qty;byProd[k].qty+=i.qty;});
+    const sorted = Object.values(byProd).sort((a,b)=>b.rev-a.rev);
+    document.getElementById('prodCardTitle').textContent='Omzet per product';
+    document.getElementById('prodCardSub').textContent=sorted.length+' producten';
+    document.getElementById('prodTag').textContent=sorted.length+' producten';
+    body.innerHTML = `
+      <div class="marge-hd"><span>Product</span><span style="text-align:right">Omzet</span><span style="text-align:right">Stuks</span><span class="mh4" style="text-align:right">Gem. prijs</span></div>
+      ${sorted.map(p=>`
+      <div class="marge-row">
+        <div class="marge-title-cell"><div class="marge-title-txt">${p.title}</div><div class="marge-title-sub"><span>${p.vendor}</span>${p.sku?'<span>SKU: '+p.sku+'</span>':''}</div></div>
+        <div class="marge-rev-cell" style="text-align:right">€${p.rev.toFixed(0)}</div>
+        <div class="marge-rev-cell" style="text-align:right">${p.qty}</div>
+        <div class="marge-rev-cell mh4" style="text-align:right">€${(p.rev/p.qty).toFixed(2)}</div>
+      </div>`).join('')}`;
+  }
+}
+
+function exportProductsCSV(){
+  const items = (S.lineItems||[]).filter(i=>i.quarter===S.quarter && i.platform==='shopify');
+  if(!items.length){alert('Geen productdata om te exporteren.');return;}
+  const rows = [['SKU','Titel','Merk','Omzet','Stuks','Land','Datum']];
+  items.forEach(i=>rows.push([i.sku||'',i.title||'',i.vendor||'',i.price*i.qty,i.qty,i.country||'',i.date||'']));
+  const csv = rows.map(r=>r.map(c=>`"${String(c).replace(/"/g,'""')}"`).join(',')).join('\n');
+  const a=document.createElement('a');a.href='data:text/csv;charset=utf-8,'+encodeURIComponent(csv);
+  a.download='producten-'+S.quarter.replace(' ','-')+'.csv';a.click();
+}
+
+// ── MARGE view ────────────────────────────────────────────────────────────────
+let _margeSearch = '';
+
+function renderMarge(){
+  if(!S.costPrices)S.costPrices={};
+  const items = (S.lineItems||[]).filter(i=>i.quarter===S.quarter && i.platform==='shopify');
+
+  // Aggregate by SKU
+  const byProd = {};
+  items.forEach(i=>{
+    const k=i.sku||i.title;
+    if(!byProd[k])byProd[k]={title:i.title,sku:i.sku||k,vendor:i.vendor||'',rev:0,qty:0};
+    byProd[k].rev+=i.price*i.qty;byProd[k].qty+=i.qty;
+  });
+  const prods = Object.values(byProd).sort((a,b)=>b.rev-a.rev);
+
+  // Stats
+  const totalRev = prods.reduce((s,p)=>s+p.rev,0);
+  const totalInk = prods.reduce((s,p)=>{const c=S.costPrices[p.sku];return s+(c?c*p.qty:0);},0);
+  const knownInkCount = prods.filter(p=>S.costPrices[p.sku]!=null).length;
+  const bruto = totalRev - totalInk;
+  const gemPct = totalInk>0 ? Math.round((bruto/totalRev)*100) : null;
+
+  const tv=v=>'€'+v.toFixed(0);
+  document.getElementById('margeRevTotal').textContent   = totalRev ? tv(totalRev) : '—';
+  document.getElementById('margeRevSub').textContent     = prods.length ? prods.length+' producten' : 'Shopify producten';
+  document.getElementById('margeInkoopTotal').textContent= totalInk ? tv(totalInk) : '—';
+  document.getElementById('margeInkoopSub').textContent  = knownInkCount ? knownInkCount+' ingevuld' : 'Ingevulde inkoopprijzen';
+  document.getElementById('margeBruto').textContent      = totalInk ? tv(bruto) : '—';
+  document.getElementById('margeBrutoSub').textContent   = totalInk ? (bruto>=0?'+':'')+(bruto/totalRev*100).toFixed(0)+'% marge' : 'Omzet min inkoop';
+  document.getElementById('margeGem').textContent        = gemPct!=null ? gemPct+'%' : '—';
+  document.getElementById('margeCardTitle').textContent  = 'Marge per product';
+  document.getElementById('margeCardSub').textContent    = prods.length ? prods.length+' producten · '+knownInkCount+' met inkoopprijs' : 'Vul inkoopprijzen in voor brutowinst-berekening';
+
+  const sw = document.getElementById('margeSearchWrap');
+  if(sw) sw.style.display = prods.length>5 ? 'flex' : 'none';
+
+  const body = document.getElementById('margeBody');
+  if(!prods.length){
+    body.innerHTML='<div class="es"><div class="esi">💰</div><div class="est">Geen producten</div><div class="ess">Upload je Shopify CSV op het dashboard</div></div>';
+    return;
+  }
+
+  const q = _margeSearch.toLowerCase();
+  const visible = q ? prods.filter(p=>p.title.toLowerCase().includes(q)||p.sku.toLowerCase().includes(q)||p.vendor.toLowerCase().includes(q)) : prods;
+
+  body.innerHTML = `
+    <div class="marge-hd"><span>Product</span><span style="text-align:right">Omzet</span><span style="text-align:right">Inkoopprijs</span><span class="mh4" style="text-align:right">Brutowinst</span><span class="mh4" style="text-align:right">Marge%</span></div>
+    ${visible.map(p=>{
+      const ink = S.costPrices[p.sku];
+      const inkTot = ink!=null ? ink*p.qty : null;
+      const brutoP = inkTot!=null ? p.rev-inkTot : null;
+      const pct    = inkTot!=null ? Math.round((brutoP/p.rev)*100) : null;
+      return `<div class="marge-row">
+        <div class="marge-title-cell"><div class="marge-title-txt">${p.title}</div><div class="marge-title-sub"><span>${p.vendor}</span><span>${p.qty}× verkocht</span></div></div>
+        <div class="marge-rev-cell" style="text-align:right">€${p.rev.toFixed(0)}</div>
+        <div style="text-align:right"><input class="marge-inkoop" type="number" min="0" step="0.01" placeholder="€ inkoop" value="${ink!=null?ink:''}" onchange="saveInkoop('${p.sku.replace(/'/g,"\\'")}',this.value)" title="Inkoopprijs per stuk"></div>
+        <div class="marge-marge-val mh4 ${brutoP!=null?(brutoP>=0?'pos':'neg'):''}" style="text-align:right">${brutoP!=null?'€'+brutoP.toFixed(0):'—'}</div>
+        <div class="marge-pct mh4" style="text-align:right">${pct!=null?pct+'%':'—'}</div>
+      </div>`;
+    }).join('')}`;
+}
+
+function saveInkoop(sku, val){
+  if(!S.costPrices)S.costPrices={};
+  const v=parseFloat(val);
+  if(!isNaN(v)&&v>=0)S.costPrices[sku]=v; else delete S.costPrices[sku];
+  saveS();renderMarge();
+}
+
+function filterMargeRows(q){
+  _margeSearch=q;renderMarge();
+}
+
+function exportMargeCSV(){
+  const items=(S.lineItems||[]).filter(i=>i.quarter===S.quarter&&i.platform==='shopify');
+  const byProd={};
+  items.forEach(i=>{const k=i.sku||i.title;if(!byProd[k])byProd[k]={title:i.title,sku:i.sku||k,vendor:i.vendor||'',rev:0,qty:0};byProd[k].rev+=i.price*i.qty;byProd[k].qty+=i.qty;});
+  const rows=[['SKU','Titel','Merk','Omzet','Stuks','Inkoopprijs/stuk','Brutowinst','Marge%']];
+  Object.values(byProd).sort((a,b)=>b.rev-a.rev).forEach(p=>{
+    const ink=(S.costPrices||{})[p.sku];
+    const inkTot=ink!=null?ink*p.qty:null;
+    const bruto=inkTot!=null?p.rev-inkTot:null;
+    const pct=bruto!=null?Math.round(bruto/p.rev*100):null;
+    rows.push([p.sku,p.title,p.vendor,p.rev.toFixed(2),p.qty,ink!=null?ink.toFixed(2):'',bruto!=null?bruto.toFixed(2):'',pct!=null?pct+'%':'']);
+  });
+  const csv=rows.map(r=>r.map(c=>`"${String(c).replace(/"/g,'""')}"`).join(',')).join('\n');
+  const a=document.createElement('a');a.href='data:text/csv;charset=utf-8,'+encodeURIComponent(csv);
+  a.download='marge-'+S.quarter.replace(' ','-')+'.csv';a.click();
+}
+
+function handleMargeCSV(evt){
+  const file=evt.target.files[0];if(!file)return;
+  const reader=new FileReader();
+  reader.onload=e=>{
+    const lines=e.target.result.split('\n').map(l=>l.trim()).filter(Boolean);
+    if(!S.costPrices)S.costPrices={};
+    let count=0;
+    lines.slice(1).forEach(line=>{
+      const parts=line.split(/[,;]/);
+      if(parts.length<2)return;
+      const sku=parts[0].replace(/^"|"$/g,'').trim();
+      const price=parseFloat(parts[1].replace(/^"|"$/g,'').replace(',','.'));
+      if(sku&&!isNaN(price)&&price>=0){S.costPrices[sku]=price;count++;}
+    });
+    saveS();renderMarge();
+    alert('✓ '+count+' inkoopprijzen geïmporteerd.');
+  };
+  reader.readAsText(file);
+  evt.target.value='';
 }
 
 // ── INIT ──
