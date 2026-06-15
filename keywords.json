@@ -1,14 +1,6 @@
 {
   "queue": [
     {
-      "keyword": "etsy deemed supplier btw nederland uitleg",
-      "slug": "etsy-deemed-supplier-btw",
-      "status": "pending",
-      "priority": 3,
-      "notes": "Veel verwarring: telt Etsy-omzet mee voor KOR of niet?",
-      "type": "geo-vraag"
-    },
-    {
       "keyword": "kor opzeggen hoe stappen belastingdienst",
       "slug": "kor-opzeggen-hoe",
       "status": "pending",
@@ -315,6 +307,16 @@
       "type": "geo-vraag",
       "publishedDate": "2026-06-15",
       "outputFile": "blog/nihil-aangifte-btw-kor.html"
+    },
+    {
+      "keyword": "etsy deemed supplier btw nederland uitleg",
+      "slug": "etsy-deemed-supplier-btw",
+      "status": "published",
+      "priority": 3,
+      "notes": "Veel verwarring: telt Etsy-omzet mee voor KOR of niet?",
+      "type": "geo-vraag",
+      "publishedDate": "2026-06-15",
+      "outputFile": "blog/etsy-deemed-supplier-btw.html"
     }
   ],
   "settings": {
