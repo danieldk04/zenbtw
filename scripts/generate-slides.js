@@ -85,12 +85,12 @@ function buildPrompt(topic, type, targetSlides = 6, rotationIndex = 0) {
 
   // Cycle through different style emphasis instructions so carousels look different
   const styleVariations = [
-    `STIJL VOOR DEZE CARROUSEL: Gebruik dark:true op de hook (donkergroene openingsslide). Verplicht: gebruik persona-template op één van de tussenslides. Eindig met split of dashboard vóór de CTA.`,
-    `STIJL VOOR DEZE CARROUSEL: Gebruik dark:false op de hook (crème achtergrond). Verplicht: gebruik dashboard-template op één van de tussenslides. Combineer steps + list voor de inhoud.`,
-    `STIJL VOOR DEZE CARROUSEL: Gebruik dark:true op de hook. Verplicht: gebruik compare-template om twee opties tegen elkaar te zetten. Voeg een stat-slide toe met een concreet getal.`,
-    `STIJL VOOR DEZE CARROUSEL: Gebruik dark:false op de hook. Verplicht: gebruik split-template op slide 2 of 3. Gebruik info-template met 4 cards voor de kern.`,
-    `STIJL VOOR DEZE CARROUSEL: Gebruik dark:true op de hook. Verplicht: gebruik list-template als checklist. Voeg een stat-slide toe. Eindig sterk met persona of compare.`,
-    `STIJL VOOR DEZE CARROUSEL: Gebruik dark:false op de hook. Verplicht: gebruik persona-template met 2-3 persona's. Voeg een steps-slide toe met een stappenplan.`,
+    `STIJL VOOR DEZE CARROUSEL: Gebruik dark:true op de hook. Verplicht: gebruik persona-template op één van de tussenslides. Gebruik dark:true op de info-slide. Eindig met split vóór de CTA.`,
+    `STIJL VOOR DEZE CARROUSEL: Gebruik dark:false op de hook. Verplicht: gebruik compare-template. Gebruik dark:true op de steps-slide. Gebruik list-template als checklist.`,
+    `STIJL VOOR DEZE CARROUSEL: Gebruik dark:true op de hook. Verplicht: gebruik compare + persona. Gebruik dark:true op de list-slide. Voeg een stat-slide toe met een concreet getal.`,
+    `STIJL VOOR DEZE CARROUSEL: Gebruik dark:false op de hook. Gebruik dark:true op de info-slide. Gebruik split-template. Gebruik steps-template met stappenplan.`,
+    `STIJL VOOR DEZE CARROUSEL: Gebruik dark:true op de hook. Verplicht: gebruik list-template als checklist met dark:true. Voeg een stat-slide toe. Eindig sterk met persona of compare.`,
+    `STIJL VOOR DEZE CARROUSEL: Gebruik dark:false op de hook. Verplicht: gebruik dark:true op de steps-slide. Gebruik persona-template. Voeg een info-slide toe.`,
   ];
   const variationInstruction = type === 'poster'
     ? `POSTER-MODUS: Dit is een losse stat-poster. Gebruik UITSLUITEND het "stat" of "hook" template. VERBODEN voor posters: dashboard, split, compare, persona, info, steps, list, cta.`
@@ -122,12 +122,12 @@ BESCHIKBARE TEMPLATES + EXACTE JSON VELDEN:
   "title": "Krachtige statement\nmax 2-3 regels",
   "highlight": "Dit deel wordt groen — paar woorden max",
   "sub": "Ondertitel 1 zin — concreet en prikkelend",
-  "pill": "⚠️ Swipe voor de feiten",
-  "dark": false,
-  "asset": "home | tools | blog"
+  "pill": "📋 Feitenpil — concreet getal of feit, max 12 woorden",
+  "stat_number": "optioneel — groot getal als eyecatcher bijv. €20.000 of 30",
+  "stat_label": "optioneel — korte toelichting bij stat_number",
+  "dark": false
 }
-Gebruik dark:true voor een donkergroene achtergrond variant.
-asset bepaalt welke ZenBTW screenshot getoond wordt (default: tools).
+Gebruik dark:true voor donkergroene achtergrond. pill en stat_number zijn alternatieve hooks voor onder de separator — gebruik NOOIT allebei.
 
 ━━━ "stat" ━━━
 {
@@ -137,34 +137,35 @@ asset bepaalt welke ZenBTW screenshot getoond wordt (default: tools).
   "label": "is de grens waarboven je BTW moet afdragen",
   "context": "Aanvullende zin van max 20 woorden",
   "source": "Bron: Belastingdienst.nl",
-  "asset": "home | tools | blog"
+  "tip": "optioneel — concrete tip of actie, max 20 woorden — laat weg als context al genoeg zegt"
 }
+Gebruik MAXIMAAL 1 stat-slide per carrousel.
 
 ━━━ "info" ━━━
 {
   "template": "info",
   "title": "Wanneer meldt Vinted jou aan?",
-  "asset": "home | tools | blog",
+  "dark": false,
   "cards": [
     { "icon": "🎯", "title": "DAC7 drempel", "body": "30 verkopen én €2.000 omzet", "accent": "green|red|yellow|blue|neutral" },
     { "icon": "✅", "title": "Beide drempels gehaald", "body": "Dan deelt Vinted naam, BSN en omzet", "accent": "red" }
   ]
 }
-Cards: 2-4 stuks. accent bepaalt kaartkleur.
+Cards: 2-4 stuks. accent bepaalt kaartkleur. dark:true geeft donkergroene achtergrond met witte tekst.
 
 ━━━ "steps" ━━━
 {
   "template": "steps",
   "title": "OSS aangifte in 3 stappen",
   "subtitle": "Doe het zelf, geen boekhouder nodig",
-  "asset": "tools",
+  "dark": false,
   "steps": [
     { "title": "Registreer via Mijn Belastingdienst", "body": "Kies OSS aanmelden — duurt 10 minuten" },
     { "title": "Houd EU-omzet per land bij", "body": "Per land en per BTW-tarief apart" },
     { "title": "Dien elk kwartaal in", "body": "Deadline: laatste dag van de maand erna" }
   ]
 }
-Steps: 2-5 stuks.
+Steps: 2-5 stuks. dark:true geeft donkergroene achtergrond.
 
 ━━━ "compare" ━━━
 {
@@ -201,13 +202,14 @@ Steps: 2-5 stuks.
   "template": "list",
   "tag": "Checklist",
   "title": "Alles geregeld als Etsy verkoper?",
-  "asset": "tools",
+  "dark": false,
   "items": [
     { "text": "KOR aangemeld bij Belastingdienst", "done": true },
     { "text": "OSS aangifte gedaan dit kwartaal", "done": false }
   ],
-  "note": "Gebruik ZenBTW om dit gratis bij te houden."
+  "note": "Optionele samenvattende noot onderaan."
 }
+dark:true geeft donkergroene achtergrond — gebruik dit voor visuele afwisseling.
 
 ━━━ "split" ━━━ (tekst links, ZenBTW dashboard screenshot rechts)
 {
@@ -257,12 +259,14 @@ STIJLREGELS:
 - "title" bij hook = de grote vetgedrukte headline, max 8 woorden
 - "sub" bij hook = de uitleg onder de separator, max 2 zinnen
 - "pill" bij hook = een feitenpil onderaan, bijv. "DAC7 · 30 verkopen + €2k = automatische melding"
+- "stat_number" bij hook = groot eyecatcher-getal onder de separator (alternatief voor pill)
 
 VARIATIE-REGELS (ALTIJD volgen):
-- Gebruik minstens 3 VERSCHILLENDE templates — nooit tweemaal achter elkaar hetzelfde
-- Wissel af tussen lichte en donkere slides binnen één carrousel
+- Gebruik minstens 4 VERSCHILLENDE templates per carrousel — nooit tweemaal hetzelfde achter elkaar
+- Zorg voor minimaal 2 DONKERE slides (dark:true) per carrousel — niet alleen de hook
 - Persona-template = meest engaging — gebruik hem als het onderwerp een vergelijking bevat
-- De "daniel-presentator.png" figuur staat altijd in de hook-slide (al ingebouwd) — zorg dat de rest van de slides optisch bij die stijl past
+- Gebruik MAXIMAAL 1 stat-slide per carrousel
+- De "daniel-presentator.png" figuur staat altijd in de hook-slide (al ingebouwd)
 
 ${variationInstruction}
 
@@ -389,12 +393,16 @@ const HOOK = (s, index = 0, total = 5) => {
     ${s.sub ? `<p style="font-size:27px;font-weight:500;color:${txBody};line-height:1.5;margin-bottom:28px;flex-shrink:0">${s.sub}</p>` : ''}
 
     <div style="flex:1;display:flex;flex-direction:column;gap:0;min-height:0">
-      <div style="flex:1">${DASHBOARD_MOCKUP()}</div>
-
-      ${s.pill ? `<div style="background:${pillBg};border-radius:14px;padding:20px 26px;display:flex;align-items:center;gap:14px;margin-top:20px;flex-shrink:0;${dark ? 'border:1px solid rgba(255,255,255,0.12)' : ''}">
-        <span style="font-size:24px;flex-shrink:0">📋</span>
-        <div style="font-size:17px;font-weight:700;color:#fff;line-height:1.4">${s.pill}</div>
-      </div>` : ''}
+      <div style="flex:1;display:flex;flex-direction:column;justify-content:center;gap:20px">
+        ${s.pill ? `<div style="background:${pillBg};border-radius:18px;padding:28px 32px;${dark ? 'border:1px solid rgba(255,255,255,0.12)' : ''}">
+          <div style="font-size:13px;font-weight:700;color:${dark ? 'rgba(255,255,255,0.45)' : 'rgba(26,71,49,0.5)'};text-transform:uppercase;letter-spacing:0.1em;margin-bottom:10px">Goed om te weten</div>
+          <div style="font-size:22px;font-weight:700;color:${dark ? '#fff' : '#1a1814'};line-height:1.4">${s.pill}</div>
+        </div>` : ''}
+        ${s.stat_number ? `<div style="background:${dark ? 'rgba(255,255,255,0.08)' : '#fff'};border-radius:18px;padding:32px 36px;border:1.5px solid ${dark ? 'rgba(255,255,255,0.15)' : 'rgba(26,71,49,0.15)'};border-left:6px solid ${dark ? '#4ade80' : '#1a4731'}">
+          <div style="font-size:72px;font-weight:900;color:${dark ? '#4ade80' : '#1a4731'};line-height:0.9;letter-spacing:-0.03em">${s.stat_number}</div>
+          ${s.stat_label ? `<div style="font-size:20px;font-weight:600;color:${dark ? 'rgba(255,255,255,0.7)' : '#4a4640'};margin-top:12px;line-height:1.4">${s.stat_label}</div>` : ''}
+        </div>` : ''}
+      </div>
 
       <div style="display:flex;align-items:center;gap:12px;margin-top:20px;flex-shrink:0">
         <div style="width:40px;height:40px;border-radius:50%;background:${swipeBtn};display:flex;align-items:center;justify-content:center;flex-shrink:0">
@@ -443,12 +451,12 @@ const STAT = (s, index = 0, total = 5) => {
       <p style="font-size:28px;font-weight:500;color:#3a3530;line-height:1.5">${s.context}</p>
     </div>` : ''}
 
-    <!-- Spacer + tip box onderaan -->
+    <!-- Spacer + optionele tip onderaan -->
     <div style="flex:1;display:flex;flex-direction:column;justify-content:flex-end">
-      <div style="background:#1a4731;border-radius:18px;padding:28px 32px;display:flex;align-items:center;gap:18px">
+      ${s.tip ? `<div style="background:#1a4731;border-radius:18px;padding:28px 32px;display:flex;align-items:center;gap:18px">
         <span style="font-size:28px;flex-shrink:0">💡</span>
-        <div style="font-size:19px;font-weight:600;color:#fff;line-height:1.45">Gebruik de gratis ZenBTW hulpmiddelen om te checken waar jij staat — geen account nodig.</div>
-      </div>
+        <div style="font-size:19px;font-weight:600;color:#fff;line-height:1.45">${s.tip}</div>
+      </div>` : ''}
     </div>
   </div>
 
@@ -472,16 +480,28 @@ const INFO = (s, index = 0, total = 5) => {
   const slideNum = String(index + 1).padStart(2, '0');
   const totalNum = String(total).padStart(2, '0');
   const titleLen = (s.title || '').length;
+  const dark     = !!s.dark;
+  const bg       = dark ? '#1a4731' : '#f5f0e8';
+  const txHead   = dark ? '#fff' : '#1a1814';
 
-  return `${BASE('#f5f0e8')}
-<div style="width:1080px;height:1350px;position:relative;overflow:hidden;background:#f5f0e8">
-  ${CHROME(slideNum, totalNum, s.tag || 'Uitleg')}
+  const chromeDark = `
+  <div style="position:absolute;top:0;right:88px;width:52px;height:96px;background:rgba(255,255,255,0.15);clip-path:polygon(0 0,100% 0,100% 100%,50% 78%,0 100%);z-index:10"></div>
+  <div style="position:absolute;left:0;top:0;bottom:0;width:8px;background:rgba(255,255,255,0.15);z-index:10"></div>
+  <div style="position:absolute;top:40px;right:-20px;font-size:360px;font-weight:900;color:rgba(255,255,255,0.04);line-height:1;pointer-events:none;user-select:none;letter-spacing:-0.06em;z-index:1">${slideNum}</div>
+  <div style="position:absolute;top:68px;left:56px;z-index:5">
+    <div style="font-size:15px;font-weight:800;color:#4ade80;letter-spacing:0.12em;text-transform:uppercase">${s.tag || 'Uitleg'}</div>
+    <div style="font-size:14px;color:rgba(255,255,255,0.38);font-weight:500;margin-top:3px">Slide ${slideNum} van ${totalNum}</div>
+  </div>`;
+
+  return `${BASE(bg)}
+<div style="width:1080px;height:1350px;position:relative;overflow:hidden;background:${bg}">
+  ${dark ? chromeDark : CHROME(slideNum, totalNum, s.tag || 'Uitleg')}
 
   <div style="position:absolute;top:0;left:56px;right:56px;bottom:0;display:flex;flex-direction:column;z-index:5;padding-top:160px;padding-bottom:88px">
 
     <!-- Headline -->
     <div style="flex-shrink:0;padding-bottom:36px">
-      <h1 style="font-size:${titleLen > 42 ? '50' : titleLen > 28 ? '60' : '70'}px;font-weight:900;color:#1a1814;line-height:0.95;letter-spacing:-0.03em">${s.title || ''}</h1>
+      <h1 style="font-size:${titleLen > 42 ? '50' : titleLen > 28 ? '60' : '70'}px;font-weight:900;color:${txHead};line-height:0.95;letter-spacing:-0.03em">${s.title || ''}</h1>
     </div>
 
     <!-- Cards vullen de rest van de hoogte -->
@@ -493,18 +513,23 @@ const INFO = (s, index = 0, total = 5) => {
         const bodySz  = twoCol ? '21' : '27';
         const pad     = twoCol ? '32px 28px' : '44px 48px';
         const cardFlex = !twoCol ? 'flex:1;' : '';
-        return `<div style="background:#fff;border:1.5px solid ${a.border};border-left:6px solid ${a.bar};border-radius:0 20px 20px 0;padding:${pad};display:flex;flex-direction:column;justify-content:center;gap:${twoCol ? '16' : '24'}px;overflow:hidden;${cardFlex}">
+        const cardBg   = dark ? 'rgba(255,255,255,0.08)' : '#fff';
+        const cardBord = dark ? 'rgba(255,255,255,0.15)' : a.border;
+        const cardBar  = dark ? '#4ade80' : a.bar;
+        const titleCol = dark ? '#fff' : a.title;
+        const bodyCol  = dark ? 'rgba(255,255,255,0.75)' : a.body;
+        return `<div style="background:${cardBg};border:1.5px solid ${cardBord};border-left:6px solid ${cardBar};border-radius:0 20px 20px 0;padding:${pad};display:flex;flex-direction:column;justify-content:center;gap:${twoCol ? '16' : '24'}px;overflow:hidden;${cardFlex}">
           <div style="display:flex;align-items:center;gap:${twoCol ? '16' : '22'}px;flex-shrink:0">
             <div style="font-size:${iconSz}px;flex-shrink:0">${c.icon || '•'}</div>
-            <h3 style="font-size:${titleSz}px;font-weight:800;color:${a.title};line-height:1.15">${c.title || ''}</h3>
+            <h3 style="font-size:${titleSz}px;font-weight:800;color:${titleCol};line-height:1.15">${c.title || ''}</h3>
           </div>
-          <p style="font-size:${bodySz}px;color:${a.body};line-height:1.55;font-weight:500">${c.body || c.text || ''}</p>
+          <p style="font-size:${bodySz}px;color:${bodyCol};line-height:1.55;font-weight:500">${c.body || c.text || ''}</p>
         </div>`;
       }).join('')}
     </div>
   </div>
 
-  ${FOOTER(false, index, total)}
+  ${FOOTER(dark, index, total)}
 </div>
 </body></html>`;
 };
@@ -515,17 +540,37 @@ const STEPS = (s, index = 0, total = 5) => {
   const slideNum = String(index + 1).padStart(2, '0');
   const totalNum = String(total).padStart(2, '0');
   const titleLen = (s.title || '').length;
+  const dark     = !!s.dark;
+  const bg       = dark ? '#1a4731' : '#f5f0e8';
+  const txHead   = dark ? '#fff' : '#1a1814';
+  const txSub    = dark ? 'rgba(255,255,255,0.55)' : '#9a9088';
+  const numBg    = dark ? 'rgba(255,255,255,0.15)' : '#1a4731';
+  const numTx    = '#fff';
+  const lineBg   = dark ? 'rgba(255,255,255,0.2)' : '#1a4731';
+  const cardBg   = dark ? 'rgba(255,255,255,0.08)' : '#fff';
+  const cardBord = dark ? 'rgba(255,255,255,0.1)' : 'rgba(26,71,49,0.1)';
+  const cardH    = dark ? '#fff' : '#1a1814';
+  const cardP    = dark ? 'rgba(255,255,255,0.72)' : '#4a4640';
 
-  return `${BASE('#f5f0e8')}
-<div style="width:1080px;height:1350px;position:relative;overflow:hidden;background:#f5f0e8">
-  ${CHROME(slideNum, totalNum, s.tag || 'Stappenplan')}
+  const chromeDark = `
+  <div style="position:absolute;top:0;right:88px;width:52px;height:96px;background:rgba(255,255,255,0.15);clip-path:polygon(0 0,100% 0,100% 100%,50% 78%,0 100%);z-index:10"></div>
+  <div style="position:absolute;left:0;top:0;bottom:0;width:8px;background:rgba(255,255,255,0.15);z-index:10"></div>
+  <div style="position:absolute;top:40px;right:-20px;font-size:360px;font-weight:900;color:rgba(255,255,255,0.04);line-height:1;pointer-events:none;user-select:none;letter-spacing:-0.06em;z-index:1">${slideNum}</div>
+  <div style="position:absolute;top:68px;left:56px;z-index:5">
+    <div style="font-size:15px;font-weight:800;color:#4ade80;letter-spacing:0.12em;text-transform:uppercase">${s.tag || 'Stappenplan'}</div>
+    <div style="font-size:14px;color:rgba(255,255,255,0.38);font-weight:500;margin-top:3px">Slide ${slideNum} van ${totalNum}</div>
+  </div>`;
+
+  return `${BASE(bg)}
+<div style="width:1080px;height:1350px;position:relative;overflow:hidden;background:${bg}">
+  ${dark ? chromeDark : CHROME(slideNum, totalNum, s.tag || 'Stappenplan')}
 
   <div style="position:absolute;top:0;left:56px;right:56px;bottom:0;display:flex;flex-direction:column;z-index:5;padding-top:160px;padding-bottom:88px">
 
     <!-- Headline -->
     <div style="flex-shrink:0;padding-bottom:32px">
-      <h1 style="font-size:${titleLen > 42 ? '50' : titleLen > 28 ? '60' : '70'}px;font-weight:900;color:#1a1814;line-height:0.95;letter-spacing:-0.03em${s.subtitle ? ';margin-bottom:12px' : ''}">${s.title || ''}</h1>
-      ${s.subtitle ? `<p style="font-size:24px;color:#9a9088;font-weight:500">${s.subtitle}</p>` : ''}
+      <h1 style="font-size:${titleLen > 42 ? '50' : titleLen > 28 ? '60' : '70'}px;font-weight:900;color:${txHead};line-height:0.95;letter-spacing:-0.03em${s.subtitle ? ';margin-bottom:12px' : ''}">${s.title || ''}</h1>
+      ${s.subtitle ? `<p style="font-size:24px;color:${txSub};font-weight:500">${s.subtitle}</p>` : ''}
     </div>
 
     <!-- Steps vullen de rest van de hoogte -->
@@ -533,18 +578,18 @@ const STEPS = (s, index = 0, total = 5) => {
       ${steps.map((st, i) => `
       <div style="display:flex;gap:24px;align-items:stretch;flex:1;${i < steps.length - 1 ? 'margin-bottom:16px' : ''}">
         <div style="display:flex;flex-direction:column;align-items:center;flex-shrink:0;width:68px">
-          <div style="width:68px;height:68px;background:#1a4731;border-radius:16px;display:flex;align-items:center;justify-content:center;font-size:24px;font-weight:700;color:#fff;flex-shrink:0">${String(i + 1).padStart(2, '0')}</div>
-          ${i < steps.length - 1 ? `<div style="width:2px;flex:1;background:linear-gradient(to bottom,#1a4731 0%,rgba(26,71,49,0.08) 100%);margin:8px 0"></div>` : ''}
+          <div style="width:68px;height:68px;background:${numBg};border-radius:16px;display:flex;align-items:center;justify-content:center;font-size:24px;font-weight:700;color:${numTx};flex-shrink:0">${String(i + 1).padStart(2, '0')}</div>
+          ${i < steps.length - 1 ? `<div style="width:2px;flex:1;background:linear-gradient(to bottom,${lineBg} 0%,rgba(26,71,49,0.08) 100%);margin:8px 0"></div>` : ''}
         </div>
-        <div style="background:#fff;border:1.5px solid rgba(26,71,49,0.1);border-radius:18px;padding:32px 36px;flex:1;display:flex;flex-direction:column;justify-content:center">
-          <h4 style="font-size:26px;font-weight:800;color:#1a1814;margin-bottom:10px;line-height:1.2">${st.title || ''}</h4>
-          <p style="font-size:22px;color:#4a4640;line-height:1.55;font-weight:500">${st.body || st.text || ''}</p>
+        <div style="background:${cardBg};border:1.5px solid ${cardBord};border-radius:18px;padding:32px 36px;flex:1;display:flex;flex-direction:column;justify-content:center">
+          <h4 style="font-size:26px;font-weight:800;color:${cardH};margin-bottom:10px;line-height:1.2">${st.title || ''}</h4>
+          <p style="font-size:22px;color:${cardP};line-height:1.55;font-weight:500">${st.body || st.text || ''}</p>
         </div>
       </div>`).join('')}
     </div>
   </div>
 
-  ${FOOTER(false, index, total)}
+  ${FOOTER(dark, index, total)}
 </div>
 </body></html>`;
 };
@@ -683,29 +728,47 @@ const LIST = (s, index = 0, total = 5) => {
   const slideNum = String(index + 1).padStart(2, '0');
   const totalNum = String(total).padStart(2, '0');
   const titleLen = (s.title || '').length;
+  const dark     = !!s.dark;
+  const bg       = dark ? '#1a4731' : '#f5f0e8';
+  const txHead   = dark ? '#fff' : '#1a1814';
 
-  return `${BASE('#f5f0e8')}
-<div style="width:1080px;height:1350px;position:relative;overflow:hidden;background:#f5f0e8">
-  ${CHROME(slideNum, totalNum, s.tag || 'Checklist')}
+  const chromeDark = `
+  <div style="position:absolute;top:0;right:88px;width:52px;height:96px;background:rgba(255,255,255,0.15);clip-path:polygon(0 0,100% 0,100% 100%,50% 78%,0 100%);z-index:10"></div>
+  <div style="position:absolute;left:0;top:0;bottom:0;width:8px;background:rgba(255,255,255,0.15);z-index:10"></div>
+  <div style="position:absolute;top:40px;right:-20px;font-size:360px;font-weight:900;color:rgba(255,255,255,0.04);line-height:1;pointer-events:none;user-select:none;letter-spacing:-0.06em;z-index:1">${slideNum}</div>
+  <div style="position:absolute;top:68px;left:56px;z-index:5">
+    <div style="font-size:15px;font-weight:800;color:#4ade80;letter-spacing:0.12em;text-transform:uppercase">${s.tag || 'Checklist'}</div>
+    <div style="font-size:14px;color:rgba(255,255,255,0.38);font-weight:500;margin-top:3px">Slide ${slideNum} van ${totalNum}</div>
+  </div>`;
+
+  return `${BASE(bg)}
+<div style="width:1080px;height:1350px;position:relative;overflow:hidden;background:${bg}">
+  ${dark ? chromeDark : CHROME(slideNum, totalNum, s.tag || 'Checklist')}
 
   <div style="position:absolute;top:0;left:56px;right:56px;bottom:0;display:flex;flex-direction:column;z-index:5;padding-top:160px;padding-bottom:88px">
 
     <div style="flex-shrink:0;padding-bottom:36px">
-      <h1 style="font-size:${titleLen > 40 ? '50' : titleLen > 26 ? '60' : '70'}px;font-weight:900;color:#1a1814;line-height:0.95;letter-spacing:-0.03em">${s.title || ''}</h1>
+      <h1 style="font-size:${titleLen > 40 ? '50' : titleLen > 26 ? '60' : '70'}px;font-weight:900;color:${txHead};line-height:0.95;letter-spacing:-0.03em">${s.title || ''}</h1>
     </div>
 
     <!-- Items vullen de rest van de hoogte -->
     <div style="flex:1;display:flex;flex-direction:column;gap:14px;justify-content:space-between;min-height:0">
-      ${items.map(it => `
-      <div style="display:flex;align-items:center;gap:24px;background:#fff;border:1.5px solid ${it.done ? '#86efac' : 'rgba(26,71,49,0.1)'};border-left:6px solid ${it.done ? '#22c55e' : '#c8c2b8'};border-radius:0 18px 18px 0;padding:28px 34px;flex:1">
-        <div style="width:56px;height:56px;border-radius:50%;background:${it.done ? '#f0fdf4' : '#f5f0e8'};border:2.5px solid ${it.done ? '#22c55e' : '#c8c2b8'};display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:26px">${it.done ? '✅' : '○'}</div>
-        <span style="font-size:26px;color:${it.done ? '#1a1814' : '#6b7280'};font-weight:${it.done ? '700' : '500'};line-height:1.3">${it.text || ''}</span>
-      </div>`).join('')}
-      ${s.note ? `<div style="flex-shrink:0;background:#1a4731;border-radius:16px;padding:24px 30px;font-size:20px;color:#fff;font-weight:600;line-height:1.4">${s.note}</div>` : ''}
+      ${items.map(it => {
+        const doneBord  = dark ? '#4ade80' : '#22c55e';
+        const pendBord  = dark ? 'rgba(255,255,255,0.2)' : '#c8c2b8';
+        const doneBg    = dark ? 'rgba(74,222,128,0.15)' : '#f0fdf4';
+        const pendBg    = dark ? 'rgba(255,255,255,0.06)' : '#f5f0e8';
+        const itemTx    = dark ? (it.done ? '#fff' : 'rgba(255,255,255,0.55)') : (it.done ? '#1a1814' : '#6b7280');
+        return `<div style="display:flex;align-items:center;gap:24px;background:${it.done ? doneBg : pendBg};border:1.5px solid ${it.done ? doneBord : pendBord};border-left:6px solid ${it.done ? doneBord : pendBord};border-radius:0 18px 18px 0;padding:28px 34px;flex:1">
+        <div style="width:56px;height:56px;border-radius:50%;background:${it.done ? doneBg : (dark ? 'rgba(255,255,255,0.08)' : '#f5f0e8')};border:2.5px solid ${it.done ? doneBord : pendBord};display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:26px">${it.done ? '✅' : '○'}</div>
+        <span style="font-size:26px;color:${itemTx};font-weight:${it.done ? '700' : '500'};line-height:1.3">${it.text || ''}</span>
+      </div>`;
+      }).join('')}
+      ${s.note ? `<div style="flex-shrink:0;background:${dark ? 'rgba(255,255,255,0.12)' : '#1a4731'};border-radius:16px;padding:24px 30px;font-size:20px;color:#fff;font-weight:600;line-height:1.4">${s.note}</div>` : ''}
     </div>
   </div>
 
-  ${FOOTER(false, index, total)}
+  ${FOOTER(dark, index, total)}
 </div>
 </body></html>`;
 };
