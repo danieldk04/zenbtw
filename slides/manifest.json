@@ -1,6 +1,33 @@
 {
   "sets": [
     {
+      "id": "2026-06-15-zenbtw-tool-uitleg",
+      "topic": "ZenBTW uitgelegd: wat doet de tool precies voor jou?",
+      "date": "2026-06-15",
+      "type": "carousel",
+      "slides": 7,
+      "files": [
+        "slides/2026-06-15-zenbtw-tool-uitleg/01.html",
+        "slides/2026-06-15-zenbtw-tool-uitleg/02.html",
+        "slides/2026-06-15-zenbtw-tool-uitleg/03.html",
+        "slides/2026-06-15-zenbtw-tool-uitleg/04.html",
+        "slides/2026-06-15-zenbtw-tool-uitleg/05.html",
+        "slides/2026-06-15-zenbtw-tool-uitleg/06.html",
+        "slides/2026-06-15-zenbtw-tool-uitleg/07.html"
+      ],
+      "pngs": [
+        "slides/2026-06-15-zenbtw-tool-uitleg/01.png",
+        "slides/2026-06-15-zenbtw-tool-uitleg/02.png",
+        "slides/2026-06-15-zenbtw-tool-uitleg/03.png",
+        "slides/2026-06-15-zenbtw-tool-uitleg/04.png",
+        "slides/2026-06-15-zenbtw-tool-uitleg/05.png",
+        "slides/2026-06-15-zenbtw-tool-uitleg/06.png",
+        "slides/2026-06-15-zenbtw-tool-uitleg/07.png"
+      ],
+      "caption": "Veel verkopers weten niet eens dat ze al over de grens zitten.\n\nNiet omdat ze het negeren. Maar omdat niemand ze ooit heeft uitgelegd wanneer BTW precies een rol gaat spelen.\n\nIk zie het steeds vaker: iemand verkoopt via Vinted, Etsy of Marktplaats, bouwt rustig een inkomen op — en ontdekt dan achteraf dat er regels waren waar ze niets vanaf wisten.\n\nDat is precies waarom ik ZenBTW heb gebouwd.\n\nDe tool kijkt naar jouw situatie. Niet in vage termen, maar concreet:\n\n— Zit je onder de €20.000? Dan val je mogelijk onder de KOR en hoef je geen BTW te rekenen.\n— Verkoop je ook in andere EU-landen? Dan is de OSS-grens van €10.000 al snel relevant.\n— Meer dan 30 transacties én €2.000 verdiend? Dan heeft het platform jouw gegevens al doorgestuurd via DAC7.\n\nZenBTW legt het verschil uit tussen KOR en OSS, kijkt welk platform je gebruikt en geeft je een duidelijk antwoord — geen juridisch jargon, geen gokken.\n\nSwipe door de slides voor een kijkje achter de schermen.\n\nEn wil je weten waar jij staat? Doe de check op zenbtw.nl — het kost je twee minuten.\n\n#btw #belasting #zzp #webshop #vintedverkoper #etsyshop #marktplaatsverkoper #korregeling #ossregeling #dac7 #belastingdienst #onlineverkopen",
+      "threadsDescription": "ZenBTW helpt je BTW teruggeven zonder gedoe – van dashboard tot rapportage in 7 stappen uitgelegd. Laat ons je precies tonen hoe dit werkt voor jouw zaak.\n\nCheck zenbtw.nl en zet je eerste stap! 🚀\n\n#BTW #Zakelijk #Marketplace #KOR"
+    },
+    {
       "id": "2026-06-14-vinted-30-verkopen-dac7",
       "topic": "30 verkopen op Vinted — wat gebeurt er nu precies met jouw gegevens?",
       "date": "2026-06-14",

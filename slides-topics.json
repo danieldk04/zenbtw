@@ -1,14 +1,6 @@
 {
   "queue": [
     {
-      "topic": "ZenBTW uitgelegd: wat doet de tool precies voor jou?",
-      "slug": "zenbtw-tool-uitleg",
-      "type": "carousel",
-      "status": "pending",
-      "priority": 2,
-      "notes": "Dashboard-heavy — goede kans voor dashboard + split templates"
-    },
-    {
       "topic": "KOR opzeggen: wanneer moet je stoppen en hoe doe je dat?",
       "slug": "kor-opzeggen-wanneer",
       "type": "carousel",
@@ -207,6 +199,16 @@
       "notes": "Stat poster — concreet getal als haak",
       "publishedDate": "2026-06-14",
       "outputDir": "slides/2026-06-14-vinted-30-verkopen-dac7"
+    },
+    {
+      "topic": "ZenBTW uitgelegd: wat doet de tool precies voor jou?",
+      "slug": "zenbtw-tool-uitleg",
+      "type": "carousel",
+      "status": "published",
+      "priority": 2,
+      "notes": "Dashboard-heavy — goede kans voor dashboard + split templates",
+      "publishedDate": "2026-06-15",
+      "outputDir": "slides/2026-06-15-zenbtw-tool-uitleg"
     }
   ],
   "settings": {
