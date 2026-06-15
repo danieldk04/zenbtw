@@ -77,16 +77,29 @@ body{background:var(--bg);color:var(--tx);font-family:'Plus Jakarta Sans',sans-s
 .safe .kbb{background:var(--ac);color:#fff}.warn .kbb{background:var(--wn);color:#fff}.danger .kbb{background:var(--dn);color:#fff}
 .prog{background:var(--wh);border:1px solid var(--br);border-radius:var(--r);padding:12px 18px;margin-bottom:16px;display:none;align-items:center;gap:12px;box-shadow:var(--sh);font-size:12.5px}
 .prog.on{display:flex}
-.sg{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-bottom:16px}
-.sc{background:var(--wh);border:1px solid var(--br);border-top:3px solid var(--br);border-radius:var(--r);padding:18px 20px 16px;box-shadow:var(--sh);transition:box-shadow .2s}
-.sc:hover{box-shadow:var(--shm)}
-.sc-g{border-top-color:var(--ac)}.sc-r{border-top-color:var(--dn)}.sc-b{border-top-color:#3b82f6}.sc-a{border-top-color:var(--wn)}.sc-eu{border-top-color:var(--acm)}
+.sg{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:20px}
+#vwdashboard .sg{grid-template-columns:repeat(5,1fr)}
+.sc{background:var(--wh);border:1px solid var(--br);border-radius:14px;padding:22px 22px 18px;box-shadow:0 2px 8px rgba(0,0,0,.06);transition:all .2s;cursor:default}
+.sc:hover{box-shadow:0 6px 20px rgba(0,0,0,.1);transform:translateY(-2px)}
+.sc-g{background:#f0f9f4;border-color:#b8d8c4}.sc-r{background:#fef2f1;border-color:#f0b9b3}.sc-b{background:#eff6ff;border-color:#bfdbfe}.sc-a{background:#fffbeb;border-color:#fde68a}.sc-eu{background:#eef7f2;border-color:#b2cfbf}
 .st{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px}
-.sl{font-size:10.5px;font-weight:600;color:var(--tx4);text-transform:uppercase;letter-spacing:.07em}
+#vwdashboard .st{display:none}
+.sl{font-size:10px;font-weight:700;color:var(--tx4);text-transform:uppercase;letter-spacing:.1em;margin-bottom:10px;display:block}
 .sg .si{display:none}
-.g{color:var(--ac)}.g.si{background:var(--acl)}.r{color:var(--dn)}.r.si{background:var(--dnl)}.a{color:var(--wn)}.a.si{background:var(--wnl)}.b.si{background:#eff6ff}
-.sv{font-family:'Fraunces',serif;font-size:30px;font-weight:700;letter-spacing:-1.5px;line-height:1;margin-bottom:5px}
+.g{color:var(--ac)}.r{color:var(--dn)}.a{color:var(--wn)}.b{color:#2563eb}.g.si{background:var(--acl)}.r.si{background:var(--dnl)}.a.si{background:var(--wnl)}.b.si{background:#eff6ff}
+.sv{font-family:'Fraunces',serif;font-size:38px;font-weight:700;letter-spacing:-2px;line-height:1;margin-bottom:6px}
+.sc-g .sv{color:var(--ac)}.sc-r .sv{color:var(--dn)}.sc-b .sv{color:#2563eb}.sc-a .sv{color:#d97706}.sc-eu .sv{color:var(--acm)}
 .sd{font-size:11px;color:var(--tx3);font-family:'JetBrains Mono',monospace}.sd.up{color:var(--acm)}
+/* X-button on KOR banner */
+.kb-close{width:28px;height:28px;border:none;border-radius:6px;background:rgba(0,0,0,.07);color:var(--tx3);cursor:pointer;font-size:13px;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .15s;padding:0;margin-left:4px}
+.kb-close:hover{background:rgba(0,0,0,.15);color:var(--tx)}
+/* Meldingen inbox */
+.inbox-hd{display:flex;align-items:center;justify-content:space-between;padding:14px 18px;border-bottom:1px solid var(--br)}
+.inbox-ht{font-family:'Fraunces',serif;font-size:15px;font-weight:700}
+.inbox-cnt{font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:700;padding:2px 9px;background:var(--wnl);color:#92400e;border:1px solid #fcd34d;border-radius:100px}
+.inbox-cnt.zero{background:var(--acl);color:var(--ac);border-color:#b2cfbf}
+.inbox-body{padding:14px 18px 4px}
+.inbox-empty{text-align:center;padding:24px;color:var(--tx3);font-size:13px}
 .ur{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:14px}
 .uz{background:var(--wh);border:1.5px dashed var(--brs);border-radius:var(--r);padding:16px;text-align:center;cursor:pointer;transition:all .2s;position:relative}
 .uz:hover{border-color:var(--ac);background:var(--acl)}.uz.ok{border-style:solid;border-color:var(--ac);background:var(--acl)}.uz.er{border-style:solid;border-color:var(--dn);background:var(--dnl)}
@@ -223,7 +236,7 @@ input:checked + .tsl:before{transform:translateX(17px)}
   .nav,.ur,.ha,.xb,.disc,.kb .kbb,.plog,.prog,.fxbar,.corr,.als{display:none!important}
   .vw{display:block!important;padding:0}
   .card,.sc{box-shadow:none;border:1px solid #ddd;break-inside:avoid}
-  .cg{grid-template-columns:1fr 260px}.sg{grid-template-columns:repeat(5,1fr)}
+  .cg{grid-template-columns:1fr 260px}.sg{grid-template-columns:repeat(4,1fr)}#vwdashboard .sg{grid-template-columns:repeat(5,1fr)}
   .prh{display:flex!important}
 }
 @keyframes fU{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
@@ -782,7 +795,7 @@ src="https://www.facebook.com/tr?id=964378096043237&ev=PageView&noscript=1"
   <div class="ns">
     <div class="nsl">Tools</div>
     <div class="ni" id="nOSS" onclick="sv('oss')"><span>✅</span> OSS Registratie</div>
-    <div class="ni" id="nAlert" onclick="sv('alerts')"><span>🔔</span> Meldingen</div>
+    <div class="ni" id="nAlert" onclick="sv('alerts')"><span>🔔</span> Meldingen<span class="nav-badge" id="navAlertBadge" style="display:none">0</span></div>
     <div class="ni" id="nHelp" onclick="sv('help')"><span>❓</span> Help &amp; Uitleg</div>
     <div class="ni" onclick="openSettings()"><span>⚙️</span> Bedrijfsgegevens</div>
     <div class="ni" onclick="syncToGoogle()"><span>☁️</span> Cloud Backup</div>
@@ -936,29 +949,11 @@ src="https://www.facebook.com/tr?id=964378096043237&ev=PageView&noscript=1"
     <div class="kd"></div>
     <div class="kc">
       <div class="kt" id="kT">Upload je CSV om te beginnen</div>
-      <div class="ks" id="kS">ZENBTW berekent automatisch je BTW-plicht per EU-land</div>
+      <div class="ks" id="kS">ZenBTW berekent automatisch je BTW-plicht per EU-land</div>
       <div class="kp"><div class="kpt"><div class="kpf" id="kF" style="width:0%"></div></div><div class="kpp" id="kP">0%</div></div>
     </div>
-    <button class="kbb" onclick="sv('alerts')">🔔 Alert</button>
-  </div>
-  <div id="korUitleg" style="display:none"></div>
-  <div id="euKorBanner" class="eu-kor-banner" style="display:none"></div>
-  <div id="korExclBanner" class="kor-excl-banner" style="display:none"></div>
-  <div id="dac7Banner" style="display:none;margin-bottom:12px;padding:12px 16px;background:#fefce8;border:1.5px solid #fbbf24;border-radius:var(--rs);font-size:12.5px;color:#78350f">
-    <strong>📋 DAC7 — platformrapportage</strong><br>
-    <span id="dac7Msg"></span>
-    <a href="https://www.belastingdienst.nl" target="_blank" rel="noopener" style="color:#92400e;font-weight:600;margin-left:6px;white-space:nowrap">Meer info →</a>
-  </div>
-  <div id="margeWarn" style="display:none;margin-bottom:12px;padding:10px 14px;background:var(--wnl);border:1px solid #fcd34d;border-radius:var(--rs);font-size:12px;color:#92400e">⚠ <strong>Margeregeling actief</strong> — BTW-bedragen zijn indicatief (gebaseerd op omzet, niet winstmarge). Raadpleeg je boekhouder voor de definitieve BTW bij tweedehands goederen.</div>
-  <div id="ossAP" style="display:none;margin-bottom:16px;padding:14px 18px;background:var(--dnl);border:1px solid #f5c2bc;border-radius:var(--rs)">
-    <div style="font-size:13px;font-weight:700;color:var(--dn);margin-bottom:8px">🚨 Actieplan — OSS-aangifte is nu verplicht</div>
-    <ol style="margin:0;padding-left:18px;font-size:12.5px;color:var(--tx2);line-height:2">
-      <li>Stop direct met de <strong>KOR-vrijstelling</strong> op EU-verkopen</li>
-      <li>Registreer je voor <strong>OSS</strong> via Mijn Belastingdienst Zakelijk → BTW → E-commerce</li>
-      <li>Pas je prijzen in Etsy/Shopify/Vinted aan — BTW van het kopersland moet inbegrepen zijn</li>
-      <li>Dien elke kwartaal een <strong>OSS-melding</strong> in vóór de deadline (uiterlijk 30 dagen na kwartaalafloop)</li>
-      <li>Gebruik de <strong>"Aangifte exporteren"</strong> knop hierboven voor je XML-bestand</li>
-    </ol>
+    <button class="kbb" onclick="sv('alerts')" id="kbbInbox">🔔 Meldingen <span id="kbbCount" style="display:none;margin-left:2px;background:rgba(255,255,255,.3);border-radius:100px;padding:0 5px;font-size:10px">0</span></button>
+    <button class="kb-close" onclick="dismissKorBanner()" title="Verberg balk">✕</button>
   </div>
   <div class="prog" id="progB"><span style="font-size:18px">📈</span><span id="progT"></span></div>
   <div class="sg">
@@ -1235,7 +1230,23 @@ src="https://www.facebook.com/tr?id=964378096043237&ev=PageView&noscript=1"
 
 <!-- ALERTS -->
 <div class="vw" id="vwalerts">
-  <div class="ph"><div><div class="pe" data-i18n="alerts-title">Meldingen</div><div class="pt" data-i18n="alerts-sub">E-mailalerts instellen</div></div></div>
+  <div class="ph"><div><div class="pt" style="font-family:'Fraunces',serif;font-size:22px;font-weight:700;letter-spacing:-.3px">Meldingen</div></div></div>
+  <!-- ── INBOX: actieve meldingen ── -->
+  <div class="card" style="margin-bottom:16px">
+    <div class="inbox-hd">
+      <span class="inbox-ht">📬 Actieve meldingen</span>
+      <span class="inbox-cnt zero" id="inboxCnt">0</span>
+    </div>
+    <div class="inbox-body">
+      <div id="inboxEmpty" class="inbox-empty">✓ Geen actieve meldingen — alles ziet er goed uit.</div>
+      <div id="korUitleg" style="display:none"></div>
+      <div id="euKorBanner" class="eu-kor-banner" style="display:none"></div>
+      <div id="korExclBanner" class="kor-excl-banner" style="display:none"></div>
+      <div id="dac7Banner" style="display:none;margin-bottom:12px;padding:12px 16px;background:#fefce8;border:1.5px solid #fbbf24;border-radius:var(--rs);font-size:12.5px;color:#78350f"><strong>📋 DAC7 — platformrapportage</strong><br><span id="dac7Msg"></span><a href="https://www.belastingdienst.nl" target="_blank" rel="noopener" style="color:#92400e;font-weight:600;margin-left:6px;white-space:nowrap">Meer info →</a></div>
+      <div id="margeWarn" style="display:none;margin-bottom:12px;padding:10px 14px;background:var(--wnl);border:1px solid #fcd34d;border-radius:var(--rs);font-size:12px;color:#92400e">⚠ <strong>Margeregeling actief</strong> — BTW-bedragen zijn indicatief (gebaseerd op omzet, niet winstmarge). Raadpleeg je boekhouder voor de definitieve BTW bij tweedehands goederen.</div>
+      <div id="ossAP" style="display:none;margin-bottom:12px;padding:14px 18px;background:var(--dnl);border:1px solid #f5c2bc;border-radius:var(--rs)"><div style="font-size:13px;font-weight:700;color:var(--dn);margin-bottom:8px">🚨 Actieplan — OSS-aangifte is nu verplicht</div><ol style="margin:0;padding-left:18px;font-size:12.5px;color:var(--tx2);line-height:2"><li>Stop direct met de <strong>KOR-vrijstelling</strong> op EU-verkopen</li><li>Registreer je voor <strong>OSS</strong> via Mijn Belastingdienst Zakelijk → BTW → E-commerce</li><li>Pas je prijzen in Etsy/Shopify/Vinted aan — BTW van het kopersland moet inbegrepen zijn</li><li>Dien elke kwartaal een <strong>OSS-melding</strong> in vóór de deadline (uiterlijk 30 dagen na kwartaalafloop)</li><li>Gebruik de <strong>"Aangifte exporteren"</strong> knop hierboven voor je XML-bestand</li></ol></div>
+    </div>
+  </div>
   <div class="als">
     <div class="alrow"><div><div class="all" data-i18n="alert-threshold-title">🔔 BTW-drempel waarschuwing</div><div class="als-sub" data-i18n="alert-threshold-sub">Ontvang een e-mail als je de drempel nadert</div></div><label class="tog"><input type="checkbox" id="alTog" onchange="saveAl()"><span class="tsl"></span></label></div>
     <input class="alei" type="email" id="alEmail" placeholder="your@email.com" oninput="saveAl()">
@@ -2102,6 +2113,7 @@ function render(){
   updateNavBadges();
   updDAC7();
   updateOnboarding();
+  updateInboxCount();
   if(document.getElementById('vwtransacties').classList.contains('on')) renderTx();
   if(document.getElementById('vwlanden').classList.contains('on')) renderLanden();
   if(document.getElementById('vwjaaroverzicht').classList.contains('on')) renderJDetail();
@@ -2154,10 +2166,27 @@ function updDAC7(){
 function updateNavBadges(){
   const pct=Math.min(Math.round(calcYearCB()/(S.ossLimit||10000)*100),100);
   const badge=document.getElementById('navAlertBadge');
-  if(!badge)return;
-  if(pct>=90){badge.style.display='flex';badge.className='nav-badge';badge.title='OSS-drempel '+pct+'% bereikt — actie vereist!';}
-  else if(pct>=70){badge.style.display='flex';badge.className='nav-badge warn';badge.title='OSS-drempel '+pct+'% — let op';}
-  else{badge.style.display='none';}
+  if(badge){
+    if(pct>=90){badge.style.display='flex';badge.className='nav-badge';badge.title='OSS-drempel '+pct+'% bereikt — actie vereist!';}
+    else if(pct>=70){badge.style.display='flex';badge.className='nav-badge warn';badge.title='OSS-drempel '+pct+'% — let op';}
+    else{badge.style.display='none';}
+  }
+  updateInboxCount();
+}
+function updateInboxCount(){
+  const ids=['korUitleg','euKorBanner','korExclBanner','dac7Banner','margeWarn','ossAP'];
+  let count=0;
+  ids.forEach(id=>{const el=document.getElementById(id);if(el&&el.style.display!=='none'&&el.innerHTML.trim())count++;});
+  const cnt=document.getElementById('inboxCnt');
+  if(cnt){cnt.textContent=count;cnt.className='inbox-cnt'+(count===0?' zero':'');}
+  const empty=document.getElementById('inboxEmpty');
+  if(empty)empty.style.display=count===0?'block':'none';
+  const kbbCnt=document.getElementById('kbbCount');
+  if(kbbCnt){kbbCnt.textContent=count;kbbCnt.style.display=count>0?'inline':'none';}
+}
+function dismissKorBanner(){
+  const el=document.getElementById('kB');
+  if(el){el.style.display='none';sessionStorage.setItem('zen_kor_dismissed','1');}
 }
 
 function updateOnboarding(){
