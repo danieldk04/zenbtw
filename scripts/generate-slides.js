@@ -76,10 +76,23 @@ async function captureAssets(browser) {
 }
 
 // ── Claude prompt ─────────────────────────────────────────────────────────────
-function buildPrompt(topic, type) {
+// rotationIndex determines visual style variation (cycles through 6 styles)
+// targetSlides is the exact slide count for this carousel
+function buildPrompt(topic, type, targetSlides = 6, rotationIndex = 0) {
   const typeDesc = type === 'poster'
     ? 'één krachtige losse poster (1 slide)'
-    : 'een Instagram/TikTok carrousel (4-7 slides)';
+    : `een Instagram/TikTok carrousel van PRECIES ${targetSlides} slides`;
+
+  // Cycle through different style emphasis instructions so carousels look different
+  const styleVariations = [
+    `STIJL VOOR DEZE CARROUSEL: Gebruik dark:true op de hook (donkergroene openingsslide). Verplicht: gebruik persona-template op één van de tussenslides. Eindig met split of dashboard vóór de CTA.`,
+    `STIJL VOOR DEZE CARROUSEL: Gebruik dark:false op de hook (crème achtergrond). Verplicht: gebruik dashboard-template op één van de tussenslides. Combineer steps + list voor de inhoud.`,
+    `STIJL VOOR DEZE CARROUSEL: Gebruik dark:true op de hook. Verplicht: gebruik compare-template om twee opties tegen elkaar te zetten. Voeg een stat-slide toe met een concreet getal.`,
+    `STIJL VOOR DEZE CARROUSEL: Gebruik dark:false op de hook. Verplicht: gebruik split-template op slide 2 of 3. Gebruik info-template met 4 cards voor de kern.`,
+    `STIJL VOOR DEZE CARROUSEL: Gebruik dark:true op de hook. Verplicht: gebruik list-template als checklist. Voeg een stat-slide toe. Eindig sterk met persona of compare.`,
+    `STIJL VOOR DEZE CARROUSEL: Gebruik dark:false op de hook. Verplicht: gebruik persona-template met 2-3 persona's. Voeg een steps-slide toe met een stappenplan.`,
+  ];
+  const variationInstruction = styleVariations[rotationIndex % styleVariations.length];
 
   return `Je maakt informatieve social media content voor Nederlandse marketplace verkopers (Vinted, Etsy, Shopify, Marktplaats, Bol.com).
 
@@ -243,12 +256,15 @@ STIJLREGELS:
 - "sub" bij hook = de uitleg onder de separator, max 2 zinnen
 - "pill" bij hook = een feitenpil onderaan, bijv. "DAC7 · 30 verkopen + €2k = automatische melding"
 
-VARIATIE-REGELS (BELANGRIJK — volg deze altijd):
-- Gebruik in elke carrousel minstens 3 VERSCHILLENDE templates (nooit 4× info of 3× steps)
-- Gebruik "split" of "dashboard" minstens 1× per carrousel om visuele variatie te brengen
-- Gebruik dark:true op de hook-slide van ~50% van de carrousels voor een sterke openingsimpact
+VARIATIE-REGELS (ALTIJD volgen):
+- Gebruik minstens 3 VERSCHILLENDE templates — nooit tweemaal achter elkaar hetzelfde
 - Wissel af tussen lichte en donkere slides binnen één carrousel
-- Persona-template is het meest engaging — gebruik hem telkens als het onderwerp een vergelijking bevat
+- Persona-template = meest engaging — gebruik hem als het onderwerp een vergelijking bevat
+- De "daniel-presentator.png" figuur staat altijd in de hook-slide (al ingebouwd) — zorg dat de rest van de slides optisch bij die stijl past
+
+${variationInstruction}
+
+SLIDE-TELLING: De carrousel telt PRECIES ${type === 'poster' ? 1 : targetSlides} slides. Altijd beginnen met "hook", eindigen met "cta". De tussenslides vullen de overige ${type === 'poster' ? 0 : targetSlides - 2} plaatsen.
 
 Geef ALLEEN de JSON terug.`;
 }
@@ -743,8 +759,11 @@ const SPLIT = (s, index = 0, total = 5) => {
       </div>
     </div>
 
-    <!-- Right: dashboard -->
+    <!-- Right: daniel + dashboard -->
     <div style="width:390px;flex-shrink:0;display:flex;flex-direction:column;justify-content:center;gap:18px">
+      <img src="../assets/daniel-presentator.png"
+           style="width:110px;height:auto;align-self:flex-end;margin-bottom:-8px;filter:drop-shadow(0 4px 12px rgba(0,0,0,0.2))"
+           alt="Daniel">
       ${DASHBOARD_MOCKUP()}
       <div style="background:${dark ? 'rgba(74,222,128,0.15)' : '#1a4731'};border-radius:12px;padding:16px 22px;text-align:center;border:${dark ? '1px solid rgba(74,222,128,0.3)' : 'none'}">
         <div style="font-size:17px;font-weight:700;color:${dark ? '#4ade80' : '#fff'}">zenbtw.nl — 100% gratis</div>
@@ -857,9 +876,9 @@ const CTA = (s, index = 0, total = 5) => {
   <div style="position:absolute;left:0;top:0;bottom:0;width:8px;background:rgba(255,255,255,0.15);z-index:10"></div>
 
   <div style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:80px 80px 100px;text-align:center;z-index:2">
-    <div style="width:96px;height:96px;background:rgba(255,255,255,0.1);border-radius:24px;display:flex;align-items:center;justify-content:center;margin-bottom:44px">
-      <svg width="50" height="50" viewBox="0 0 24 24" fill="none"><path d="M12 2L3 7v5c0 5.25 3.75 10.15 9 11.35C17.25 22.15 21 17.25 21 12V7L12 2z" fill="rgba(255,255,255,0.9)"/></svg>
-    </div>
+    <img src="../assets/daniel-presentator.png"
+         style="width:180px;height:auto;margin-bottom:28px;filter:drop-shadow(0 8px 32px rgba(0,0,0,0.35))"
+         alt="Daniel — ZenBTW">
 
     <h1 style="font-size:74px;font-weight:900;color:#fff;line-height:1.05;letter-spacing:-0.03em;margin-bottom:28px">${s.question || 'Weet jij waar jij staat?'}</h1>
     <p style="font-size:30px;color:rgba(255,255,255,0.7);line-height:1.48;max-width:800px;margin-bottom:56px;font-weight:500">${s.sub || 'Controleer gratis in 30 seconden — geen account nodig'}</p>
@@ -931,6 +950,39 @@ Geef ALLEEN de caption terug (geen extra uitleg, geen aanhalingstekens).`;
   }
 }
 
+// ── Threads description generator (≤500 chars) ───────────────────────────────
+async function generateThreadsDescription(topic, slides, client) {
+  const templates = slides.map(s => s.template).join(', ');
+  const prompt = `Schrijf een Threads-beschrijving voor een carousel-post van @zenbtw over: "${topic}"
+
+De post bevat ${slides.length} slides met templates: ${templates}
+
+Vereisten:
+- MAXIMAAL 480 tekens inclusief alles (spaties, emoji, hashtags)
+- Persoonlijk en concreet — geen marketing-taal
+- 1-2 zinnen met de kern van de boodschap
+- 1 zachte CTA (bijv. "Check zenbtw.nl" of "Link in bio")
+- Sluit af met 3-4 hashtags (#BTW #KOR #marketplace etc.)
+- Schrijf in het Nederlands
+
+Tel zorgvuldig. Houd het STRIKT onder 480 tekens.
+Geef ALLEEN de beschrijving terug — geen aanhalingstekens, geen uitleg.`;
+
+  try {
+    const msg = await client.messages.create({
+      model: 'claude-haiku-4-5-20251001',
+      max_tokens: 200,
+      messages: [{ role: 'user', content: prompt }],
+    });
+    let text = msg.content[0].text.trim();
+    if (text.length > 500) text = text.slice(0, 497) + '…';
+    return text;
+  } catch (e) {
+    console.warn(`  ⚠️  Threads description failed: ${e.message}`);
+    return '';
+  }
+}
+
 // ── Screenshot ────────────────────────────────────────────────────────────────
 async function screenshot(browser, htmlPath, pngPath) {
   const page = await browser.newPage();
@@ -967,8 +1019,16 @@ async function main() {
   await captureAssets(browser);
   console.log('');
 
-  for (const item of toProcess) {
-    console.log(`\n📌 "${item.topic}" [${item.type}]`);
+  // Slide count rotation: 5 → 6 → 7 → 6 → 8 → 5 → 6 → 7 …
+  const SLIDE_COUNTS = [5, 6, 7, 6, 8, 5, 7];
+
+  for (let processIdx = 0; processIdx < toProcess.length; processIdx++) {
+    const item = toProcess[processIdx];
+    // rotationIndex: base on total existing sets so each run continues the sequence
+    const rotationIndex = (manifest.sets.length + processIdx) % 6;
+    const targetSlides  = item.type === 'poster' ? 1 : SLIDE_COUNTS[(manifest.sets.length + processIdx) % SLIDE_COUNTS.length];
+
+    console.log(`\n📌 "${item.topic}" [${item.type}] — ${targetSlides} slides, variatie ${rotationIndex + 1}/6`);
     console.log('  Calling Claude...');
 
     let slideData;
@@ -976,7 +1036,7 @@ async function main() {
       const msg = await client.messages.create({
         model: data.settings?.model || 'claude-sonnet-4-6',
         max_tokens: 4096,
-        messages: [{ role: 'user', content: buildPrompt(item.topic, item.type) }],
+        messages: [{ role: 'user', content: buildPrompt(item.topic, item.type, targetSlides, rotationIndex) }],
       });
       const raw = msg.content[0].text.trim()
         .replace(/^```json\s*/i, '').replace(/^```\s*/i, '').replace(/\s*```$/i, '');
@@ -1013,9 +1073,16 @@ async function main() {
     const caption = await generateCaption(item.topic, slides, client);
     if (caption) console.log('  ✍️  Caption ready');
 
+    console.log('  Generating Threads description...');
+    const threadsDescription = await generateThreadsDescription(item.topic, slides, client);
+    if (threadsDescription) {
+      fs.writeFileSync(path.join(setDir, 'description.txt'), threadsDescription, 'utf8');
+      console.log(`  📝 Threads description: ${threadsDescription.length} tekens`);
+    }
+
     manifest.sets.unshift({
       id: setId, topic: item.topic, date: TODAY, type: item.type,
-      slides: slides.length, files: htmlFiles, pngs: pngFiles, caption,
+      slides: slides.length, files: htmlFiles, pngs: pngFiles, caption, threadsDescription,
     });
 
     const idx = data.queue.findIndex(t => t.slug === item.slug);
