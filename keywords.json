@@ -1,14 +1,6 @@
 {
   "queue": [
     {
-      "keyword": "nihil aangifte btw kor ondernemer",
-      "slug": "nihil-aangifte-btw-kor",
-      "status": "pending",
-      "priority": 2,
-      "notes": "Veel verwarring over of je nihil moet indienen onder KOR",
-      "type": "geo-vraag"
-    },
-    {
       "keyword": "etsy deemed supplier btw nederland uitleg",
       "slug": "etsy-deemed-supplier-btw",
       "status": "pending",
@@ -313,6 +305,16 @@
       "type": "seo-tool",
       "publishedDate": "2026-06-14",
       "outputFile": "blog/margeregeling-tweedehands-btw.html"
+    },
+    {
+      "keyword": "nihil aangifte btw kor ondernemer",
+      "slug": "nihil-aangifte-btw-kor",
+      "status": "published",
+      "priority": 2,
+      "notes": "Veel verwarring over of je nihil moet indienen onder KOR",
+      "type": "geo-vraag",
+      "publishedDate": "2026-06-15",
+      "outputFile": "blog/nihil-aangifte-btw-kor.html"
     }
   ],
   "settings": {
