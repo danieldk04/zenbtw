@@ -1,0 +1,49 @@
+<!DOCTYPE html><html lang="nl"><head><meta charset="UTF-8"><meta name="viewport" content="width=1080"><link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,700;9..144,900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}html,body{width:1080px;height:1350px;overflow:hidden}
+body{background:#1a4731;font-family:'Plus Jakarta Sans',sans-serif;color:#fff;position:relative}
+.dots{position:absolute;inset:0;background-image:radial-gradient(circle,rgba(255,255,255,.05) 1px,transparent 1px);background-size:38px 38px;pointer-events:none}
+.pg{position:relative;z-index:2;display:flex;flex-direction:column;height:100%;padding:64px 72px}
+.tag{display:inline-block;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.18);border-radius:7px;padding:9px 18px;font-size:18px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.65);margin-bottom:26px;width:fit-content}
+.title{font-family:'Fraunces',serif;font-size:76px;font-weight:700;line-height:1.06;letter-spacing:-2px;margin-bottom:10px}
+.title em{color:#86efac;font-style:normal}
+.sub{font-size:26px;color:rgba(255,255,255,.5);margin-bottom:44px}
+.items{display:flex;flex-direction:column;gap:20px;flex:1}
+.item{background:rgba(255,255,255,.07);border:1.5px solid rgba(255,255,255,.1);border-radius:14px;padding:22px 26px}
+.iq{font-size:26px;font-weight:700;color:#fff;line-height:1.3;margin-bottom:10px}
+.note{font-size:20px;font-weight:600;padding:8px 14px;border-radius:8px;line-height:1.4}
+.note.warn{background:rgba(251,191,36,.12);border:1px solid rgba(251,191,36,.25);color:#fbbf24}
+.note.good{background:rgba(134,239,172,.12);border:1px solid rgba(134,239,172,.25);color:#86efac}
+.result{background:rgba(255,255,255,.1);border:1.5px solid rgba(255,255,255,.15);border-radius:14px;padding:22px 26px;display:flex;align-items:center;gap:18px;margin-top:4px;flex-shrink:0}
+.ri{font-size:36px}
+.rl strong{display:block;font-size:24px;font-weight:700;color:#fff}
+.rl span{font-size:19px;color:rgba(255,255,255,.5);margin-top:3px;display:block}
+.ft{padding-top:32px;display:flex;justify-content:space-between;align-items:center;border-top:1px solid rgba(255,255,255,.1);flex-shrink:0;margin-top:auto}
+.fb{font-size:22px;font-weight:700;color:rgba(255,255,255,.3);letter-spacing:.12em;text-transform:uppercase}
+.cta{background:#fff;color:#1a4731;font-size:21px;font-weight:800;padding:14px 30px;border-radius:11px}
+</style></head><body>
+<div class="dots"></div>
+<div class="pg">
+  <div class="tag">Vinted & Belastingdienst</div>
+  <div class="title">Wanneer ben jij géén hobbyverkoper meer op Vinted?</div>
+  <div class="sub">Beantwoord deze 5 vragen eerlijk. Meer vinkjes = groter risico dat de Belastingdienst jou als ondernemer ziet.</div>
+  <div class="items"><div class="item">
+      <div class="iq">Verkoop je regelmatig nieuwe of ingekochte items — niet alleen je eigen oude spullen?</div>
+      <div class="note warn">Inkoop met winstoogmerk is een sterk signaal van ondernemerschap.</div>
+    </div><div class="item">
+      <div class="iq">Heb je dit jaar al meer dan 30 transacties én meer dan €2.000 omzet op Vinted?</div>
+      <div class="note warn">Dan deelt Vinted jouw gegevens via DAC7 automatisch met de Belastingdienst.</div>
+    </div><div class="item">
+      <div class="iq">Kom je dit jaar boven de €20.000 omzet op al je verkoopplatforms samen?</div>
+      <div class="note warn">Boven €20.000 vervalt de KOR-vrijstelling — BTW-plicht geldt vanaf díe transactie, zonder terugwerkende kracht.</div>
+    </div><div class="item">
+      <div class="iq">Verkoop je bewust met winst, prijst je items strategisch en heb je een vast assortiment?</div>
+      <div class="note warn">Winstoogmerk + regelmaat = kenmerken van een onderneming volgens de Belastingdienst.</div>
+    </div><div class="item">
+      <div class="iq">Verkoop je uitsluitend je eigen gedragen kleding zonder winstoogmerk en blijf je ruim onder €20.000?</div>
+      <div class="note good">Dit zijn typische hobby-kenmerken — je bent waarschijnlijk geen ondernemer voor de BTW.</div>
+    </div></div>
+  <div class="result"><div class="ri">✅</div><div class="rl"><strong>Als je meerdere vragen met 'ja' beantwoordt:</strong><span>Dan ben je mogelijk BTW-plichtig ondernemer. Check je status via zenbtw.nl voordat de Belastingdienst klopt.</span></div></div>
+  <div class="ft"><div class="fb">ZenBTW</div><div class="cta">Check mijn status →</div></div>
+</div>
+</body></html>

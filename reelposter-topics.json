@@ -1,38 +1,6 @@
 {
   "queue": [
     {
-      "topic": "EU-KOR: verkoop je ook in andere EU-landen? Dit is de nieuwe vrijstelling",
-      "slug": "eu-kor-nieuwe-vrijstelling",
-      "template": "checklist",
-      "status": "pending",
-      "priority": 1,
-      "notes": "🔥 TRENDING — EU-KOR seit jan 2025. Checklist: voldoe je aan de voorwaarden? Drempel €100k EU-omzet totaal. Voor Etsy/Shopify EU-verkopers."
-    },
-    {
-      "topic": "De 3-jaar KOR-wachttermijn bestaat niet meer — wat verandert er voor jou?",
-      "slug": "kor-wachttermijn-weg-2026",
-      "template": "myth",
-      "status": "pending",
-      "priority": 2,
-      "notes": "🔥 TRENDING — Mythe vs werkelijkheid: oude regels vs nieuwe regels. Je kunt nu op elk moment stoppen met KOR. Zeer herkenbaar voor mensen die terugschrokken."
-    },
-    {
-      "topic": "Vinted hobby checklist: wanneer word jij door de Belastingdienst gezien als ondernemer?",
-      "slug": "vinted-hobby-ondernemer-checklist",
-      "template": "checklist",
-      "status": "pending",
-      "priority": 3,
-      "notes": "🔥 TRENDING — Criteria BD voor ondernemerschap: structureel, winstoogmerk, professionele aanpak. Praktische checklist met warn/good noten."
-    },
-    {
-      "topic": "Shopify dropshipping 2026: dit kost je de nieuwe douaneregel",
-      "slug": "shopify-douane-kosten-2026",
-      "template": "rekensommetje",
-      "status": "pending",
-      "priority": 4,
-      "notes": "🔥 TRENDING — €150-vrijstelling weg. Rekensom: zending €80 uit China → vroeger gratis → nu douanekosten + BTW. IOSS als oplossing."
-    },
-    {
       "topic": "Welk platform rapporteert jouw omzet aan de Belastingdienst?",
       "slug": "dac7-platforms-vergelijking",
       "template": "compare",
@@ -129,7 +97,48 @@
       "notes": "Uitgebreide vergelijkingstabel met alle grote platforms inclusief Marktplaats, Facebook Marketplace"
     }
   ],
-  "published": [],
+  "published": [
+    {
+      "topic": "EU-KOR: verkoop je ook in andere EU-landen? Dit is de nieuwe vrijstelling",
+      "slug": "eu-kor-nieuwe-vrijstelling",
+      "template": "checklist",
+      "status": "published",
+      "priority": 1,
+      "notes": "🔥 TRENDING — EU-KOR seit jan 2025. Checklist: voldoe je aan de voorwaarden? Drempel €100k EU-omzet totaal. Voor Etsy/Shopify EU-verkopers.",
+      "publishedDate": "2026-06-15",
+      "outputDir": "reelposters/2026-06-15-eu-kor-nieuwe-vrijstelling"
+    },
+    {
+      "topic": "De 3-jaar KOR-wachttermijn bestaat niet meer — wat verandert er voor jou?",
+      "slug": "kor-wachttermijn-weg-2026",
+      "template": "myth",
+      "status": "published",
+      "priority": 2,
+      "notes": "🔥 TRENDING — Mythe vs werkelijkheid: oude regels vs nieuwe regels. Je kunt nu op elk moment stoppen met KOR. Zeer herkenbaar voor mensen die terugschrokken.",
+      "publishedDate": "2026-06-15",
+      "outputDir": "reelposters/2026-06-15-kor-wachttermijn-weg-2026"
+    },
+    {
+      "topic": "Vinted hobby checklist: wanneer word jij door de Belastingdienst gezien als ondernemer?",
+      "slug": "vinted-hobby-ondernemer-checklist",
+      "template": "checklist",
+      "status": "published",
+      "priority": 3,
+      "notes": "🔥 TRENDING — Criteria BD voor ondernemerschap: structureel, winstoogmerk, professionele aanpak. Praktische checklist met warn/good noten.",
+      "publishedDate": "2026-06-15",
+      "outputDir": "reelposters/2026-06-15-vinted-hobby-ondernemer-checklist"
+    },
+    {
+      "topic": "Shopify dropshipping 2026: dit kost je de nieuwe douaneregel",
+      "slug": "shopify-douane-kosten-2026",
+      "template": "rekensommetje",
+      "status": "published",
+      "priority": 4,
+      "notes": "🔥 TRENDING — €150-vrijstelling weg. Rekensom: zending €80 uit China → vroeger gratis → nu douanekosten + BTW. IOSS als oplossing.",
+      "publishedDate": "2026-06-15",
+      "outputDir": "reelposters/2026-06-15-shopify-douane-kosten-2026"
+    }
+  ],
   "settings": {
     "maxPerRun": 4,
     "model": "claude-sonnet-4-6",
