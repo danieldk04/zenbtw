@@ -1,14 +1,6 @@
 {
   "queue": [
     {
-      "topic": "EU-KOR: de nieuwe Europese BTW-vrijstelling voor Etsy- en Shopify-verkopers",
-      "slug": "eu-kor-europese-vrijstelling",
-      "type": "carousel",
-      "status": "pending",
-      "priority": 1,
-      "notes": "🔥 TRENDING — EU-KOR actief sinds jan 2025. Drempel €100k EU-omzet. Persona-template: NL-only vs EU-verkoper. Inclusief aanmeldstap en kwartaalrapportage."
-    },
-    {
       "topic": "Shopify dropshipping 2026: de €150-douanevrijstelling bestaat niet meer",
       "slug": "shopify-dropshipping-douane-2026",
       "type": "carousel",
@@ -267,6 +259,16 @@
       "notes": "🔥 TRENDING — De 3-jaar verplichting is weg. Je kunt nu op elk moment uitstappen. Dark hook + compare: oud vs nieuw. Actiegericht voor verkopers die KOR wilden maar terugschrokken.",
       "publishedDate": "2026-06-15",
       "outputDir": "slides/2026-06-15-kor-wachttermijn-afgeschaft-2026"
+    },
+    {
+      "topic": "EU-KOR: de nieuwe Europese BTW-vrijstelling voor Etsy- en Shopify-verkopers",
+      "slug": "eu-kor-europese-vrijstelling",
+      "type": "carousel",
+      "status": "published",
+      "priority": 1,
+      "notes": "🔥 TRENDING — EU-KOR actief sinds jan 2025. Drempel €100k EU-omzet. Persona-template: NL-only vs EU-verkoper. Inclusief aanmeldstap en kwartaalrapportage.",
+      "publishedDate": "2026-06-15",
+      "outputDir": "slides/2026-06-15-eu-kor-europese-vrijstelling"
     }
   ],
   "settings": {

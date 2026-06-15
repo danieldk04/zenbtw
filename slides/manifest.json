@@ -1,6 +1,33 @@
 {
   "sets": [
     {
+      "id": "2026-06-15-eu-kor-europese-vrijstelling",
+      "topic": "EU-KOR: de nieuwe Europese BTW-vrijstelling voor Etsy- en Shopify-verkopers",
+      "date": "2026-06-15",
+      "type": "carousel",
+      "slides": 7,
+      "files": [
+        "slides/2026-06-15-eu-kor-europese-vrijstelling/01.html",
+        "slides/2026-06-15-eu-kor-europese-vrijstelling/02.html",
+        "slides/2026-06-15-eu-kor-europese-vrijstelling/03.html",
+        "slides/2026-06-15-eu-kor-europese-vrijstelling/04.html",
+        "slides/2026-06-15-eu-kor-europese-vrijstelling/05.html",
+        "slides/2026-06-15-eu-kor-europese-vrijstelling/06.html",
+        "slides/2026-06-15-eu-kor-europese-vrijstelling/07.html"
+      ],
+      "pngs": [
+        "slides/2026-06-15-eu-kor-europese-vrijstelling/01.png",
+        "slides/2026-06-15-eu-kor-europese-vrijstelling/02.png",
+        "slides/2026-06-15-eu-kor-europese-vrijstelling/03.png",
+        "slides/2026-06-15-eu-kor-europese-vrijstelling/04.png",
+        "slides/2026-06-15-eu-kor-europese-vrijstelling/05.png",
+        "slides/2026-06-15-eu-kor-europese-vrijstelling/06.png",
+        "slides/2026-06-15-eu-kor-europese-vrijstelling/07.png"
+      ],
+      "caption": "Veel Etsy- en Shopifyverkopers weten het nog niet, maar in 2025 is er een nieuwe btw-vrijstelling voor wie in meerdere EU-landen verkoopt.\n\nHet heet de EU-KOR. En voor sommigen is het echt een verschil.\n\nIk zie dat veel kleine ondernemers nu automatisch kiezen voor de OSS-regeling, omdat ze denken dat er geen andere optie is. Maar als je omzet in de EU onder de €20.000 blijft, kan de EU-KOR een stuk eenvoudiger zijn.\n\nGeen btw aangifte per land. Geen kwartaalrapportages via OSS. Gewoon vrijgesteld, zolang je onder de drempel blijft.\n\nEven voor de duidelijkheid:\n– EU-KOR: vrijstelling tot €20.000 omzet in de hele EU\n– OSS: verplicht als je boven €10.000 in andere EU-landen verkoopt\n– DAC7: platform meldt jouw gegevens automatisch bij 30+ transacties of €2.000+ omzet\n\nDe drempels hangen dus samen. En het is niet altijd duidelijk welke regeling voor jou het meest gunstig uitpakt.\n\nVeel verkopers vertellen me dat ze hier gewoon nooit goed naar hebben gekeken. Ze doen maar wat, of kopiëren wat een collega-verkoper doet. Terwijl het antwoord echt afhangt van jouw situatie.\n\nIn deze carousel leg ik uit wat de EU-KOR is, wanneer het past, en hoe je je aanmeldt.\n\nWil je weten of jij er recht op hebt? Op zenbtw.nl kun je het snel checken.\n\n#btw #belasting #ondernemen #etsyverkoper #shopify #korregeling #btwvrijstelling #eukor #oss #kleineondernemers #webshophouder #btwregels",
+      "threadsDescription": "Goed nieuws: als je op Etsy of Shopify verkoopt naar de EU, heb je straks minder administratie dankzij EU-KOR. 📦\n\nSwipe door voor de stappen, cijfers en wat je nu moet doen.\n\nCheck zenbtw.nl voor meer info →\n\n#BTW #EU #Etsy #Shopify"
+    },
+    {
       "id": "2026-06-15-kor-wachttermijn-afgeschaft-2026",
       "topic": "KOR wachttermijn afgeschaft: dit verandert voor marketplace-verkopers in 2026",
       "date": "2026-06-15",
