@@ -1,0 +1,2710 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ZenBTW Admin</title>
+  <meta name="robots" content="noindex, nofollow">
+  <style>
+    *{box-sizing:border-box;margin:0;padding:0}
+    :root{
+      --bg:#f4f5f7;--wh:#fff;--br:#e2e4e9;--sidebar:#1a1f2e;--sidebar-hover:#252d40;--sidebar-active:#2d6a4f;
+      --ac:#1a4731;--acm:#2d6a4f;--acl:#e8f0ec;--tx:#1a1c20;--tx2:#4b5060;--tx3:#8c909c;
+      --green:#16a34a;--greenl:#dcfce7;--red:#dc2626;--redl:#fef2f2;
+      --yellow:#d97706;--yellowl:#fffbeb;--blue:#2563eb;--bluel:#eff6ff;--purple:#7c3aed;--purplel:#f5f3ff
+    }
+    body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:var(--bg);color:var(--tx);min-height:100vh;font-size:14px}
+
+    /* ── Login ── */
+    #login-screen{display:flex;align-items:center;justify-content:center;min-height:100vh}
+    .login-card{background:var(--wh);border:1px solid var(--br);border-radius:12px;padding:2.5rem 2rem;width:360px;box-shadow:0 4px 24px rgba(0,0,0,.07)}
+    .login-logo{display:flex;align-items:center;gap:10px;justify-content:center;margin-bottom:1.5rem}
+    .login-logo img{height:40px;border-radius:8px}
+    .login-logo span{font-weight:800;font-size:1.2rem;color:var(--ac)}
+    .login-card h2{font-size:1.1rem;font-weight:700;margin-bottom:.3rem;text-align:center}
+    .login-card p{color:var(--tx3);font-size:.82rem;text-align:center;margin-bottom:1.5rem}
+    .form-group{margin-bottom:.8rem}
+    .form-group label{display:block;font-size:.78rem;font-weight:600;color:var(--tx2);margin-bottom:.3rem}
+    .form-group input{width:100%;padding:.65rem .9rem;border:1.5px solid var(--br);border-radius:8px;font-size:.9rem;outline:none;transition:border .15s}
+    .form-group input:focus{border-color:var(--acm)}
+    .login-btn{width:100%;padding:.75rem;background:var(--ac);color:#fff;border:none;border-radius:8px;font-size:.9rem;font-weight:700;cursor:pointer;margin-top:.3rem}
+    .login-err{color:var(--red);font-size:.78rem;text-align:center;min-height:1.2rem;margin-top:.5rem}
+
+    /* ── App layout ── */
+    #app{display:none;min-height:100vh;flex-direction:row}
+    #app.show{display:flex}
+
+    /* ── Sidebar ── */
+    .sidebar{width:220px;background:var(--sidebar);flex-shrink:0;display:flex;flex-direction:column;min-height:100vh;position:sticky;top:0;overflow-y:visible}
+    .sidebar-logo{padding:1.2rem 1.1rem 1rem;display:flex;align-items:center;gap:10px;border-bottom:1px solid rgba(255,255,255,.08)}
+    .sidebar-logo img{height:36px;border-radius:7px}
+    .sidebar-logo span{font-weight:800;font-size:1rem;color:#fff}
+    .sidebar-logo span em{color:#4ade80;font-style:normal}
+    .nav-group{padding:.5rem 0}
+    .nav-label{padding:.4rem 1.1rem .2rem;font-size:.68rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:rgba(255,255,255,.3)}
+    .nav-item{display:flex;align-items:center;gap:.7rem;padding:.55rem 1.1rem;cursor:pointer;color:rgba(255,255,255,.65);font-size:.83rem;font-weight:500;transition:all .15s;border-radius:0;text-decoration:none;border-left:3px solid transparent}
+    .nav-item:hover{background:var(--sidebar-hover);color:#fff}
+    .nav-item.active{background:var(--sidebar-active);color:#fff;border-left-color:#4ade80}
+    .nav-icon{font-size:1rem;width:18px;text-align:center}
+    .sidebar-foot{margin-top:auto;padding:1rem 1.1rem;border-top:1px solid rgba(255,255,255,.08)}
+    .logout-btn{width:100%;padding:.5rem;background:rgba(255,255,255,.07);color:rgba(255,255,255,.6);border:none;border-radius:7px;font-size:.78rem;cursor:pointer}
+    .logout-btn:hover{background:rgba(255,255,255,.15);color:#fff}
+
+    /* ── Main ── */
+    .main{flex:1;overflow-x:hidden}
+    .topbar{background:var(--wh);border-bottom:1px solid var(--br);padding:.75rem 1.5rem;display:flex;justify-content:space-between;align-items:center}
+    .topbar-title{font-weight:700;font-size:.95rem;color:var(--tx)}
+    .topbar-sub{font-size:.75rem;color:var(--tx3);margin-top:1px}
+    .topbar-actions{display:flex;gap:.5rem}
+
+    .page{display:none;padding:1.5rem}
+    .page.active{display:block}
+
+    /* ── KPI cards ── */
+    .kpi-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:1rem;margin-bottom:1.5rem}
+    .kpi{background:var(--wh);border:1px solid var(--br);border-radius:10px;padding:1.1rem 1.3rem;position:relative;overflow:hidden}
+    .kpi-label{font-size:.72rem;font-weight:600;color:var(--tx3);text-transform:uppercase;letter-spacing:.05em;margin-bottom:.4rem}
+    .kpi-value{font-size:2rem;font-weight:800;color:var(--tx);line-height:1}
+    .kpi-sub{font-size:.74rem;color:var(--tx3);margin-top:.3rem}
+    .kpi-icon{position:absolute;right:1rem;top:1rem;font-size:1.5rem;opacity:.15}
+    .kpi-trend{font-size:.72rem;padding:2px 7px;border-radius:99px;font-weight:700}
+    .trend-up{background:var(--greenl);color:var(--green)}
+    .trend-warn{background:var(--yellowl);color:var(--yellow)}
+
+    /* ── Cards / panels ── */
+    .card{background:var(--wh);border:1px solid var(--br);border-radius:10px;margin-bottom:1.2rem;overflow:hidden}
+    .card-head{padding:.85rem 1.2rem;border-bottom:1px solid var(--br);display:flex;justify-content:space-between;align-items:center;gap:.5rem;flex-wrap:wrap}
+    .card-head h3{font-size:.88rem;font-weight:700;color:var(--tx)}
+    .card-head .meta{font-size:.75rem;color:var(--tx3)}
+    .card-body{padding:1.2rem}
+
+    /* ── Tables ── */
+    table{width:100%;border-collapse:collapse}
+    th{padding:.6rem 1rem;text-align:left;font-size:.7rem;text-transform:uppercase;letter-spacing:.05em;color:var(--tx3);font-weight:700;background:#fafafa;border-bottom:1px solid var(--br)}
+    td{padding:.75rem 1rem;border-bottom:1px solid #f5f5f7;vertical-align:top;font-size:.82rem}
+    tr:last-child td{border-bottom:none}
+    tr:hover td{background:#fafbff}
+
+    /* ── Badges ── */
+    .badge{display:inline-block;font-size:.68rem;font-weight:700;padding:2px 8px;border-radius:99px;white-space:nowrap}
+    .bg{background:var(--greenl);color:var(--green)}
+    .br{background:var(--redl);color:var(--red)}
+    .by{background:var(--yellowl);color:var(--yellow)}
+    .bb{background:var(--bluel);color:var(--blue)}
+    .bp{background:var(--purplel);color:var(--purple)}
+    .bgr{background:#f3f4f6;color:#6b7280}
+
+    /* ── Buttons ── */
+    .btn{display:inline-flex;align-items:center;gap:.3rem;padding:.4rem .85rem;border:none;border-radius:7px;font-size:.78rem;font-weight:600;cursor:pointer;transition:all .15s;white-space:nowrap;text-decoration:none}
+    .btn-primary{background:var(--ac);color:#fff}.btn-primary:hover{background:var(--acm)}
+    .btn-ghost{background:var(--bg);border:1px solid var(--br);color:var(--tx2)}.btn-ghost:hover{border-color:var(--tx3)}
+    .btn-danger{background:var(--red);color:#fff}
+
+    /* ── Info rows ── */
+    .info-row{display:flex;padding:.75rem 1.2rem;border-bottom:1px solid #f5f5f7;gap:1rem;font-size:.82rem}
+    .info-row:last-child{border-bottom:none}
+    .info-label{color:var(--tx3);width:200px;flex-shrink:0;font-weight:500}
+    .info-value{color:var(--tx);flex:1}
+
+    /* ── SEO ── */
+    .seo-bar{height:4px;border-radius:2px;background:#e5e7eb;margin-top:4px;width:70px}
+    .seo-fill{height:100%;border-radius:2px}
+    .sf-g{background:var(--green)}.sf-y{background:var(--yellow)}.sf-r{background:var(--red)}
+
+    /* ── Rule cards ── */
+    .rules-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1rem}
+    .rule-card{background:var(--bg);border:1px solid var(--br);border-radius:9px;padding:1rem 1.1rem}
+    .rule-card h4{font-size:.82rem;font-weight:700;color:var(--acm);margin-bottom:.5rem;display:flex;align-items:center;gap:.4rem}
+    .rule-card ul{list-style:none;padding:0}
+    .rule-card li{font-size:.78rem;color:var(--tx2);padding:.25rem 0;border-bottom:1px solid var(--br);display:flex;align-items:flex-start;gap:.4rem}
+    .rule-card li:last-child{border-bottom:none}
+    .rule-card li::before{content:"›";color:var(--acm);font-weight:700;flex-shrink:0}
+
+    /* ── Fiscal boxes ── */
+    .fiscal-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1rem}
+    .fiscal-box{border-radius:10px;padding:1.1rem;border-left:4px solid}
+    .fbox-btw{background:#fafbff;border-color:var(--blue)}
+    .fbox-kor{background:#f0fdf4;border-color:var(--green)}
+    .fbox-oss{background:#fffbeb;border-color:var(--yellow)}
+    .fbox-dac{background:#fdf4ff;border-color:var(--purple)}
+    .fiscal-box h4{font-size:.82rem;font-weight:700;margin-bottom:.5rem}
+    .fiscal-box .formula{font-family:monospace;font-size:.8rem;background:rgba(0,0,0,.06);padding:.3rem .6rem;border-radius:5px;margin:.5rem 0;display:inline-block}
+    .fiscal-box p,.fiscal-box li{font-size:.78rem;color:var(--tx2);line-height:1.6}
+    .fiscal-box ul{padding-left:1rem;margin-top:.3rem}
+
+    /* ── Trend list ── */
+    .trend-row{display:flex;align-items:center;gap:.8rem;padding:.6rem 1.2rem;border-bottom:1px solid #f5f5f7;font-size:.82rem}
+    .trend-row:last-child{border-bottom:none}
+    .trend-score{font-weight:800;color:var(--acm);min-width:52px}
+    .trend-q{flex:1}
+
+    /* ── Style blocks ── */
+    .do-dont{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-top:.5rem}
+    .do-block{background:#f0fdf4;border:1px solid #bbf7d0;border-radius:8px;padding:.8rem 1rem}
+    .dont-block{background:var(--redl);border:1px solid #fecaca;border-radius:8px;padding:.8rem 1rem}
+    .do-block h5,.dont-block h5{font-size:.72rem;font-weight:700;margin-bottom:.4rem;text-transform:uppercase;letter-spacing:.05em}
+    .do-block h5{color:var(--green)}.dont-block h5{color:var(--red)}
+    .do-block p,.dont-block p{font-size:.78rem;color:var(--tx2);margin-bottom:.25rem;line-height:1.5}
+
+    /* ── Umami frame ── */
+    .umami-link{background:var(--acl);border-radius:8px;padding:1rem 1.2rem;display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem}
+    .umami-link p{font-size:.82rem;color:var(--acm);font-weight:600}
+    .umami-link span{font-size:.75rem;color:var(--tx3);display:block;margin-top:2px}
+
+    /* ── Empty / loading ── */
+    .empty{text-align:center;padding:2.5rem;color:var(--tx3);font-size:.82rem}
+
+    a{color:var(--acm);text-decoration:none}a:hover{text-decoration:underline}
+    .mono{font-family:monospace;font-size:.8rem}
+
+    /* ══ MOBIEL ══ */
+    @media(max-width:768px){
+      /* Sidebar als overlay drawer */
+      .sidebar{
+        position:fixed;top:0;left:0;bottom:0;
+        z-index:300;
+        transform:translateX(-100%);
+        transition:transform .28s cubic-bezier(.16,1,.3,1);
+        display:flex!important;
+        min-height:100vh
+      }
+      .sidebar.open{transform:translateX(0)}
+      .sidebar-overlay{
+        position:fixed;inset:0;z-index:299;
+        background:rgba(0,0,0,.5);
+        display:none;opacity:0;transition:opacity .28s
+      }
+      .sidebar-overlay.open{display:block;opacity:1}
+
+      /* Mobiele topbar */
+      .mob-topbar{
+        display:flex;align-items:center;justify-content:space-between;
+        padding:.7rem 1rem;
+        background:var(--wh);
+        border-bottom:1px solid var(--br);
+        position:sticky;top:0;z-index:200
+      }
+      .mob-topbar-title{font-weight:700;font-size:.9rem;color:var(--tx)}
+      .mob-hamburger{
+        display:flex;flex-direction:column;justify-content:center;align-items:center;gap:4px;
+        width:38px;height:38px;background:none;border:none;cursor:pointer;border-radius:8px
+      }
+      .mob-hamburger .hb{width:18px;height:2px;background:var(--tx2);border-radius:2px;transition:all .22s cubic-bezier(.16,1,.3,1);transform-origin:center}
+      .mob-hamburger.open .hb:nth-child(1){transform:translateY(6px) rotate(45deg)}
+      .mob-hamburger.open .hb:nth-child(2){opacity:0;transform:scaleX(0)}
+      .mob-hamburger.open .hb:nth-child(3){transform:translateY(-6px) rotate(-45deg)}
+
+      /* Verberg desktop topbar op mobiel */
+      .topbar{display:none}
+
+      /* Layout */
+      #app{flex-direction:column}
+      .main{min-width:0}
+      .page{padding:1rem}
+
+      /* Grids */
+      .kpi-grid{grid-template-columns:repeat(2,1fr)}
+      #page-home > div[style*="grid-template-columns:1fr 1fr"],
+      #page-agent > div[style*="grid-template-columns:1fr 1fr"]{
+        display:flex!important;flex-direction:column;gap:1rem
+      }
+
+      /* Tabellen scrollbaar */
+      .card > table,.card > div > table{display:block;overflow-x:auto;-webkit-overflow-scrolling:touch}
+
+      /* Info rows */
+      .info-label{width:120px;font-size:.78rem}
+      .info-value{font-size:.78rem}
+
+      /* Topbar actions */
+      .topbar-actions .btn span{display:none}
+
+      /* Do/dont */
+      .do-dont{grid-template-columns:1fr}
+
+      /* Login card */
+      .login-card{width:calc(100vw - 2rem);max-width:360px}
+
+      /* Queue input */
+      #kw-input{min-width:0}
+    }
+
+    /* ── Blog editor modal ── */
+    .edit-modal{position:fixed;inset:0;z-index:1000;display:none;flex-direction:column;background:var(--bg)}
+    .edit-modal.open{display:flex}
+    .edit-topbar{background:var(--wh);border-bottom:1px solid var(--br);padding:.75rem 1.2rem;display:flex;align-items:center;gap:.75rem;flex-wrap:wrap}
+    .edit-topbar h3{font-size:.9rem;font-weight:700;flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+    .edit-textarea{flex:1;width:100%;padding:1.2rem;font-family:monospace;font-size:.78rem;line-height:1.6;border:none;outline:none;resize:none;background:#1e1e2e;color:#cdd6f4;tab-size:2}
+    .edit-statusbar{background:var(--wh);border-top:1px solid var(--br);padding:.4rem 1.2rem;font-size:.72rem;color:var(--tx3);display:flex;gap:1rem}
+
+    /* Desktop: mobiele topbar verbergen */
+    @media(min-width:769px){
+      .mob-topbar{display:none}
+      .sidebar-overlay{display:none!important}
+    }
+  /* === STANDAARD NAV === */
+:root{--nav-h:72px}
+body{padding-top:var(--nav-h,72px)!important}
+.nav{position:fixed;top:0;left:0;right:0;z-index:500;height:var(--nav-h);background:rgba(247,246,243,.95);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-bottom:1.5px solid var(--br,#e5e0d8);box-shadow:0 2px 12px rgba(0,0,0,.05);display:flex;align-items:center;padding:0 clamp(20px,4vw,56px);justify-content:space-between;gap:24px}
+.nav-logo{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--tx,#1a1a18);flex-shrink:0}
+.nav-logo-img{height:52px;width:52px;border-radius:10px;object-fit:contain}
+.nav-wordmark{font-family:'Fraunces',serif;font-size:22px;font-weight:700;letter-spacing:-.5px;line-height:1}
+.nav-wordmark em{color:var(--acm,#2d7a52);font-style:normal}
+.nav-links{display:flex;align-items:center;gap:4px;flex:1;justify-content:center}
+.nav-link{padding:9px 16px;font-size:15px;font-weight:800;color:var(--tx2,#4a4a46);border-radius:10px;transition:all .16s;letter-spacing:-.1px;text-decoration:none}
+.nav-link:hover{color:var(--ac,#1a4731);background:var(--acl,#eef7f2)}
+.nav-dropdown{position:relative}
+.nav-dropdown-btn{padding:9px 16px;font-size:15px;font-weight:800;color:var(--tx2,#4a4a46);background:none;border-radius:10px;border:none;cursor:pointer;font-family:inherit;display:flex;align-items:center;gap:5px;letter-spacing:-.1px;transition:all .16s}
+.nav-dropdown-btn:hover,.nav-dropdown:hover .nav-dropdown-btn{color:var(--ac,#1a4731);background:var(--acl,#eef7f2)}
+.nav-dropdown-arrow{font-size:10px;transition:transform .2s;display:inline-block}
+.nav-dropdown:hover .nav-dropdown-arrow{transform:rotate(180deg)}
+.nav-dropdown-menu{position:absolute;top:100%;left:50%;padding-top:8px;transform:translateX(-50%) translateY(0);background:#fff;border-radius:14px;box-shadow:0 8px 32px rgba(0,0,0,.12),0 2px 8px rgba(0,0,0,.06);border:1.5px solid var(--br,#e5e0d8);min-width:252px;padding:8px;opacity:0;pointer-events:none;transition:opacity .18s,transform .18s;z-index:200}
+.nav-dropdown:hover .nav-dropdown-menu{opacity:1;pointer-events:all;transform:translateX(-50%) translateY(0);padding-top:8px}
+.nav-dd-item{display:flex;align-items:center;gap:12px;padding:10px 14px;border-radius:10px;color:var(--tx2,#4a4a46);transition:all .14s;font-size:14px;font-weight:600;text-decoration:none}
+.nav-dd-item:hover{background:var(--acl,#eef7f2);color:var(--ac,#1a4731)}
+.nav-dd-icon{width:34px;height:34px;background:var(--acl,#eef7f2);border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0}
+.nav-dd-label{font-weight:700;font-size:14px;line-height:1.2}
+.nav-dd-sub{font-size:12px;color:var(--tx3,#7a7a74);font-weight:500;margin-top:1px}
+.nav-dd-sep{height:1px;background:var(--br,#e5e0d8);margin:6px 0}
+.nav-dd-all{display:block;padding:9px 14px;border-radius:10px;color:var(--ac,#1a4731);font-size:13px;font-weight:700;text-align:center;transition:background .14s;text-decoration:none}
+.nav-dd-all:hover{background:var(--acl,#eef7f2)}
+.nav-cta{display:inline-flex;align-items:center;gap:8px;padding:11px 22px;background:var(--ac,#1a4731);color:#fff;border-radius:12px;font-size:14px;font-weight:800;transition:all .2s;flex-shrink:0;box-shadow:0 4px 16px rgba(26,71,49,.3);text-decoration:none}
+.nav-cta:hover{background:var(--acd,#143825);transform:translateY(-1px)}
+.nav-hamburger{display:none;flex-direction:column;justify-content:center;align-items:center;gap:5px;width:42px;height:42px;background:none;border:none;cursor:pointer;border-radius:10px}
+.nav-hamburger .hb{width:20px;height:2px;background:var(--tx2,#4a4a46);border-radius:2px;transition:all .25s cubic-bezier(.16,1,.3,1);transform-origin:center}
+.nav-hamburger.open .hb:nth-child(1){transform:translateY(7px) rotate(45deg)}
+.nav-hamburger.open .hb:nth-child(2){opacity:0;transform:scaleX(0)}
+.nav-hamburger.open .hb:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+.mob-nav-overlay{position:fixed;inset:0;z-index:600;background:rgba(0,0,0,.45);backdrop-filter:blur(2px);display:none;opacity:0;transition:opacity .3s}
+.mob-nav-overlay.on{display:block;opacity:1}
+.mob-nav-drawer{position:fixed;top:0;right:0;bottom:0;width:min(300px,85vw);background:#fff;z-index:700;transform:translateX(100%);transition:transform .3s cubic-bezier(.16,1,.3,1);display:flex;flex-direction:column;overflow-y:auto}
+.mob-nav-drawer.on{transform:translateX(0)}
+.mob-nav-hd{display:flex;align-items:center;justify-content:space-between;padding:16px 18px;border-bottom:1.5px solid var(--br,#e5e0d8)}
+.mob-nav-close{background:none;border:none;cursor:pointer;font-size:18px;color:var(--tx2,#4a4a46);width:36px;height:36px;display:flex;align-items:center;justify-content:center;border-radius:8px}
+.mob-nav-links{display:flex;flex-direction:column;padding:12px 0;flex:1}
+.mob-nav-link{padding:14px 22px;font-size:15px;font-weight:700;color:var(--tx2,#4a4a46);border-left:3px solid transparent;text-decoration:none;transition:all .14s;display:block}
+.mob-nav-link:hover{color:var(--ac,#1a4731);background:var(--acl,#eef7f2);border-left-color:var(--ac,#1a4731)}
+.mob-nav-section{padding:8px 22px 4px;font-size:11px;font-weight:800;color:var(--tx4,#b8b2a8);letter-spacing:.08em;text-transform:uppercase}
+.mob-nav-sublink{padding:10px 22px 10px 34px;font-size:14px;font-weight:600;color:var(--tx2,#4a4a46);text-decoration:none;display:block;border-left:3px solid transparent;transition:all .14s}
+.mob-nav-sublink:hover{color:var(--ac,#1a4731);background:var(--acl,#eef7f2);border-left-color:var(--ac,#1a4731)}
+.mob-nav-cta{display:flex;align-items:center;justify-content:center;margin:0 18px 28px;padding:14px 24px;background:var(--ac,#1a4731);color:#fff;border-radius:10px;font-size:15px;font-weight:800;box-shadow:0 4px 16px rgba(26,71,49,.35);text-decoration:none}
+@media(max-width:768px){.nav-links{display:none!important}.nav-cta{display:none!important}.nav-hamburger{display:flex!important;flex-direction:column}}
+/* === STANDAARD FOOTER === */
+footer{background:var(--bg,#f7f6f3);border-top:1.5px solid var(--br,#e5e0d8);padding:28px clamp(20px,4vw,56px)}
+.footer-inner{max-width:1200px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap}
+.footer-logo{display:flex;align-items:center;gap:10px;color:var(--tx2,#4a4a46);text-decoration:none}
+.footer-logo img{width:34px;height:34px;border-radius:8px;object-fit:contain}
+.footer-name{font-family:'Fraunces',serif;font-size:18px;font-weight:700;color:var(--tx,#1a1a18)}
+.footer-name em{color:var(--acm,#2d7a52);font-style:normal}
+.footer-copy{font-size:12.5px;color:var(--tx4,#b8b2a8)}
+.footer-badge{display:inline-flex;align-items:center;gap:6px;padding:5px 13px;background:var(--acl,#eef7f2);border-radius:20px;font-size:12px;font-weight:600;color:var(--ac,#1a4731)}
+@media(max-width:600px){.footer-inner{flex-direction:column;align-items:flex-start;gap:14px}}
+</style>
+</head>
+<body>
+
+<!-- ── Login ── -->
+<div id="login-screen">
+  <div class="login-card">
+    <div class="login-logo">
+      <img src="../logo.webp" alt="ZenBTW">
+      <span>Zen<em>BTW</em> Admin</span>
+    </div>
+    <h2>Inloggen</h2>
+    <p>Alleen voor beheerders</p>
+    <div class="form-group">
+      <label>Wachtwoord</label>
+      <input type="password" id="pw" placeholder="••••••••" autofocus>
+    </div>
+    <button class="login-btn" onclick="tryLogin()">Inloggen →</button>
+    <div class="login-err" id="login-err"></div>
+  </div>
+</div>
+
+<!-- ── App ── -->
+<div id="app">
+
+  <!-- Mobiele topbar -->
+  <div class="mob-topbar">
+    <button class="mob-hamburger" id="mobHamburger" onclick="toggleSidebar()" aria-label="Menu">
+      <span class="hb"></span><span class="hb"></span><span class="hb"></span>
+    </button>
+    <span class="mob-topbar-title" id="mob-topbar-title">Overzicht</span>
+    <a href="https://zenbtw.nl" target="_blank" class="btn btn-ghost" style="padding:.35rem .7rem;font-size:.75rem">🌐</a>
+  </div>
+  <div class="sidebar-overlay" id="sidebarOverlay" onclick="closeSidebar()"></div>
+
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <div class="sidebar-logo">
+      <img src="../logo.webp" alt="ZenBTW">
+    </div>
+
+    <nav>
+      <a id="nav-home"     class="nav-item active"  onclick="go('home')">📊 Overzicht</a>
+      <a id="nav-blogs"    class="nav-item"         onclick="go('blogs')">📝 Blogs</a>
+      <a id="nav-queue"    class="nav-item"         onclick="go('queue')">🗂 Keywords queue</a>
+      <a id="nav-agent"    class="nav-item"         onclick="go('agent')">🤖 Content agent</a>
+      <a id="nav-style"    class="nav-item"         onclick="go('style')">✍️ Schrijfstijl</a>
+      <a id="nav-content"  class="nav-item"         onclick="go('content')">💡 Content intelligence</a>
+      <a id="nav-seo"      class="nav-item"         onclick="go('seo')">🔍 Keyword research</a>
+      <a id="nav-leads"    class="nav-item"         onclick="go('leads')">📬 Leads &amp; outreach</a>
+      <a id="nav-traffic"  class="nav-item"         onclick="go('traffic')">📈 Bezoekers &amp; verkeer</a>
+      <a id="nav-contacts" class="nav-item"         onclick="go('contacts')">👥 Contacten &amp; e-mails</a>
+      <a id="nav-fiscal"   class="nav-item"         onclick="go('fiscal')">⚖️ Fiscale logica</a>
+      <a id="nav-slides"       class="nav-item"         onclick="go('slides')">🖼️ Social slides</a>
+      <a id="nav-reelposters" class="nav-item"         onclick="go('reelposters')">🎬 Reelposters</a>
+      <a id="nav-actions"     class="nav-item"         onclick="go('actions')">⚙️ GitHub Actions</a>
+    </nav>
+
+
+    <div class="sidebar-foot">
+      <button class="logout-btn" onclick="logout()">Uitloggen</button>
+    </div>
+  </aside>
+
+  <!-- Main content -->
+  <div class="main">
+    <div class="topbar">
+      <div>
+        <div class="topbar-title" id="topbar-title">Overzicht</div>
+        <div class="topbar-sub" id="topbar-sub">ZenBTW Admin Dashboard</div>
+      </div>
+      <div class="topbar-actions">
+        <a href="https://zenbtw.nl" target="_blank" class="btn btn-ghost">🌐 Live site</a>
+        <a href="https://github.com/danieldk04/zenbtw/actions" target="_blank" class="btn btn-ghost">⚙️ Actions</a>
+      </div>
+    </div>
+
+    <!-- ── HOME ── -->
+    <div class="page active" id="page-home">
+      <div class="kpi-grid" id="kpi-home"></div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.2rem">
+        <div class="card">
+          <div class="card-head"><h3>Recente blogs</h3><a onclick="go('blogs')" class="btn btn-ghost">Alle blogs</a></div>
+          <div id="home-recent-blogs"></div>
+        </div>
+        <div class="card">
+          <div class="card-head"><h3>Agent — laatste run</h3><a onclick="go('agent')" class="btn btn-ghost">Details</a></div>
+          <div id="home-agent-run"></div>
+        </div>
+      </div>
+      <div class="card" style="margin-top:1.2rem">
+        <div class="card-head"><h3>Queue status</h3><a onclick="go('queue')" class="btn btn-ghost">Beheren</a></div>
+        <div id="home-queue"></div>
+      </div>
+    </div>
+
+    <!-- ── BLOGS ── -->
+    <div class="page" id="page-blogs">
+      <div class="card" style="margin-bottom:1.2rem">
+        <div class="card-head"><h3>🔑 GitHub token (voor bewerken)</h3><span class="badge bgr" id="gh-token-status">Niet ingesteld</span></div>
+        <div style="display:flex;gap:8px;align-items:center;padding:4px 0">
+          <input type="password" id="gh-token-input" placeholder="ghp_..." style="flex:1;padding:8px 12px;border:1px solid var(--br);border-radius:8px;font-size:13px;font-family:monospace">
+          <button class="btn btn-primary" onclick="saveGhToken()">Opslaan</button>
+        </div>
+        <div style="font-size:11.5px;color:var(--tx3);margin-top:6px">
+          Maak aan op <a href="https://github.com/settings/tokens/new?scopes=repo&description=ZenBTW+Admin" target="_blank">github.com → Settings → Tokens</a> — scope: <strong>repo</strong>. Alleen lokaal opgeslagen in je browser.
+        </div>
+      </div>
+      <div class="kpi-grid" id="kpi-blogs"></div>
+      <div class="card">
+        <div class="card-head">
+          <h3>Alle gepubliceerde blogs</h3>
+          <button class="btn btn-ghost" onclick="loadBlogs()">↺</button>
+        </div>
+        <div id="blogs-table"><div class="empty">Laden...</div></div>
+      </div>
+    </div>
+
+    <!-- ── QUEUE ── -->
+    <div class="page" id="page-queue">
+      <div class="card">
+        <div class="card-head">
+          <h3>Keywords queue</h3>
+          <div style="display:flex;gap:.5rem;align-items:center">
+            <span class="badge bb" id="queue-pending-badge">–</span>
+            <button class="btn btn-ghost" onclick="loadQueue()">↺</button>
+          </div>
+        </div>
+        <div id="queue-table"><div class="empty">Laden...</div></div>
+        <div style="padding:.8rem 1.2rem;border-top:1px solid var(--br);display:flex;gap:.5rem;flex-wrap:wrap">
+          <input id="kw-input" type="text" placeholder="Nieuw keyword, bijv: vinted btw 2026" style="flex:1;min-width:200px;padding:.55rem .9rem;border:1.5px solid var(--br);border-radius:7px;font-size:.82rem;outline:none">
+          <button class="btn btn-primary" onclick="addKeyword()">+ Toevoegen</button>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-head">
+          <h3>Hoe worden keywords bepaald?</h3>
+          <span class="badge bb">Methode</span>
+        </div>
+        <div class="info-row"><span class="info-label">Primaire bron</span><span class="info-value">Google Trends via pytrends — haalt <strong>rising queries</strong> op voor 8 seed-keywords</span></div>
+        <div class="info-row"><span class="info-label">Seed keywords</span><span class="info-value mono">btw aangifte · kleine ondernemersregeling · vinted verkopen · etsy btw · omzetbelasting ondernemer · kor regeling · marketplace belasting · shopify btw nederland</span></div>
+        <div class="info-row"><span class="info-label">Tijdvenster</span><span class="info-value">Laatste 3 maanden (NL) — niche keywords hebben te weinig volume voor 7-daags venster</span></div>
+        <div class="info-row"><span class="info-label">Selectie logica</span><span class="info-value">Rising queries (score ≥ 300 = breakout) met BTW/belasting/marketplace-termen · gesorteerd op trending score · eerder gebruikte queries worden overgeslagen</span></div>
+        <div class="info-row"><span class="info-label">Handmatige queue</span><span class="info-value">keywords.json — prioriteit 1-10 (lager = eerder verwerkt) · handmatig toe te voegen via dit formulier</span></div>
+        <div class="info-row"><span class="info-label">Frequentie</span><span class="info-value">Automatisch elke maandag 07:00 UTC via GitHub Actions</span></div>
+
+        <div style="padding:1.2rem">
+          <div class="card-head" style="padding:0 0 .8rem;border:none"><h3>Trending queries — laatste agent run</h3></div>
+          <div id="queue-trends"><div class="empty">Laden...</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── SCHRIJFSTIJL ── -->
+    <div class="page" id="page-style">
+      <div class="card">
+        <div class="card-head">
+          <h3>Schrijfstijl richtlijnen</h3>
+          <span class="badge bb">Gevolgd door Claude</span>
+        </div>
+        <div class="card-body">
+          <p style="font-size:.82rem;color:var(--tx2);margin-bottom:1rem">
+            Claude krijgt bij elke bloggeneratie deze regels mee. Ze bepalen de toon, structuur en aanpak van elk artikel.
+          </p>
+
+          <div class="rules-grid">
+            <div class="rule-card">
+              <h4>🎭 Persona</h4>
+              <ul>
+                <li>Nederlandse ondernemer met jarenlange marketplace-ervaring</li>
+                <li>Schrijft voor ZenBTW vanuit eigen perspectief</li>
+                <li>Uitlegt alsof het aan een vriend is</li>
+                <li>Direct, eerlijk, menselijk — niet corporate</li>
+              </ul>
+            </div>
+            <div class="rule-card">
+              <h4>📏 Structuur</h4>
+              <ul>
+                <li>900–1200 woorden zichtbare tekst</li>
+                <li>Minimaal 1 inline SVG visualisatie</li>
+                <li>H2 headers met keyword erin</li>
+                <li>Leestijd berekend op ~200 woorden/min</li>
+                <li>2–3 interne links naar gerelateerde blogs</li>
+              </ul>
+            </div>
+            <div class="rule-card">
+              <h4>✅ Verboden woorden</h4>
+              <ul>
+                <li>"cruciaal", "essentieel", "naadloos"</li>
+                <li>"optimaal", "robuust", "uitgebreid"</li>
+                <li>"allesomvattend", "volledig"</li>
+                <li>-- (dubbel koppelteken)</li>
+                <li>"In dit artikel", "In deze gids"</li>
+                <li>"Het is belangrijk om"</li>
+                <li>"Kortom", "Samengevat", "Tot slot"</li>
+              </ul>
+            </div>
+            <div class="rule-card">
+              <h4>🧠 Stijlregels</h4>
+              <ul>
+                <li>Wisselende zinslengtes — soms kort, soms langer</li>
+                <li>Retorische vragen aan de lezer</li>
+                <li>Geef toe als iets ingewikkeld is</li>
+                <li>Concrete bedragen, landen, situaties</li>
+                <li>Varieer lijst-lengtes (niet altijd 3 of 5)</li>
+                <li>Sluit soms af met nuance of kanttekening</li>
+              </ul>
+            </div>
+            <div class="rule-card">
+              <h4>📣 Persoonlijke taal</h4>
+              <ul>
+                <li>"ik merkte dat…"</li>
+                <li>"wat ik zelf deed was…"</li>
+                <li>"veel verkopers die ik spreek…"</li>
+                <li>"in de praktijk zie ik…"</li>
+                <li>"Eerlijk gezegd is dit het meest verwarrende deel"</li>
+              </ul>
+            </div>
+            <div class="rule-card">
+              <h4>🔍 SEO vereisten</h4>
+              <ul>
+                <li>Keyword in title (55-60 tekens)</li>
+                <li>Keyword in h1 en eerste alinea</li>
+                <li>Keyword in minstens 1 h2</li>
+                <li>Meta description 140-155 tekens</li>
+                <li>ZenBTW vermeld in de tekst (niet alleen CTA)</li>
+                <li>Disclaimer: geen belastingadvies</li>
+              </ul>
+            </div>
+          </div>
+
+          <div style="margin-top:1.5rem">
+            <h4 style="font-size:.85rem;font-weight:700;margin-bottom:.8rem">Voorbeelden — goed vs fout</h4>
+            <div class="do-dont">
+              <div class="do-block">
+                <h5>✅ Zo schrijven we</h5>
+                <p>"Vinted verkopers krijgen hier regelmatig buikpijn van, want de prijs die je ziet is altijd inclusief BTW."</p>
+                <p>"Eerlijk gezegd is de margeregeling het meest verwarrende onderdeel van dit verhaal."</p>
+                <p>"Wat ik zelf deed toen ik de KOR-grens naderde: een spreadsheet bijhouden per platform."</p>
+              </div>
+              <div class="dont-block">
+                <h5>❌ Zo schrijven we niet</h5>
+                <p>"Het is van belang dat u zich ervan bewust bent dat de verkoopprijs de BTW bevat."</p>
+                <p>"In dit artikel bespreken we alle essentiële aspecten van de BTW-regelgeving."</p>
+                <p>"Samenvattend kan worden gesteld dat de KOR een cruciaal instrument is."</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── VERKEER ── -->
+    <div class="page" id="page-traffic">
+      <div class="umami-link">
+        <div>
+          <p>Analytics via Umami</p>
+          <span>Website ID: 9cb58ff4-cf6e-4773-8dd5-f2f0b6ad5510 · cloud.umami.is</span>
+        </div>
+        <a href="https://cloud.umami.is/websites/9cb58ff4-cf6e-4773-8dd5-f2f0b6ad5510" target="_blank" class="btn btn-primary">Open Umami →</a>
+      </div>
+
+      <div class="card" style="padding:0;overflow:hidden">
+        <iframe src="https://cloud.umami.is/share/pIShMYUw8XgJB3mB" style="width:100%;height:700px;border:none;display:block" loading="lazy" title="ZenBTW Analytics"></iframe>
+      </div>
+
+      <div class="card">
+        <div class="card-head"><h3>Hoe worden gebruikers getrackt?</h3></div>
+        <div class="info-row"><span class="info-label">Analytics tool</span><span class="info-value">Umami (privacy-first, GDPR-compliant, geen cookies)</span></div>
+        <div class="info-row"><span class="info-label">Wat wordt gemeten</span><span class="info-value">Paginabezoeken · unieke bezoekers · bouncepercentage · sessieduur · apparaat/land · events (start-nu, nav-switch-en)</span></div>
+        <div class="info-row"><span class="info-label">Advertenties</span><span class="info-value">Google Ads (AW-18073002348) — conversietracking voor "Check mijn status" clicks</span></div>
+        <div class="info-row"><span class="info-label">Gebruikersdata in app</span><span class="info-value">Volledig lokaal in browser (localStorage / IndexedDB) — geen server, geen account, geen opslag bij ons</span></div>
+        <div class="info-row"><span class="info-label">Email alerts</span><span class="info-value">Via EmailJS (hdOoLlKINluOddB4m) — verstuurd vanuit browser van gebruiker, niet opgeslagen op server</span></div>
+        <div class="info-row"><span class="info-label">Subscriber lijst</span><span class="info-value">Brevo lijst #3 — <a onclick="go('contacts')" style="cursor:pointer">bekijk contacten →</a></span></div>
+      </div>
+    </div>
+
+    <!-- ── CONTACTEN ── -->
+    <div class="page" id="page-contacts">
+      <div class="card" style="margin-bottom:1.2rem">
+        <div class="card-head"><h3>🔑 Brevo API key (met leesrechten)</h3></div>
+        <div style="display:flex;gap:8px;align-items:center;padding:4px 0">
+          <input type="password" id="brevo-key-input" placeholder="xkeysib-..." style="flex:1;padding:8px 12px;border:1px solid var(--br);border-radius:8px;font-size:13px;font-family:monospace">
+          <button class="btn" onclick="saveBrevoKey()" style="padding:8px 16px;font-size:13px">Opslaan</button>
+        </div>
+        <div style="font-size:11.5px;color:var(--tx3);margin-top:6px">
+          Maak aan op <a href="https://app.brevo.com/settings/keys/api" target="_blank">app.brevo.com → SMTP & API → API keys</a> — zorg dat de key <strong>Contacts (lezen)</strong> permissie heeft.
+        </div>
+      </div>
+      <div class="kpi-grid" id="kpi-contacts"></div>
+      <div class="card">
+        <div class="card-head">
+          <h3>📧 Aangemelde e-mailadressen</h3>
+          <button class="btn btn-ghost" onclick="loadContacts()" style="padding:6px 12px;font-size:12px">↻ Vernieuwen</button>
+        </div>
+        <div id="contacts-table"><div class="empty">Voer eerst je Brevo API key in hierboven.</div></div>
+      </div>
+    </div>
+
+    <!-- ── LEADS ── -->
+    <div class="page" id="page-leads">
+      <div class="card" style="margin-bottom:1.2rem">
+        <div class="card-head"><h3>🔑 Apify API token</h3></div>
+        <div style="display:flex;gap:8px;align-items:center;padding:4px 0">
+          <input type="password" id="apify-key-input" placeholder="apify_api_..." style="flex:1;padding:8px 12px;border:1px solid var(--br);border-radius:8px;font-size:13px;font-family:monospace">
+          <button class="btn" onclick="saveApifyKey()" style="padding:8px 16px;font-size:13px">Opslaan</button>
+        </div>
+        <div style="font-size:11.5px;color:var(--tx3);margin-top:6px">
+          Maak aan op <a href="https://console.apify.com/account/integrations" target="_blank">console.apify.com → Settings → Integrations → API tokens</a>.
+        </div>
+      </div>
+
+      <!-- Platform tabs -->
+      <div style="display:flex;gap:0;margin-bottom:1.2rem;border-bottom:2px solid var(--br)">
+        <button onclick="switchLeadPlatform('reddit')" id="platform-tab-reddit"
+          style="padding:9px 20px;font-size:13px;font-weight:600;border:none;cursor:pointer;background:transparent;color:var(--acm);border-bottom:2px solid var(--acm);margin-bottom:-2px;transition:all .15s">
+          🔴 Reddit
+        </button>
+        <button onclick="switchLeadPlatform('instagram')" id="platform-tab-instagram"
+          style="padding:9px 20px;font-size:13px;font-weight:600;border:none;cursor:pointer;background:transparent;color:var(--tx3);border-bottom:2px solid transparent;margin-bottom:-2px;transition:all .15s">
+          📸 Instagram
+        </button>
+      </div>
+
+      <!-- Reddit sectie -->
+      <div id="leads-section-reddit">
+        <div class="kpi-grid" id="kpi-leads"></div>
+        <div class="card" style="margin-bottom:1.2rem">
+          <div class="card-head">
+            <h3>🔍 Zoekwoorden</h3>
+            <button class="btn" onclick="runLeadScrape()" id="leads-scrape-btn" style="padding:6px 14px;font-size:13px">▶ Scrape starten</button>
+          </div>
+          <div style="padding:1rem 1.2rem;display:flex;flex-wrap:wrap;gap:6px" id="leads-keywords-list"></div>
+          <div style="padding:0 1.2rem 1rem;display:flex;gap:8px;align-items:center">
+            <input type="text" id="leads-kw-input" placeholder="Nieuw zoekwoord..." style="flex:1;padding:7px 10px;border:1px solid var(--br);border-radius:7px;font-size:13px">
+            <button class="btn btn-ghost" onclick="addLeadKeyword()" style="padding:7px 12px;font-size:13px">+ Toevoegen</button>
+          </div>
+          <div id="leads-scrape-status" style="padding:0 1.2rem 1rem;font-size:12px;color:var(--tx3)"></div>
+        </div>
+        <div class="card">
+          <div class="card-head">
+            <h3>📋 Reddit leads</h3>
+            <div style="display:flex;gap:6px;align-items:center;flex-wrap:wrap">
+              <select id="leads-filter" onchange="renderLeads()" style="padding:5px 8px;border:1px solid var(--br);border-radius:7px;font-size:12px;background:var(--wh)">
+                <option value="all">Alle statussen</option>
+                <option value="nieuw">Nieuw</option>
+                <option value="benaderd">Benaderd</option>
+                <option value="genegeerd">Genegeerd</option>
+              </select>
+              <select id="leads-age-filter" onchange="renderLeads()" style="padding:5px 8px;border:1px solid var(--br);border-radius:7px;font-size:12px;background:var(--wh)">
+                <option value="365">Afgelopen jaar</option>
+                <option value="90">Afgelopen 3 maanden</option>
+                <option value="30">Afgelopen maand</option>
+                <option value="7">Afgelopen week</option>
+                <option value="0">Alle datums</option>
+              </select>
+              <button class="btn btn-ghost" onclick="clearLeads()" style="padding:5px 10px;font-size:12px;color:var(--red)">Wis alles</button>
+            </div>
+          </div>
+          <div id="leads-table" style="overflow-x:auto"></div>
+        </div>
+      </div>
+
+      <!-- Instagram sectie -->
+      <div id="leads-section-instagram" style="display:none">
+        <div class="kpi-grid" id="kpi-instagram"></div>
+        <div class="card" style="margin-bottom:1.2rem">
+          <div class="card-head">
+            <h3>📸 Instagram scraper</h3>
+            <div style="display:flex;gap:6px">
+              <button class="btn btn-ghost" onclick="syncInstagramFromGithub()" style="padding:6px 14px;font-size:13px">↻ Sync</button>
+            </div>
+          </div>
+          <div style="padding:.8rem 1.2rem;font-size:12px;color:var(--tx3);line-height:1.7">
+            Scrapet wekelijks automatisch (maandag 08:00) via GitHub Action op hashtags:<br>
+            <code style="font-size:11px">#vintedverkoper #tweedehandskleding #etsyverkoper #etsyshopnederland #vintednederland #resellernederland</code>
+          </div>
+          <div id="instagram-scrape-status" style="padding:0 1.2rem .8rem;font-size:12px;color:var(--tx3)"></div>
+        </div>
+        <div class="card">
+          <div class="card-head">
+            <h3>📋 Instagram leads</h3>
+            <div style="display:flex;gap:6px;align-items:center;flex-wrap:wrap">
+              <select id="instagram-filter" onchange="renderInstagramLeads()" style="padding:5px 8px;border:1px solid var(--br);border-radius:7px;font-size:12px;background:var(--wh)">
+                <option value="all">Alle statussen</option>
+                <option value="nieuw">Nieuw</option>
+                <option value="benaderd">Benaderd</option>
+                <option value="genegeerd">Genegeerd</option>
+              </select>
+              <button class="btn btn-ghost" onclick="clearInstagramLeads()" style="padding:5px 10px;font-size:12px;color:var(--red)">Wis alles</button>
+            </div>
+          </div>
+          <div id="instagram-table" style="overflow-x:auto"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── CONTENT INTELLIGENCE ── -->
+    <div class="page" id="page-content">
+
+      <!-- Setup kaart -->
+      <div class="card" id="content-setup-card" style="margin-bottom:1.2rem">
+        <div class="card-head"><h3>🔑 Instagram API instellen</h3>
+          <button class="btn btn-ghost" onclick="document.getElementById('content-setup-card').style.display='none'" style="font-size:11px;padding:4px 10px">Verberg</button>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;padding:.5rem 0">
+          <div>
+            <label style="font-size:12px;font-weight:600;color:var(--tx2);display:block;margin-bottom:4px">Instagram Access Token</label>
+            <input type="password" id="ig-token-input" placeholder="EAAx..." style="width:100%;padding:7px 10px;border:1px solid var(--br);border-radius:7px;font-size:12px;font-family:monospace">
+          </div>
+          <div>
+            <label style="font-size:12px;font-weight:600;color:var(--tx2);display:block;margin-bottom:4px">Instagram User ID</label>
+            <input type="text" id="ig-userid-input" placeholder="17841400..." style="width:100%;padding:7px 10px;border:1px solid var(--br);border-radius:7px;font-size:12px;font-family:monospace">
+          </div>
+          <div>
+            <label style="font-size:12px;font-weight:600;color:var(--tx2);display:block;margin-bottom:4px">TikTok username</label>
+            <input type="text" id="tiktok-user-input" placeholder="revaleur.nl" style="width:100%;padding:7px 10px;border:1px solid var(--br);border-radius:7px;font-size:12px">
+          </div>
+          <div style="display:flex;align-items:flex-end">
+            <button class="btn" onclick="saveContentSettings()" style="padding:7px 18px;font-size:13px">Opslaan</button>
+          </div>
+        </div>
+        <div style="font-size:11.5px;color:var(--tx3);margin-top:4px">
+          Token aanmaken: <a href="https://developers.facebook.com/tools/explorer/" target="_blank">Facebook Graph Explorer</a> → selecteer je Instagram Business app → voeg <code>instagram_basic,instagram_manage_insights,pages_read_engagement</code> toe.
+          Sla token + User ID op als GitHub Secrets: <code>IG_ACCESS_TOKEN</code>, <code>IG_USER_ID</code>, <code>TIKTOK_USERNAME</code>.
+        </div>
+      </div>
+
+      <!-- KPI balk -->
+      <div class="kpi-grid" id="kpi-content" style="margin-bottom:1.2rem"></div>
+
+      <!-- Sync + status -->
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:1.2rem">
+        <button class="btn" onclick="syncContentMemory()" id="content-sync-btn" style="padding:8px 18px;font-size:13px">↻ Sync learnings</button>
+        <span id="content-sync-status" style="font-size:12px;color:var(--tx3)"></span>
+      </div>
+
+      <!-- Waarom 13k + analyse -->
+      <div id="content-waarom" style="display:none;margin-bottom:1.2rem"></div>
+
+      <!-- Aanbevelingen -->
+      <div class="card" style="margin-bottom:1.2rem">
+        <div class="card-head"><h3>🎯 Aanbevelingen voor deze week</h3><span id="content-rec-date" style="font-size:11px;color:var(--tx3)"></span></div>
+        <div id="content-recommendations"><div class="empty" style="padding:1.5rem">Klik op "Sync learnings" om aanbevelingen te laden.</div></div>
+      </div>
+
+      <!-- Learnings geheugen -->
+      <div class="card" style="margin-bottom:1.2rem">
+        <div class="card-head"><h3>🧠 Wat werkt (opgebouwd geheugen)</h3></div>
+        <div id="content-learnings"><div class="empty" style="padding:1.5rem">Nog geen learnings.</div></div>
+      </div>
+
+      <!-- Patronen grid -->
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.2rem;margin-bottom:1.2rem">
+        <div class="card">
+          <div class="card-head"><h3>🪝 Hook patronen</h3></div>
+          <div id="content-hooks" style="padding:.8rem 1.2rem"><div class="empty">Geen data.</div></div>
+        </div>
+        <div class="card">
+          <div class="card-head"><h3>📌 Topic patronen</h3></div>
+          <div id="content-topics" style="padding:.8rem 1.2rem"><div class="empty">Geen data.</div></div>
+        </div>
+        <div class="card">
+          <div class="card-head"><h3>🎬 Format patronen</h3></div>
+          <div id="content-format" style="padding:.8rem 1.2rem"><div class="empty">Geen data.</div></div>
+        </div>
+        <div class="card">
+          <div class="card-head"><h3>⏰ Timing patronen</h3></div>
+          <div id="content-timing" style="padding:.8rem 1.2rem"><div class="empty">Geen data.</div></div>
+        </div>
+      </div>
+
+      <!-- Post geschiedenis -->
+      <div class="card">
+        <div class="card-head">
+          <h3>📊 Post geschiedenis</h3>
+          <select id="content-platform-filter" onchange="renderContentPosts()" style="padding:5px 8px;border:1px solid var(--br);border-radius:7px;font-size:12px;background:var(--wh)">
+            <option value="all">Alle platforms</option>
+            <option value="instagram">Instagram</option>
+            <option value="tiktok">TikTok</option>
+          </select>
+        </div>
+        <div id="content-posts-table"></div>
+      </div>
+    </div>
+
+    <!-- ── AGENT ── -->
+    <div class="page" id="page-agent">
+      <div class="kpi-grid" id="kpi-agent"></div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.2rem">
+        <div class="card">
+          <div class="card-head"><h3>Run history</h3></div>
+          <div id="agent-runs"><div class="empty">Laden...</div></div>
+        </div>
+        <div class="card">
+          <div class="card-head"><h3>Agent configuratie</h3></div>
+          <div class="info-row"><span class="info-label">Script</span><span class="info-value mono">scripts/content_agent.py</span></div>
+          <div class="info-row"><span class="info-label">Taal</span><span class="info-value">Python 3.12</span></div>
+          <div class="info-row"><span class="info-label">Model</span><span class="info-value">claude-opus-4-6</span></div>
+          <div class="info-row"><span class="info-label">Max tokens</span><span class="info-value">2.500 (blog content)</span></div>
+          <div class="info-row"><span class="info-label">Output</span><span class="info-value mono">app/blog/</span></div>
+          <div class="info-row"><span class="info-label">Schedule</span><span class="info-value">Maandag 07:00 UTC (cron: 0 7 * * 1)</span></div>
+          <div class="info-row"><span class="info-label">Trends timeframe</span><span class="info-value">Laatste 3 maanden, geo: NL</span></div>
+          <div class="info-row"><span class="info-label">Rate limiting</span><span class="info-value">2s delay tussen pytrends batches</span></div>
+          <br>
+          <div class="card-head" style="border-top:1px solid var(--br);padding-top:.85rem;border-bottom:none"><h3>Blog generator configuratie</h3></div>
+          <div class="info-row"><span class="info-label">Script</span><span class="info-value mono">scripts/generate-blog.js</span></div>
+          <div class="info-row"><span class="info-label">Model</span><span class="info-value">claude-opus-4-6</span></div>
+          <div class="info-row"><span class="info-label">Max tokens</span><span class="info-value">8.192 (volledige HTML blog)</span></div>
+          <div class="info-row"><span class="info-label">Output</span><span class="info-value mono">blog/</span></div>
+          <div class="info-row"><span class="info-label">Distributie</span><span class="info-value">Reddit · Medium · Google Indexing API</span></div>
+          <div class="info-row"><span class="info-label">Secret naam</span><span class="info-value mono">ZENBTW_BLOGS</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── FISCALE LOGICA ── -->
+    <div class="page" id="page-fiscal">
+      <div class="card">
+        <div class="card-head">
+          <h3>Fiscale logica — wat is er ingebouwd?</h3>
+          <span class="badge bb">Belastingjaar 2025/2026</span>
+        </div>
+        <div class="card-body">
+          <p style="font-size:.82rem;color:var(--tx2);margin-bottom:1.2rem">
+            Dit zijn de BTW-regels die zijn verwerkt in de ZenBTW calculator, de blog-prompt en de fiscale uitleg aan gebruikers.
+          </p>
+
+          <div class="fiscal-grid">
+            <div class="fiscal-box fbox-btw">
+              <h4>🔢 BTW-berekening</h4>
+              <p>Marktplaatsprijzen zijn altijd <strong>bruto</strong> (inclusief BTW). Fout: netto × tarief. Goed:</p>
+              <div class="formula">BTW = bruto × (tarief / (100 + tarief))</div>
+              <p><strong>Voorbeeld:</strong> €121 bruto @ 21%</p>
+              <ul>
+                <li>BTW = €121 × (21/121) = <strong>€21</strong></li>
+                <li>Netto omzet = €121 − €21 = <strong>€100</strong></li>
+              </ul>
+              <p style="margin-top:.5rem">Tarieven NL: 21% standaard · 9% verlaagd (voedsel, boeken, etc.)</p>
+            </div>
+
+            <div class="fiscal-box fbox-kor">
+              <h4>🇳🇱 KOR — Kleine Ondernemersregeling</h4>
+              <ul>
+                <li>Grens: <strong>€20.000</strong> jaaromzet (NL)</li>
+                <li>Onder grens: geen BTW afdragen, geen aangifte</li>
+                <li>Nadeel: ook geen BTW op inkopen terug</li>
+                <li>Aanmelden bij Belastingdienst vereist</li>
+                <li>EU-KOR grens: €100.000</li>
+              </ul>
+              <p style="margin-top:.5rem"><strong>Splitsing:</strong> EU-afstandsverkopen ≤ €10.000 tellen MEE voor NL KOR-teller. Daarboven vallen ze onder OSS en tellen NIET mee.</p>
+            </div>
+
+            <div class="fiscal-box fbox-oss">
+              <h4>🌍 OSS — One Stop Shop</h4>
+              <ul>
+                <li>Drempel: <strong>€10.000</strong> EU-breed per jaar</li>
+                <li>Onder drempel: gewoon NL BTW rekenen</li>
+                <li>Boven drempel: BTW afdragen in land van klant</li>
+                <li>OSS via NL Belastingdienst (niet in elk EU-land apart)</li>
+                <li>Kwartaalaangifte via Mijn Belastingdienst Zakelijk</li>
+              </ul>
+              <p style="margin-top:.5rem"><strong>Tarieven variëren:</strong> Luxemburg 17% t/m Hongarije 27%</p>
+            </div>
+
+            <div class="fiscal-box fbox-dac">
+              <h4>📋 DAC7 — Platformrapportage</h4>
+              <ul>
+                <li>Actief vanaf 2023, volledig op gang 2024/2025</li>
+                <li>Platforms (Vinted, Etsy, Bol) delen verkoopdata met Belastingdienst</li>
+                <li>Rapportageplicht bij: >30 transacties/jaar <em>of</em> >€2.000 omzet</li>
+                <li>Geldt voor verkoop van goederen én diensten</li>
+              </ul>
+              <p style="margin-top:.5rem">Praktisch: de Belastingdienst weet exact wat je verkoopt. Kruiscontrole met aangifte is mogelijk.</p>
+            </div>
+
+            <div class="fiscal-box fbox-btw" style="background:#fff8f0;border-color:#ea580c">
+              <h4>💰 Margeregeling</h4>
+              <ul>
+                <li>Voor wederverkoop van gebruikte goederen</li>
+                <li>BTW alleen over de <strong>winstmarge</strong>, niet de volle verkoopprijs</li>
+                <li>Formule: BTW = marge × (tarief / (100 + tarief))</li>
+                <li>Vereist: apart administreren per artikel</li>
+                <li>Niet combineerbaar met OSS</li>
+              </ul>
+            </div>
+
+            <div class="fiscal-box fbox-kor" style="background:#f0f9ff;border-color:#0369a1">
+              <h4>📅 Aangiftedeadlines</h4>
+              <ul>
+                <li>Maandaangifte: uiterlijk laatste dag volgende maand</li>
+                <li>Kwartaalaangifte: uiterlijk einde volgende maand na kwartaal</li>
+                <li>Q1 (jan-mrt) → deadline 30 april</li>
+                <li>Papieren aangifte: zelfde deadline, rekening houden met postbezorging</li>
+                <li>Boete bij te laat: minimaal €68 administratieve boete</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── ACTIONS ── -->
+    <div class="page" id="page-actions">
+      <div class="card">
+        <div class="card-head">
+          <h3>GitHub Actions runs</h3>
+          <button class="btn btn-ghost" onclick="loadActions()">↺ Vernieuwen</button>
+        </div>
+        <div id="actions-table"><div class="empty">Laden...</div></div>
+      </div>
+      <div class="card">
+        <div class="card-head"><h3>Workflows overzicht</h3></div>
+        <div class="info-row"><span class="info-label">content-agent.yml</span><span class="info-value">Elke maandag 07:00 UTC · pytrends trending queries → Claude blog → push naar app/blog/</span></div>
+        <div class="info-row"><span class="info-label">generate-blog.yml</span><span class="info-value">keywords.json queue verwerken · 1 blog per run · Reddit + Medium + Google Indexing</span></div>
+        <div class="info-row"><span class="info-label">regenerate-blogs.yml</span><span class="info-value">Handmatig triggeren · herschrijft alle 13 blogs met verbeterde prompt · max_tokens 8192</span></div>
+        <div class="info-row"><span class="info-label">Secret</span><span class="info-value mono">ZENBTW_BLOGS → ANTHROPIC_API_KEY in alle workflows</span></div>
+      </div>
+    </div>
+
+    <!-- ── SEO / KEYWORD RESEARCH ── -->
+    <div class="page" id="page-seo">
+
+      <div class="card" style="margin-bottom:1.2rem">
+        <div class="card-head">
+          <h3>🔑 DataForSEO API</h3>
+          <span class="badge bgr" id="dfs-status">Niet ingesteld</span>
+        </div>
+        <div class="card-body" style="padding-bottom:.5rem">
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;align-items:end">
+            <div>
+              <label style="font-size:11px;font-weight:600;color:var(--tx3);display:block;margin-bottom:4px">Login (e-mailadres)</label>
+              <input type="text" id="dfs-login-input" placeholder="jouw@email.com" style="width:100%;padding:8px 12px;border:1px solid var(--br);border-radius:8px;font-size:13px;outline:none">
+            </div>
+            <div>
+              <label style="font-size:11px;font-weight:600;color:var(--tx3);display:block;margin-bottom:4px">Wachtwoord</label>
+              <input type="password" id="dfs-pass-input" placeholder="••••••••" style="width:100%;padding:8px 12px;border:1px solid var(--br);border-radius:8px;font-size:13px;outline:none">
+            </div>
+          </div>
+          <button class="btn btn-primary" style="margin-top:8px" onclick="saveDfsCredentials()">Opslaan</button>
+          <div style="font-size:11.5px;color:var(--tx3);margin-top:8px">
+            Account aanmaken op <a href="https://app.dataforseo.com/register" target="_blank">dataforseo.com</a> — vul je inlognaam (e-mail) en wachtwoord in. Credentials worden lokaal opgeslagen in je browser.
+          </div>
+        </div>
+      </div>
+
+      <div style="display:flex;gap:6px;margin-bottom:1rem">
+        <button class="btn btn-primary" id="seo-tab-volume" onclick="setSeoTab('volume')">📊 Zoekvolume</button>
+        <button class="btn btn-ghost" id="seo-tab-ideas" onclick="setSeoTab('ideas')">💡 Keyword ideeën</button>
+      </div>
+
+      <!-- Volume pane -->
+      <div id="seo-pane-volume">
+        <div class="card">
+          <div class="card-head">
+            <h3>Zoekvolume opzoeken</h3>
+            <span class="meta">Nederland · Google · max 20 keywords</span>
+          </div>
+          <div class="card-body">
+            <label style="font-size:.72rem;font-weight:700;color:var(--tx3);text-transform:uppercase;letter-spacing:.05em;display:block;margin-bottom:6px">Keywords (één per regel)</label>
+            <textarea id="seo-kw-input" rows="6" placeholder="btw aangifte&#10;kor regeling&#10;vinted belasting&#10;etsy ondernemer" style="width:100%;padding:10px 12px;border:1.5px solid var(--br);border-radius:8px;font-size:.82rem;font-family:inherit;resize:vertical;outline:none;transition:border .15s" onfocus="this.style.borderColor='var(--acm)'" onblur="this.style.borderColor='var(--br)'"></textarea>
+            <button class="btn btn-primary" style="margin-top:8px" onclick="searchVolume()">Zoekvolume ophalen →</button>
+          </div>
+          <div id="seo-volume-results"></div>
+        </div>
+      </div>
+
+      <!-- Ideas pane -->
+      <div id="seo-pane-ideas" style="display:none">
+        <div class="card">
+          <div class="card-head">
+            <h3>Keyword ideeën genereren</h3>
+            <span class="meta">Gebaseerd op seed keyword</span>
+          </div>
+          <div class="card-body">
+            <label style="font-size:.72rem;font-weight:700;color:var(--tx3);text-transform:uppercase;letter-spacing:.05em;display:block;margin-bottom:6px">Seed keyword</label>
+            <div style="display:flex;gap:8px">
+              <input type="text" id="seo-seed-input" placeholder="bijv: btw aangifte" style="flex:1;padding:10px 12px;border:1.5px solid var(--br);border-radius:8px;font-size:.82rem;outline:none;transition:border .15s" onfocus="this.style.borderColor='var(--acm)'" onblur="this.style.borderColor='var(--br)'" onkeydown="if(event.key==='Enter')searchIdeas()">
+              <button class="btn btn-primary" onclick="searchIdeas()">Ideeën ophalen →</button>
+            </div>
+          </div>
+          <div id="seo-ideas-results"></div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- ── SLIDES ── -->
+    <div class="page" id="page-slides">
+
+      <style>
+        .slides-week-header{font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--tx3);margin:1.5rem 0 .6rem;padding-bottom:.4rem;border-bottom:1px solid var(--br)}
+        .slides-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:1rem;margin-bottom:1rem}
+        .slide-set-card{background:var(--wh);border:1px solid var(--br);border-radius:10px;overflow:hidden;transition:box-shadow .15s}
+        .slide-set-card:hover{box-shadow:0 4px 16px rgba(0,0,0,.08)}
+        .slide-set-card.slide-posted{border-color:#22c55e;opacity:.7}
+        .slide-set-thumb{height:140px;background:var(--bg);border-bottom:1px solid var(--br);display:flex;align-items:center;justify-content:center;font-size:2.5rem;position:relative;overflow:hidden}
+        .slide-set-thumb iframe{width:100%;height:100%;border:none;pointer-events:none;transform-origin:top left;position:absolute;top:0;left:0}
+        .slide-count-badge{position:absolute;top:8px;right:8px;background:rgba(0,0,0,.55);color:#fff;font-size:.65rem;font-weight:700;padding:2px 7px;border-radius:99px}
+        .slide-posted-badge{position:absolute;top:8px;left:8px;background:#22c55e;color:#fff;font-size:.65rem;font-weight:700;padding:2px 7px;border-radius:99px}
+        .slide-set-body{padding:.75rem}
+        .slide-set-topic{font-size:.82rem;font-weight:700;color:var(--tx);margin-bottom:.25rem;line-height:1.3}
+        .slide-set-meta{font-size:.72rem;color:var(--tx3);margin-bottom:.6rem}
+        .slide-set-actions{display:flex;gap:.4rem;flex-wrap:wrap;align-items:center}
+        .slides-empty{text-align:center;padding:3rem;color:var(--tx3);font-size:.85rem}
+        .caption-box{background:var(--bg);border:1px solid var(--br);border-radius:10px;padding:1rem;margin-bottom:1rem}
+        .caption-text{white-space:pre-wrap;font-size:.82rem;color:var(--tx2);line-height:1.6;max-height:260px;overflow-y:auto}
+        .slides-kpi{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:.8rem;margin-bottom:1.2rem}
+        .type-badge-poster{background:#eff6ff;color:#2563eb}
+        .type-badge-carousel{background:#f5f3ff;color:#7c3aed}
+        .slide-detail-modal{position:fixed;inset:0;z-index:2000;background:rgba(0,0,0,.75);display:none;align-items:center;justify-content:center;padding:1rem}
+        .slide-detail-modal.open{display:flex}
+        .slide-detail-inner{background:var(--wh);border-radius:14px;width:100%;max-width:860px;max-height:90vh;overflow:hidden;display:flex;flex-direction:column}
+        .slide-detail-head{padding:1rem 1.2rem;border-bottom:1px solid var(--br);display:flex;align-items:center;justify-content:space-between}
+        .slide-detail-head h3{font-size:.95rem;font-weight:700}
+        .slide-detail-scroll{overflow-y:auto;padding:1rem 1.2rem;display:flex;flex-direction:column;gap:.8rem}
+        .slide-preview-row{border:1.5px solid var(--br);border-radius:10px;overflow:hidden;display:flex;align-items:stretch;gap:0}
+        .slide-preview-num{background:var(--bg);padding:.5rem .7rem;font-size:.72rem;font-weight:700;color:var(--tx3);display:flex;align-items:center;border-right:1px solid var(--br);min-width:36px;justify-content:center}
+        .slide-preview-info{flex:1;padding:.6rem .9rem;display:flex;align-items:center;justify-content:space-between;gap:.5rem}
+        .slide-preview-info span{font-size:.8rem;color:var(--tx2)}
+      </style>
+
+      <div class="slides-kpi" id="slides-kpi"></div>
+
+      <div class="card" style="margin-bottom:1.2rem">
+        <div class="card-head">
+          <h3>🖼️ Gegenereerde social content</h3>
+          <div style="display:flex;gap:.4rem;align-items:center">
+            <select id="slides-type-filter" onchange="renderSlides()" style="padding:5px 8px;border:1px solid var(--br);border-radius:7px;font-size:12px;background:var(--wh)">
+              <option value="all">Alle types</option>
+              <option value="carousel">Carrousels</option>
+              <option value="poster">Posters</option>
+            </select>
+            <button class="btn btn-ghost" onclick="loadSlides()">↺</button>
+          </div>
+        </div>
+        <div style="padding:1rem 1.2rem">
+          <div id="slides-list"><div class="empty">Laden...</div></div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-head"><h3>⚙️ Slides generator</h3><span class="badge bb">Elke zondag 08:00</span></div>
+        <div class="info-row"><span class="info-label">Script</span><span class="info-value mono">scripts/generate-slides.js</span></div>
+        <div class="info-row"><span class="info-label">Output</span><span class="info-value mono">slides/[datum-topic]/01.html … 07.html + manifest.json</span></div>
+        <div class="info-row"><span class="info-label">Mix</span><span class="info-value">~4 carrousels (4-7 slides) + ~3 losse posters per week</span></div>
+        <div class="info-row"><span class="info-label">Stijl</span><span class="info-value">ZenBTW kleurenpalet · Fraunces + Plus Jakarta Sans · geen logo op elke slide</span></div>
+        <div class="info-row"><span class="info-label">Kosten</span><span class="info-value">~$1-2 per run (Claude Sonnet 4.6) · GitHub Actions gratis</span></div>
+        <div class="info-row"><span class="info-label">Trigger</span><span class="info-value"><a href="https://github.com/danieldk04/zenbtw/actions" target="_blank">Handmatig triggeren via GitHub Actions →</a></span></div>
+      </div>
+
+    </div><!-- /page-slides -->
+
+    <!-- ── REELPOSTERS ── -->
+    <div class="page" id="page-reelposters">
+      <div class="slides-kpi" id="reelposters-kpi"></div>
+
+      <div class="card" style="margin-bottom:1.2rem">
+        <div class="card-head">
+          <h3>🎬 Reelposters</h3>
+          <button class="btn btn-ghost" onclick="loadReelposters()">↺</button>
+        </div>
+        <div style="padding:1rem 1.2rem">
+          <div id="reelposters-list"><div class="empty">Laden...</div></div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-head"><h3>⚙️ Reelposters generator</h3><span class="badge bb">Elke woensdag 08:00</span></div>
+        <div class="info-row"><span class="info-label">Script</span><span class="info-value mono">scripts/generate-reelposters.js</span></div>
+        <div class="info-row"><span class="info-label">Output</span><span class="info-value mono">reelposters/[datum-topic]/poster.html + poster.png + description.txt</span></div>
+        <div class="info-row"><span class="info-label">Templates</span><span class="info-value">Vergelijking · Rekensommetje · Tijdlijn · Checklist · Mythe vs. werkelijkheid</span></div>
+        <div class="info-row"><span class="info-label">Formaat</span><span class="info-value">1080×1350px · Overlay op standaard Reel-video</span></div>
+        <div class="info-row"><span class="info-label">Kosten</span><span class="info-value">~€0.10-0.20 per poster (Claude Sonnet 4.6 + Haiku)</span></div>
+        <div class="info-row"><span class="info-label">Trigger</span><span class="info-value"><a href="https://github.com/danieldk04/zenbtw/actions" target="_blank">Handmatig via GitHub Actions →</a></span></div>
+      </div>
+    </div><!-- /page-reelposters -->
+
+    <!-- Slide detail modal -->
+    <div class="slide-detail-modal" id="slideDetailModal">
+      <div class="slide-detail-inner">
+        <div class="slide-detail-head">
+          <h3 id="slideDetailTitle">Slides</h3>
+          <button class="btn btn-ghost" onclick="closeSlideDetail()">✕ Sluiten</button>
+        </div>
+        <div class="slide-detail-scroll" id="slideDetailBody"></div>
+      </div>
+    </div>
+
+  </div><!-- /main -->
+</div><!-- /app -->
+
+<!-- ── Blog editor modal ── -->
+<div class="edit-modal" id="editModal">
+  <div class="edit-topbar">
+    <button class="btn btn-ghost" onclick="closeEditor()">← Terug</button>
+    <h3 id="edit-modal-title">Blog bewerken</h3>
+    <button class="btn btn-ghost" id="edit-preview-btn" onclick="previewBlog()">👁 Voorbeeld</button>
+    <button class="btn btn-primary" id="edit-save-btn" onclick="saveBlog()">💾 Opslaan</button>
+  </div>
+  <textarea class="edit-textarea" id="edit-textarea" spellcheck="false"></textarea>
+  <div class="edit-statusbar">
+    <span id="edit-status">Klaar</span>
+    <span id="edit-chars"></span>
+  </div>
+</div>
+
+<script>
+// ── Auth ──────────────────────────────────────────────────────────────────────
+// SHA-256 van wachtwoord. Wijzig: https://emn178.github.io/online-tools/sha256.html
+const PW_HASH = 'a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3'; // "123"
+
+async function sha256(s){const b=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(s));return Array.from(new Uint8Array(b)).map(x=>x.toString(16).padStart(2,'0')).join('')}
+
+async function tryLogin(){
+  const pw = document.getElementById('pw').value;
+  if(await sha256(pw) === PW_HASH){
+    sessionStorage.setItem('za','1');
+    document.getElementById('login-screen').style.display='none';
+    document.getElementById('app').classList.add('show');
+    initApp();
+  } else {
+    document.getElementById('login-err').textContent='Wachtwoord onjuist';
+    document.getElementById('pw').value='';
+    document.getElementById('pw').focus();
+  }
+}
+document.getElementById('pw').addEventListener('keydown',e=>{ if(e.key==='Enter') tryLogin(); });
+
+function logout(){ sessionStorage.removeItem('za'); location.reload(); }
+
+if(sessionStorage.getItem('za')==='1'){
+  document.getElementById('login-screen').style.display='none';
+  document.getElementById('app').classList.add('show');
+  initApp();
+}
+
+// ── Navigation ────────────────────────────────────────────────────────────────
+const PAGE_TITLES = {
+  home:'Overzicht', blogs:'Blogs', queue:'Keywords queue',
+  style:'Schrijfstijl', traffic:'Bezoekers & verkeer', contacts:'Contacten & e-mails',
+  seo:'Keyword research', leads:'Leads & outreach',
+  content:'Content intelligence', agent:'Content agent', fiscal:'Fiscale logica',
+  slides:'Social slides', reelposters:'Reelposters', actions:'GitHub Actions'
+};
+
+function go(name){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
+  document.getElementById('page-'+name).classList.add('active');
+  document.getElementById('nav-'+name).classList.add('active');
+  const title = PAGE_TITLES[name];
+  document.getElementById('topbar-title').textContent = title;
+  document.getElementById('mob-topbar-title').textContent = title;
+  if(name==='traffic') loadUmami();
+  if(name==='contacts') loadContacts();
+  if(name==='leads') initLeads();
+  if(name==='content') initContent();
+  if(name==='slides') loadSlides();
+  if(name==='reelposters') loadReelposters();
+  closeSidebar();
+}
+
+function toggleSidebar(){
+  const s=document.querySelector('.sidebar'), o=document.getElementById('sidebarOverlay'), b=document.getElementById('mobHamburger');
+  const open=s.classList.toggle('open');
+  if(open){o.style.display='block';setTimeout(()=>o.classList.add('open'),10);}
+  else{o.classList.remove('open');setTimeout(()=>o.style.display='none',280);}
+  b.classList.toggle('open',open);
+  document.body.style.overflow=open?'hidden':'';
+}
+function closeSidebar(){
+  const s=document.querySelector('.sidebar'), o=document.getElementById('sidebarOverlay'), b=document.getElementById('mobHamburger');
+  s.classList.remove('open');
+  o.classList.remove('open');
+  setTimeout(()=>o.style.display='none',280);
+  b.classList.remove('open');
+  document.body.style.overflow='';
+}
+
+// ── Data helpers ──────────────────────────────────────────────────────────────
+const REPO = 'danieldk04/zenbtw';
+const RAW  = 'https://raw.githubusercontent.com/'+REPO+'/main';
+
+async function get(path){ const r=await fetch(RAW+path+'?t='+Date.now()); if(!r.ok) throw new Error(r.status); return r.json(); }
+async function ghapi(path){ const r=await fetch('https://api.github.com/repos/'+REPO+path); if(!r.ok) throw new Error(r.status); return r.json(); }
+
+function fmt(iso){ return new Date(iso).toLocaleString('nl-NL',{day:'numeric',month:'short',year:'numeric',hour:'2-digit',minute:'2-digit'}); }
+function fmtDate(iso){ return new Date(iso).toLocaleDateString('nl-NL',{day:'numeric',month:'short',year:'numeric'}); }
+function seoClass(s){ return s>=75?'sf-g':s>=50?'sf-y':'sf-r'; }
+function seoBadge(s){ return s>=75?'bg':s>=50?'by':'br'; }
+
+// ── Home ──────────────────────────────────────────────────────────────────────
+async function loadHome(){
+  let agentData={blogs:[],runs:[]}, kwData={queue:[],published:[]}, treeData={tree:[]};
+  try{ agentData=await get('/app/blog/data.json'); }catch(_){}
+  try{ kwData=await get('/keywords.json'); }catch(_){}
+  try{ treeData=await ghapi('/git/trees/main?recursive=1'); }catch(_){}
+
+  const blogFiles = treeData.tree.filter(f=>f.path.match(/^blog\/[^/]+\.html$/)&&!f.path.includes('index'));
+  const appBlogFiles = treeData.tree.filter(f=>f.path.match(/^app\/blog\/[^/]+\.html$/)&&!f.path.match(/index|dashboard/));
+  const totalBlogs = blogFiles.length + appBlogFiles.length;
+  const pending = (kwData.queue||[]).filter(k=>k.status==='pending').length;
+  const lastRun = (agentData.runs||[])[0];
+  const avgSeo = agentData.blogs.length ? Math.round(agentData.blogs.reduce((a,b)=>a+(b.seo?.score||0),0)/agentData.blogs.length) : 0;
+
+  document.getElementById('kpi-home').innerHTML = `
+    <div class="kpi"><div class="kpi-label">Blogs live</div><div class="kpi-value">${totalBlogs}</div><div class="kpi-sub">${blogFiles.length} generator · ${appBlogFiles.length} agent</div><div class="kpi-icon">📝</div></div>
+    <div class="kpi"><div class="kpi-label">Gem. SEO score</div><div class="kpi-value">${avgSeo||'–'}</div><div class="kpi-sub">van agent blogs</div><div class="kpi-icon">🔍</div></div>
+    <div class="kpi"><div class="kpi-label">Queue pending</div><div class="kpi-value">${pending}</div><div class="kpi-sub">klaar om te genereren</div><div class="kpi-icon">📋</div></div>
+    <div class="kpi"><div class="kpi-label">Laatste agent run</div><div class="kpi-value" style="font-size:1rem;padding-top:.4rem">${lastRun?fmtDate(lastRun.timestamp):'–'}</div><div class="kpi-sub">${lastRun?.status||'–'}</div><div class="kpi-icon">🤖</div></div>
+  `;
+
+  // Recente blogs
+  const recentBlogs = agentData.blogs.slice(0,4);
+  document.getElementById('home-recent-blogs').innerHTML = recentBlogs.length
+    ? `<table><tbody>${recentBlogs.map(b=>`<tr><td><a href="${b.url}" target="_blank">${b.title}</a></td><td><span class="badge ${seoBadge(b.seo?.score||0)}">${b.seo?.score||'?'}/100</span></td></tr>`).join('')}</tbody></table>`
+    : '<div class="empty">Nog geen agent blogs</div>';
+
+  // Last agent run
+  document.getElementById('home-agent-run').innerHTML = lastRun
+    ? `<div class="info-row"><span class="info-label">Status</span><span class="info-value"><span class="badge ${lastRun.status==='success'?'bg':'br'}">${lastRun.status}</span></span></div>
+       <div class="info-row"><span class="info-label">Timestamp</span><span class="info-value">${fmt(lastRun.timestamp)}</span></div>
+       <div class="info-row"><span class="info-label">Queries gevonden</span><span class="info-value">${lastRun.queries_found||0}</span></div>
+       ${lastRun.blog?`<div class="info-row"><span class="info-label">Blog gegenereerd</span><span class="info-value"><a href="${lastRun.blog.url}" target="_blank">${lastRun.blog.title}</a></span></div>`:''}
+       ${lastRun.top_queries?`<div class="info-row"><span class="info-label">Top trending</span><span class="info-value">${lastRun.top_queries.slice(0,3).map(q=>`"${q.query}" (${q.score})`).join(' · ')}</span></div>`:''}`
+    : '<div class="empty">Geen run data</div>';
+
+  // Queue
+  const pendingItems = (kwData.queue||[]).filter(k=>k.status==='pending');
+  document.getElementById('home-queue').innerHTML = pendingItems.length
+    ? `<table><tbody>${pendingItems.map(k=>`<tr><td>${k.keyword}</td><td class="mono" style="color:var(--tx3)">${k.slug}</td><td><span class="badge bb">prio ${k.priority||'–'}</span></td></tr>`).join('')}</tbody></table>`
+    : '<div class="empty">Queue is leeg — geen pending keywords</div>';
+}
+
+// ── Blogs ──────────────────────────────────────────────────────────────────────
+async function loadBlogs(){
+  document.getElementById('blogs-table').innerHTML='<div class="empty">Laden...</div>';
+  try{
+    const [tree, agentData] = await Promise.all([ghapi('/git/trees/main?recursive=1'), get('/app/blog/data.json').catch(()=>({blogs:[]}))]);
+    const blogFiles = tree.tree.filter(f=>f.path.match(/^blog\/[^/]+\.html$/)&&!f.path.includes('index'));
+    const appFiles  = tree.tree.filter(f=>f.path.match(/^app\/blog\/[^/]+\.html$/)&&!f.path.match(/index|dashboard/));
+    const agentMap  = Object.fromEntries((agentData.blogs||[]).map(b=>[b.slug,b]));
+    const truncated = blogFiles.filter(f=>f.size<9800).length;
+
+    document.getElementById('kpi-blogs').innerHTML = `
+      <div class="kpi"><div class="kpi-label">Totaal</div><div class="kpi-value">${blogFiles.length+appFiles.length}</div><div class="kpi-sub">${blogFiles.length} + ${appFiles.length}</div></div>
+      <div class="kpi"><div class="kpi-label">Mogelijk afgekapt</div><div class="kpi-value" style="color:${truncated?'var(--red)':'var(--green)'}">${truncated}</div><div class="kpi-sub">&lt;9.8 KB</div></div>
+    `;
+
+    const rows = [
+      ...blogFiles.map(f=>({path:f.path,slug:f.path.replace('blog/','').replace('.html',''),source:'generate-blog.js',url:'https://zenbtw.nl/'+f.path,size:f.size})),
+      ...appFiles.map(f=>({path:f.path,slug:f.path.replace('app/blog/','').replace('.html',''),source:'content_agent.py',url:'https://zenbtw.nl/'+f.path,size:f.size}))
+    ];
+
+    document.getElementById('blogs-table').innerHTML = `
+      <table><thead><tr><th>Blog</th><th>Bron</th><th>Grootte</th><th>SEO</th><th></th></tr></thead>
+      <tbody>${rows.map(b=>{
+        const agent=agentMap[b.slug], isTrunc=b.size<9800&&b.source==='generate-blog.js';
+        const seo=agent?.seo;
+        return `<tr>
+          <td><a href="${b.url}" target="_blank">${b.slug}</a>${isTrunc?' <span class="badge br">⚠ afgekapt</span>':''}</td>
+          <td><span class="badge bgr">${b.source}</span></td>
+          <td style="color:${isTrunc?'var(--red)':'var(--tx3)'}">${(b.size/1024).toFixed(1)} KB</td>
+          <td>${seo?`<span class="badge ${seoBadge(seo.score)}">${seo.score}/100</span><div class="seo-bar"><div class="seo-fill ${seoClass(seo.score)}" style="width:${seo.score}%"></div></div>`:'–'}</td>
+          <td style="display:flex;gap:.4rem;flex-wrap:wrap">
+            <a href="${b.url}" target="_blank" class="btn btn-ghost">Bekijk</a>
+            <button class="btn btn-ghost" onclick="editBlog('${b.path}','${b.url}')">✏️ Bewerk</button>
+          </td>
+        </tr>`}).join('')}</tbody></table>`;
+  }catch(e){document.getElementById('blogs-table').innerHTML=`<div class="empty" style="color:var(--red)">${e.message}</div>`;}
+}
+
+// ── Queue ──────────────────────────────────────────────────────────────────────
+async function loadQueue(){
+  document.getElementById('queue-table').innerHTML='<div class="empty">Laden...</div>';
+  try{
+    const kw = await get('/keywords.json');
+    const pending=(kw.queue||[]).filter(k=>k.status==='pending');
+    document.getElementById('queue-pending-badge').textContent=pending.length+' pending';
+    const all=[...(kw.queue||[]),...(kw.published||[]).slice(0,10)];
+    document.getElementById('queue-table').innerHTML=all.length
+      ?`<table><thead><tr><th>Keyword</th><th>Slug</th><th>Status</th><th>Prioriteit</th><th>Gepubliceerd</th><th>Notitie</th></tr></thead>
+        <tbody>${all.map(k=>`<tr>
+          <td>${k.keyword}</td>
+          <td class="mono" style="color:var(--tx3)">${k.slug}</td>
+          <td><span class="badge ${k.status==='pending'?'by':k.status==='published'?'bg':'bgr'}">${k.status}</span></td>
+          <td>${k.priority??'–'}</td>
+          <td style="color:var(--tx3)">${k.publishedDate||'–'}</td>
+          <td style="color:var(--tx3);font-style:italic">${k.notes||'–'}</td>
+        </tr>`).join('')}</tbody></table>`
+      :'<div class="empty">Queue leeg</div>';
+  }catch(e){document.getElementById('queue-table').innerHTML=`<div class="empty" style="color:var(--red)">${e.message}</div>`;}
+
+  try{
+    const ag=await get('/app/blog/data.json');
+    const q=(ag.runs||[])[0]?.top_queries||[];
+    document.getElementById('queue-trends').innerHTML=q.length
+      ?q.map(t=>`<div class="trend-row"><span class="trend-score">${t.score>=5000?'🔥':t.score}</span><span class="trend-q">${t.query}</span><span class="badge ${t.type==='rising'?'bb':'bgr'}">${t.type==='rising'?'Trending':'Top'}</span></div>`).join('')
+      :'<div class="empty">Nog geen run data</div>';
+  }catch(_){document.getElementById('queue-trends').innerHTML='<div class="empty">Geen agent data</div>';}
+}
+
+function addKeyword(){
+  const kw=document.getElementById('kw-input').value.trim();
+  if(!kw){alert('Voer een keyword in');return;}
+  const slug=kw.toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'');
+  alert(`Om "${kw}" toe te voegen:\n\n1. Open keywords.json in de GitHub repo\n2. Voeg toe aan "queue":\n{\n  "keyword": "${kw}",\n  "slug": "${slug}",\n  "status": "pending",\n  "priority": 5\n}\n3. Trigger de blog-generator workflow via Actions`);
+}
+
+// ── Agent ──────────────────────────────────────────────────────────────────────
+async function loadAgent(){
+  try{
+    const d=await get('/app/blog/data.json');
+    const runs=d.runs||[], blogs=d.blogs||[];
+    const ok=runs.filter(r=>r.status==='success').length;
+    document.getElementById('kpi-agent').innerHTML=`
+      <div class="kpi"><div class="kpi-label">Totale runs</div><div class="kpi-value">${runs.length}</div><div class="kpi-sub">${ok} succesvol · ${runs.length-ok} mislukt</div></div>
+      <div class="kpi"><div class="kpi-label">Agent blogs</div><div class="kpi-value">${blogs.length}</div><div class="kpi-sub">gegenereerd via pytrends</div></div>
+      <div class="kpi"><div class="kpi-label">Laatste run</div><div class="kpi-value" style="font-size:.9rem;padding-top:.5rem">${runs[0]?fmtDate(runs[0].timestamp):'–'}</div><div class="kpi-sub">${runs[0]?.status||'–'}</div></div>
+    `;
+    document.getElementById('agent-runs').innerHTML=runs.length
+      ?runs.map(r=>`<div style="padding:.75rem 1.2rem;border-bottom:1px solid #f5f5f7">
+          <div style="display:flex;align-items:center;gap:.5rem;margin-bottom:.3rem">
+            <span class="badge ${r.status==='success'?'bg':'br'}">${r.status==='success'?'Geslaagd':'Geen queries'}</span>
+            <span style="font-size:.75rem;color:var(--tx3)">${fmt(r.timestamp)}</span>
+            <span class="badge bgr">${r.queries_found||0} queries</span>
+          </div>
+          ${r.blog?`<div style="font-size:.78rem;color:var(--tx2)"><a href="${r.blog.url}" target="_blank">${r.blog.title}</a> · SEO <strong>${r.blog.seo?.score||'?'}/100</strong> · score <strong>${r.blog.trending_score}</strong></div>`:''}
+          ${r.top_queries?.length?`<div style="font-size:.75rem;color:var(--tx3);margin-top:.2rem">${r.top_queries.slice(0,4).map(q=>`"${q.query}"(${q.score})`).join(' · ')}</div>`:''}
+        </div>`).join('')
+      :'<div class="empty">Nog geen runs</div>';
+  }catch(e){document.getElementById('agent-runs').innerHTML=`<div class="empty" style="color:var(--red)">${e.message}</div>`;}
+}
+
+// ── Traffic / Umami ───────────────────────────────────────────────────────────
+let UMAMI_TOKEN = localStorage.getItem('zenbtw_umami_token') || '';
+
+function saveUmamiToken(){
+  const val = document.getElementById('umami-token-input').value.trim();
+  if(!val){ alert('Voer een API token in'); return; }
+  localStorage.setItem('zenbtw_umami_token', val);
+  UMAMI_TOKEN = val;
+  document.getElementById('umami-token-input').value = '';
+  document.getElementById('umami-token-input').placeholder = '✓ Token opgeslagen';
+  loadUmami();
+}
+
+// Toon bestaand token hint op load
+(function(){
+  const saved = localStorage.getItem('zenbtw_umami_token');
+  if(saved){
+    const inp = document.getElementById('umami-token-input');
+    if(inp) inp.placeholder = '✓ Token opgeslagen (' + saved.slice(0,8) + '...)';
+  }
+})();
+
+// ── Contacten (Brevo lijst #3) ────────────────────────────────────────────────
+const BREVO_DEFAULT = '';
+
+function saveBrevoKey(){
+  const val = document.getElementById('brevo-key-input').value.trim();
+  if(!val){ alert('Voer een API key in'); return; }
+  localStorage.setItem('zenbtw_brevo_key', val);
+  document.getElementById('brevo-key-input').value = '';
+  document.getElementById('brevo-key-input').placeholder = '✓ Opgeslagen';
+  loadContacts();
+}
+
+async function loadContacts(){
+  // Laad opgeslagen key
+  const savedKey = localStorage.getItem('zenbtw_brevo_key');
+  if(savedKey && document.getElementById('brevo-key-input')) {
+    document.getElementById('brevo-key-input').placeholder = savedKey.slice(0,12)+'...';
+  }
+
+  const el = document.getElementById('contacts-table');
+  const kpi = document.getElementById('kpi-contacts');
+  const BREVO_KEY = savedKey || BREVO_DEFAULT;
+  if(!BREVO_KEY){ el.innerHTML = '<div class="empty">Voer eerst je Brevo API key in hierboven.</div>'; return; }
+  el.innerHTML = '<div class="empty">Ophalen van Brevo...</div>';
+  try {
+    // Haal contacten op uit lijst 3
+    const r = await fetch('https://api.brevo.com/v3/contacts?listId=3&limit=500&sort=desc', {
+      headers: { 'api-key': BREVO_KEY, 'accept': 'application/json' }
+    });
+    if (!r.ok) throw new Error('Brevo API ' + r.status);
+    const data = await r.json();
+    const contacts = data.contacts || [];
+
+    // Haal totaal op
+    const total = data.count || contacts.length;
+
+    // KPI
+    const platforms = {};
+    contacts.forEach(c => {
+      const p = c.attributes?.PLATFORM || 'onbekend';
+      platforms[p] = (platforms[p] || 0) + 1;
+    });
+    kpi.innerHTML = `
+      <div class="kpi-card"><div class="kpi-val">${total}</div><div class="kpi-label">Totaal aangemeld</div></div>
+      ${Object.entries(platforms).sort((a,b)=>b[1]-a[1]).map(([p,n])=>`<div class="kpi-card"><div class="kpi-val">${n}</div><div class="kpi-label">${p}</div></div>`).join('')}
+    `;
+
+    if (!contacts.length) { el.innerHTML = '<div class="empty">Geen contacten gevonden in lijst #3</div>'; return; }
+
+    // Tabel
+    const rows = contacts.map(c => {
+      const date = c.attributes?.SIGNUP_DATE || c.createdAt?.split('T')[0] || '—';
+      const platform = c.attributes?.PLATFORM || '—';
+      const bron = c.attributes?.BRON || '—';
+      return `<tr>
+        <td>${c.email}</td>
+        <td>${platform}</td>
+        <td>${date}</td>
+        <td><span style="font-size:11px;color:var(--tx3)">${bron}</span></td>
+      </tr>`;
+    }).join('');
+
+    el.innerHTML = `
+      <div style="overflow-x:auto">
+        <table style="width:100%;border-collapse:collapse;font-size:13px">
+          <thead><tr style="border-bottom:1px solid var(--br);text-align:left">
+            <th style="padding:8px 12px;font-weight:600;color:var(--tx2)">E-mail</th>
+            <th style="padding:8px 12px;font-weight:600;color:var(--tx2)">Platform</th>
+            <th style="padding:8px 12px;font-weight:600;color:var(--tx2)">Aangemeld</th>
+            <th style="padding:8px 12px;font-weight:600;color:var(--tx2)">Bron</th>
+          </tr></thead>
+          <tbody>${rows}</tbody>
+        </table>
+      </div>
+      <div style="padding:10px 12px;font-size:11px;color:var(--tx3)">${contacts.length} van ${total} contacten getoond · <a href="https://app.brevo.com/contact/list" target="_blank">Open Brevo →</a></div>
+    `;
+  } catch(e) {
+    el.innerHTML = `<div class="empty">Fout: ${e.message}</div>`;
+  }
+}
+
+async function loadUmami(){
+  const el=document.getElementById('umami-stats');
+  el.innerHTML='<div class="empty">Laden...</div>';
+  const SITE_ID='9cb58ff4-cf6e-4773-8dd5-f2f0b6ad5510';
+  const token=UMAMI_TOKEN;
+  try{
+    const [stats,pages] = await Promise.all([
+      fetch(`https://cloud.umami.is/api/websites/${SITE_ID}/stats?startAt=${Date.now()-30*864e5}&endAt=${Date.now()}`,{headers:{'x-umami-api-key':token}}).then(r=>r.json()),
+      fetch(`https://cloud.umami.is/api/websites/${SITE_ID}/metrics?startAt=${Date.now()-30*864e5}&endAt=${Date.now()}&type=url&limit=10`,{headers:{'x-umami-api-key':token}}).then(r=>r.json())
+    ]);
+    el.innerHTML=`
+      <div class="kpi-grid" style="padding:1.2rem">
+        <div class="kpi"><div class="kpi-label">Bezoekers (30d)</div><div class="kpi-value">${stats.visitors?.value?.toLocaleString('nl-NL')||'–'}</div></div>
+        <div class="kpi"><div class="kpi-label">Paginaweergaven</div><div class="kpi-value">${stats.pageviews?.value?.toLocaleString('nl-NL')||'–'}</div></div>
+        <div class="kpi"><div class="kpi-label">Sessies</div><div class="kpi-value">${stats.sessions?.value?.toLocaleString('nl-NL')||'–'}</div></div>
+        <div class="kpi"><div class="kpi-label">Bouncepercentage</div><div class="kpi-value">${stats.bounces?.value!==undefined?Math.round(stats.bounces.value/(stats.sessions?.value||1)*100)+'%':'–'}</div></div>
+      </div>
+      <table><thead><tr><th>Pagina</th><th>Bezoeken</th></tr></thead>
+      <tbody>${Array.isArray(pages)?pages.map(p=>`<tr><td>${p.x}</td><td>${p.y?.toLocaleString('nl-NL')}</td></tr>`).join(''):'<tr><td colspan="2" style="text-align:center;color:var(--tx3)">Geen data</td></tr>'}</tbody></table>`;
+  }catch(e){el.innerHTML=`<div class="empty" style="color:var(--red)">Umami API fout: ${e.message}<br><small>Controleer het token en probeer opnieuw</small></div>`;}
+}
+
+// ── Actions ───────────────────────────────────────────────────────────────────
+async function loadActions(){
+  document.getElementById('actions-table').innerHTML='<div class="empty">Laden...</div>';
+  try{
+    const d=await ghapi('/actions/runs?per_page=20');
+    const runs=d.workflow_runs||[];
+    document.getElementById('actions-table').innerHTML=`
+      <table><thead><tr><th>Workflow</th><th>Status</th><th>Branch</th><th>Gestart</th><th>Duur</th><th></th></tr></thead>
+      <tbody>${runs.map(r=>{
+        const cls=r.conclusion==='success'?'bg':r.conclusion==='failure'?'br':r.status==='in_progress'?'bb':'bgr';
+        const dur=r.updated_at&&r.created_at?Math.round((new Date(r.updated_at)-new Date(r.created_at))/1000)+'s':'–';
+        return`<tr><td>${r.name}</td><td><span class="badge ${cls}">${r.conclusion||r.status}</span></td><td class="mono" style="color:var(--tx3)">${r.head_branch}</td><td style="color:var(--tx3)">${fmt(r.created_at)}</td><td style="color:var(--tx3)">${dur}</td><td><a href="${r.html_url}" target="_blank" class="btn btn-ghost">Logs</a></td></tr>`;
+      }).join('')}</tbody></table>`;
+  }catch(e){document.getElementById('actions-table').innerHTML=`<div class="empty" style="color:var(--red)">${e.message}</div>`;}
+}
+
+// ── Init ──────────────────────────────────────────────────────────────────────
+function initApp(){
+  loadHome();
+  loadBlogs();
+  loadQueue();
+  loadAgent();
+  loadActions();
+  loadUmami();
+  // Herstel Brevo key placeholder
+  const bk = localStorage.getItem('zenbtw_brevo_key');
+  if(bk){ const inp=document.getElementById('brevo-key-input'); if(inp) inp.placeholder=bk.slice(0,12)+'... (opgeslagen)'; }
+
+  // Herstel GitHub token status
+  updateGhTokenStatus();
+  // Herstel DataForSEO status
+  updateDfsStatus();
+}
+
+// ── GitHub token ──────────────────────────────────────────────────────────────
+function saveGhToken(){
+  const val = document.getElementById('gh-token-input').value.trim();
+  if(!val){ alert('Voer een token in'); return; }
+  localStorage.setItem('zenbtw_gh_token', val);
+  document.getElementById('gh-token-input').value = '';
+  updateGhTokenStatus();
+}
+function updateGhTokenStatus(){
+  const el = document.getElementById('gh-token-status');
+  const inp = document.getElementById('gh-token-input');
+  if(!el) return;
+  const tok = localStorage.getItem('zenbtw_gh_token');
+  if(tok){
+    el.textContent = '✓ Ingesteld';
+    el.className = 'badge bg';
+    if(inp) inp.placeholder = tok.slice(0,12)+'... (opgeslagen)';
+  } else {
+    el.textContent = 'Niet ingesteld';
+    el.className = 'badge bgr';
+  }
+}
+
+// ── Blog editor ───────────────────────────────────────────────────────────────
+let _editPath = '', _editSha = '', _editLiveUrl = '';
+
+async function editBlog(filePath, liveUrl){
+  const tok = localStorage.getItem('zenbtw_gh_token');
+  if(!tok){ alert('Stel eerst een GitHub token in bovenaan de Blogs pagina.'); return; }
+
+  _editPath = filePath;
+  _editLiveUrl = liveUrl;
+
+  document.getElementById('edit-modal-title').textContent = filePath;
+  document.getElementById('edit-status').textContent = 'Ophalen...';
+  document.getElementById('edit-textarea').value = '';
+  document.getElementById('editModal').classList.add('open');
+  document.body.style.overflow = 'hidden';
+
+  try {
+    const res = await fetch(`https://api.github.com/repos/${REPO}/contents/${filePath}`, {
+      headers: { 'Authorization': `Bearer ${tok}`, 'Accept': 'application/vnd.github+json' }
+    });
+    if(!res.ok) throw new Error(`GitHub API: ${res.status}`);
+    const data = await res.json();
+    _editSha = data.sha;
+    const content = atob(data.content.replace(/\n/g,''));
+    document.getElementById('edit-textarea').value = content;
+    document.getElementById('edit-status').textContent = 'Geladen — maak wijzigingen en klik Opslaan';
+    updateCharCount();
+  } catch(e){
+    document.getElementById('edit-status').textContent = '❌ ' + e.message;
+  }
+}
+
+function updateCharCount(){
+  const ta = document.getElementById('edit-textarea');
+  const words = ta.value.trim().split(/\s+/).filter(Boolean).length;
+  document.getElementById('edit-chars').textContent = `${ta.value.length} tekens · ~${words} woorden`;
+}
+document.addEventListener('DOMContentLoaded', ()=>{
+  document.getElementById('edit-textarea')?.addEventListener('input', updateCharCount);
+});
+
+async function saveBlog(){
+  const tok = localStorage.getItem('zenbtw_gh_token');
+  if(!tok){ alert('Geen GitHub token ingesteld.'); return; }
+  const content = document.getElementById('edit-textarea').value;
+  if(!content){ alert('Inhoud mag niet leeg zijn.'); return; }
+
+  const btn = document.getElementById('edit-save-btn');
+  btn.textContent = 'Opslaan...'; btn.disabled = true;
+  document.getElementById('edit-status').textContent = 'Opslaan naar GitHub...';
+
+  try {
+    const encoded = btoa(unescape(encodeURIComponent(content)));
+    const res = await fetch(`https://api.github.com/repos/${REPO}/contents/${_editPath}`, {
+      method: 'PUT',
+      headers: {
+        'Authorization': `Bearer ${tok}`,
+        'Accept': 'application/vnd.github+json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        message: `update blog: ${_editPath}`,
+        content: encoded,
+        sha: _editSha
+      })
+    });
+    if(!res.ok){ const e=await res.json(); throw new Error(e.message||res.status); }
+    const data = await res.json();
+    _editSha = data.content.sha;
+    document.getElementById('edit-status').textContent = '✅ Opgeslagen — live over ~1 minuut via GitHub Pages';
+  } catch(e){
+    document.getElementById('edit-status').textContent = '❌ Fout: ' + e.message;
+  } finally {
+    btn.textContent = '💾 Opslaan'; btn.disabled = false;
+  }
+}
+
+function previewBlog(){
+  if(_editLiveUrl) window.open(_editLiveUrl, '_blank');
+}
+
+function closeEditor(){
+  document.getElementById('editModal').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+// ── SEO / Keyword research ─────────────────────────────────────────────────────
+let _seoVolumeResults = [], _seoIdeasResults = [];
+
+function saveDfsCredentials(){
+  const login = document.getElementById('dfs-login-input').value.trim();
+  const pass  = document.getElementById('dfs-pass-input').value.trim();
+  if(!login || !pass){ alert('Voer zowel login als wachtwoord in.'); return; }
+  localStorage.setItem('zenbtw_dfs_login', login);
+  localStorage.setItem('zenbtw_dfs_pass', pass);
+  document.getElementById('dfs-login-input').value = '';
+  document.getElementById('dfs-pass-input').value = '';
+  updateDfsStatus();
+}
+
+function updateDfsStatus(){
+  const el = document.getElementById('dfs-status');
+  if(!el) return;
+  const login = localStorage.getItem('zenbtw_dfs_login');
+  const inp = document.getElementById('dfs-login-input');
+  if(login){
+    el.textContent = '✓ Ingesteld';
+    el.className = 'badge bg';
+    if(inp) inp.placeholder = login + ' (opgeslagen)';
+  } else {
+    el.textContent = 'Niet ingesteld';
+    el.className = 'badge bgr';
+  }
+}
+
+function dfsAuth(){
+  const login = localStorage.getItem('zenbtw_dfs_login');
+  const pass  = localStorage.getItem('zenbtw_dfs_pass');
+  if(!login || !pass) return null;
+  return 'Basic ' + btoa(login + ':' + pass);
+}
+
+function setSeoTab(tab){
+  document.getElementById('seo-pane-volume').style.display = tab==='volume' ? '' : 'none';
+  document.getElementById('seo-pane-ideas').style.display  = tab==='ideas'  ? '' : 'none';
+  document.getElementById('seo-tab-volume').className = 'btn ' + (tab==='volume' ? 'btn-primary' : 'btn-ghost');
+  document.getElementById('seo-tab-ideas').className  = 'btn ' + (tab==='ideas'  ? 'btn-primary' : 'btn-ghost');
+}
+
+function compColor(level){ return level==='LOW'?'bg':level==='MEDIUM'?'by':'br'; }
+
+function oppScore(r, maxVol){
+  const sv = r.search_volume||0;
+  const vol = (maxVol>0 && sv>0) ? Math.log(sv+1)/Math.log(maxVol+1)*50 : 0;
+  const hasComp = Number.isFinite(r.competition) && r.competition>0;
+  const comp = hasComp ? (1-r.competition)*30 : 15;
+  const cpc = Math.min((Number.isFinite(r.cpc)?r.cpc:0)/5,1)*20;
+  const s = vol+comp+cpc;
+  return Number.isFinite(s) ? Math.round(s) : 0;
+}
+function oppBadge(s){ return s>=70?'bg':s>=45?'by':'br'; }
+function oppLabel(s){ return s>=70?'Goed':s>=45?'Matig':'Moeilijk'; }
+
+function compDisplay(r){
+  const hasComp = Number.isFinite(r.competition) && r.competition>0;
+  const level = r.competition_level||null;
+  if(!hasComp && !level) return '<span style="color:var(--tx3);font-size:.75rem">Geen data</span>';
+  const pct = hasComp ? Math.round(r.competition*100) : (level==='LOW'?20:level==='MEDIUM'?55:80);
+  const barClass = pct>=67?'sf-r':pct>=33?'sf-y':'sf-g';
+  const badgeClass = level?compColor(level):(pct<=33?'bg':pct<=66?'by':'br');
+  const label = level||pct+'%';
+  return `<div style="display:flex;align-items:center;gap:6px">
+    <div class="seo-bar" style="width:50px;flex-shrink:0"><div class="seo-fill ${barClass}" style="width:${pct}%"></div></div>
+    <span class="badge ${badgeClass}" style="font-size:.65rem">${label}</span>
+  </div>`;
+}
+
+async function searchVolume(){
+  const auth = dfsAuth();
+  if(!auth){ alert('Stel eerst DataForSEO credentials in bovenaan deze pagina.'); return; }
+  const raw = document.getElementById('seo-kw-input').value.trim();
+  if(!raw){ alert('Voer minimaal één keyword in.'); return; }
+  const keywords = raw.split('\n').map(k=>k.trim()).filter(Boolean).slice(0,20);
+  const el = document.getElementById('seo-volume-results');
+  el.innerHTML = '<div class="empty">Ophalen via DataForSEO...</div>';
+  try {
+    const res = await fetch('https://api.dataforseo.com/v3/keywords_data/google_ads/search_volume/live', {
+      method: 'POST',
+      headers: { 'Authorization': auth, 'Content-Type': 'application/json' },
+      body: JSON.stringify([{ keywords, language_code: 'nl', location_code: 2528 }])
+    });
+    if(!res.ok){ let msg=''; try{ const e=await res.json(); msg=e.error_message||e.message||JSON.stringify(e); }catch(_){} throw new Error('DataForSEO ' + res.status + (msg?' — '+msg:'')); }
+    const data = await res.json();
+    if(data.tasks?.[0]?.status_code !== 20000) throw new Error(data.tasks?.[0]?.status_message || 'Onbekende fout');
+    const results = (data.tasks?.[0]?.result || []).filter(r=>r.keyword);
+    if(!results.length){ el.innerHTML='<div class="empty">Geen resultaten gevonden</div>'; return; }
+    results.sort((a,b)=>(b.search_volume||0)-(a.search_volume||0));
+    _seoVolumeResults = results;
+    const maxVolV = Math.max(...results.map(r=>r.search_volume||0));
+    el.innerHTML = `
+      <div style="overflow-x:auto">
+        <table><thead><tr>
+          <th>Keyword</th><th>Zoekvolume/mnd</th><th>CPC (€)</th><th>Concurrentie</th><th>Kans</th>
+        </tr></thead>
+        <tbody>${results.map(r=>{const s=oppScore(r,maxVolV);return`<tr>
+          <td style="font-weight:500">${r.keyword}</td>
+          <td style="font-weight:700;color:var(--blue)">${r.search_volume!=null?r.search_volume.toLocaleString('nl-NL'):'–'}</td>
+          <td>${r.cpc!=null?'€'+r.cpc.toFixed(2):'–'}</td>
+          <td>${compDisplay(r)}</td>
+          <td><span class="badge ${oppBadge(s)}" style="min-width:52px;text-align:center">${s}/100 ${oppLabel(s)}</span></td>
+        </tr>`}).join('')}</tbody></table>
+      </div>
+      <div style="padding:.6rem 1.2rem;font-size:.72rem;color:var(--tx3);display:flex;align-items:center;gap:.8rem">
+        <span>${results.length} keywords · Nederland · gesorteerd op volume</span>
+        <button class="btn btn-ghost" style="padding:3px 10px;font-size:.72rem" onclick="exportSeoVolumeCsv()">⬇ CSV</button>
+      </div>`;
+  } catch(e){
+    el.innerHTML = `<div class="empty" style="color:var(--red)">Fout: ${e.message}</div>`;
+  }
+}
+
+async function searchIdeas(){
+  const auth = dfsAuth();
+  if(!auth){ alert('Stel eerst DataForSEO credentials in bovenaan deze pagina.'); return; }
+  const seed = document.getElementById('seo-seed-input').value.trim();
+  if(!seed){ alert('Voer een seed keyword in.'); return; }
+  const el = document.getElementById('seo-ideas-results');
+  el.innerHTML = '<div class="empty">Ophalen via DataForSEO...</div>';
+  try {
+    const res = await fetch('https://api.dataforseo.com/v3/keywords_data/google_ads/keywords_for_keywords/live', {
+      method: 'POST',
+      headers: { 'Authorization': auth, 'Content-Type': 'application/json' },
+      body: JSON.stringify([{ keywords: [seed], language_code: 'nl', location_code: 2528 }])
+    });
+    if(!res.ok){ let msg=''; try{ const e=await res.json(); msg=e.error_message||e.message||JSON.stringify(e); }catch(_){} throw new Error('DataForSEO ' + res.status + (msg?' — '+msg:'')); }
+    const data = await res.json();
+    if(data.tasks?.[0]?.status_code !== 20000) throw new Error(data.tasks?.[0]?.status_message || 'Onbekende fout');
+    const results = (data.tasks?.[0]?.result || []).filter(r=>r.keyword);
+    if(!results.length){ el.innerHTML='<div class="empty">Geen ideeën gevonden voor "'+seed+'"</div>'; return; }
+    const maxVolI = Math.max(...results.map(r=>r.search_volume||0));
+    results.sort((a,b)=>oppScore(b,maxVolI)-oppScore(a,maxVolI));
+    _seoIdeasResults = results;
+    el.innerHTML = `
+      <div style="overflow-x:auto">
+        <table><thead><tr>
+          <th>Keyword idee</th><th>Zoekvolume/mnd</th><th>CPC (€)</th><th>Concurrentie</th><th>Kans</th><th></th>
+        </tr></thead>
+        <tbody>${results.slice(0,50).map((r,i)=>{const s=oppScore(r,maxVolI);return`<tr>
+          <td style="font-weight:500">${r.keyword}</td>
+          <td style="font-weight:700;color:var(--blue)">${r.search_volume!=null?r.search_volume.toLocaleString('nl-NL'):'–'}</td>
+          <td>${r.cpc!=null?'€'+r.cpc.toFixed(2):'–'}</td>
+          <td>${compDisplay(r)}</td>
+          <td><span class="badge ${oppBadge(s)}" style="min-width:52px;text-align:center">${s}/100 ${oppLabel(s)}</span></td>
+          <td><button class="btn btn-ghost" style="padding:3px 8px;font-size:.72rem" onclick="addIdeaToQueue(${i})">+ Queue</button></td>
+        </tr>`}).join('')}</tbody></table>
+      </div>
+      <div style="padding:.6rem 1.2rem;font-size:.72rem;color:var(--tx3);display:flex;align-items:center;gap:.8rem">
+        <span>${Math.min(results.length,50)} van ${results.length} ideeën · gesorteerd op kans-score</span>
+        <button class="btn btn-ghost" style="padding:3px 10px;font-size:.72rem" onclick="exportSeoIdeasCsv()">⬇ CSV</button>
+      </div>`;
+  } catch(e){
+    el.innerHTML = `<div class="empty" style="color:var(--red)">Fout: ${e.message}</div>`;
+  }
+}
+
+function addIdeaToQueue(i){
+  const r = _seoIdeasResults[i];
+  if(!r) return;
+  const slug = r.keyword.toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'');
+  alert(`Voeg "${r.keyword}" toe aan keywords.json:\n\n{\n  "keyword": "${r.keyword}",\n  "slug": "${slug}",\n  "status": "pending",\n  "priority": 5\n}\n\nOpen via: GitHub repo → keywords.json → ✏️ Edit, of via de Blogs-editor in admin.`);
+}
+
+function exportSeoVolumeCsv(){
+  if(!_seoVolumeResults.length) return;
+  const header = 'keyword,zoekvolume,cpc,concurrentie_level\n';
+  const rows = _seoVolumeResults.map(r=>`"${r.keyword}",${r.search_volume??''},${r.cpc?.toFixed(2)??''},"${r.competition_level??''}"`).join('\n');
+  dlCsv('zenbtw-keywords-volume.csv', header+rows);
+}
+
+function exportSeoIdeasCsv(){
+  if(!_seoIdeasResults.length) return;
+  const header = 'keyword,zoekvolume,cpc,concurrentie_level\n';
+  const rows = _seoIdeasResults.map(r=>`"${r.keyword}",${r.search_volume??''},${r.cpc?.toFixed(2)??''},"${r.competition_level??''}"`).join('\n');
+  dlCsv('zenbtw-keyword-ideeen.csv', header+rows);
+}
+
+function dlCsv(name, content){
+  const blob = new Blob([content], {type:'text/csv;charset=utf-8'});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a'); a.href=url; a.download=name; a.click();
+  URL.revokeObjectURL(url);
+}
+
+// ── LEADS ─────────────────────────────────────────────────────────────────────
+const DEFAULT_KEYWORDS = [
+  'KOR belasting','BTW Vinted','OSS drempel','BTW drempel overschreden',
+  'hoeveel mag ik verdienen Vinted','belasting marketplace','Etsy BTW Nederland',
+  'KOR regeling ondernemer','BTW vrijstelling kleine ondernemer'
+];
+
+function saveApifyKey(){
+  const v = document.getElementById('apify-key-input').value.trim();
+  if(!v) return;
+  localStorage.setItem('apify_token', v);
+  document.getElementById('apify-key-input').value = '';
+  document.getElementById('apify-key-input').placeholder = '✓ Opgeslagen';
+}
+
+function getLeads(){ try{ return JSON.parse(localStorage.getItem('zenbtw_leads')||'[]'); }catch{ return []; } }
+function saveLeadsData(arr){ localStorage.setItem('zenbtw_leads', JSON.stringify(arr)); }
+function getLeadKeywords(){ return JSON.parse(localStorage.getItem('zenbtw_lead_kws') || JSON.stringify(DEFAULT_KEYWORDS)); }
+function saveLeadKeywords(arr){ localStorage.setItem('zenbtw_lead_kws', JSON.stringify(arr)); }
+
+async function initLeads(){
+  const key = localStorage.getItem('apify_token');
+  if(key) document.getElementById('apify-key-input').placeholder = '✓ Token opgeslagen';
+  renderKeywordTags();
+  await syncLeadsFromGithub();
+  renderLeads();
+  updateLeadKpis();
+}
+
+async function syncLeadsFromGithub(){
+  try {
+    const GH = localStorage.getItem('gh_token') || '';
+    const headers = GH ? { Authorization: `token ${GH}` } : {};
+    const res = await fetch(
+      'https://raw.githubusercontent.com/danieldk04/zenbtw/main/leads.json?t=' + Date.now(),
+      { headers }
+    );
+    if(!res.ok) return;
+    const remote = await res.json();
+    if(!Array.isArray(remote) || remote.length === 0) return;
+    // Remote is leidend — bewaar alleen status/note van lokale aanpassingen
+    const local = getLeads();
+    const localMap = Object.fromEntries(local.map(l => [l.id||l.url, l]));
+    const merged = remote.map(r => {
+      const loc = localMap[r.id||r.url];
+      if(loc && loc.status !== 'nieuw') return { ...r, status: loc.status, note: loc.note };
+      return r;
+    });
+    saveLeadsData(merged);
+    console.log(`Leads gesynchroniseerd: ${merged.length} totaal`);
+  } catch(e) {
+    console.warn('Leads sync mislukt (lokale data bewaard):', e.message);
+  }
+}
+
+function renderKeywordTags(){
+  const kws = getLeadKeywords();
+  document.getElementById('leads-keywords-list').innerHTML = kws.map((k,i)=>
+    `<span style="background:var(--acl);color:var(--ac);padding:3px 10px;border-radius:99px;font-size:12px;display:inline-flex;align-items:center;gap:6px">
+      ${k} <span onclick="removeLeadKeyword(${i})" style="cursor:pointer;opacity:.6;font-size:11px">✕</span>
+    </span>`
+  ).join('');
+}
+
+function addLeadKeyword(){
+  const inp = document.getElementById('leads-kw-input');
+  const v = inp.value.trim();
+  if(!v) return;
+  const kws = getLeadKeywords();
+  if(!kws.includes(v)){ kws.push(v); saveLeadKeywords(kws); }
+  inp.value = '';
+  renderKeywordTags();
+}
+
+function removeLeadKeyword(i){
+  const kws = getLeadKeywords();
+  kws.splice(i,1);
+  saveLeadKeywords(kws);
+  renderKeywordTags();
+}
+
+async function runLeadScrape(){
+  const token = localStorage.getItem('apify_token');
+  if(!token){ alert('Voer eerst je Apify API token in.'); return; }
+  const btn = document.getElementById('leads-scrape-btn');
+  const status = document.getElementById('leads-scrape-status');
+  btn.disabled = true; btn.textContent = '⏳ Bezig...';
+  status.textContent = 'Scrape gestart — dit duurt ~30-60 seconden...';
+  const kws = getLeadKeywords();
+  try {
+    const startRes = await fetch(
+      `https://api.apify.com/v2/acts/trudax~reddit-scraper-lite/runs?token=${token}`,
+      { method:'POST', headers:{'Content-Type':'application/json'},
+        body: JSON.stringify({
+          searches: kws.slice(0,6),
+          searchPosts: true,
+          searchComments: true,
+          sort: 'new',
+          time: 'month',
+          maxItems: 50,
+          maxPostCount: 50,
+          proxy: { useApifyProxy: true, apifyProxyGroups: ['RESIDENTIAL'] }
+        }) }
+    );
+    if(!startRes.ok) throw new Error(`Apify fout: ${startRes.status}`);
+    const runId = (await startRes.json()).data.id;
+    status.textContent = `Run gestart. Wacht op resultaten...`;
+    let done = false, tries = 0;
+    while(!done && tries < 18){
+      await new Promise(r=>setTimeout(r,5000)); tries++;
+      const s = (await (await fetch(`https://api.apify.com/v2/actor-runs/${runId}?token=${token}`)).json()).data.status;
+      status.textContent = `Status: ${s} (${tries*5}s)...`;
+      if(['SUCCEEDED','FAILED','ABORTED','TIMED-OUT'].includes(s)) done = true;
+    }
+    const items = await (await fetch(`https://api.apify.com/v2/actor-runs/${runId}/dataset/items?token=${token}&limit=100`)).json();
+    const rel = ['kor','btw','belasting','drempel','omzet','aangifte','oss','vinted','etsy','shopify','marketplace','vrijstelling'];
+    const filtered = items.filter(i=>{ const t=((i.title||'')+(i.body||i.text||i.selftext||'')).toLowerCase(); return rel.some(r=>t.includes(r)); });
+    const existing = getLeads();
+    const urls = new Set(existing.map(l=>l.url));
+    const nieuweLeads = filtered.filter(i=>i.url&&!urls.has(i.url)).map(i=>({
+      id: i.id||i.url, url: i.url||`https://reddit.com${i.permalink||''}`,
+      platform:'Reddit', subreddit: i.subreddit||'',
+      username: i.author||i.username||'?',
+      title: i.title||i.body?.slice(0,80)||'',
+      snippet:(i.body||i.selftext||i.text||'').slice(0,200),
+      date: i.created_utc ? new Date(i.created_utc*1000).toISOString().split('T')[0] : new Date().toISOString().split('T')[0],
+      status:'nieuw', note:''
+    }));
+    saveLeadsData([...nieuweLeads,...existing]);
+    renderLeads(); updateLeadKpis();
+    status.textContent = `✓ ${nieuweLeads.length} nieuwe leads (${filtered.length} relevant van ${items.length} totaal).`;
+  } catch(e){ status.textContent = `Fout: ${e.message}`; }
+  btn.disabled = false; btn.textContent = '▶ Scrape starten';
+}
+
+function updateLeadKpis(){
+  const leads = getLeads();
+  const nieuw = leads.filter(l=>l.status==='nieuw').length;
+  const benaderd = leads.filter(l=>l.status==='benaderd').length;
+  document.getElementById('kpi-leads').innerHTML = `
+    <div class="kpi"><div class="kpi-label">Totaal leads</div><div class="kpi-value">${leads.length}</div><div class="kpi-icon">🎯</div></div>
+    <div class="kpi"><div class="kpi-label">Nieuw</div><div class="kpi-value" style="color:var(--blue)">${nieuw}</div><div class="kpi-icon">✨</div></div>
+    <div class="kpi"><div class="kpi-label">Benaderd</div><div class="kpi-value" style="color:var(--green)">${benaderd}</div><div class="kpi-icon">✉️</div></div>
+    <div class="kpi"><div class="kpi-label">Conversie</div><div class="kpi-value">${leads.length?Math.round(benaderd/leads.length*100):0}%</div><div class="kpi-icon">📈</div></div>`;
+}
+
+function renderLeads(){
+  const filter = document.getElementById('leads-filter')?.value||'all';
+  const ageDays = parseInt(document.getElementById('leads-age-filter')?.value||'365');
+  let leads = getLeads();
+  if(filter!=='all') leads = leads.filter(l=>l.status===filter);
+  if(ageDays > 0){
+    const cutoff = new Date();
+    cutoff.setDate(cutoff.getDate() - ageDays);
+    leads = leads.filter(l => {
+      if(!l.date) return false; // datum onbekend: verbergen bij actieve filter
+      return new Date(l.date) >= cutoff;
+    });
+  }
+  const el = document.getElementById('leads-table');
+  if(!leads.length){ el.innerHTML=`<div class="empty" style="padding:2rem">Geen leads. Klik op "Scrape starten" om Reddit te scannen.</div>`; return; }
+  const sColor={nieuw:'var(--blue)',benaderd:'var(--green)',genegeerd:'var(--tx3)'};
+  const sBg={nieuw:'var(--bluel)',benaderd:'var(--greenl)',genegeerd:'var(--bg)'};
+  el.innerHTML=leads.map(l=>{
+    const all=getLeads(); const ri=all.findIndex(x=>x.id===l.id||x.url===l.url);
+    const b = l.berichten || {};
+    const hasB = b.helper || b.gesprek || b.pitch;
+    const tabLabels = [['helper','💬 Helper'],['gesprek','🗣 Gesprek'],['pitch','🎯 Pitch']];
+    return `<div style="border-bottom:1px solid var(--br);padding:1rem 1.2rem">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:1rem;flex-wrap:wrap">
+        <div style="flex:1;min-width:0">
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;flex-wrap:wrap">
+            <span style="font-size:11px;background:var(--bg);padding:2px 7px;border-radius:5px;color:var(--tx2)">${l.platform}${l.subreddit?' · r/'+l.subreddit:''}</span>
+            <a href="${l.url}" target="_blank" style="color:var(--ac);font-weight:700;font-size:13px;text-decoration:none">u/${l.username}</a>
+            <span style="font-size:11px;color:var(--tx3)">${l.date||'datum onbekend'}</span>
+          </div>
+          <div style="font-weight:600;font-size:13px;margin-bottom:4px">${l.title||'(geen titel)'}</div>
+          <div style="font-size:12px;color:var(--tx2);line-height:1.5">${l.snippet}</div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:6px;align-items:flex-end;flex-shrink:0">
+          <select onchange="updateLeadStatus(${ri},this.value)" style="padding:4px 8px;border-radius:6px;border:1px solid var(--br);font-size:12px;background:${sBg[l.status]||'var(--bg)'};color:${sColor[l.status]||'var(--tx)'}">
+            <option value="nieuw" ${l.status==='nieuw'?'selected':''}>Nieuw</option>
+            <option value="benaderd" ${l.status==='benaderd'?'selected':''}>Benaderd</option>
+            <option value="genegeerd" ${l.status==='genegeerd'?'selected':''}>Negeren</option>
+          </select>
+          <a href="${l.url}" target="_blank" class="btn btn-ghost" style="padding:4px 10px;font-size:11px;text-decoration:none">→ Open post</a>
+        </div>
+      </div>
+      ${hasB ? `
+      <div style="margin-top:10px;background:var(--acl);border-left:3px solid var(--acm);border-radius:0 6px 6px 0;overflow:hidden">
+        <div style="display:flex;border-bottom:1px solid rgba(0,0,0,.06)">
+          ${tabLabels.map(([key,label])=>`
+          <button onclick="switchTab(${ri},'${key}')" id="tab-${ri}-${key}"
+            style="padding:7px 14px;font-size:11px;font-weight:600;border:none;cursor:pointer;background:${key==='helper'?'var(--acm)':'transparent'};color:${key==='helper'?'#fff':'var(--ac)'};transition:all .15s">
+            ${label}
+          </button>`).join('')}
+        </div>
+        ${tabLabels.map(([key])=>`
+        <div id="tabcontent-${ri}-${key}" style="display:${key==='helper'?'block':'none'};padding:10px 12px">
+          <div style="font-size:13px;color:var(--tx);line-height:1.6;white-space:pre-wrap;margin-bottom:8px">${(b[key]||'').replace(/</g,'&lt;')}</div>
+          <button onclick="copyTab(${ri},'${key}')" id="copybtn-${ri}-${key}"
+            style="padding:3px 10px;font-size:11px;background:var(--ac);color:#fff;border:none;border-radius:5px;cursor:pointer">
+            Kopieer
+          </button>
+        </div>`).join('')}
+      </div>` : ''}
+    </div>`;
+  }).join('');
+}
+
+function updateLeadStatus(idx,status){
+  const leads=getLeads(); if(leads[idx]) leads[idx].status=status; saveLeadsData(leads); updateLeadKpis();
+}
+
+function switchTab(ri, key){
+  ['helper','gesprek','pitch'].forEach(k=>{
+    const tab = document.getElementById(`tab-${ri}-${k}`);
+    const content = document.getElementById(`tabcontent-${ri}-${k}`);
+    if(!tab||!content) return;
+    const active = k===key;
+    tab.style.background = active ? 'var(--acm)' : 'transparent';
+    tab.style.color = active ? '#fff' : 'var(--ac)';
+    content.style.display = active ? 'block' : 'none';
+  });
+}
+
+function copyTab(ri, key){
+  const leads = getLeads();
+  const tekst = leads[ri]?.berichten?.[key] || '';
+  navigator.clipboard.writeText(tekst).then(()=>{
+    const btn = document.getElementById(`copybtn-${ri}-${key}`);
+    if(!btn) return;
+    btn.textContent = '✓ Gekopieerd';
+    btn.style.background = 'var(--green)';
+    setTimeout(()=>{ btn.textContent='Kopieer'; btn.style.background='var(--ac)'; }, 2000);
+  });
+}
+
+// ── Content Intelligence ─────────────────────────────────────────
+
+let _contentMemory = null;
+
+function saveContentSettings(){
+  const token = document.getElementById('ig-token-input').value.trim();
+  const userId = document.getElementById('ig-userid-input').value.trim();
+  const tiktok = document.getElementById('tiktok-user-input').value.trim();
+  if(token) localStorage.setItem('ig_access_token', token);
+  if(userId) localStorage.setItem('ig_user_id', userId);
+  if(tiktok) localStorage.setItem('tiktok_username', tiktok);
+  alert('Instellingen opgeslagen. Sla IG_ACCESS_TOKEN, IG_USER_ID en TIKTOK_USERNAME ook op als GitHub Secrets voor de automatische analyse.');
+}
+
+async function initContent(){
+  // Vul opgeslagen waarden in
+  const token = localStorage.getItem('ig_access_token');
+  const userId = localStorage.getItem('ig_user_id');
+  const tiktok = localStorage.getItem('tiktok_username');
+  if(token) document.getElementById('ig-token-input').placeholder = '✓ Token opgeslagen';
+  if(userId) document.getElementById('ig-userid-input').value = userId;
+  if(tiktok) document.getElementById('tiktok-user-input').value = tiktok;
+  await syncContentMemory();
+}
+
+async function syncContentMemory(){
+  const btn = document.getElementById('content-sync-btn');
+  const status = document.getElementById('content-sync-status');
+  btn.disabled = true; btn.textContent = 'Laden...';
+  status.textContent = 'Sync met GitHub...';
+  try {
+    const res = await fetch('https://raw.githubusercontent.com/danieldk04/zenbtw/main/content-memory.json?t=' + Date.now());
+    if(!res.ok){ status.textContent = 'Nog geen content-memory.json — run de GitHub Action eerst.'; btn.disabled=false; btn.textContent='↻ Sync learnings'; return; }
+    _contentMemory = await res.json();
+    renderContentDashboard();
+    status.textContent = `✓ Bijgewerkt op ${new Date(_contentMemory.lastUpdated||Date.now()).toLocaleDateString('nl')}`;
+  } catch(e){
+    status.textContent = 'Sync mislukt: ' + e.message;
+  }
+  btn.disabled=false; btn.textContent='↻ Sync learnings';
+}
+
+function renderContentDashboard(){
+  if(!_contentMemory) return;
+  const m = _contentMemory;
+  const posts = m.posts || [];
+
+  // KPI's
+  const igPosts = posts.filter(p=>p.platform==='instagram');
+  const ttPosts = posts.filter(p=>p.platform==='tiktok');
+  const topPost = [...posts].sort((a,b)=>(b.metrics?.reach||b.metrics?.views||0)-(a.metrics?.reach||a.metrics?.views||0))[0];
+  const avgReach = posts.length ? Math.round(posts.reduce((s,p)=>s+(p.metrics?.reach||p.metrics?.views||0),0)/posts.length) : 0;
+  document.getElementById('kpi-content').innerHTML = `
+    <div class="kpi"><div class="kpi-label">Posts geanalyseerd</div><div class="kpi-value">${posts.length}</div><div class="kpi-icon">📊</div></div>
+    <div class="kpi"><div class="kpi-label">Instagram posts</div><div class="kpi-value">${igPosts.length}</div><div class="kpi-icon">📸</div></div>
+    <div class="kpi"><div class="kpi-label">TikTok posts</div><div class="kpi-value">${ttPosts.length}</div><div class="kpi-icon">🎵</div></div>
+    <div class="kpi"><div class="kpi-label">Gemiddeld bereik</div><div class="kpi-value">${avgReach.toLocaleString('nl')}</div><div class="kpi-icon">👁</div></div>`;
+
+  // Waarom 13k
+  const w13k = document.getElementById('content-waarom');
+  if(m.waarom13k){
+    w13k.style.display='';
+    w13k.innerHTML=`<div class="card" style="border-left:4px solid var(--acm)">
+      <div class="card-head"><h3>💡 Waarom scoorde jouw 13k reel?</h3></div>
+      <div style="padding:.8rem 1.2rem;font-size:13px;color:var(--tx);line-height:1.7">${m.waarom13k}</div>
+    </div>`;
+  }
+
+  // Aanbevelingen
+  const recs = m.recommendations || [];
+  document.getElementById('content-rec-date').textContent = m.lastUpdated ? 'Gegenereerd op ' + new Date(m.lastUpdated).toLocaleDateString('nl') : '';
+  document.getElementById('content-recommendations').innerHTML = recs.length ? recs.map((r,i)=>`
+    <div style="border-bottom:1px solid var(--br);padding:1rem 1.2rem;${i===recs.length-1?'border:none':''}">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px">
+        <span style="background:var(--acm);color:#fff;border-radius:50%;width:22px;height:22px;display:inline-flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0">${i+1}</span>
+        <strong style="font-size:13px">${r.titel||'Aanbeveling'}</strong>
+        <span style="font-size:11px;color:var(--tx3);margin-left:auto">${r.postMoment||''}</span>
+      </div>
+      <div style="font-size:12px;background:var(--acl);padding:6px 10px;border-radius:6px;margin-bottom:6px;font-style:italic">"${r.hook||''}"</div>
+      <div style="font-size:12px;color:var(--tx2)">${r.format||''}</div>
+      ${r.rationale?`<div style="font-size:11.5px;color:var(--tx3);margin-top:4px">↳ ${r.rationale}</div>`:''}
+    </div>`).join('') : '<div class="empty" style="padding:1.5rem">Geen aanbevelingen. Run de Content Intelligence Action.</div>';
+
+  // Learnings
+  const learnings = m.learnings || [];
+  document.getElementById('content-learnings').innerHTML = learnings.length ? `<ul style="padding:.8rem 1.2rem 1rem;display:flex;flex-direction:column;gap:6px">
+    ${learnings.map(l=>`<li style="font-size:13px;color:var(--tx);line-height:1.6;padding-left:4px">✓ ${l}</li>`).join('')}
+  </ul>` : '<div class="empty" style="padding:1rem">Nog geen learnings opgebouwd.</div>';
+
+  // Patroon kaarten
+  const renderList = (id, items) => {
+    document.getElementById(id).innerHTML = (items||[]).length
+      ? `<ul style="display:flex;flex-direction:column;gap:5px">${(items||[]).map(i=>`<li style="font-size:12px;color:var(--tx2);line-height:1.5">• ${i}</li>`).join('')}</ul>`
+      : '<div class="empty" style="padding:.5rem">Geen data.</div>';
+  };
+  renderList('content-hooks', m.patterns?.hooks);
+  renderList('content-topics', m.patterns?.topics);
+  renderList('content-format', m.patterns?.format);
+  renderList('content-timing', m.patterns?.timing);
+
+  renderContentPosts();
+}
+
+function renderContentPosts(){
+  if(!_contentMemory) return;
+  const filter = document.getElementById('content-platform-filter')?.value||'all';
+  let posts = (_contentMemory.posts||[]).filter(p=>filter==='all'||p.platform===filter);
+  posts = [...posts].sort((a,b)=>new Date(b.date)-new Date(a.date));
+  const el = document.getElementById('content-posts-table');
+  if(!posts.length){ el.innerHTML='<div class="empty" style="padding:1.5rem">Geen posts.</div>'; return; }
+  const platIcon = {instagram:'📸',tiktok:'🎵'};
+  el.innerHTML = posts.map(p=>{
+    const reach = p.metrics?.reach||p.metrics?.views||0;
+    const eng = ((p.metrics?.likes||0)+(p.metrics?.comments||0)+(p.metrics?.shares||0)+(p.metrics?.saves||0));
+    const engRate = reach>0 ? ((eng/reach)*100).toFixed(1) : '–';
+    const isTop = reach > 5000;
+    return `<div style="border-bottom:1px solid var(--br);padding:.85rem 1.2rem;${isTop?'background:var(--acl)':''}">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:1rem;flex-wrap:wrap">
+        <div style="flex:1;min-width:0">
+          <div style="display:flex;align-items:center;gap:6px;margin-bottom:4px">
+            <span style="font-size:12px">${platIcon[p.platform]||'📄'} ${p.platform}</span>
+            <span style="font-size:11px;color:var(--tx3)">${p.date}</span>
+            <span style="font-size:11px;font-weight:600;color:var(--tx2);text-transform:uppercase">${p.type}</span>
+            ${isTop?'<span style="background:var(--acm);color:#fff;font-size:10px;padding:1px 7px;border-radius:99px;font-weight:700">TOP</span>':''}
+          </div>
+          <div style="font-size:12px;color:var(--tx2);line-height:1.5">${(p.caption||'').slice(0,120)}${(p.caption||'').length>120?'…':''}</div>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(4,auto);gap:6px 16px;text-align:right;flex-shrink:0">
+          <div><div style="font-size:10px;color:var(--tx3)">Bereik</div><div style="font-size:13px;font-weight:700;color:${reach>5000?'var(--acm)':'var(--tx)'}">${reach.toLocaleString('nl')}</div></div>
+          <div><div style="font-size:10px;color:var(--tx3)">Likes</div><div style="font-size:13px;font-weight:600">${(p.metrics?.likes||0).toLocaleString('nl')}</div></div>
+          <div><div style="font-size:10px;color:var(--tx3)">Saves</div><div style="font-size:13px;font-weight:600">${(p.metrics?.saves||0).toLocaleString('nl')}</div></div>
+          <div><div style="font-size:10px;color:var(--tx3)">Eng%</div><div style="font-size:13px;font-weight:600">${engRate}%</div></div>
+          ${p.metrics?.avgWatchTime?`<div style="grid-column:span 4;text-align:right"><span style="font-size:10px;color:var(--tx3)">Gem. kijktijd: </span><span style="font-size:12px;font-weight:600">${(p.metrics.avgWatchTime/1000).toFixed(1)}s</span></div>`:''}
+        </div>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function clearLeads(){
+  if(!confirm('Weet je zeker dat je alle leads wilt verwijderen?')) return;
+  saveLeadsData([]); renderLeads(); updateLeadKpis();
+}
+
+// ── Instagram leads ──────────────────────────────────────────────
+
+let _currentLeadPlatform = 'reddit';
+
+function switchLeadPlatform(platform) {
+  _currentLeadPlatform = platform;
+  document.getElementById('leads-section-reddit').style.display = platform === 'reddit' ? '' : 'none';
+  document.getElementById('leads-section-instagram').style.display = platform === 'instagram' ? '' : 'none';
+  const rTab = document.getElementById('platform-tab-reddit');
+  const iTab = document.getElementById('platform-tab-instagram');
+  rTab.style.color = platform === 'reddit' ? 'var(--acm)' : 'var(--tx3)';
+  rTab.style.borderBottomColor = platform === 'reddit' ? 'var(--acm)' : 'transparent';
+  iTab.style.color = platform === 'instagram' ? 'var(--acm)' : 'var(--tx3)';
+  iTab.style.borderBottomColor = platform === 'instagram' ? 'var(--acm)' : 'transparent';
+  if (platform === 'instagram') {
+    syncInstagramFromGithub();
+  }
+}
+
+function getInstagramLeads() {
+  try { return JSON.parse(localStorage.getItem('zenbtw_instagram_leads') || '[]'); } catch { return []; }
+}
+function saveInstagramLeads(data) {
+  localStorage.setItem('zenbtw_instagram_leads', JSON.stringify(data));
+}
+
+async function syncInstagramFromGithub() {
+  const status = document.getElementById('instagram-scrape-status');
+  if (status) status.textContent = 'Synchroniseren...';
+  try {
+    const res = await fetch('https://raw.githubusercontent.com/danieldk04/zenbtw/main/instagram-leads.json?t=' + Date.now());
+    if (!res.ok) { if (status) status.textContent = 'Nog geen Instagram-leads gevonden op GitHub.'; return; }
+    const remote = await res.json();
+    if (!Array.isArray(remote) || remote.length === 0) { if (status) status.textContent = 'Geen leads in instagram-leads.json.'; return; }
+    const local = getInstagramLeads();
+    const localMap = Object.fromEntries(local.map(l => [l.id || l.username, l]));
+    const merged = remote.map(r => {
+      const loc = localMap[r.id || r.username];
+      if (loc && loc.status !== 'nieuw') return { ...r, status: loc.status, note: loc.note };
+      return r;
+    });
+    saveInstagramLeads(merged);
+    renderInstagramLeads();
+    updateInstagramKpis();
+    if (status) status.textContent = `✓ ${merged.length} leads gesynchroniseerd`;
+  } catch (e) {
+    if (status) status.textContent = 'Sync mislukt: ' + e.message;
+  }
+}
+
+function updateInstagramKpis() {
+  const leads = getInstagramLeads();
+  const nieuw = leads.filter(l => l.status === 'nieuw').length;
+  const benaderd = leads.filter(l => l.status === 'benaderd').length;
+  document.getElementById('kpi-instagram').innerHTML = `
+    <div class="kpi"><div class="kpi-label">Totaal leads</div><div class="kpi-value">${leads.length}</div><div class="kpi-icon">📸</div></div>
+    <div class="kpi"><div class="kpi-label">Nieuw</div><div class="kpi-value" style="color:var(--blue)">${nieuw}</div><div class="kpi-icon">✨</div></div>
+    <div class="kpi"><div class="kpi-label">Benaderd</div><div class="kpi-value" style="color:var(--green)">${benaderd}</div><div class="kpi-icon">✉️</div></div>
+    <div class="kpi"><div class="kpi-label">Conversie</div><div class="kpi-value">${leads.length ? Math.round(benaderd / leads.length * 100) : 0}%</div><div class="kpi-icon">📈</div></div>`;
+}
+
+function updateInstagramStatus(idx, status) {
+  const leads = getInstagramLeads();
+  if (leads[idx]) leads[idx].status = status;
+  saveInstagramLeads(leads);
+  updateInstagramKpis();
+}
+
+function clearInstagramLeads() {
+  if (!confirm('Weet je zeker dat je alle Instagram-leads wilt verwijderen?')) return;
+  saveInstagramLeads([]); renderInstagramLeads(); updateInstagramKpis();
+}
+
+function copyIgDm(ri) {
+  const leads = getInstagramLeads();
+  const tekst = leads[ri]?.bericht || leads[ri]?.berichten?.helper || '';
+  navigator.clipboard.writeText(tekst).then(() => {
+    const btn = document.getElementById(`igcopybtn-${ri}`);
+    if (!btn) return;
+    btn.textContent = '✓ Gekopieerd';
+    btn.style.background = 'var(--green)';
+    setTimeout(() => { btn.textContent = 'Kopieer DM'; btn.style.background = 'var(--ac)'; }, 2000);
+  });
+}
+
+function genereerIgDm(ri) {
+  const leads = getInstagramLeads();
+  const l = leads[ri];
+  if (!l) return;
+
+  // Haal naam op — displayName als beschikbaar, anders username
+  const naam = l.displayName && l.displayName !== l.username
+    ? l.displayName.split(' ')[0]
+    : null;
+
+  // Detecteer wat ze verkopen op basis van bio/snippet
+  const bioText = ((l.bio || '') + ' ' + (l.snippet || '')).toLowerCase();
+  const isLuxury = /luxury|designer|lv|gucci|chanel|prada|louis|hermes|vintage|preloved|pre-owned|pre owned|tweedehands|vintage|marktplaats|vinted|depop/i.test(bioText);
+  const isEtsy = /etsy/i.test(bioText);
+  const isShopify = /shopify/i.test(bioText);
+  const isVinted = /vinted/i.test(bioText);
+
+  // Opening: persoonlijk compliment afgestemd op hun niche
+  let opening;
+  if (isLuxury) {
+    opening = `Tof items op jouw pagina! Ziet er echt heel mooi en klassiek uit.`;
+  } else if (isEtsy) {
+    opening = `Mooie shop! Echt leuk wat je op Etsy hebt staan.`;
+  } else if (isVinted) {
+    opening = `Leuke items op jouw Vinted! Mooie selectie.`;
+  } else {
+    opening = `Tof profiel! Leuk wat je doet met je verkopen.`;
+  }
+
+  // Platform-mention in de body
+  const platform = isEtsy ? 'Etsy' : isVinted ? 'Vinted' : isShopify ? 'Shopify' : 'Etsy, Shopify of Vinted';
+
+  // Aanhef
+  const aanhef = naam ? `Hoi ${naam}!` : `Hoi!`;
+
+  const bericht =
+`${aanhef}
+
+${opening}
+
+Ik ben Daniel (22), doe zelf in pre-owned luxury met Revaleur. Daarnaast heb ik ZenBTW gebouwd. Omdat ik zelf in de resale zit, weet ik hoe snel je omzet kan groeien en hoe onoverzichtelijk de btw-regels en KOR-drempel worden.
+
+Geen verkoop-pitch, je hoeft niks te checken als je administratie al lekker loopt. Maar mocht die btw-rompslomp je gaan tegenstaan, dan is er een tool voor.
+
+Doe jij de btw en omzetmonitoring nu nog handmatig in Excel, of staat dat al op de automatische piloot?
+
+Succes met de verkoop! 🙌`;
+
+  leads[ri].bericht = bericht;
+  saveInstagramLeads(leads);
+
+  // Update de weergave zonder volledige re-render
+  const dmDiv = document.getElementById(`igdm-text-${ri}`);
+  if (dmDiv) {
+    dmDiv.textContent = bericht;
+  } else {
+    renderInstagramLeads();
+  }
+}
+
+function renderInstagramLeads() {
+  const filter = document.getElementById('instagram-filter')?.value || 'all';
+  let leads = getInstagramLeads();
+  if (filter !== 'all') leads = leads.filter(l => l.status === filter);
+  const el = document.getElementById('instagram-table');
+  if (!leads.length) {
+    el.innerHTML = `<div class="empty" style="padding:2rem">Geen Instagram-leads. De GitHub Action scrapet elke maandag automatisch, of klik Sync.</div>`;
+    return;
+  }
+  const allLeads = getInstagramLeads();
+  const sColor = { nieuw: 'var(--blue)', benaderd: 'var(--green)', genegeerd: 'var(--tx3)' };
+  const sBg = { nieuw: 'var(--bluel)', benaderd: 'var(--greenl)', genegeerd: 'var(--bg)' };
+
+  el.innerHTML = leads.map(l => {
+    const ri = allLeads.findIndex(x => (x.id || x.username) === (l.id || l.username));
+    const dm = l.bericht || (l.berichten && (l.berichten.helper || l.berichten.gesprek || l.berichten.pitch)) || '';
+    return `<div style="border-bottom:1px solid var(--br);padding:1rem 1.2rem">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:1rem;flex-wrap:wrap">
+        <div style="flex:1;min-width:0">
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;flex-wrap:wrap">
+            <span style="font-size:11px;background:#fce4ec;color:#c2185b;padding:2px 7px;border-radius:5px;font-weight:600">📸 Instagram</span>
+            <a href="${l.url}" target="_blank" style="color:var(--ac);font-weight:700;font-size:13px;text-decoration:none">@${l.username}</a>
+            ${l.displayName && l.displayName !== l.username ? `<span style="font-size:12px;color:var(--tx2)">${l.displayName}</span>` : ''}
+            <span style="font-size:11px;color:var(--tx3)">👥 ${l.followers?.toLocaleString('nl') || '?'} volgers</span>
+          </div>
+          ${l.bio ? `<div style="font-size:12px;color:var(--tx2);margin-bottom:4px;font-style:italic">"${l.bio}"</div>` : ''}
+          ${l.snippet ? `<div style="font-size:12px;color:var(--tx3);line-height:1.5">${l.snippet}</div>` : ''}
+          ${l.reden ? `<div style="font-size:11px;color:var(--acm);margin-top:4px">✓ ${l.reden}</div>` : ''}
+        </div>
+        <div style="display:flex;flex-direction:column;gap:6px;align-items:flex-end;flex-shrink:0">
+          <select onchange="updateInstagramStatus(${ri},this.value)" style="padding:4px 8px;border-radius:6px;border:1px solid var(--br);font-size:12px;background:${sBg[l.status] || 'var(--bg)'};color:${sColor[l.status] || 'var(--tx)'}">
+            <option value="nieuw" ${l.status === 'nieuw' ? 'selected' : ''}>Nieuw</option>
+            <option value="benaderd" ${l.status === 'benaderd' ? 'selected' : ''}>Benaderd</option>
+            <option value="genegeerd" ${l.status === 'genegeerd' ? 'selected' : ''}>Negeren</option>
+          </select>
+          <a href="${l.url}" target="_blank" class="btn btn-ghost" style="padding:4px 10px;font-size:11px;text-decoration:none">→ Open profiel</a>
+          ${l.postUrl ? `<a href="${l.postUrl}" target="_blank" class="btn btn-ghost" style="padding:4px 10px;font-size:11px;text-decoration:none">→ Open post</a>` : ''}
+        </div>
+      </div>
+      <div style="margin-top:10px">
+        ${dm ? `
+        <div style="background:var(--acl);border-left:3px solid var(--acm);border-radius:0 6px 6px 0;padding:12px 14px;margin-bottom:8px">
+          <div id="igdm-text-${ri}" style="font-size:13px;color:var(--tx);line-height:1.65;white-space:pre-wrap;margin-bottom:10px">${dm.replace(/</g, '&lt;')}</div>
+          <div style="display:flex;gap:8px;flex-wrap:wrap">
+            <button onclick="copyIgDm(${ri})" id="igcopybtn-${ri}"
+              style="padding:4px 14px;font-size:12px;background:var(--ac);color:#fff;border:none;border-radius:5px;cursor:pointer;font-weight:600">
+              Kopieer DM
+            </button>
+            <button onclick="genereerIgDm(${ri})" style="padding:4px 14px;font-size:12px;background:transparent;color:var(--acm);border:1px solid var(--acm);border-radius:5px;cursor:pointer;font-weight:600">
+              ↺ Opnieuw genereren
+            </button>
+          </div>
+        </div>` : `
+        <button onclick="genereerIgDm(${ri})" style="padding:6px 16px;font-size:12px;background:var(--ac);color:#fff;border:none;border-radius:6px;cursor:pointer;font-weight:600">
+          ✍️ Genereer DM
+        </button>`}
+      </div>
+    </div>`;
+  }).join('');
+}
+</script>
+<script>
+// ── Slides ────────────────────────────────────────────────────────────────────
+let slidesData = null;
+
+async function loadSlides() {
+  const el = document.getElementById('slides-list');
+  el.innerHTML = '<div class="empty">Laden...</div>';
+  try {
+    slidesData = await get('/slides/manifest.json');
+    renderSlides();
+    renderSlidesKpi();
+  } catch(e) {
+    el.innerHTML = '<div class="slides-empty">Nog geen slides gegenereerd.<br><span style="font-size:.75rem;margin-top:.3rem;display:block">Trigger de workflow op zondag of via GitHub Actions.</span></div>';
+    document.getElementById('slides-kpi').innerHTML = '';
+  }
+}
+
+function renderSlidesKpi() {
+  if (!slidesData) return;
+  const sets = slidesData.sets || [];
+  const total = sets.reduce((a, s) => a + (s.slides || 1), 0);
+  const carousels = sets.filter(s => s.type === 'carousel').length;
+  const posters = sets.filter(s => s.type === 'poster').length;
+  const lastDate = sets.length ? sets[0].date : '—';
+  document.getElementById('slides-kpi').innerHTML = `
+    <div class="kpi"><div class="kpi-label">Totaal sets</div><div class="kpi-value">${sets.length}</div><div class="kpi-sub">${total} slides totaal</div><div class="kpi-icon">🖼️</div></div>
+    <div class="kpi"><div class="kpi-label">Carrousels</div><div class="kpi-value">${carousels}</div><div class="kpi-sub">meerdere slides</div><div class="kpi-icon">📱</div></div>
+    <div class="kpi"><div class="kpi-label">Posters</div><div class="kpi-value">${posters}</div><div class="kpi-sub">losse posts</div><div class="kpi-icon">📌</div></div>
+    <div class="kpi"><div class="kpi-label">Laatste batch</div><div class="kpi-value" style="font-size:1.2rem">${lastDate || '—'}</div><div class="kpi-sub">volgende: zondag</div><div class="kpi-icon">📅</div></div>
+  `;
+}
+
+function renderSlides() {
+  if (!slidesData) return;
+  const filter = document.getElementById('slides-type-filter').value;
+  const sets = (slidesData.sets || []).filter(s => filter === 'all' || s.type === filter);
+  const el = document.getElementById('slides-list');
+
+  if (!sets.length) {
+    el.innerHTML = '<div class="slides-empty">Geen slides voor dit filter.</div>';
+    return;
+  }
+
+  // Group by week
+  const weeks = {};
+  sets.forEach(s => {
+    const d = new Date(s.date);
+    const monday = new Date(d);
+    monday.setDate(d.getDate() - ((d.getDay() + 6) % 7));
+    const wk = monday.toLocaleDateString('nl-NL', { day: 'numeric', month: 'long', year: 'numeric' });
+    if (!weeks[wk]) weeks[wk] = [];
+    weeks[wk].push(s);
+  });
+
+  el.innerHTML = Object.entries(weeks).map(([week, items]) => `
+    <div class="slides-week-header">Week van ${week}</div>
+    <div class="slides-grid">
+      ${items.map(s => slideSetCard(s)).join('')}
+    </div>
+  `).join('');
+}
+
+function slideSetCard(s) {
+  const typeClass = s.type === 'poster' ? 'type-badge-poster' : 'type-badge-carousel';
+  const typeLabel = s.type === 'poster' ? 'Poster' : 'Carrousel';
+  const firstFile = (s.files && s.files[0]) ? RAW + '/' + s.files[0] : null;
+  const thumbContent = firstFile
+    ? `<iframe src="${firstFile}" scrolling="no" style="width:300%;height:300%;transform:scale(0.333);transform-origin:top left;border:none;pointer-events:none"></iframe>`
+    : `<span>${s.type === 'poster' ? '📌' : '📱'}</span>`;
+  const posted = !!localStorage.getItem('zenbtw_posted_' + s.id);
+
+  return `
+    <div class="slide-set-card${posted ? ' slide-posted' : ''}" data-id="${s.id}">
+      <div class="slide-set-thumb" onclick="openSlideDetail('${s.id}')" style="cursor:pointer">
+        ${thumbContent}
+        <div class="slide-count-badge">${s.slides || 1} slide${s.slides !== 1 ? 's' : ''}</div>
+        <div class="slide-posted-badge" style="${posted ? '' : 'display:none'}">✓ Gepost</div>
+      </div>
+      <div class="slide-set-body">
+        <div class="slide-set-topic">${s.topic}</div>
+        <div class="slide-set-meta">
+          <span class="badge ${typeClass}">${typeLabel}</span>
+          &nbsp;${fmtDate(s.date)}
+        </div>
+        <div class="slide-set-actions">
+          <button class="btn btn-primary" style="font-size:.72rem;padding:.3rem .6rem" onclick="openSlideDetail('${s.id}')">👁 Bekijk</button>
+          ${s.pngs && s.pngs.length ? `<button class="btn btn-ghost" style="font-size:.72rem;padding:.3rem .6rem" onclick="downloadZip('${s.id}')">⬇ ZIP</button>` : ''}
+          <label style="display:flex;align-items:center;gap:4px;cursor:pointer;font-size:.72rem;color:var(--tx3);margin-left:auto;white-space:nowrap">
+            <input type="checkbox" ${posted ? 'checked' : ''} onchange="togglePosted('${s.id}',this.checked)" style="cursor:pointer;width:13px;height:13px;accent-color:var(--green)">
+            Gepost
+          </label>
+        </div>
+      </div>
+    </div>
+  `;
+}
+
+function togglePosted(id, checked) {
+  if (checked) localStorage.setItem('zenbtw_posted_' + id, '1');
+  else localStorage.removeItem('zenbtw_posted_' + id);
+  const card = document.querySelector(`.slide-set-card[data-id="${id}"]`);
+  if (!card) return;
+  card.classList.toggle('slide-posted', checked);
+  const badge = card.querySelector('.slide-posted-badge');
+  if (badge) badge.style.display = checked ? '' : 'none';
+}
+
+function openSlideDetail(id) {
+  const s = (slidesData.sets || []).find(x => x.id === id);
+  if (!s) return;
+  document.getElementById('slideDetailTitle').textContent = s.topic;
+  const files = s.files || [];
+  document.getElementById('slideDetailBody').innerHTML = `
+    ${s.caption ? `
+    <div class="caption-box">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:.5rem">
+        <div style="font-size:.78rem;font-weight:700;color:var(--tx2)">📝 Instagram caption</div>
+        <button class="btn btn-ghost" style="font-size:.72rem;padding:.25rem .6rem" onclick="copyCaption('${id}')">📋 Kopieer</button>
+      </div>
+      <div class="caption-text">${(s.caption||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/\n/g,'<br>')}</div>
+    </div>` : ''}
+    ${s.pngs && s.pngs.length ? `<div style="padding:.5rem 0"><button class="btn btn-primary" onclick="downloadZip('${s.id}')">⬇ Download alle slides als ZIP</button></div>` : ''}
+    ${files.length ? files.map((f, i) => `
+      <div class="slide-preview-row">
+        <div class="slide-preview-num">${String(i+1).padStart(2,'0')}</div>
+        <div class="slide-preview-info">
+          <span>${f.split('/').pop()}</span>
+          <div style="display:flex;gap:.4rem">
+            <a href="${RAW}/${f}" target="_blank" rel="noopener" class="btn btn-ghost" style="font-size:.72rem;padding:.3rem .6rem">↗ Preview</a>
+            ${s.pngs && s.pngs[i] ? `<a href="${RAW}/${s.pngs[i]}" target="_blank" download class="btn btn-primary" style="font-size:.72rem;padding:.3rem .6rem">⬇ PNG</a>` : ''}
+          </div>
+        </div>
+      </div>`).join('') : '<div class="empty">Geen bestanden gevonden.</div>'}
+  `;
+  document.getElementById('slideDetailModal').classList.add('open');
+}
+
+function copyCaption(id) {
+  const s = (slidesData.sets || []).find(x => x.id === id);
+  if (!s || !s.caption) return;
+  navigator.clipboard.writeText(s.caption).then(() => {
+    const btn = event.currentTarget || event.target;
+    const orig = btn.textContent;
+    btn.textContent = '✓ Gekopieerd!';
+    setTimeout(() => { btn.textContent = orig; }, 2000);
+  });
+}
+
+function closeSlideDetail() {
+  document.getElementById('slideDetailModal').classList.remove('open');
+}
+
+async function downloadZip(id) {
+  const s = (slidesData.sets || []).find(x => x.id === id);
+  if (!s || !s.pngs || !s.pngs.length) { alert('Geen PNG bestanden beschikbaar.'); return; }
+
+  // Load JSZip dynamically
+  if (!window.JSZip) {
+    await new Promise((resolve, reject) => {
+      const sc = document.createElement('script');
+      sc.src = 'https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js';
+      sc.onload = resolve; sc.onerror = reject;
+      document.head.appendChild(sc);
+    });
+  }
+
+  const btn = event.target;
+  const orig = btn.textContent;
+  btn.textContent = 'Laden...'; btn.disabled = true;
+
+  try {
+    const zip = new JSZip();
+    for (let i = 0; i < s.pngs.length; i++) {
+      const url  = RAW + '/' + s.pngs[i];
+      const resp = await fetch(url);
+      if (!resp.ok) throw new Error(`Kon ${s.pngs[i]} niet ophalen`);
+      const blob = await resp.blob();
+      zip.file(s.pngs[i].split('/').pop(), blob);
+    }
+    const content = await zip.generateAsync({ type: 'blob' });
+    const link = document.createElement('a');
+    link.href = URL.createObjectURL(content);
+    link.download = `zenbtw-${id}.zip`;
+    link.click();
+  } catch (e) {
+    alert('Download mislukt: ' + e.message);
+  } finally {
+    btn.textContent = orig; btn.disabled = false;
+  }
+}
+
+function toggleMobNav(){var h=document.getElementById('navHamburger'),o=document.getElementById('mobNavOverlay'),d=document.getElementById('mobNavDrawer'),op=!h.classList.contains('open');h.classList.toggle('open',op);o.classList.toggle('on',op);d.classList.toggle('on',op);document.body.style.overflow=op?'hidden':'';}
+function closeMobNav(){document.getElementById('navHamburger').classList.remove('open');document.getElementById('mobNavOverlay').classList.remove('on');document.getElementById('mobNavDrawer').classList.remove('on');document.body.style.overflow='';}
+
+// ── Reelposters ───────────────────────────────────────────────────────────────
+let reelpostersData = null;
+
+async function loadReelposters() {
+  const el = document.getElementById('reelposters-list');
+  el.innerHTML = '<div class="empty">Laden...</div>';
+  try {
+    reelpostersData = await get('/reelposters/manifest.json');
+    renderReelposters();
+    renderReelpostersKpi();
+  } catch(e) {
+    el.innerHTML = '<div class="slides-empty">Nog geen reelposters gegenereerd.<br><span style="font-size:.75rem;margin-top:.3rem;display:block">Trigger de workflow via GitHub Actions → Reelposters.</span></div>';
+    document.getElementById('reelposters-kpi').innerHTML = '';
+  }
+}
+
+function renderReelpostersKpi() {
+  if (!reelpostersData) return;
+  const sets = reelpostersData.sets || [];
+  const templates = {};
+  sets.forEach(s => { templates[s.template] = (templates[s.template]||0)+1; });
+  const topTpl = Object.entries(templates).sort((a,b)=>b[1]-a[1])[0];
+  const lastDate = sets.length ? sets[0].date : '—';
+  document.getElementById('reelposters-kpi').innerHTML = `
+    <div class="kpi"><div class="kpi-label">Totaal posters</div><div class="kpi-value">${sets.length}</div><div class="kpi-sub">gegenereerd</div><div class="kpi-icon">🎬</div></div>
+    <div class="kpi"><div class="kpi-label">Meest gebruikt</div><div class="kpi-value" style="font-size:1rem;padding-top:.4rem">${topTpl?topTpl[0]:'—'}</div><div class="kpi-sub">template</div><div class="kpi-icon">📐</div></div>
+    <div class="kpi"><div class="kpi-label">Laatste batch</div><div class="kpi-value" style="font-size:1.2rem">${lastDate}</div><div class="kpi-sub">volgende: woensdag</div><div class="kpi-icon">📅</div></div>
+  `;
+}
+
+function renderReelposters() {
+  if (!reelpostersData) return;
+  const sets = reelpostersData.sets || [];
+  const el = document.getElementById('reelposters-list');
+  if (!sets.length) { el.innerHTML = '<div class="slides-empty">Geen reelposters gevonden.</div>'; return; }
+  const weeks = {};
+  sets.forEach(s => {
+    const d = new Date(s.date), mon = new Date(d);
+    mon.setDate(d.getDate() - ((d.getDay()+6)%7));
+    const wk = mon.toLocaleDateString('nl-NL',{day:'numeric',month:'long',year:'numeric'});
+    if(!weeks[wk]) weeks[wk]=[];
+    weeks[wk].push(s);
+  });
+  el.innerHTML = Object.entries(weeks).map(([week,items]) => `
+    <div class="slides-week-header">Week van ${week}</div>
+    <div class="slides-grid">${items.map(s => reelposterCard(s)).join('')}</div>
+  `).join('');
+}
+
+const RP_COLORS = { compare:'#eff6ff', rekensommetje:'#fdf4ff', tijdlijn:'#f0fdf4', checklist:'#f5f3ff', myth:'#fff7ed' };
+
+function reelposterCard(s) {
+  const firstFile = s.file ? RAW+'/'+s.file : null;
+  const thumb = firstFile
+    ? `<iframe src="${firstFile}" scrolling="no" style="width:300%;height:300%;transform:scale(0.333);transform-origin:top left;border:none;pointer-events:none"></iframe>`
+    : `<span>🎬</span>`;
+  const posted = !!localStorage.getItem('zenbtw_rp_'+s.id);
+  const tplBg = RP_COLORS[s.template]||'#f1f0ec';
+  return `
+    <div class="slide-set-card${posted?' slide-posted':''}" data-rp-id="${s.id}">
+      <div class="slide-set-thumb" style="cursor:pointer" onclick="openReelposterDetail('${s.id}')">
+        ${thumb}
+        <div class="slide-count-badge">${s.template||'poster'}</div>
+        <div class="slide-posted-badge" style="${posted?'':'display:none'}">✓ Gepost</div>
+      </div>
+      <div class="slide-set-body">
+        <div class="slide-set-topic">${s.topic}</div>
+        <div class="slide-set-meta"><span class="badge" style="background:${tplBg};color:#333">${s.template}</span> &nbsp;${fmtDate(s.date)}</div>
+        <div class="slide-set-actions">
+          <button class="btn btn-primary" style="font-size:.72rem;padding:.3rem .6rem" onclick="openReelposterDetail('${s.id}')">👁 Bekijk</button>
+          ${s.png?`<a href="${RAW}/${s.png}" target="_blank" download class="btn btn-ghost" style="font-size:.72rem;padding:.3rem .6rem">⬇ PNG</a>`:''}
+          <label style="display:flex;align-items:center;gap:4px;cursor:pointer;font-size:.72rem;color:var(--tx3);margin-left:auto">
+            <input type="checkbox" ${posted?'checked':''} onchange="toggleRpPosted('${s.id}',this.checked)" style="cursor:pointer;width:13px;height:13px;accent-color:var(--green)">
+            Gepost
+          </label>
+        </div>
+      </div>
+    </div>`;
+}
+
+function toggleRpPosted(id, checked) {
+  if(checked) localStorage.setItem('zenbtw_rp_'+id,'1');
+  else localStorage.removeItem('zenbtw_rp_'+id);
+  const card = document.querySelector(`.slide-set-card[data-rp-id="${id}"]`);
+  if(!card) return;
+  card.classList.toggle('slide-posted',checked);
+  const badge = card.querySelector('.slide-posted-badge');
+  if(badge) badge.style.display = checked?'':'none';
+}
+
+function openReelposterDetail(id) {
+  const s = (reelpostersData.sets||[]).find(x=>x.id===id);
+  if(!s) return;
+  document.getElementById('slideDetailTitle').textContent = s.topic;
+  const desc = (s.threadsDescription||s.description||'');
+  document.getElementById('slideDetailBody').innerHTML = `
+    ${desc?`<div class="caption-box">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:.5rem">
+        <div style="font-size:.78rem;font-weight:700;color:var(--tx2)">📝 Threads beschrijving</div>
+        <button class="btn btn-ghost" style="font-size:.72rem;padding:.25rem .6rem"
+          onclick="navigator.clipboard.writeText(${JSON.stringify(desc)}).then(()=>{this.textContent='✓ Gekopieerd!';setTimeout(()=>this.textContent='📋 Kopieer',2000)})">📋 Kopieer</button>
+      </div>
+      <div class="caption-text">${desc.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/\n/g,'<br>')}</div>
+    </div>`:''}
+    <div class="slide-preview-row">
+      <div class="slide-preview-num">01</div>
+      <div class="slide-preview-info">
+        <span>poster.html · template: <strong>${s.template}</strong></span>
+        <div style="display:flex;gap:.4rem">
+          ${s.file?`<a href="${RAW}/${s.file}" target="_blank" class="btn btn-ghost" style="font-size:.72rem;padding:.3rem .6rem">↗ Preview</a>`:''}
+          ${s.png?`<a href="${RAW}/${s.png}" target="_blank" download class="btn btn-primary" style="font-size:.72rem;padding:.3rem .6rem">⬇ PNG</a>`:''}
+        </div>
+      </div>
+    </div>`;
+  document.getElementById('slideDetailModal').classList.add('open');
+}
+</script>
+<footer>
+  <div class="footer-inner">
+    <a href="/" class="footer-logo">
+      <img src="/logo.webp" alt="ZenBTW" style="width:34px;height:34px;border-radius:8px;object-fit:contain" loading="lazy">
+      <span class="footer-name">Zen<em>BTW</em></span>
+    </a>
+    <div style="display:flex;gap:20px;flex-wrap:wrap;align-items:center">
+      <a href="/kor-calculator/" style="font-size:12.5px;color:var(--tx3,#7a7a74);font-weight:500">BTW-check</a>
+      <a href="/hulpmiddelen/" style="font-size:12.5px;color:var(--tx3,#7a7a74);font-weight:500">Hulpmiddelen</a>
+      <a href="/blog/" style="font-size:12.5px;color:var(--tx3,#7a7a74);font-weight:500">Blog</a>
+      <a href="/app" style="font-size:12.5px;color:var(--tx3,#7a7a74);font-weight:500">App</a>
+      <a href="/privacy/" style="font-size:12.5px;color:var(--tx3,#7a7a74);font-weight:500">Privacy</a>
+      <span class="footer-copy">© 2026 ZenBTW</span>
+    </div>
+    <span class="footer-badge">🔒 Geen belastingadvies</span>
+  </div>
+</footer>
+</body>
+</html>
