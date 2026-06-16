@@ -1,14 +1,6 @@
 {
   "queue": [
     {
-      "keyword": "kor opzeggen hoe stappen belastingdienst",
-      "slug": "kor-opzeggen-hoe",
-      "status": "pending",
-      "priority": 4,
-      "notes": "KOR stopzetten als je drempel nadert — hoge intent",
-      "type": "seo-informationeel"
-    },
-    {
       "keyword": "amazon verkoper btw nederland 2026",
       "slug": "amazon-verkoper-btw-nederland",
       "status": "pending",
@@ -317,6 +309,16 @@
       "type": "geo-vraag",
       "publishedDate": "2026-06-15",
       "outputFile": "blog/etsy-deemed-supplier-btw.html"
+    },
+    {
+      "keyword": "kor opzeggen hoe stappen belastingdienst",
+      "slug": "kor-opzeggen-hoe",
+      "status": "published",
+      "priority": 4,
+      "notes": "KOR stopzetten als je drempel nadert — hoge intent",
+      "type": "seo-informationeel",
+      "publishedDate": "2026-06-16",
+      "outputFile": "blog/kor-opzeggen-hoe.html"
     }
   ],
   "settings": {
