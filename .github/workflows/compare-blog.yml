@@ -45,7 +45,7 @@ jobs:
       - name: Check if files changed
         id: check_changes
         run: |
-          if git diff --quiet && git diff --staged --quiet; then
+          if [ -z "$(git status --porcelain)" ]; then
             echo "changed=false" >> $GITHUB_OUTPUT
           else
             echo "changed=true" >> $GITHUB_OUTPUT
