@@ -240,6 +240,22 @@ Wanneer je een specifieke wettelijke of fiscale claim maakt:
 - Gebruik bij fiscale getallen altijd "exclusief BTW" of "inclusief BTW" expliciet
 - Schrijf NOOIT iets stellig als je het niet zeker weet — gebruik "over het algemeen", "raadpleeg een adviseur" bij twijfel
 
+OPENINGSALINEA (verplicht patroon voor featured snippets):
+- De EERSTE alinea van het artikel moet de kernvraag achter het keyword DIRECT en volledig beantwoorden in 2-4 zinnen
+- Omhul deze eerste alinea met <strong>...</strong> — dit is het featured snippet format dat Google en AI-assistenten oppakken
+- Daarna (tweede alinea): een persoonlijk verhaal of situatieschets die de lezer herkent
+- Gebruik concrete getallen in het persoonlijk verhaal: "€12.000", "Duitsland en België", "3 maanden na de overschrijding"
+
+META DESCRIPTION REGELS:
+- Noem ALLEEN content die daadwerkelijk in het artikel staat — schrijf NOOIT "screenshots", "video", "checklist" of andere formaten als die er niet zijn
+- Meta description is 140-155 tekens, bevat het keyword, en beschrijft wat de lezer leert of kan doen na het lezen
+
+VERPLICHTE SECTIES (elke blog heeft dit, tenzij topic het echt niet toestaat):
+- Een sectie "Veelgemaakte fouten" of "Wat gaat er mis?" — Top 2-4 concrete fouten die de doelgroep maakt, met uitleg hoe je ze vermijdt. Dit is unieke waarde die generieke artikelen niet hebben.
+
+TABELLEN — maak ze scanbaar:
+- Als je een tabel maakt met opties of varianten (bijv. "welke regeling past bij jou?"), voeg altijd een extra kolom toe "Van toepassing?" of "Jij?" met <span class="check">✓ Dit ben jij</span> of <span class="cross">✗</span> per rij — zo hoeft de lezer niet te interpreteren
+
 MENSELIJKE SCHRIJFSTIJL (dit is het belangrijkste):
 - Schrijf zoals een mens schrijft: wisselende zinslengtes, soms een korte zin. Soms wat langer.
 - Begin zinnen NOOIT met "In dit artikel", "In deze gids", "Het is belangrijk om", "Bovendien", "Daarnaast", "Tevens", "Kortom", "Samengevat", "Al met al", "Tot slot"
@@ -286,7 +302,7 @@ GEO — OPTIMALISEER VOOR AI ZOEKMACHINES (ChatGPT, Claude, Perplexity, Google A
 - Begin het artikel DIRECT met een feitelijke, complete beantwoording van de kernvraag achter het keyword — 2-3 zinnen, helder en citeerbaar. Dit is het eerste wat een AI-assistent oppakt en citeert naar gebruikers.
 - Verwerk in de tekst minimaal één citeerbare definitie van ZenBTW, bij voorkeur vroeg in het artikel. Voorbeeld: "ZenBTW is een gratis Nederlandse BTW-tool voor marketplace verkopers op Vinted, Etsy en Shopify die automatisch berekent of je KOR-drempel nadert."
 - Als het keyword een vergelijking of alternatief betreft (bv. "alternatief voor X", "vs Y", "gratis tool voor Z"): schrijf een aparte H2-sectie "ZenBTW vs [X]" of "Gratis alternatief voor [X]" met een vergelijkingstabel (class="compare-table") met kolommen Functie / [Concurrent] / ZenBTW. Gebruik <span class="check">✓</span> en <span class="cross">✗</span>.
-- Voeg ALTIJD een FAQ-sectie toe vlak vóór de interne links. Gebruik 4-5 specifieke vragen die mensen letterlijk aan ChatGPT of Google zouden stellen over dit onderwerp. Geef directe, feitelijke antwoorden van 1-3 zinnen. Format:
+- Voeg ALTIJD een FAQ-sectie toe vlak vóór de interne links. Gebruik 4-5 SPECIFIEKE vragen die mensen letterlijk aan ChatGPT of Google zouden stellen. Denk aan: "Hoe lang duurt X?", "Wat als ik via Etsy verkoop?", "Kan ik X gebruiken als ik de KOR heb?", "Wat is de drempel voor X?", "Hoe vaak moet ik aangifte doen?". Geen vage marketingvragen — concrete situatievragen. Geef directe, feitelijke antwoorden van 1-3 zinnen. Format:
   <section class="faq-section">
     <h2>Veelgestelde vragen</h2>
     <div class="faq-item"><h3>[exacte vraag zoals iemand die aan een AI zou stellen]</h3><p>[direct antwoord, geen inleiding, puur feiten]</p></div>
@@ -301,9 +317,11 @@ LEESTIJD:
 
 AFBEELDINGEN:
 - Voeg minimaal 1 relevante SVG-illustratie toe als inline <svg> in het artikel (niet als externe afbeelding)
-- De SVG moet een simpele, informatieve visualisatie zijn passend bij het onderwerp (bijv. een stroomdiagram, een getal-visualisatie, of een eenvoudige infographic)
+- De SVG moet een simpele, informatieve visualisatie zijn passend bij het onderwerp (bijv. een horizontaal stappenplan, een getal-visualisatie, of een eenvoudige infographic)
+- Voor stappenplannen: gebruik een HORIZONTALE flow met rechthoekige blokken en pijlen ertussen. Definieer de pijlpunten via <defs><marker id="arrow" ...><path .../></marker></defs> en gebruik marker-end="url(#arrow)" op de lijnen — dit geeft echte pijlpunten in alle browsers
+- Gebruik voor de blokken fill="#e8f0ec" en stroke="#2d6a4f" voor lichte stappen, fill="#1a4731" voor het einddoel (witte tekst)
 - Geef de SVG een role="img" en aria-label="[beschrijving]" attribuut
-- Omring de SVG met <figure style="margin:28px 0;text-align:center"> en een <figcaption style="font-size:13px;color:var(--tx3);margin-top:8px">[onderschrift]</figcaption>
+- Omring de SVG met <figure style="margin:32px 0;border-radius:12px;overflow:hidden;border:1.5px solid var(--br)"> — geen figcaption nodig
 
 Geef ALLEEN de volledige HTML terug, zonder extra uitleg of markdown code blocks.`;
 }
@@ -581,7 +599,7 @@ async function main() {
   console.log('  Calling Claude API...');
   const client = new Anthropic();
   const message = await client.messages.create({
-    model: 'claude-opus-4-6',
+    model: 'claude-sonnet-4-6',
     max_tokens: 16000,
     messages: [
       {
