@@ -67,7 +67,7 @@ Schrijf een VOLLEDIG HTML blog artikel voor het keyword: "${keyword}"
 
 VEREISTEN:
 - Taal: Nederlands (informeel, alsof je tegen iemand praat — geen corporate taal)
-- Lengte: 900-1200 woorden zichtbare tekst
+- Lengte: 1400-1800 woorden zichtbare tekst (meer diepgang = hogere ranking)
 - Datum: ${TODAY}
 - Slug: ${slug}
 
@@ -94,6 +94,9 @@ HTML STRUCTUUR (gebruik EXACT dit format, vervang ALLEEN de content):
 <link rel="manifest" href="../manifest.json">
 <meta name="theme-color" content="#1a4731">
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"[ARTICLE HEADLINE]","datePublished":"${TODAY}","dateModified":"${TODAY}","author":{"@type":"Organization","name":"ZenBTW"},"publisher":{"@type":"Organization","name":"ZenBTW","url":"https://zenbtw.nl"},"image":"https://zenbtw.nl/og-blog.png"}</script>
+[ALS HET ARTIKEL EEN STAPPENPLAN HEEFT: voeg HowTo schema toe als DERDE script-blok. Vervang de stappen met de echte stappen uit het artikel:]
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"HowTo","name":"[ZELFDE ALS H1]","description":"[ZELFDE ALS META DESCRIPTION]","step":[{"@type":"HowToStep","name":"[STAP 1 NAAM]","text":"[STAP 1 UITLEG 1 ZIN]"},{"@type":"HowToStep","name":"[STAP 2 NAAM]","text":"[STAP 2 UITLEG 1 ZIN]"},{"@type":"HowToStep","name":"[STAP 3 NAAM]","text":"[STAP 3 UITLEG 1 ZIN]"}]}</script>
+[GEEN stappenplan → weglaten]
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
@@ -184,9 +187,9 @@ figure{max-width:100%;overflow:hidden}
   [VOLLEDIGE ARTIKEL CONTENT HIER — gebruik h2, h3, p, ul, ol, strong, .highlight, .warn, .danger, table elementen]
 
   <div class="cta-box">
-    <h3>[CTA TITEL — relevant aan artikel onderwerp]</h3>
-    <p>[CTA subtekst, 1 zin]</p>
-    <a href="/app">📊 Open gratis ZenBTW dashboard →</a>
+    <h3>[CTA TITEL — specifiek probleem uit het artikel, bijv. "Weet jij al of jij boven de OSS-drempel zit?" of "Check in 30 seconden of jij KOR-aangifte moet doen"]</h3>
+    <p>[CTA subtekst: 1 zin die het directe voordeel noemt, bijv. "ZenBTW berekent het automatisch op basis van je verkopen — gratis."]</p>
+    <a href="/app">📊 Bereken mijn situatie gratis →</a>
   </div>
 
   [2-3 interne links naar gerelateerde blog artikelen, gebruik: <p><a href="/blog/[slug]" style="color:var(--acm);font-weight:600">→ Lees ook: [TITEL]</a></p>]
@@ -252,6 +255,8 @@ META DESCRIPTION REGELS:
 
 VERPLICHTE SECTIES (elke blog heeft dit, tenzij topic het echt niet toestaat):
 - Een sectie "Veelgemaakte fouten" of "Wat gaat er mis?" — Top 2-4 concrete fouten die de doelgroep maakt, met uitleg hoe je ze vermijdt. Dit is unieke waarde die generieke artikelen niet hebben.
+- Een "Wat als..." of "Praktijkvoorbeeld" paragraaf — werk minimaal één concreet scenario volledig door met echte getallen. Bijv: "Stel: je verkoopt in Q3 voor €6.500 naar Duitsland en €4.200 naar België. In Q4 komt daar nog €3.100 bij. Op welk moment moet je OSS aanvragen?" Antwoord dan volledig. Dit vangen long-tail zoekopdrachten op.
+- Gebruik .highlight callout-boxes strategisch: minimaal 1 groene highlight box (tip/pro-tip) in het eerste derde van het artikel, naast de eventuele .warn en .danger boxes.
 
 TABELLEN — maak ze scanbaar:
 - Als je een tabel maakt met opties of varianten (bijv. "welke regeling past bij jou?"), voeg altijd een extra kolom toe "Van toepassing?" of "Jij?" met <span class="check">✓ Dit ben jij</span> of <span class="cross">✗</span> per rij — zo hoeft de lezer niet te interpreteren
@@ -270,6 +275,8 @@ MENSELIJKE SCHRIJFSTIJL (dit is het belangrijkste):
 
 SEO REGELS:
 - Gebruik het keyword "${keyword}" in: title, h1, eerste alinea, minstens 1 h2, meta description, og:title, twitter:title
+- Gebruik ook semantische varianten van het keyword natuurlijk door de tekst — bijv. als keyword "oss registratie belastingdienst" is, gebruik ook: "OSS aanmelden", "One Stop Shop registreren", "OSS aanvragen", "je aanmelden voor OSS". Dit helpt voor verwante zoekopdrachten.
+- H2-koppen zijn directe vragen die mensen stellen, NIET marketingtitels. "Hoe lang duurt de OSS registratie?" werkt beter dan "De registratieprocedure"
 - Schrijf UNIEKE, NUTTIGE content — geen generieke tekst
 - Concrete cijfers, deadlines en bedragen (BTW-tarieven, drempels, percentages)
 - Vermeldt ZenBTW als oplossing in de tekst (niet alleen in de CTA), maar niet opdringerig
