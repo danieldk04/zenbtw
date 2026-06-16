@@ -1,0 +1,69 @@
+name: Compare Blog Models
+
+on:
+  workflow_dispatch:
+    inputs:
+      slug_override:
+        description: 'Override slug (leave empty to use next pending keyword)'
+        required: false
+        type: string
+
+concurrency:
+  group: compare-blog
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+
+jobs:
+  compare:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          ref: claude/remote-control-zenbtw-tto89
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Generate comparison blogs
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          SLUG_OVERRIDE: ${{ github.event.inputs.slug_override }}
+        run: node scripts/compare-blog.js
+
+      - name: Check if files changed
+        id: check_changes
+        run: |
+          if git diff --quiet && git diff --staged --quiet; then
+            echo "changed=false" >> $GITHUB_OUTPUT
+          else
+            echo "changed=true" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Commit and push comparison files
+        if: steps.check_changes.outputs.changed == 'true'
+        run: |
+          git config --local user.email "actions@github.com"
+          git config --local user.name "ZenBTW Bot"
+          git add blog/compare-*.html
+          SLUG=$(ls blog/compare-index-*.html 2>/dev/null | head -1 | sed 's/blog\/compare-index-//' | sed 's/\.html//')
+          git commit -m "feat: blog model vergelijking — ${SLUG}"
+          git pull --rebase origin claude/remote-control-zenbtw-tto89
+          git push origin claude/remote-control-zenbtw-tto89
+
+      - name: Summary
+        run: |
+          echo "### Blog Model Comparison" >> $GITHUB_STEP_SUMMARY
+          echo "Generated comparison files:" >> $GITHUB_STEP_SUMMARY
+          for f in blog/compare-*.html; do echo "- \`$f\`" >> $GITHUB_STEP_SUMMARY; done
