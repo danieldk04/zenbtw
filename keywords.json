@@ -1,14 +1,6 @@
 {
   "queue": [
     {
-      "keyword": "amazon verkoper btw nederland 2026",
-      "slug": "amazon-verkoper-btw-nederland",
-      "status": "pending",
-      "priority": 5,
-      "notes": "Amazon groeit hard in NL, nog weinig NL content",
-      "type": "seo-platform"
-    },
-    {
       "keyword": "inkomstenbelasting marketplace verkoper 2026",
       "slug": "inkomstenbelasting-marketplace-verkoper",
       "status": "pending",
@@ -319,6 +311,16 @@
       "type": "seo-informationeel",
       "publishedDate": "2026-06-16",
       "outputFile": "blog/kor-opzeggen-hoe.html"
+    },
+    {
+      "keyword": "amazon verkoper btw nederland 2026",
+      "slug": "amazon-verkoper-btw-nederland",
+      "status": "published",
+      "priority": 5,
+      "notes": "Amazon groeit hard in NL, nog weinig NL content",
+      "type": "seo-platform",
+      "publishedDate": "2026-06-17",
+      "outputFile": "blog/amazon-verkoper-btw-nederland.html"
     }
   ],
   "settings": {
