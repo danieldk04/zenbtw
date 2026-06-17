@@ -1,14 +1,6 @@
 {
   "queue": [
     {
-      "keyword": "inkomstenbelasting marketplace verkoper 2026",
-      "slug": "inkomstenbelasting-marketplace-verkoper",
-      "status": "pending",
-      "priority": 6,
-      "notes": "IB vs BTW — meest gestelde vraag op Reddit/forums",
-      "type": "geo-vraag"
-    },
-    {
       "keyword": "tweedehands spullen verkopen belasting 2026 wanneer",
       "slug": "tweedehands-verkopen-belasting-2026",
       "status": "pending",
@@ -321,6 +313,16 @@
       "type": "seo-platform",
       "publishedDate": "2026-06-17",
       "outputFile": "blog/amazon-verkoper-btw-nederland.html"
+    },
+    {
+      "keyword": "inkomstenbelasting marketplace verkoper 2026",
+      "slug": "inkomstenbelasting-marketplace-verkoper",
+      "status": "published",
+      "priority": 6,
+      "notes": "IB vs BTW — meest gestelde vraag op Reddit/forums",
+      "type": "geo-vraag",
+      "publishedDate": "2026-06-17",
+      "outputFile": "blog/inkomstenbelasting-marketplace-verkoper.html"
     }
   ],
   "settings": {
