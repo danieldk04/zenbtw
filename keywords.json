@@ -1,14 +1,6 @@
 {
   "queue": [
     {
-      "keyword": "vinted dac7 2026 wat wordt gemeld belastingdienst",
-      "slug": "vinted-dac7-2026-gemeld",
-      "status": "pending",
-      "priority": 9,
-      "notes": "Angst-gedreven, hoge click-through op dit specifieke platform",
-      "type": "geo-vraag"
-    },
-    {
       "keyword": "oss deadline kwartaal aangifte 2026",
       "slug": "oss-deadline-kwartaal-2026",
       "status": "pending",
@@ -327,6 +319,16 @@
       "type": "seo-informationeel",
       "publishedDate": "2026-06-18",
       "outputFile": "blog/factuur-sturen-kor-ondernemer.html"
+    },
+    {
+      "keyword": "vinted dac7 2026 wat wordt gemeld belastingdienst",
+      "slug": "vinted-dac7-2026-gemeld",
+      "status": "published",
+      "priority": 9,
+      "notes": "Angst-gedreven, hoge click-through op dit specifieke platform",
+      "type": "geo-vraag",
+      "publishedDate": "2026-06-18",
+      "outputFile": "blog/vinted-dac7-2026-gemeld.html"
     }
   ],
   "settings": {
