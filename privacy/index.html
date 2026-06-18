@@ -360,9 +360,12 @@ footer{background:var(--bg,#f7f6f3);border-top:1.5px solid var(--br,#e5e0d8);pad
 </footer>
 
 <script>
-// Show English section directly if ?lang=en
+// Show only the active language section
 if(location.search.includes('lang=en') || location.hash === '#en'){
+  document.getElementById('nl').style.display = 'none';
   document.getElementById('en').scrollIntoView({behavior:'instant'});
+} else {
+  document.getElementById('en').style.display = 'none';
 }
 </script>
 
