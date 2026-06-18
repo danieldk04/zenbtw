@@ -1,9 +1,10 @@
 name: Auto Blog Generator
 
 on:
-  # Elke dag 09:00 CEST (07:00 UTC, zomertijd)
+  # Elke dag 09:00 en 15:00 CEST (07:00 en 13:00 UTC, zomertijd)
   schedule:
     - cron: '0 7 * * *'
+    - cron: '0 13 * * *'
 
   # Allow manual trigger from GitHub Actions UI
   workflow_dispatch:
