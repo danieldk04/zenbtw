@@ -1,14 +1,6 @@
 {
   "queue": [
     {
-      "keyword": "factuur sturen als kor ondernemer verplicht",
-      "slug": "factuur-sturen-kor-ondernemer",
-      "status": "pending",
-      "priority": 8,
-      "notes": "Praktische vraag, weinig goede NL content",
-      "type": "seo-informationeel"
-    },
-    {
       "keyword": "vinted dac7 2026 wat wordt gemeld belastingdienst",
       "slug": "vinted-dac7-2026-gemeld",
       "status": "pending",
@@ -325,6 +317,16 @@
       "type": "geo-vraag",
       "publishedDate": "2026-06-18",
       "outputFile": "blog/tweedehands-verkopen-belasting-2026.html"
+    },
+    {
+      "keyword": "factuur sturen als kor ondernemer verplicht",
+      "slug": "factuur-sturen-kor-ondernemer",
+      "status": "published",
+      "priority": 8,
+      "notes": "Praktische vraag, weinig goede NL content",
+      "type": "seo-informationeel",
+      "publishedDate": "2026-06-18",
+      "outputFile": "blog/factuur-sturen-kor-ondernemer.html"
     }
   ],
   "settings": {
