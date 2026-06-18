@@ -1,14 +1,6 @@
 {
   "queue": [
     {
-      "keyword": "tweedehands spullen verkopen belasting 2026 wanneer",
-      "slug": "tweedehands-verkopen-belasting-2026",
-      "status": "pending",
-      "priority": 7,
-      "notes": "Brede zoekopdracht, hobbyist vs ondernemer",
-      "type": "geo-vraag"
-    },
-    {
       "keyword": "factuur sturen als kor ondernemer verplicht",
       "slug": "factuur-sturen-kor-ondernemer",
       "status": "pending",
@@ -323,6 +315,16 @@
       "type": "geo-vraag",
       "publishedDate": "2026-06-17",
       "outputFile": "blog/inkomstenbelasting-marketplace-verkoper.html"
+    },
+    {
+      "keyword": "tweedehands spullen verkopen belasting 2026 wanneer",
+      "slug": "tweedehands-verkopen-belasting-2026",
+      "status": "published",
+      "priority": 7,
+      "notes": "Brede zoekopdracht, hobbyist vs ondernemer",
+      "type": "geo-vraag",
+      "publishedDate": "2026-06-18",
+      "outputFile": "blog/tweedehands-verkopen-belasting-2026.html"
     }
   ],
   "settings": {
