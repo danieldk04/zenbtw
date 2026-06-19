@@ -360,28 +360,8 @@ async function captureRelevantScreenshot(blog, description) {
   try {
     const { default: puppeteer } = await import('puppeteer');
 
-    const keywordMap = {
-      'kor': 'https://zenbtw.nl/hulpmiddelen/kor-calculator',
-      'kor-calculator': 'https://zenbtw.nl/hulpmiddelen/kor-calculator',
-      'calculator': 'https://zenbtw.nl/hulpmiddelen/kor-calculator',
-      'vinted': 'https://zenbtw.nl',
-      'etsy': 'https://zenbtw.nl',
-      'shopify': 'https://zenbtw.nl',
-      'btw': 'https://zenbtw.nl',
-      'dac7': 'https://zenbtw.nl',
-      'amazon': 'https://zenbtw.nl',
-      'marketplace': 'https://zenbtw.nl'
-    };
-
-    const descLower = (description + blog.slug).toLowerCase();
-    let targetUrl = 'https://zenbtw.nl';
-
-    for (const [keyword, url] of Object.entries(keywordMap)) {
-      if (descLower.includes(keyword)) {
-        targetUrl = url;
-        break;
-      }
-    }
+    // Always screenshot the homepage — guaranteed to exist and look good
+    const targetUrl = 'https://zenbtw.nl';
 
     console.log(`📸 Capturing screenshot from: ${targetUrl}`);
 
