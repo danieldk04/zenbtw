@@ -428,9 +428,27 @@ footer{background:var(--bg,#f7f6f3);border-top:1.5px solid var(--br,#e5e0d8);pad
           </div>
         </div>
         <div id="queue-table"><div class="empty">Laden...</div></div>
-        <div style="padding:.8rem 1.2rem;border-top:1px solid var(--br);display:flex;gap:.5rem;flex-wrap:wrap">
-          <input id="kw-input" type="text" placeholder="Nieuw keyword, bijv: vinted btw 2026" style="flex:1;min-width:200px;padding:.55rem .9rem;border:1.5px solid var(--br);border-radius:7px;font-size:.82rem;outline:none">
-          <button class="btn btn-primary" onclick="addKeyword()">+ Toevoegen</button>
+        <div style="padding:.8rem 1.2rem;border-top:1px solid var(--br)">
+          <div style="display:flex;gap:.5rem;flex-wrap:wrap;align-items:center">
+            <input id="kw-input" type="text" placeholder="Nieuw keyword, bijv: vinted btw 2026" style="flex:1;min-width:200px;padding:.55rem .9rem;border:1.5px solid var(--br);border-radius:7px;font-size:.82rem;outline:none">
+            <select id="kw-prio" style="padding:.55rem .6rem;border:1.5px solid var(--br);border-radius:7px;font-size:.82rem;outline:none;background:#fff">
+              <option value="1">Prio 1 🔥</option>
+              <option value="2">Prio 2</option>
+              <option value="3">Prio 3</option>
+              <option value="4">Prio 4</option>
+              <option value="5" selected>Prio 5</option>
+              <option value="6">Prio 6</option>
+              <option value="7">Prio 7</option>
+              <option value="8">Prio 8</option>
+              <option value="9">Prio 9</option>
+              <option value="10">Prio 10</option>
+            </select>
+            <button class="btn btn-primary" onclick="addKeyword()">+ Toevoegen</button>
+          </div>
+          <div style="display:flex;gap:.5rem;flex-wrap:wrap;align-items:center;margin-top:.5rem">
+            <input id="kw-notes" type="text" placeholder="Notitie (optioneel)" style="flex:1;min-width:200px;padding:.55rem .9rem;border:1.5px solid var(--br);border-radius:7px;font-size:.82rem;outline:none">
+            <span id="kw-status" style="font-size:.78rem;color:var(--tx3);min-height:1.2rem"></span>
+          </div>
         </div>
       </div>
 
@@ -1282,14 +1300,15 @@ async function loadQueue(){
     document.getElementById('queue-pending-badge').textContent=pending.length+' pending';
     const all=[...(kw.queue||[]),...(kw.published||[]).slice(0,10)];
     document.getElementById('queue-table').innerHTML=all.length
-      ?`<table><thead><tr><th>Keyword</th><th>Slug</th><th>Status</th><th>Prioriteit</th><th>Gepubliceerd</th><th>Notitie</th></tr></thead>
+      ?`<table><thead><tr><th>Keyword</th><th>Slug</th><th>Status</th><th>Prioriteit</th><th>Gepubliceerd</th><th>Notitie</th><th></th></tr></thead>
         <tbody>${all.map(k=>`<tr>
-          <td>${k.keyword}</td>
-          <td class="mono" style="color:var(--tx3)">${k.slug}</td>
-          <td><span class="badge ${k.status==='pending'?'by':k.status==='published'?'bg':'bgr'}">${k.status}</span></td>
-          <td>${k.priority??'–'}</td>
-          <td style="color:var(--tx3)">${k.publishedDate||'–'}</td>
-          <td style="color:var(--tx3);font-style:italic">${k.notes||'–'}</td>
+          <td style="font-weight:500">${k.keyword}</td>
+          <td class="mono" style="color:var(--tx3);font-size:.75rem">${k.slug}</td>
+          <td><span class="badge ${k.status==='pending'?'by':k.status==='published'?'bg':'bgr'}">${k.status==='pending'?'⏳ pending':k.status==='published'?'✅ gepubliceerd':k.status}</span></td>
+          <td><span class="badge ${(k.priority||99)<=3?'bb':(k.priority||99)<=7?'bgr':'bgr'}">${k.priority??'–'}</span></td>
+          <td style="color:var(--tx3);font-size:.78rem">${k.publishedDate||'–'}</td>
+          <td style="color:var(--tx3);font-style:italic;font-size:.78rem;max-width:200px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${k.notes||'–'}</td>
+          <td>${k.status==='pending'?`<button class="btn btn-ghost" style="padding:2px 8px;font-size:.7rem;color:var(--red)" onclick="deleteQueueItem('${k.keyword.replace(/'/g,"\\'")}')">✕</button>`:''}</td>
         </tr>`).join('')}</tbody></table>`
       :'<div class="empty">Queue leeg</div>';
   }catch(e){document.getElementById('queue-table').innerHTML=`<div class="empty" style="color:var(--red)">${e.message}</div>`;}
@@ -1303,11 +1322,118 @@ async function loadQueue(){
   }catch(_){document.getElementById('queue-trends').innerHTML='<div class="empty">Geen agent data</div>';}
 }
 
-function addKeyword(){
+async function addKeyword(){
   const kw=document.getElementById('kw-input').value.trim();
   if(!kw){alert('Voer een keyword in');return;}
+  const prio=parseInt(document.getElementById('kw-prio').value)||5;
+  const notes=document.getElementById('kw-notes').value.trim()||'';
   const slug=kw.toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'');
-  alert(`Om "${kw}" toe te voegen:\n\n1. Open keywords.json in de GitHub repo\n2. Voeg toe aan "queue":\n{\n  "keyword": "${kw}",\n  "slug": "${slug}",\n  "status": "pending",\n  "priority": 5\n}\n3. Trigger de blog-generator workflow via Actions`);
+  
+  const tok = localStorage.getItem('zenbtw_gh_token');
+  if(!tok){ alert('Stel eerst een GitHub token in (Blogs pagina → GitHub token).'); return; }
+  
+  const btn = document.querySelector('#page-queue .btn-primary');
+  btn.textContent = 'Bezig...'; btn.disabled = true;
+  
+  try {
+    // 1. Haal huidige keywords.json op met SHA
+    const getRes = await fetch(`https://api.github.com/repos/${REPO}/contents/keywords.json`, {
+      headers: { 'Authorization': `Bearer ${tok}`, 'Accept': 'application/vnd.github+json' }
+    });
+    if(!getRes.ok) throw new Error(`GitHub API: ${getRes.status}`);
+    const fileData = await getRes.json();
+    const sha = fileData.sha;
+    const currentContent = JSON.parse(atob(fileData.content.replace(/\n/g,'')));
+    
+    // 2. Controleer of keyword al bestaat
+    const all = [...(currentContent.queue||[]), ...(currentContent.published||[])];
+    if(all.some(k => k.keyword.toLowerCase() === kw.toLowerCase())){
+      alert(`"${kw}" staat al in de queue of is al gepubliceerd.`);
+      btn.textContent = '+ Toevoegen'; btn.disabled = false;
+      return;
+    }
+    
+    // 3. Voeg toe aan queue
+    const newItem = {
+      keyword: kw,
+      slug: slug,
+      status: "pending",
+      priority: prio
+    };
+    if(notes) newItem.notes = notes;
+    
+    currentContent.queue.push(newItem);
+    
+    // 4. Sorteer queue op priority (oplopend)
+    currentContent.queue.sort((a,b) => (a.priority||99) - (b.priority||99));
+    
+    // 5. Schrijf terug naar GitHub
+    const encoded = btoa(unescape(encodeURIComponent(JSON.stringify(currentContent, null, 2))));
+    const putRes = await fetch(`https://api.github.com/repos/${REPO}/contents/keywords.json`, {
+      method: 'PUT',
+      headers: {
+        'Authorization': `Bearer ${tok}`,
+        'Accept': 'application/vnd.github+json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        message: `add keyword to queue: ${kw}`,
+        content: encoded,
+        sha: sha
+      })
+    });
+    if(!putRes.ok){ const e=await putRes.json(); throw new Error(e.message||putRes.status); }
+    
+    // 6. Reset form en herlaad
+    document.getElementById('kw-input').value = '';
+    document.getElementById('kw-notes').value = '';
+    document.getElementById('kw-prio').value = '5';
+    document.getElementById('kw-status').textContent = `✅ "${kw}" toegevoegd aan queue (prioriteit ${prio})`;
+    document.getElementById('kw-status').style.color = 'var(--green)';
+    loadQueue();
+  } catch(e){
+    document.getElementById('kw-status').textContent = '❌ ' + e.message;
+    document.getElementById('kw-status').style.color = 'var(--red)';
+  } finally {
+    btn.textContent = '+ Toevoegen'; btn.disabled = false;
+  }
+}
+
+async function deleteQueueItem(keyword){
+  if(!confirm(`Verwijder "${keyword}" uit de queue?`)) return;
+  const tok = localStorage.getItem('zenbtw_gh_token');
+  if(!tok){ alert('Geen GitHub token ingesteld.'); return; }
+  
+  try {
+    const getRes = await fetch(`https://api.github.com/repos/${REPO}/contents/keywords.json`, {
+      headers: { 'Authorization': `Bearer ${tok}`, 'Accept': 'application/vnd.github+json' }
+    });
+    if(!getRes.ok) throw new Error(`GitHub API: ${getRes.status}`);
+    const fileData = await getRes.json();
+    const sha = fileData.sha;
+    const currentContent = JSON.parse(atob(fileData.content.replace(/\n/g,'')));
+    
+    currentContent.queue = (currentContent.queue||[]).filter(k => k.keyword !== keyword);
+    
+    const encoded = btoa(unescape(encodeURIComponent(JSON.stringify(currentContent, null, 2))));
+    const putRes = await fetch(`https://api.github.com/repos/${REPO}/contents/keywords.json`, {
+      method: 'PUT',
+      headers: {
+        'Authorization': `Bearer ${tok}`,
+        'Accept': 'application/vnd.github+json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        message: `remove keyword from queue: ${keyword}`,
+        content: encoded,
+        sha: sha
+      })
+    });
+    if(!putRes.ok){ const e=await putRes.json(); throw new Error(e.message||putRes.status); }
+    loadQueue();
+  } catch(e){
+    alert('Fout: ' + e.message);
+  }
 }
 
 // ── Agent ──────────────────────────────────────────────────────────────────────
