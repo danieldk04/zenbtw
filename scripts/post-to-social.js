@@ -123,36 +123,6 @@ ALLEEN de tweet-tekst teruggeven, niks anders.`;
   }
 }
 
-// ── Upload media to X (Twitter) ────────────────────────────────────────────
-async function uploadMediaToX(mediaPath) {
-  if (!TWITTER_BEARER || !mediaPath) return null;
-
-  try {
-    const mediaData = fs.readFileSync(mediaPath);
-    const base64 = mediaData.toString('base64');
-
-    const uploadRes = await fetch('https://upload.twitter.com/1.1/media/upload.json', {
-      method: 'POST',
-      headers: {
-        'Authorization': `Bearer ${TWITTER_BEARER}`,
-        'Content-Type': 'application/x-www-form-urlencoded'
-      },
-      body: `media_data=${encodeURIComponent(base64)}`
-    });
-
-    if (!uploadRes.ok) {
-      console.warn('⚠️  X media upload failed');
-      return null;
-    }
-
-    const media = await uploadRes.json();
-    return media.media_id_string;
-  } catch (err) {
-    console.warn('X media upload error:', err.message);
-    return null;
-  }
-}
-
 // ── Post to X (Twitter) API v2 ──────────────────────────────────────────────
 async function postToX(text, mediaPath = null) {
   if (!TWITTER_BEARER) {
@@ -161,17 +131,10 @@ async function postToX(text, mediaPath = null) {
   }
 
   try {
+    // X API v2 text only (media support via v1.1 is complex, keep it simple)
     const body = {
       text: text.substring(0, 280)
     };
-
-    // Upload media if available
-    if (mediaPath) {
-      const mediaId = await uploadMediaToX(mediaPath);
-      if (mediaId) {
-        body.media = { media_ids: [mediaId] };
-      }
-    }
 
     const response = await fetch('https://api.twitter.com/2/tweets', {
       method: 'POST',
@@ -183,8 +146,9 @@ async function postToX(text, mediaPath = null) {
     });
 
     if (!response.ok) {
-      const error = await response.text();
-      console.error('X API error:', response.status, error);
+      const errorText = await response.text();
+      console.error('X API error:', response.status);
+      console.error('Response:', errorText);
       return false;
     }
 
@@ -423,7 +387,10 @@ async function main() {
   // Post to social media
   console.log('\n📤 Posting to social media...\n');
 
-  const xPosted = await postToX(postText, screenshotPath);
+  // Post to X (text only - v2 API simplicity)
+  const xPosted = await postToX(postText);
+
+  // Post to Bluesky (with screenshot if available)
   const bskyPosted = await postToBluesky(postText, screenshotPath);
 
   if (xPosted || bskyPosted) {
