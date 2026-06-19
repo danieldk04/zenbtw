@@ -19,6 +19,7 @@ import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import crypto from 'crypto';
+import OAuth from 'oauth-1.0a';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.join(__dirname, '..');
@@ -37,41 +38,20 @@ const ENABLE_SCREENSHOTS = process.env.SCREENSHOTS_ENABLED === 'true';
 // State file to track what's been posted
 const STATE_FILE = path.join(ROOT, '.social-post-state.json');
 
-// ── OAuth 1.0a Helper ──────────────────────────────────────────────────────
-function generateNonce() {
-  return crypto.randomBytes(16).toString('hex');
-}
-
-function generateTimestamp() {
-  return Math.floor(Date.now() / 1000).toString();
-}
-
-function generateSignature(method, url, params, consumerSecret, tokenSecret) {
-  const keys = Object.keys(params).sort();
-  const paramStr = keys.map(k => `${k}=${encodeURIComponent(params[k])}`).join('&');
-  const baseStr = `${method}&${encodeURIComponent(url)}&${encodeURIComponent(paramStr)}`;
-  const signingKey = `${encodeURIComponent(consumerSecret)}&${encodeURIComponent(tokenSecret)}`;
-  return crypto.createHmac('sha1', signingKey).update(baseStr).digest('base64');
-}
-
-function buildAuthHeader(method, url, params, consumerKey, consumerSecret, accessToken, tokenSecret) {
-  const signature = generateSignature(method, url, params, consumerSecret, tokenSecret);
-  const authParams = {
-    oauth_consumer_key: consumerKey,
-    oauth_token: accessToken,
-    oauth_signature_method: 'HMAC-SHA1',
-    oauth_signature_version: '1.0',
-    oauth_nonce: generateNonce(),
-    oauth_timestamp: generateTimestamp(),
-    oauth_signature: signature
-  };
-
-  const authHeader = Object.entries(authParams)
-    .map(([k, v]) => `${k}="${encodeURIComponent(v)}"`)
-    .join(', ');
-
-  return `OAuth ${authHeader}`;
-}
+// ── OAuth 1.0a Setup ───────────────────────────────────────────────────────
+const oauth = new OAuth({
+  consumer: {
+    key: TWITTER_API_KEY,
+    secret: TWITTER_API_SECRET
+  },
+  signature_method: 'HMAC-SHA1',
+  hash_function(baseString, key) {
+    return crypto
+      .createHmac('sha1', key)
+      .update(baseString)
+      .digest('base64');
+  }
+});
 
 // ── Helpers ───────────────────────────────────────────────────────────────
 function loadState() {
@@ -233,17 +213,31 @@ async function postToX(text, mediaPath = null) {
       text: text.substring(0, 280)
     };
 
-    // Upload and attach media if available
+    // Upload and attach media if available (OAuth 1.0a)
     if (mediaPath && fs.existsSync(mediaPath)) {
       try {
         const mediaData = fs.readFileSync(mediaPath);
         const base64Data = mediaData.toString('base64');
 
-        // Upload via v1.1 endpoint with Bearer token
-        const uploadRes = await fetch('https://upload.twitter.com/1.1/media/upload.json', {
+        // OAuth 1.0a request to upload media
+        const url = 'https://upload.twitter.com/1.1/media/upload.json';
+        const requestData = {
+          url: url,
+          method: 'POST',
+          data: { media_data: base64Data }
+        };
+
+        const token = {
+          key: TWITTER_ACCESS_TOKEN,
+          secret: TWITTER_ACCESS_SECRET
+        };
+
+        const authHeader = oauth.toHeader(oauth.authorize(requestData, token));
+
+        const uploadRes = await fetch(url, {
           method: 'POST',
           headers: {
-            'Authorization': `Bearer ${TWITTER_BEARER}`,
+            ...authHeader,
             'Content-Type': 'application/x-www-form-urlencoded'
           },
           body: `media_data=${encodeURIComponent(base64Data)}`
@@ -256,7 +250,8 @@ async function postToX(text, mediaPath = null) {
             console.log(`✓ Media uploaded to X: ${media.media_id_string}`);
           }
         } else {
-          console.warn('⚠️  X media upload failed');
+          const errText = await uploadRes.text();
+          console.warn(`⚠️  X media upload failed (${uploadRes.status}):`, errText.substring(0, 100));
         }
       } catch (err) {
         console.warn('X media error:', err.message);
