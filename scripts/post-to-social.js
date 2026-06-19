@@ -295,15 +295,36 @@ async function postToX(text, mediaPath = null) {
     if (!response.ok) {
       const errorText = await response.text();
       console.error('❌ X API error:', response.status, response.statusText);
-      console.error('URL:', postUrl);
-      console.error('Headers:', Object.keys(authHeader));
       console.error('Response:', errorText.substring(0, 300));
 
-      // If 404, might be endpoint issue - log more details
-      if (response.status === 404) {
-        console.error('⚠️  404 suggests app permissions or endpoint issue');
-        console.error('Check: https://developer.twitter.com → Your App → Settings');
-        console.error('Ensure: Read + Write + Delete permissions are enabled');
+      // Fallback: try without media if media upload failed
+      if (mediaId && response.status === 404) {
+        console.log('\n⚠️  Tweet with media failed, retrying without media...');
+
+        const retryPostData = { status: text.substring(0, 280) };
+        const retryRequestData = {
+          url: postUrl,
+          method: 'POST',
+          data: retryPostData
+        };
+
+        const retryAuthHeader = oauth.toHeader(oauth.authorize(retryRequestData, token));
+        const retryResponse = await fetch(postUrl, {
+          method: 'POST',
+          headers: {
+            ...retryAuthHeader,
+            'Content-Type': 'application/x-www-form-urlencoded'
+          },
+          body: new URLSearchParams(retryPostData).toString()
+        });
+
+        if (retryResponse.ok) {
+          const retryData = await retryResponse.json();
+          console.log(`✓ Posted to X (text only): ${retryData.id_str}`);
+          return true;
+        } else {
+          console.error('Fallback also failed');
+        }
       }
 
       return false;
