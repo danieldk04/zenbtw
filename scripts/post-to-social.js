@@ -30,6 +30,7 @@ const ENABLE_SCREENSHOTS = process.env.SCREENSHOTS_ENABLED === 'true';
 
 // State file to track what's been posted
 const STATE_FILE = path.join(ROOT, '.social-post-state.json');
+const KEYWORDS_FILE = path.join(ROOT, 'keywords-queue.json');
 
 // ── Helpers ───────────────────────────────────────────────────────────────
 function loadState() {
@@ -41,6 +42,17 @@ function loadState() {
 
 function saveState(state) {
   fs.writeFileSync(STATE_FILE, JSON.stringify(state, null, 2), 'utf8');
+}
+
+function loadKeywordsQueue() {
+  if (fs.existsSync(KEYWORDS_FILE)) {
+    return JSON.parse(fs.readFileSync(KEYWORDS_FILE, 'utf8'));
+  }
+  return { queue: [], published: [] };
+}
+
+function saveKeywordsQueue(queue) {
+  fs.writeFileSync(KEYWORDS_FILE, JSON.stringify(queue, null, 2), 'utf8');
 }
 
 function isNewDay(lastDate) {
@@ -63,6 +75,16 @@ function getAvailableBlogs() {
       path: path.join(blogDir, f)
     }))
     .slice(0, 50); // Limit to 50 most recent
+}
+
+function findBlogByKeyword(keyword, blogs) {
+  if (!keyword) return null;
+
+  const keywordLower = keyword.toLowerCase();
+  return blogs.find(blog =>
+    blog.slug.toLowerCase().includes(keywordLower) ||
+    blog.filename.toLowerCase().includes(keywordLower)
+  );
 }
 
 function extractBlogMetadata(htmlContent) {
@@ -380,15 +402,38 @@ async function main() {
     process.exit(1);
   }
 
-  // Select blog (prefer unposted ones)
-  const unposted = blogs.filter(b => !state.postedToday.includes(b.slug));
-  const selectedBlog = unposted.length > 0 ? unposted[0] : blogs[0];
+  // Load keywords queue
+  const keywordQueue = loadKeywordsQueue();
+  let selectedBlog = null;
+  let selectedKeyword = null;
 
-  if (state.postedToday.includes(selectedBlog.slug)) {
-    console.log('⚠️  Already posted this blog today, selecting random instead');
+  // Find first pending keyword and matching blog
+  if (keywordQueue.queue && keywordQueue.queue.length > 0) {
+    const pendingKeywords = keywordQueue.queue
+      .filter(item => item.status === 'pending')
+      .sort((a, b) => (a.priority || 999) - (b.priority || 999));
+
+    for (const keywordItem of pendingKeywords) {
+      const blog = findBlogByKeyword(keywordItem.keyword, blogs);
+      if (blog && !state.postedToday.includes(blog.slug)) {
+        selectedBlog = blog;
+        selectedKeyword = keywordItem;
+        break;
+      }
+    }
   }
 
-  console.log(`📰 Selected blog: ${selectedBlog.slug}\n`);
+  // Fall back to first unposted blog if no keyword match found
+  if (!selectedBlog) {
+    const unposted = blogs.filter(b => !state.postedToday.includes(b.slug));
+    selectedBlog = unposted.length > 0 ? unposted[0] : blogs[0];
+  }
+
+  if (state.postedToday.includes(selectedBlog.slug)) {
+    console.log('⚠️  Already posted this blog today, selecting fallback');
+  }
+
+  console.log(`📰 Selected blog: ${selectedBlog.slug}${selectedKeyword ? ` (keyword: ${selectedKeyword.keyword})` : ' (no matching keyword)'}\n`);
 
   // Extract metadata
   const htmlContent = fs.readFileSync(selectedBlog.path, 'utf8');
@@ -429,6 +474,21 @@ async function main() {
   if (xPosted || bskyPosted) {
     state.postedToday.push(selectedBlog.slug);
     saveState(state);
+
+    // Mark keyword as published if it was used
+    if (selectedKeyword) {
+      const updatedQueue = loadKeywordsQueue();
+      const keywordIndex = updatedQueue.queue.findIndex(k => k.keyword === selectedKeyword.keyword);
+      if (keywordIndex !== -1) {
+        const keyword = updatedQueue.queue[keywordIndex];
+        keyword.status = 'published';
+        keyword.publishedDate = new Date().toISOString().split('T')[0];
+        updatedQueue.queue.splice(keywordIndex, 1);
+        updatedQueue.published.push(keyword);
+        saveKeywordsQueue(updatedQueue);
+      }
+    }
+
     console.log(`\n✅ Daily post #${state.postedToday.length} posted successfully!`);
   } else {
     console.error('\n❌ Failed to post to any platform');
