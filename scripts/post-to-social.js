@@ -123,6 +123,36 @@ ALLEEN de tweet-tekst teruggeven, niks anders.`;
   }
 }
 
+// ── Upload media to X (Twitter) ────────────────────────────────────────────
+async function uploadMediaToX(mediaPath) {
+  if (!TWITTER_BEARER || !mediaPath) return null;
+
+  try {
+    const mediaData = fs.readFileSync(mediaPath);
+    const base64 = mediaData.toString('base64');
+
+    const uploadRes = await fetch('https://upload.twitter.com/1.1/media/upload.json', {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${TWITTER_BEARER}`,
+        'Content-Type': 'application/x-www-form-urlencoded'
+      },
+      body: `media_data=${encodeURIComponent(base64)}`
+    });
+
+    if (!uploadRes.ok) {
+      console.warn('⚠️  X media upload failed');
+      return null;
+    }
+
+    const media = await uploadRes.json();
+    return media.media_id_string;
+  } catch (err) {
+    console.warn('X media upload error:', err.message);
+    return null;
+  }
+}
+
 // ── Post to X (Twitter) API v2 ──────────────────────────────────────────────
 async function postToX(text, mediaPath = null) {
   if (!TWITTER_BEARER) {
@@ -134,6 +164,14 @@ async function postToX(text, mediaPath = null) {
     const body = {
       text: text.substring(0, 280)
     };
+
+    // Upload media if available
+    if (mediaPath) {
+      const mediaId = await uploadMediaToX(mediaPath);
+      if (mediaId) {
+        body.media = { media_ids: [mediaId] };
+      }
+    }
 
     const response = await fetch('https://api.twitter.com/2/tweets', {
       method: 'POST',
@@ -156,6 +194,36 @@ async function postToX(text, mediaPath = null) {
   } catch (err) {
     console.error('X posting error:', err.message);
     return false;
+  }
+}
+
+// ── Upload media to Bluesky ────────────────────────────────────────────────
+async function uploadMediaToBluesky(mediaPath, token, did) {
+  if (!mediaPath) return null;
+
+  try {
+    const mediaData = fs.readFileSync(mediaPath);
+
+    // Upload blob
+    const blobRes = await fetch('https://bsky.social/xrpc/com.atproto.repo.uploadBlob', {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${token}`,
+        'Content-Type': 'image/png'
+      },
+      body: mediaData
+    });
+
+    if (!blobRes.ok) {
+      console.warn('⚠️  Bluesky blob upload failed');
+      return null;
+    }
+
+    const blob = await blobRes.json();
+    return blob.blob;
+  } catch (err) {
+    console.warn('Bluesky media upload error:', err.message);
+    return null;
   }
 }
 
@@ -185,6 +253,7 @@ async function postToBluesky(text, mediaPath = null) {
 
     const session = await loginRes.json();
     const token = session.accessJwt;
+    const did = session.did;
 
     // 2. Create post record
     const now = new Date().toISOString();
@@ -194,7 +263,21 @@ async function postToBluesky(text, mediaPath = null) {
       createdAt: now
     };
 
-    // 3. Post to repository
+    // 3. Upload media if available
+    if (mediaPath) {
+      const blob = await uploadMediaToBluesky(mediaPath, token, did);
+      if (blob) {
+        postRecord.embed = {
+          $type: 'app.bsky.embed.images',
+          images: [{
+            image: blob,
+            alt: 'ZenBTW Dashboard Screenshot'
+          }]
+        };
+      }
+    }
+
+    // 4. Post to repository
     const postRes = await fetch('https://bsky.social/xrpc/com.atproto.repo.createRecord', {
       method: 'POST',
       headers: {
@@ -202,7 +285,7 @@ async function postToBluesky(text, mediaPath = null) {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        repo: session.did,
+        repo: did,
         collection: 'app.bsky.feed.post',
         record: postRecord
       })
@@ -220,6 +303,57 @@ async function postToBluesky(text, mediaPath = null) {
   } catch (err) {
     console.error('Bluesky posting error:', err.message);
     return false;
+  }
+}
+
+// ── Take screenshot of dashboard segment ───────────────────────────────────
+async function captureRelevantScreenshot(blog, description) {
+  if (!ENABLE_SCREENSHOTS) return null;
+
+  try {
+    // Map keywords to dashboard URLs
+    const keywordMap = {
+      'kor': 'https://zenbtw.nl/hulpmiddelen/kor-calculator/',
+      'kor-calculator': 'https://zenbtw.nl/hulpmiddelen/kor-calculator/',
+      'vinted': 'https://zenbtw.nl/app?tab=dashboard',
+      'etsy': 'https://zenbtw.nl/app?tab=dashboard',
+      'shopify': 'https://zenbtw.nl/app?tab=dashboard',
+      'btw': 'https://zenbtw.nl/app?tab=dashboard',
+      'belastingdienst': 'https://zenbtw.nl/app?tab=dashboard',
+      'marketplace': 'https://zenbtw.nl/app?tab=dashboard',
+      'amazon': 'https://zenbtw.nl/app?tab=dashboard',
+      'calculator': 'https://zenbtw.nl/hulpmiddelen/kor-calculator/'
+    };
+
+    // Find best matching URL
+    const descLower = (description + blog.slug).toLowerCase();
+    let targetUrl = 'https://zenbtw.nl/app?tab=dashboard'; // default
+
+    for (const [keyword, url] of Object.entries(keywordMap)) {
+      if (descLower.includes(keyword)) {
+        targetUrl = url;
+        break;
+      }
+    }
+
+    console.log(`📸 Capturing screenshot from: ${targetUrl}`);
+
+    const browser = await puppeteer.launch({ headless: true, args: ['--no-sandbox'] });
+    const page = await browser.newPage();
+    await page.setViewport({ width: 1200, height: 675 });
+    await page.goto(targetUrl, { waitUntil: 'networkidle2', timeout: 30000 });
+
+    const screenshotPath = path.join(ROOT, `.screenshots/${blog.slug}-${Date.now()}.png`);
+    await fs.promises.mkdir(path.dirname(screenshotPath), { recursive: true });
+    await page.screenshot({ path: screenshotPath, type: 'png' });
+
+    await browser.close();
+
+    console.log(`✓ Screenshot saved: ${screenshotPath}`);
+    return screenshotPath;
+  } catch (err) {
+    console.warn('⚠️  Screenshot capture failed:', err.message);
+    return null;
   }
 }
 
@@ -277,11 +411,20 @@ async function main() {
   // Add blog link
   const postText = `${teasingText}\n\nhttps://zenbtw.nl/blog/${selectedBlog.slug}/`;
 
-  // Post to social media
-  console.log('📤 Posting to social media...\n');
+  // Capture dashboard screenshot if enabled
+  console.log('');
+  let screenshotPath = null;
+  if (ENABLE_SCREENSHOTS) {
+    screenshotPath = await captureRelevantScreenshot(selectedBlog, meta.cleanDesc);
+  } else {
+    console.log('ℹ️  Screenshots disabled (set SCREENSHOTS_ENABLED=true to enable)');
+  }
 
-  const xPosted = await postToX(postText);
-  const bskyPosted = await postToBluesky(postText);
+  // Post to social media
+  console.log('\n📤 Posting to social media...\n');
+
+  const xPosted = await postToX(postText, screenshotPath);
+  const bskyPosted = await postToBluesky(postText, screenshotPath);
 
   if (xPosted || bskyPosted) {
     state.postedToday.push(selectedBlog.slug);
