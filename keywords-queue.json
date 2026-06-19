@@ -1,0 +1,11 @@
+{
+  "queue": [
+    { "keyword": "kor", "status": "pending", "priority": 1, "addedDate": "2026-06-19" },
+    { "keyword": "btw", "status": "pending", "priority": 2, "addedDate": "2026-06-19" },
+    { "keyword": "etsy", "status": "pending", "priority": 3, "addedDate": "2026-06-19" },
+    { "keyword": "vinted", "status": "pending", "priority": 4, "addedDate": "2026-06-19" },
+    { "keyword": "shopify", "status": "pending", "priority": 5, "addedDate": "2026-06-19" },
+    { "keyword": "dac7", "status": "pending", "priority": 6, "addedDate": "2026-06-19" }
+  ],
+  "published": []
+}

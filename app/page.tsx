@@ -5,6 +5,7 @@ import { KorWidget } from '../components/dashboard/KorWidget';
 import { TransactionTable } from '../components/dashboard/TransactionTable';
 import { CsvUpload } from '../components/dashboard/CsvUpload';
 import { PdfExport } from '../components/dashboard/PdfExport';
+import { KeywordQueue } from '../components/dashboard/KeywordQueue';
 import { transactionAppService } from '../application/services/TransactionApplicationService';
 import type { TaxSummary } from '../domain/tax/TaxCalculationService';
 import type { Transaction, TransactionStatus } from '../domain/transactions/Transaction';
@@ -113,6 +114,12 @@ export default function DashboardPage() {
             onUpdateCountry={handleUpdateCountry}
             onDelete={handleDelete}
           />
+        </div>
+
+        <hr className="my-8" />
+
+        <div>
+          <KeywordQueue />
         </div>
       </main>
 

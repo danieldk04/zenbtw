@@ -13,13 +13,10 @@
  */
 
 import Anthropic from '@anthropic-ai/sdk';
-import puppeteer from 'puppeteer';
 import fetch from 'node-fetch';
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
-import crypto from 'crypto';
-import OAuth from 'oauth-1.0a';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.join(__dirname, '..');
@@ -27,31 +24,13 @@ const ROOT = path.join(__dirname, '..');
 // Config
 const ANTHROPIC_KEY = process.env.ANTHROPIC_API_KEY;
 const TWITTER_BEARER = process.env.TWITTER_BEARER_TOKEN;
-const TWITTER_API_KEY = process.env.TWITTER_API_KEY;
-const TWITTER_API_SECRET = process.env.TWITTER_API_SECRET;
-const TWITTER_ACCESS_TOKEN = process.env.TWITTER_ACCESS_TOKEN;
-const TWITTER_ACCESS_SECRET = process.env.TWITTER_ACCESS_SECRET;
 const BLUESKY_USER = process.env.BLUESKY_USERNAME;
 const BLUESKY_PASS = process.env.BLUESKY_PASSWORD;
 const ENABLE_SCREENSHOTS = process.env.SCREENSHOTS_ENABLED === 'true';
 
 // State file to track what's been posted
 const STATE_FILE = path.join(ROOT, '.social-post-state.json');
-
-// ── OAuth 1.0a Setup ───────────────────────────────────────────────────────
-const oauth = new OAuth({
-  consumer: {
-    key: TWITTER_API_KEY,
-    secret: TWITTER_API_SECRET
-  },
-  signature_method: 'HMAC-SHA1',
-  hash_function(baseString, key) {
-    return crypto
-      .createHmac('sha1', key)
-      .update(baseString)
-      .digest('base64');
-  }
-});
+const KEYWORDS_FILE = path.join(ROOT, 'keywords-queue.json');
 
 // ── Helpers ───────────────────────────────────────────────────────────────
 function loadState() {
@@ -63,6 +42,17 @@ function loadState() {
 
 function saveState(state) {
   fs.writeFileSync(STATE_FILE, JSON.stringify(state, null, 2), 'utf8');
+}
+
+function loadKeywordsQueue() {
+  if (fs.existsSync(KEYWORDS_FILE)) {
+    return JSON.parse(fs.readFileSync(KEYWORDS_FILE, 'utf8'));
+  }
+  return { queue: [], published: [] };
+}
+
+function saveKeywordsQueue(queue) {
+  fs.writeFileSync(KEYWORDS_FILE, JSON.stringify(queue, null, 2), 'utf8');
 }
 
 function isNewDay(lastDate) {
@@ -85,6 +75,16 @@ function getAvailableBlogs() {
       path: path.join(blogDir, f)
     }))
     .slice(0, 50); // Limit to 50 most recent
+}
+
+function findBlogByKeyword(keyword, blogs) {
+  if (!keyword) return null;
+
+  const keywordLower = keyword.toLowerCase();
+  return blogs.find(blog =>
+    blog.slug.toLowerCase().includes(keywordLower) ||
+    blog.filename.toLowerCase().includes(keywordLower)
+  );
 }
 
 function extractBlogMetadata(htmlContent) {
@@ -116,19 +116,20 @@ async function generateTeasingCopy(blog, title, description) {
 
   const client = new Anthropic();
 
-  const prompt = `Je bent Daniel, founder van ZenBTW. Je schrijft korte, punchy teasers voor blog posts die mensen echt moeten lezen. Geen buzzwords, directe toon.
+  const prompt = `Je bent Daniel, founder van ZenBTW. Je schrijft korte, punchy teasers voor blog posts die mensen echt moeten lezen. Geen buzzwords, geen emoji's (behalve misschien 1 relevant icon), directe toon.
 
 Blog titel: "${title}"
 Blog snippet: "${description}"
+Blog URL: https://zenbtw.nl/blog/${blog.slug}/
 
-Schrijf 1 teasing tekst (max 200 tekens) die:
+Schrijf 1 teasing tweet (max 250 char) die:
 - Begint met een provocerende vraag of statement
 - Hints naar concrete waarde in het artikel
-- Eindigt met "Lees →" (GEEN URL, die voegen we zelf toe)
-- GEEN hashtags, max 1 emoji als het echt past
+- Eindigt met duidelijke CTA ("Lees →" of link)
+- GEEN hashtags, GEEN emoji's (tenzij 1 ter illustratie)
 - Geschreven in Nederlands
 
-ALLEEN de tekst teruggeven, geen URL, niks anders.`;
+ALLEEN de tweet-tekst teruggeven, niks anders.`;
 
   try {
     const msg = await client.messages.create({
@@ -144,55 +145,29 @@ ALLEEN de tekst teruggeven, geen URL, niks anders.`;
   }
 }
 
-// ── Upload media to X via OAuth 1.0a (v1.1 API) ────────────────────────────
-async function uploadMediaToXOAuth(mediaPath) {
-  if (!TWITTER_API_KEY || !TWITTER_API_SECRET || !TWITTER_ACCESS_TOKEN || !TWITTER_ACCESS_SECRET) {
-    console.warn('⚠️  X OAuth 1.0a credentials missing');
-    return null;
-  }
+// ── Upload media to X (Twitter) ────────────────────────────────────────────
+async function uploadMediaToX(mediaPath) {
+  if (!TWITTER_BEARER || !mediaPath) return null;
 
   try {
     const mediaData = fs.readFileSync(mediaPath);
-    const base64Data = mediaData.toString('base64');
-    const mediaType = 'image/png';
+    const base64 = mediaData.toString('base64');
 
-    // POST form data with OAuth 1.0a signature
-    const url = 'https://upload.twitter.com/1.1/media/upload.json';
-    const params = {
-      media_data: base64Data
-    };
-
-    const authHeader = buildAuthHeader(
-      'POST',
-      url,
-      params,
-      TWITTER_API_KEY,
-      TWITTER_API_SECRET,
-      TWITTER_ACCESS_TOKEN,
-      TWITTER_ACCESS_SECRET
-    );
-
-    // Use form-encoded body for media upload
-    const formData = new URLSearchParams();
-    formData.append('media_data', base64Data);
-
-    const uploadRes = await fetch(url, {
+    const uploadRes = await fetch('https://upload.twitter.com/1.1/media/upload.json', {
       method: 'POST',
       headers: {
-        'Authorization': authHeader,
+        'Authorization': `Bearer ${TWITTER_BEARER}`,
         'Content-Type': 'application/x-www-form-urlencoded'
       },
-      body: formData.toString()
+      body: `media_data=${encodeURIComponent(base64)}`
     });
 
     if (!uploadRes.ok) {
-      const error = await uploadRes.text();
-      console.warn(`⚠️  X media upload failed (${uploadRes.status}):`, error);
+      console.warn('⚠️  X media upload failed');
       return null;
     }
 
     const media = await uploadRes.json();
-    console.log(`✓ Media uploaded to X: ${media.media_id_string}`);
     return media.media_id_string;
   } catch (err) {
     console.warn('X media upload error:', err.message);
@@ -200,95 +175,38 @@ async function uploadMediaToXOAuth(mediaPath) {
   }
 }
 
-// ── Post to X (Twitter) v1.1 with OAuth 1.0a (user context) ────────────────
+// ── Post to X (Twitter) API v2 ──────────────────────────────────────────────
 async function postToX(text, mediaPath = null) {
-  if (!TWITTER_API_KEY || !TWITTER_API_SECRET || !TWITTER_ACCESS_TOKEN || !TWITTER_ACCESS_SECRET) {
-    console.warn('⚠️  X OAuth 1.0a credentials missing:');
-    console.warn('  - API_KEY:', TWITTER_API_KEY ? '✓' : '✗');
-    console.warn('  - API_SECRET:', TWITTER_API_SECRET ? '✓' : '✗');
-    console.warn('  - ACCESS_TOKEN:', TWITTER_ACCESS_TOKEN ? '✓' : '✗');
-    console.warn('  - ACCESS_SECRET:', TWITTER_ACCESS_SECRET ? '✓' : '✗');
+  if (!TWITTER_BEARER) {
+    console.warn('⚠️  TWITTER_BEARER_TOKEN missing, skipping X post');
     return false;
   }
 
   try {
-    let mediaId = null;
+    const body = {
+      text: text.substring(0, 280)
+    };
 
     // Upload media if available
-    if (mediaPath && fs.existsSync(mediaPath)) {
-      try {
-        const mediaData = fs.readFileSync(mediaPath);
-        const base64Data = mediaData.toString('base64');
-
-        // OAuth 1.0a media upload
-        const mediaUrl = 'https://upload.twitter.com/1.1/media/upload.json';
-        const mediaRequestData = {
-          url: mediaUrl,
-          method: 'POST',
-          data: { media_data: base64Data }
-        };
-
-        const token = {
-          key: TWITTER_ACCESS_TOKEN,
-          secret: TWITTER_ACCESS_SECRET
-        };
-
-        const authHeader = oauth.toHeader(oauth.authorize(mediaRequestData, token));
-
-        const uploadRes = await fetch(mediaUrl, {
-          method: 'POST',
-          headers: {
-            ...authHeader,
-            'Content-Type': 'application/x-www-form-urlencoded'
-          },
-          body: `media_data=${encodeURIComponent(base64Data)}`
-        });
-
-        if (uploadRes.ok) {
-          const media = await uploadRes.json();
-          if (media.media_id_string) {
-            mediaId = media.media_id_string;
-            console.log(`✓ Media uploaded to X: ${mediaId}`);
-          }
-        } else {
-          const errText = await uploadRes.text();
-          console.warn(`⚠️  X media upload failed (${uploadRes.status}):`, errText.substring(0, 100));
-        }
-      } catch (err) {
-        console.warn('X media error:', err.message);
+    if (mediaPath) {
+      const mediaId = await uploadMediaToX(mediaPath);
+      if (mediaId) {
+        body.media = { media_ids: [mediaId] };
       }
     }
 
-    // Post tweet via X API v2 with OAuth 1.0a user context
-    // For v2 JSON body: sign only the URL (no body params in signature)
-    const postUrl = 'https://api.twitter.com/2/tweets';
-
-    const token = {
-      key: TWITTER_ACCESS_TOKEN,
-      secret: TWITTER_ACCESS_SECRET
-    };
-
-    // OAuth 1.0a sign with empty data (v2 uses JSON body, not form-encoded)
-    const authHeader = oauth.toHeader(oauth.authorize({ url: postUrl, method: 'POST' }, token));
-
-    const tweetBody = { text: text.substring(0, 280) };
-    if (mediaId) {
-      tweetBody.media = { media_ids: [mediaId] };
-    }
-
-    const response = await fetch(postUrl, {
+    const response = await fetch('https://api.twitter.com/2/tweets', {
       method: 'POST',
       headers: {
-        ...authHeader,
+        'Authorization': `Bearer ${TWITTER_BEARER}`,
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify(tweetBody)
+      body: JSON.stringify(body)
     });
 
     if (!response.ok) {
-      const errorText = await response.text();
-      console.error('❌ X API error:', response.status, response.statusText);
-      console.error('Response:', errorText.substring(0, 300));
+      const error = await response.text();
+      console.error('X API error:', response.status, error);
       return false;
     }
 
@@ -359,33 +277,13 @@ async function postToBluesky(text, mediaPath = null) {
     const token = session.accessJwt;
     const did = session.did;
 
-    // 2. Create post record with facets (links)
-    // Bluesky max 300 graphemes — ensure text fits
-    const truncatedText = [...text].length > 295 ? [...text].slice(0, 295).join('') + '…' : text;
-
+    // 2. Create post record
     const now = new Date().toISOString();
     const postRecord = {
       $type: 'app.bsky.feed.post',
-      text: truncatedText,
-      createdAt: now,
-      facets: []
+      text: text,
+      createdAt: now
     };
-
-    // Add link facets — Bluesky needs UTF-8 byte offsets, not JS char offsets
-    const urlRegex = /(https?:\/\/[^\s]+)/g;
-    const textBytes = Buffer.from(truncatedText, 'utf8');
-    let match;
-    while ((match = urlRegex.exec(truncatedText)) !== null) {
-      const byteStart = Buffer.from(truncatedText.substring(0, match.index), 'utf8').length;
-      const byteEnd = byteStart + Buffer.from(match[0], 'utf8').length;
-      postRecord.facets.push({
-        index: { byteStart, byteEnd },
-        features: [{
-          $type: 'app.bsky.richtext.facet#link',
-          uri: match[0]
-        }]
-      });
-    }
 
     // 3. Upload media if available
     if (mediaPath) {
@@ -435,25 +333,23 @@ async function captureRelevantScreenshot(blog, description) {
   if (!ENABLE_SCREENSHOTS) return null;
 
   try {
-    // Map keywords to dashboard URLs - use publicly accessible URLs only
+    // Map keywords to dashboard URLs
     const keywordMap = {
-      'kor': 'https://zenbtw.nl/#/hulpmiddelen/kor-calculator',
-      'kor-calculator': 'https://zenbtw.nl/#/hulpmiddelen/kor-calculator',
-      'calculator': 'https://zenbtw.nl/#/hulpmiddelen/kor-calculator',
-      'vinted': 'https://zenbtw.nl',
-      'etsy': 'https://zenbtw.nl',
-      'shopify': 'https://zenbtw.nl',
-      'btw': 'https://zenbtw.nl',
-      'belastingdienst': 'https://zenbtw.nl',
-      'marketplace': 'https://zenbtw.nl',
-      'amazon': 'https://zenbtw.nl',
-      'dac7': 'https://zenbtw.nl',
-      'oss': 'https://zenbtw.nl'
+      'kor': 'https://zenbtw.nl/hulpmiddelen/kor-calculator/',
+      'kor-calculator': 'https://zenbtw.nl/hulpmiddelen/kor-calculator/',
+      'vinted': 'https://zenbtw.nl/app?tab=dashboard',
+      'etsy': 'https://zenbtw.nl/app?tab=dashboard',
+      'shopify': 'https://zenbtw.nl/app?tab=dashboard',
+      'btw': 'https://zenbtw.nl/app?tab=dashboard',
+      'belastingdienst': 'https://zenbtw.nl/app?tab=dashboard',
+      'marketplace': 'https://zenbtw.nl/app?tab=dashboard',
+      'amazon': 'https://zenbtw.nl/app?tab=dashboard',
+      'calculator': 'https://zenbtw.nl/hulpmiddelen/kor-calculator/'
     };
 
     // Find best matching URL
     const descLower = (description + blog.slug).toLowerCase();
-    let targetUrl = 'https://zenbtw.nl'; // default to homepage
+    let targetUrl = 'https://zenbtw.nl/app?tab=dashboard'; // default
 
     for (const [keyword, url] of Object.entries(keywordMap)) {
       if (descLower.includes(keyword)) {
@@ -464,19 +360,10 @@ async function captureRelevantScreenshot(blog, description) {
 
     console.log(`📸 Capturing screenshot from: ${targetUrl}`);
 
-    const browser = await puppeteer.launch({
-      headless: true,
-      args: ['--no-sandbox', '--disable-setuid-sandbox']
-    });
-
+    const browser = await puppeteer.launch({ headless: true, args: ['--no-sandbox'] });
     const page = await browser.newPage();
     await page.setViewport({ width: 1200, height: 675 });
-
-    // Set longer timeout for page load
-    await page.goto(targetUrl, {
-      waitUntil: 'networkidle2',
-      timeout: 30000
-    }).catch(err => console.warn('Page load warning:', err.message));
+    await page.goto(targetUrl, { waitUntil: 'networkidle2', timeout: 30000 });
 
     const screenshotPath = path.join(ROOT, `.screenshots/${blog.slug}-${Date.now()}.png`);
     await fs.promises.mkdir(path.dirname(screenshotPath), { recursive: true });
@@ -484,13 +371,7 @@ async function captureRelevantScreenshot(blog, description) {
 
     await browser.close();
 
-    // Validate screenshot file exists and has content
-    const stats = fs.statSync(screenshotPath);
-    if (stats.size < 5000) {
-      console.warn(`⚠️  Screenshot too small (${stats.size} bytes), might be blank`);
-    }
-
-    console.log(`✓ Screenshot saved: ${screenshotPath} (${stats.size} bytes)`);
+    console.log(`✓ Screenshot saved: ${screenshotPath}`);
     return screenshotPath;
   } catch (err) {
     console.warn('⚠️  Screenshot capture failed:', err.message);
@@ -521,15 +402,38 @@ async function main() {
     process.exit(1);
   }
 
-  // Select blog (prefer unposted ones)
-  const unposted = blogs.filter(b => !state.postedToday.includes(b.slug));
-  const selectedBlog = unposted.length > 0 ? unposted[0] : blogs[0];
+  // Load keywords queue
+  const keywordQueue = loadKeywordsQueue();
+  let selectedBlog = null;
+  let selectedKeyword = null;
 
-  if (state.postedToday.includes(selectedBlog.slug)) {
-    console.log('⚠️  Already posted this blog today, selecting random instead');
+  // Find first pending keyword and matching blog
+  if (keywordQueue.queue && keywordQueue.queue.length > 0) {
+    const pendingKeywords = keywordQueue.queue
+      .filter(item => item.status === 'pending')
+      .sort((a, b) => (a.priority || 999) - (b.priority || 999));
+
+    for (const keywordItem of pendingKeywords) {
+      const blog = findBlogByKeyword(keywordItem.keyword, blogs);
+      if (blog && !state.postedToday.includes(blog.slug)) {
+        selectedBlog = blog;
+        selectedKeyword = keywordItem;
+        break;
+      }
+    }
   }
 
-  console.log(`📰 Selected blog: ${selectedBlog.slug}\n`);
+  // Fall back to first unposted blog if no keyword match found
+  if (!selectedBlog) {
+    const unposted = blogs.filter(b => !state.postedToday.includes(b.slug));
+    selectedBlog = unposted.length > 0 ? unposted[0] : blogs[0];
+  }
+
+  if (state.postedToday.includes(selectedBlog.slug)) {
+    console.log('⚠️  Already posted this blog today, selecting fallback');
+  }
+
+  console.log(`📰 Selected blog: ${selectedBlog.slug}${selectedKeyword ? ` (keyword: ${selectedKeyword.keyword})` : ' (no matching keyword)'}\n`);
 
   // Extract metadata
   const htmlContent = fs.readFileSync(selectedBlog.path, 'utf8');
@@ -549,9 +453,8 @@ async function main() {
 
   console.log(`\n📝 Generated teaser:\n"${teasingText}"\n`);
 
-  // Combine teaser + blog URL (URL only once, as separate line)
-  const blogUrl = `https://zenbtw.nl/blog/${selectedBlog.slug}`;
-  const postText = `${teasingText}\n\n${blogUrl}`;
+  // Add blog link
+  const postText = `${teasingText}\n\nhttps://zenbtw.nl/blog/${selectedBlog.slug}/`;
 
   // Capture dashboard screenshot if enabled
   console.log('');
@@ -565,15 +468,27 @@ async function main() {
   // Post to social media
   console.log('\n📤 Posting to social media...\n');
 
-  // Post to X (with screenshot via OAuth 1.0a media upload)
   const xPosted = await postToX(postText, screenshotPath);
-
-  // Post to Bluesky (with screenshot if available)
   const bskyPosted = await postToBluesky(postText, screenshotPath);
 
   if (xPosted || bskyPosted) {
     state.postedToday.push(selectedBlog.slug);
     saveState(state);
+
+    // Mark keyword as published if it was used
+    if (selectedKeyword) {
+      const updatedQueue = loadKeywordsQueue();
+      const keywordIndex = updatedQueue.queue.findIndex(k => k.keyword === selectedKeyword.keyword);
+      if (keywordIndex !== -1) {
+        const keyword = updatedQueue.queue[keywordIndex];
+        keyword.status = 'published';
+        keyword.publishedDate = new Date().toISOString().split('T')[0];
+        updatedQueue.queue.splice(keywordIndex, 1);
+        updatedQueue.published.push(keyword);
+        saveKeywordsQueue(updatedQueue);
+      }
+    }
+
     console.log(`\n✅ Daily post #${state.postedToday.length} posted successfully!`);
   } else {
     console.error('\n❌ Failed to post to any platform');
