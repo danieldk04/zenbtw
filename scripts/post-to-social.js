@@ -130,10 +130,10 @@ Schrijf 1 teasing tekst (max 200 tekens) die:
 - Hints naar concrete waarde in het artikel
 - Eindigt met "Lees →"
 - GEEN hashtags, max 1 emoji
-- GEEN URL - die voegen we zelf toe
+- GEEN URL - die voegen we zelf toe (belangrijk!)
 - Geschreven in Nederlands
 
-ALLEEN de tekst teruggeven, GEEN URL, niks anders.`;
+ALLEEN de teaser-tekst teruggeven, GEEN links, GEEN URLs, niks anders.`;
 
   try {
     const msg = await client.messages.create({
@@ -145,8 +145,11 @@ ALLEEN de tekst teruggeven, GEEN URL, niks anders.`;
     let text = msg.content[0].type === 'text' ? msg.content[0].text.trim() : null;
     if (!text) return null;
 
-    // Strip any URL Claude sneaks in anyway
-    text = text.replace(/https?:\/\/\S+/g, '').replace(/\s{2,}/g, ' ').trim();
+    // Aggressively strip ANY URL Claude sneaks in
+    text = text.replace(/https?:\/\/[^\s)]+/g, '').trim();
+    text = text.replace(/www\.[^\s)]+/g, '').trim();
+    text = text.replace(/zenbtw\.nl[^\s)]*\/?/g, '').trim();
+    text = text.replace(/\s{2,}/g, ' ').trim();
 
     return text;
   } catch (err) {
@@ -474,8 +477,8 @@ async function main() {
 
   console.log(`\n📝 Generated teaser:\n"${teasingText}"\n`);
 
-  // Blog URL without trailing slash (avoids 404)
-  const blogUrl = `https://zenbtw.nl/blog/${selectedBlog.slug}`;
+  // Blog URL - CRITICAL: NO trailing slash (prevents 404)
+  const blogUrl = `https://zenbtw.nl/blog/${selectedBlog.slug}`.replace(/\/$/, '');
 
   // X post: teaser + URL on separate line (280 char limit)
   const xPostText = `${teasingText}\n\n${blogUrl}`.substring(0, 280);
