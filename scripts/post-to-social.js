@@ -234,11 +234,32 @@ async function postToX(text, mediaPath = null) {
     };
 
     // Upload and attach media if available
-    if (mediaPath) {
-      const mediaId = await uploadMediaToXOAuth(mediaPath);
-      if (mediaId) {
-        body.media = { media_ids: [mediaId] };
-        console.log('Attaching media to post...');
+    if (mediaPath && fs.existsSync(mediaPath)) {
+      try {
+        const mediaData = fs.readFileSync(mediaPath);
+        const base64Data = mediaData.toString('base64');
+
+        // Upload via v1.1 endpoint with Bearer token
+        const uploadRes = await fetch('https://upload.twitter.com/1.1/media/upload.json', {
+          method: 'POST',
+          headers: {
+            'Authorization': `Bearer ${TWITTER_BEARER}`,
+            'Content-Type': 'application/x-www-form-urlencoded'
+          },
+          body: `media_data=${encodeURIComponent(base64Data)}`
+        });
+
+        if (uploadRes.ok) {
+          const media = await uploadRes.json();
+          if (media.media_id_string) {
+            body.media = { media_ids: [media.media_id_string] };
+            console.log(`✓ Media uploaded to X: ${media.media_id_string}`);
+          }
+        } else {
+          console.warn('⚠️  X media upload failed');
+        }
+      } catch (err) {
+        console.warn('X media error:', err.message);
       }
     }
 
