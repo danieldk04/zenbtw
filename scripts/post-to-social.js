@@ -3,13 +3,6 @@
  * ZenBTW Social Media Poster
  * Posts daily teasers from blog content to X (Twitter) and Bluesky
  * Generates 3 posts per day with engaging copy + optional dashboard screenshots
- *
- * Env vars required:
- * - ANTHROPIC_API_KEY: Claude API key (for generating teasing copy)
- * - TWITTER_BEARER_TOKEN: X API v2 Bearer token
- * - BLUESKY_USERNAME: Bluesky account identifier (usually email)
- * - BLUESKY_PASSWORD: Bluesky app password
- * - SCREENSHOTS_ENABLED: true/false (default: false for faster posts)
  */
 
 import Anthropic from '@anthropic-ai/sdk';
@@ -17,20 +10,34 @@ import fetch from 'node-fetch';
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
+import crypto from 'crypto';
+import OAuth from 'oauth-1.0a';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.join(__dirname, '..');
 
 // Config
 const ANTHROPIC_KEY = process.env.ANTHROPIC_API_KEY;
-const TWITTER_BEARER = process.env.TWITTER_BEARER_TOKEN;
+const TWITTER_API_KEY = process.env.TWITTER_API_KEY;
+const TWITTER_API_SECRET = process.env.TWITTER_API_SECRET;
+const TWITTER_ACCESS_TOKEN = process.env.TWITTER_ACCESS_TOKEN;
+const TWITTER_ACCESS_SECRET = process.env.TWITTER_ACCESS_SECRET;
 const BLUESKY_USER = process.env.BLUESKY_USERNAME;
 const BLUESKY_PASS = process.env.BLUESKY_PASSWORD;
 const ENABLE_SCREENSHOTS = process.env.SCREENSHOTS_ENABLED === 'true';
 
-// State file to track what's been posted
+// State files
 const STATE_FILE = path.join(ROOT, '.social-post-state.json');
 const KEYWORDS_FILE = path.join(ROOT, 'keywords-queue.json');
+
+// ── OAuth 1.0a Setup ───────────────────────────────────────────────────────
+const oauth = new OAuth({
+  consumer: { key: TWITTER_API_KEY, secret: TWITTER_API_SECRET },
+  signature_method: 'HMAC-SHA1',
+  hash_function(baseString, key) {
+    return crypto.createHmac('sha1', key).update(baseString).digest('base64');
+  }
+});
 
 // ── Helpers ───────────────────────────────────────────────────────────────
 function loadState() {
@@ -62,7 +69,7 @@ function isNewDay(lastDate) {
   return last.toDateString() !== now.toDateString();
 }
 
-// ── Fetch blog posts from filesystem ────────────────────────────────────────
+// ── Blog helpers ─────────────────────────────────────────────────────────────
 function getAvailableBlogs() {
   const blogDir = path.join(ROOT, 'blog');
   if (!fs.existsSync(blogDir)) return [];
@@ -74,12 +81,11 @@ function getAvailableBlogs() {
       slug: f.replace('.html', ''),
       path: path.join(blogDir, f)
     }))
-    .slice(0, 50); // Limit to 50 most recent
+    .slice(0, 50);
 }
 
 function findBlogByKeyword(keyword, blogs) {
   if (!keyword) return null;
-
   const keywordLower = keyword.toLowerCase();
   return blogs.find(blog =>
     blog.slug.toLowerCase().includes(keywordLower) ||
@@ -88,13 +94,11 @@ function findBlogByKeyword(keyword, blogs) {
 }
 
 function extractBlogMetadata(htmlContent) {
-  // Extract title from <h1> or og:title
   let title = '';
   const h1Match = htmlContent.match(/<h1[^>]*>([^<]+)<\/h1>/i);
   const ogMatch = htmlContent.match(/<meta\s+property=["']og:title["']\s+content=["']([^"']+)/i);
   title = h1Match?.[1] || ogMatch?.[1] || 'Blog Post';
 
-  // Extract description from og:description or first paragraph
   let desc = '';
   const ogDescMatch = htmlContent.match(/<meta\s+property=["']og:description["']\s+content=["']([^"']+)/i);
   const pMatch = htmlContent.match(/<p[^>]*>([^<]{50,150}[^<]*)<\/p>/i);
@@ -116,58 +120,71 @@ async function generateTeasingCopy(blog, title, description) {
 
   const client = new Anthropic();
 
-  const prompt = `Je bent Daniel, founder van ZenBTW. Je schrijft korte, punchy teasers voor blog posts die mensen echt moeten lezen. Geen buzzwords, geen emoji's (behalve misschien 1 relevant icon), directe toon.
+  const prompt = `Je bent Daniel, founder van ZenBTW. Je schrijft korte, punchy teasers voor blog posts.
 
 Blog titel: "${title}"
 Blog snippet: "${description}"
-Blog URL: https://zenbtw.nl/blog/${blog.slug}/
 
-Schrijf 1 teasing tweet (max 250 char) die:
+Schrijf 1 teasing tekst (max 200 tekens) die:
 - Begint met een provocerende vraag of statement
 - Hints naar concrete waarde in het artikel
-- Eindigt met duidelijke CTA ("Lees →" of link)
-- GEEN hashtags, GEEN emoji's (tenzij 1 ter illustratie)
+- Eindigt met "Lees →"
+- GEEN hashtags, max 1 emoji
+- GEEN URL - die voegen we zelf toe
 - Geschreven in Nederlands
 
-ALLEEN de tweet-tekst teruggeven, niks anders.`;
+ALLEEN de tekst teruggeven, GEEN URL, niks anders.`;
 
   try {
     const msg = await client.messages.create({
-      model: 'claude-opus-4-1',
-      max_tokens: 300,
+      model: 'claude-haiku-4-5-20251001',
+      max_tokens: 250,
       messages: [{ role: 'user', content: prompt }]
     });
 
-    return msg.content[0].type === 'text' ? msg.content[0].text.trim() : null;
+    let text = msg.content[0].type === 'text' ? msg.content[0].text.trim() : null;
+    if (!text) return null;
+
+    // Strip any URL Claude sneaks in anyway
+    text = text.replace(/https?:\/\/\S+/g, '').replace(/\s{2,}/g, ' ').trim();
+
+    return text;
   } catch (err) {
     console.error('Claude API error:', err.message);
     return null;
   }
 }
 
-// ── Upload media to X (Twitter) ────────────────────────────────────────────
+// ── X OAuth 1.0a upload + post ────────────────────────────────────────────
 async function uploadMediaToX(mediaPath) {
-  if (!TWITTER_BEARER || !mediaPath) return null;
+  if (!TWITTER_API_KEY || !TWITTER_ACCESS_TOKEN || !mediaPath) return null;
 
   try {
     const mediaData = fs.readFileSync(mediaPath);
     const base64 = mediaData.toString('base64');
 
-    const uploadRes = await fetch('https://upload.twitter.com/1.1/media/upload.json', {
+    const url = 'https://upload.twitter.com/1.1/media/upload.json';
+    const token = { key: TWITTER_ACCESS_TOKEN, secret: TWITTER_ACCESS_SECRET };
+
+    // Include media_data in signature for form-encoded upload
+    const authHeader = oauth.toHeader(
+      oauth.authorize({ url, method: 'POST', data: { media_data: base64 } }, token)
+    );
+
+    const uploadRes = await fetch(url, {
       method: 'POST',
-      headers: {
-        'Authorization': `Bearer ${TWITTER_BEARER}`,
-        'Content-Type': 'application/x-www-form-urlencoded'
-      },
+      headers: { ...authHeader, 'Content-Type': 'application/x-www-form-urlencoded' },
       body: `media_data=${encodeURIComponent(base64)}`
     });
 
     if (!uploadRes.ok) {
-      console.warn('⚠️  X media upload failed');
+      const err = await uploadRes.text();
+      console.warn(`⚠️  X media upload failed (${uploadRes.status}):`, err.substring(0, 100));
       return null;
     }
 
     const media = await uploadRes.json();
+    console.log(`✓ Media uploaded to X: ${media.media_id_string}`);
     return media.media_id_string;
   } catch (err) {
     console.warn('X media upload error:', err.message);
@@ -175,38 +192,35 @@ async function uploadMediaToX(mediaPath) {
   }
 }
 
-// ── Post to X (Twitter) API v2 ──────────────────────────────────────────────
 async function postToX(text, mediaPath = null) {
-  if (!TWITTER_BEARER) {
-    console.warn('⚠️  TWITTER_BEARER_TOKEN missing, skipping X post');
+  if (!TWITTER_API_KEY || !TWITTER_API_SECRET || !TWITTER_ACCESS_TOKEN || !TWITTER_ACCESS_SECRET) {
+    console.warn('⚠️  X OAuth 1.0a credentials missing');
     return false;
   }
 
   try {
-    const body = {
-      text: text.substring(0, 280)
-    };
-
-    // Upload media if available
-    if (mediaPath) {
-      const mediaId = await uploadMediaToX(mediaPath);
-      if (mediaId) {
-        body.media = { media_ids: [mediaId] };
-      }
+    let mediaId = null;
+    if (mediaPath && fs.existsSync(mediaPath)) {
+      mediaId = await uploadMediaToX(mediaPath);
     }
 
-    const response = await fetch('https://api.twitter.com/2/tweets', {
+    // v2 tweets endpoint — sign only URL, not JSON body
+    const postUrl = 'https://api.twitter.com/2/tweets';
+    const token = { key: TWITTER_ACCESS_TOKEN, secret: TWITTER_ACCESS_SECRET };
+    const authHeader = oauth.toHeader(oauth.authorize({ url: postUrl, method: 'POST' }, token));
+
+    const tweetBody = { text: text.substring(0, 280) };
+    if (mediaId) tweetBody.media = { media_ids: [mediaId] };
+
+    const response = await fetch(postUrl, {
       method: 'POST',
-      headers: {
-        'Authorization': `Bearer ${TWITTER_BEARER}`,
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(body)
+      headers: { ...authHeader, 'Content-Type': 'application/json' },
+      body: JSON.stringify(tweetBody)
     });
 
     if (!response.ok) {
       const error = await response.text();
-      console.error('X API error:', response.status, error);
+      console.error('❌ X API error:', response.status, error.substring(0, 300));
       return false;
     }
 
@@ -219,20 +233,15 @@ async function postToX(text, mediaPath = null) {
   }
 }
 
-// ── Upload media to Bluesky ────────────────────────────────────────────────
-async function uploadMediaToBluesky(mediaPath, token, did) {
-  if (!mediaPath) return null;
+// ── Bluesky post with correct facets + grapheme limit ───────────────────────
+async function uploadMediaToBluesky(mediaPath, token) {
+  if (!mediaPath || !fs.existsSync(mediaPath)) return null;
 
   try {
     const mediaData = fs.readFileSync(mediaPath);
-
-    // Upload blob
     const blobRes = await fetch('https://bsky.social/xrpc/com.atproto.repo.uploadBlob', {
       method: 'POST',
-      headers: {
-        'Authorization': `Bearer ${token}`,
-        'Content-Type': 'image/png'
-      },
+      headers: { 'Authorization': `Bearer ${token}`, 'Content-Type': 'image/png' },
       body: mediaData
     });
 
@@ -249,22 +258,18 @@ async function uploadMediaToBluesky(mediaPath, token, did) {
   }
 }
 
-// ── Post to Bluesky ─────────────────────────────────────────────────────────
-async function postToBluesky(text, mediaPath = null) {
+async function postToBluesky(teaserText, blogUrl, mediaPath = null) {
   if (!BLUESKY_USER || !BLUESKY_PASS) {
     console.warn('⚠️  BLUESKY credentials missing, skipping Bluesky post');
     return false;
   }
 
   try {
-    // 1. Login to get session token
+    // 1. Login
     const loginRes = await fetch('https://bsky.social/xrpc/com.atproto.server.createSession', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        identifier: BLUESKY_USER,
-        password: BLUESKY_PASS
-      })
+      body: JSON.stringify({ identifier: BLUESKY_USER, password: BLUESKY_PASS })
     });
 
     if (!loginRes.ok) {
@@ -277,40 +282,57 @@ async function postToBluesky(text, mediaPath = null) {
     const token = session.accessJwt;
     const did = session.did;
 
-    // 2. Create post record
-    const now = new Date().toISOString();
+    // 2. Build text respecting 300 grapheme limit
+    // Leave room for "\n\n" (2) + URL length
+    const urlGraphemes = [...blogUrl].length;
+    const maxTeaserGraphemes = 300 - 2 - urlGraphemes; // 2 for \n\n separator
+
+    let teaser = teaserText;
+    if ([...teaser].length > maxTeaserGraphemes) {
+      teaser = [...teaser].slice(0, maxTeaserGraphemes - 1).join('') + '…';
+    }
+
+    const fullText = `${teaser}\n\n${blogUrl}`;
+
+    // Verify total grapheme count
+    const totalGraphemes = [...fullText].length;
+    console.log(`📏 Bluesky text: ${totalGraphemes} graphemes (max 300)`);
+    if (totalGraphemes > 300) {
+      console.error('❌ Text still exceeds 300 graphemes after truncation');
+      return false;
+    }
+
+    // 3. Build facet for clickable URL (UTF-8 byte offsets)
+    const beforeUrl = `${teaser}\n\n`;
+    const byteStart = Buffer.from(beforeUrl, 'utf8').length;
+    const byteEnd = byteStart + Buffer.from(blogUrl, 'utf8').length;
+
     const postRecord = {
       $type: 'app.bsky.feed.post',
-      text: text,
-      createdAt: now
+      text: fullText,
+      createdAt: new Date().toISOString(),
+      facets: [{
+        index: { byteStart, byteEnd },
+        features: [{ $type: 'app.bsky.richtext.facet#link', uri: blogUrl }]
+      }]
     };
 
-    // 3. Upload media if available
+    // 4. Upload media if available
     if (mediaPath) {
-      const blob = await uploadMediaToBluesky(mediaPath, token, did);
+      const blob = await uploadMediaToBluesky(mediaPath, token);
       if (blob) {
         postRecord.embed = {
           $type: 'app.bsky.embed.images',
-          images: [{
-            image: blob,
-            alt: 'ZenBTW Dashboard Screenshot'
-          }]
+          images: [{ image: blob, alt: 'ZenBTW Dashboard Screenshot' }]
         };
       }
     }
 
-    // 4. Post to repository
+    // 5. Post
     const postRes = await fetch('https://bsky.social/xrpc/com.atproto.repo.createRecord', {
       method: 'POST',
-      headers: {
-        'Authorization': `Bearer ${token}`,
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        repo: did,
-        collection: 'app.bsky.feed.post',
-        record: postRecord
-      })
+      headers: { 'Authorization': `Bearer ${token}`, 'Content-Type': 'application/json' },
+      body: JSON.stringify({ repo: did, collection: 'app.bsky.feed.post', record: postRecord })
     });
 
     if (!postRes.ok) {
@@ -328,28 +350,28 @@ async function postToBluesky(text, mediaPath = null) {
   }
 }
 
-// ── Take screenshot of dashboard segment ───────────────────────────────────
+// ── Screenshot ───────────────────────────────────────────────────────────────
 async function captureRelevantScreenshot(blog, description) {
   if (!ENABLE_SCREENSHOTS) return null;
 
   try {
-    // Map keywords to dashboard URLs
+    const { default: puppeteer } = await import('puppeteer');
+
     const keywordMap = {
-      'kor': 'https://zenbtw.nl/hulpmiddelen/kor-calculator/',
-      'kor-calculator': 'https://zenbtw.nl/hulpmiddelen/kor-calculator/',
-      'vinted': 'https://zenbtw.nl/app?tab=dashboard',
-      'etsy': 'https://zenbtw.nl/app?tab=dashboard',
-      'shopify': 'https://zenbtw.nl/app?tab=dashboard',
-      'btw': 'https://zenbtw.nl/app?tab=dashboard',
-      'belastingdienst': 'https://zenbtw.nl/app?tab=dashboard',
-      'marketplace': 'https://zenbtw.nl/app?tab=dashboard',
-      'amazon': 'https://zenbtw.nl/app?tab=dashboard',
-      'calculator': 'https://zenbtw.nl/hulpmiddelen/kor-calculator/'
+      'kor': 'https://zenbtw.nl/hulpmiddelen/kor-calculator',
+      'kor-calculator': 'https://zenbtw.nl/hulpmiddelen/kor-calculator',
+      'calculator': 'https://zenbtw.nl/hulpmiddelen/kor-calculator',
+      'vinted': 'https://zenbtw.nl',
+      'etsy': 'https://zenbtw.nl',
+      'shopify': 'https://zenbtw.nl',
+      'btw': 'https://zenbtw.nl',
+      'dac7': 'https://zenbtw.nl',
+      'amazon': 'https://zenbtw.nl',
+      'marketplace': 'https://zenbtw.nl'
     };
 
-    // Find best matching URL
     const descLower = (description + blog.slug).toLowerCase();
-    let targetUrl = 'https://zenbtw.nl/app?tab=dashboard'; // default
+    let targetUrl = 'https://zenbtw.nl';
 
     for (const [keyword, url] of Object.entries(keywordMap)) {
       if (descLower.includes(keyword)) {
@@ -360,18 +382,23 @@ async function captureRelevantScreenshot(blog, description) {
 
     console.log(`📸 Capturing screenshot from: ${targetUrl}`);
 
-    const browser = await puppeteer.launch({ headless: true, args: ['--no-sandbox'] });
+    const browser = await puppeteer.launch({
+      headless: true,
+      args: ['--no-sandbox', '--disable-setuid-sandbox']
+    });
+
     const page = await browser.newPage();
     await page.setViewport({ width: 1200, height: 675 });
-    await page.goto(targetUrl, { waitUntil: 'networkidle2', timeout: 30000 });
+    await page.goto(targetUrl, { waitUntil: 'networkidle2', timeout: 30000 })
+      .catch(err => console.warn('Page load warning:', err.message));
 
     const screenshotPath = path.join(ROOT, `.screenshots/${blog.slug}-${Date.now()}.png`);
     await fs.promises.mkdir(path.dirname(screenshotPath), { recursive: true });
     await page.screenshot({ path: screenshotPath, type: 'png' });
-
     await browser.close();
 
-    console.log(`✓ Screenshot saved: ${screenshotPath}`);
+    const stats = fs.statSync(screenshotPath);
+    console.log(`✓ Screenshot saved: ${screenshotPath} (${stats.size} bytes)`);
     return screenshotPath;
   } catch (err) {
     console.warn('⚠️  Screenshot capture failed:', err.message);
@@ -383,9 +410,9 @@ async function captureRelevantScreenshot(blog, description) {
 async function main() {
   console.log('🚀 Starting social media posting...\n');
 
-  // Validate credentials
-  if (!ANTHROPIC_KEY) console.warn('⚠️  No ANTHROPIC_API_KEY');
-  if (!TWITTER_BEARER) console.warn('⚠️  No TWITTER_BEARER_TOKEN');
+  if (!TWITTER_API_KEY || !TWITTER_API_SECRET || !TWITTER_ACCESS_TOKEN || !TWITTER_ACCESS_SECRET) {
+    console.warn('⚠️  X OAuth 1.0a credentials missing — check TWITTER_API_KEY/SECRET/ACCESS_TOKEN/ACCESS_SECRET');
+  }
   if (!BLUESKY_USER || !BLUESKY_PASS) console.warn('⚠️  No Bluesky credentials');
 
   // Load state
@@ -402,12 +429,11 @@ async function main() {
     process.exit(1);
   }
 
-  // Load keywords queue
+  // Select blog using keyword queue
   const keywordQueue = loadKeywordsQueue();
   let selectedBlog = null;
   let selectedKeyword = null;
 
-  // Find first pending keyword and matching blog
   if (keywordQueue.queue && keywordQueue.queue.length > 0) {
     const pendingKeywords = keywordQueue.queue
       .filter(item => item.status === 'pending')
@@ -423,26 +449,21 @@ async function main() {
     }
   }
 
-  // Fall back to first unposted blog if no keyword match found
+  // Fallback to first unposted blog
   if (!selectedBlog) {
     const unposted = blogs.filter(b => !state.postedToday.includes(b.slug));
     selectedBlog = unposted.length > 0 ? unposted[0] : blogs[0];
   }
 
-  if (state.postedToday.includes(selectedBlog.slug)) {
-    console.log('⚠️  Already posted this blog today, selecting fallback');
-  }
-
-  console.log(`📰 Selected blog: ${selectedBlog.slug}${selectedKeyword ? ` (keyword: ${selectedKeyword.keyword})` : ' (no matching keyword)'}\n`);
+  console.log(`📰 Selected blog: ${selectedBlog.slug}${selectedKeyword ? ` (keyword: ${selectedKeyword.keyword})` : ''}\n`);
 
   // Extract metadata
   const htmlContent = fs.readFileSync(selectedBlog.path, 'utf8');
   const meta = extractBlogMetadata(htmlContent);
-
   console.log(`Title: ${meta.title}`);
   console.log(`Desc: ${meta.cleanDesc.substring(0, 100)}...\n`);
 
-  // Generate teasing copy
+  // Generate teasing copy (no URL, max 200 chars)
   console.log('✍️  Generating teasing copy...');
   const teasingText = await generateTeasingCopy(selectedBlog, meta.title, meta.cleanDesc);
 
@@ -453,38 +474,39 @@ async function main() {
 
   console.log(`\n📝 Generated teaser:\n"${teasingText}"\n`);
 
-  // Add blog link
-  const postText = `${teasingText}\n\nhttps://zenbtw.nl/blog/${selectedBlog.slug}/`;
+  // Blog URL without trailing slash (avoids 404)
+  const blogUrl = `https://zenbtw.nl/blog/${selectedBlog.slug}`;
 
-  // Capture dashboard screenshot if enabled
-  console.log('');
+  // X post: teaser + URL on separate line (280 char limit)
+  const xPostText = `${teasingText}\n\n${blogUrl}`.substring(0, 280);
+
+  // Screenshot
   let screenshotPath = null;
   if (ENABLE_SCREENSHOTS) {
     screenshotPath = await captureRelevantScreenshot(selectedBlog, meta.cleanDesc);
   } else {
-    console.log('ℹ️  Screenshots disabled (set SCREENSHOTS_ENABLED=true to enable)');
+    console.log('ℹ️  Screenshots disabled');
   }
 
-  // Post to social media
   console.log('\n📤 Posting to social media...\n');
 
-  const xPosted = await postToX(postText, screenshotPath);
-  const bskyPosted = await postToBluesky(postText, screenshotPath);
+  const xPosted = await postToX(xPostText, screenshotPath);
+  // Bluesky gets teaser + URL separately so we control grapheme limit
+  const bskyPosted = await postToBluesky(teasingText, blogUrl, screenshotPath);
 
   if (xPosted || bskyPosted) {
     state.postedToday.push(selectedBlog.slug);
     saveState(state);
 
-    // Mark keyword as published if it was used
     if (selectedKeyword) {
       const updatedQueue = loadKeywordsQueue();
-      const keywordIndex = updatedQueue.queue.findIndex(k => k.keyword === selectedKeyword.keyword);
-      if (keywordIndex !== -1) {
-        const keyword = updatedQueue.queue[keywordIndex];
-        keyword.status = 'published';
-        keyword.publishedDate = new Date().toISOString().split('T')[0];
-        updatedQueue.queue.splice(keywordIndex, 1);
-        updatedQueue.published.push(keyword);
+      const idx = updatedQueue.queue.findIndex(k => k.keyword === selectedKeyword.keyword);
+      if (idx !== -1) {
+        const kw = updatedQueue.queue[idx];
+        kw.status = 'published';
+        kw.publishedDate = new Date().toISOString().split('T')[0];
+        updatedQueue.queue.splice(idx, 1);
+        updatedQueue.published.push(kw);
         saveKeywordsQueue(updatedQueue);
       }
     }
