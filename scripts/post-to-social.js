@@ -13,6 +13,7 @@
  */
 
 import Anthropic from '@anthropic-ai/sdk';
+import puppeteer from 'puppeteer';
 import fetch from 'node-fetch';
 import fs from 'fs';
 import path from 'path';
@@ -324,13 +325,30 @@ async function postToBluesky(text, mediaPath = null) {
     const token = session.accessJwt;
     const did = session.did;
 
-    // 2. Create post record
+    // 2. Create post record with facets (links)
     const now = new Date().toISOString();
     const postRecord = {
       $type: 'app.bsky.feed.post',
       text: text,
-      createdAt: now
+      createdAt: now,
+      facets: []
     };
+
+    // Add link facets for URLs in text
+    const urlRegex = /(https?:\/\/[^\s]+)/g;
+    let match;
+    while ((match = urlRegex.exec(text)) !== null) {
+      postRecord.facets.push({
+        index: {
+          byteStart: match.index,
+          byteEnd: match.index + match[0].length
+        },
+        features: [{
+          $type: 'app.bsky.richtext.facet#link',
+          uri: match[0]
+        }]
+      });
+    }
 
     // 3. Upload media if available
     if (mediaPath) {
