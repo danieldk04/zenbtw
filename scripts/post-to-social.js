@@ -17,6 +17,7 @@ import fetch from 'node-fetch';
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
+import crypto from 'crypto';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.join(__dirname, '..');
@@ -24,12 +25,52 @@ const ROOT = path.join(__dirname, '..');
 // Config
 const ANTHROPIC_KEY = process.env.ANTHROPIC_API_KEY;
 const TWITTER_BEARER = process.env.TWITTER_BEARER_TOKEN;
+const TWITTER_API_KEY = process.env.TWITTER_API_KEY;
+const TWITTER_API_SECRET = process.env.TWITTER_API_SECRET;
+const TWITTER_ACCESS_TOKEN = process.env.TWITTER_ACCESS_TOKEN;
+const TWITTER_ACCESS_SECRET = process.env.TWITTER_ACCESS_SECRET;
 const BLUESKY_USER = process.env.BLUESKY_USERNAME;
 const BLUESKY_PASS = process.env.BLUESKY_PASSWORD;
 const ENABLE_SCREENSHOTS = process.env.SCREENSHOTS_ENABLED === 'true';
 
 // State file to track what's been posted
 const STATE_FILE = path.join(ROOT, '.social-post-state.json');
+
+// ── OAuth 1.0a Helper ──────────────────────────────────────────────────────
+function generateNonce() {
+  return crypto.randomBytes(16).toString('hex');
+}
+
+function generateTimestamp() {
+  return Math.floor(Date.now() / 1000).toString();
+}
+
+function generateSignature(method, url, params, consumerSecret, tokenSecret) {
+  const keys = Object.keys(params).sort();
+  const paramStr = keys.map(k => `${k}=${encodeURIComponent(params[k])}`).join('&');
+  const baseStr = `${method}&${encodeURIComponent(url)}&${encodeURIComponent(paramStr)}`;
+  const signingKey = `${encodeURIComponent(consumerSecret)}&${encodeURIComponent(tokenSecret)}`;
+  return crypto.createHmac('sha1', signingKey).update(baseStr).digest('base64');
+}
+
+function buildAuthHeader(method, url, params, consumerKey, consumerSecret, accessToken, tokenSecret) {
+  const signature = generateSignature(method, url, params, consumerSecret, tokenSecret);
+  const authParams = {
+    oauth_consumer_key: consumerKey,
+    oauth_token: accessToken,
+    oauth_signature_method: 'HMAC-SHA1',
+    oauth_signature_version: '1.0',
+    oauth_nonce: generateNonce(),
+    oauth_timestamp: generateTimestamp(),
+    oauth_signature: signature
+  };
+
+  const authHeader = Object.entries(authParams)
+    .map(([k, v]) => `${k}="${encodeURIComponent(v)}"`)
+    .join(', ');
+
+  return `OAuth ${authHeader}`;
+}
 
 // ── Helpers ───────────────────────────────────────────────────────────────
 function loadState() {
@@ -123,7 +164,63 @@ ALLEEN de tweet-tekst teruggeven, niks anders.`;
   }
 }
 
-// ── Post to X (Twitter) API v2 ──────────────────────────────────────────────
+// ── Upload media to X via OAuth 1.0a (v1.1 API) ────────────────────────────
+async function uploadMediaToXOAuth(mediaPath) {
+  if (!TWITTER_API_KEY || !TWITTER_API_SECRET || !TWITTER_ACCESS_TOKEN || !TWITTER_ACCESS_SECRET) {
+    console.warn('⚠️  X OAuth 1.0a credentials missing');
+    return null;
+  }
+
+  try {
+    const mediaData = fs.readFileSync(mediaPath);
+    const base64Data = mediaData.toString('base64');
+    const mediaType = 'image/png';
+
+    // POST form data with OAuth 1.0a signature
+    const url = 'https://upload.twitter.com/1.1/media/upload.json';
+    const params = {
+      media_data: base64Data
+    };
+
+    const authHeader = buildAuthHeader(
+      'POST',
+      url,
+      params,
+      TWITTER_API_KEY,
+      TWITTER_API_SECRET,
+      TWITTER_ACCESS_TOKEN,
+      TWITTER_ACCESS_SECRET
+    );
+
+    // Use form-encoded body for media upload
+    const formData = new URLSearchParams();
+    formData.append('media_data', base64Data);
+
+    const uploadRes = await fetch(url, {
+      method: 'POST',
+      headers: {
+        'Authorization': authHeader,
+        'Content-Type': 'application/x-www-form-urlencoded'
+      },
+      body: formData.toString()
+    });
+
+    if (!uploadRes.ok) {
+      const error = await uploadRes.text();
+      console.warn(`⚠️  X media upload failed (${uploadRes.status}):`, error);
+      return null;
+    }
+
+    const media = await uploadRes.json();
+    console.log(`✓ Media uploaded to X: ${media.media_id_string}`);
+    return media.media_id_string;
+  } catch (err) {
+    console.warn('X media upload error:', err.message);
+    return null;
+  }
+}
+
+// ── Post to X (Twitter) API v2 with optional media ─────────────────────────
 async function postToX(text, mediaPath = null) {
   if (!TWITTER_BEARER) {
     console.warn('⚠️  TWITTER_BEARER_TOKEN missing, skipping X post');
@@ -131,10 +228,18 @@ async function postToX(text, mediaPath = null) {
   }
 
   try {
-    // X API v2 text only (media support via v1.1 is complex, keep it simple)
     const body = {
       text: text.substring(0, 280)
     };
+
+    // Upload and attach media if available
+    if (mediaPath) {
+      const mediaId = await uploadMediaToXOAuth(mediaPath);
+      if (mediaId) {
+        body.media = { media_ids: [mediaId] };
+        console.log('Attaching media to post...');
+      }
+    }
 
     const response = await fetch('https://api.twitter.com/2/tweets', {
       method: 'POST',
@@ -387,8 +492,8 @@ async function main() {
   // Post to social media
   console.log('\n📤 Posting to social media...\n');
 
-  // Post to X (text only - v2 API simplicity)
-  const xPosted = await postToX(postText);
+  // Post to X (with screenshot via OAuth 1.0a media upload)
+  const xPosted = await postToX(postText, screenshotPath);
 
   // Post to Bluesky (with screenshot if available)
   const bskyPosted = await postToBluesky(postText, screenshotPath);
