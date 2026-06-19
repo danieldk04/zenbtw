@@ -1,14 +1,6 @@
 {
   "queue": [
     {
-      "keyword": "oss deadline kwartaal aangifte 2026",
-      "slug": "oss-deadline-kwartaal-2026",
-      "status": "pending",
-      "priority": 10,
-      "notes": "Evergreen praktisch, deadlines zijn tijdgevoelig",
-      "type": "seo-informationeel"
-    },
-    {
       "keyword": "shopify payments btw afdragen nederland",
       "slug": "shopify-payments-btw-afdragen",
       "status": "pending",
@@ -329,6 +321,16 @@
       "type": "geo-vraag",
       "publishedDate": "2026-06-18",
       "outputFile": "blog/vinted-dac7-2026-gemeld.html"
+    },
+    {
+      "keyword": "oss deadline kwartaal aangifte 2026",
+      "slug": "oss-deadline-kwartaal-2026",
+      "status": "published",
+      "priority": 10,
+      "notes": "Evergreen praktisch, deadlines zijn tijdgevoelig",
+      "type": "seo-informationeel",
+      "publishedDate": "2026-06-19",
+      "outputFile": "blog/oss-deadline-kwartaal-2026.html"
     }
   ],
   "settings": {
