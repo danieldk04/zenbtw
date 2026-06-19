@@ -116,20 +116,19 @@ async function generateTeasingCopy(blog, title, description) {
 
   const client = new Anthropic();
 
-  const prompt = `Je bent Daniel, founder van ZenBTW. Je schrijft korte, punchy teasers voor blog posts die mensen echt moeten lezen. Geen buzzwords, geen emoji's (behalve misschien 1 relevant icon), directe toon.
+  const prompt = `Je bent Daniel, founder van ZenBTW. Je schrijft korte, punchy teasers voor blog posts die mensen echt moeten lezen. Geen buzzwords, directe toon.
 
 Blog titel: "${title}"
 Blog snippet: "${description}"
-Blog URL: https://zenbtw.nl/blog/${blog.slug}/
 
-Schrijf 1 teasing tweet (max 250 char) die:
+Schrijf 1 teasing tekst (max 200 tekens) die:
 - Begint met een provocerende vraag of statement
 - Hints naar concrete waarde in het artikel
-- Eindigt met duidelijke CTA ("Lees →" of link)
-- GEEN hashtags, GEEN emoji's (tenzij 1 ter illustratie)
+- Eindigt met "Lees →" (GEEN URL, die voegen we zelf toe)
+- GEEN hashtags, max 1 emoji als het echt past
 - Geschreven in Nederlands
 
-ALLEEN de tweet-tekst teruggeven, niks anders.`;
+ALLEEN de tekst teruggeven, geen URL, niks anders.`;
 
   try {
     const msg = await client.messages.create({
@@ -260,78 +259,41 @@ async function postToX(text, mediaPath = null) {
       }
     }
 
-    // Post tweet via v1.1 API with OAuth 1.0a
-    const postUrl = 'https://api.twitter.com/1.1/statuses/update.json';
-    const postData = {
-      status: text.substring(0, 280)
-    };
-
-    if (mediaId) {
-      postData.media_ids = mediaId;
-    }
-
-    const postRequestData = {
-      url: postUrl,
-      method: 'POST',
-      data: postData
-    };
+    // Post tweet via X API v2 with OAuth 1.0a user context
+    // For v2 JSON body: sign only the URL (no body params in signature)
+    const postUrl = 'https://api.twitter.com/2/tweets';
 
     const token = {
       key: TWITTER_ACCESS_TOKEN,
       secret: TWITTER_ACCESS_SECRET
     };
 
-    const authHeader = oauth.toHeader(oauth.authorize(postRequestData, token));
+    // OAuth 1.0a sign with empty data (v2 uses JSON body, not form-encoded)
+    const authHeader = oauth.toHeader(oauth.authorize({ url: postUrl, method: 'POST' }, token));
+
+    const tweetBody = { text: text.substring(0, 280) };
+    if (mediaId) {
+      tweetBody.media = { media_ids: [mediaId] };
+    }
 
     const response = await fetch(postUrl, {
       method: 'POST',
       headers: {
         ...authHeader,
-        'Content-Type': 'application/x-www-form-urlencoded'
+        'Content-Type': 'application/json'
       },
-      body: new URLSearchParams(postData).toString()
+      body: JSON.stringify(tweetBody)
     });
 
     if (!response.ok) {
       const errorText = await response.text();
       console.error('❌ X API error:', response.status, response.statusText);
       console.error('Response:', errorText.substring(0, 300));
-
-      // Fallback: try without media if media upload failed
-      if (mediaId && response.status === 404) {
-        console.log('\n⚠️  Tweet with media failed, retrying without media...');
-
-        const retryPostData = { status: text.substring(0, 280) };
-        const retryRequestData = {
-          url: postUrl,
-          method: 'POST',
-          data: retryPostData
-        };
-
-        const retryAuthHeader = oauth.toHeader(oauth.authorize(retryRequestData, token));
-        const retryResponse = await fetch(postUrl, {
-          method: 'POST',
-          headers: {
-            ...retryAuthHeader,
-            'Content-Type': 'application/x-www-form-urlencoded'
-          },
-          body: new URLSearchParams(retryPostData).toString()
-        });
-
-        if (retryResponse.ok) {
-          const retryData = await retryResponse.json();
-          console.log(`✓ Posted to X (text only): ${retryData.id_str}`);
-          return true;
-        } else {
-          console.error('Fallback also failed');
-        }
-      }
-
       return false;
     }
 
     const data = await response.json();
-    console.log(`✓ Posted to X: ${data.id_str}`);
+    console.log(`✓ Posted to X: ${data.data?.id}`);
     return true;
   } catch (err) {
     console.error('X posting error:', err.message);
@@ -398,8 +360,8 @@ async function postToBluesky(text, mediaPath = null) {
     const did = session.did;
 
     // 2. Create post record with facets (links)
-    // Bluesky max 300 chars
-    const truncatedText = text.length > 300 ? text.substring(0, 295) + '...' : text;
+    // Bluesky max 300 graphemes — ensure text fits
+    const truncatedText = [...text].length > 295 ? [...text].slice(0, 295).join('') + '…' : text;
 
     const now = new Date().toISOString();
     const postRecord = {
@@ -409,15 +371,15 @@ async function postToBluesky(text, mediaPath = null) {
       facets: []
     };
 
-    // Add link facets for URLs in text
+    // Add link facets — Bluesky needs UTF-8 byte offsets, not JS char offsets
     const urlRegex = /(https?:\/\/[^\s]+)/g;
+    const textBytes = Buffer.from(truncatedText, 'utf8');
     let match;
     while ((match = urlRegex.exec(truncatedText)) !== null) {
+      const byteStart = Buffer.from(truncatedText.substring(0, match.index), 'utf8').length;
+      const byteEnd = byteStart + Buffer.from(match[0], 'utf8').length;
       postRecord.facets.push({
-        index: {
-          byteStart: match.index,
-          byteEnd: match.index + match[0].length
-        },
+        index: { byteStart, byteEnd },
         features: [{
           $type: 'app.bsky.richtext.facet#link',
           uri: match[0]
@@ -587,8 +549,9 @@ async function main() {
 
   console.log(`\n📝 Generated teaser:\n"${teasingText}"\n`);
 
-  // Add blog link
-  const postText = `${teasingText}\n\nhttps://zenbtw.nl/blog/${selectedBlog.slug}/`;
+  // Combine teaser + blog URL (URL only once, as separate line)
+  const blogUrl = `https://zenbtw.nl/blog/${selectedBlog.slug}/`;
+  const postText = `${teasingText}\n\n${blogUrl}`;
 
   // Capture dashboard screenshot if enabled
   console.log('');
