@@ -201,28 +201,26 @@ async function uploadMediaToXOAuth(mediaPath) {
   }
 }
 
-// ── Post to X (Twitter) API v2 with optional media ─────────────────────────
+// ── Post to X (Twitter) v1.1 with OAuth 1.0a (user context) ────────────────
 async function postToX(text, mediaPath = null) {
-  if (!TWITTER_BEARER) {
-    console.warn('⚠️  TWITTER_BEARER_TOKEN missing, skipping X post');
+  if (!TWITTER_API_KEY || !TWITTER_API_SECRET || !TWITTER_ACCESS_TOKEN || !TWITTER_ACCESS_SECRET) {
+    console.warn('⚠️  X OAuth 1.0a credentials missing, skipping X post');
     return false;
   }
 
   try {
-    const body = {
-      text: text.substring(0, 280)
-    };
+    let mediaId = null;
 
-    // Upload and attach media if available (OAuth 1.0a)
+    // Upload media if available
     if (mediaPath && fs.existsSync(mediaPath)) {
       try {
         const mediaData = fs.readFileSync(mediaPath);
         const base64Data = mediaData.toString('base64');
 
-        // OAuth 1.0a request to upload media
-        const url = 'https://upload.twitter.com/1.1/media/upload.json';
-        const requestData = {
-          url: url,
+        // OAuth 1.0a media upload
+        const mediaUrl = 'https://upload.twitter.com/1.1/media/upload.json';
+        const mediaRequestData = {
+          url: mediaUrl,
           method: 'POST',
           data: { media_data: base64Data }
         };
@@ -232,9 +230,9 @@ async function postToX(text, mediaPath = null) {
           secret: TWITTER_ACCESS_SECRET
         };
 
-        const authHeader = oauth.toHeader(oauth.authorize(requestData, token));
+        const authHeader = oauth.toHeader(oauth.authorize(mediaRequestData, token));
 
-        const uploadRes = await fetch(url, {
+        const uploadRes = await fetch(mediaUrl, {
           method: 'POST',
           headers: {
             ...authHeader,
@@ -246,8 +244,8 @@ async function postToX(text, mediaPath = null) {
         if (uploadRes.ok) {
           const media = await uploadRes.json();
           if (media.media_id_string) {
-            body.media = { media_ids: [media.media_id_string] };
-            console.log(`✓ Media uploaded to X: ${media.media_id_string}`);
+            mediaId = media.media_id_string;
+            console.log(`✓ Media uploaded to X: ${mediaId}`);
           }
         } else {
           const errText = await uploadRes.text();
@@ -258,24 +256,47 @@ async function postToX(text, mediaPath = null) {
       }
     }
 
-    const response = await fetch('https://api.twitter.com/2/tweets', {
+    // Post tweet via v1.1 API with OAuth 1.0a
+    const postUrl = 'https://api.twitter.com/1.1/statuses/update.json';
+    const postData = {
+      status: text.substring(0, 280)
+    };
+
+    if (mediaId) {
+      postData.media_ids = mediaId;
+    }
+
+    const postRequestData = {
+      url: postUrl,
+      method: 'POST',
+      data: postData
+    };
+
+    const token = {
+      key: TWITTER_ACCESS_TOKEN,
+      secret: TWITTER_ACCESS_SECRET
+    };
+
+    const authHeader = oauth.toHeader(oauth.authorize(postRequestData, token));
+
+    const response = await fetch(postUrl, {
       method: 'POST',
       headers: {
-        'Authorization': `Bearer ${TWITTER_BEARER}`,
-        'Content-Type': 'application/json'
+        ...authHeader,
+        'Content-Type': 'application/x-www-form-urlencoded'
       },
-      body: JSON.stringify(body)
+      body: new URLSearchParams(postData).toString()
     });
 
     if (!response.ok) {
       const errorText = await response.text();
       console.error('X API error:', response.status);
-      console.error('Response:', errorText);
+      console.error('Response:', errorText.substring(0, 200));
       return false;
     }
 
     const data = await response.json();
-    console.log(`✓ Posted to X: ${data.data?.id}`);
+    console.log(`✓ Posted to X: ${data.id_str}`);
     return true;
   } catch (err) {
     console.error('X posting error:', err.message);
@@ -342,10 +363,13 @@ async function postToBluesky(text, mediaPath = null) {
     const did = session.did;
 
     // 2. Create post record with facets (links)
+    // Bluesky max 300 chars
+    const truncatedText = text.length > 300 ? text.substring(0, 295) + '...' : text;
+
     const now = new Date().toISOString();
     const postRecord = {
       $type: 'app.bsky.feed.post',
-      text: text,
+      text: truncatedText,
       createdAt: now,
       facets: []
     };
@@ -353,7 +377,7 @@ async function postToBluesky(text, mediaPath = null) {
     // Add link facets for URLs in text
     const urlRegex = /(https?:\/\/[^\s]+)/g;
     let match;
-    while ((match = urlRegex.exec(text)) !== null) {
+    while ((match = urlRegex.exec(truncatedText)) !== null) {
       postRecord.facets.push({
         index: {
           byteStart: match.index,
