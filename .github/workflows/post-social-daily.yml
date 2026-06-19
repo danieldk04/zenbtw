@@ -1,0 +1,49 @@
+name: Post to Social Media (3x Daily)
+
+on:
+  schedule:
+    # 3x per day: 07:00, 13:00, 19:00 UTC
+    - cron: '0 7 * * *'
+    - cron: '0 13 * * *'
+    - cron: '0 19 * * *'
+
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  post-social:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Post to Social Media
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          TWITTER_BEARER_TOKEN: ${{ secrets.TWITTER_BEARER_TOKEN }}
+          BLUESKY_USERNAME: ${{ secrets.BLUESKY_USERNAME }}
+          BLUESKY_PASSWORD: ${{ secrets.BLUESKY_PASSWORD }}
+          SCREENSHOTS_ENABLED: 'false'
+        run: node scripts/post-to-social.js
+
+      - name: Commit state update
+        if: always()
+        run: |
+          git config --local user.email "bot@zenbtw.nl"
+          git config --local user.name "ZenBTW Social Bot"
+          git add .social-post-state.json 2>/dev/null || true
+          git diff --staged --quiet || git commit -m "auto: social media post state updated [skip ci]"
+          git push 2>/dev/null || true
