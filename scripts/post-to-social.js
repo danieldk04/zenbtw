@@ -204,7 +204,11 @@ async function uploadMediaToXOAuth(mediaPath) {
 // ── Post to X (Twitter) v1.1 with OAuth 1.0a (user context) ────────────────
 async function postToX(text, mediaPath = null) {
   if (!TWITTER_API_KEY || !TWITTER_API_SECRET || !TWITTER_ACCESS_TOKEN || !TWITTER_ACCESS_SECRET) {
-    console.warn('⚠️  X OAuth 1.0a credentials missing, skipping X post');
+    console.warn('⚠️  X OAuth 1.0a credentials missing:');
+    console.warn('  - API_KEY:', TWITTER_API_KEY ? '✓' : '✗');
+    console.warn('  - API_SECRET:', TWITTER_API_SECRET ? '✓' : '✗');
+    console.warn('  - ACCESS_TOKEN:', TWITTER_ACCESS_TOKEN ? '✓' : '✗');
+    console.warn('  - ACCESS_SECRET:', TWITTER_ACCESS_SECRET ? '✓' : '✗');
     return false;
   }
 
@@ -438,23 +442,25 @@ async function captureRelevantScreenshot(blog, description) {
   if (!ENABLE_SCREENSHOTS) return null;
 
   try {
-    // Map keywords to dashboard URLs
+    // Map keywords to dashboard URLs - use publicly accessible URLs only
     const keywordMap = {
-      'kor': 'https://zenbtw.nl/hulpmiddelen/kor-calculator/',
-      'kor-calculator': 'https://zenbtw.nl/hulpmiddelen/kor-calculator/',
-      'vinted': 'https://zenbtw.nl/app?tab=dashboard',
-      'etsy': 'https://zenbtw.nl/app?tab=dashboard',
-      'shopify': 'https://zenbtw.nl/app?tab=dashboard',
-      'btw': 'https://zenbtw.nl/app?tab=dashboard',
-      'belastingdienst': 'https://zenbtw.nl/app?tab=dashboard',
-      'marketplace': 'https://zenbtw.nl/app?tab=dashboard',
-      'amazon': 'https://zenbtw.nl/app?tab=dashboard',
-      'calculator': 'https://zenbtw.nl/hulpmiddelen/kor-calculator/'
+      'kor': 'https://zenbtw.nl/#/hulpmiddelen/kor-calculator',
+      'kor-calculator': 'https://zenbtw.nl/#/hulpmiddelen/kor-calculator',
+      'calculator': 'https://zenbtw.nl/#/hulpmiddelen/kor-calculator',
+      'vinted': 'https://zenbtw.nl',
+      'etsy': 'https://zenbtw.nl',
+      'shopify': 'https://zenbtw.nl',
+      'btw': 'https://zenbtw.nl',
+      'belastingdienst': 'https://zenbtw.nl',
+      'marketplace': 'https://zenbtw.nl',
+      'amazon': 'https://zenbtw.nl',
+      'dac7': 'https://zenbtw.nl',
+      'oss': 'https://zenbtw.nl'
     };
 
     // Find best matching URL
     const descLower = (description + blog.slug).toLowerCase();
-    let targetUrl = 'https://zenbtw.nl/app?tab=dashboard'; // default
+    let targetUrl = 'https://zenbtw.nl'; // default to homepage
 
     for (const [keyword, url] of Object.entries(keywordMap)) {
       if (descLower.includes(keyword)) {
@@ -465,10 +471,19 @@ async function captureRelevantScreenshot(blog, description) {
 
     console.log(`📸 Capturing screenshot from: ${targetUrl}`);
 
-    const browser = await puppeteer.launch({ headless: true, args: ['--no-sandbox'] });
+    const browser = await puppeteer.launch({
+      headless: true,
+      args: ['--no-sandbox', '--disable-setuid-sandbox']
+    });
+
     const page = await browser.newPage();
     await page.setViewport({ width: 1200, height: 675 });
-    await page.goto(targetUrl, { waitUntil: 'networkidle2', timeout: 30000 });
+
+    // Set longer timeout for page load
+    await page.goto(targetUrl, {
+      waitUntil: 'networkidle2',
+      timeout: 30000
+    }).catch(err => console.warn('Page load warning:', err.message));
 
     const screenshotPath = path.join(ROOT, `.screenshots/${blog.slug}-${Date.now()}.png`);
     await fs.promises.mkdir(path.dirname(screenshotPath), { recursive: true });
@@ -476,7 +491,13 @@ async function captureRelevantScreenshot(blog, description) {
 
     await browser.close();
 
-    console.log(`✓ Screenshot saved: ${screenshotPath}`);
+    // Validate screenshot file exists and has content
+    const stats = fs.statSync(screenshotPath);
+    if (stats.size < 5000) {
+      console.warn(`⚠️  Screenshot too small (${stats.size} bytes), might be blank`);
+    }
+
+    console.log(`✓ Screenshot saved: ${screenshotPath} (${stats.size} bytes)`);
     return screenshotPath;
   } catch (err) {
     console.warn('⚠️  Screenshot capture failed:', err.message);
