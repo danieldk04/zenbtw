@@ -42,3 +42,7 @@ next-env.d.ts
 
 # Claude Code worktrees
 .claude/worktrees/
+
+# Social media posting
+.screenshots/
+.social-post-state.json
