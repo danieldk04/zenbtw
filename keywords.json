@@ -1,14 +1,6 @@
 {
   "queue": [
     {
-      "keyword": "shopify payments btw afdragen nederland",
-      "slug": "shopify-payments-btw-afdragen",
-      "status": "pending",
-      "priority": 11,
-      "notes": "Shopify Payments nu beschikbaar in NL — nieuw en actueel",
-      "type": "seo-platform"
-    },
-    {
       "keyword": "winstmarge berekenen online verkopen nederland",
       "slug": "winstmarge-berekenen-online-verkopen",
       "status": "pending",
@@ -331,6 +323,16 @@
       "type": "seo-informationeel",
       "publishedDate": "2026-06-19",
       "outputFile": "blog/oss-deadline-kwartaal-2026.html"
+    },
+    {
+      "keyword": "shopify payments btw afdragen nederland",
+      "slug": "shopify-payments-btw-afdragen",
+      "status": "published",
+      "priority": 11,
+      "notes": "Shopify Payments nu beschikbaar in NL — nieuw en actueel",
+      "type": "seo-platform",
+      "publishedDate": "2026-06-19",
+      "outputFile": "blog/shopify-payments-btw-afdragen.html"
     }
   ],
   "settings": {
