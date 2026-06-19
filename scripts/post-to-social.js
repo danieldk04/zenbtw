@@ -111,7 +111,7 @@ ALLEEN de tweet-tekst teruggeven, niks anders.`;
 
   try {
     const msg = await client.messages.create({
-      model: 'claude-3-5-sonnet-20241022',
+      model: 'claude-opus-4-1',
       max_tokens: 300,
       messages: [{ role: 'user', content: prompt }]
     });
