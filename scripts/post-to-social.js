@@ -550,7 +550,7 @@ async function main() {
   console.log(`\n📝 Generated teaser:\n"${teasingText}"\n`);
 
   // Combine teaser + blog URL (URL only once, as separate line)
-  const blogUrl = `https://zenbtw.nl/blog/${selectedBlog.slug}/`;
+  const blogUrl = `https://zenbtw.nl/blog/${selectedBlog.slug}`;
   const postText = `${teasingText}\n\n${blogUrl}`;
 
   // Capture dashboard screenshot if enabled
