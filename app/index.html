@@ -796,6 +796,7 @@ src="https://www.facebook.com/tr?id=964378096043237&ev=PageView&noscript=1"
     <div class="nsl">Tools</div>
     <div class="ni" id="nOSS" onclick="sv('oss')"><span>✅</span> OSS Registratie</div>
     <div class="ni" id="nAlert" onclick="sv('alerts')"><span>🔔</span> Meldingen<span class="nav-badge" id="navAlertBadge" style="display:none">0</span></div>
+    <div class="ni" id="nKeywords" onclick="sv('keywords')"><span>🗂️</span> Keywords Queue</div>
     <div class="ni" id="nHelp" onclick="sv('help')"><span>❓</span> Help &amp; Uitleg</div>
     <div class="ni" onclick="openSettings()"><span>⚙️</span> Bedrijfsgegevens</div>
     <div class="ni" onclick="syncToGoogle()"><span>☁️</span> Cloud Backup</div>
@@ -1057,6 +1058,50 @@ src="https://www.facebook.com/tr?id=964378096043237&ev=PageView&noscript=1"
   <div class="ph"><div><div class="pe">Transacties</div><div class="pt">Alle orders</div></div></div>
   <div class="vinted-warn" id="vintedWarn"><span style="font-size:18px;flex-shrink:0">⚠️</span><div><strong>Vinted HTML geladen: landgegevens ontbreken.</strong><br>Klik in de tabel hieronder op het vlag-icoon per order om het juiste EU-land van de koper te kiezen. De BTW en KOR-drempel worden dan direct bijgewerkt.</div></div>
   <div class="card"><div class="ch"><div><div class="ct">Orderoverzicht per land</div><div class="cst" id="txSub">Upload een CSV</div></div></div><div class="table-scroll-wrap"><div class="cb" id="txBody"><div class="es"><div class="esi">🧾</div><div class="est">Geen transacties</div><div class="ess">Upload een CSV op het dashboard</div></div></div></div></div>
+</div>
+
+<!-- KEYWORDS QUEUE -->
+<div class="vw" id="vwkeywords">
+  <div class="ph"><div><div class="pe">🗂️ Keywords Queue</div><div class="pt">Social media posts worden 3× per dag geplaatst op basis van deze lijst</div></div></div>
+
+  <div id="kw-token-warn" style="display:none;margin:0 0 16px;padding:12px 16px;background:#fffbeb;border:1px solid #d97706;border-radius:8px;font-size:13px;color:#92400e">
+    ⚠️ Sla eerst je GitHub token op om keywords te kunnen opslaan.
+    <div style="margin-top:8px;display:flex;gap:8px;align-items:center">
+      <input id="kw-token-input" type="password" placeholder="github_pat_..." style="flex:1;padding:6px 10px;border:1px solid #d97706;border-radius:6px;font-size:12px;font-family:monospace">
+      <button onclick="kwSaveToken()" style="padding:6px 14px;background:#d97706;color:#fff;border:none;border-radius:6px;font-size:12px;cursor:pointer;font-weight:600">Opslaan</button>
+    </div>
+  </div>
+
+  <div style="display:flex;gap:8px;margin-bottom:20px">
+    <input id="kw-new" type="text" placeholder="Keyword toevoegen (bijv. 'btw kleding', 'kor calculator')..." style="flex:1;padding:10px 14px;border:1px solid var(--br);border-radius:8px;font-size:13px;background:var(--wh)">
+    <button onclick="kwAdd()" style="padding:10px 18px;background:var(--ac);color:#fff;border:none;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer">+ Toevoegen</button>
+  </div>
+
+  <div id="kw-error" style="display:none;margin-bottom:12px;padding:10px 14px;background:#fdf0ee;border:1px solid #c64747;border-radius:8px;font-size:13px;color:#c64747"></div>
+
+  <div style="background:var(--wh);border:1px solid var(--br);border-radius:10px;overflow:hidden;margin-bottom:20px">
+    <div style="padding:12px 16px;background:var(--s2);border-bottom:1px solid var(--br);display:flex;align-items:center;justify-content:space-between">
+      <span style="font-size:13px;font-weight:600">⏳ Wachtrij</span>
+      <span id="kw-count" style="font-size:12px;color:var(--tx3)">0 keywords</span>
+    </div>
+    <div id="kw-list" style="min-height:60px">
+      <div style="padding:20px;text-align:center;color:var(--tx4);font-size:13px">Laden...</div>
+    </div>
+  </div>
+
+  <div style="background:var(--wh);border:1px solid var(--br);border-radius:10px;overflow:hidden">
+    <div style="padding:12px 16px;background:var(--s2);border-bottom:1px solid var(--br);display:flex;align-items:center;justify-content:space-between">
+      <span style="font-size:13px;font-weight:600">✅ Gepubliceerd</span>
+      <span id="kw-pub-count" style="font-size:12px;color:var(--tx3)">0 keywords</span>
+    </div>
+    <div id="kw-pub-list" style="max-height:240px;overflow-y:auto">
+      <div style="padding:20px;text-align:center;color:var(--tx4);font-size:13px">Nog niets gepubliceerd</div>
+    </div>
+  </div>
+
+  <p style="margin-top:12px;font-size:11px;color:var(--tx4)">
+    Keywords worden gekoppeld aan blog-bestandsnamen. De bot pakt altijd het hoogste keyword met een overeenkomende blog.
+  </p>
 </div>
 
 <!-- HELP -->
@@ -3053,13 +3098,143 @@ function sv(view){
   document.querySelectorAll('.vw').forEach(v=>v.classList.remove('on'));
   document.querySelectorAll('.ni').forEach(n=>n.classList.remove('on'));
   const el=document.getElementById('vw'+view);if(el)el.classList.add('on');
-  const ni={dashboard:'nDash',transacties:'nTx',producten:'nProd',marge:'nMarge',landen:'nLanden',jaaroverzicht:'nJaar',oss:'nOSS',alerts:'nAlert',help:'nHelp'};
+  const ni={dashboard:'nDash',transacties:'nTx',producten:'nProd',marge:'nMarge',landen:'nLanden',jaaroverzicht:'nJaar',oss:'nOSS',alerts:'nAlert',keywords:'nKeywords',help:'nHelp'};
   const nel=document.getElementById(ni[view]);if(nel)nel.classList.add('on');
   // sync mobile drawer
   mniActive(view);
-  if(view==='transacties')renderTx();if(view==='landen')renderLanden();if(view==='jaaroverzicht'){renderYGrid();renderJDetail();}if(view==='oss')renderOSS();if(view==='alerts')loadAlUI();if(view==='producten')renderProducts();if(view==='marge')renderMarge();
+  if(view==='transacties')renderTx();if(view==='landen')renderLanden();if(view==='jaaroverzicht'){renderYGrid();renderJDetail();}if(view==='oss')renderOSS();if(view==='alerts')loadAlUI();if(view==='producten')renderProducts();if(view==='marge')renderMarge();if(view==='keywords')kwLoad();
 }
 function toggleAcc(el){el.closest('.acc').classList.toggle('on');}
+
+// KEYWORDS QUEUE
+const KW_REPO='danieldk04/zenbtw';
+const KW_FILE='keywords-queue.json';
+const KW_BRANCH='main';
+
+function kwGetToken(){return localStorage.getItem('kw_gh_token')||'';}
+function kwSaveToken(){
+  const t=document.getElementById('kw-token-input').value.trim();
+  if(!t)return;
+  localStorage.setItem('kw_gh_token',t);
+  document.getElementById('kw-token-warn').style.display='none';
+  kwLoad();
+}
+function kwErr(msg){const el=document.getElementById('kw-error');if(!el)return;el.textContent=msg;el.style.display=msg?'block':'none';}
+
+async function kwFetch(){
+  const r=await fetch(`https://api.github.com/repos/${KW_REPO}/contents/${KW_FILE}?ref=${KW_BRANCH}&t=${Date.now()}`,{
+    headers:{Accept:'application/vnd.github+json',...(kwGetToken()?{Authorization:`Bearer ${kwGetToken()}`}:{})}
+  });
+  if(!r.ok)throw new Error('Kon keywords niet laden ('+r.status+')');
+  const d=await r.json();
+  return{content:JSON.parse(atob(d.content.replace(/\n/g,''))),sha:d.sha};
+}
+
+async function kwSave(content,sha){
+  const token=kwGetToken();
+  if(!token){document.getElementById('kw-token-warn').style.display='block';return false;}
+  const r=await fetch(`https://api.github.com/repos/${KW_REPO}/contents/${KW_FILE}`,{
+    method:'PUT',
+    headers:{Authorization:`Bearer ${token}`,Accept:'application/vnd.github+json','Content-Type':'application/json'},
+    body:JSON.stringify({message:'admin: update keywords queue',content:btoa(unescape(encodeURIComponent(JSON.stringify(content,null,2)+'\n'))),sha,branch:KW_BRANCH})
+  });
+  if(!r.ok){const e=await r.json();throw new Error(e.message||'Opslaan mislukt');}
+  return true;
+}
+
+async function kwLoad(){
+  kwErr('');
+  try{
+    const{content,sha}=await kwFetch();
+    window._kwSha=sha;
+    kwRender(content);
+  }catch(e){kwErr(e.message);}
+}
+
+function kwRender(data){
+  const queue=(data.queue||[]).slice().sort((a,b)=>(a.priority||99)-(b.priority||99));
+  const pub=data.published||[];
+  document.getElementById('kw-count').textContent=queue.length+' keywords';
+  document.getElementById('kw-pub-count').textContent=pub.length+' keywords';
+
+  const list=document.getElementById('kw-list');
+  if(queue.length===0){list.innerHTML='<div style="padding:20px;text-align:center;color:var(--tx4);font-size:13px">Geen keywords in wachtrij. Voeg er een toe hierboven.</div>';
+  }else{
+    list.innerHTML=queue.map((k,i)=>`
+      <div style="display:flex;align-items:center;gap:10px;padding:11px 16px;border-bottom:1px solid var(--br);${i===queue.length-1?'border-bottom:none':''}">
+        <span style="font-size:11px;font-family:monospace;width:18px;color:var(--tx4);text-align:center">${i+1}</span>
+        <div style="display:flex;flex-direction:column;gap:1px">
+          <button onclick="kwMove('${k.keyword}','up')" ${i===0?'disabled':''}
+            style="background:none;border:none;cursor:pointer;color:${i===0?'var(--tx4)':'var(--tx2)'};line-height:1;font-size:11px;padding:0">▲</button>
+          <button onclick="kwMove('${k.keyword}','down')" ${i===queue.length-1?'disabled':''}
+            style="background:none;border:none;cursor:pointer;color:${i===queue.length-1?'var(--tx4)':'var(--tx2)'};line-height:1;font-size:11px;padding:0">▼</button>
+        </div>
+        <div style="flex:1">
+          <div style="font-size:13px;font-weight:500">${k.keyword}</div>
+          <div style="font-size:11px;color:var(--tx4)">Toegevoegd ${k.addedDate||''}</div>
+        </div>
+        <button onclick="kwDelete('${k.keyword}','pending')" style="background:none;border:none;cursor:pointer;color:var(--tx4);font-size:16px;padding:4px 6px" title="Verwijderen">🗑</button>
+      </div>`).join('');
+  }
+
+  const plist=document.getElementById('kw-pub-list');
+  if(pub.length===0){plist.innerHTML='<div style="padding:20px;text-align:center;color:var(--tx4);font-size:13px">Nog niets gepubliceerd</div>';
+  }else{
+    plist.innerHTML=pub.map(k=>`
+      <div style="display:flex;align-items:center;gap:10px;padding:10px 16px;border-bottom:1px solid var(--br)">
+        <div style="flex:1">
+          <div style="font-size:13px;color:var(--tx2)">${k.keyword}</div>
+          <div style="font-size:11px;color:var(--tx4)">Geplaatst ${k.publishedDate||k.addedDate||''}</div>
+        </div>
+        <button onclick="kwDelete('${k.keyword}','published')" style="background:none;border:none;cursor:pointer;color:var(--tx4);font-size:14px;padding:4px 6px">🗑</button>
+      </div>`).join('');
+  }
+}
+
+async function kwAdd(){
+  const input=document.getElementById('kw-new');
+  const kw=input.value.trim().toLowerCase();
+  if(!kw)return;
+  kwErr('');
+  try{
+    const{content,sha}=await kwFetch();
+    const exists=(content.queue||[]).some(k=>k.keyword===kw)||(content.published||[]).some(k=>k.keyword===kw);
+    if(exists){kwErr('Keyword bestaat al');return;}
+    const max=(content.queue||[]).reduce((m,k)=>Math.max(m,k.priority||0),0);
+    content.queue.push({keyword:kw,status:'pending',priority:max+1,addedDate:new Date().toISOString().split('T')[0]});
+    content.queue.sort((a,b)=>(a.priority||99)-(b.priority||99));
+    await kwSave(content,sha);
+    input.value='';
+    await kwLoad();
+  }catch(e){kwErr(e.message);}
+}
+
+async function kwMove(keyword,dir){
+  kwErr('');
+  try{
+    const{content,sha}=await kwFetch();
+    const q=content.queue.slice().sort((a,b)=>a.priority-b.priority);
+    const idx=q.findIndex(k=>k.keyword===keyword);
+    const swap=dir==='up'?idx-1:idx+1;
+    if(swap<0||swap>=q.length)return;
+    const tmp=q[idx].priority;q[idx].priority=q[swap].priority;q[swap].priority=tmp;
+    content.queue=q;
+    await kwSave(content,sha);
+    await kwLoad();
+  }catch(e){kwErr(e.message);}
+}
+
+async function kwDelete(keyword,status){
+  if(!confirm(`"${keyword}" verwijderen?`))return;
+  kwErr('');
+  try{
+    const{content,sha}=await kwFetch();
+    if(status==='published')content.published=(content.published||[]).filter(k=>k.keyword!==keyword);
+    else content.queue=(content.queue||[]).filter(k=>k.keyword!==keyword);
+    await kwSave(content,sha);
+    await kwLoad();
+  }catch(e){kwErr(e.message);}
+}
 
 // SETTINGS
 function openSettings(){
