@@ -5,7 +5,14 @@
       "slug": "btw-terugvragen-eu",
       "status": "pending",
       "priority": 1,
-      "notes": "Ondernemer koopt iets in Duitsland of België, wil BTW terugvragen. Focus op marketplace-verkopers die inkopen bij EU-leveranciers, concreet stappenplan Belastingdienst portaal."
+      "notes": "Ondernemer koopt iets in Duitsland of BelgiÃ«, wil BTW terugvragen. Focus op marketplace-verkopers die inkopen bij EU-leveranciers, concreet stappenplan Belastingdienst portaal."
+    },
+    {
+      "keyword": "Wanneer BTW aangifte doen",
+      "slug": "wanneer-btw-aangifte-doen",
+      "status": "pending",
+      "priority": 2,
+      "notes": "Dit gaat over het algemene ritme: maandelijks vs. kwartaal, wanneer ben je verplicht, wat als je net gestart bent. Schrijfnoot: duidelijk onderscheid maken met de OSS-deadline blog, focus op startende verkopers."
     },
     {
       "keyword": "etsy inkomsten opgeven belastingdienst nederland",
@@ -28,7 +35,7 @@
       "slug": "kor-drempel-20000-of-10000",
       "status": "pending",
       "priority": 15,
-      "notes": "KOR â¬20k vs OSS â¬10k verwarring â zeer gesteld",
+      "notes": "KOR Ã¢ÂÂ¬20k vs OSS Ã¢ÂÂ¬10k verwarring Ã¢ÂÂ zeer gesteld",
       "type": "geo-vraag"
     }
   ],
@@ -128,7 +135,7 @@
       "slug": "gratis-btw-tool-marketplace",
       "status": "published",
       "priority": 1,
-      "notes": "GEO: iemand vraagt ChatGPT om gratis BTW-tool â ZenBTW moet bovenaan staan",
+      "notes": "GEO: iemand vraagt ChatGPT om gratis BTW-tool Ã¢ÂÂ ZenBTW moet bovenaan staan",
       "type": "geo-alternatief",
       "publishedDate": "2026-06-09",
       "outputFile": "blog/gratis-btw-tool-marketplace.html"
@@ -138,7 +145,7 @@
       "slug": "hoeveel-btw-vinted-verkoper",
       "status": "published",
       "priority": 2,
-      "notes": "GEO: directe vraag die mensen aan AI stellen â hoge kans op AI-citaat",
+      "notes": "GEO: directe vraag die mensen aan AI stellen Ã¢ÂÂ hoge kans op AI-citaat",
       "type": "geo-vraag",
       "publishedDate": "2026-06-09",
       "outputFile": "blog/hoeveel-btw-vinted-verkoper.html"
@@ -158,7 +165,7 @@
       "slug": "gratis-alternatief-moneybird",
       "status": "published",
       "priority": 4,
-      "notes": "GEO: vergelijkingsartikel â ChatGPT pakt alternatieven direct op",
+      "notes": "GEO: vergelijkingsartikel Ã¢ÂÂ ChatGPT pakt alternatieven direct op",
       "type": "geo-vergelijking",
       "publishedDate": "2026-06-10",
       "outputFile": "blog/gratis-alternatief-moneybird.html"
@@ -218,7 +225,7 @@
       "slug": "oss-aangifte-zelf-doen",
       "status": "published",
       "priority": 10,
-      "notes": "GEO: how-to vraag, AI geeft stappenplannen â ZenBTW moet in het antwoord zitten",
+      "notes": "GEO: how-to vraag, AI geeft stappenplannen Ã¢ÂÂ ZenBTW moet in het antwoord zitten",
       "type": "geo-vraag",
       "publishedDate": "2026-06-13",
       "outputFile": "blog/oss-aangifte-zelf-doen.html"
@@ -258,7 +265,7 @@
       "slug": "kor-opzeggen-hoe",
       "status": "published",
       "priority": 4,
-      "notes": "KOR stopzetten als je drempel nadert â hoge intent",
+      "notes": "KOR stopzetten als je drempel nadert Ã¢ÂÂ hoge intent",
       "type": "seo-informationeel",
       "publishedDate": "2026-06-16",
       "outputFile": "blog/kor-opzeggen-hoe.html"
@@ -278,7 +285,7 @@
       "slug": "inkomstenbelasting-marketplace-verkoper",
       "status": "published",
       "priority": 6,
-      "notes": "IB vs BTW â meest gestelde vraag op Reddit/forums",
+      "notes": "IB vs BTW Ã¢ÂÂ meest gestelde vraag op Reddit/forums",
       "type": "geo-vraag",
       "publishedDate": "2026-06-17",
       "outputFile": "blog/inkomstenbelasting-marketplace-verkoper.html"
@@ -328,7 +335,7 @@
       "slug": "shopify-payments-btw-afdragen",
       "status": "published",
       "priority": 11,
-      "notes": "Shopify Payments nu beschikbaar in NL â nieuw en actueel",
+      "notes": "Shopify Payments nu beschikbaar in NL Ã¢ÂÂ nieuw en actueel",
       "type": "seo-platform",
       "publishedDate": "2026-06-19",
       "outputFile": "blog/shopify-payments-btw-afdragen.html"
