@@ -1,13 +1,6 @@
 {
   "queue": [
     {
-      "keyword": "BTW terugvragen EU",
-      "slug": "btw-terugvragen-eu",
-      "status": "pending",
-      "priority": 1,
-      "notes": "Ondernemer koopt iets in Duitsland of BelgiÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ«, wil BTW terugvragen. Focus op marketplace-verkopers die inkopen bij EU-leveranciers, concreet stappenplan Belastingdienst portaal."
-    },
-    {
       "keyword": "Wanneer BTW aangifte doen",
       "slug": "wanneer-btw-aangifte-doen",
       "status": "pending",
@@ -389,6 +382,15 @@
       "type": "seo-tool",
       "publishedDate": "2026-06-20",
       "outputFile": "blog/winstmarge-berekenen-online-verkopen.html"
+    },
+    {
+      "keyword": "BTW terugvragen EU",
+      "slug": "btw-terugvragen-eu",
+      "status": "published",
+      "priority": 1,
+      "notes": "Ondernemer koopt iets in Duitsland of BelgiÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ«, wil BTW terugvragen. Focus op marketplace-verkopers die inkopen bij EU-leveranciers, concreet stappenplan Belastingdienst portaal.",
+      "publishedDate": "2026-06-20",
+      "outputFile": "blog/btw-terugvragen-eu.html"
     }
   ],
   "settings": {
