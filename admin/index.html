@@ -419,37 +419,44 @@ footer{background:var(--bg,#f7f6f3);border-top:1.5px solid var(--br,#e5e0d8);pad
 
     <!-- ── QUEUE ── -->
     <div class="page" id="page-queue">
+
+      <!-- Add keyword form -->
+      <div class="card" style="margin-bottom:1rem">
+        <div class="card-head"><h3>➕ Keyword toevoegen</h3></div>
+        <div style="display:grid;grid-template-columns:1fr auto auto;gap:.5rem;align-items:start;padding:0 0 .5rem">
+          <div>
+            <input id="kw-input" type="text" placeholder="Nieuw keyword, bijv: vinted btw 2026"
+              style="width:100%;padding:.6rem .9rem;border:1.5px solid var(--br);border-radius:7px;font-size:.83rem;outline:none"
+              onkeydown="if(event.key==='Enter')addKeyword()">
+          </div>
+          <select id="kw-prio" style="padding:.6rem .7rem;border:1.5px solid var(--br);border-radius:7px;font-size:.83rem;outline:none;background:#fff">
+            <option value="1">Prio 1 🔥</option><option value="2">Prio 2</option><option value="3">Prio 3</option>
+            <option value="4">Prio 4</option><option value="5" selected>Prio 5</option><option value="6">Prio 6</option>
+            <option value="7">Prio 7</option><option value="8">Prio 8</option><option value="9">Prio 9</option><option value="10">Prio 10</option>
+          </select>
+          <button class="btn btn-primary" onclick="addKeyword()">+ Toevoegen</button>
+        </div>
+        <div style="display:flex;gap:.5rem;align-items:center">
+          <input id="kw-notes" type="text" placeholder="Schrijfnoot (optioneel) — context voor Claude"
+            style="flex:1;padding:.6rem .9rem;border:1.5px solid var(--br);border-radius:7px;font-size:.83rem;outline:none">
+          <span id="kw-status" style="font-size:.78rem;min-height:1.2rem;white-space:nowrap"></span>
+        </div>
+      </div>
+
+      <!-- Queue table -->
       <div class="card">
         <div class="card-head">
-          <h3>Keywords queue</h3>
-          <div style="display:flex;gap:.5rem;align-items:center">
+          <h3>Queue overzicht</h3>
+          <div style="display:flex;gap:.4rem;align-items:center">
+            <button onclick="setQueueFilter('all')" id="qf-all" class="btn btn-ghost" style="font-size:.75rem;padding:.2rem .6rem">Alles</button>
+            <button onclick="setQueueFilter('pending')" id="qf-pending" class="btn btn-primary" style="font-size:.75rem;padding:.2rem .6rem">⏳ Pending</button>
+            <button onclick="setQueueFilter('published')" id="qf-published" class="btn btn-ghost" style="font-size:.75rem;padding:.2rem .6rem">✅ Gepubliceerd</button>
+            <span style="width:1px;height:16px;background:var(--br);margin:0 .2rem"></span>
             <span class="badge bb" id="queue-pending-badge">–</span>
-            <button class="btn btn-ghost" onclick="loadQueue()">↺</button>
+            <button class="btn btn-ghost" onclick="loadQueue()" style="font-size:.8rem">↺</button>
           </div>
         </div>
         <div id="queue-table"><div class="empty">Laden...</div></div>
-        <div style="padding:.8rem 1.2rem;border-top:1px solid var(--br)">
-          <div style="display:flex;gap:.5rem;flex-wrap:wrap;align-items:center">
-            <input id="kw-input" type="text" placeholder="Nieuw keyword, bijv: vinted btw 2026" style="flex:1;min-width:200px;padding:.55rem .9rem;border:1.5px solid var(--br);border-radius:7px;font-size:.82rem;outline:none">
-            <select id="kw-prio" style="padding:.55rem .6rem;border:1.5px solid var(--br);border-radius:7px;font-size:.82rem;outline:none;background:#fff">
-              <option value="1">Prio 1 🔥</option>
-              <option value="2">Prio 2</option>
-              <option value="3">Prio 3</option>
-              <option value="4">Prio 4</option>
-              <option value="5" selected>Prio 5</option>
-              <option value="6">Prio 6</option>
-              <option value="7">Prio 7</option>
-              <option value="8">Prio 8</option>
-              <option value="9">Prio 9</option>
-              <option value="10">Prio 10</option>
-            </select>
-            <button class="btn btn-primary" onclick="addKeyword()">+ Toevoegen</button>
-          </div>
-          <div style="display:flex;gap:.5rem;flex-wrap:wrap;align-items:center;margin-top:.5rem">
-            <input id="kw-notes" type="text" placeholder="Notitie (optioneel)" style="flex:1;min-width:200px;padding:.55rem .9rem;border:1.5px solid var(--br);border-radius:7px;font-size:.82rem;outline:none">
-            <span id="kw-status" style="font-size:.78rem;color:var(--tx3);min-height:1.2rem"></span>
-          </div>
-        </div>
       </div>
 
       <div class="card">
@@ -1294,26 +1301,68 @@ async function loadBlogs(){
 }
 
 // ── Queue ──────────────────────────────────────────────────────────────────────
+let _kwCache = null;
+let _kwFilter = 'pending';
+
+function setQueueFilter(f){
+  _kwFilter = f;
+  ['all','pending','published'].forEach(x=>{
+    const btn = document.getElementById('qf-'+x);
+    if(btn){ btn.className = x===f ? 'btn btn-primary' : 'btn btn-ghost'; btn.style.fontSize='.75rem'; btn.style.padding='.2rem .6rem'; }
+  });
+  if(_kwCache) renderQueueTable(_kwCache);
+}
+
+async function getKwFresh(){
+  const tok = localStorage.getItem('zenbtw_gh_token');
+  const headers = { 'Accept': 'application/vnd.github+json', ...(tok?{'Authorization':'Bearer '+tok}:{}) };
+  const r = await fetch(`https://api.github.com/repos/${REPO}/contents/keywords.json`, { headers });
+  if(!r.ok) throw new Error('GitHub API: '+r.status);
+  const d = await r.json();
+  return JSON.parse(atob(d.content.replace(/\n/g,'')));
+}
+
+function renderQueueTable(kw){
+  const pending = (kw.queue||[]).filter(k=>k.status==='pending');
+  document.getElementById('queue-pending-badge').textContent = pending.length+' pending';
+
+  let items;
+  if(_kwFilter==='pending') items = (kw.queue||[]).filter(k=>k.status==='pending').sort((a,b)=>(a.priority||99)-(b.priority||99));
+  else if(_kwFilter==='published') items = (kw.published||[]).sort((a,b)=>new Date(b.publishedDate||0)-new Date(a.publishedDate||0));
+  else items = [...(kw.queue||[]).sort((a,b)=>(a.priority||99)-(b.priority||99)), ...(kw.published||[]).sort((a,b)=>new Date(b.publishedDate||0)-new Date(a.publishedDate||0))];
+
+  const el = document.getElementById('queue-table');
+  if(!items.length){ el.innerHTML='<div class="empty">Geen keywords in deze categorie</div>'; return; }
+
+  el.innerHTML=`<table><thead><tr>
+    <th style="width:32px">#</th>
+    <th>Keyword</th>
+    <th style="width:80px">Status</th>
+    <th style="width:60px">Prio</th>
+    <th style="width:100px">Datum</th>
+    <th>Notitie</th>
+    <th style="width:36px"></th>
+  </tr></thead><tbody>${items.map((k,i)=>`<tr>
+    <td style="color:var(--tx4);font-size:.75rem">${i+1}</td>
+    <td>
+      <div style="font-weight:500;font-size:.83rem">${k.keyword}</div>
+      <div class="mono" style="color:var(--tx4);font-size:.71rem">${k.slug||''}</div>
+    </td>
+    <td><span class="badge ${k.status==='pending'?'by':'bg'}">${k.status==='pending'?'⏳':'✅'} ${k.status}</span></td>
+    <td><span class="badge ${(k.priority||99)<=3?'bb':(k.priority||99)<=6?'by':'bgr'}">${k.priority??'–'}</span></td>
+    <td style="color:var(--tx3);font-size:.78rem">${k.publishedDate||k.addedDate||'–'}</td>
+    <td style="color:var(--tx3);font-style:italic;font-size:.78rem;max-width:220px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap" title="${(k.notes||'').replace(/"/g,'&quot;')}">${k.notes||'–'}</td>
+    <td>${k.status==='pending'?`<button class="btn btn-ghost" style="padding:2px 8px;font-size:.7rem;color:var(--red)" onclick="deleteQueueItem('${k.keyword.replace(/'/g,"\\'")}')">✕</button>`:''}</td>
+  </tr>`).join('')}</tbody></table>`;
+}
+
 async function loadQueue(){
   document.getElementById('queue-table').innerHTML='<div class="empty">Laden...</div>';
   try{
-    const kw = await get('/keywords.json');
-    const pending=(kw.queue||[]).filter(k=>k.status==='pending');
-    document.getElementById('queue-pending-badge').textContent=pending.length+' pending';
-    const all=[...(kw.queue||[]),...(kw.published||[]).slice(0,10)];
-    document.getElementById('queue-table').innerHTML=all.length
-      ?`<table><thead><tr><th>Keyword</th><th>Slug</th><th>Status</th><th>Prioriteit</th><th>Gepubliceerd</th><th>Notitie</th><th></th></tr></thead>
-        <tbody>${all.map(k=>`<tr>
-          <td style="font-weight:500">${k.keyword}</td>
-          <td class="mono" style="color:var(--tx3);font-size:.75rem">${k.slug}</td>
-          <td><span class="badge ${k.status==='pending'?'by':k.status==='published'?'bg':'bgr'}">${k.status==='pending'?'⏳ pending':k.status==='published'?'✅ gepubliceerd':k.status}</span></td>
-          <td><span class="badge ${(k.priority||99)<=3?'bb':(k.priority||99)<=7?'bgr':'bgr'}">${k.priority??'–'}</span></td>
-          <td style="color:var(--tx3);font-size:.78rem">${k.publishedDate||'–'}</td>
-          <td style="color:var(--tx3);font-style:italic;font-size:.78rem;max-width:200px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${k.notes||'–'}</td>
-          <td>${k.status==='pending'?`<button class="btn btn-ghost" style="padding:2px 8px;font-size:.7rem;color:var(--red)" onclick="deleteQueueItem('${k.keyword.replace(/'/g,"\\'")}')">✕</button>`:''}</td>
-        </tr>`).join('')}</tbody></table>`
-      :'<div class="empty">Queue leeg</div>';
-  }catch(e){document.getElementById('queue-table').innerHTML=`<div class="empty" style="color:var(--red)">${e.message}</div>`;}
+    const kw = await getKwFresh();
+    _kwCache = kw;
+    renderQueueTable(kw);
+  }catch(e){ document.getElementById('queue-table').innerHTML=`<div class="empty" style="color:var(--red)">${e.message}</div>`; }
 
   try{
     const ag=await get('/app/blog/data.json');
@@ -1321,7 +1370,7 @@ async function loadQueue(){
     document.getElementById('queue-trends').innerHTML=q.length
       ?q.map(t=>`<div class="trend-row"><span class="trend-score">${t.score>=5000?'🔥':t.score}</span><span class="trend-q">${t.query}</span><span class="badge ${t.type==='rising'?'bb':'bgr'}">${t.type==='rising'?'Trending':'Top'}</span></div>`).join('')
       :'<div class="empty">Nog geen run data</div>';
-  }catch(_){document.getElementById('queue-trends').innerHTML='<div class="empty">Geen agent data</div>';}
+  }catch(_){ document.getElementById('queue-trends').innerHTML='<div class="empty">Geen agent data</div>'; }
 }
 
 async function addKeyword(){
@@ -1386,13 +1435,16 @@ async function addKeyword(){
     });
     if(!putRes.ok){ const e=await putRes.json(); throw new Error(e.message||putRes.status); }
     
-    // 6. Reset form en herlaad
+    // 6. Reset form, update lokale cache en herlaad
     document.getElementById('kw-input').value = '';
     document.getElementById('kw-notes').value = '';
     document.getElementById('kw-prio').value = '5';
-    document.getElementById('kw-status').textContent = `✅ "${kw}" toegevoegd aan queue (prioriteit ${prio})`;
+    document.getElementById('kw-status').textContent = `✅ "${kw}" toegevoegd`;
     document.getElementById('kw-status').style.color = 'var(--green)';
-    loadQueue();
+    setTimeout(()=>{ document.getElementById('kw-status').textContent=''; }, 3000);
+    _kwCache = currentContent; // direct lokale cache bijwerken (geen CDN-vertraging)
+    renderQueueTable(currentContent);
+    loadQueue(); // ook async refreshen vanuit GitHub
   } catch(e){
     document.getElementById('kw-status').textContent = '❌ ' + e.message;
     document.getElementById('kw-status').style.color = 'var(--red)';

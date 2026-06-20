@@ -28,7 +28,7 @@ const ENABLE_SCREENSHOTS = process.env.SCREENSHOTS_ENABLED === 'true';
 
 // State files
 const STATE_FILE = path.join(ROOT, '.social-post-state.json');
-const KEYWORDS_FILE = path.join(ROOT, 'keywords-queue.json');
+const KEYWORDS_FILE = path.join(ROOT, 'keywords.json');
 
 // ── OAuth 1.0a Setup ───────────────────────────────────────────────────────
 const oauth = new OAuth({
