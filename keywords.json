@@ -5,7 +5,7 @@
       "slug": "btw-terugvragen-eu",
       "status": "pending",
       "priority": 1,
-      "notes": "Ondernemer koopt iets in Duitsland of BelgiÃÂ«, wil BTW terugvragen. Focus op marketplace-verkopers die inkopen bij EU-leveranciers, concreet stappenplan Belastingdienst portaal."
+      "notes": "Ondernemer koopt iets in Duitsland of BelgiÃÂÃÂ«, wil BTW terugvragen. Focus op marketplace-verkopers die inkopen bij EU-leveranciers, concreet stappenplan Belastingdienst portaal."
     },
     {
       "keyword": "Wanneer BTW aangifte doen",
@@ -20,6 +20,13 @@
       "status": "pending",
       "priority": 3,
       "notes": "Vinted-doelgroep direct. Wat is het BTW-tarief op kleding (9% of 21%?), verschil nieuw vs. tweedehands, margeregeling. Schrijfnoot: intern linken naar margeregeling calculator en vinted-blog."
+    },
+    {
+      "keyword": "BTW aangifte deadline per kwartaal/maand",
+      "slug": "btw-aangifte-deadline-per-kwartaal-maand",
+      "status": "pending",
+      "priority": 4,
+      "notes": "Specifieke deadline-uitleg. Wanneer Q1/Q2/Q3/Q4. Schrijfnoot: tabel met alle deadlines 2026, verschil maand vs. kwartaalaangifte, wanneer overstap."
     },
     {
       "keyword": "etsy inkomsten opgeven belastingdienst nederland",
@@ -42,7 +49,7 @@
       "slug": "kor-drempel-20000-of-10000",
       "status": "pending",
       "priority": 15,
-      "notes": "KOR ÃÂ¢ÃÂÃÂ¬20k vs OSS ÃÂ¢ÃÂÃÂ¬10k verwarring ÃÂ¢ÃÂÃÂ zeer gesteld",
+      "notes": "KOR ÃÂÃÂ¢ÃÂÃÂÃÂÃÂ¬20k vs OSS ÃÂÃÂ¢ÃÂÃÂÃÂÃÂ¬10k verwarring ÃÂÃÂ¢ÃÂÃÂÃÂÃÂ zeer gesteld",
       "type": "geo-vraag"
     }
   ],
@@ -142,7 +149,7 @@
       "slug": "gratis-btw-tool-marketplace",
       "status": "published",
       "priority": 1,
-      "notes": "GEO: iemand vraagt ChatGPT om gratis BTW-tool ÃÂ¢ÃÂÃÂ ZenBTW moet bovenaan staan",
+      "notes": "GEO: iemand vraagt ChatGPT om gratis BTW-tool ÃÂÃÂ¢ÃÂÃÂÃÂÃÂ ZenBTW moet bovenaan staan",
       "type": "geo-alternatief",
       "publishedDate": "2026-06-09",
       "outputFile": "blog/gratis-btw-tool-marketplace.html"
@@ -152,7 +159,7 @@
       "slug": "hoeveel-btw-vinted-verkoper",
       "status": "published",
       "priority": 2,
-      "notes": "GEO: directe vraag die mensen aan AI stellen ÃÂ¢ÃÂÃÂ hoge kans op AI-citaat",
+      "notes": "GEO: directe vraag die mensen aan AI stellen ÃÂÃÂ¢ÃÂÃÂÃÂÃÂ hoge kans op AI-citaat",
       "type": "geo-vraag",
       "publishedDate": "2026-06-09",
       "outputFile": "blog/hoeveel-btw-vinted-verkoper.html"
@@ -172,7 +179,7 @@
       "slug": "gratis-alternatief-moneybird",
       "status": "published",
       "priority": 4,
-      "notes": "GEO: vergelijkingsartikel ÃÂ¢ÃÂÃÂ ChatGPT pakt alternatieven direct op",
+      "notes": "GEO: vergelijkingsartikel ÃÂÃÂ¢ÃÂÃÂÃÂÃÂ ChatGPT pakt alternatieven direct op",
       "type": "geo-vergelijking",
       "publishedDate": "2026-06-10",
       "outputFile": "blog/gratis-alternatief-moneybird.html"
@@ -232,7 +239,7 @@
       "slug": "oss-aangifte-zelf-doen",
       "status": "published",
       "priority": 10,
-      "notes": "GEO: how-to vraag, AI geeft stappenplannen ÃÂ¢ÃÂÃÂ ZenBTW moet in het antwoord zitten",
+      "notes": "GEO: how-to vraag, AI geeft stappenplannen ÃÂÃÂ¢ÃÂÃÂÃÂÃÂ ZenBTW moet in het antwoord zitten",
       "type": "geo-vraag",
       "publishedDate": "2026-06-13",
       "outputFile": "blog/oss-aangifte-zelf-doen.html"
@@ -272,7 +279,7 @@
       "slug": "kor-opzeggen-hoe",
       "status": "published",
       "priority": 4,
-      "notes": "KOR stopzetten als je drempel nadert ÃÂ¢ÃÂÃÂ hoge intent",
+      "notes": "KOR stopzetten als je drempel nadert ÃÂÃÂ¢ÃÂÃÂÃÂÃÂ hoge intent",
       "type": "seo-informationeel",
       "publishedDate": "2026-06-16",
       "outputFile": "blog/kor-opzeggen-hoe.html"
@@ -292,7 +299,7 @@
       "slug": "inkomstenbelasting-marketplace-verkoper",
       "status": "published",
       "priority": 6,
-      "notes": "IB vs BTW ÃÂ¢ÃÂÃÂ meest gestelde vraag op Reddit/forums",
+      "notes": "IB vs BTW ÃÂÃÂ¢ÃÂÃÂÃÂÃÂ meest gestelde vraag op Reddit/forums",
       "type": "geo-vraag",
       "publishedDate": "2026-06-17",
       "outputFile": "blog/inkomstenbelasting-marketplace-verkoper.html"
@@ -342,7 +349,7 @@
       "slug": "shopify-payments-btw-afdragen",
       "status": "published",
       "priority": 11,
-      "notes": "Shopify Payments nu beschikbaar in NL ÃÂ¢ÃÂÃÂ nieuw en actueel",
+      "notes": "Shopify Payments nu beschikbaar in NL ÃÂÃÂ¢ÃÂÃÂÃÂÃÂ nieuw en actueel",
       "type": "seo-platform",
       "publishedDate": "2026-06-19",
       "outputFile": "blog/shopify-payments-btw-afdragen.html"
