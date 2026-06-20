@@ -1,14 +1,6 @@
 {
   "queue": [
     {
-      "keyword": "winstmarge berekenen online verkopen nederland",
-      "slug": "winstmarge-berekenen-online-verkopen",
-      "status": "pending",
-      "priority": 12,
-      "notes": "Aansluitend op nieuwe winstcalculator tool",
-      "type": "seo-tool"
-    },
-    {
       "keyword": "etsy inkomsten opgeven belastingdienst nederland",
       "slug": "etsy-inkomsten-opgeven-belastingdienst",
       "status": "pending",
@@ -333,6 +325,16 @@
       "type": "seo-platform",
       "publishedDate": "2026-06-19",
       "outputFile": "blog/shopify-payments-btw-afdragen.html"
+    },
+    {
+      "keyword": "winstmarge berekenen online verkopen nederland",
+      "slug": "winstmarge-berekenen-online-verkopen",
+      "status": "published",
+      "priority": 12,
+      "notes": "Aansluitend op nieuwe winstcalculator tool",
+      "type": "seo-tool",
+      "publishedDate": "2026-06-20",
+      "outputFile": "blog/winstmarge-berekenen-online-verkopen.html"
     }
   ],
   "settings": {
