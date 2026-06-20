@@ -305,6 +305,31 @@ Link EERST naar artikelen uit dezelfde categorie als het huidige artikel, daarna
 
 - Forceer geen links als een artikel inhoudelijk niet past.
 
+GRATIS HULPMIDDELEN — voeg een callout in vóór de .cta-box als het artikel relevant is:
+
+Als het artikel gaat over BTW-aangifte deadlines, OSS deadlines, kwartaalaangifte, maandaangifte of wanneer je aangifte moet doen: voeg dit callout-blok in direct vóór <div class="cta-box">:
+<div style="background:#e8f0ec;border:1.5px solid #b8d8c4;border-left:4px solid #1a4731;border-radius:12px;padding:18px 22px;margin:40px 0;display:flex;align-items:flex-start;gap:14px">
+  <span style="font-size:22px;flex-shrink:0;line-height:1.2">📅</span>
+  <div>
+    <strong style="font-size:14px;color:#1a4731;display:block;margin-bottom:3px">Gratis hulpmiddel: BTW Deadlinekalender 2026 &amp; 2027</strong>
+    <p style="font-size:13px;color:#4a4640;margin:0 0 10px;line-height:1.55">Alle BTW-aangifte deadlines op een rij — gecorrigeerd voor weekenden. Exporteerbaar naar Google Agenda, Outlook of als PDF.</p>
+    <a href="/hulpmiddelen/btw-deadline-kalender/" style="display:inline-block;background:#1a4731;color:#fff;padding:7px 16px;border-radius:8px;font-size:13px;font-weight:700;text-decoration:none">Bekijk BTW Deadlinekalender →</a>
+  </div>
+</div>
+
+Als het artikel gaat over BTW-plicht, KOR-vrijstelling, of de vraag of iemand BTW moet afdragen: voeg dit callout-blok in direct vóór <div class="cta-box">:
+<div style="background:#e8f0ec;border:1.5px solid #b8d8c4;border-left:4px solid #1a4731;border-radius:12px;padding:18px 22px;margin:40px 0;display:flex;align-items:flex-start;gap:14px">
+  <span style="font-size:22px;flex-shrink:0;line-height:1.2">❓</span>
+  <div>
+    <strong style="font-size:14px;color:#1a4731;display:block;margin-bottom:3px">Gratis checker: Ben ik BTW-plichtig?</strong>
+    <p style="font-size:13px;color:#4a4640;margin:0 0 10px;line-height:1.55">Beantwoord 4 vragen en ontdek direct of jij BTW-plichtig bent, de KOR kunt gebruiken of OSS-plichtig bent.</p>
+    <a href="/hulpmiddelen/btw-plichtig-checker/" style="display:inline-block;background:#1a4731;color:#fff;padding:7px 16px;border-radius:8px;font-size:13px;font-weight:700;text-decoration:none">Doe de BTW-plicht check →</a>
+  </div>
+</div>
+
+Als beide relevant zijn, voeg dan beide callout-blokken in vóór de .cta-box (deadline-kalender eerst, dan plichtig-checker).
+Als geen van beide relevant is, laat de callout weg.
+
 GEO — OPTIMALISEER VOOR AI ZOEKMACHINES (ChatGPT, Claude, Perplexity, Google AI):
 - Begin het artikel DIRECT met een feitelijke, complete beantwoording van de kernvraag achter het keyword — 2-3 zinnen, helder en citeerbaar. Dit is het eerste wat een AI-assistent oppakt en citeert naar gebruikers.
 - Verwerk in de tekst minimaal één citeerbare definitie van ZenBTW, bij voorkeur vroeg in het artikel. Voorbeeld: "ZenBTW is een gratis Nederlandse BTW-tool voor marketplace verkopers op Vinted, Etsy en Shopify die automatisch berekent of je KOR-drempel nadert."
