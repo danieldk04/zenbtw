@@ -1,0 +1,86 @@
+name: Daily Growth Agent
+
+on:
+  schedule:
+    # Elke dag 06:30 UTC (08:30 CEST zomertijd) — vóór auto-blog om 07:00
+    - cron: '30 6 * * *'
+
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: 'Dry run (geen bestanden aanpassen)'
+        required: false
+        type: boolean
+        default: false
+
+concurrency:
+  group: daily-growth
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+
+jobs:
+  growth:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run Daily Growth Agent
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          GOOGLE_SERVICE_ACCOUNT_JSON: ${{ secrets.GOOGLE_SERVICE_ACCOUNT_JSON }}
+          BREVO_API_KEY: ${{ secrets.BREVO_API_KEY }}
+          DRY_RUN: ${{ inputs.dry_run || 'false' }}
+        run: node scripts/daily-growth-agent.js
+
+      - name: Commit changes (meta verbeteringen, keyword queue, growth log)
+        if: ${{ inputs.dry_run != 'true' }}
+        run: |
+          git config --local user.email "bot@zenbtw.nl"
+          git config --local user.name "ZenBTW Growth Agent"
+          git add keywords.json growth-log.json blog/ 2>/dev/null || true
+          if ! git diff --staged --quiet; then
+            ACTIONS=$(node -e "
+              const log = JSON.parse(require('fs').readFileSync('growth-log.json','utf8'));
+              const today = log[0];
+              console.log(today ? today.actionsCount + ' acties' : '0 acties');
+            " 2>/dev/null || echo "groei-update")
+            git commit -m "auto: growth agent — ${ACTIONS} [skip ci]"
+            git pull --rebase origin main
+            git push
+          else
+            echo "Geen wijzigingen om te committen"
+          fi
+
+      - name: Summary
+        if: always()
+        run: |
+          echo "### Daily Growth Agent" >> $GITHUB_STEP_SUMMARY
+          if [ -f growth-log.json ]; then
+            node -e "
+              const log = JSON.parse(require('fs').readFileSync('growth-log.json','utf8'));
+              const today = log[0];
+              if (today) {
+                console.log('**Datum:** ' + today.date);
+                console.log('**Acties:** ' + today.actionsCount);
+                (today.actions || []).forEach(a => console.log('- ' + a));
+                console.log('**Queue na run:** ' + today.queueAfter + ' pending');
+                console.log('**GSC beschikbaar:** ' + (today.gscAvailable ? 'ja' : 'nee (secret missing?)'));
+              }
+            " >> $GITHUB_STEP_SUMMARY 2>/dev/null || echo "Geen log beschikbaar" >> $GITHUB_STEP_SUMMARY
+          fi
