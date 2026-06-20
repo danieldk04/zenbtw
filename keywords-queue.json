@@ -1,11 +1,12 @@
 {
   "queue": [
-    { "keyword": "kor", "status": "pending", "priority": 1, "addedDate": "2026-06-19" },
-    { "keyword": "btw", "status": "pending", "priority": 2, "addedDate": "2026-06-19" },
-    { "keyword": "etsy", "status": "pending", "priority": 3, "addedDate": "2026-06-19" },
-    { "keyword": "vinted", "status": "pending", "priority": 4, "addedDate": "2026-06-19" },
-    { "keyword": "shopify", "status": "pending", "priority": 5, "addedDate": "2026-06-19" },
-    { "keyword": "dac7", "status": "pending", "priority": 6, "addedDate": "2026-06-19" }
+    { "keyword": "btw terugvragen eu", "status": "pending", "priority": 1, "addedDate": "2026-06-20" },
+    { "keyword": "wanneer btw aangifte", "status": "pending", "priority": 2, "addedDate": "2026-06-20" },
+    { "keyword": "btw kleding", "status": "pending", "priority": 3, "addedDate": "2026-06-20" },
+    { "keyword": "btw aangifte deadline", "status": "pending", "priority": 4, "addedDate": "2026-06-20" },
+    { "keyword": "ioss aangifte", "status": "pending", "priority": 5, "addedDate": "2026-06-20" },
+    { "keyword": "kor en inkomstenbelasting", "status": "pending", "priority": 6, "addedDate": "2026-06-20" },
+    { "keyword": "btw export buiten eu", "status": "pending", "priority": 7, "addedDate": "2026-06-20" }
   ],
   "published": []
 }
