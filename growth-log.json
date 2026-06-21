@@ -1,6 +1,24 @@
 [
   {
     "date": "2026-06-21",
+    "actionsCount": 3,
+    "actions": [
+      "✅ Meta verbeterd: /blog/btw-tarief-eu-landen-2026",
+      "✅ Meta verbeterd: /blog/oss-registratie-belastingdienst",
+      "✅ Meta verbeterd: /blog/dac7-belastingdienst-rapportage"
+    ],
+    "queueAfter": 8,
+    "gscAvailable": true,
+    "gscSnapshot": {
+      "queriesCount": 100,
+      "pagesCount": 37
+    },
+    "metaImprovementsCount": 3,
+    "trendsImproved": 0,
+    "trendsDeclining": 0
+  },
+  {
+    "date": "2026-06-21",
     "actionsCount": 0,
     "actions": [],
     "queueAfter": 8,
