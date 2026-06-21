@@ -37,8 +37,30 @@ const DRY_RUN = process.env.DRY_RUN === 'true';
 const KEYWORDS_FILE    = path.join(ROOT, 'keywords.json');
 const MEMORY_FILE      = path.join(ROOT, 'content-memory.json');
 const GROWTH_LOG_FILE  = path.join(ROOT, 'growth-log.json');
+const IMPROVEMENT_LOG  = path.join(ROOT, 'improvement-log.json');
 const BLOG_DIR         = path.join(ROOT, 'blog');
 const TODAY            = new Date().toISOString().split('T')[0];
+
+// ── Cooldown tracker — voorkomt dat dezelfde pagina elke dag verbeterd wordt ──
+
+function loadImprovementLog() {
+  return load(IMPROVEMENT_LOG, {});
+}
+
+function saveImprovementLog(log) {
+  if (!DRY_RUN) save(IMPROVEMENT_LOG, log);
+}
+
+function wasRecentlyImproved(slug, log, cooldownDays = 14) {
+  const entry = log[slug];
+  if (!entry) return false;
+  const daysSince = (Date.now() - new Date(entry.lastImproved).getTime()) / (1000 * 60 * 60 * 24);
+  return daysSince < cooldownDays;
+}
+
+function markImproved(slug, log, type) {
+  log[slug] = { lastImproved: TODAY, type, count: (log[slug]?.count || 0) + 1 };
+}
 
 // ── Claude via native fetch (SDK vermeden — blocked in GitHub Actions) ────────
 
@@ -881,20 +903,28 @@ async function main() {
       report.actionsExecuted.push(`📈 ${report.trends.improved.length} keywords verbeterd t.o.v. vorige week`);
     }
 
-    // 2. Verbeter max 3 low-CTR pagina's per dag (met retry + fallback)
-    for (const page of lowCTR.slice(0, 3)) {
+    // 2. Verbeter max 3 low-CTR pagina's per dag — met cooldown rotatie
+    const improvLog = loadImprovementLog();
+    const eligiblePages = lowCTR.filter(p => {
+      const slug = p.page.replace('https://zenbtw.nl/blog/', '').replace(/\/$/, '');
+      return !wasRecentlyImproved(slug, improvLog, 14);
+    });
+
+    log(`Lage CTR pagina's na cooldown filter: ${eligiblePages.length} van ${lowCTR.length} in aanmerking`);
+
+    for (const page of eligiblePages.slice(0, 3)) {
       try {
         const result = await improveLowCTRPage(page);
         if (result) {
           report.metaImprovements.push(result);
-          const method = result.usedFallback ? '(fallback)' : '✅';
-          report.actionsExecuted.push(`${method} Meta verbeterd: /blog/${result.slug}`);
+          markImproved(result.slug, improvLog, 'meta');
+          report.actionsExecuted.push(`✅ Meta verbeterd: /blog/${result.slug}`);
         } else {
-          // Meta mislukt, probeer interne links toe te voegen
           const slug = page.page.replace('https://zenbtw.nl/blog/', '').replace(/\/$/, '');
           const filePath = path.join(BLOG_DIR, `${slug}.html`);
           const linksAdded = addInternalLinksFallback(filePath, slug);
           if (linksAdded) {
+            markImproved(slug, improvLog, 'internal-links');
             report.actionsExecuted.push(`🔗 ${linksAdded} interne links toegevoegd: /blog/${slug}`);
           }
         }
@@ -902,6 +932,7 @@ async function main() {
         log(`  Fout bij ${page.page}: ${err.message}`);
       }
     }
+    saveImprovementLog(improvLog);
 
     // 3. Check interne link coverage
     const missingLinks = checkInternalLinkCoverage(lowCTR, gscData.pages);
@@ -959,9 +990,16 @@ async function main() {
   // 5. Competitor gap analyse voor top kansen
   if (serperAvailable() && report.gscOpportunities?.length) {
     log('Competitor gap analyse starten...');
-    // Pak top 2 kansen (meeste impressies, pos 4-20) om API gebruik te beperken
+    // Top kansen gesorteerd op impressies, met cooldown (21 dagen voor competitor analyse)
+    const competImprovLog = loadImprovementLog();
     const topKansen = report.gscOpportunities
       .sort((a, b) => b.impressions - a.impressions)
+      .filter(k => {
+        const mapped = report.gsc?.queryPageMap?.[k.query];
+        if (!mapped) return true;
+        const slug = mapped.page.replace(/.*\/blog\//, '').replace(/\/$/, '');
+        return !wasRecentlyImproved(`competitor:${slug}`, competImprovLog, 21);
+      })
       .slice(0, 2);
 
     for (const kans of topKansen) {
@@ -993,6 +1031,8 @@ async function main() {
         if (result && result.applied.length) {
           report.competitorFixes = report.competitorFixes || [];
           report.competitorFixes.push(result);
+          markImproved(`competitor:${slug}`, competImprovLog, 'competitor-gap');
+          saveImprovementLog(competImprovLog);
           report.actionsExecuted.push(`🔍 Competitor gap fix /blog/${result.slug}: ${result.applied.join(', ')}`);
         }
       } catch (err) {

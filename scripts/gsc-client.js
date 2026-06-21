@@ -129,11 +129,14 @@ export function findOpportunities(queries) {
 }
 
 /**
- * Pages with many impressions but low CTR — title/meta improvement will help.
+ * Pages with low CTR relative to their impressions.
+ * Gesorteerd op opportunity score = impressies × (doelCTR - actuele CTR).
+ * Drempel verlaagd naar 30 impressies zodat ook kleinere pagina's aan bod komen.
  */
 export function findLowCTRPages(pages) {
   return pages
-    .filter(p => p.impressions >= 200 && p.ctr < 0.03)
-    .sort((a, b) => b.impressions - a.impressions)
-    .slice(0, 10);
+    .filter(p => p.impressions >= 30 && p.ctr < 0.05 && p.page.includes('/blog/'))
+    .map(p => ({ ...p, opportunityScore: p.impressions * (0.05 - p.ctr) }))
+    .sort((a, b) => b.opportunityScore - a.opportunityScore)
+    .slice(0, 20);
 }
