@@ -80,6 +80,14 @@ export async function fetchGSCData(days = 28) {
     orderBy: [{ fieldName: 'impressions', sortOrder: 'DESCENDING' }]
   });
 
+  // Query+page combinatie — geeft directe koppeling welk keyword op welke pagina rankt
+  const queryPageData = await searchAnalytics(token, siteUrl, {
+    ...dateRange,
+    dimensions: ['query', 'page'],
+    rowLimit: 200,
+    orderBy: [{ fieldName: 'impressions', sortOrder: 'DESCENDING' }]
+  }).catch(() => ({ rows: [] }));
+
   const queries = (queryData.rows || []).map(r => ({
     query:       r.keys[0],
     clicks:      r.clicks,
@@ -96,7 +104,17 @@ export async function fetchGSCData(days = 28) {
     position:    r.position
   }));
 
-  return { queries, pages, siteUrl, period: { startDate: fmt(startDate), endDate: fmt(endDate) } };
+  // Map: query → beste pagina (laagste positie = hoogste ranking)
+  const queryPageMap = {};
+  for (const row of (queryPageData.rows || [])) {
+    const q = row.keys[0];
+    const p = row.keys[1];
+    if (!queryPageMap[q] || row.position < queryPageMap[q].position) {
+      queryPageMap[q] = { page: p, position: row.position, ctr: row.ctr, impressions: row.impressions };
+    }
+  }
+
+  return { queries, pages, queryPageMap, siteUrl, period: { startDate: fmt(startDate), endDate: fmt(endDate) } };
 }
 
 /**

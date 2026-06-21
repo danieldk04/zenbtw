@@ -836,13 +836,27 @@ async function main() {
 
     for (const kans of topKansen) {
       try {
-        // Zoek de bijbehorende blog post slug via GSC pagina data
-        const matchPage = report.gsc?.pages?.find(p =>
-          p.page.includes('/blog/') && p.queries?.some(q => q === kans.query)
-        ) || report.gsc?.pages?.find(p => p.page.includes('/blog/'));
+        // Gebruik directe query→pagina mapping uit GSC
+        const mapped = report.gsc?.queryPageMap?.[kans.query];
+        let pageUrl = mapped?.page;
 
-        if (!matchPage) continue;
-        const slug = matchPage.page.replace(/.*\/blog\//, '').replace(/\/$/, '');
+        // Fallback: woordoverlap tussen keyword en slug
+        if (!pageUrl || !pageUrl.includes('/blog/')) {
+          const kwWords = kans.query.toLowerCase().split(/\W+/).filter(w => w.length > 3);
+          const best = report.gsc?.pages
+            ?.filter(p => p.page.includes('/blog/'))
+            .map(p => {
+              const slug = p.page.replace(/.*\/blog\//, '').replace(/\/$/, '');
+              const overlap = kwWords.filter(w => slug.includes(w)).length;
+              return { ...p, overlap };
+            })
+            .filter(p => p.overlap > 0)
+            .sort((a, b) => b.overlap - a.overlap)[0];
+          pageUrl = best?.page;
+        }
+
+        if (!pageUrl || !pageUrl.includes('/blog/')) continue;
+        const slug = pageUrl.replace(/.*\/blog\//, '').replace(/\/$/, '');
         const gscPage = report.gsc?.pages?.find(p => p.page.includes(slug));
 
         const result = await analyzeAndImprovePage(kans.query, slug, gscPage);
