@@ -23,7 +23,6 @@
  *   DRY_RUN=true                — log acties maar schrijf niks weg
  */
 
-import Anthropic from '@anthropic-ai/sdk';
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
@@ -41,7 +40,28 @@ const GROWTH_LOG_FILE  = path.join(ROOT, 'growth-log.json');
 const BLOG_DIR         = path.join(ROOT, 'blog');
 const TODAY            = new Date().toISOString().split('T')[0];
 
-const claude = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY });
+// ── Claude via native fetch (SDK vermeden — blocked in GitHub Actions) ────────
+
+async function claudeChat(messages, maxTokens = 1024) {
+  const apiKey = process.env.ANTHROPIC_API_KEY;
+  if (!apiKey) throw new Error('ANTHROPIC_API_KEY niet ingesteld');
+
+  const res = await fetch('https://api.anthropic.com/v1/messages', {
+    method: 'POST',
+    headers: {
+      'x-api-key': apiKey,
+      'anthropic-version': '2023-06-01',
+      'content-type': 'application/json',
+    },
+    body: JSON.stringify({ model: 'claude-sonnet-4-6', max_tokens: maxTokens, messages }),
+  });
+
+  if (!res.ok) {
+    const txt = await res.text();
+    throw new Error(`Claude API ${res.status}: ${txt.slice(0, 200)}`);
+  }
+  return res.json();
+}
 
 // ── Helpers ──────────────────────────────────────────────────────────────────
 
@@ -120,11 +140,7 @@ Geef ALLEEN een JSON-array terug, geen uitleg:
   ...
 ]`;
 
-  const msg = await withRetry(() => claude.messages.create({
-    model: 'claude-sonnet-4-6',
-    max_tokens: 1024,
-    messages: [{ role: 'user', content: prompt }]
-  }));
+  const msg = await withRetry(() => claudeChat([{ role: 'user', content: prompt }], 1024));
 
   const text = msg.content[0].text.trim();
   const jsonMatch = text.match(/\[[\s\S]*\]/);
@@ -233,11 +249,7 @@ Antwoord ALLEEN als JSON:
   let title, description;
 
   try {
-    const msg = await withRetry(() => claude.messages.create({
-      model: 'claude-sonnet-4-6',
-      max_tokens: 300,
-      messages: [{ role: 'user', content: prompt }]
-    }));
+    const msg = await withRetry(() => claudeChat([{ role: 'user', content: prompt }], 300));
 
     const jsonMatch = msg.content[0].text.match(/\{[\s\S]*\}/);
     if (jsonMatch) {
@@ -546,11 +558,7 @@ Antwoord ALLEEN als JSON:
   let diagnosis = '';
 
   try {
-    const msg = await withRetry(() => claude.messages.create({
-      model: 'claude-sonnet-4-6',
-      max_tokens: 800,
-      messages: [{ role: 'user', content: prompt }]
-    }));
+    const msg = await withRetry(() => claudeChat([{ role: 'user', content: prompt }], 800));
 
     const jsonMatch = msg.content[0].text.match(/\{[\s\S]*\}/);
     if (jsonMatch) {
@@ -730,11 +738,7 @@ Antwoord ALLEEN als JSON:
   let rationale = '';
 
   try {
-    const msg = await withRetry(() => claude.messages.create({
-      model: 'claude-sonnet-4-6',
-      max_tokens: 1500,
-      messages: [{ role: 'user', content: prompt }]
-    }));
+    const msg = await withRetry(() => claudeChat([{ role: 'user', content: prompt }], 1500));
 
     const jsonMatch = msg.content[0].text.match(/\{[\s\S]*\}/);
     if (jsonMatch) {
