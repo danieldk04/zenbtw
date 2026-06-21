@@ -1,13 +1,6 @@
 {
   "queue": [
     {
-      "keyword": "BTW op kleding",
-      "slug": "btw-op-kleding",
-      "status": "pending",
-      "priority": 3,
-      "notes": "Vinted-doelgroep direct. Wat is het BTW-tarief op kleding (9% of 21%?), verschil nieuw vs. tweedehands, margeregeling. Schrijfnoot: intern linken naar margeregeling calculator en vinted-blog."
-    },
-    {
       "keyword": "BTW aangifte deadline per kwartaal/maand",
       "slug": "btw-aangifte-deadline-per-kwartaal-maand",
       "status": "pending",
@@ -393,6 +386,15 @@
       "notes": "Dit gaat over het algemene ritme: maandelijks vs. kwartaal, wanneer ben je verplicht, wat als je net gestart bent. Schrijfnoot: duidelijk onderscheid maken met de OSS-deadline blog, focus op startende verkopers.",
       "publishedDate": "2026-06-21",
       "outputFile": "blog/wanneer-btw-aangifte-doen.html"
+    },
+    {
+      "keyword": "BTW op kleding",
+      "slug": "btw-op-kleding",
+      "status": "published",
+      "priority": 3,
+      "notes": "Vinted-doelgroep direct. Wat is het BTW-tarief op kleding (9% of 21%?), verschil nieuw vs. tweedehands, margeregeling. Schrijfnoot: intern linken naar margeregeling calculator en vinted-blog.",
+      "publishedDate": "2026-06-21",
+      "outputFile": "blog/btw-op-kleding.html"
     }
   ],
   "settings": {
