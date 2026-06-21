@@ -268,7 +268,18 @@ Antwoord ALLEEN als JSON:
     fs.writeFileSync(filePath, newHtml, 'utf8');
   }
 
-  return { slug, oldTitle: currentTitle, newTitle: title, newDescription: description, usedFallback: !title || !description };
+  return {
+    slug,
+    oldTitle: currentTitle,
+    newTitle: title,
+    newDescription: description,
+    usedFallback: !title || !description,
+    // WHY data voor email transparantie
+    ctr: page.ctr,
+    impressions: page.impressions,
+    position: page.position,
+    reason: `CTR van ${(page.ctr * 100).toFixed(1)}% bij ${page.impressions} impressies betekent dat ~${Math.round(page.impressions * (0.04 - page.ctr))} extra kliks per maand mogelijk zijn als we naar 4% CTR gaan.`
+  };
 }
 
 // ── Check interne link coverage ───────────────────────────────────────────────
@@ -360,63 +371,91 @@ async function sendDigestEmail(report) {
   </td></tr>
   <tr><td style="padding:28px 32px">
 
-    <p style="margin:0 0 6px;font-size:13px;font-weight:700;color:#1a4731;text-transform:uppercase;letter-spacing:.5px">Acties vandaag</p>
-    <ul style="margin:0 0 24px;padding-left:18px">${actionsHtml}</ul>
+    <!-- SAMENVATTING -->
+    <p style="margin:0 0 6px;font-size:13px;font-weight:700;color:#1a4731;text-transform:uppercase;letter-spacing:.5px">Wat is er vandaag gedaan</p>
+    <ul style="margin:0 0 8px;padding-left:18px">${actionsHtml}</ul>
+    <p style="margin:0 0 28px;font-size:12px;color:#8a847a">Elke actie hieronder bevat de data-redenering waarom deze keuze is gemaakt.</p>
 
     ${trendsSection}
 
-    <p style="margin:0 0 10px;font-size:13px;font-weight:700;color:#1a4731;text-transform:uppercase;letter-spacing:.5px">Top Google queries (28d)</p>
-    <table width="100%" cellpadding="0" cellspacing="0" style="border:1px solid #e8e5de;border-radius:8px;overflow:hidden;margin-bottom:24px">
-      <tr style="background:#f7f6f3"><th style="padding:8px 10px;font-size:11px;color:#8a847a;text-align:left;font-weight:600">Query</th><th style="padding:8px 10px;font-size:11px;color:#8a847a;text-align:center;font-weight:600">Clicks</th><th style="padding:8px 10px;font-size:11px;color:#8a847a;text-align:center;font-weight:600">Impressies</th><th style="padding:8px 10px;font-size:11px;color:#8a847a;text-align:center;font-weight:600">Positie</th></tr>
-      ${topQueriesHtml}
-    </table>
-
-    <p style="margin:0 0 10px;font-size:13px;font-weight:700;color:#1a4731;text-transform:uppercase;letter-spacing:.5px">Keyword kansen (positie 4–20)</p>
-    <ul style="margin:0 0 24px;padding-left:18px">${opportunitiesHtml}</ul>
-
-    <p style="margin:0 0 6px;font-size:13px;font-weight:700;color:#1a4731;text-transform:uppercase;letter-spacing:.5px">Keyword queue</p>
-    <p style="margin:0 0 24px;font-size:13px;color:#4a4640">${report.queueStatus?.pending ?? '?'} pending · ${report.queueStatus?.published ?? '?'} live</p>
-
-    ${report.metaImprovements?.length ? `
-    <p style="margin:0 0 10px;font-size:13px;font-weight:700;color:#1a4731;text-transform:uppercase;letter-spacing:.5px">Meta verbeteringen (SEO)</p>
-    <ul style="margin:0 0 24px;padding-left:18px">
-      ${report.metaImprovements.map(m => `<li style="font-size:13px;color:#4a4640;margin-bottom:6px">/blog/${m.slug}: "${m.newTitle}"</li>`).join('')}
-    </ul>` : ''}
-
+    <!-- SITE STATISTIEKEN -->
     ${report.siteStats ? `
-    <p style="margin:0 0 10px;font-size:13px;font-weight:700;color:#1a4731;text-transform:uppercase;letter-spacing:.5px">GA4 site statistieken (28d)</p>
-    <table width="100%" cellpadding="0" cellspacing="0" style="border:1px solid #e8e5de;border-radius:8px;overflow:hidden;margin-bottom:${report.umamiHighBounce?.length ? '16px' : '24px'}">
+    <p style="margin:0 0 10px;font-size:13px;font-weight:700;color:#1a4731;text-transform:uppercase;letter-spacing:.5px">GA4 site statistieken (28 dagen)</p>
+    <table width="100%" cellpadding="0" cellspacing="0" style="border:1px solid #e8e5de;border-radius:8px;overflow:hidden;margin-bottom:24px">
       <tr>
-        <td style="padding:12px 16px;text-align:center;border-right:1px solid #e8e5de"><span style="font-size:20px;font-weight:700;color:#1a4731;display:block">${report.siteStats.totalViews?.toLocaleString('nl')}</span><span style="font-size:11px;color:#8a847a">Pageviews</span></td>
+        <td style="padding:12px 16px;text-align:center;border-right:1px solid #e8e5de"><span style="font-size:20px;font-weight:700;color:#1a4731;display:block">${report.siteStats.totalViews?.toLocaleString('nl') ?? '—'}</span><span style="font-size:11px;color:#8a847a">Pageviews</span></td>
         <td style="padding:12px 16px;text-align:center;border-right:1px solid #e8e5de"><span style="font-size:20px;font-weight:700;color:#1a4731;display:block">${report.siteStats.totalSessions?.toLocaleString('nl') ?? '—'}</span><span style="font-size:11px;color:#8a847a">Sessies</span></td>
         <td style="padding:12px 16px;text-align:center;border-right:1px solid #e8e5de"><span style="font-size:20px;font-weight:700;color:${report.siteStats.bounceRate > 0.5 ? '#b8443c' : '#2d6a4f'};display:block">${report.siteStats.bounceRate !== null ? (report.siteStats.bounceRate * 100).toFixed(0) + '%' : '—'}</span><span style="font-size:11px;color:#8a847a">Bounce rate</span></td>
         <td style="padding:12px 16px;text-align:center"><span style="font-size:20px;font-weight:700;color:#1a4731;display:block">${report.siteStats.avgDuration ? report.siteStats.avgDuration + 's' : '—'}</span><span style="font-size:11px;color:#8a847a">Gem. duur</span></td>
       </tr>
     </table>` : ''}
 
-    ${report.umamiHighBounce?.length ? `
-    <p style="margin:0 0 8px;font-size:13px;color:#b8443c;font-weight:600">⚠️ Hoge bounce pagina's (> 50%, ≥ 10 sessies):</p>
-    <ul style="margin:0 0 16px;padding-left:18px">
-      ${report.umamiHighBounce.slice(0, 5).map(p => `<li style="font-size:13px;color:#4a4640;margin-bottom:4px">/blog/${p.slug} — bounce ${(p.bounceRate * 100).toFixed(0)}%, ${p.entryCount} sessies</li>`).join('')}
-    </ul>` : ''}
+    <!-- TOP QUERIES -->
+    <p style="margin:0 0 6px;font-size:13px;font-weight:700;color:#1a4731;text-transform:uppercase;letter-spacing:.5px">Top Google queries (28 dagen)</p>
+    <p style="margin:0 0 10px;font-size:12px;color:#8a847a">Dit zijn de zoekopdrachten waarvoor ZenBTW het vaakst verschijnt in Google.</p>
+    <table width="100%" cellpadding="0" cellspacing="0" style="border:1px solid #e8e5de;border-radius:8px;overflow:hidden;margin-bottom:24px">
+      <tr style="background:#f7f6f3"><th style="padding:8px 10px;font-size:11px;color:#8a847a;text-align:left;font-weight:600">Query</th><th style="padding:8px 10px;font-size:11px;color:#8a847a;text-align:center;font-weight:600">Clicks</th><th style="padding:8px 10px;font-size:11px;color:#8a847a;text-align:center;font-weight:600">Impressies</th><th style="padding:8px 10px;font-size:11px;color:#8a847a;text-align:center;font-weight:600">Positie</th></tr>
+      ${topQueriesHtml}
+    </table>
 
-    ${report.bounceFixes?.length ? `
-    <p style="margin:0 0 10px;font-size:13px;font-weight:700;color:#1a4731;text-transform:uppercase;letter-spacing:.5px">Bounce fixes uitgevoerd</p>
-    <ul style="margin:0 0 24px;padding-left:18px">
-      ${report.bounceFixes.map(f => `<li style="font-size:13px;color:#4a4640;margin-bottom:6px"><strong>/blog/${f.slug}</strong> (${(f.bounceRate * 100).toFixed(0)}% bounce): ${f.applied.join(', ')}${f.diagnosis ? ` — <em>${f.diagnosis}</em>` : ''}</li>`).join('')}
-    </ul>` : ''}
+    <!-- KEYWORD KANSEN -->
+    ${opportunities.length ? `
+    <p style="margin:0 0 6px;font-size:13px;font-weight:700;color:#1a4731;text-transform:uppercase;letter-spacing:.5px">Keyword kansen (positie 4–20)</p>
+    <p style="margin:0 0 10px;font-size:12px;color:#8a847a">Deze zoektermen staan net buiten de top 3. Een gerichte verbetering van de bijbehorende blog post kan hier snel een positie-sprong opleveren.</p>
+    <ul style="margin:0 0 24px;padding-left:18px">${opportunitiesHtml}</ul>` : ''}
 
+    <!-- KEYWORD QUEUE -->
+    <p style="margin:0 0 6px;font-size:13px;font-weight:700;color:#1a4731;text-transform:uppercase;letter-spacing:.5px">Keyword queue</p>
+    <p style="margin:0 0 28px;font-size:13px;color:#4a4640">${report.queueStatus?.pending ?? '?'} klaar om te publiceren · ${report.queueStatus?.published ?? '?'} live blogs</p>
+
+    <!-- META VERBETERINGEN MET REDENERING -->
+    ${report.metaImprovements?.length ? `
+    <p style="margin:0 0 6px;font-size:13px;font-weight:700;color:#1a4731;text-transform:uppercase;letter-spacing:.5px">Meta title &amp; description verbeterd</p>
+    <p style="margin:0 0 12px;font-size:12px;color:#8a847a">Google toont de title en description als je snippet in de zoekresultaten. Een hogere CTR = meer bezoekers zonder extra rankings.</p>
+    ${report.metaImprovements.map(m => `
+    <div style="border:1px solid #e8e5de;border-radius:8px;padding:14px 16px;margin-bottom:12px">
+      <p style="margin:0 0 4px;font-size:12px;font-weight:700;color:#1a4731">/blog/${m.slug}</p>
+      <p style="margin:0 0 8px;font-size:12px;color:#b8443c">⚠️ Waarom: CTR ${(m.ctr * 100).toFixed(1)}% bij ${m.impressions} impressies → ~${Math.round(m.impressions * (0.04 - Math.min(m.ctr, 0.04)))} extra kliks/maand mogelijk bij 4% CTR. Positie ${m.position?.toFixed(1)}.</p>
+      <p style="margin:0 0 4px;font-size:12px;color:#8a847a;text-decoration:line-through">Oud: ${m.oldTitle}</p>
+      <p style="margin:0;font-size:13px;color:#1a1814;font-weight:600">Nieuw: ${m.newTitle}</p>
+      ${m.newDescription ? `<p style="margin:4px 0 0;font-size:12px;color:#4a4640;font-style:italic">"${m.newDescription}"</p>` : ''}
+    </div>`).join('')}
+    <p style="margin:12px 0 28px;font-size:11px;color:#8a847a">Wijzigingen zijn live op de site. Google pikt dit op bij de volgende crawl (meestal binnen 1–7 dagen).</p>` : ''}
+
+    <!-- COMPETITOR GAP FIXES MET REDENERING -->
     ${report.competitorFixes?.length ? `
-    <p style="margin:0 0 10px;font-size:13px;font-weight:700;color:#1a4731;text-transform:uppercase;letter-spacing:.5px">🔍 Competitor gap fixes</p>
+    <p style="margin:0 0 6px;font-size:13px;font-weight:700;color:#1a4731;text-transform:uppercase;letter-spacing:.5px">🔍 Competitor analyse &amp; verbeteringen</p>
+    <p style="margin:0 0 12px;font-size:12px;color:#8a847a">Voor de keywords met de meeste kansen zijn de top 3 Google resultaten bekeken. Wat zij hebben en wij niet, is automatisch toegevoegd.</p>
     ${report.competitorFixes.map(f => `
-    <div style="border:1px solid #e8e5de;border-radius:8px;padding:12px 16px;margin-bottom:12px">
-      <p style="margin:0 0 6px;font-size:13px"><strong>/blog/${f.slug}</strong> — keyword: <em>${f.keyword}</em></p>
-      <p style="margin:0 0 6px;font-size:12px;color:#4a4640">${f.rationale || ''}</p>
-      <ul style="margin:4px 0;padding-left:16px">
-        ${f.applied.map(a => `<li style="font-size:12px;color:#1a4731">${a}</li>`).join('')}
+    <div style="border:1px solid #d4e8dc;border-radius:8px;padding:14px 16px;margin-bottom:12px;background:#f8fdf9">
+      <p style="margin:0 0 4px;font-size:12px;font-weight:700;color:#1a4731">/blog/${f.slug} — keyword: "${f.keyword}"</p>
+      <p style="margin:0 0 10px;font-size:12px;color:#2d6a4f">📊 Geanalyseerde concurrenten: ${(f.competitors || []).map(u => { try { return new URL(u).hostname; } catch { return u; } }).join(', ')}</p>
+      ${f.gaps?.length ? `<p style="margin:0 0 8px;font-size:12px;color:#b8443c">⚠️ Gevonden gaps:<br>${f.gaps.map(g => `&nbsp;&nbsp;• ${g}`).join('<br>')}</p>` : ''}
+      <p style="margin:0 0 8px;font-size:12px;color:#4a4640;font-style:italic">${f.rationale || ''}</p>
+      <p style="margin:0 0 4px;font-size:12px;font-weight:600;color:#1a4731">✅ Toegepast:</p>
+      <ul style="margin:0;padding-left:16px">
+        ${f.applied.map(a => `<li style="font-size:12px;color:#1a4731;margin-bottom:2px">${a}</li>`).join('')}
       </ul>
-      <p style="margin:6px 0 0;font-size:11px;color:#888">Concurrenten: ${(f.competitors || []).map(u => new URL(u).hostname).join(', ')}</p>
+    </div>`).join('')}
+    <p style="margin:8px 0 28px;font-size:11px;color:#8a847a">FAQ-secties met schema.org/FAQPage markup vergroten kans op rich results (uitklapbare vragen in Google).</p>` : ''}
+
+    <!-- BOUNCE FIXES MET REDENERING -->
+    ${report.bounceFixes?.length ? `
+    <p style="margin:0 0 6px;font-size:13px;font-weight:700;color:#1a4731;text-transform:uppercase;letter-spacing:.5px">Bounce fixes</p>
+    <p style="margin:0 0 12px;font-size:12px;color:#8a847a">Pagina's met hoge bounce rate zijn door GA4 gedetecteerd. Bezoekers verlaten de pagina snel zonder actie — dat schaadt de ranking op termijn.</p>
+    ${report.bounceFixes.map(f => `
+    <div style="border:1px solid #f0dede;border-radius:8px;padding:14px 16px;margin-bottom:12px;background:#fdf8f8">
+      <p style="margin:0 0 4px;font-size:12px;font-weight:700;color:#1a4731">/blog/${f.slug}</p>
+      <p style="margin:0 0 8px;font-size:12px;color:#b8443c">⚠️ Waarom: bounce rate ${(f.bounceRate * 100).toFixed(0)}% — ${f.diagnosis || 'bezoekers verlaten de pagina zonder door te klikken'}</p>
+      <p style="margin:0;font-size:12px;color:#1a4731">✅ Fix: ${f.applied.join(', ')}</p>
     </div>`).join('')}` : ''}
+
+    <!-- HOGE BOUNCE WAARSCHUWINGEN (zonder fix) -->
+    ${report.umamiHighBounce?.length && !report.bounceFixes?.length ? `
+    <p style="margin:0 0 8px;font-size:13px;color:#b8443c;font-weight:600">⚠️ Pagina's met hoge bounce (> 50%, ≥ 10 sessies) — worden morgen aangepakt:</p>
+    <ul style="margin:0 0 24px;padding-left:18px">
+      ${report.umamiHighBounce.slice(0, 5).map(p => `<li style="font-size:13px;color:#4a4640;margin-bottom:4px">/blog/${p.slug} — ${(p.bounceRate * 100).toFixed(0)}% bounce</li>`).join('')}
+    </ul>` : ''}
 
   </td></tr>
   <tr><td style="padding:16px 32px;border-top:1px solid #e8e5de;text-align:center">
