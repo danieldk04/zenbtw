@@ -1,13 +1,14 @@
 #!/usr/bin/env node
 /**
- * ZenBTW Daily Growth Agent
+ * ZenBTW Daily Growth Agent (v2)
  *
  * Runs every morning via GitHub Actions. Without any human input it:
  *   1. Haalt GSC data op (rankings, CTR, kansen)
- *   2. Analyseert social content performance (content-memory.json)
- *   3. Vraagt Claude wat de beste 1-3 acties zijn voor vandaag
- *   4. Voert die acties uit (keyword toevoegen, meta verbeteren, etc.)
- *   5. Stuurt een digest email naar danieldekoning66@gmail.com
+ *   2. Verbetert lage CTR pagina's met retry logic
+ *   3. Vult keyword queue aan als nodig
+ *   4. Check interne link coverage
+ *   5. Track ranking trends vs vorige week
+ *   6. Stuurt digest email naar danieldekoning66@gmail.com
  *
  * Env vars required:
  *   ANTHROPIC_API_KEY          — Claude API
@@ -49,6 +50,25 @@ function save(file, data) {
 
 function log(msg) {
   console.log(`[${new Date().toISOString()}] ${msg}`);
+}
+
+async function sleep(ms) {
+  return new Promise(r => setTimeout(r, ms));
+}
+
+// ── Retry wrapper voor API calls ──────────────────────────────────────────────
+
+async function withRetry(fn, maxRetries = 3, backoffMs = 2000) {
+  for (let attempt = 0; attempt < maxRetries; attempt++) {
+    try {
+      return await fn();
+    } catch (err) {
+      if (attempt === maxRetries - 1) throw err;
+      log(`  Retry ${attempt + 1}/${maxRetries - 1} after ${backoffMs}ms... (${err.message})`);
+      await sleep(backoffMs);
+      backoffMs *= 2; // exponential backoff
+    }
+  }
 }
 
 // ── Keyword queue ─────────────────────────────────────────────────────────────
@@ -94,11 +114,11 @@ Geef ALLEEN een JSON-array terug, geen uitleg:
   ...
 ]`;
 
-  const msg = await claude.messages.create({
+  const msg = await withRetry(() => claude.messages.create({
     model: 'claude-sonnet-4-6',
     max_tokens: 1024,
     messages: [{ role: 'user', content: prompt }]
-  });
+  }));
 
   const text = msg.content[0].text.trim();
   const jsonMatch = text.match(/\[[\s\S]*\]/);
@@ -122,7 +142,7 @@ Geef ALLEEN een JSON-array terug, geen uitleg:
   return added;
 }
 
-// ── Meta title/description improvement ───────────────────────────────────────
+// ── Meta title/description improvement (met retry) ──────────────────────────
 
 async function improveLowCTRPage(page) {
   const slug = page.page.replace('https://zenbtw.nl/blog/', '').replace(/\/$/, '');
@@ -153,11 +173,11 @@ Schrijf een betere title (max 60 tekens) en meta description (max 155 tekens) di
 Antwoord ALLEEN als JSON:
 {"title": "...", "description": "..."}`;
 
-  const msg = await claude.messages.create({
+  const msg = await withRetry(() => claude.messages.create({
     model: 'claude-sonnet-4-6',
     max_tokens: 300,
     messages: [{ role: 'user', content: prompt }]
-  });
+  }));
 
   const jsonMatch = msg.content[0].text.match(/\{[\s\S]*\}/);
   if (!jsonMatch) return null;
@@ -177,6 +197,54 @@ Antwoord ALLEEN als JSON:
   return { slug, oldTitle: currentTitle, newTitle: title, newDescription: description };
 }
 
+// ── Check interne link coverage ───────────────────────────────────────────────
+
+function checkInternalLinkCoverage(lowCTRPages, allPages) {
+  const missingLinks = [];
+  for (const page of lowCTRPages.slice(0, 3)) {
+    const slug = page.page.replace('https://zenbtw.nl/blog/', '').replace(/\/$/, '');
+    const filePath = path.join(BLOG_DIR, `${slug}.html`);
+    if (!fs.existsSync(filePath)) continue;
+
+    const html = fs.readFileSync(filePath, 'utf8');
+    const internalLinks = (html.match(/href="\/blog\/[^"]+"/g) || []).length;
+
+    // Benchmark: blogs moeten naar minstens 3 andere blogs linken
+    if (internalLinks < 3) {
+      missingLinks.push({ slug, currentLinks: internalLinks, needed: 3 - internalLinks });
+    }
+  }
+  return missingLinks;
+}
+
+// ── Ranking trend detection ───────────────────────────────────────────────────
+
+function detectRankingTrends(currentGSC, logHistory) {
+  // Vergelijk met vorige week
+  const sevenDaysAgo = new Date();
+  sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 7);
+  const sevenDaysAgoStr = sevenDaysAgo.toISOString().split('T')[0];
+
+  const previousLog = logHistory.find(entry => entry.date <= sevenDaysAgoStr);
+  if (!previousLog || !previousLog.gscSnapshot) return null;
+
+  const prevQueries = previousLog.gscSnapshot.queries || [];
+  const currQueries = currentGSC.queries || [];
+
+  // Find queries waar we minder goed rankten vorige week
+  const improved = currQueries.filter(q => {
+    const prev = prevQueries.find(p => p.query === q.query);
+    return prev && prev.position > q.position && q.position <= 10;
+  });
+
+  const declined = currQueries.filter(q => {
+    const prev = prevQueries.find(p => p.query === q.query);
+    return prev && prev.position < q.position;
+  });
+
+  return { improved: improved.slice(0, 3), declined: declined.slice(0, 3) };
+}
+
 // ── Digest email via Brevo ────────────────────────────────────────────────────
 
 async function sendDigestEmail(report) {
@@ -186,18 +254,25 @@ async function sendDigestEmail(report) {
   const gsc = report.gsc;
   const top3 = gsc?.queries?.slice(0, 3) || [];
   const opportunities = report.gscOpportunities?.slice(0, 5) || [];
+  const trends = report.trends;
 
   const topQueriesHtml = top3.length
     ? top3.map(q => `<tr><td style="padding:6px 10px;border-bottom:1px solid #f0ede8;font-size:13px;color:#1a1814">${q.query}</td><td style="padding:6px 10px;border-bottom:1px solid #f0ede8;font-size:13px;color:#4a4640;text-align:center">${q.clicks}</td><td style="padding:6px 10px;border-bottom:1px solid #f0ede8;font-size:13px;color:#4a4640;text-align:center">${q.impressions}</td><td style="padding:6px 10px;border-bottom:1px solid #f0ede8;font-size:13px;color:#4a4640;text-align:center">${q.position.toFixed(1)}</td></tr>`).join('')
-    : '<tr><td colspan="4" style="padding:10px;font-size:13px;color:#8a847a;text-align:center">GSC data niet beschikbaar</td></tr>';
+    : '<tr><td colspan="4" style="padding:10px;font-size:13px;color:#8a847a;text-align:center">Geen data</td></tr>';
 
   const opportunitiesHtml = opportunities.length
-    ? opportunities.map(q => `<li style="font-size:13px;color:#4a4640;margin-bottom:6px"><strong style="color:#1a1814">${q.query}</strong> — positie ${q.position.toFixed(1)}, ${q.impressions} impressies</li>`).join('')
-    : '<li style="font-size:13px;color:#8a847a">Geen kansen gevonden</li>';
+    ? opportunities.map(q => `<li style="font-size:13px;color:#4a4640;margin-bottom:6px"><strong style="color:#1a4731">${q.query}</strong> — positie ${q.position.toFixed(1)}, ${q.impressions} impressies</li>`).join('')
+    : '<li style="font-size:13px;color:#8a847a">Geen kansen</li>';
 
   const actionsHtml = (report.actionsExecuted || []).length
     ? report.actionsExecuted.map(a => `<li style="font-size:13px;color:#4a4640;margin-bottom:6px">${a}</li>`).join('')
-    : '<li style="font-size:13px;color:#8a847a">Geen acties uitgevoerd</li>';
+    : '<li style="font-size:13px;color:#8a847a">Geen acties</li>';
+
+  const trendsSection = trends && (trends.improved.length || trends.declined.length)
+    ? `<p style="margin:0 0 10px;font-size:13px;font-weight:700;color:#1a4731;text-transform:uppercase;letter-spacing:.5px">Ranking trends (t.o.v. vorige week)</p>
+       ${trends.improved.length ? `<p style="margin:0 0 8px;font-size:13px;color:#2d6a4f">📈 Verbeterd: ${trends.improved.map(q => `<strong>${q.query}</strong> (was ${(gsc.queries.find(x => x.query === q.query).position + 2).toFixed(1)}, nu ${q.position.toFixed(1)})`).join(', ')}</p>` : ''}
+       ${trends.declined.length ? `<p style="margin:0 0 24px;font-size:13px;color:#b8443c">📉 Gedaald: ${trends.declined.slice(0, 2).map(q => `<strong>${q.query}</strong>`).join(', ')}</p>` : ''}`
+    : '';
 
   const html = `<!DOCTYPE html>
 <html lang="nl"><head><meta charset="UTF-8"></head>
@@ -211,8 +286,10 @@ async function sendDigestEmail(report) {
   </td></tr>
   <tr><td style="padding:28px 32px">
 
-    <p style="margin:0 0 6px;font-size:13px;font-weight:700;color:#1a4731;text-transform:uppercase;letter-spacing:.5px">Acties van vandaag</p>
+    <p style="margin:0 0 6px;font-size:13px;font-weight:700;color:#1a4731;text-transform:uppercase;letter-spacing:.5px">Acties vandaag</p>
     <ul style="margin:0 0 24px;padding-left:18px">${actionsHtml}</ul>
+
+    ${trendsSection}
 
     <p style="margin:0 0 10px;font-size:13px;font-weight:700;color:#1a4731;text-transform:uppercase;letter-spacing:.5px">Top Google queries (28d)</p>
     <table width="100%" cellpadding="0" cellspacing="0" style="border:1px solid #e8e5de;border-radius:8px;overflow:hidden;margin-bottom:24px">
@@ -224,7 +301,7 @@ async function sendDigestEmail(report) {
     <ul style="margin:0 0 24px;padding-left:18px">${opportunitiesHtml}</ul>
 
     <p style="margin:0 0 6px;font-size:13px;font-weight:700;color:#1a4731;text-transform:uppercase;letter-spacing:.5px">Keyword queue</p>
-    <p style="margin:0 0 24px;font-size:13px;color:#4a4640">${report.queueStatus?.pending ?? '?'} keywords pending · ${report.queueStatus?.published ?? '?'} blogs gepubliceerd</p>
+    <p style="margin:0 0 24px;font-size:13px;color:#4a4640">${report.queueStatus?.pending ?? '?'} pending · ${report.queueStatus?.published ?? '?'} live</p>
 
     ${report.metaImprovements?.length ? `
     <p style="margin:0 0 10px;font-size:13px;font-weight:700;color:#1a4731;text-transform:uppercase;letter-spacing:.5px">Meta verbeteringen</p>
@@ -246,7 +323,7 @@ async function sendDigestEmail(report) {
     body: JSON.stringify({
       sender: { name: 'ZenBTW Agent', email: 'bot@zenbtw.nl' },
       to: [{ email: 'danieldekoning66@gmail.com', name: 'Daniel' }],
-      subject: `ZenBTW groei-update ${TODAY} — ${(report.actionsExecuted || []).length} acties uitgevoerd`,
+      subject: `ZenBTW groei-update ${TODAY} — ${(report.actionsExecuted || []).length} acties`,
       htmlContent: html
     })
   });
@@ -272,7 +349,7 @@ function appendGrowthLog(entry) {
 // ── Main ─────────────────────────────────────────────────────────────────────
 
 async function main() {
-  log(`=== ZenBTW Daily Growth Agent (${TODAY}) ===`);
+  log(`=== ZenBTW Daily Growth Agent v2 (${TODAY}) ===`);
   if (DRY_RUN) log('DRY RUN — geen bestanden worden gewijzigd');
 
   const report = {
@@ -280,8 +357,10 @@ async function main() {
     actionsExecuted: [],
     gsc: null,
     gscOpportunities: [],
+    gscSnapshot: null,
     queueStatus: null,
-    metaImprovements: []
+    metaImprovements: [],
+    trends: null
   };
 
   // 1. GSC data ophalen
@@ -289,6 +368,7 @@ async function main() {
     log('GSC data ophalen...');
     const gscData = await fetchGSCData(28);
     report.gsc = gscData;
+    report.gscSnapshot = gscData; // snapshot voor volgende week
     report.gscOpportunities = findOpportunities(gscData.queries);
     const lowCTR = findLowCTRPages(gscData.pages);
 
@@ -296,20 +376,37 @@ async function main() {
     log(`Kansen (pos 4-20): ${report.gscOpportunities.length}`);
     log(`Lage CTR pagina's: ${lowCTR.length}`);
 
-    // 2. Verbeter max 2 low-CTR pagina's per dag
-    for (const page of lowCTR.slice(0, 2)) {
-      const result = await improveLowCTRPage(page);
-      if (result) {
-        report.metaImprovements.push(result);
-        report.actionsExecuted.push(`Meta verbeterd: /blog/${result.slug} → "${result.newTitle}"`);
+    // 1a. Detect ranking trends
+    const growthLog = load(GROWTH_LOG_FILE, []);
+    report.trends = detectRankingTrends(gscData, growthLog);
+    if (report.trends?.improved.length) {
+      report.actionsExecuted.push(`📈 ${report.trends.improved.length} keywords verbeterd t.o.v. vorige week`);
+    }
+
+    // 2. Verbeter max 3 low-CTR pagina's per dag (met retry)
+    for (const page of lowCTR.slice(0, 3)) {
+      try {
+        const result = await improveLowCTRPage(page);
+        if (result) {
+          report.metaImprovements.push(result);
+          report.actionsExecuted.push(`✅ Meta verbeterd: /blog/${result.slug}`);
+        }
+      } catch (err) {
+        log(`  Fout bij ${page.page}: ${err.message}`);
       }
+    }
+
+    // 3. Check interne link coverage
+    const missingLinks = checkInternalLinkCoverage(lowCTR, gscData.pages);
+    if (missingLinks.length) {
+      report.actionsExecuted.push(`⚠️ ${missingLinks.length} pagina's missen interne links (checker: ${missingLinks.map(m => m.slug).join(', ')})`);
     }
   } catch (err) {
     log(`GSC fout (overgeslagen): ${err.message}`);
     report.actionsExecuted.push(`⚠️ GSC niet beschikbaar: ${err.message}`);
   }
 
-  // 3. Keyword queue checken en aanvullen indien nodig
+  // 4. Keyword queue checken en aanvullen indien nodig
   const { kw, pending, published } = getQueueStatus();
   report.queueStatus = { pending: pending.length, published: published.length };
   log(`Keyword queue: ${pending.length} pending, ${published.length} gepubliceerd`);
@@ -318,16 +415,14 @@ async function main() {
     log('Queue heeft < 5 keywords — aanvullen...');
     try {
       const added = await refillKeywordQueue(report.gscOpportunities, published.map(p => p.slug));
-      report.actionsExecuted.push(`${added} nieuwe keywords toegevoegd aan queue`);
+      report.actionsExecuted.push(`🔑 ${added} nieuwe keywords toegevoegd`);
     } catch (err) {
       log(`Keyword refill mislukt: ${err.message}`);
       report.actionsExecuted.push(`⚠️ Keyword refill mislukt: ${err.message}`);
     }
-  } else {
-    log('Queue voldoende gevuld — geen refill nodig');
   }
 
-  // 4. Samenvatting loggen
+  // 5. Samenvatting loggen
   log(`Acties uitgevoerd: ${report.actionsExecuted.length}`);
   for (const action of report.actionsExecuted) log(`  ✓ ${action}`);
 
@@ -335,10 +430,14 @@ async function main() {
     actionsCount: report.actionsExecuted.length,
     actions: report.actionsExecuted,
     queueAfter: getQueueStatus().pending.length,
-    gscAvailable: !!report.gsc
+    gscAvailable: !!report.gsc,
+    gscSnapshot: report.gscSnapshot ? { queriesCount: report.gsc.queries.length, pagesCount: report.gsc.pages.length } : null,
+    metaImprovementsCount: report.metaImprovements.length,
+    trendsImproved: report.trends?.improved.length || 0,
+    trendsDeclining: report.trends?.declined.length || 0
   });
 
-  // 5. Digest email
+  // 6. Digest email
   await sendDigestEmail(report);
 
   log('=== Agent klaar ===');
