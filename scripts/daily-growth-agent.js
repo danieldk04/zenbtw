@@ -388,7 +388,7 @@ async function sendDigestEmail(report) {
     <table width="100%" cellpadding="0" cellspacing="0" style="border:1px solid #e8e5de;border-radius:8px;overflow:hidden;margin-bottom:${report.umamiHighBounce?.length ? '16px' : '24px'}">
       <tr>
         <td style="padding:12px 16px;text-align:center;border-right:1px solid #e8e5de"><span style="font-size:20px;font-weight:700;color:#1a4731;display:block">${report.siteStats.totalViews?.toLocaleString('nl')}</span><span style="font-size:11px;color:#8a847a">Pageviews</span></td>
-        <td style="padding:12px 16px;text-align:center;border-right:1px solid #e8e5de"><span style="font-size:20px;font-weight:700;color:#1a4731;display:block">${report.siteStats.totalVisits?.toLocaleString('nl')}</span><span style="font-size:11px;color:#8a847a">Sessies</span></td>
+        <td style="padding:12px 16px;text-align:center;border-right:1px solid #e8e5de"><span style="font-size:20px;font-weight:700;color:#1a4731;display:block">${report.siteStats.totalSessions?.toLocaleString('nl') ?? '—'}</span><span style="font-size:11px;color:#8a847a">Sessies</span></td>
         <td style="padding:12px 16px;text-align:center;border-right:1px solid #e8e5de"><span style="font-size:20px;font-weight:700;color:${report.siteStats.bounceRate > 0.5 ? '#b8443c' : '#2d6a4f'};display:block">${report.siteStats.bounceRate !== null ? (report.siteStats.bounceRate * 100).toFixed(0) + '%' : '—'}</span><span style="font-size:11px;color:#8a847a">Bounce rate</span></td>
         <td style="padding:12px 16px;text-align:center"><span style="font-size:20px;font-weight:700;color:#1a4731;display:block">${report.siteStats.avgDuration ? report.siteStats.avgDuration + 's' : '—'}</span><span style="font-size:11px;color:#8a847a">Gem. duur</span></td>
       </tr>
@@ -557,6 +557,49 @@ Antwoord ALLEEN als JSON:
   return { slug: bounceData.slug, bounceRate: bounceData.bounceRate, applied, diagnosis };
 }
 
+// ── Keyword-aware FAQ generator (fallback zonder Claude) ──────────────────────
+
+function buildKeywordFAQ(keyword) {
+  const kw = keyword.toLowerCase();
+
+  // Specifieke FAQ sets per onderwerp
+  if (kw.includes('oss') || kw.includes('one stop shop')) {
+    return [
+      { q: 'Wanneer ben ik verplicht OSS te gebruiken?', a: 'Je bent verplicht OSS te gebruiken als je als Nederlandse ondernemer digitale diensten of goederen verkoopt aan particulieren in andere EU-landen en de drempel van €10.000 per jaar overschrijdt.' },
+      { q: 'Hoe registreer ik me voor OSS in Nederland?', a: 'Je registreert je via de Belastingdienst (Mijn Belastingdienst Zakelijk). Na registratie doe je elk kwartaal één gecombineerde aangifte voor alle EU-landen.' },
+      { q: 'Wat zijn de voordelen van OSS voor marketplace verkopers?', a: 'Met OSS hoef je je niet in elk EU-land apart te registreren voor BTW. Je doet één aangifte in Nederland voor alle verkopen aan EU-consumenten.' },
+    ];
+  }
+  if (kw.includes('kor') || kw.includes('kleineondernemers')) {
+    return [
+      { q: 'Wat is de KOR-drempel in 2026?', a: 'De KOR-drempel is €20.000 omzet per jaar exclusief BTW. Zit je hieronder, dan ben je vrijgesteld van BTW en hoef je geen BTW-aangifte te doen.' },
+      { q: 'Kan ik de KOR combineren met marketplace verkopen?', a: 'Ja, KOR geldt ook voor Etsy, Vinted en andere marketplace verkopers. Let op: de drempel telt voor je totale omzet uit alle bronnen.' },
+      { q: 'Hoe meld ik me aan voor de KOR?', a: 'Je meldt je aan via de Belastingdienst. De aanmelding moet minimaal 4 weken voor het nieuwe kwartaal binnen zijn. Na aanmelding gaat de vrijstelling in per kwartaalstart.' },
+    ];
+  }
+  if (kw.includes('dac7') || kw.includes('platform')) {
+    return [
+      { q: 'Wat is DAC7 en geldt het voor mij?', a: 'DAC7 is een EU-richtlijn die platforms zoals Vinted, Etsy en Airbnb verplicht om verkoopgegevens te rapporteren aan de Belastingdienst. Als je meer dan €2.000 verdient of 30+ verkopen doet, word je gerapporteerd.' },
+      { q: 'Wat doet de Belastingdienst met mijn DAC7-gegevens?', a: 'De Belastingdienst vergelijkt de platformdata met je eigen aangifte. Klopt er iets niet, dan kun je een naheffing of boete verwachten.' },
+      { q: 'Moet ik zelf iets doen voor DAC7?', a: 'Het platform rapporteert automatisch. Jij hoeft alleen te zorgen dat je eigen belastingaangifte klopt met de inkomsten die je via het platform hebt ontvangen.' },
+    ];
+  }
+  if (kw.includes('btw') && (kw.includes('tarief') || kw.includes('eu') || kw.includes('landen'))) {
+    return [
+      { q: 'Welk BTW-tarief geldt voor mijn product in Europa?', a: 'Dit verschilt per EU-land en productcategorie. In Nederland is het standaardtarief 21%, maar andere landen hanteren andere tarieven.' },
+      { q: 'Hoe bereken ik BTW voor verkopen aan EU-klanten?', a: 'Je past het BTW-tarief toe van het land waar je klant woont (bestemmingslandbeginsel). Via OSS doe je één gecombineerde aangifte.' },
+      { q: 'Gelden dezelfde BTW-regels voor digitale producten?', a: 'Ja, voor digitale producten geldt het BTW-tarief van het land van de koper. Dit geldt al vanaf de eerste euro, er is geen drempel.' },
+    ];
+  }
+
+  // Generieke BTW-fallback
+  return [
+    { q: `Wat zijn de BTW-regels voor ${keyword} in 2026?`, a: `De regels rondom ${keyword} zijn in 2026 aangescherpt door DAC7 en OSS-wetgeving. Zorg dat je omzet correct wordt gerapporteerd.` },
+    { q: `Wanneer moet ik BTW-aangifte doen voor ${keyword}?`, a: 'In de meeste gevallen doe je per kwartaal aangifte. Als je de KOR hebt, ben je vrijgesteld. Gebruik onze tool om je situatie te checken.' },
+    { q: `Geldt ${keyword} ook voor kleine verkopers?`, a: 'Ja, ook kleine verkopers die via platforms verkopen vallen onder de BTW-regels zodra ze de KOR-drempel (€20.000) overschrijden of aan EU-burgers verkopen.' },
+  ];
+}
+
 // ── Competitor gap analyse + blog verbetering ─────────────────────────────────
 
 async function analyzeAndImprovePage(keyword, slug, gscPage) {
@@ -661,17 +704,51 @@ Antwoord ALLEEN als JSON:
       rationale = parsed.rationale || '';
     }
   } catch (err) {
-    log(`  Claude gap analyse faalde: ${err.message} — fallback`);
-    // Deterministische fallback: voeg FAQ toe als die ontbreekt en concurrenten hem wel hebben
+    log(`  Claude gap analyse faalde: ${err.message} — deterministische fallback`);
+    rationale = `Claude niet bereikbaar. Gaps: ${gap.gaps.slice(0, 2).join('; ')}`;
+
+    // Fallback 1: FAQ toevoegen als concurrenten die hebben
     if (!ownData.hasFAQ && gap.gaps.some(g => g.includes('FAQ'))) {
-      improvements = [{
+      const faqItems = buildKeywordFAQ(keyword);
+      improvements.push({
         type: 'add_faq_section',
-        value: `<section style="margin:40px 0"><h2>Veelgestelde vragen over ${keyword}</h2><dl>${
-          ['Wat betekent dit voor mijn aangifte?', 'Wanneer moet ik dit regelen?', 'Geldt dit ook voor kleine verkopers?']
-            .map(q => `<dt style="font-weight:700;margin-top:16px">${q}</dt><dd style="margin:8px 0 0">Bekijk onze gratis tool voor een persoonlijk overzicht.</dd>`).join('')
-        }</dl></section>`
-      }];
-      rationale = 'FAQ ontbreekt terwijl concurrenten die wel hebben.';
+        value: `<section style="margin:48px 0" itemscope itemtype="https://schema.org/FAQPage">
+<h2>Veelgestelde vragen over ${keyword}</h2>
+${faqItems.map(({q, a}) => `<div itemscope itemprop="mainEntity" itemtype="https://schema.org/Question" style="margin-bottom:20px">
+<h3 itemprop="name" style="font-size:16px;margin:0 0 8px">${q}</h3>
+<div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+<p itemprop="text" style="margin:0;color:#4a4640">${a} <a href="/app.html" style="color:#1a4731;font-weight:600">Gebruik onze gratis tool →</a></p>
+</div></div>`).join('')}
+</section>`
+      });
+    }
+
+    // Fallback 2: ontbrekende H2-secties op basis van competitor onderwerpen
+    const missingH2s = gap.competitorH2s
+      .filter(h => !ownData.h2s.some(own => own.toLowerCase().includes(h.toLowerCase().slice(0, 10))))
+      .slice(0, 2);
+    if (missingH2s.length && gap.gaps.some(g => g.includes('ontbrekende onderwerpen'))) {
+      improvements.push({
+        type: 'add_h2_sections',
+        value: missingH2s.map(h2 => `<h2>${h2}</h2>
+<p>Dit is een belangrijk onderdeel van ${keyword} voor Nederlandse marketplace verkopers. Controleer altijd de actuele regels via de <a href="https://www.belastingdienst.nl" rel="noopener noreferrer">Belastingdienst</a> of gebruik onze <a href="/app.html">gratis BTW-tool</a> voor een persoonlijk overzicht.</p>`).join('\n')
+      });
+    }
+
+    // Fallback 3: schema FAQ toevoegen als schema ontbreekt
+    if (!ownData.schemaTypes.includes('FAQPage') && improvements.length === 0) {
+      const faqItems = buildKeywordFAQ(keyword);
+      improvements.push({
+        type: 'add_faq_section',
+        value: `<section style="margin:48px 0" itemscope itemtype="https://schema.org/FAQPage">
+<h2>Veelgestelde vragen: ${keyword}</h2>
+${faqItems.map(({q, a}) => `<div itemscope itemprop="mainEntity" itemtype="https://schema.org/Question" style="margin-bottom:20px">
+<h3 itemprop="name" style="font-size:16px;margin:0 0 8px">${q}</h3>
+<div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+<p itemprop="text" style="margin:0;color:#4a4640">${a}</p>
+</div></div>`).join('')}
+</section>`
+      });
     }
   }
 
