@@ -1,22 +1,27 @@
 #!/usr/bin/env node
 /**
- * ZenBTW Daily Growth Agent (v2)
+ * ZenBTW Daily Growth Agent (v3)
  *
  * Runs every morning via GitHub Actions. Without any human input it:
  *   1. Haalt GSC data op (rankings, CTR, kansen)
- *   2. Verbetert lage CTR pagina's met retry logic
- *   3. Vult keyword queue aan als nodig
- *   4. Check interne link coverage
- *   5. Track ranking trends vs vorige week
- *   6. Stuurt digest email naar danieldekoning66@gmail.com
+ *   2. Verbetert lage CTR pagina's met retry logic + fallback
+ *   3. [NIEUW] Haalt Umami analytics op: bounce rates, exit patterns
+ *   4. [NIEUW] Level 1: flagt pagina's met slechte engagement
+ *   5. [NIEUW] Level 2: voert autonome fixes uit op high-bounce pagina's
+ *   6. Vult keyword queue aan als nodig
+ *   7. Track ranking trends vs vorige week
+ *   8. Stuurt digest email naar danieldekoning66@gmail.com
  *
  * Env vars required:
- *   ANTHROPIC_API_KEY          — Claude API
+ *   ANTHROPIC_API_KEY           — Claude API
  *   GOOGLE_SERVICE_ACCOUNT_JSON — Google SA met Search Console + Indexing rechten
- *   BREVO_API_KEY              — Brevo transactional email
+ *   BREVO_API_KEY               — Brevo transactional email
  *
  * Env vars optional:
- *   DRY_RUN=true               — log acties maar schrijf niks weg
+ *   UMAMI_URL                   — Umami instance URL
+ *   UMAMI_API_KEY               — Umami API key
+ *   UMAMI_WEBSITE_ID            — Umami website ID
+ *   DRY_RUN=true                — log acties maar schrijf niks weg
  */
 
 import Anthropic from '@anthropic-ai/sdk';
@@ -24,6 +29,7 @@ import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import { fetchGSCData, findOpportunities, findLowCTRPages } from './gsc-client.js';
+import { fetchPageBounceData, fetchSiteStats, available as umamiAvailable } from './umami-client.js';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.join(__dirname, '..');
@@ -372,9 +378,32 @@ async function sendDigestEmail(report) {
     <p style="margin:0 0 24px;font-size:13px;color:#4a4640">${report.queueStatus?.pending ?? '?'} pending · ${report.queueStatus?.published ?? '?'} live</p>
 
     ${report.metaImprovements?.length ? `
-    <p style="margin:0 0 10px;font-size:13px;font-weight:700;color:#1a4731;text-transform:uppercase;letter-spacing:.5px">Meta verbeteringen</p>
+    <p style="margin:0 0 10px;font-size:13px;font-weight:700;color:#1a4731;text-transform:uppercase;letter-spacing:.5px">Meta verbeteringen (SEO)</p>
     <ul style="margin:0 0 24px;padding-left:18px">
       ${report.metaImprovements.map(m => `<li style="font-size:13px;color:#4a4640;margin-bottom:6px">/blog/${m.slug}: "${m.newTitle}"</li>`).join('')}
+    </ul>` : ''}
+
+    ${report.siteStats ? `
+    <p style="margin:0 0 10px;font-size:13px;font-weight:700;color:#1a4731;text-transform:uppercase;letter-spacing:.5px">Umami site statistieken (28d)</p>
+    <table width="100%" cellpadding="0" cellspacing="0" style="border:1px solid #e8e5de;border-radius:8px;overflow:hidden;margin-bottom:${report.umamiHighBounce?.length ? '16px' : '24px'}">
+      <tr>
+        <td style="padding:12px 16px;text-align:center;border-right:1px solid #e8e5de"><span style="font-size:20px;font-weight:700;color:#1a4731;display:block">${report.siteStats.totalViews?.toLocaleString('nl')}</span><span style="font-size:11px;color:#8a847a">Pageviews</span></td>
+        <td style="padding:12px 16px;text-align:center;border-right:1px solid #e8e5de"><span style="font-size:20px;font-weight:700;color:#1a4731;display:block">${report.siteStats.totalVisits?.toLocaleString('nl')}</span><span style="font-size:11px;color:#8a847a">Sessies</span></td>
+        <td style="padding:12px 16px;text-align:center;border-right:1px solid #e8e5de"><span style="font-size:20px;font-weight:700;color:${report.siteStats.bounceRate > 0.5 ? '#b8443c' : '#2d6a4f'};display:block">${report.siteStats.bounceRate !== null ? (report.siteStats.bounceRate * 100).toFixed(0) + '%' : '—'}</span><span style="font-size:11px;color:#8a847a">Bounce rate</span></td>
+        <td style="padding:12px 16px;text-align:center"><span style="font-size:20px;font-weight:700;color:#1a4731;display:block">${report.siteStats.avgDuration ? report.siteStats.avgDuration + 's' : '—'}</span><span style="font-size:11px;color:#8a847a">Gem. duur</span></td>
+      </tr>
+    </table>` : ''}
+
+    ${report.umamiHighBounce?.length ? `
+    <p style="margin:0 0 8px;font-size:13px;color:#b8443c;font-weight:600">⚠️ Hoge bounce pagina's (> 50%, ≥ 10 sessies):</p>
+    <ul style="margin:0 0 16px;padding-left:18px">
+      ${report.umamiHighBounce.slice(0, 5).map(p => `<li style="font-size:13px;color:#4a4640;margin-bottom:4px">/blog/${p.slug} — bounce ${(p.bounceRate * 100).toFixed(0)}%, ${p.entryCount} sessies</li>`).join('')}
+    </ul>` : ''}
+
+    ${report.bounceFixes?.length ? `
+    <p style="margin:0 0 10px;font-size:13px;font-weight:700;color:#1a4731;text-transform:uppercase;letter-spacing:.5px">Bounce fixes uitgevoerd</p>
+    <ul style="margin:0 0 24px;padding-left:18px">
+      ${report.bounceFixes.map(f => `<li style="font-size:13px;color:#4a4640;margin-bottom:6px"><strong>/blog/${f.slug}</strong> (${(f.bounceRate * 100).toFixed(0)}% bounce): ${f.applied.join(', ')}${f.diagnosis ? ` — <em>${f.diagnosis}</em>` : ''}</li>`).join('')}
     </ul>` : ''}
 
   </td></tr>
@@ -416,8 +445,110 @@ function appendGrowthLog(entry) {
 
 // ── Main ─────────────────────────────────────────────────────────────────────
 
+// ── Level 2: Umami bounce fix ─────────────────────────────────────────────────
+
+async function fixHighBouncePage(bounceData, gscData) {
+  const filePath = path.join(BLOG_DIR, `${bounceData.slug}.html`);
+  if (!fs.existsSync(filePath)) return null;
+
+  const html = fs.readFileSync(filePath, 'utf8');
+  const h1 = html.match(/<h1[^>]*>([^<]+)<\/h1>/)?.[1] || '';
+  const intro = html.match(/<article[^>]*>[\s\S]{0,50}<p[^>]*>([\s\S]{0,400}?)<\/p>/)?.[1]?.replace(/<[^>]+>/g, '') || '';
+  const hasCTAAboveFold = html.indexOf('class="cta') < html.indexOf('<h2');
+  const internalLinks = (html.match(/href="\/blog\/[^"]+"/g) || []).length;
+
+  log(`Bounce fix voor ${bounceData.slug} (bounce ~${(bounceData.bounceRate * 100).toFixed(0)}%, ${bounceData.entryCount} sessies)`);
+
+  const gscPage = gscData?.pages?.find(p => p.page.includes(bounceData.slug));
+  const context = `
+Pagina: /blog/${bounceData.slug}
+Bounce rate (proxy): ${(bounceData.bounceRate * 100).toFixed(0)}%
+Sessies als entry page: ${bounceData.entryCount}
+GSC CTR: ${gscPage ? (gscPage.ctr * 100).toFixed(1) + '%' : 'onbekend'}
+GSC positie: ${gscPage ? gscPage.position.toFixed(1) : 'onbekend'}
+Huidige H1: "${h1}"
+Intro (eerste 400 tekens): "${intro}"
+CTA boven fold: ${hasCTAAboveFold ? 'ja' : 'NEE'}
+Interne links: ${internalLinks}`;
+
+  const prompt = `Je bent CRO-specialist voor ZenBTW, een gratis BTW-tool voor Nederlandse marketplace verkopers.
+
+${context}
+
+Analyseer waarom bezoekers afhaken en geef CONCRETE fixes. Kies maximaal 2 acties:
+
+1. "rewrite_h1": schrijf een betere H1 (pakkend, keyword-first, max 70 tekens)
+2. "rewrite_intro": schrijf een betere intro-paragraaf (max 3 zinnen, direct antwoord op de zoekvraag)
+3. "add_cta_top": schrijf een compacte CTA box HTML voor boven de eerste H2
+
+Antwoord ALLEEN als JSON:
+{
+  "fixes": [
+    {"type": "rewrite_h1", "value": "..."},
+    {"type": "rewrite_intro", "value": "..."},
+    {"type": "add_cta_top", "value": "<div ...>...</div>"}
+  ],
+  "diagnosis": "In 1 zin: waarom haken mensen hier af?"
+}`;
+
+  let fixes = [];
+  let diagnosis = '';
+
+  try {
+    const msg = await withRetry(() => claude.messages.create({
+      model: 'claude-sonnet-4-6',
+      max_tokens: 800,
+      messages: [{ role: 'user', content: prompt }]
+    }));
+
+    const jsonMatch = msg.content[0].text.match(/\{[\s\S]*\}/);
+    if (jsonMatch) {
+      const parsed = JSON.parse(jsonMatch[0]);
+      fixes = parsed.fixes || [];
+      diagnosis = parsed.diagnosis || '';
+    }
+  } catch (err) {
+    log(`  Claude bounce fix faalde: ${err.message}`);
+    // Deterministische fallback: voeg CTA toe boven fold als die ontbreekt
+    if (!hasCTAAboveFold) {
+      fixes = [{ type: 'add_cta_top', value: `<div style="background:#e8f0ec;border-left:4px solid #1a4731;border-radius:8px;padding:14px 18px;margin:0 0 28px"><strong style="color:#1a4731">Gratis tool:</strong> <a href="/app.html" style="color:#1a4731;font-weight:700">Bereken je BTW-verplichtingen in 30 seconden →</a></div>` }];
+      diagnosis = 'Geen CTA boven fold — bezoekers zien geen volgende stap';
+    }
+  }
+
+  if (!fixes.length) return null;
+
+  let newHtml = html;
+  const applied = [];
+
+  for (const fix of fixes) {
+    if (fix.type === 'rewrite_h1' && fix.value) {
+      newHtml = newHtml.replace(/<h1([^>]*)>[^<]+<\/h1>/, `<h1$1>${fix.value}</h1>`);
+      applied.push('H1 herschreven');
+    }
+    if (fix.type === 'rewrite_intro' && fix.value) {
+      // Vervang eerste <p> na opening <article> tag
+      newHtml = newHtml.replace(/(<article[^>]*>[\s\S]{0,200}?<p[^>]*>)[\s\S]{0,600}?(<\/p>)/, `$1${fix.value}$2`);
+      applied.push('Intro herschreven');
+    }
+    if (fix.type === 'add_cta_top' && fix.value && !hasCTAAboveFold) {
+      // Voeg CTA toe voor eerste H2
+      newHtml = newHtml.replace(/(<h2[^>]*>)/, `${fix.value}\n$1`);
+      applied.push('CTA boven fold toegevoegd');
+    }
+  }
+
+  if (!DRY_RUN && applied.length) {
+    fs.writeFileSync(filePath, newHtml, 'utf8');
+  }
+
+  return { slug: bounceData.slug, bounceRate: bounceData.bounceRate, applied, diagnosis };
+}
+
+// ── Main ─────────────────────────────────────────────────────────────────────
+
 async function main() {
-  log(`=== ZenBTW Daily Growth Agent v2 (${TODAY}) ===`);
+  log(`=== ZenBTW Daily Growth Agent v3 (${TODAY}) ===`);
   if (DRY_RUN) log('DRY RUN — geen bestanden worden gewijzigd');
 
   const report = {
@@ -428,6 +559,9 @@ async function main() {
     gscSnapshot: null,
     queueStatus: null,
     metaImprovements: [],
+    bounceFixes: [],
+    umamiHighBounce: [],
+    siteStats: null,
     trends: null
   };
 
@@ -476,14 +610,57 @@ async function main() {
     // 3. Check interne link coverage
     const missingLinks = checkInternalLinkCoverage(lowCTR, gscData.pages);
     if (missingLinks.length) {
-      report.actionsExecuted.push(`⚠️ ${missingLinks.length} pagina's missen interne links (checker: ${missingLinks.map(m => m.slug).join(', ')})`);
+      report.actionsExecuted.push(`⚠️ ${missingLinks.length} pagina's missen interne links (${missingLinks.map(m => m.slug).join(', ')})`);
     }
   } catch (err) {
     log(`GSC fout (overgeslagen): ${err.message}`);
     report.actionsExecuted.push(`⚠️ GSC niet beschikbaar: ${err.message}`);
   }
 
-  // 4. Keyword queue checken en aanvullen indien nodig
+  // 4. Umami analytics: bounce rate analyse + Level 2 auto-fix
+  if (umamiAvailable()) {
+    try {
+      log('Umami analytics ophalen...');
+      const [bounceData, siteStats] = await Promise.all([
+        fetchPageBounceData(28),
+        fetchSiteStats(28)
+      ]);
+
+      report.siteStats = siteStats;
+      const highBounce = bounceData.filter(p => p.highBounce);
+      report.umamiHighBounce = highBounce;
+
+      log(`Umami: ${bounceData.length} blog pagina's geanalyseerd, ${highBounce.length} met hoge bounce`);
+      if (siteStats.bounceRate !== null) {
+        log(`Site-wide bounce rate: ${(siteStats.bounceRate * 100).toFixed(1)}%, avg duur: ${siteStats.avgDuration}s`);
+      }
+
+      // Level 1: rapporteer hoge bounce pagina's
+      if (highBounce.length) {
+        report.actionsExecuted.push(`📊 ${highBounce.length} pagina's met hoge bounce rate gedetecteerd`);
+      }
+
+      // Level 2: auto-fix top 2 high-bounce pagina's
+      for (const page of highBounce.slice(0, 2)) {
+        try {
+          const fix = await fixHighBouncePage(page, report.gsc);
+          if (fix && fix.applied.length) {
+            report.bounceFixes.push(fix);
+            report.actionsExecuted.push(`🔧 Bounce fix /blog/${fix.slug}: ${fix.applied.join(', ')}`);
+          }
+        } catch (err) {
+          log(`  Bounce fix fout voor ${page.slug}: ${err.message}`);
+        }
+      }
+    } catch (err) {
+      log(`Umami fout (overgeslagen): ${err.message}`);
+      report.actionsExecuted.push(`⚠️ Umami niet beschikbaar: ${err.message}`);
+    }
+  } else {
+    log('Umami niet geconfigureerd (UMAMI_URL/API_KEY/WEBSITE_ID mist) — overgeslagen');
+  }
+
+  // 6. Keyword queue checken en aanvullen indien nodig
   const { kw, pending, published } = getQueueStatus();
   report.queueStatus = { pending: pending.length, published: published.length };
   log(`Keyword queue: ${pending.length} pending, ${published.length} gepubliceerd`);
@@ -510,6 +687,9 @@ async function main() {
     gscAvailable: !!report.gsc,
     gscSnapshot: report.gscSnapshot ? { queriesCount: report.gsc.queries.length, pagesCount: report.gsc.pages.length } : null,
     metaImprovementsCount: report.metaImprovements.length,
+    bounceFixes: report.bounceFixes.length,
+    highBouncePages: report.umamiHighBounce.length,
+    siteStats: report.siteStats,
     trendsImproved: report.trends?.improved.length || 0,
     trendsDeclining: report.trends?.declined.length || 0
   });
