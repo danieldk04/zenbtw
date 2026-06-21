@@ -198,14 +198,9 @@ function simplifyMetaTitleFallback(currentTitle, slug) {
   return currentTitle;
 }
 
-function improveMetaDescriptionFallback(currentMeta, page) {
-  // Voeg CTR/impressies toe aan meta description
-  const ctrPct = (page.ctr * 100).toFixed(1);
-  const snippet = `${ctrPct}% CTR, positie ${page.position.toFixed(0)}. `;
-  if ((snippet + currentMeta).length <= 155) {
-    return snippet + currentMeta;
-  }
-  return currentMeta.substring(0, 150);
+function improveMetaDescriptionFallback(currentMeta) {
+  if (currentMeta.length > 155) return currentMeta.substring(0, 152) + '...';
+  return currentMeta;
 }
 
 function addInternalLinksFallback(filePath, slug) {
@@ -228,13 +223,22 @@ function addInternalLinksFallback(filePath, slug) {
 
   if (!toAdd.length) return null;
 
-  const linkHtml = toAdd.slice(0, 2).map(s => `<p><a href="/blog/${s}/">Lees ook: ${s.replaceAll('-', ' ')}</a></p>`).join('\n');
+  const validSlugs = toAdd.slice(0, 2).filter(s => fs.existsSync(path.join(BLOG_DIR, `${s}.html`)));
+  if (!validSlugs.length) return null;
 
-  // Voeg voor </article> in
-  const newHtml = html.replace('</article>', `\n${linkHtml}\n</article>`);
+  const linkHtml = validSlugs.map(s => `<p><a href="/blog/${s}/">Lees ook: ${s.replaceAll('-', ' ')}</a></p>`).join('\n');
+
+  let newHtml = html;
+  if (html.includes('</article>')) {
+    newHtml = html.replace('</article>', `\n${linkHtml}\n</article>`);
+  } else if (html.includes('<footer')) {
+    newHtml = html.replace('<footer', `\n${linkHtml}\n<footer`);
+  } else {
+    return null;
+  }
+
   if (!DRY_RUN) fs.writeFileSync(filePath, newHtml, 'utf8');
-
-  return toAdd.length;
+  return validSlugs.length;
 }
 
 // ── Meta title/description improvement (met retry + fallback) ────────────────
@@ -288,7 +292,7 @@ Antwoord ALLEEN als JSON:
     title = simplifyMetaTitleFallback(currentTitle, slug);
   }
   if (!description) {
-    description = improveMetaDescriptionFallback(currentMeta, page);
+    description = improveMetaDescriptionFallback(currentMeta);
   }
 
   if (!title || !description) return null;
@@ -389,7 +393,7 @@ async function sendDigestEmail(report) {
 
   const trendsSection = trends && (trends.improved.length || trends.declined.length)
     ? `<p style="margin:0 0 10px;font-size:13px;font-weight:700;color:#1a4731;text-transform:uppercase;letter-spacing:.5px">Ranking trends (t.o.v. vorige week)</p>
-       ${trends.improved.length ? `<p style="margin:0 0 8px;font-size:13px;color:#2d6a4f">📈 Verbeterd: ${trends.improved.map(q => `<strong>${q.query}</strong> (was ${(gsc.queries.find(x => x.query === q.query).position + 2).toFixed(1)}, nu ${q.position.toFixed(1)})`).join(', ')}</p>` : ''}
+       ${trends.improved.length ? `<p style="margin:0 0 8px;font-size:13px;color:#2d6a4f">📈 Verbeterd: ${trends.improved.map(q => `<strong>${q.query}</strong> (nu positie ${q.position.toFixed(1)})`).join(', ')}</p>` : ''}
        ${trends.declined.length ? `<p style="margin:0 0 24px;font-size:13px;color:#b8443c">📉 Gedaald: ${trends.declined.slice(0, 2).map(q => `<strong>${q.query}</strong>`).join(', ')}</p>` : ''}`
     : '';
 
@@ -539,10 +543,10 @@ async function fixHighBouncePage(bounceData, gscData) {
   const html = fs.readFileSync(filePath, 'utf8');
   const h1 = html.match(/<h1[^>]*>([^<]+)<\/h1>/)?.[1] || '';
   const intro = html.match(/<article[^>]*>[\s\S]{0,50}<p[^>]*>([\s\S]{0,400}?)<\/p>/)?.[1]?.replace(/<[^>]+>/g, '') || '';
-  const hasCTAAboveFold = html.indexOf('class="cta') < html.indexOf('<h2');
+  const hasCTAAboveFold = html.includes('class="cta') && html.indexOf('class="cta') < html.indexOf('<h2');
   const internalLinks = (html.match(/href="\/blog\/[^"]+"/g) || []).length;
 
-  log(`Bounce fix voor ${bounceData.slug} (bounce ~${(bounceData.bounceRate * 100).toFixed(0)}%, ${bounceData.entryCount} sessies)`);
+  log(`Bounce fix voor ${bounceData.slug} (bounce ~${(bounceData.bounceRate * 100).toFixed(0)}%, ${bounceData.sessions} sessies)`);
 
   const gscPage = gscData?.pages?.find(p => p.page.includes(bounceData.slug));
   const context = `
