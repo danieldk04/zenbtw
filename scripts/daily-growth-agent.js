@@ -58,7 +58,7 @@ async function sleep(ms) {
 
 // ── Retry wrapper voor API calls ──────────────────────────────────────────────
 
-async function withRetry(fn, maxRetries = 3, backoffMs = 2000) {
+async function withRetry(fn, maxRetries = 5, backoffMs = 2000) {
   for (let attempt = 0; attempt < maxRetries; attempt++) {
     try {
       return await fn();
@@ -66,7 +66,7 @@ async function withRetry(fn, maxRetries = 3, backoffMs = 2000) {
       if (attempt === maxRetries - 1) throw err;
       log(`  Retry ${attempt + 1}/${maxRetries - 1} after ${backoffMs}ms... (${err.message})`);
       await sleep(backoffMs);
-      backoffMs *= 2; // exponential backoff
+      backoffMs *= 2; // exponential backoff: 2s → 4s → 8s → 16s → 32s
     }
   }
 }
@@ -142,7 +142,58 @@ Geef ALLEEN een JSON-array terug, geen uitleg:
   return added;
 }
 
-// ── Meta title/description improvement (met retry) ──────────────────────────
+// ── Fallback: simpele meta improvements zonder Claude ──────────────────────
+
+function simplifyMetaTitleFallback(currentTitle, slug) {
+  // Maak title korter en snappier als hij te lang is
+  if (currentTitle.length > 60) {
+    const words = currentTitle.split(' ');
+    const shorter = words.slice(0, Math.floor(words.length * 0.7)).join(' ');
+    return shorter.length > 20 ? shorter : currentTitle.substring(0, 58);
+  }
+  return currentTitle;
+}
+
+function improveMetaDescriptionFallback(currentMeta, page) {
+  // Voeg CTR/impressies toe aan meta description
+  const ctrPct = (page.ctr * 100).toFixed(1);
+  const snippet = `${ctrPct}% CTR, positie ${page.position.toFixed(0)}. `;
+  if ((snippet + currentMeta).length <= 155) {
+    return snippet + currentMeta;
+  }
+  return currentMeta.substring(0, 150);
+}
+
+function addInternalLinksFallback(filePath, slug) {
+  // Voeg links toe naar 2-3 gerelateerde blogs (eenvoudige matching op keywords)
+  const html = fs.readFileSync(filePath, 'utf8');
+  const existingLinks = (html.match(/href="\/blog\/[^"]+"/g) || []).length;
+  if (existingLinks >= 3) return null; // al genoeg links
+
+  const relatedSlugs = {
+    'oss-registratie': ['oss-aangifte-nederland', 'btw-tarief-eu-landen-2026'],
+    'kor': ['kor-vrijstelling-2026', 'kor-drempel-overschreden'],
+    'dac7': ['dac7-belastingdienst-rapportage'],
+    'etsy': ['etsy-btw-2026', 'etsy-verkoper-belastingaangifte'],
+  };
+
+  let toAdd = [];
+  for (const [keyword, related] of Object.entries(relatedSlugs)) {
+    if (slug.includes(keyword)) toAdd = related;
+  }
+
+  if (!toAdd.length) return null;
+
+  const linkHtml = toAdd.slice(0, 2).map(s => `<p><a href="/blog/${s}/">Lees ook: ${s.replaceAll('-', ' ')}</a></p>`).join('\n');
+
+  // Voeg voor </article> in
+  const newHtml = html.replace('</article>', `\n${linkHtml}\n</article>`);
+  if (!DRY_RUN) fs.writeFileSync(filePath, newHtml, 'utf8');
+
+  return toAdd.length;
+}
+
+// ── Meta title/description improvement (met retry + fallback) ────────────────
 
 async function improveLowCTRPage(page) {
   const slug = page.page.replace('https://zenbtw.nl/blog/', '').replace(/\/$/, '');
@@ -173,16 +224,33 @@ Schrijf een betere title (max 60 tekens) en meta description (max 155 tekens) di
 Antwoord ALLEEN als JSON:
 {"title": "...", "description": "..."}`;
 
-  const msg = await withRetry(() => claude.messages.create({
-    model: 'claude-sonnet-4-6',
-    max_tokens: 300,
-    messages: [{ role: 'user', content: prompt }]
-  }));
+  let title, description;
 
-  const jsonMatch = msg.content[0].text.match(/\{[\s\S]*\}/);
-  if (!jsonMatch) return null;
+  try {
+    const msg = await withRetry(() => claude.messages.create({
+      model: 'claude-sonnet-4-6',
+      max_tokens: 300,
+      messages: [{ role: 'user', content: prompt }]
+    }));
 
-  const { title, description } = JSON.parse(jsonMatch[0]);
+    const jsonMatch = msg.content[0].text.match(/\{[\s\S]*\}/);
+    if (jsonMatch) {
+      const parsed = JSON.parse(jsonMatch[0]);
+      title = parsed.title;
+      description = parsed.description;
+    }
+  } catch (err) {
+    log(`  Claude API faalde volledig, fallback naar simpele verbeteringen...`);
+  }
+
+  // Fallback als Claude faalt
+  if (!title) {
+    title = simplifyMetaTitleFallback(currentTitle, slug);
+  }
+  if (!description) {
+    description = improveMetaDescriptionFallback(currentMeta, page);
+  }
+
   if (!title || !description) return null;
 
   if (!DRY_RUN) {
@@ -194,7 +262,7 @@ Antwoord ALLEEN als JSON:
     fs.writeFileSync(filePath, newHtml, 'utf8');
   }
 
-  return { slug, oldTitle: currentTitle, newTitle: title, newDescription: description };
+  return { slug, oldTitle: currentTitle, newTitle: title, newDescription: description, usedFallback: !title || !description };
 }
 
 // ── Check interne link coverage ───────────────────────────────────────────────
@@ -383,13 +451,22 @@ async function main() {
       report.actionsExecuted.push(`📈 ${report.trends.improved.length} keywords verbeterd t.o.v. vorige week`);
     }
 
-    // 2. Verbeter max 3 low-CTR pagina's per dag (met retry)
+    // 2. Verbeter max 3 low-CTR pagina's per dag (met retry + fallback)
     for (const page of lowCTR.slice(0, 3)) {
       try {
         const result = await improveLowCTRPage(page);
         if (result) {
           report.metaImprovements.push(result);
-          report.actionsExecuted.push(`✅ Meta verbeterd: /blog/${result.slug}`);
+          const method = result.usedFallback ? '(fallback)' : '✅';
+          report.actionsExecuted.push(`${method} Meta verbeterd: /blog/${result.slug}`);
+        } else {
+          // Meta mislukt, probeer interne links toe te voegen
+          const slug = page.page.replace('https://zenbtw.nl/blog/', '').replace(/\/$/, '');
+          const filePath = path.join(BLOG_DIR, `${slug}.html`);
+          const linksAdded = addInternalLinksFallback(filePath, slug);
+          if (linksAdded) {
+            report.actionsExecuted.push(`🔗 ${linksAdded} interne links toegevoegd: /blog/${slug}`);
+          }
         }
       } catch (err) {
         log(`  Fout bij ${page.page}: ${err.message}`);
