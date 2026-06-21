@@ -19,6 +19,7 @@
  *
  * Env vars optional:
  *   GA4_PROPERTY_ID             — GA4 numeric property ID (bijv. 123456789)
+ *   SERPER_API_KEY              — Serper.dev API key voor competitor zoekresultaten
  *   DRY_RUN=true                — log acties maar schrijf niks weg
  */
 
@@ -28,6 +29,7 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 import { fetchGSCData, findOpportunities, findLowCTRPages } from './gsc-client.js';
 import { fetchPageBounceData, fetchSiteStats, available as ga4Available } from './ga4-client.js';
+import { searchCompetitors, scrapePage, buildGapSummary, available as serperAvailable } from './competitor-analyzer.js';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.join(__dirname, '..');
@@ -404,6 +406,18 @@ async function sendDigestEmail(report) {
       ${report.bounceFixes.map(f => `<li style="font-size:13px;color:#4a4640;margin-bottom:6px"><strong>/blog/${f.slug}</strong> (${(f.bounceRate * 100).toFixed(0)}% bounce): ${f.applied.join(', ')}${f.diagnosis ? ` — <em>${f.diagnosis}</em>` : ''}</li>`).join('')}
     </ul>` : ''}
 
+    ${report.competitorFixes?.length ? `
+    <p style="margin:0 0 10px;font-size:13px;font-weight:700;color:#1a4731;text-transform:uppercase;letter-spacing:.5px">🔍 Competitor gap fixes</p>
+    ${report.competitorFixes.map(f => `
+    <div style="border:1px solid #e8e5de;border-radius:8px;padding:12px 16px;margin-bottom:12px">
+      <p style="margin:0 0 6px;font-size:13px"><strong>/blog/${f.slug}</strong> — keyword: <em>${f.keyword}</em></p>
+      <p style="margin:0 0 6px;font-size:12px;color:#4a4640">${f.rationale || ''}</p>
+      <ul style="margin:4px 0;padding-left:16px">
+        ${f.applied.map(a => `<li style="font-size:12px;color:#1a4731">${a}</li>`).join('')}
+      </ul>
+      <p style="margin:6px 0 0;font-size:11px;color:#888">Concurrenten: ${(f.competitors || []).map(u => new URL(u).hostname).join(', ')}</p>
+    </div>`).join('')}` : ''}
+
   </td></tr>
   <tr><td style="padding:16px 32px;border-top:1px solid #e8e5de;text-align:center">
     <p style="margin:0;font-size:11px;color:#b8b2a8">ZenBTW Growth Agent · <a href="https://zenbtw.nl" style="color:#8a847a">zenbtw.nl</a></p>
@@ -543,6 +557,159 @@ Antwoord ALLEEN als JSON:
   return { slug: bounceData.slug, bounceRate: bounceData.bounceRate, applied, diagnosis };
 }
 
+// ── Competitor gap analyse + blog verbetering ─────────────────────────────────
+
+async function analyzeAndImprovePage(keyword, slug, gscPage) {
+  const filePath = path.join(BLOG_DIR, `${slug}.html`);
+  if (!fs.existsSync(filePath)) return null;
+
+  log(`  Competitor analyse voor "${keyword}" → /blog/${slug}`);
+
+  // Eigen pagina scrapen
+  const ownHtml = fs.readFileSync(filePath, 'utf8');
+  const ownData = {
+    wordCount: ownHtml.replace(/<[^>]+>/g, ' ').split(/\s+/).filter(Boolean).length,
+    h1: ownHtml.match(/<h1[^>]*>([\s\S]*?)<\/h1>/i)?.[1]?.replace(/<[^>]+>/g, '').trim() || '',
+    h2s: [...ownHtml.matchAll(/<h2[^>]*>([\s\S]*?)<\/h2>/gi)].map(m => m[1].replace(/<[^>]+>/g, '').trim()),
+    hasFAQ: /faq|veelgestelde vragen/i.test(ownHtml),
+    hasTabel: /<table/i.test(ownHtml),
+    schemaTypes: [...ownHtml.matchAll(/<script[^>]+type="application\/ld\+json"[^>]*>([\s\S]*?)<\/script>/gi)]
+      .flatMap(m => { try { const o = JSON.parse(m[1]); return Array.isArray(o) ? o.map(x => x['@type']) : [o['@type']]; } catch { return []; } })
+      .filter(Boolean),
+    metaTitle: ownHtml.match(/<title[^>]*>([\s\S]*?)<\/title>/i)?.[1]?.trim() || '',
+    metaDesc: ownHtml.match(/<meta[^>]+name="description"[^>]+content="([^"]+)"/i)?.[1] || '',
+  };
+
+  // Top 3 concurrenten ophalen
+  const competitorLinks = await searchCompetitors(keyword);
+  if (!competitorLinks.length) return null;
+
+  log(`  Top concurrenten: ${competitorLinks.map(c => new URL(c.url).hostname).join(', ')}`);
+
+  const competitorData = await Promise.all(competitorLinks.map(c => scrapePage(c.url)));
+  const gap = buildGapSummary(ownData, competitorData, keyword);
+
+  if (!gap.gaps.length && gap.competitorH2s.length === 0) {
+    log(`  Geen significante gaps gevonden`);
+    return null;
+  }
+
+  // Claude: genereer concrete verbeteringen
+  const prompt = `Je bent SEO-specialist voor ZenBTW — een gratis BTW-tool voor Nederlandse marketplace verkopers (Etsy, Vinted, Shopify).
+
+TARGET KEYWORD: "${keyword}"
+EIGEN PAGINA: /blog/${slug}
+GSC positie: ${gscPage?.position?.toFixed(1) || 'onbekend'} | CTR: ${gscPage ? (gscPage.ctr * 100).toFixed(1) + '%' : 'onbekend'}
+
+EIGEN PAGINA STRUCTUUR:
+- H1: "${ownData.h1}"
+- Woordcount: ~${ownData.wordCount}
+- H2's: ${ownData.h2s.slice(0, 8).join(' | ') || 'geen'}
+- Heeft FAQ: ${ownData.hasFAQ ? 'ja' : 'nee'}
+- Heeft tabel: ${ownData.hasTabel ? 'ja' : 'nee'}
+- Schema: ${ownData.schemaTypes.join(', ') || 'geen'}
+- Meta title: "${ownData.metaTitle}"
+- Meta description: "${ownData.metaDesc}"
+
+CONCURRENT ANALYSE (top 3 Google resultaten):
+${competitorData.filter(Boolean).map((c, i) => `
+Concurrent ${i + 1}: ${c.url}
+- Woordcount: ~${c.wordCount}
+- H1: "${c.h1}"
+- H2's: ${c.h2s.slice(0, 6).join(' | ')}
+- Heeft FAQ: ${c.hasFAQ ? 'ja' : 'nee'}
+- Heeft tabel: ${c.hasTabel ? 'ja' : 'nee'}
+- Schema: ${c.schemaTypes.join(', ') || 'geen'}
+`).join('')}
+
+GEDETECTEERDE GAPS:
+${gap.gaps.map(g => `- ${g}`).join('\n')}
+
+Geef CONCRETE verbeteringen die ZenBTW kan implementeren. Kies maximaal 3 acties:
+
+1. "rewrite_meta_title": betere title tag (max 60 tekens, keyword-first)
+2. "rewrite_meta_desc": betere meta description (max 155 tekens, CTA erin)
+3. "rewrite_h1": betere H1 (pakkend, keyword-first, max 70 tekens)
+4. "add_faq_section": schrijf een FAQ-sectie HTML met 3-4 vragen (als FAQ ontbreekt bij concurrent maar helpt)
+5. "add_h2_sections": schrijf 1-2 nieuwe H2-paragrafen als HTML (max 200 woorden totaal) over ontbrekende onderwerpen
+6. "add_comparison_table": schrijf een vergelijkingstabel HTML (als concurrenten die hebben)
+
+Antwoord ALLEEN als JSON:
+{
+  "improvements": [
+    {"type": "rewrite_meta_title", "value": "..."},
+    {"type": "rewrite_h1", "value": "..."},
+    {"type": "add_faq_section", "value": "<section>...</section>"}
+  ],
+  "rationale": "In 2 zinnen: wat missen we het meest vs de top 3?"
+}`;
+
+  let improvements = [];
+  let rationale = '';
+
+  try {
+    const msg = await withRetry(() => claude.messages.create({
+      model: 'claude-sonnet-4-6',
+      max_tokens: 1500,
+      messages: [{ role: 'user', content: prompt }]
+    }));
+
+    const jsonMatch = msg.content[0].text.match(/\{[\s\S]*\}/);
+    if (jsonMatch) {
+      const parsed = JSON.parse(jsonMatch[0]);
+      improvements = parsed.improvements || [];
+      rationale = parsed.rationale || '';
+    }
+  } catch (err) {
+    log(`  Claude gap analyse faalde: ${err.message} — fallback`);
+    // Deterministische fallback: voeg FAQ toe als die ontbreekt en concurrenten hem wel hebben
+    if (!ownData.hasFAQ && gap.gaps.some(g => g.includes('FAQ'))) {
+      improvements = [{
+        type: 'add_faq_section',
+        value: `<section style="margin:40px 0"><h2>Veelgestelde vragen over ${keyword}</h2><dl>${
+          ['Wat betekent dit voor mijn aangifte?', 'Wanneer moet ik dit regelen?', 'Geldt dit ook voor kleine verkopers?']
+            .map(q => `<dt style="font-weight:700;margin-top:16px">${q}</dt><dd style="margin:8px 0 0">Bekijk onze gratis tool voor een persoonlijk overzicht.</dd>`).join('')
+        }</dl></section>`
+      }];
+      rationale = 'FAQ ontbreekt terwijl concurrenten die wel hebben.';
+    }
+  }
+
+  if (!improvements.length) return null;
+
+  // Verbeteringen toepassen
+  let newHtml = ownHtml;
+  const applied = [];
+
+  for (const imp of improvements) {
+    if (imp.type === 'rewrite_meta_title' && imp.value) {
+      newHtml = newHtml.replace(/<title[^>]*>[\s\S]*?<\/title>/i, `<title>${imp.value}</title>`);
+      applied.push(`Meta title: "${imp.value}"`);
+    }
+    if (imp.type === 'rewrite_meta_desc' && imp.value) {
+      newHtml = newHtml.replace(/(<meta[^>]+name="description"[^>]+content=")[^"]*(")/i, `$1${imp.value}$2`);
+      applied.push('Meta description bijgewerkt');
+    }
+    if (imp.type === 'rewrite_h1' && imp.value) {
+      newHtml = newHtml.replace(/<h1([^>]*)>[\s\S]*?<\/h1>/i, `<h1$1>${imp.value}</h1>`);
+      applied.push(`H1: "${imp.value}"`);
+    }
+    if ((imp.type === 'add_faq_section' || imp.type === 'add_h2_sections' || imp.type === 'add_comparison_table') && imp.value) {
+      // Voeg toe vóór de sluitende </article> tag
+      if (newHtml.includes('</article>')) {
+        newHtml = newHtml.replace('</article>', `${imp.value}\n</article>`);
+        applied.push(imp.type.replace('add_', '').replace('_', ' ') + ' toegevoegd');
+      }
+    }
+  }
+
+  if (!DRY_RUN && applied.length) {
+    fs.writeFileSync(filePath, newHtml, 'utf8');
+  }
+
+  return { slug, keyword, applied, rationale, gaps: gap.gaps, competitors: gap.competitors.map(c => c.url) };
+}
+
 // ── Main ─────────────────────────────────────────────────────────────────────
 
 async function main() {
@@ -558,6 +725,7 @@ async function main() {
     queueStatus: null,
     metaImprovements: [],
     bounceFixes: [],
+    competitorFixes: [],
     umamiHighBounce: [],
     siteStats: null,
     trends: null
@@ -656,6 +824,39 @@ async function main() {
     }
   } else {
     log('GA4 niet geconfigureerd (GA4_PROPERTY_ID mist) — overgeslagen');
+  }
+
+  // 5. Competitor gap analyse voor top kansen
+  if (serperAvailable() && report.gscOpportunities?.length) {
+    log('Competitor gap analyse starten...');
+    // Pak top 2 kansen (meeste impressies, pos 4-20) om API gebruik te beperken
+    const topKansen = report.gscOpportunities
+      .sort((a, b) => b.impressions - a.impressions)
+      .slice(0, 2);
+
+    for (const kans of topKansen) {
+      try {
+        // Zoek de bijbehorende blog post slug via GSC pagina data
+        const matchPage = report.gsc?.pages?.find(p =>
+          p.page.includes('/blog/') && p.queries?.some(q => q === kans.query)
+        ) || report.gsc?.pages?.find(p => p.page.includes('/blog/'));
+
+        if (!matchPage) continue;
+        const slug = matchPage.page.replace(/.*\/blog\//, '').replace(/\/$/, '');
+        const gscPage = report.gsc?.pages?.find(p => p.page.includes(slug));
+
+        const result = await analyzeAndImprovePage(kans.query, slug, gscPage);
+        if (result && result.applied.length) {
+          report.competitorFixes = report.competitorFixes || [];
+          report.competitorFixes.push(result);
+          report.actionsExecuted.push(`🔍 Competitor gap fix /blog/${result.slug}: ${result.applied.join(', ')}`);
+        }
+      } catch (err) {
+        log(`  Competitor analyse fout: ${err.message}`);
+      }
+    }
+  } else if (!serperAvailable()) {
+    log('Competitor analyse overgeslagen (SERPER_API_KEY mist)');
   }
 
   // 6. Keyword queue checken en aanvullen indien nodig

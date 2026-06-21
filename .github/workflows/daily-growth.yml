@@ -46,6 +46,7 @@ jobs:
           GOOGLE_SERVICE_ACCOUNT_JSON: ${{ secrets.GOOGLE_SERVICE_ACCOUNT_JSON }}
           BREVO_API_KEY: ${{ secrets.BREVO_API_KEY }}
           GA4_PROPERTY_ID: ${{ secrets.GA4_PROPERTY_ID }}
+          SERPER_API_KEY: ${{ secrets.SERPER_API_KEY }}
           DRY_RUN: ${{ inputs.dry_run || 'false' }}
         run: node scripts/daily-growth-agent.js
 
