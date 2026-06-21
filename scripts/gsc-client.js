@@ -55,7 +55,7 @@ export async function fetchGSCData(days = 28) {
 
   const key     = JSON.parse(keyJson);
   const token   = await getAccessToken(key);
-  const siteUrl = 'https://zenbtw.nl/';
+  const siteUrl = 'sc-domain:zenbtw.nl';
 
   const endDate   = new Date();
   const startDate = new Date();
