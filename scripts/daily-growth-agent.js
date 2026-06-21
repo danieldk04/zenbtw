@@ -62,7 +62,7 @@ async function sleep(ms) {
 
 // ── Retry wrapper voor API calls ──────────────────────────────────────────────
 
-async function withRetry(fn, maxRetries = 5, backoffMs = 2000) {
+async function withRetry(fn, maxRetries = 3, backoffMs = 1000) {
   for (let attempt = 0; attempt < maxRetries; attempt++) {
     try {
       return await fn();
@@ -70,7 +70,7 @@ async function withRetry(fn, maxRetries = 5, backoffMs = 2000) {
       if (attempt === maxRetries - 1) throw err;
       log(`  Retry ${attempt + 1}/${maxRetries - 1} after ${backoffMs}ms... (${err.message})`);
       await sleep(backoffMs);
-      backoffMs *= 2; // exponential backoff: 2s → 4s → 8s → 16s → 32s
+      backoffMs *= 2; // exponential backoff: 1s → 2s → 4s
     }
   }
 }
