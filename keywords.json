@@ -1,13 +1,6 @@
 {
   "queue": [
     {
-      "keyword": "Wanneer BTW aangifte doen",
-      "slug": "wanneer-btw-aangifte-doen",
-      "status": "pending",
-      "priority": 2,
-      "notes": "Dit gaat over het algemene ritme: maandelijks vs. kwartaal, wanneer ben je verplicht, wat als je net gestart bent. Schrijfnoot: duidelijk onderscheid maken met de OSS-deadline blog, focus op startende verkopers."
-    },
-    {
       "keyword": "BTW op kleding",
       "slug": "btw-op-kleding",
       "status": "pending",
@@ -391,6 +384,15 @@
       "notes": "Ondernemer koopt iets in Duitsland of BelgiÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ«, wil BTW terugvragen. Focus op marketplace-verkopers die inkopen bij EU-leveranciers, concreet stappenplan Belastingdienst portaal.",
       "publishedDate": "2026-06-20",
       "outputFile": "blog/btw-terugvragen-eu.html"
+    },
+    {
+      "keyword": "Wanneer BTW aangifte doen",
+      "slug": "wanneer-btw-aangifte-doen",
+      "status": "published",
+      "priority": 2,
+      "notes": "Dit gaat over het algemene ritme: maandelijks vs. kwartaal, wanneer ben je verplicht, wat als je net gestart bent. Schrijfnoot: duidelijk onderscheid maken met de OSS-deadline blog, focus op startende verkopers.",
+      "publishedDate": "2026-06-21",
+      "outputFile": "blog/wanneer-btw-aangifte-doen.html"
     }
   ],
   "settings": {
