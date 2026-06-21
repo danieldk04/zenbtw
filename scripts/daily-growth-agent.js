@@ -772,10 +772,20 @@ ${faqItems.map(({q, a}) => `<div itemscope itemprop="mainEntity" itemtype="https
       applied.push(`H1: "${imp.value}"`);
     }
     if ((imp.type === 'add_faq_section' || imp.type === 'add_h2_sections' || imp.type === 'add_comparison_table') && imp.value) {
-      // Voeg toe vóór de sluitende </article> tag
+      // Voeg in vóór footer / cta-box / laatste </section> — afhankelijk van paginastructuur
+      const label = imp.type.replace('add_', '').replace(/_/g, ' ') + ' toegevoegd';
       if (newHtml.includes('</article>')) {
         newHtml = newHtml.replace('</article>', `${imp.value}\n</article>`);
-        applied.push(imp.type.replace('add_', '').replace('_', ' ') + ' toegevoegd');
+        applied.push(label);
+      } else if (newHtml.includes('<footer')) {
+        newHtml = newHtml.replace('<footer', `${imp.value}\n<footer`);
+        applied.push(label);
+      } else if (newHtml.includes('<div class="cta-box"')) {
+        newHtml = newHtml.replace('<div class="cta-box"', `${imp.value}\n<div class="cta-box"`);
+        applied.push(label);
+      } else if (newHtml.includes('</body>')) {
+        newHtml = newHtml.replace('</body>', `${imp.value}\n</body>`);
+        applied.push(label);
       }
     }
   }
