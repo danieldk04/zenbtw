@@ -1,6 +1,13 @@
 [
   {
     "date": "2026-06-21",
+    "actionsCount": 0,
+    "actions": [],
+    "queueAfter": 8,
+    "gscAvailable": true
+  },
+  {
+    "date": "2026-06-21",
     "actionsCount": 1,
     "actions": [
       "⚠️ GSC niet beschikbaar: GOOGLE_SERVICE_ACCOUNT_JSON not set"
