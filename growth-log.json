@@ -9,6 +9,35 @@
     ],
     "queueAfter": 8,
     "gscAvailable": true,
+    "gscOpportunities": 1,
+    "serperAvailable": true,
+    "gscSnapshot": {
+      "queriesCount": 100,
+      "pagesCount": 37
+    },
+    "metaImprovementsCount": 3,
+    "bounceFixes": 0,
+    "competitorFixes": 0,
+    "highBouncePages": 0,
+    "siteStats": {
+      "totalSessions": 0,
+      "totalViews": 0,
+      "bounceRate": null,
+      "avgDuration": 0
+    },
+    "trendsImproved": 0,
+    "trendsDeclining": 0
+  },
+  {
+    "date": "2026-06-21",
+    "actionsCount": 3,
+    "actions": [
+      "✅ Meta verbeterd: /blog/btw-tarief-eu-landen-2026",
+      "✅ Meta verbeterd: /blog/oss-registratie-belastingdienst",
+      "✅ Meta verbeterd: /blog/dac7-belastingdienst-rapportage"
+    ],
+    "queueAfter": 8,
+    "gscAvailable": true,
     "gscSnapshot": {
       "queriesCount": 100,
       "pagesCount": 37
