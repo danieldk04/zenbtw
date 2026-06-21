@@ -5,7 +5,7 @@
  * Runs every morning via GitHub Actions. Without any human input it:
  *   1. Haalt GSC data op (rankings, CTR, kansen)
  *   2. Verbetert lage CTR pagina's met retry logic + fallback
- *   3. [NIEUW] Haalt Umami analytics op: bounce rates, exit patterns
+ *   3. [NIEUW] Haalt GA4 analytics op: bounce rates, sessieduur
  *   4. [NIEUW] Level 1: flagt pagina's met slechte engagement
  *   5. [NIEUW] Level 2: voert autonome fixes uit op high-bounce pagina's
  *   6. Vult keyword queue aan als nodig
@@ -18,9 +18,7 @@
  *   BREVO_API_KEY               — Brevo transactional email
  *
  * Env vars optional:
- *   UMAMI_URL                   — Umami instance URL
- *   UMAMI_API_KEY               — Umami API key
- *   UMAMI_WEBSITE_ID            — Umami website ID
+ *   GA4_PROPERTY_ID             — GA4 numeric property ID (bijv. 123456789)
  *   DRY_RUN=true                — log acties maar schrijf niks weg
  */
 
@@ -29,7 +27,7 @@ import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import { fetchGSCData, findOpportunities, findLowCTRPages } from './gsc-client.js';
-import { fetchPageBounceData, fetchSiteStats, available as umamiAvailable } from './umami-client.js';
+import { fetchPageBounceData, fetchSiteStats, available as ga4Available } from './ga4-client.js';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.join(__dirname, '..');
@@ -384,7 +382,7 @@ async function sendDigestEmail(report) {
     </ul>` : ''}
 
     ${report.siteStats ? `
-    <p style="margin:0 0 10px;font-size:13px;font-weight:700;color:#1a4731;text-transform:uppercase;letter-spacing:.5px">Umami site statistieken (28d)</p>
+    <p style="margin:0 0 10px;font-size:13px;font-weight:700;color:#1a4731;text-transform:uppercase;letter-spacing:.5px">GA4 site statistieken (28d)</p>
     <table width="100%" cellpadding="0" cellspacing="0" style="border:1px solid #e8e5de;border-radius:8px;overflow:hidden;margin-bottom:${report.umamiHighBounce?.length ? '16px' : '24px'}">
       <tr>
         <td style="padding:12px 16px;text-align:center;border-right:1px solid #e8e5de"><span style="font-size:20px;font-weight:700;color:#1a4731;display:block">${report.siteStats.totalViews?.toLocaleString('nl')}</span><span style="font-size:11px;color:#8a847a">Pageviews</span></td>
@@ -617,10 +615,10 @@ async function main() {
     report.actionsExecuted.push(`⚠️ GSC niet beschikbaar: ${err.message}`);
   }
 
-  // 4. Umami analytics: bounce rate analyse + Level 2 auto-fix
-  if (umamiAvailable()) {
+  // 4. GA4 analytics: bounce rate analyse + Level 2 auto-fix
+  if (ga4Available()) {
     try {
-      log('Umami analytics ophalen...');
+      log('GA4 analytics ophalen...');
       const [bounceData, siteStats] = await Promise.all([
         fetchPageBounceData(28),
         fetchSiteStats(28)
@@ -630,7 +628,7 @@ async function main() {
       const highBounce = bounceData.filter(p => p.highBounce);
       report.umamiHighBounce = highBounce;
 
-      log(`Umami: ${bounceData.length} blog pagina's geanalyseerd, ${highBounce.length} met hoge bounce`);
+      log(`GA4: ${bounceData.length} blog pagina's geanalyseerd, ${highBounce.length} met hoge bounce`);
       if (siteStats.bounceRate !== null) {
         log(`Site-wide bounce rate: ${(siteStats.bounceRate * 100).toFixed(1)}%, avg duur: ${siteStats.avgDuration}s`);
       }
@@ -653,11 +651,11 @@ async function main() {
         }
       }
     } catch (err) {
-      log(`Umami fout (overgeslagen): ${err.message}`);
-      report.actionsExecuted.push(`⚠️ Umami niet beschikbaar: ${err.message}`);
+      log(`GA4 fout (overgeslagen): ${err.message}`);
+      report.actionsExecuted.push(`⚠️ GA4 niet beschikbaar: ${err.message}`);
     }
   } else {
-    log('Umami niet geconfigureerd (UMAMI_URL/API_KEY/WEBSITE_ID mist) — overgeslagen');
+    log('GA4 niet geconfigureerd (GA4_PROPERTY_ID mist) — overgeslagen');
   }
 
   // 6. Keyword queue checken en aanvullen indien nodig
