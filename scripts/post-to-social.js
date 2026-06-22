@@ -28,6 +28,7 @@ const ENABLE_SCREENSHOTS = process.env.SCREENSHOTS_ENABLED === 'true';
 
 // State files
 const STATE_FILE = path.join(ROOT, '.social-post-state.json');
+const POSTING_ROTATION = path.join(ROOT, 'posting-rotation.json');
 const KEYWORDS_FILE = path.join(ROOT, 'keywords.json');
 
 // ── OAuth 1.0a Setup ───────────────────────────────────────────────────────
@@ -67,6 +68,26 @@ function isNewDay(lastDate) {
   const last = new Date(lastDate);
   const now = new Date();
   return last.toDateString() !== now.toDateString();
+}
+
+function isNewWeek(lastDate) {
+  if (!lastDate) return true;
+  const last = new Date(lastDate);
+  const now = new Date();
+  const lastWeek = Math.floor(last.getTime() / (7 * 24 * 60 * 60 * 1000));
+  const nowWeek = Math.floor(now.getTime() / (7 * 24 * 60 * 60 * 1000));
+  return lastWeek !== nowWeek;
+}
+
+function loadPostingRotation() {
+  if (fs.existsSync(POSTING_ROTATION)) {
+    return JSON.parse(fs.readFileSync(POSTING_ROTATION, 'utf8'));
+  }
+  return { postedThisWeek: [], lastRotationDate: null, index: 0 };
+}
+
+function savePostingRotation(rotation) {
+  fs.writeFileSync(POSTING_ROTATION, JSON.stringify(rotation, null, 2), 'utf8');
 }
 
 // ── Blog helpers ─────────────────────────────────────────────────────────────
@@ -398,7 +419,7 @@ async function main() {
   }
   if (!BLUESKY_USER || !BLUESKY_PASS) console.warn('⚠️  No Bluesky credentials');
 
-  // Load state
+  // Load state & rotation tracker
   const state = loadState();
   if (isNewDay(state.lastPostDate)) {
     state.postedToday = [];
@@ -412,11 +433,20 @@ async function main() {
     process.exit(1);
   }
 
-  // Select blog using keyword queue
+  // Load rotation — reset weekly
+  const rotation = loadPostingRotation();
+  if (isNewWeek(rotation.lastRotationDate)) {
+    rotation.postedThisWeek = [];
+    rotation.lastRotationDate = new Date().toISOString();
+    rotation.index = 0;
+  }
+
+  // Select blog: priority 1 = keyword queue, priority 2 = weekly rotation
   const keywordQueue = loadKeywordsQueue();
   let selectedBlog = null;
   let selectedKeyword = null;
 
+  // Try keyword queue first
   if (keywordQueue.queue && keywordQueue.queue.length > 0) {
     const pendingKeywords = keywordQueue.queue
       .filter(item => item.status === 'pending')
@@ -432,10 +462,25 @@ async function main() {
     }
   }
 
-  // Fallback to first unposted blog
+  // Fallback: weekly rotation over ALL blogs
   if (!selectedBlog) {
-    const unposted = blogs.filter(b => !state.postedToday.includes(b.slug));
-    selectedBlog = unposted.length > 0 ? unposted[0] : blogs[0];
+    const available = blogs.filter(b => !state.postedToday.includes(b.slug));
+    if (available.length > 0) {
+      // Cyclisch selecteren: skip blogs die al deze week geposted zijn
+      const notPostedThisWeek = available.filter(b => !rotation.postedThisWeek.includes(b.slug));
+      if (notPostedThisWeek.length > 0) {
+        selectedBlog = notPostedThisWeek[rotation.index % notPostedThisWeek.length];
+        rotation.index++;
+      } else {
+        // Alle beschikbare blogs zijn deze week geposted — reset de week
+        rotation.postedThisWeek = [];
+        rotation.index = 0;
+        selectedBlog = available[0];
+      }
+    } else {
+      // Fallback: geen ungeposte blogs vandaag — pak eerste blog
+      selectedBlog = blogs[0];
+    }
   }
 
   console.log(`📰 Selected blog: ${selectedBlog.slug}${selectedKeyword ? ` (keyword: ${selectedKeyword.keyword})` : ''}\n`);
@@ -481,6 +526,12 @@ async function main() {
     state.postedToday.push(selectedBlog.slug);
     saveState(state);
 
+    // Track in weekly rotation
+    if (!rotation.postedThisWeek.includes(selectedBlog.slug)) {
+      rotation.postedThisWeek.push(selectedBlog.slug);
+    }
+    savePostingRotation(rotation);
+
     if (selectedKeyword) {
       const updatedQueue = loadKeywordsQueue();
       const idx = updatedQueue.queue.findIndex(k => k.keyword === selectedKeyword.keyword);
@@ -495,6 +546,7 @@ async function main() {
     }
 
     console.log(`\n✅ Daily post #${state.postedToday.length} posted successfully!`);
+    console.log(`📊 Posted this week: ${rotation.postedThisWeek.length}/${blogs.length} blogs`);
   } else {
     console.error('\n❌ Failed to post to any platform');
     process.exit(1);

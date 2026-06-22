@@ -48,6 +48,6 @@ jobs:
         run: |
           git config --local user.email "bot@zenbtw.nl"
           git config --local user.name "ZenBTW Social Bot"
-          git add .social-post-state.json 2>/dev/null || true
+          git add .social-post-state.json posting-rotation.json 2>/dev/null || true
           git diff --staged --quiet || git commit -m "auto: social media post state updated [skip ci]"
           git push 2>/dev/null || true
