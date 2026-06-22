@@ -1,13 +1,6 @@
 {
   "queue": [
     {
-      "keyword": "IOSS aangifte",
-      "slug": "ioss-aangifte",
-      "status": "pending",
-      "priority": 5,
-      "notes": "Voor verkopers die producten buiten EU inkopen (China ÃÂ¢ÃÂÃÂ klant in NL/EU). Import One Stop Shop. Schrijfnoot: koppelen aan Etsy/Shopify dropshipping context."
-    },
-    {
       "keyword": "KOR en inkomstenbelasting",
       "slug": "kor-en-inkomstenbelasting",
       "status": "pending",
@@ -397,6 +390,15 @@
       "notes": "Specifieke deadline-uitleg. Wanneer Q1/Q2/Q3/Q4. Schrijfnoot: tabel met alle deadlines 2026, verschil maand vs. kwartaalaangifte, wanneer overstap.",
       "publishedDate": "2026-06-22",
       "outputFile": "blog/btw-aangifte-deadline-per-kwartaal-maand.html"
+    },
+    {
+      "keyword": "IOSS aangifte",
+      "slug": "ioss-aangifte",
+      "status": "published",
+      "priority": 5,
+      "notes": "Voor verkopers die producten buiten EU inkopen (China ÃÂ¢ÃÂÃÂ klant in NL/EU). Import One Stop Shop. Schrijfnoot: koppelen aan Etsy/Shopify dropshipping context.",
+      "publishedDate": "2026-06-22",
+      "outputFile": "blog/ioss-aangifte.html"
     }
   ],
   "settings": {
