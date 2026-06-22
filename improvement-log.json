@@ -18,5 +18,20 @@
     "lastImproved": "2026-06-21",
     "type": "competitor-gap",
     "count": 1
+  },
+  "shopify-dropshipping-btw": {
+    "lastImproved": "2026-06-22",
+    "type": "meta",
+    "count": 1
+  },
+  "kor-vrijstelling-2026": {
+    "lastImproved": "2026-06-22",
+    "type": "meta",
+    "count": 1
+  },
+  "vinted-belasting-2026": {
+    "lastImproved": "2026-06-22",
+    "type": "meta",
+    "count": 1
   }
 }
