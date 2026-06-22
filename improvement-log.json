@@ -33,5 +33,45 @@
     "lastImproved": "2026-06-22",
     "type": "meta",
     "count": 1
+  },
+  "etsy-btw-2026": {
+    "lastImproved": "2026-06-22",
+    "type": "meta",
+    "count": 1
+  },
+  "shopify-btw-nederland-2026": {
+    "lastImproved": "2026-06-22",
+    "type": "meta",
+    "count": 1
+  },
+  "oss-aangifte-nederland": {
+    "lastImproved": "2026-06-22",
+    "type": "meta",
+    "count": 1
+  },
+  "howto:btw-berekenen-shopify-automatisch": {
+    "lastImproved": "2026-06-22",
+    "type": "howto-schema",
+    "count": 1
+  },
+  "howto:compare-sonnet-oss-registratie-belastingdienst": {
+    "lastImproved": "2026-06-22",
+    "type": "howto-schema",
+    "count": 1
+  },
+  "howto:kor-calculator-2026": {
+    "lastImproved": "2026-06-22",
+    "type": "howto-schema",
+    "count": 1
+  },
+  "howto:kor-drempel-overschreden": {
+    "lastImproved": "2026-06-22",
+    "type": "howto-schema",
+    "count": 1
+  },
+  "howto:vinted-ondernemer-btw-registratie": {
+    "lastImproved": "2026-06-22",
+    "type": "howto-schema",
+    "count": 1
   }
 }

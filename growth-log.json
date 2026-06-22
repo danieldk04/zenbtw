@@ -1,6 +1,36 @@
 [
   {
     "date": "2026-06-22",
+    "actionsCount": 4,
+    "actions": [
+      "✅ Meta verbeterd: /blog/etsy-btw-2026",
+      "✅ Meta verbeterd: /blog/shopify-btw-nederland-2026",
+      "✅ Meta verbeterd: /blog/oss-aangifte-nederland",
+      "📋 HowTo schema toegevoegd aan 5 pagina('s)"
+    ],
+    "queueAfter": 8,
+    "gscAvailable": true,
+    "gscOpportunities": 1,
+    "serperAvailable": true,
+    "gscSnapshot": {
+      "queriesCount": 100,
+      "pagesCount": 40
+    },
+    "metaImprovementsCount": 3,
+    "bounceFixes": 0,
+    "competitorFixes": 0,
+    "highBouncePages": 0,
+    "siteStats": {
+      "totalSessions": 4,
+      "totalViews": 10,
+      "bounceRate": 1,
+      "avgDuration": 463
+    },
+    "trendsImproved": 0,
+    "trendsDeclining": 0
+  },
+  {
+    "date": "2026-06-22",
     "actionsCount": 3,
     "actions": [
       "✅ Meta verbeterd: /blog/shopify-dropshipping-btw",
