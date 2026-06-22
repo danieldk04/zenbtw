@@ -2,8 +2,8 @@ name: Daily Growth Agent
 
 on:
   schedule:
-    # Elke dag 06:30 UTC (08:30 CEST zomertijd) — vóór auto-blog om 07:00
-    - cron: '30 6 * * *'
+    # Elke dag 07:00 UTC (09:00 CEST zomertijd / 08:00 CET wintertijd)
+    - cron: '0 7 * * *'
 
   workflow_dispatch:
     inputs:
