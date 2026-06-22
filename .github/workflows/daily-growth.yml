@@ -55,7 +55,7 @@ jobs:
         run: |
           git config --local user.email "bot@zenbtw.nl"
           git config --local user.name "ZenBTW Growth Agent"
-          git add keywords.json growth-log.json improvement-log.json blog/ 2>/dev/null || true
+          git add keywords.json growth-log.json improvement-log.json sitemap.xml blog/ 2>/dev/null || true
           if ! git diff --staged --quiet; then
             ACTIONS=$(node -e "
               const log = JSON.parse(require('fs').readFileSync('growth-log.json','utf8'));

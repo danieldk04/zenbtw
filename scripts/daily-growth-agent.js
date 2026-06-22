@@ -30,6 +30,8 @@ import { fetchGSCData, findOpportunities, findLowCTRPages } from './gsc-client.j
 import { fetchPageBounceData, fetchSiteStats, available as ga4Available } from './ga4-client.js';
 import { searchCompetitors, scrapePage, buildGapSummary, available as serperAvailable } from './competitor-analyzer.js';
 import { notifyUrlUpdated, available as indexingAvailable } from './indexing-client.js';
+import { updateDateModified, updateSitemapLastmod, injectHowToSchema, buildInternalLinkIndex, addSemanticInternalLinks } from './page-utils.js';
+import { checkCoreWebVitals } from './cwv-client.js';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.join(__dirname, '..');
@@ -39,6 +41,7 @@ const KEYWORDS_FILE    = path.join(ROOT, 'keywords.json');
 const MEMORY_FILE      = path.join(ROOT, 'content-memory.json');
 const GROWTH_LOG_FILE  = path.join(ROOT, 'growth-log.json');
 const IMPROVEMENT_LOG  = path.join(ROOT, 'improvement-log.json');
+const SITEMAP_FILE     = path.join(ROOT, 'sitemap.xml');
 const BLOG_DIR         = path.join(ROOT, 'blog');
 const TODAY            = new Date().toISOString().split('T')[0];
 
@@ -204,43 +207,7 @@ function improveMetaDescriptionFallback(currentMeta) {
   return currentMeta;
 }
 
-function addInternalLinksFallback(filePath, slug) {
-  // Voeg links toe naar 2-3 gerelateerde blogs (eenvoudige matching op keywords)
-  const html = fs.readFileSync(filePath, 'utf8');
-  const existingLinks = (html.match(/href="\/blog\/[^"]+"/g) || []).length;
-  if (existingLinks >= 3) return null; // al genoeg links
-
-  const relatedSlugs = {
-    'oss-registratie': ['oss-aangifte-nederland', 'btw-tarief-eu-landen-2026'],
-    'kor': ['kor-vrijstelling-2026', 'kor-drempel-overschreden'],
-    'dac7': ['dac7-belastingdienst-rapportage'],
-    'etsy': ['etsy-btw-2026', 'etsy-verkoper-belastingaangifte'],
-  };
-
-  let toAdd = [];
-  for (const [keyword, related] of Object.entries(relatedSlugs)) {
-    if (slug.includes(keyword)) toAdd = related;
-  }
-
-  if (!toAdd.length) return null;
-
-  const validSlugs = toAdd.slice(0, 2).filter(s => fs.existsSync(path.join(BLOG_DIR, `${s}.html`)));
-  if (!validSlugs.length) return null;
-
-  const linkHtml = validSlugs.map(s => `<p><a href="/blog/${s}/">Lees ook: ${s.replaceAll('-', ' ')}</a></p>`).join('\n');
-
-  let newHtml = html;
-  if (html.includes('</article>')) {
-    newHtml = html.replace('</article>', `\n${linkHtml}\n</article>`);
-  } else if (html.includes('<footer')) {
-    newHtml = html.replace('<footer', `\n${linkHtml}\n<footer`);
-  } else {
-    return null;
-  }
-
-  if (!DRY_RUN) fs.writeFileSync(filePath, newHtml, 'utf8');
-  return validSlugs.length;
-}
+// Vervangen door addSemanticInternalLinks uit page-utils.js
 
 // ── Meta title/description improvement (met retry + fallback) ────────────────
 
@@ -488,6 +455,22 @@ async function sendDigestEmail(report) {
       <p style="margin:0 0 8px;font-size:12px;color:#b8443c">⚠️ Waarom: bounce rate ${(f.bounceRate * 100).toFixed(0)}% — ${f.diagnosis || 'bezoekers verlaten de pagina zonder door te klikken'}</p>
       <p style="margin:0;font-size:12px;color:#1a4731">✅ Fix: ${f.applied.join(', ')}</p>
     </div>`).join('')}` : ''}
+
+    <!-- CORE WEB VITALS -->
+    ${report.cwvIssues?.length ? `
+    <p style="margin:0 0 6px;font-size:13px;font-weight:700;color:#b8443c;text-transform:uppercase;letter-spacing:.5px">⚡ Core Web Vitals problemen</p>
+    <p style="margin:0 0 10px;font-size:12px;color:#8a847a">Paginasnelheid heeft directe invloed op rankings en conversie. Google's drempelwaarden: LCP &lt; 2.5s, CLS &lt; 0.1, INP &lt; 200ms.</p>
+    ${report.cwvIssues.map(r => `
+    <div style="border:1px solid #f0dede;border-radius:8px;padding:12px 16px;margin-bottom:8px;background:#fdf8f8">
+      <p style="margin:0 0 4px;font-size:12px;font-weight:700;color:#b8443c">${r.url}</p>
+      <p style="margin:0;font-size:12px;color:#4a4640">
+        Score: <strong>${r.performance ?? '—'}</strong> &nbsp;|&nbsp;
+        LCP: <strong>${r.lcp != null ? r.lcp + 's' : '—'}</strong> &nbsp;|&nbsp;
+        CLS: <strong>${r.cls ?? '—'}</strong> &nbsp;|&nbsp;
+        INP: <strong>${r.inp != null ? r.inp + 'ms' : '—'}</strong>
+      </p>
+    </div>`).join('')}
+    <p style="margin:8px 0 24px;font-size:11px;color:#8a847a">Controleer via PageSpeed Insights welke specifieke elementen vertragen.</p>` : ''}
 
     <!-- HOGE BOUNCE WAARSCHUWINGEN (zonder fix) -->
     ${report.umamiHighBounce?.length && !report.bounceFixes?.length ? `
@@ -886,8 +869,21 @@ async function main() {
     umamiHighBounce: [],
     siteStats: null,
     trends: null,
-    urlsModified: []
+    urlsModified: [],
+    cwvIssues: []
   };
+
+  // Bouw link index één keer op — gebruikt door alle stappen
+  const linkIndex = buildInternalLinkIndex(BLOG_DIR);
+  log(`Link index: ${Object.keys(linkIndex).length} blog pagina's geïndexeerd`);
+
+  // Helper: pas dateModified + semantische links toe na elke pagina-schrijfoperatie
+  function finalizePageUpdate(filePath, slug, siteUrl) {
+    if (DRY_RUN) return;
+    updateDateModified(filePath, TODAY);
+    addSemanticInternalLinks(filePath, slug, linkIndex);
+    report.urlsModified.push(siteUrl || `https://zenbtw.nl/blog/${slug}/`);
+  }
 
   // 1. GSC data ophalen
   try {
@@ -923,17 +919,19 @@ async function main() {
         const result = await improveLowCTRPage(page);
         if (result) {
           report.metaImprovements.push(result);
-          report.urlsModified.push(`https://zenbtw.nl/blog/${result.slug}/`);
+          finalizePageUpdate(path.join(BLOG_DIR, `${result.slug}.html`), result.slug);
           markImproved(result.slug, improvLog, 'meta');
           report.actionsExecuted.push(`✅ Meta verbeterd: /blog/${result.slug}`);
         } else {
           const slug = page.page.replace('https://zenbtw.nl/blog/', '').replace(/\/$/, '');
           const filePath = path.join(BLOG_DIR, `${slug}.html`);
-          const linksAdded = addInternalLinksFallback(filePath, slug);
-          if (linksAdded) {
-            report.urlsModified.push(`https://zenbtw.nl/blog/${slug}/`);
-            markImproved(slug, improvLog, 'internal-links');
-            report.actionsExecuted.push(`🔗 ${linksAdded} interne links toegevoegd: /blog/${slug}`);
+          if (!DRY_RUN) {
+            const linksAdded = addSemanticInternalLinks(filePath, slug, linkIndex);
+            if (linksAdded) {
+              finalizePageUpdate(filePath, slug);
+              markImproved(slug, improvLog, 'internal-links');
+              report.actionsExecuted.push(`🔗 ${linksAdded} semantische links toegevoegd: /blog/${slug}`);
+            }
           }
         }
       } catch (err) {
@@ -981,7 +979,7 @@ async function main() {
           const fix = await fixHighBouncePage(page, report.gsc);
           if (fix && fix.applied.length) {
             report.bounceFixes.push(fix);
-            report.urlsModified.push(`https://zenbtw.nl/blog/${fix.slug}/`);
+            finalizePageUpdate(path.join(BLOG_DIR, `${fix.slug}.html`), fix.slug);
             report.actionsExecuted.push(`🔧 Bounce fix /blog/${fix.slug}: ${fix.applied.join(', ')}`);
           }
         } catch (err) {
@@ -1040,7 +1038,7 @@ async function main() {
         if (result && result.applied.length) {
           report.competitorFixes = report.competitorFixes || [];
           report.competitorFixes.push(result);
-          report.urlsModified.push(`https://zenbtw.nl/blog/${result.slug}/`);
+          finalizePageUpdate(path.join(BLOG_DIR, `${result.slug}.html`), result.slug);
           markImproved(`competitor:${slug}`, competImprovLog, 'competitor-gap');
           saveImprovementLog(competImprovLog);
           report.actionsExecuted.push(`🔍 Competitor gap fix /blog/${result.slug}: ${result.applied.join(', ')}`);
@@ -1067,6 +1065,61 @@ async function main() {
       log(`Keyword refill mislukt: ${err.message}`);
       report.actionsExecuted.push(`⚠️ Keyword refill mislukt: ${err.message}`);
     }
+  }
+
+  // 5a. HowTo schema injecteren in pagina's die het nog missen (max 5/dag, 30-dg cooldown)
+  try {
+    const howtoLog = loadImprovementLog();
+    const candidates = fs.readdirSync(BLOG_DIR)
+      .filter(f => f.endsWith('.html'))
+      .map(f => f.replace('.html', ''))
+      .filter(slug => !wasRecentlyImproved(`howto:${slug}`, howtoLog, 30));
+
+    let howtoCount = 0;
+    for (const slug of candidates) {
+      if (howtoCount >= 5) break;
+      const filePath = path.join(BLOG_DIR, `${slug}.html`);
+      if (!DRY_RUN && injectHowToSchema(filePath)) {
+        finalizePageUpdate(filePath, slug);
+        markImproved(`howto:${slug}`, howtoLog, 'howto-schema');
+        howtoCount++;
+      }
+    }
+    if (howtoCount > 0) {
+      saveImprovementLog(howtoLog);
+      report.actionsExecuted.push(`📋 HowTo schema toegevoegd aan ${howtoCount} pagina('s)`);
+      log(`HowTo schema: ${howtoCount} pagina's bijgewerkt`);
+    }
+  } catch (err) {
+    log(`HowTo schema stap fout: ${err.message}`);
+  }
+
+  // 5b. Sitemap lastmod bijwerken voor alle gewijzigde pagina's
+  if (report.urlsModified.length) {
+    const unique = [...new Set(report.urlsModified)];
+    const updated = !DRY_RUN ? updateSitemapLastmod(SITEMAP_FILE, unique, TODAY) : 0;
+    if (updated > 0) {
+      log(`Sitemap bijgewerkt: ${updated} lastmod entries`);
+      report.actionsExecuted.push(`🗺️ Sitemap lastmod bijgewerkt voor ${updated} URL('s)`);
+    }
+  }
+
+  // 5c. Core Web Vitals check voor top 3 pagina's (hoog verkeer uit GSC)
+  try {
+    const topPages = (report.gsc?.pages || []).slice(0, 3).map(p => p.page);
+    if (topPages.length) {
+      log(`Core Web Vitals checken voor ${topPages.length} pagina's...`);
+      const cwvResults = await Promise.all(topPages.map(url => checkCoreWebVitals(url)));
+      report.cwvIssues = cwvResults.filter(r => r?.needsAttention);
+      if (report.cwvIssues.length) {
+        report.actionsExecuted.push(`⚡ ${report.cwvIssues.length} pagina('s) met CWV-problemen gevonden`);
+        log(`CWV issues: ${report.cwvIssues.map(r => `${r.url} (score ${r.performance})`).join(', ')}`);
+      } else {
+        log(`CWV: alle gecheckte pagina's scoren goed`);
+      }
+    }
+  } catch (err) {
+    log(`CWV check fout (overgeslagen): ${err.message}`);
   }
 
   // 5. Google Indexing API: push gewijzigde URLs voor snelle re-indexing
