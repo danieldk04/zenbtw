@@ -29,6 +29,7 @@ import { fileURLToPath } from 'url';
 import { fetchGSCData, findOpportunities, findLowCTRPages } from './gsc-client.js';
 import { fetchPageBounceData, fetchSiteStats, available as ga4Available } from './ga4-client.js';
 import { searchCompetitors, scrapePage, buildGapSummary, available as serperAvailable } from './competitor-analyzer.js';
+import { notifyUrlUpdated, available as indexingAvailable } from './indexing-client.js';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.join(__dirname, '..');
@@ -884,7 +885,8 @@ async function main() {
     competitorFixes: [],
     umamiHighBounce: [],
     siteStats: null,
-    trends: null
+    trends: null,
+    urlsModified: []
   };
 
   // 1. GSC data ophalen
@@ -921,6 +923,7 @@ async function main() {
         const result = await improveLowCTRPage(page);
         if (result) {
           report.metaImprovements.push(result);
+          report.urlsModified.push(`https://zenbtw.nl/blog/${result.slug}/`);
           markImproved(result.slug, improvLog, 'meta');
           report.actionsExecuted.push(`✅ Meta verbeterd: /blog/${result.slug}`);
         } else {
@@ -928,6 +931,7 @@ async function main() {
           const filePath = path.join(BLOG_DIR, `${slug}.html`);
           const linksAdded = addInternalLinksFallback(filePath, slug);
           if (linksAdded) {
+            report.urlsModified.push(`https://zenbtw.nl/blog/${slug}/`);
             markImproved(slug, improvLog, 'internal-links');
             report.actionsExecuted.push(`🔗 ${linksAdded} interne links toegevoegd: /blog/${slug}`);
           }
@@ -977,6 +981,7 @@ async function main() {
           const fix = await fixHighBouncePage(page, report.gsc);
           if (fix && fix.applied.length) {
             report.bounceFixes.push(fix);
+            report.urlsModified.push(`https://zenbtw.nl/blog/${fix.slug}/`);
             report.actionsExecuted.push(`🔧 Bounce fix /blog/${fix.slug}: ${fix.applied.join(', ')}`);
           }
         } catch (err) {
@@ -1035,6 +1040,7 @@ async function main() {
         if (result && result.applied.length) {
           report.competitorFixes = report.competitorFixes || [];
           report.competitorFixes.push(result);
+          report.urlsModified.push(`https://zenbtw.nl/blog/${result.slug}/`);
           markImproved(`competitor:${slug}`, competImprovLog, 'competitor-gap');
           saveImprovementLog(competImprovLog);
           report.actionsExecuted.push(`🔍 Competitor gap fix /blog/${result.slug}: ${result.applied.join(', ')}`);
@@ -1063,7 +1069,21 @@ async function main() {
     }
   }
 
-  // 5. Samenvatting loggen
+  // 5. Google Indexing API: push gewijzigde URLs voor snelle re-indexing
+  if (indexingAvailable() && report.urlsModified.length) {
+    try {
+      log(`${report.urlsModified.length} URLs naar Google Indexing API pushen...`);
+      const indexResult = await notifyUrlUpdated(report.urlsModified);
+      log(`  ✓ ${indexResult.success} URLs geaccepteerd, ${indexResult.failed} mislukt`);
+      if (indexResult.success > 0) {
+        report.actionsExecuted.push(`🔄 ${indexResult.success} URLs naar Google Indexing gepusht`);
+      }
+    } catch (err) {
+      log(`Indexing API fout: ${err.message}`);
+    }
+  }
+
+  // 6. Samenvatting loggen
   log(`Acties uitgevoerd: ${report.actionsExecuted.length}`);
   for (const action of report.actionsExecuted) log(`  ✓ ${action}`);
 
