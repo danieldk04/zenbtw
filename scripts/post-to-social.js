@@ -435,51 +435,51 @@ async function main() {
 
   // Load rotation — reset weekly
   const rotation = loadPostingRotation();
+  console.log(`📋 Rotation state loaded: postedThisWeek=[${rotation.postedThisWeek.join(', ')}], index=${rotation.index}`);
+
   if (isNewWeek(rotation.lastRotationDate)) {
+    console.log(`🔄 New week detected — resetting rotation`);
     rotation.postedThisWeek = [];
     rotation.lastRotationDate = new Date().toISOString();
     rotation.index = 0;
   }
 
-  // Select blog: priority 1 = keyword queue, priority 2 = weekly rotation
+  // Select blog: priority 1 = weekly rotation, priority 2 = keyword queue (only if high priority)
   const keywordQueue = loadKeywordsQueue();
   let selectedBlog = null;
   let selectedKeyword = null;
 
-  // Try keyword queue first
+  // Primary: weekly rotation over ALL blogs
+  const available = blogs.filter(b => !state.postedToday.includes(b.slug));
+  if (available.length > 0) {
+    const notPostedThisWeek = available.filter(b => !rotation.postedThisWeek.includes(b.slug));
+    if (notPostedThisWeek.length > 0) {
+      selectedBlog = notPostedThisWeek[rotation.index % notPostedThisWeek.length];
+      rotation.index++;
+    } else {
+      // Alle beschikbare blogs zijn deze week geposted — reset de week
+      rotation.postedThisWeek = [];
+      rotation.index = 0;
+      selectedBlog = available[0];
+    }
+  } else {
+    // Fallback: geen ungeposte blogs vandaag — pak eerste blog
+    selectedBlog = blogs[0];
+  }
+
+  // Override: keyword queue only for HIGH priority (priority <= 2)
   if (keywordQueue.queue && keywordQueue.queue.length > 0) {
-    const pendingKeywords = keywordQueue.queue
-      .filter(item => item.status === 'pending')
+    const highPriorityKeywords = keywordQueue.queue
+      .filter(item => item.status === 'pending' && (item.priority || 999) <= 2)
       .sort((a, b) => (a.priority || 999) - (b.priority || 999));
 
-    for (const keywordItem of pendingKeywords) {
+    for (const keywordItem of highPriorityKeywords) {
       const blog = findBlogByKeyword(keywordItem.keyword, blogs);
       if (blog && !state.postedToday.includes(blog.slug)) {
         selectedBlog = blog;
         selectedKeyword = keywordItem;
         break;
       }
-    }
-  }
-
-  // Fallback: weekly rotation over ALL blogs
-  if (!selectedBlog) {
-    const available = blogs.filter(b => !state.postedToday.includes(b.slug));
-    if (available.length > 0) {
-      // Cyclisch selecteren: skip blogs die al deze week geposted zijn
-      const notPostedThisWeek = available.filter(b => !rotation.postedThisWeek.includes(b.slug));
-      if (notPostedThisWeek.length > 0) {
-        selectedBlog = notPostedThisWeek[rotation.index % notPostedThisWeek.length];
-        rotation.index++;
-      } else {
-        // Alle beschikbare blogs zijn deze week geposted — reset de week
-        rotation.postedThisWeek = [];
-        rotation.index = 0;
-        selectedBlog = available[0];
-      }
-    } else {
-      // Fallback: geen ungeposte blogs vandaag — pak eerste blog
-      selectedBlog = blogs[0];
     }
   }
 
@@ -531,6 +531,7 @@ async function main() {
       rotation.postedThisWeek.push(selectedBlog.slug);
     }
     savePostingRotation(rotation);
+    console.log(`✓ Rotation saved: ${rotation.postedThisWeek.join(', ')}`);
 
     if (selectedKeyword) {
       const updatedQueue = loadKeywordsQueue();
@@ -542,6 +543,7 @@ async function main() {
         updatedQueue.queue.splice(idx, 1);
         updatedQueue.published.push(kw);
         saveKeywordsQueue(updatedQueue);
+        console.log(`✓ Keyword marked published: ${selectedKeyword.keyword}`);
       }
     }
 
