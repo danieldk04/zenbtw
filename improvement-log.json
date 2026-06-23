@@ -73,5 +73,20 @@
     "lastImproved": "2026-06-22",
     "type": "howto-schema",
     "count": 1
+  },
+  "oss-aangifte-zelf-doen": {
+    "lastImproved": "2026-06-23",
+    "type": "meta",
+    "count": 1
+  },
+  "margeregeling-tweedehands-btw": {
+    "lastImproved": "2026-06-23",
+    "type": "meta",
+    "count": 1
+  },
+  "dac7-uitleg-marketplace-verkoper": {
+    "lastImproved": "2026-06-23",
+    "type": "meta",
+    "count": 1
   }
 }

@@ -1,5 +1,34 @@
 [
   {
+    "date": "2026-06-23",
+    "actionsCount": 3,
+    "actions": [
+      "✅ Meta verbeterd: /blog/oss-aangifte-zelf-doen",
+      "✅ Meta verbeterd: /blog/margeregeling-tweedehands-btw",
+      "✅ Meta verbeterd: /blog/dac7-uitleg-marketplace-verkoper"
+    ],
+    "queueAfter": 6,
+    "gscAvailable": true,
+    "gscOpportunities": 1,
+    "serperAvailable": true,
+    "gscSnapshot": {
+      "queriesCount": 100,
+      "pagesCount": 45
+    },
+    "metaImprovementsCount": 3,
+    "bounceFixes": 0,
+    "competitorFixes": 0,
+    "highBouncePages": 0,
+    "siteStats": {
+      "totalSessions": 12,
+      "totalViews": 36,
+      "bounceRate": 0.8333333333333334,
+      "avgDuration": 268
+    },
+    "trendsImproved": 0,
+    "trendsDeclining": 0
+  },
+  {
     "date": "2026-06-22",
     "actionsCount": 4,
     "actions": [
