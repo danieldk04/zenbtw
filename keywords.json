@@ -1,13 +1,6 @@
 {
   "queue": [
     {
-      "keyword": "KOR en inkomstenbelasting",
-      "slug": "kor-en-inkomstenbelasting",
-      "status": "pending",
-      "priority": 6,
-      "notes": "KOR vrijstelt je van BTW maar niet van inkomstenbelasting. Veelgemaakte misvatting. Schrijfnoot: concreet uitleggen wat je wÃÂ©l nog moet doen als KOR-ondernemer."
-    },
-    {
       "keyword": "btw export buiten eu",
       "slug": "btw-export-buiten-eu",
       "status": "pending",
@@ -399,6 +392,15 @@
       "notes": "Voor verkopers die producten buiten EU inkopen (China ÃÂ¢ÃÂÃÂ klant in NL/EU). Import One Stop Shop. Schrijfnoot: koppelen aan Etsy/Shopify dropshipping context.",
       "publishedDate": "2026-06-22",
       "outputFile": "blog/ioss-aangifte.html"
+    },
+    {
+      "keyword": "KOR en inkomstenbelasting",
+      "slug": "kor-en-inkomstenbelasting",
+      "status": "published",
+      "priority": 6,
+      "notes": "KOR vrijstelt je van BTW maar niet van inkomstenbelasting. Veelgemaakte misvatting. Schrijfnoot: concreet uitleggen wat je wÃÂ©l nog moet doen als KOR-ondernemer.",
+      "publishedDate": "2026-06-23",
+      "outputFile": "blog/kor-en-inkomstenbelasting.html"
     }
   ],
   "settings": {
