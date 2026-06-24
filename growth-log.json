@@ -1,5 +1,33 @@
 [
   {
+    "date": "2026-06-24",
+    "actionsCount": 2,
+    "actions": [
+      "✅ Meta verbeterd: /blog/etsy-verkoper-belastingaangifte",
+      "✅ Meta verbeterd: /blog/wanneer-btw-aangifte-doen"
+    ],
+    "queueAfter": 5,
+    "gscAvailable": true,
+    "gscOpportunities": 1,
+    "serperAvailable": true,
+    "gscSnapshot": {
+      "queriesCount": 100,
+      "pagesCount": 45
+    },
+    "metaImprovementsCount": 2,
+    "bounceFixes": 0,
+    "competitorFixes": 0,
+    "highBouncePages": 0,
+    "siteStats": {
+      "totalSessions": 19,
+      "totalViews": 54,
+      "bounceRate": 0.7894736842105263,
+      "avgDuration": 172
+    },
+    "trendsImproved": 0,
+    "trendsDeclining": 0
+  },
+  {
     "date": "2026-06-23",
     "actionsCount": 3,
     "actions": [
