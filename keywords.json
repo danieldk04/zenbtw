@@ -1,12 +1,6 @@
 {
   "queue": [
     {
-      "keyword": "btw export buiten eu",
-      "slug": "btw-export-buiten-eu",
-      "status": "pending",
-      "priority": 7
-    },
-    {
       "keyword": "btw bij export naar UK",
       "slug": "btw-bij-export-naar-uk",
       "status": "pending",
@@ -401,6 +395,14 @@
       "notes": "KOR vrijstelt je van BTW maar niet van inkomstenbelasting. Veelgemaakte misvatting. Schrijfnoot: concreet uitleggen wat je wÃÂ©l nog moet doen als KOR-ondernemer.",
       "publishedDate": "2026-06-23",
       "outputFile": "blog/kor-en-inkomstenbelasting.html"
+    },
+    {
+      "keyword": "btw export buiten eu",
+      "slug": "btw-export-buiten-eu",
+      "status": "published",
+      "priority": 7,
+      "publishedDate": "2026-06-24",
+      "outputFile": "blog/btw-export-buiten-eu.html"
     }
   ],
   "settings": {
