@@ -1,12 +1,6 @@
 {
   "queue": [
     {
-      "keyword": "btw bij export naar UK",
-      "slug": "btw-bij-export-naar-uk",
-      "status": "pending",
-      "priority": 8
-    },
-    {
       "keyword": "etsy inkomsten opgeven belastingdienst nederland",
       "slug": "etsy-inkomsten-opgeven-belastingdienst",
       "status": "pending",
@@ -403,6 +397,14 @@
       "priority": 7,
       "publishedDate": "2026-06-24",
       "outputFile": "blog/btw-export-buiten-eu.html"
+    },
+    {
+      "keyword": "btw bij export naar UK",
+      "slug": "btw-bij-export-naar-uk",
+      "status": "published",
+      "priority": 8,
+      "publishedDate": "2026-06-24",
+      "outputFile": "blog/btw-bij-export-naar-uk.html"
     }
   ],
   "settings": {
