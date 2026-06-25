@@ -1,5 +1,34 @@
 [
   {
+    "date": "2026-06-25",
+    "actionsCount": 3,
+    "actions": [
+      "✅ Meta verbeterd: /blog/btw-op-kleding",
+      "✅ Meta verbeterd: /blog/factuur-sturen-kor-ondernemer",
+      "🔑 10 nieuwe keywords toegevoegd"
+    ],
+    "queueAfter": 13,
+    "gscAvailable": true,
+    "gscOpportunities": 1,
+    "serperAvailable": true,
+    "gscSnapshot": {
+      "queriesCount": 100,
+      "pagesCount": 45
+    },
+    "metaImprovementsCount": 2,
+    "bounceFixes": 0,
+    "competitorFixes": 0,
+    "highBouncePages": 0,
+    "siteStats": {
+      "totalSessions": 26,
+      "totalViews": 62,
+      "bounceRate": 0.6153846153846154,
+      "avgDuration": 145
+    },
+    "trendsImproved": 0,
+    "trendsDeclining": 0
+  },
+  {
     "date": "2026-06-24",
     "actionsCount": 2,
     "actions": [
