@@ -95,15 +95,6 @@
       "addedBy": "growth-agent",
       "rationale": "Shopify dropshipping BTW staat al in de lijst maar dit keyword richt zich breder op het dropshipping-model ongeacht platform; apart zoekvolume en andere intentie",
       "addedDate": "2026-06-25"
-    },
-    {
-      "keyword": "oss registratie stappenplan nederland",
-      "status": "pending",
-      "priority": 1,
-      "addedBy": "growth-agent",
-      "rationale": "Sluit direct aan op GSC-kans 'oss registratie' (positie 19.8) met longtail modifier die intentie verduidelijkt; kleine push kan top-10 opleveren",
-      "addedDate": "2026-06-25",
-      "slug": "oss-registratie-stappenplan-nederland"
     }
   ],
   "published": [
@@ -486,6 +477,17 @@
       "priority": 8,
       "publishedDate": "2026-06-24",
       "outputFile": "blog/btw-bij-export-naar-uk.html"
+    },
+    {
+      "keyword": "oss registratie stappenplan nederland",
+      "status": "published",
+      "priority": 1,
+      "addedBy": "growth-agent",
+      "rationale": "Sluit direct aan op GSC-kans 'oss registratie' (positie 19.8) met longtail modifier die intentie verduidelijkt; kleine push kan top-10 opleveren",
+      "addedDate": "2026-06-25",
+      "slug": "oss-registratie-stappenplan-nederland",
+      "publishedDate": "2026-06-26",
+      "outputFile": "blog/oss-registratie-stappenplan-nederland.html"
     }
   ],
   "settings": {
