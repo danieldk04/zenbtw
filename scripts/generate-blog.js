@@ -628,14 +628,17 @@ async function main() {
   console.log(`  Found ${existingBlogs.length} existing blogs for internal linking`);
 
   // ── 1. Generate with Claude ────────────────────────────────────────────────
-  console.log('  Calling Claude API...');
+  console.log('  Calling Claude API (streaming)...');
   const client = new Anthropic();
 
-  let message;
+  let rawHtml = '';
   const MAX_RETRIES = 3;
-  for (let attempt = 1; attempt <= MAX_RETRIES; attempt++) {
+  let success = false;
+
+  for (let attempt = 1; attempt <= MAX_RETRIES && !success; attempt++) {
     try {
-      message = await client.messages.create({
+      rawHtml = '';
+      const stream = await client.messages.stream({
         model: 'claude-sonnet-4-6',
         max_tokens: 16000,
         messages: [
@@ -645,22 +648,29 @@ async function main() {
           }
         ]
       });
-      break;
+
+      for await (const event of stream) {
+        if (event.type === 'content_block_delta' && event.delta?.type === 'text_delta') {
+          rawHtml += event.delta.text;
+          process.stdout.write('.');
+        }
+      }
+      console.log(' done');
+      success = true;
     } catch (err) {
       const isRetryable = err.code === 'ERR_STREAM_PREMATURE_CLOSE' ||
         err.type === 'system' ||
-        (err.status >= 500 && err.status < 600);
+        (err.status >= 500 && err.status < 600) ||
+        err.message?.includes('Premature close');
       if (isRetryable && attempt < MAX_RETRIES) {
-        const delay = attempt * 15000;
-        console.log(`  API error (attempt ${attempt}/${MAX_RETRIES}): ${err.message} — retrying in ${delay / 1000}s...`);
+        const delay = attempt * 10000;
+        console.log(`\n  API error (attempt ${attempt}/${MAX_RETRIES}): ${err.message} — retrying in ${delay / 1000}s...`);
         await new Promise(r => setTimeout(r, delay));
       } else {
         throw err;
       }
     }
   }
-
-  const rawHtml = message.content[0].type === 'text' ? message.content[0].text : '';
   if (!rawHtml) {
     console.error('  Claude returned no content');
     process.exit(1);
