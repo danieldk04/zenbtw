@@ -1,5 +1,33 @@
 [
   {
+    "date": "2026-06-26",
+    "actionsCount": 2,
+    "actions": [
+      "✅ Meta verbeterd: /blog/hoeveel-btw-vinted-verkoper",
+      "✅ Meta verbeterd: /blog/wanneer-btw-aangifte-etsy"
+    ],
+    "queueAfter": 13,
+    "gscAvailable": true,
+    "gscOpportunities": 1,
+    "serperAvailable": true,
+    "gscSnapshot": {
+      "queriesCount": 100,
+      "pagesCount": 45
+    },
+    "metaImprovementsCount": 2,
+    "bounceFixes": 0,
+    "competitorFixes": 0,
+    "highBouncePages": 0,
+    "siteStats": {
+      "totalSessions": 39,
+      "totalViews": 78,
+      "bounceRate": 0.6923076923076923,
+      "avgDuration": 122
+    },
+    "trendsImproved": 0,
+    "trendsDeclining": 0
+  },
+  {
     "date": "2026-06-25",
     "actionsCount": 3,
     "actions": [
