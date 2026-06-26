@@ -25,14 +25,6 @@
       "type": "geo-vraag"
     },
     {
-      "keyword": "oss registratie stappenplan nederland",
-      "status": "pending",
-      "priority": 1,
-      "addedBy": "growth-agent",
-      "rationale": "Sluit direct aan op GSC-kans 'oss registratie' (positie 19.8) met longtail modifier die intentie verduidelijkt; kleine push kan top-10 opleveren",
-      "addedDate": "2026-06-25"
-    },
-    {
       "keyword": "oss registratie btw buitenland",
       "status": "pending",
       "priority": 2,
@@ -485,6 +477,16 @@
       "priority": 8,
       "publishedDate": "2026-06-24",
       "outputFile": "blog/btw-bij-export-naar-uk.html"
+    },
+    {
+      "keyword": "oss registratie stappenplan nederland",
+      "status": "published",
+      "priority": 1,
+      "addedBy": "growth-agent",
+      "rationale": "Sluit direct aan op GSC-kans 'oss registratie' (positie 19.8) met longtail modifier die intentie verduidelijkt; kleine push kan top-10 opleveren",
+      "addedDate": "2026-06-25",
+      "publishedDate": "2026-06-26",
+      "outputFile": "blog/undefined.html"
     }
   ],
   "settings": {
