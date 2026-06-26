@@ -640,7 +640,7 @@ async function main() {
       rawHtml = '';
       const stream = await client.messages.stream({
         model: 'claude-sonnet-4-6',
-        max_tokens: 10000,
+        max_tokens: 16000,
         messages: [
           {
             role: 'user',
@@ -655,6 +655,18 @@ async function main() {
           process.stdout.write('.');
         }
       }
+
+      // Volledigheidscheck: detecteer afgekapte output (token-limiet bereikt)
+      const finalMessage = await stream.finalMessage();
+      if (finalMessage.stop_reason === 'max_tokens') {
+        console.log(` afgekapt (stop_reason=max_tokens)`);
+        if (attempt < MAX_RETRIES) {
+          console.log(`\n  Output afgekapt (attempt ${attempt}/${MAX_RETRIES}) — opnieuw...`);
+          continue;
+        }
+        throw new Error('Output bleef afgekapt na alle pogingen (max_tokens)');
+      }
+
       console.log(' done');
       success = true;
     } catch (err) {
