@@ -39,6 +39,20 @@ function nextPending(data) {
     .sort((a, b) => a.priority - b.priority)[0] || null;
 }
 
+// Maak een nette slug uit een keyword (bv. groei-agent voegt keywords toe zonder slug)
+function slugify(keyword) {
+  return keyword
+    .toLowerCase()
+    .normalize('NFD').replace(/[̀-ͯ]/g, '') // accenten weg
+    .replace(/[^a-z0-9\s-]/g, '')                     // alleen a-z 0-9 spaties koppeltekens
+    .trim()
+    .split(/\s+/)
+    .slice(0, 6)                                       // max 6 woorden, net als bestaande slugs
+    .join('-')
+    .replace(/-+/g, '-')
+    .replace(/^-|-$/g, '');
+}
+
 // ── Bestaande blogs ophalen voor internal linking ─────────────────────────────
 function getExistingBlogs() {
   try {
