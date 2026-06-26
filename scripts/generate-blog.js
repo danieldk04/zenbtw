@@ -632,7 +632,7 @@ async function main() {
   const client = new Anthropic();
 
   let rawHtml = '';
-  const MAX_RETRIES = 3;
+  const MAX_RETRIES = 6;
   let success = false;
 
   for (let attempt = 1; attempt <= MAX_RETRIES && !success; attempt++) {
@@ -640,7 +640,7 @@ async function main() {
       rawHtml = '';
       const stream = await client.messages.stream({
         model: 'claude-sonnet-4-6',
-        max_tokens: 16000,
+        max_tokens: 10000,
         messages: [
           {
             role: 'user',
@@ -663,7 +663,7 @@ async function main() {
         (err.status >= 500 && err.status < 600) ||
         err.message?.includes('Premature close');
       if (isRetryable && attempt < MAX_RETRIES) {
-        const delay = attempt * 10000;
+        const delay = Math.pow(2, attempt) * 5000;
         console.log(`\n  API error (attempt ${attempt}/${MAX_RETRIES}): ${err.message} — retrying in ${delay / 1000}s...`);
         await new Promise(r => setTimeout(r, delay));
       } else {
