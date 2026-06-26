@@ -636,6 +636,13 @@ async function main() {
     process.exit(0);
   }
 
+  // Slug kan ontbreken (bv. door growth-agent) → afleiden uit keyword en persisteren
+  if (!item.slug) {
+    item.slug = slugify(item.keyword);
+    saveKeywords(data);
+    console.log(`  slug ontbrak — afgeleid uit keyword: ${item.slug}`);
+  }
+
   console.log(`\n🔍 Processing keyword: "${item.keyword}" → ${item.slug}.html`);
 
   const existingBlogs = getExistingBlogs().filter(b => b.slug !== item.slug);
