@@ -630,16 +630,35 @@ async function main() {
   // ── 1. Generate with Claude ────────────────────────────────────────────────
   console.log('  Calling Claude API...');
   const client = new Anthropic();
-  const message = await client.messages.create({
-    model: 'claude-sonnet-4-6',
-    max_tokens: 16000,
-    messages: [
-      {
-        role: 'user',
-        content: buildPrompt(item.keyword, item.slug, existingBlogs)
+
+  let message;
+  const MAX_RETRIES = 3;
+  for (let attempt = 1; attempt <= MAX_RETRIES; attempt++) {
+    try {
+      message = await client.messages.create({
+        model: 'claude-sonnet-4-6',
+        max_tokens: 16000,
+        messages: [
+          {
+            role: 'user',
+            content: buildPrompt(item.keyword, item.slug, existingBlogs)
+          }
+        ]
+      });
+      break;
+    } catch (err) {
+      const isRetryable = err.code === 'ERR_STREAM_PREMATURE_CLOSE' ||
+        err.type === 'system' ||
+        (err.status >= 500 && err.status < 600);
+      if (isRetryable && attempt < MAX_RETRIES) {
+        const delay = attempt * 15000;
+        console.log(`  API error (attempt ${attempt}/${MAX_RETRIES}): ${err.message} — retrying in ${delay / 1000}s...`);
+        await new Promise(r => setTimeout(r, delay));
+      } else {
+        throw err;
       }
-    ]
-  });
+    }
+  }
 
   const rawHtml = message.content[0].type === 'text' ? message.content[0].text : '';
   if (!rawHtml) {
