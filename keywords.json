@@ -25,14 +25,6 @@
       "type": "geo-vraag"
     },
     {
-      "keyword": "oss registratie btw buitenland",
-      "status": "pending",
-      "priority": 2,
-      "addedBy": "growth-agent",
-      "rationale": "Tweede longtail variant op dezelfde GSC-kans; vult een andere zoekintenties in (wat moet ik doen bij verkoop naar EU-landen) zonder bestaande content te kannibaliseren",
-      "addedDate": "2026-06-25"
-    },
-    {
       "keyword": "wanneer ben je ondernemer belastingdienst marketplace",
       "status": "pending",
       "priority": 3,
@@ -488,6 +480,17 @@
       "slug": "oss-registratie-stappenplan-nederland",
       "publishedDate": "2026-06-26",
       "outputFile": "blog/oss-registratie-stappenplan-nederland.html"
+    },
+    {
+      "keyword": "oss registratie btw buitenland",
+      "status": "published",
+      "priority": 2,
+      "addedBy": "growth-agent",
+      "rationale": "Tweede longtail variant op dezelfde GSC-kans; vult een andere zoekintenties in (wat moet ik doen bij verkoop naar EU-landen) zonder bestaande content te kannibaliseren",
+      "addedDate": "2026-06-25",
+      "slug": "oss-registratie-btw-buitenland",
+      "publishedDate": "2026-06-27",
+      "outputFile": "blog/oss-registratie-btw-buitenland.html"
     }
   ],
   "settings": {
