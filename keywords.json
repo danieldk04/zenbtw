@@ -25,14 +25,6 @@
       "type": "geo-vraag"
     },
     {
-      "keyword": "wanneer ben je ondernemer belastingdienst marketplace",
-      "status": "pending",
-      "priority": 3,
-      "addedBy": "growth-agent",
-      "rationale": "Hoog zoekvolume rondom ondernemersstatus; sluit aan op DAC7- en KOR-content maar vanuit een eerder stadium in de funnel",
-      "addedDate": "2026-06-25"
-    },
-    {
       "keyword": "etsy inkomsten belasting nederland hoeveel",
       "status": "pending",
       "priority": 4,
@@ -491,6 +483,17 @@
       "slug": "oss-registratie-btw-buitenland",
       "publishedDate": "2026-06-27",
       "outputFile": "blog/oss-registratie-btw-buitenland.html"
+    },
+    {
+      "keyword": "wanneer ben je ondernemer belastingdienst marketplace",
+      "status": "published",
+      "priority": 3,
+      "addedBy": "growth-agent",
+      "rationale": "Hoog zoekvolume rondom ondernemersstatus; sluit aan op DAC7- en KOR-content maar vanuit een eerder stadium in de funnel",
+      "addedDate": "2026-06-25",
+      "slug": "wanneer-ben-je-ondernemer-belastingdienst-marketplace",
+      "publishedDate": "2026-06-27",
+      "outputFile": "blog/wanneer-ben-je-ondernemer-belastingdienst-marketplace.html"
     }
   ],
   "settings": {
