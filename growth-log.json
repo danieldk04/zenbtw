@@ -1,5 +1,34 @@
 [
   {
+    "date": "2026-06-27",
+    "actionsCount": 3,
+    "actions": [
+      "✅ Meta verbeterd: /blog/kor-opzeggen-hoe",
+      "📊 1 pagina's met hoge bounce rate gedetecteerd",
+      "🔧 Bounce fix /blog/wanneer-btw-aangifte-doen: Intro herschreven, CTA boven fold toegevoegd"
+    ],
+    "queueAfter": 12,
+    "gscAvailable": true,
+    "gscOpportunities": 1,
+    "serperAvailable": true,
+    "gscSnapshot": {
+      "queriesCount": 100,
+      "pagesCount": 44
+    },
+    "metaImprovementsCount": 1,
+    "bounceFixes": 1,
+    "competitorFixes": 0,
+    "highBouncePages": 1,
+    "siteStats": {
+      "totalSessions": 45,
+      "totalViews": 98,
+      "bounceRate": 0.6444444444444445,
+      "avgDuration": 214
+    },
+    "trendsImproved": 0,
+    "trendsDeclining": 0
+  },
+  {
     "date": "2026-06-26",
     "actionsCount": 2,
     "actions": [
