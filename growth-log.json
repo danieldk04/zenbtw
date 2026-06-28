@@ -1,5 +1,33 @@
 [
   {
+    "date": "2026-06-28",
+    "actionsCount": 2,
+    "actions": [
+      "📊 1 pagina's met hoge bounce rate gedetecteerd",
+      "🔧 Bounce fix /blog/wanneer-btw-aangifte-doen: Intro herschreven, CTA boven fold toegevoegd"
+    ],
+    "queueAfter": 10,
+    "gscAvailable": true,
+    "gscOpportunities": 1,
+    "serperAvailable": true,
+    "gscSnapshot": {
+      "queriesCount": 100,
+      "pagesCount": 45
+    },
+    "metaImprovementsCount": 0,
+    "bounceFixes": 1,
+    "competitorFixes": 0,
+    "highBouncePages": 1,
+    "siteStats": {
+      "totalSessions": 56,
+      "totalViews": 111,
+      "bounceRate": 0.6964285714285714,
+      "avgDuration": 116
+    },
+    "trendsImproved": 0,
+    "trendsDeclining": 0
+  },
+  {
     "date": "2026-06-27",
     "actionsCount": 3,
     "actions": [
