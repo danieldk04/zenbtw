@@ -25,14 +25,6 @@
       "type": "geo-vraag"
     },
     {
-      "keyword": "etsy inkomsten belasting nederland hoeveel",
-      "status": "pending",
-      "priority": 4,
-      "addedBy": "growth-agent",
-      "rationale": "Sterke commerciële intentie, aanvullend op bestaande Etsy-keywords die al draaien; 'hoeveel' geeft rekentools-insteek passend bij ZenBTW-calculator",
-      "addedDate": "2026-06-25"
-    },
-    {
       "keyword": "vinted belasting 2026 hoeveel mag je verdienen",
       "status": "pending",
       "priority": 5,
@@ -494,6 +486,17 @@
       "slug": "wanneer-ben-je-ondernemer-belastingdienst-marketplace",
       "publishedDate": "2026-06-27",
       "outputFile": "blog/wanneer-ben-je-ondernemer-belastingdienst-marketplace.html"
+    },
+    {
+      "keyword": "etsy inkomsten belasting nederland hoeveel",
+      "status": "published",
+      "priority": 4,
+      "addedBy": "growth-agent",
+      "rationale": "Sterke commerciële intentie, aanvullend op bestaande Etsy-keywords die al draaien; 'hoeveel' geeft rekentools-insteek passend bij ZenBTW-calculator",
+      "addedDate": "2026-06-25",
+      "slug": "etsy-inkomsten-belasting-nederland-hoeveel",
+      "publishedDate": "2026-06-28",
+      "outputFile": "blog/etsy-inkomsten-belasting-nederland-hoeveel.html"
     }
   ],
   "settings": {
