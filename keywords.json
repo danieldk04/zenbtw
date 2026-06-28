@@ -25,14 +25,6 @@
       "type": "geo-vraag"
     },
     {
-      "keyword": "vinted belasting 2026 hoeveel mag je verdienen",
-      "status": "pending",
-      "priority": 5,
-      "addedBy": "growth-agent",
-      "rationale": "Groeiende zoekvraag door DAC7-bewustzijn bij Vinted-verkopers; drempelwaarde-vraag sluit aan op KOR-drempel uitleg zonder duplicaat te zijn",
-      "addedDate": "2026-06-25"
-    },
-    {
       "keyword": "ioss registratie nederland hoe werken",
       "status": "pending",
       "priority": 6,
@@ -497,6 +489,17 @@
       "slug": "etsy-inkomsten-belasting-nederland-hoeveel",
       "publishedDate": "2026-06-28",
       "outputFile": "blog/etsy-inkomsten-belasting-nederland-hoeveel.html"
+    },
+    {
+      "keyword": "vinted belasting 2026 hoeveel mag je verdienen",
+      "status": "published",
+      "priority": 5,
+      "addedBy": "growth-agent",
+      "rationale": "Groeiende zoekvraag door DAC7-bewustzijn bij Vinted-verkopers; drempelwaarde-vraag sluit aan op KOR-drempel uitleg zonder duplicaat te zijn",
+      "addedDate": "2026-06-25",
+      "slug": "vinted-belasting-2026-hoeveel-mag-je",
+      "publishedDate": "2026-06-28",
+      "outputFile": "blog/vinted-belasting-2026-hoeveel-mag-je.html"
     }
   ],
   "settings": {
