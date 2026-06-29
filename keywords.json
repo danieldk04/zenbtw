@@ -25,14 +25,6 @@
       "type": "geo-vraag"
     },
     {
-      "keyword": "ioss registratie nederland hoe werken",
-      "status": "pending",
-      "priority": 6,
-      "addedBy": "growth-agent",
-      "rationale": "IOSS staat in de dekkingsmatrix maar ontbreekt als zelfstandig keyword; complementair aan OSS-content en relevant voor Etsy/Shopify-verkopers die buiten EU leveren",
-      "addedDate": "2026-06-25"
-    },
-    {
       "keyword": "btw nummer aanvragen kleine ondernemer nederland",
       "status": "pending",
       "priority": 7,
@@ -500,6 +492,17 @@
       "slug": "vinted-belasting-2026-hoeveel-mag-je",
       "publishedDate": "2026-06-28",
       "outputFile": "blog/vinted-belasting-2026-hoeveel-mag-je.html"
+    },
+    {
+      "keyword": "ioss registratie nederland hoe werken",
+      "status": "published",
+      "priority": 6,
+      "addedBy": "growth-agent",
+      "rationale": "IOSS staat in de dekkingsmatrix maar ontbreekt als zelfstandig keyword; complementair aan OSS-content en relevant voor Etsy/Shopify-verkopers die buiten EU leveren",
+      "addedDate": "2026-06-25",
+      "slug": "ioss-registratie-nederland-hoe-werken",
+      "publishedDate": "2026-06-29",
+      "outputFile": "blog/ioss-registratie-nederland-hoe-werken.html"
     }
   ],
   "settings": {
