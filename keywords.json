@@ -25,14 +25,6 @@
       "type": "geo-vraag"
     },
     {
-      "keyword": "verzendkosten btw marketplace verkoper",
-      "status": "pending",
-      "priority": 8,
-      "addedBy": "growth-agent",
-      "rationale": "Praktische vraag die marketplace verkopers veel stellen; nog niet gedekt en sluit aan op BTW-berekeningsfunctie van ZenBTW",
-      "addedDate": "2026-06-25"
-    },
-    {
       "keyword": "kwartaalaangifte btw zelf invullen nederland",
       "status": "pending",
       "priority": 9,
@@ -506,6 +498,17 @@
       "slug": "btw-nummer-aanvragen-kleine-ondernemer-nederland",
       "publishedDate": "2026-06-29",
       "outputFile": "blog/btw-nummer-aanvragen-kleine-ondernemer-nederland.html"
+    },
+    {
+      "keyword": "verzendkosten btw marketplace verkoper",
+      "status": "published",
+      "priority": 8,
+      "addedBy": "growth-agent",
+      "rationale": "Praktische vraag die marketplace verkopers veel stellen; nog niet gedekt en sluit aan op BTW-berekeningsfunctie van ZenBTW",
+      "addedDate": "2026-06-25",
+      "slug": "verzendkosten-btw-marketplace-verkoper",
+      "publishedDate": "2026-06-30",
+      "outputFile": "blog/verzendkosten-btw-marketplace-verkoper.html"
     }
   ],
   "settings": {
