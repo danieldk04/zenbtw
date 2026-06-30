@@ -23,14 +23,6 @@
       "priority": 15,
       "notes": "KOR ÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ¢ÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ¬20k vs OSS ÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ¢ÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ¬10k verwarring ÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ¢ÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ zeer gesteld",
       "type": "geo-vraag"
-    },
-    {
-      "keyword": "dropshipping btw verplichting 2026 nederland",
-      "status": "pending",
-      "priority": 10,
-      "addedBy": "growth-agent",
-      "rationale": "Shopify dropshipping BTW staat al in de lijst maar dit keyword richt zich breder op het dropshipping-model ongeacht platform; apart zoekvolume en andere intentie",
-      "addedDate": "2026-06-25"
     }
   ],
   "published": [
@@ -512,6 +504,17 @@
       "slug": "kwartaalaangifte-btw-zelf-invullen-nederland",
       "publishedDate": "2026-06-30",
       "outputFile": "blog/kwartaalaangifte-btw-zelf-invullen-nederland.html"
+    },
+    {
+      "keyword": "dropshipping btw verplichting 2026 nederland",
+      "status": "published",
+      "priority": 10,
+      "addedBy": "growth-agent",
+      "rationale": "Shopify dropshipping BTW staat al in de lijst maar dit keyword richt zich breder op het dropshipping-model ongeacht platform; apart zoekvolume en andere intentie",
+      "addedDate": "2026-06-25",
+      "slug": "dropshipping-btw-verplichting-2026-nederland",
+      "publishedDate": "2026-06-30",
+      "outputFile": "blog/dropshipping-btw-verplichting-2026-nederland.html"
     }
   ],
   "settings": {
