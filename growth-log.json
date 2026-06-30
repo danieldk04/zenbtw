@@ -1,5 +1,35 @@
 [
   {
+    "date": "2026-06-30",
+    "actionsCount": 4,
+    "actions": [
+      "✅ Meta verbeterd: /blog/vinted-ondernemer-btw-registratie",
+      "✅ Meta verbeterd: /blog/btw-bij-export-naar-uk",
+      "📊 1 pagina's met hoge bounce rate gedetecteerd",
+      "🔧 Bounce fix /blog/wanneer-btw-aangifte-doen: Intro herschreven, CTA boven fold toegevoegd"
+    ],
+    "queueAfter": 6,
+    "gscAvailable": true,
+    "gscOpportunities": 1,
+    "serperAvailable": true,
+    "gscSnapshot": {
+      "queriesCount": 100,
+      "pagesCount": 50
+    },
+    "metaImprovementsCount": 2,
+    "bounceFixes": 1,
+    "competitorFixes": 0,
+    "highBouncePages": 1,
+    "siteStats": {
+      "totalSessions": 75,
+      "totalViews": 131,
+      "bounceRate": 0.76,
+      "avgDuration": 91
+    },
+    "trendsImproved": 0,
+    "trendsDeclining": 0
+  },
+  {
     "date": "2026-06-29",
     "actionsCount": 2,
     "actions": [
