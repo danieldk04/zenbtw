@@ -25,14 +25,6 @@
       "type": "geo-vraag"
     },
     {
-      "keyword": "kwartaalaangifte btw zelf invullen nederland",
-      "status": "pending",
-      "priority": 9,
-      "addedBy": "growth-agent",
-      "rationale": "Aanvullend op bestaande deadline-content; 'zelf invullen' signaleert doe-het-zelf intentie die perfect matcht met gratis tool-propositie",
-      "addedDate": "2026-06-25"
-    },
-    {
       "keyword": "dropshipping btw verplichting 2026 nederland",
       "status": "pending",
       "priority": 10,
@@ -509,6 +501,17 @@
       "slug": "verzendkosten-btw-marketplace-verkoper",
       "publishedDate": "2026-06-30",
       "outputFile": "blog/verzendkosten-btw-marketplace-verkoper.html"
+    },
+    {
+      "keyword": "kwartaalaangifte btw zelf invullen nederland",
+      "status": "published",
+      "priority": 9,
+      "addedBy": "growth-agent",
+      "rationale": "Aanvullend op bestaande deadline-content; 'zelf invullen' signaleert doe-het-zelf intentie die perfect matcht met gratis tool-propositie",
+      "addedDate": "2026-06-25",
+      "slug": "kwartaalaangifte-btw-zelf-invullen-nederland",
+      "publishedDate": "2026-06-30",
+      "outputFile": "blog/kwartaalaangifte-btw-zelf-invullen-nederland.html"
     }
   ],
   "settings": {
