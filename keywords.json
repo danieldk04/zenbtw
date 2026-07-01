@@ -17,14 +17,6 @@
       "type": "geo-vraag"
     },
     {
-      "keyword": "oss registratie kosten nederland",
-      "status": "pending",
-      "priority": 1,
-      "addedBy": "growth-agent",
-      "rationale": "Sluit direct aan op GSC-kans 'oss registratie' (positie 19.9) met kosten-intent die kleine verkopers aantrekt; ZenBTW is gratis dus sterke conversiepagina mogelijk",
-      "addedDate": "2026-07-01"
-    },
-    {
       "keyword": "oss btw aangifte invullen voorbeeld",
       "status": "pending",
       "priority": 2,
@@ -597,6 +589,17 @@
       "type": "geo-vraag",
       "publishedDate": "2026-07-01",
       "outputFile": "blog/etsy-inkomsten-opgeven-belastingdienst.html"
+    },
+    {
+      "keyword": "oss registratie kosten nederland",
+      "status": "published",
+      "priority": 1,
+      "addedBy": "growth-agent",
+      "rationale": "Sluit direct aan op GSC-kans 'oss registratie' (positie 19.9) met kosten-intent die kleine verkopers aantrekt; ZenBTW is gratis dus sterke conversiepagina mogelijk",
+      "addedDate": "2026-07-01",
+      "slug": "oss-registratie-kosten-nederland",
+      "publishedDate": "2026-07-01",
+      "outputFile": "blog/oss-registratie-kosten-nederland.html"
     }
   ],
   "settings": {
