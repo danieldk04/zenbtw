@@ -1,5 +1,36 @@
 [
   {
+    "date": "2026-07-01",
+    "actionsCount": 5,
+    "actions": [
+      "✅ Meta verbeterd: /blog/btw-aangifte-deadline-per-kwartaal-maand",
+      "📊 2 pagina's met hoge bounce rate gedetecteerd",
+      "🔧 Bounce fix /blog/btw-tarief-eu-landen-2026: Intro herschreven, CTA boven fold toegevoegd",
+      "🔧 Bounce fix /blog/wanneer-btw-aangifte-doen: Intro herschreven, CTA boven fold toegevoegd",
+      "🔑 10 nieuwe keywords toegevoegd"
+    ],
+    "queueAfter": 13,
+    "gscAvailable": true,
+    "gscOpportunities": 1,
+    "serperAvailable": true,
+    "gscSnapshot": {
+      "queriesCount": 100,
+      "pagesCount": 50
+    },
+    "metaImprovementsCount": 1,
+    "bounceFixes": 2,
+    "competitorFixes": 0,
+    "highBouncePages": 2,
+    "siteStats": {
+      "totalSessions": 84,
+      "totalViews": 140,
+      "bounceRate": 0.7857142857142857,
+      "avgDuration": 84
+    },
+    "trendsImproved": 0,
+    "trendsDeclining": 0
+  },
+  {
     "date": "2026-06-30",
     "actionsCount": 4,
     "actions": [
