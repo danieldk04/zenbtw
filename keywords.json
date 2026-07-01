@@ -1,14 +1,6 @@
 {
   "queue": [
     {
-      "keyword": "etsy inkomsten opgeven belastingdienst nederland",
-      "slug": "etsy-inkomsten-opgeven-belastingdienst",
-      "status": "pending",
-      "priority": 13,
-      "notes": "GEO: hoe geef je Etsy-inkomsten op bij IB-aangifte",
-      "type": "geo-vraag"
-    },
-    {
       "keyword": "marktplaats verkoper belasting 2026 wanneer",
       "slug": "marktplaats-verkoper-belasting-2026",
       "status": "pending",
@@ -595,6 +587,16 @@
       "slug": "dropshipping-btw-verplichting-2026-nederland",
       "publishedDate": "2026-06-30",
       "outputFile": "blog/dropshipping-btw-verplichting-2026-nederland.html"
+    },
+    {
+      "keyword": "etsy inkomsten opgeven belastingdienst nederland",
+      "slug": "etsy-inkomsten-opgeven-belastingdienst",
+      "status": "published",
+      "priority": 13,
+      "notes": "GEO: hoe geef je Etsy-inkomsten op bij IB-aangifte",
+      "type": "geo-vraag",
+      "publishedDate": "2026-07-01",
+      "outputFile": "blog/etsy-inkomsten-opgeven-belastingdienst.html"
     }
   ],
   "settings": {
