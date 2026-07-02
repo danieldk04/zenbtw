@@ -17,14 +17,6 @@
       "type": "geo-vraag"
     },
     {
-      "keyword": "oss btw aangifte invullen voorbeeld",
-      "status": "pending",
-      "priority": 2,
-      "addedBy": "growth-agent",
-      "rationale": "Sluit aan op GSC-kans 'oss registratie'; how-to intent met hoog zoekvolume bij startende marketplace verkopers die OSS zelf willen doen",
-      "addedDate": "2026-07-01"
-    },
-    {
       "keyword": "btw plicht kleine ondernemer 2026 nederland",
       "status": "pending",
       "priority": 3,
@@ -600,6 +592,17 @@
       "slug": "oss-registratie-kosten-nederland",
       "publishedDate": "2026-07-01",
       "outputFile": "blog/oss-registratie-kosten-nederland.html"
+    },
+    {
+      "keyword": "oss btw aangifte invullen voorbeeld",
+      "status": "published",
+      "priority": 2,
+      "addedBy": "growth-agent",
+      "rationale": "Sluit aan op GSC-kans 'oss registratie'; how-to intent met hoog zoekvolume bij startende marketplace verkopers die OSS zelf willen doen",
+      "addedDate": "2026-07-01",
+      "slug": "oss-btw-aangifte-invullen-voorbeeld",
+      "publishedDate": "2026-07-02",
+      "outputFile": "blog/oss-btw-aangifte-invullen-voorbeeld.html"
     }
   ],
   "settings": {
