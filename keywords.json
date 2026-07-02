@@ -17,14 +17,6 @@
       "type": "geo-vraag"
     },
     {
-      "keyword": "btw plicht kleine ondernemer 2026 nederland",
-      "status": "pending",
-      "priority": 3,
-      "addedBy": "growth-agent",
-      "rationale": "Brede awareness-query voor verkopers die niet weten of ze BTW-plichtig zijn; valt binnen BTW-plicht checker functie van ZenBTW",
-      "addedDate": "2026-07-01"
-    },
-    {
       "keyword": "wanneer ben je btw plichtig nederland 2026",
       "status": "pending",
       "priority": 4,
@@ -603,6 +595,17 @@
       "slug": "oss-btw-aangifte-invullen-voorbeeld",
       "publishedDate": "2026-07-02",
       "outputFile": "blog/oss-btw-aangifte-invullen-voorbeeld.html"
+    },
+    {
+      "keyword": "btw plicht kleine ondernemer 2026 nederland",
+      "status": "published",
+      "priority": 3,
+      "addedBy": "growth-agent",
+      "rationale": "Brede awareness-query voor verkopers die niet weten of ze BTW-plichtig zijn; valt binnen BTW-plicht checker functie van ZenBTW",
+      "addedDate": "2026-07-01",
+      "slug": "btw-plicht-kleine-ondernemer-2026-nederland",
+      "publishedDate": "2026-07-02",
+      "outputFile": "blog/btw-plicht-kleine-ondernemer-2026-nederland.html"
     }
   ],
   "settings": {
