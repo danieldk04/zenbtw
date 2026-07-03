@@ -17,14 +17,6 @@
       "type": "geo-vraag"
     },
     {
-      "keyword": "kor aanmelden belastingdienst 2026 hoe",
-      "status": "pending",
-      "priority": 5,
-      "addedBy": "growth-agent",
-      "rationale": "Stappenplan-intent rondom KOR-aanmelding; complementair aan bestaande 'kor opzeggen' keyword en trekt verkopers vroeg in de funnel",
-      "addedDate": "2026-07-01"
-    },
-    {
       "keyword": "btw aangifte voorbeeld invullen nederland",
       "status": "pending",
       "priority": 6,
@@ -609,6 +601,17 @@
       "slug": "wanneer-ben-je-btw-plichtig-nederland",
       "publishedDate": "2026-07-03",
       "outputFile": "blog/wanneer-ben-je-btw-plichtig-nederland.html"
+    },
+    {
+      "keyword": "kor aanmelden belastingdienst 2026 hoe",
+      "status": "published",
+      "priority": 5,
+      "addedBy": "growth-agent",
+      "rationale": "Stappenplan-intent rondom KOR-aanmelding; complementair aan bestaande 'kor opzeggen' keyword en trekt verkopers vroeg in de funnel",
+      "addedDate": "2026-07-01",
+      "slug": "kor-aanmelden-belastingdienst-2026-hoe",
+      "publishedDate": "2026-07-03",
+      "outputFile": "blog/kor-aanmelden-belastingdienst-2026-hoe.html"
     }
   ],
   "settings": {
