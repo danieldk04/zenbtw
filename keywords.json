@@ -17,14 +17,6 @@
       "type": "geo-vraag"
     },
     {
-      "keyword": "wanneer ben je btw plichtig nederland 2026",
-      "status": "pending",
-      "priority": 4,
-      "addedBy": "growth-agent",
-      "rationale": "Hoge intentie van hobby-verkopers die grens naderen; niet gedekt en logische aanvulling op al bestaande 'wanneer ben je ondernemer' content",
-      "addedDate": "2026-07-01"
-    },
-    {
       "keyword": "kor aanmelden belastingdienst 2026 hoe",
       "status": "pending",
       "priority": 5,
@@ -606,6 +598,17 @@
       "slug": "btw-plicht-kleine-ondernemer-2026-nederland",
       "publishedDate": "2026-07-02",
       "outputFile": "blog/btw-plicht-kleine-ondernemer-2026-nederland.html"
+    },
+    {
+      "keyword": "wanneer ben je btw plichtig nederland 2026",
+      "status": "published",
+      "priority": 4,
+      "addedBy": "growth-agent",
+      "rationale": "Hoge intentie van hobby-verkopers die grens naderen; niet gedekt en logische aanvulling op al bestaande 'wanneer ben je ondernemer' content",
+      "addedDate": "2026-07-01",
+      "slug": "wanneer-ben-je-btw-plichtig-nederland",
+      "publishedDate": "2026-07-03",
+      "outputFile": "blog/wanneer-ben-je-btw-plichtig-nederland.html"
     }
   ],
   "settings": {
