@@ -1,5 +1,34 @@
 [
   {
+    "date": "2026-07-04",
+    "actionsCount": 3,
+    "actions": [
+      "📊 2 pagina's met hoge bounce rate gedetecteerd",
+      "🔧 Bounce fix /blog/wanneer-btw-aangifte-doen: Intro herschreven, CTA boven fold toegevoegd",
+      "🔧 Bounce fix /blog/btw-tarief-eu-landen-2026: Intro herschreven, CTA boven fold toegevoegd"
+    ],
+    "queueAfter": 7,
+    "gscAvailable": true,
+    "gscOpportunities": 1,
+    "serperAvailable": true,
+    "gscSnapshot": {
+      "queriesCount": 100,
+      "pagesCount": 50
+    },
+    "metaImprovementsCount": 0,
+    "bounceFixes": 2,
+    "competitorFixes": 0,
+    "highBouncePages": 2,
+    "siteStats": {
+      "totalSessions": 118,
+      "totalViews": 181,
+      "bounceRate": 0.7627118644067796,
+      "avgDuration": 88
+    },
+    "trendsImproved": 0,
+    "trendsDeclining": 0
+  },
+  {
     "date": "2026-07-03",
     "actionsCount": 5,
     "actions": [
