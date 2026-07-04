@@ -17,14 +17,6 @@
       "type": "geo-vraag"
     },
     {
-      "keyword": "btw aangifte voorbeeld invullen nederland",
-      "status": "pending",
-      "priority": 6,
-      "addedBy": "growth-agent",
-      "rationale": "Hoog zoekvolume how-to query; startende Etsy/Vinted verkopers zoeken concreet voorbeeld en ZenBTW kan dit koppelen aan eigen tool",
-      "addedDate": "2026-07-01"
-    },
-    {
       "keyword": "ioss drempel 150 euro uitleg",
       "status": "pending",
       "priority": 7,
@@ -612,6 +604,17 @@
       "slug": "kor-aanmelden-belastingdienst-2026-hoe",
       "publishedDate": "2026-07-03",
       "outputFile": "blog/kor-aanmelden-belastingdienst-2026-hoe.html"
+    },
+    {
+      "keyword": "btw aangifte voorbeeld invullen nederland",
+      "status": "published",
+      "priority": 6,
+      "addedBy": "growth-agent",
+      "rationale": "Hoog zoekvolume how-to query; startende Etsy/Vinted verkopers zoeken concreet voorbeeld en ZenBTW kan dit koppelen aan eigen tool",
+      "addedDate": "2026-07-01",
+      "slug": "btw-aangifte-voorbeeld-invullen-nederland",
+      "publishedDate": "2026-07-04",
+      "outputFile": "blog/btw-aangifte-voorbeeld-invullen-nederland.html"
     }
   ],
   "settings": {
