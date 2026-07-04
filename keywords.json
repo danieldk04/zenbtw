@@ -17,14 +17,6 @@
       "type": "geo-vraag"
     },
     {
-      "keyword": "ioss drempel 150 euro uitleg",
-      "status": "pending",
-      "priority": 7,
-      "addedBy": "growth-agent",
-      "rationale": "Specifieke IOSS-grens die veel Etsy/Shopify verkopers raakt bij EU-verkopen; niet gedekt en sluit aan op bestaande IOSS-registratie content",
-      "addedDate": "2026-07-01"
-    },
-    {
       "keyword": "btw vrijstelling kleine ondernemer grens 2026",
       "status": "pending",
       "priority": 8,
@@ -615,6 +607,17 @@
       "slug": "btw-aangifte-voorbeeld-invullen-nederland",
       "publishedDate": "2026-07-04",
       "outputFile": "blog/btw-aangifte-voorbeeld-invullen-nederland.html"
+    },
+    {
+      "keyword": "ioss drempel 150 euro uitleg",
+      "status": "published",
+      "priority": 7,
+      "addedBy": "growth-agent",
+      "rationale": "Specifieke IOSS-grens die veel Etsy/Shopify verkopers raakt bij EU-verkopen; niet gedekt en sluit aan op bestaande IOSS-registratie content",
+      "addedDate": "2026-07-01",
+      "slug": "ioss-drempel-150-euro-uitleg",
+      "publishedDate": "2026-07-04",
+      "outputFile": "blog/ioss-drempel-150-euro-uitleg.html"
     }
   ],
   "settings": {
