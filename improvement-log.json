@@ -1,18 +1,18 @@
 {
   "btw-tarief-eu-landen-2026": {
-    "lastImproved": "2026-06-21",
+    "lastImproved": "2026-07-05",
     "type": "meta",
-    "count": 1
+    "count": 2
   },
   "oss-registratie-belastingdienst": {
-    "lastImproved": "2026-06-21",
+    "lastImproved": "2026-07-05",
     "type": "meta",
-    "count": 1
+    "count": 2
   },
   "dac7-belastingdienst-rapportage": {
-    "lastImproved": "2026-06-21",
+    "lastImproved": "2026-07-05",
     "type": "meta",
-    "count": 1
+    "count": 2
   },
   "competitor:oss-registratie-belastingdienst": {
     "lastImproved": "2026-06-21",
@@ -147,6 +147,16 @@
   "btw-export-buiten-eu": {
     "lastImproved": "2026-07-03",
     "type": "meta",
+    "count": 1
+  },
+  "competitor:btw-tarief-eu-landen-2026": {
+    "lastImproved": "2026-07-05",
+    "type": "competitor-gap",
+    "count": 1
+  },
+  "competitor:btw-aangifte-deadline-per-kwartaal-maand": {
+    "lastImproved": "2026-07-05",
+    "type": "competitor-gap",
     "count": 1
   }
 }

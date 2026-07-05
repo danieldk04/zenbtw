@@ -1,5 +1,39 @@
 [
   {
+    "date": "2026-07-05",
+    "actionsCount": 8,
+    "actions": [
+      "✅ Meta verbeterd: /blog/btw-tarief-eu-landen-2026",
+      "✅ Meta verbeterd: /blog/oss-registratie-belastingdienst",
+      "✅ Meta verbeterd: /blog/dac7-belastingdienst-rapportage",
+      "📊 2 pagina's met hoge bounce rate gedetecteerd",
+      "🔧 Bounce fix /blog/wanneer-btw-aangifte-doen: Intro herschreven, CTA boven fold toegevoegd",
+      "🔧 Bounce fix /blog/btw-tarief-eu-landen-2026: Intro herschreven, CTA boven fold toegevoegd",
+      "🔍 Competitor gap fix /blog/btw-tarief-eu-landen-2026: Meta title: \"BTW Luxemburg 2026 – alle EU-tarieven op een rij\", H1: \"BTW Luxemburg & alle EU-landen 2026: tarieven overzicht\", faq section toegevoegd",
+      "🔍 Competitor gap fix /blog/btw-aangifte-deadline-per-kwartaal-maand: Meta title: \"BTW aangifte Q2 2026 – deadline & alles wat je moet weten\", H1: \"BTW aangifte Q2 2026: deadline, stappen en veelgemaakte fouten\", faq section toegevoegd"
+    ],
+    "queueAfter": 5,
+    "gscAvailable": true,
+    "gscOpportunities": 3,
+    "serperAvailable": true,
+    "gscSnapshot": {
+      "queriesCount": 100,
+      "pagesCount": 50
+    },
+    "metaImprovementsCount": 3,
+    "bounceFixes": 2,
+    "competitorFixes": 2,
+    "highBouncePages": 2,
+    "siteStats": {
+      "totalSessions": 127,
+      "totalViews": 198,
+      "bounceRate": 0.7795275590551181,
+      "avgDuration": 86
+    },
+    "trendsImproved": 0,
+    "trendsDeclining": 0
+  },
+  {
     "date": "2026-07-04",
     "actionsCount": 3,
     "actions": [
