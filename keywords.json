@@ -17,14 +17,6 @@
       "type": "geo-vraag"
     },
     {
-      "keyword": "hoe werkt margeregeling praktisch voorbeeld",
-      "status": "pending",
-      "priority": 9,
-      "addedBy": "growth-agent",
-      "rationale": "Praktische how-to voor Vinted/Marktplaats verkopers van tweedehands goederen; margeregeling is ZenBTW-feature maar nog niet als praktisch voorbeeld gedekt",
-      "addedDate": "2026-07-01"
-    },
-    {
       "keyword": "dac7 grens 2000 euro 30 transacties uitleg",
       "status": "pending",
       "priority": 10,
@@ -621,6 +613,17 @@
       "slug": "btw-vrijstelling-kleine-ondernemer-grens-2026",
       "publishedDate": "2026-07-05",
       "outputFile": "blog/btw-vrijstelling-kleine-ondernemer-grens-2026.html"
+    },
+    {
+      "keyword": "hoe werkt margeregeling praktisch voorbeeld",
+      "status": "published",
+      "priority": 9,
+      "addedBy": "growth-agent",
+      "rationale": "Praktische how-to voor Vinted/Marktplaats verkopers van tweedehands goederen; margeregeling is ZenBTW-feature maar nog niet als praktisch voorbeeld gedekt",
+      "addedDate": "2026-07-01",
+      "slug": "hoe-werkt-margeregeling-praktisch-voorbeeld",
+      "publishedDate": "2026-07-05",
+      "outputFile": "blog/hoe-werkt-margeregeling-praktisch-voorbeeld.html"
     }
   ],
   "settings": {
