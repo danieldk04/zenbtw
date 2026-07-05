@@ -1,38 +1,6 @@
 {
   "queue": [
     {
-      "topic": "Welk platform rapporteert jouw omzet aan de Belastingdienst?",
-      "slug": "dac7-platforms-vergelijking",
-      "template": "compare",
-      "status": "pending",
-      "priority": 5,
-      "notes": "Vergelijkingstabel Vinted/Etsy/Bol/Shopify/Airbnb met DAC7-drempels, KOR-mogelijkheid, risico"
-    },
-    {
-      "topic": "Zo berekent de Belastingdienst jouw BTW-schuld als je de KOR overschrijdt",
-      "slug": "btw-schuld-berekening-kor",
-      "template": "rekensommetje",
-      "status": "pending",
-      "priority": 6,
-      "notes": "Stap-voor-stap berekening: omzet boven €20k × 21% + eventuele boete"
-    },
-    {
-      "topic": "Wanneer word je BTW-plichtig? Tijdlijn voor Vinted-verkopers",
-      "slug": "vinted-btw-plichtig-tijdlijn",
-      "template": "tijdlijn",
-      "status": "pending",
-      "priority": 7,
-      "notes": "Maand-voor-maand tijdlijn van €0 naar €20.000 KOR-grens overschrijding"
-    },
-    {
-      "topic": "Moet jij BTW afdragen? Doorloop de checklist",
-      "slug": "btw-afdragen-checklist",
-      "template": "checklist",
-      "status": "pending",
-      "priority": 8,
-      "notes": "Beslischecklist met vragen over omzet, platform, KOR-aanmelding, OSS-drempel"
-    },
-    {
       "topic": "3 BTW-mythes die marketplace-verkopers geld kosten",
       "slug": "btw-mythes-marketplace",
       "template": "myth",
@@ -137,6 +105,46 @@
       "notes": "🔥 TRENDING — €150-vrijstelling weg. Rekensom: zending €80 uit China → vroeger gratis → nu douanekosten + BTW. IOSS als oplossing.",
       "publishedDate": "2026-06-15",
       "outputDir": "reelposters/2026-06-15-shopify-douane-kosten-2026"
+    },
+    {
+      "topic": "Welk platform rapporteert jouw omzet aan de Belastingdienst?",
+      "slug": "dac7-platforms-vergelijking",
+      "template": "compare",
+      "status": "published",
+      "priority": 5,
+      "notes": "Vergelijkingstabel Vinted/Etsy/Bol/Shopify/Airbnb met DAC7-drempels, KOR-mogelijkheid, risico",
+      "publishedDate": "2026-07-05",
+      "outputDir": "reelposters/2026-07-05-dac7-platforms-vergelijking"
+    },
+    {
+      "topic": "Zo berekent de Belastingdienst jouw BTW-schuld als je de KOR overschrijdt",
+      "slug": "btw-schuld-berekening-kor",
+      "template": "rekensommetje",
+      "status": "published",
+      "priority": 6,
+      "notes": "Stap-voor-stap berekening: omzet boven €20k × 21% + eventuele boete",
+      "publishedDate": "2026-07-05",
+      "outputDir": "reelposters/2026-07-05-btw-schuld-berekening-kor"
+    },
+    {
+      "topic": "Wanneer word je BTW-plichtig? Tijdlijn voor Vinted-verkopers",
+      "slug": "vinted-btw-plichtig-tijdlijn",
+      "template": "tijdlijn",
+      "status": "published",
+      "priority": 7,
+      "notes": "Maand-voor-maand tijdlijn van €0 naar €20.000 KOR-grens overschrijding",
+      "publishedDate": "2026-07-05",
+      "outputDir": "reelposters/2026-07-05-vinted-btw-plichtig-tijdlijn"
+    },
+    {
+      "topic": "Moet jij BTW afdragen? Doorloop de checklist",
+      "slug": "btw-afdragen-checklist",
+      "template": "checklist",
+      "status": "published",
+      "priority": 8,
+      "notes": "Beslischecklist met vragen over omzet, platform, KOR-aanmelding, OSS-drempel",
+      "publishedDate": "2026-07-05",
+      "outputDir": "reelposters/2026-07-05-btw-afdragen-checklist"
     }
   ],
   "settings": {

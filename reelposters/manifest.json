@@ -1,6 +1,46 @@
 {
   "sets": [
     {
+      "id": "2026-07-05-btw-afdragen-checklist",
+      "topic": "Moet jij BTW afdragen? Doorloop de checklist",
+      "date": "2026-07-05",
+      "template": "checklist",
+      "file": "reelposters/2026-07-05-btw-afdragen-checklist/poster.html",
+      "png": "reelposters/2026-07-05-btw-afdragen-checklist/poster.png",
+      "description": "Onduidelijk of je BTW moet afdragen? Deze checklist helpt je snel uit de nering. Loop de punten door en weet precies waar je staat.\n\nCheck zenbtw.nl voor de volledige gids.\n\n#BTW #Ondernemer #Checklist #KOR",
+      "threadsDescription": "Onduidelijk of je BTW moet afdragen? Deze checklist helpt je snel uit de nering. Loop de punten door en weet precies waar je staat.\n\nCheck zenbtw.nl voor de volledige gids.\n\n#BTW #Ondernemer #Checklist #KOR"
+    },
+    {
+      "id": "2026-07-05-vinted-btw-plichtig-tijdlijn",
+      "topic": "Wanneer word je BTW-plichtig? Tijdlijn voor Vinted-verkopers",
+      "date": "2026-07-05",
+      "template": "tijdlijn",
+      "file": "reelposters/2026-07-05-vinted-btw-plichtig-tijdlijn/poster.html",
+      "png": "reelposters/2026-07-05-vinted-btw-plichtig-tijdlijn/poster.png",
+      "description": "Wanneer wordt je verkooper opeens belastingplichtig? 🧵\n\nOp Vinted verkopen voelt onschuldig, maar de BTW-grens komt sneller dichterbij dan je denkt. Check deze tijdlijn om precies te weten waar je staat.\n\nBenieuwd naar de precieze regels? Kijk op zenbtw.nl\n\n#BTW #Vinted #Ondernemer #KOR",
+      "threadsDescription": "Wanneer wordt je verkooper opeens belastingplichtig? 🧵\n\nOp Vinted verkopen voelt onschuldig, maar de BTW-grens komt sneller dichterbij dan je denkt. Check deze tijdlijn om precies te weten waar je staat.\n\nBenieuwd naar de precieze regels? Kijk op zenbtw.nl\n\n#BTW #Vinted #Ondernemer #KOR"
+    },
+    {
+      "id": "2026-07-05-btw-schuld-berekening-kor",
+      "topic": "Zo berekent de Belastingdienst jouw BTW-schuld als je de KOR overschrijdt",
+      "date": "2026-07-05",
+      "template": "rekensommetje",
+      "file": "reelposters/2026-07-05-btw-schuld-berekening-kor/poster.html",
+      "png": "reelposters/2026-07-05-btw-schuld-berekening-kor/poster.png",
+      "description": "Je omzet is onder de KOR (€22.500), maar je overschrijdt 'm toch? Dan rekent de Belastingdienst jouw BTW-schuld anders. \n\nStel: je omzet €25.000. Je mag €22.500 belastingvrij verkopen. Over die resterende €2.500 betaal je wél BTW (21%).\n\nSchuld = €2.500 × 21% = €525\n\nCheck zenbtw.nl voor de volledige berekening.\n\n#BTW #KOR #Belastingdienst #Ondernemer",
+      "threadsDescription": "Je omzet is onder de KOR (€22.500), maar je overschrijdt 'm toch? Dan rekent de Belastingdienst jouw BTW-schuld anders. \n\nStel: je omzet €25.000. Je mag €22.500 belastingvrij verkopen. Over die resterende €2.500 betaal je wél BTW (21%).\n\nSchuld = €2.500 × 21% = €525\n\nCheck zenbtw.nl voor de volledige berekening.\n\n#BTW #KOR #Belastingdienst #Ondernemer"
+    },
+    {
+      "id": "2026-07-05-dac7-platforms-vergelijking",
+      "topic": "Welk platform rapporteert jouw omzet aan de Belastingdienst?",
+      "date": "2026-07-05",
+      "template": "compare",
+      "file": "reelposters/2026-07-05-dac7-platforms-vergelijking/poster.html",
+      "png": "reelposters/2026-07-05-dac7-platforms-vergelijking/poster.png",
+      "description": "Weet jij welk platform jouw omzet automatisch doorgeeft aan de Belastingdienst? Niet alle verkoopkanalen doen dit even goed—sommige helemaal niet.\n\nCheck zenbtw.nl voor een helder overzicht.\n\n#BTW #Belastingdienst #Marketplace #Ondernemer",
+      "threadsDescription": "Weet jij welk platform jouw omzet automatisch doorgeeft aan de Belastingdienst? Niet alle verkoopkanalen doen dit even goed—sommige helemaal niet.\n\nCheck zenbtw.nl voor een helder overzicht.\n\n#BTW #Belastingdienst #Marketplace #Ondernemer"
+    },
+    {
       "id": "2026-06-15-shopify-douane-kosten-2026",
       "topic": "Shopify dropshipping 2026: dit kost je de nieuwe douaneregel",
       "date": "2026-06-15",
