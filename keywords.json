@@ -17,14 +17,6 @@
       "type": "geo-vraag"
     },
     {
-      "keyword": "btw vrijstelling kleine ondernemer grens 2026",
-      "status": "pending",
-      "priority": 8,
-      "addedBy": "growth-agent",
-      "rationale": "Evergreen vraag met jaarlijkse update-behoefte; raakt KOR-calculator functie en trekt verkopers die de €20.000 grens naderen",
-      "addedDate": "2026-07-01"
-    },
-    {
       "keyword": "hoe werkt margeregeling praktisch voorbeeld",
       "status": "pending",
       "priority": 9,
@@ -618,6 +610,17 @@
       "slug": "ioss-drempel-150-euro-uitleg",
       "publishedDate": "2026-07-04",
       "outputFile": "blog/ioss-drempel-150-euro-uitleg.html"
+    },
+    {
+      "keyword": "btw vrijstelling kleine ondernemer grens 2026",
+      "status": "published",
+      "priority": 8,
+      "addedBy": "growth-agent",
+      "rationale": "Evergreen vraag met jaarlijkse update-behoefte; raakt KOR-calculator functie en trekt verkopers die de €20.000 grens naderen",
+      "addedDate": "2026-07-01",
+      "slug": "btw-vrijstelling-kleine-ondernemer-grens-2026",
+      "publishedDate": "2026-07-05",
+      "outputFile": "blog/btw-vrijstelling-kleine-ondernemer-grens-2026.html"
     }
   ],
   "settings": {
