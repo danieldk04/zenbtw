@@ -23,6 +23,86 @@
       "addedBy": "growth-agent",
       "rationale": "Specifieke DAC7-drempelwaarden die veel hobbyverkopers onzeker maken; hoge relevantie en sluit aan op bestaande DAC7-content zonder overlap",
       "addedDate": "2026-07-01"
+    },
+    {
+      "keyword": "oss registratie luxemburg btw",
+      "status": "pending",
+      "priority": 1,
+      "addedBy": "growth-agent",
+      "rationale": "Sluit direct aan op GSC-kans 'btw luxemburg 2026' (positie 8.1) én 'oss registratie' (positie 19.7) — combinatie van twee near-rankers met relevantie voor EU-verkopen",
+      "addedDate": "2026-07-06"
+    },
+    {
+      "keyword": "btw aangifte q3 2026 deadline",
+      "status": "pending",
+      "priority": 2,
+      "addedBy": "growth-agent",
+      "rationale": "Logisch vervolg op 'btw aangifte q2 2026' (positie 9.8) — seizoensmatig zoekvolume, niet gedekt, sluit aan op deadlinetools van ZenBTW",
+      "addedDate": "2026-07-06"
+    },
+    {
+      "keyword": "oss aangifte q2 2026 deadline belastingdienst",
+      "status": "pending",
+      "priority": 3,
+      "addedBy": "growth-agent",
+      "rationale": "Combineert GSC-kans 'btw aangifte q2 2026' met 'oss registratie' — specifiek kwartaal maakt het tijdgebonden en hoog-intent",
+      "addedDate": "2026-07-06"
+    },
+    {
+      "keyword": "btw nummer eu verkopen marketplace",
+      "status": "pending",
+      "priority": 4,
+      "addedBy": "growth-agent",
+      "rationale": "Brug tussen BTW-plicht en OSS-registratie voor marketplace verkopers — hoog praktisch zoekintent, niet in huidig cluster",
+      "addedDate": "2026-07-06"
+    },
+    {
+      "keyword": "etsy btw luxemburg doorberekend uitleg",
+      "status": "pending",
+      "priority": 5,
+      "addedBy": "growth-agent",
+      "rationale": "Etsy rekent BTW via Luxemburg af als deemed supplier — veelgestelde vraag bij doelgroep, sluit aan op 'btw luxemburg 2026' GSC-kans",
+      "addedDate": "2026-07-06"
+    },
+    {
+      "keyword": "btw drempel overschreden wat nu stappen",
+      "status": "pending",
+      "priority": 6,
+      "addedBy": "growth-agent",
+      "rationale": "Hoge intent bij mensen die KOR-grens naderen — aanvulling op bestaande KOR-content zonder overlap, actiegerichte zoekopdracht",
+      "addedDate": "2026-07-06"
+    },
+    {
+      "keyword": "oss of ioss wat is het verschil",
+      "status": "pending",
+      "priority": 7,
+      "addedBy": "growth-agent",
+      "rationale": "Informatief maar hoog zoekvolume, complementair aan bestaande IOSS- en OSS-artikelen zonder directe overlap, relevant voor grensoverschrijdende verkopers",
+      "addedDate": "2026-07-06"
+    },
+    {
+      "keyword": "btw teruggaaf eu aankopen kleine ondernemer",
+      "status": "pending",
+      "priority": 8,
+      "addedBy": "growth-agent",
+      "rationale": "Aanvulling op 'BTW terugvragen EU' — specifieker voor kleine ondernemer/kor-gebruiker, onderscheidend van al gepubliceerde variant",
+      "addedDate": "2026-07-06"
+    },
+    {
+      "keyword": "vinted etsy inkomsten opgeven ib aangifte 2026",
+      "status": "pending",
+      "priority": 9,
+      "addedBy": "growth-agent",
+      "rationale": "Combineert inkomstenbelasting en marketplace platforms in één zoekopdracht — niet gedekt, logische next-step na BTW-content in klantreis",
+      "addedDate": "2026-07-06"
+    },
+    {
+      "keyword": "automatisch btw berekenen eu landen marketplace",
+      "status": "pending",
+      "priority": 10,
+      "addedBy": "growth-agent",
+      "rationale": "Tool-gericht keyword dat ZenBTW's calculatorfunctie direct positioneert — aanvulling op 'btw tarief eu landen overzicht 2026' zonder duplicaat te zijn",
+      "addedDate": "2026-07-06"
     }
   ],
   "published": [
