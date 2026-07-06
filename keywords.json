@@ -25,14 +25,6 @@
       "addedDate": "2026-07-01"
     },
     {
-      "keyword": "oss registratie luxemburg btw",
-      "status": "pending",
-      "priority": 1,
-      "addedBy": "growth-agent",
-      "rationale": "Sluit direct aan op GSC-kans 'btw luxemburg 2026' (positie 8.1) én 'oss registratie' (positie 19.7) — combinatie van twee near-rankers met relevantie voor EU-verkopen",
-      "addedDate": "2026-07-06"
-    },
-    {
       "keyword": "btw aangifte q3 2026 deadline",
       "status": "pending",
       "priority": 2,
@@ -704,6 +696,17 @@
       "slug": "hoe-werkt-margeregeling-praktisch-voorbeeld",
       "publishedDate": "2026-07-05",
       "outputFile": "blog/hoe-werkt-margeregeling-praktisch-voorbeeld.html"
+    },
+    {
+      "keyword": "oss registratie luxemburg btw",
+      "status": "published",
+      "priority": 1,
+      "addedBy": "growth-agent",
+      "rationale": "Sluit direct aan op GSC-kans 'btw luxemburg 2026' (positie 8.1) én 'oss registratie' (positie 19.7) — combinatie van twee near-rankers met relevantie voor EU-verkopen",
+      "addedDate": "2026-07-06",
+      "slug": "oss-registratie-luxemburg-btw",
+      "publishedDate": "2026-07-06",
+      "outputFile": "blog/oss-registratie-luxemburg-btw.html"
     }
   ],
   "settings": {
