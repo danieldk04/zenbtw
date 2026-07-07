@@ -25,14 +25,6 @@
       "addedDate": "2026-07-01"
     },
     {
-      "keyword": "btw aangifte q3 2026 deadline",
-      "status": "pending",
-      "priority": 2,
-      "addedBy": "growth-agent",
-      "rationale": "Logisch vervolg op 'btw aangifte q2 2026' (positie 9.8) — seizoensmatig zoekvolume, niet gedekt, sluit aan op deadlinetools van ZenBTW",
-      "addedDate": "2026-07-06"
-    },
-    {
       "keyword": "oss aangifte q2 2026 deadline belastingdienst",
       "status": "pending",
       "priority": 3,
@@ -707,6 +699,17 @@
       "slug": "oss-registratie-luxemburg-btw",
       "publishedDate": "2026-07-06",
       "outputFile": "blog/oss-registratie-luxemburg-btw.html"
+    },
+    {
+      "keyword": "btw aangifte q3 2026 deadline",
+      "status": "published",
+      "priority": 2,
+      "addedBy": "growth-agent",
+      "rationale": "Logisch vervolg op 'btw aangifte q2 2026' (positie 9.8) — seizoensmatig zoekvolume, niet gedekt, sluit aan op deadlinetools van ZenBTW",
+      "addedDate": "2026-07-06",
+      "slug": "btw-aangifte-q3-2026-deadline",
+      "publishedDate": "2026-07-07",
+      "outputFile": "blog/btw-aangifte-q3-2026-deadline.html"
     }
   ],
   "settings": {
