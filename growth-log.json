@@ -1,5 +1,37 @@
 [
   {
+    "date": "2026-07-07",
+    "actionsCount": 6,
+    "actions": [
+      "✅ Meta verbeterd: /blog/margeregeling-tweedehands-btw",
+      "✅ Meta verbeterd: /blog/oss-aangifte-zelf-doen",
+      "✅ Meta verbeterd: /blog/oss-aangifte-nederland",
+      "📊 2 pagina's met hoge bounce rate gedetecteerd",
+      "🔧 Bounce fix /blog/wanneer-btw-aangifte-doen: Intro herschreven, CTA boven fold toegevoegd",
+      "🔧 Bounce fix /blog/btw-tarief-eu-landen-2026: Intro herschreven, CTA boven fold toegevoegd"
+    ],
+    "queueAfter": 12,
+    "gscAvailable": true,
+    "gscOpportunities": 3,
+    "serperAvailable": true,
+    "gscSnapshot": {
+      "queriesCount": 100,
+      "pagesCount": 50
+    },
+    "metaImprovementsCount": 3,
+    "bounceFixes": 2,
+    "competitorFixes": 0,
+    "highBouncePages": 2,
+    "siteStats": {
+      "totalSessions": 147,
+      "totalViews": 224,
+      "bounceRate": 0.7687074829931972,
+      "avgDuration": 75
+    },
+    "trendsImproved": 0,
+    "trendsDeclining": 0
+  },
+  {
     "date": "2026-07-06",
     "actionsCount": 7,
     "actions": [
