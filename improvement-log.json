@@ -85,14 +85,14 @@
     "count": 2
   },
   "dac7-uitleg-marketplace-verkoper": {
-    "lastImproved": "2026-06-23",
+    "lastImproved": "2026-07-08",
     "type": "meta",
-    "count": 1
+    "count": 2
   },
   "etsy-verkoper-belastingaangifte": {
-    "lastImproved": "2026-06-24",
+    "lastImproved": "2026-07-08",
     "type": "meta",
-    "count": 1
+    "count": 2
   },
   "wanneer-btw-aangifte-doen": {
     "lastImproved": "2026-06-24",
@@ -157,6 +157,11 @@
   "competitor:btw-aangifte-deadline-per-kwartaal-maand": {
     "lastImproved": "2026-07-05",
     "type": "competitor-gap",
+    "count": 1
+  },
+  "btw-nummer-aanvragen-kleine-ondernemer-nederland": {
+    "lastImproved": "2026-07-08",
+    "type": "meta",
     "count": 1
   }
 }
