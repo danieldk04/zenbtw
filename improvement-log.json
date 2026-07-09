@@ -100,14 +100,14 @@
     "count": 1
   },
   "btw-op-kleding": {
-    "lastImproved": "2026-06-25",
+    "lastImproved": "2026-07-09",
     "type": "meta",
-    "count": 1
+    "count": 2
   },
   "factuur-sturen-kor-ondernemer": {
-    "lastImproved": "2026-06-25",
+    "lastImproved": "2026-07-09",
     "type": "meta",
-    "count": 1
+    "count": 2
   },
   "hoeveel-btw-vinted-verkoper": {
     "lastImproved": "2026-06-26",
@@ -161,6 +161,11 @@
   },
   "btw-nummer-aanvragen-kleine-ondernemer-nederland": {
     "lastImproved": "2026-07-08",
+    "type": "meta",
+    "count": 1
+  },
+  "btw-vrijstelling-kleine-ondernemer-grens-2026": {
+    "lastImproved": "2026-07-09",
     "type": "meta",
     "count": 1
   }

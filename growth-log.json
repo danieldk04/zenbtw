@@ -1,5 +1,37 @@
 [
   {
+    "date": "2026-07-09",
+    "actionsCount": 6,
+    "actions": [
+      "✅ Meta verbeterd: /blog/btw-op-kleding",
+      "✅ Meta verbeterd: /blog/factuur-sturen-kor-ondernemer",
+      "✅ Meta verbeterd: /blog/btw-vrijstelling-kleine-ondernemer-grens-2026",
+      "📊 2 pagina's met hoge bounce rate gedetecteerd",
+      "🔧 Bounce fix /blog/wanneer-btw-aangifte-doen: CTA boven fold toegevoegd",
+      "🔧 Bounce fix /blog/btw-tarief-eu-landen-2026: CTA boven fold toegevoegd"
+    ],
+    "queueAfter": 10,
+    "gscAvailable": true,
+    "gscOpportunities": 1,
+    "serperAvailable": true,
+    "gscSnapshot": {
+      "queriesCount": 100,
+      "pagesCount": 50
+    },
+    "metaImprovementsCount": 3,
+    "bounceFixes": 2,
+    "competitorFixes": 0,
+    "highBouncePages": 2,
+    "siteStats": {
+      "totalSessions": 167,
+      "totalViews": 247,
+      "bounceRate": 0.7604790419161677,
+      "avgDuration": 74
+    },
+    "trendsImproved": 0,
+    "trendsDeclining": 0
+  },
+  {
     "date": "2026-07-08",
     "actionsCount": 6,
     "actions": [
