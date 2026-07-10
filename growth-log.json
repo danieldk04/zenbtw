@@ -1,5 +1,36 @@
 [
   {
+    "date": "2026-07-10",
+    "actionsCount": 5,
+    "actions": [
+      "✅ Meta verbeterd: /blog/ioss-registratie-nederland-hoe-werken",
+      "✅ Meta verbeterd: /blog/vinted-belasting-2026-hoeveel-mag-je",
+      "📊 2 pagina's met hoge bounce rate gedetecteerd",
+      "🔧 Bounce fix /blog/btw-tarief-eu-landen-2026: CTA boven fold toegevoegd",
+      "🔧 Bounce fix /blog/wanneer-btw-aangifte-doen: CTA boven fold toegevoegd"
+    ],
+    "queueAfter": 10,
+    "gscAvailable": true,
+    "gscOpportunities": 2,
+    "serperAvailable": true,
+    "gscSnapshot": {
+      "queriesCount": 100,
+      "pagesCount": 50
+    },
+    "metaImprovementsCount": 2,
+    "bounceFixes": 2,
+    "competitorFixes": 0,
+    "highBouncePages": 2,
+    "siteStats": {
+      "totalSessions": 174,
+      "totalViews": 255,
+      "bounceRate": 0.7528735632183908,
+      "avgDuration": 73
+    },
+    "trendsImproved": 0,
+    "trendsDeclining": 0
+  },
+  {
     "date": "2026-07-09",
     "actionsCount": 6,
     "actions": [
