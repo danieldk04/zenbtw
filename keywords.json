@@ -25,14 +25,6 @@
       "addedDate": "2026-07-01"
     },
     {
-      "keyword": "btw nummer eu verkopen marketplace",
-      "status": "pending",
-      "priority": 4,
-      "addedBy": "growth-agent",
-      "rationale": "Brug tussen BTW-plicht en OSS-registratie voor marketplace verkopers — hoog praktisch zoekintent, niet in huidig cluster",
-      "addedDate": "2026-07-06"
-    },
-    {
       "keyword": "etsy btw luxemburg doorberekend uitleg",
       "status": "pending",
       "priority": 5,
@@ -713,6 +705,17 @@
       "slug": "oss-aangifte-q2-2026-deadline-belastingdienst",
       "publishedDate": "2026-07-07",
       "outputFile": "blog/oss-aangifte-q2-2026-deadline-belastingdienst.html"
+    },
+    {
+      "keyword": "btw nummer eu verkopen marketplace",
+      "status": "published",
+      "priority": 4,
+      "addedBy": "growth-agent",
+      "rationale": "Brug tussen BTW-plicht en OSS-registratie voor marketplace verkopers — hoog praktisch zoekintent, niet in huidig cluster",
+      "addedDate": "2026-07-06",
+      "slug": "btw-nummer-eu-verkopen-marketplace",
+      "publishedDate": "2026-07-11",
+      "outputFile": "blog/btw-nummer-eu-verkopen-marketplace.html"
     }
   ],
   "settings": {
