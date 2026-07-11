@@ -1,5 +1,36 @@
 [
   {
+    "date": "2026-07-11",
+    "actionsCount": 5,
+    "actions": [
+      "✅ Meta verbeterd: /blog/kor-opzeggen-hoe",
+      "✅ Meta verbeterd: /blog/dropshipping-btw-verplichting-2026-nederland",
+      "📊 3 pagina's met hoge bounce rate gedetecteerd",
+      "🔧 Bounce fix /blog/kor-opzeggen-hoe: Intro herschreven, CTA boven fold toegevoegd",
+      "🔧 Bounce fix /blog/wanneer-btw-aangifte-doen: Intro herschreven, CTA boven fold toegevoegd"
+    ],
+    "queueAfter": 10,
+    "gscAvailable": true,
+    "gscOpportunities": 1,
+    "serperAvailable": true,
+    "gscSnapshot": {
+      "queriesCount": 100,
+      "pagesCount": 50
+    },
+    "metaImprovementsCount": 2,
+    "bounceFixes": 2,
+    "competitorFixes": 0,
+    "highBouncePages": 3,
+    "siteStats": {
+      "totalSessions": 181,
+      "totalViews": 262,
+      "bounceRate": 0.7403314917127072,
+      "avgDuration": 72
+    },
+    "trendsImproved": 0,
+    "trendsDeclining": 0
+  },
+  {
     "date": "2026-07-10",
     "actionsCount": 5,
     "actions": [
