@@ -1,38 +1,6 @@
 {
   "queue": [
     {
-      "topic": "3 BTW-mythes die marketplace-verkopers geld kosten",
-      "slug": "btw-mythes-marketplace",
-      "template": "myth",
-      "status": "pending",
-      "priority": 9,
-      "notes": "Mythe vs. werkelijkheid: KOR automatisch, tweede account helpt, Vinted meldt niet"
-    },
-    {
-      "topic": "DAC7 uitgelegd: wat deelt Etsy écht met de Belastingdienst?",
-      "slug": "dac7-etsy-uitleg",
-      "template": "compare",
-      "status": "pending",
-      "priority": 10,
-      "notes": "Vergelijkingstabel welke data Etsy deelt vs. wat BD ermee doet"
-    },
-    {
-      "topic": "KOR overschreden in oktober: wat zijn de gevolgen voor 2027?",
-      "slug": "kor-overschreden-gevolgen",
-      "template": "tijdlijn",
-      "status": "pending",
-      "priority": 11,
-      "notes": "Tijdlijn die laat zien hoe lang je BTW-plichtig blijft na overschrijding"
-    },
-    {
-      "topic": "OSS vs KOR: welke regeling is goedkoper voor jou als Bol.com verkoper?",
-      "slug": "oss-vs-kor-bol-vergelijking",
-      "template": "rekensommetje",
-      "status": "pending",
-      "priority": 12,
-      "notes": "Rekensom met twee scenario's: KOR €19.999 vs OSS €25.000 EU-omzet"
-    },
-    {
       "topic": "Shopify verkoper in Nederland: dit zijn jouw BTW-verplichtingen in 2026",
       "slug": "shopify-btw-verplichtingen-checklist",
       "template": "checklist",
@@ -145,6 +113,46 @@
       "notes": "Beslischecklist met vragen over omzet, platform, KOR-aanmelding, OSS-drempel",
       "publishedDate": "2026-07-05",
       "outputDir": "reelposters/2026-07-05-btw-afdragen-checklist"
+    },
+    {
+      "topic": "3 BTW-mythes die marketplace-verkopers geld kosten",
+      "slug": "btw-mythes-marketplace",
+      "template": "myth",
+      "status": "published",
+      "priority": 9,
+      "notes": "Mythe vs. werkelijkheid: KOR automatisch, tweede account helpt, Vinted meldt niet",
+      "publishedDate": "2026-07-12",
+      "outputDir": "reelposters/2026-07-12-btw-mythes-marketplace"
+    },
+    {
+      "topic": "DAC7 uitgelegd: wat deelt Etsy écht met de Belastingdienst?",
+      "slug": "dac7-etsy-uitleg",
+      "template": "compare",
+      "status": "published",
+      "priority": 10,
+      "notes": "Vergelijkingstabel welke data Etsy deelt vs. wat BD ermee doet",
+      "publishedDate": "2026-07-12",
+      "outputDir": "reelposters/2026-07-12-dac7-etsy-uitleg"
+    },
+    {
+      "topic": "KOR overschreden in oktober: wat zijn de gevolgen voor 2027?",
+      "slug": "kor-overschreden-gevolgen",
+      "template": "tijdlijn",
+      "status": "published",
+      "priority": 11,
+      "notes": "Tijdlijn die laat zien hoe lang je BTW-plichtig blijft na overschrijding",
+      "publishedDate": "2026-07-12",
+      "outputDir": "reelposters/2026-07-12-kor-overschreden-gevolgen"
+    },
+    {
+      "topic": "OSS vs KOR: welke regeling is goedkoper voor jou als Bol.com verkoper?",
+      "slug": "oss-vs-kor-bol-vergelijking",
+      "template": "rekensommetje",
+      "status": "published",
+      "priority": 12,
+      "notes": "Rekensom met twee scenario's: KOR €19.999 vs OSS €25.000 EU-omzet",
+      "publishedDate": "2026-07-12",
+      "outputDir": "reelposters/2026-07-12-oss-vs-kor-bol-vergelijking"
     }
   ],
   "settings": {

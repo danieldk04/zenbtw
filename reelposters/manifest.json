@@ -1,6 +1,46 @@
 {
   "sets": [
     {
+      "id": "2026-07-12-oss-vs-kor-bol-vergelijking",
+      "topic": "OSS vs KOR: welke regeling is goedkoper voor jou als Bol.com verkoper?",
+      "date": "2026-07-12",
+      "template": "rekensommetje",
+      "file": "reelposters/2026-07-12-oss-vs-kor-bol-vergelijking/poster.html",
+      "png": "reelposters/2026-07-12-oss-vs-kor-bol-vergelijking/poster.png",
+      "description": "OSS of KOR? Voor Bol.com sellers maakt dit €€ verschil. 🧮\n\nWe doen het rekensommetje: welke regeling scheelt je honderden euro's per jaar? Spoiler: het hangt af van jouw omzet en waar je klanten zitten.\n\nWil je weten welke voor jou slimmer is? Check zenbtw.nl 👉\n\n#BTW #KOR #Bol.com #Marketplace",
+      "threadsDescription": "OSS of KOR? Voor Bol.com sellers maakt dit €€ verschil. 🧮\n\nWe doen het rekensommetje: welke regeling scheelt je honderden euro's per jaar? Spoiler: het hangt af van jouw omzet en waar je klanten zitten.\n\nWil je weten welke voor jou slimmer is? Check zenbtw.nl 👉\n\n#BTW #KOR #Bol.com #Marketplace"
+    },
+    {
+      "id": "2026-07-12-kor-overschreden-gevolgen",
+      "topic": "KOR overschreden in oktober: wat zijn de gevolgen voor 2027?",
+      "date": "2026-07-12",
+      "template": "tijdlijn",
+      "file": "reelposters/2026-07-12-kor-overschreden-gevolgen/poster.html",
+      "png": "reelposters/2026-07-12-kor-overschreden-gevolgen/poster.png",
+      "description": "De KOR-grens werd in oktober overschreden – en dat heeft directe gevolgen voor je belastingaangifte in 2027. In deze timeline leggen we uit wat er precies gebeurde en waarom jij dit moet weten.\n\nMeer details? Check zenbtw.nl\n\n#BTW #KOR #Belastingen #Marketplace",
+      "threadsDescription": "De KOR-grens werd in oktober overschreden – en dat heeft directe gevolgen voor je belastingaangifte in 2027. In deze timeline leggen we uit wat er precies gebeurde en waarom jij dit moet weten.\n\nMeer details? Check zenbtw.nl\n\n#BTW #KOR #Belastingen #Marketplace"
+    },
+    {
+      "id": "2026-07-12-dac7-etsy-uitleg",
+      "topic": "DAC7 uitgelegd: wat deelt Etsy écht met de Belastingdienst?",
+      "date": "2026-07-12",
+      "template": "compare",
+      "file": "reelposters/2026-07-12-dac7-etsy-uitleg/poster.html",
+      "png": "reelposters/2026-07-12-dac7-etsy-uitleg/poster.png",
+      "description": "Etsy deelt meer dan je denkt met de Belastingdienst via DAC7. We leggen uit welke gegevens precies doorgegeven worden en wat dat voor jou betekent als seller.\n\nGeen gedoe, gewoon duidelijkheid. Check zenbtw.nl voor het volledige verhaal.\n\n#DAC7 #Etsy #BTW #Marketplace",
+      "threadsDescription": "Etsy deelt meer dan je denkt met de Belastingdienst via DAC7. We leggen uit welke gegevens precies doorgegeven worden en wat dat voor jou betekent als seller.\n\nGeen gedoe, gewoon duidelijkheid. Check zenbtw.nl voor het volledige verhaal.\n\n#DAC7 #Etsy #BTW #Marketplace"
+    },
+    {
+      "id": "2026-07-12-btw-mythes-marketplace",
+      "topic": "3 BTW-mythes die marketplace-verkopers geld kosten",
+      "date": "2026-07-12",
+      "template": "myth",
+      "file": "reelposters/2026-07-12-btw-mythes-marketplace/poster.html",
+      "png": "reelposters/2026-07-12-btw-mythes-marketplace/poster.png",
+      "description": "Marketplace-verkopers verliezen echt geld door BTW-fouten. We ontmaskeren 3 grote mythes die je waarschijnlijk ook gelooft. Van \"kleine verkoper = geen BTW\" tot \"marketplace betaalt alles voor me\" — allemaal fout.\n\nWelke mythe herkende jij?\n\nCheck zenbtw.nl voor de feiten.\n\n#BTW #Marketplace #Ondernemers #KOR",
+      "threadsDescription": "Marketplace-verkopers verliezen echt geld door BTW-fouten. We ontmaskeren 3 grote mythes die je waarschijnlijk ook gelooft. Van \"kleine verkoper = geen BTW\" tot \"marketplace betaalt alles voor me\" — allemaal fout.\n\nWelke mythe herkende jij?\n\nCheck zenbtw.nl voor de feiten.\n\n#BTW #Marketplace #Ondernemers #KOR"
+    },
+    {
       "id": "2026-07-05-btw-afdragen-checklist",
       "topic": "Moet jij BTW afdragen? Doorloop de checklist",
       "date": "2026-07-05",
