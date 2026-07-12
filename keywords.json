@@ -25,14 +25,6 @@
       "addedDate": "2026-07-01"
     },
     {
-      "keyword": "oss of ioss wat is het verschil",
-      "status": "pending",
-      "priority": 7,
-      "addedBy": "growth-agent",
-      "rationale": "Informatief maar hoog zoekvolume, complementair aan bestaande IOSS- en OSS-artikelen zonder directe overlap, relevant voor grensoverschrijdende verkopers",
-      "addedDate": "2026-07-06"
-    },
-    {
       "keyword": "btw teruggaaf eu aankopen kleine ondernemer",
       "status": "pending",
       "priority": 8,
@@ -722,6 +714,17 @@
       "slug": "btw-drempel-overschreden-wat-nu-stappen",
       "publishedDate": "2026-07-12",
       "outputFile": "blog/btw-drempel-overschreden-wat-nu-stappen.html"
+    },
+    {
+      "keyword": "oss of ioss wat is het verschil",
+      "status": "published",
+      "priority": 7,
+      "addedBy": "growth-agent",
+      "rationale": "Informatief maar hoog zoekvolume, complementair aan bestaande IOSS- en OSS-artikelen zonder directe overlap, relevant voor grensoverschrijdende verkopers",
+      "addedDate": "2026-07-06",
+      "slug": "oss-of-ioss-wat-is-het",
+      "publishedDate": "2026-07-12",
+      "outputFile": "blog/oss-of-ioss-wat-is-het.html"
     }
   ],
   "settings": {
