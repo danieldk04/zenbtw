@@ -25,14 +25,6 @@
       "addedDate": "2026-07-01"
     },
     {
-      "keyword": "btw drempel overschreden wat nu stappen",
-      "status": "pending",
-      "priority": 6,
-      "addedBy": "growth-agent",
-      "rationale": "Hoge intent bij mensen die KOR-grens naderen — aanvulling op bestaande KOR-content zonder overlap, actiegerichte zoekopdracht",
-      "addedDate": "2026-07-06"
-    },
-    {
       "keyword": "oss of ioss wat is het verschil",
       "status": "pending",
       "priority": 7,
@@ -719,6 +711,17 @@
       "slug": "etsy-btw-luxemburg-doorberekend-uitleg",
       "publishedDate": "2026-07-11",
       "outputFile": "blog/etsy-btw-luxemburg-doorberekend-uitleg.html"
+    },
+    {
+      "keyword": "btw drempel overschreden wat nu stappen",
+      "status": "published",
+      "priority": 6,
+      "addedBy": "growth-agent",
+      "rationale": "Hoge intent bij mensen die KOR-grens naderen — aanvulling op bestaande KOR-content zonder overlap, actiegerichte zoekopdracht",
+      "addedDate": "2026-07-06",
+      "slug": "btw-drempel-overschreden-wat-nu-stappen",
+      "publishedDate": "2026-07-12",
+      "outputFile": "blog/btw-drempel-overschreden-wat-nu-stappen.html"
     }
   ],
   "settings": {
