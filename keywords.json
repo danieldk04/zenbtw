@@ -25,14 +25,6 @@
       "addedDate": "2026-07-01"
     },
     {
-      "keyword": "btw teruggaaf eu aankopen kleine ondernemer",
-      "status": "pending",
-      "priority": 8,
-      "addedBy": "growth-agent",
-      "rationale": "Aanvulling op 'BTW terugvragen EU' — specifieker voor kleine ondernemer/kor-gebruiker, onderscheidend van al gepubliceerde variant",
-      "addedDate": "2026-07-06"
-    },
-    {
       "keyword": "vinted etsy inkomsten opgeven ib aangifte 2026",
       "status": "pending",
       "priority": 9,
@@ -725,6 +717,17 @@
       "slug": "oss-of-ioss-wat-is-het",
       "publishedDate": "2026-07-12",
       "outputFile": "blog/oss-of-ioss-wat-is-het.html"
+    },
+    {
+      "keyword": "btw teruggaaf eu aankopen kleine ondernemer",
+      "status": "published",
+      "priority": 8,
+      "addedBy": "growth-agent",
+      "rationale": "Aanvulling op 'BTW terugvragen EU' — specifieker voor kleine ondernemer/kor-gebruiker, onderscheidend van al gepubliceerde variant",
+      "addedDate": "2026-07-06",
+      "slug": "btw-teruggaaf-eu-aankopen-kleine-ondernemer",
+      "publishedDate": "2026-07-13",
+      "outputFile": "blog/btw-teruggaaf-eu-aankopen-kleine-ondernemer.html"
     }
   ],
   "settings": {
