@@ -1,0 +1,22 @@
+name: IndexNow — submit all URLs
+
+# Meldt in één keer alle sitemap-URLs aan bij IndexNow (Bing/Yandex/Seznam).
+# Handmatig te starten via de Actions-tab.
+on:
+  workflow_dispatch:
+
+jobs:
+  submit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+
+      - name: Submit all URLs to IndexNow
+        run: node scripts/indexnow-submit-all.js
