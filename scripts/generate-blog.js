@@ -515,6 +515,34 @@ async function submitToGoogleIndexing(slug) {
   }
 }
 
+// ── IndexNow (Bing / Yandex / Seznam …) ────────────────────────────────────────
+// Pusht de nieuwe URL direct naar IndexNow. Geen auth — enkel een sleutel die als
+// statisch bestand op de root van zenbtw.nl staat ({key}.txt). Faalt zacht.
+const INDEXNOW_KEY = '09e8be00428095e6561f7ca7137c8599';
+async function submitToIndexNow(slug) {
+  const host = 'zenbtw.nl';
+  const url  = `https://${host}/blog/${slug}`;
+  try {
+    const res = await fetch('https://api.indexnow.org/indexnow', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json; charset=utf-8' },
+      body: JSON.stringify({
+        host,
+        key: INDEXNOW_KEY,
+        keyLocation: `https://${host}/${INDEXNOW_KEY}.txt`,
+        urlList: [url],
+      }),
+    });
+    if (res.status === 200 || res.status === 202) {
+      console.log('  IndexNow: submitted', url);
+    } else {
+      console.log(`  IndexNow: status ${res.status} — ${(await res.text()).slice(0, 200)}`);
+    }
+  } catch (err) {
+    console.log('  IndexNow: failed (non-blocking):', err.message);
+  }
+}
+
 // ── Reddit poster ─────────────────────────────────────────────────────────────
 async function postToReddit(keyword, slug, description) {
   const { REDDIT_CLIENT_ID, REDDIT_CLIENT_SECRET, REDDIT_USERNAME, REDDIT_PASSWORD } = process.env;
@@ -738,6 +766,9 @@ async function main() {
 
   // ── 6. Google Indexing API ────────────────────────────────────────────────
   await submitToGoogleIndexing(item.slug);
+
+  // ── 6b. IndexNow (Bing / Yandex / Seznam) ─────────────────────────────────
+  await submitToIndexNow(item.slug);
 
   // ── 7. Post to Reddit ─────────────────────────────────────────────────────
   await postToReddit(item.keyword, item.slug, description);
