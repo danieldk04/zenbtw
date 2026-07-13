@@ -25,14 +25,6 @@
       "addedDate": "2026-07-01"
     },
     {
-      "keyword": "vinted etsy inkomsten opgeven ib aangifte 2026",
-      "status": "pending",
-      "priority": 9,
-      "addedBy": "growth-agent",
-      "rationale": "Combineert inkomstenbelasting en marketplace platforms in één zoekopdracht — niet gedekt, logische next-step na BTW-content in klantreis",
-      "addedDate": "2026-07-06"
-    },
-    {
       "keyword": "automatisch btw berekenen eu landen marketplace",
       "status": "pending",
       "priority": 10,
@@ -728,6 +720,17 @@
       "slug": "btw-teruggaaf-eu-aankopen-kleine-ondernemer",
       "publishedDate": "2026-07-13",
       "outputFile": "blog/btw-teruggaaf-eu-aankopen-kleine-ondernemer.html"
+    },
+    {
+      "keyword": "vinted etsy inkomsten opgeven ib aangifte 2026",
+      "status": "published",
+      "priority": 9,
+      "addedBy": "growth-agent",
+      "rationale": "Combineert inkomstenbelasting en marketplace platforms in één zoekopdracht — niet gedekt, logische next-step na BTW-content in klantreis",
+      "addedDate": "2026-07-06",
+      "slug": "vinted-etsy-inkomsten-opgeven-ib-aangifte",
+      "publishedDate": "2026-07-13",
+      "outputFile": "blog/vinted-etsy-inkomsten-opgeven-ib-aangifte.html"
     }
   ],
   "settings": {
