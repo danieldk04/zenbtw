@@ -1,5 +1,38 @@
 [
   {
+    "date": "2026-07-14",
+    "actionsCount": 7,
+    "actions": [
+      "✅ Meta verbeterd: /blog/btw-bij-export-naar-uk",
+      "✅ Meta verbeterd: /blog/vinted-ondernemer-btw-registratie",
+      "✅ Meta verbeterd: /blog/kor-aanmelden-belastingdienst-2026-hoe",
+      "📊 4 pagina's met hoge bounce rate gedetecteerd",
+      "🔧 Bounce fix /blog/kor-opzeggen-hoe: Intro herschreven, CTA boven fold toegevoegd",
+      "🔧 Bounce fix /blog/shopify-payments-btw-afdragen: Intro herschreven, CTA boven fold toegevoegd",
+      "🔑 10 nieuwe keywords toegevoegd"
+    ],
+    "queueAfter": 14,
+    "gscAvailable": true,
+    "gscOpportunities": 0,
+    "serperAvailable": true,
+    "gscSnapshot": {
+      "queriesCount": 100,
+      "pagesCount": 50
+    },
+    "metaImprovementsCount": 3,
+    "bounceFixes": 2,
+    "competitorFixes": 0,
+    "highBouncePages": 4,
+    "siteStats": {
+      "totalSessions": 205,
+      "totalViews": 296,
+      "bounceRate": 0.7317073170731707,
+      "avgDuration": 95
+    },
+    "trendsImproved": 0,
+    "trendsDeclining": 0
+  },
+  {
     "date": "2026-07-13",
     "actionsCount": 3,
     "actions": [

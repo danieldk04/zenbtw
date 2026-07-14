@@ -125,14 +125,14 @@
     "count": 2
   },
   "vinted-ondernemer-btw-registratie": {
-    "lastImproved": "2026-06-30",
+    "lastImproved": "2026-07-14",
     "type": "meta",
-    "count": 1
+    "count": 2
   },
   "btw-bij-export-naar-uk": {
-    "lastImproved": "2026-06-30",
+    "lastImproved": "2026-07-14",
     "type": "meta",
-    "count": 1
+    "count": 2
   },
   "btw-aangifte-deadline-per-kwartaal-maand": {
     "lastImproved": "2026-07-01",
@@ -181,6 +181,11 @@
   },
   "dropshipping-btw-verplichting-2026-nederland": {
     "lastImproved": "2026-07-11",
+    "type": "meta",
+    "count": 1
+  },
+  "kor-aanmelden-belastingdienst-2026-hoe": {
+    "lastImproved": "2026-07-14",
     "type": "meta",
     "count": 1
   }
