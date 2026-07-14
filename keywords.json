@@ -25,14 +25,6 @@
       "addedDate": "2026-07-06"
     },
     {
-      "keyword": "btw factuur maken zzp gratis template",
-      "status": "pending",
-      "priority": 1,
-      "addedBy": "growth-agent",
-      "rationale": "Hoge intentie, aansluitend op gratis tools, niet gedekt; kleine verkopers zoeken naar factuurtemplate zodra ze BTW-plichtig worden",
-      "addedDate": "2026-07-14"
-    },
-    {
       "keyword": "particulier of ondernemer belastingdienst verschil marketplace",
       "status": "pending",
       "priority": 2,
@@ -814,6 +806,17 @@
       "slug": "dac7-grens-2000-euro-30-transacties",
       "publishedDate": "2026-07-14",
       "outputFile": "blog/dac7-grens-2000-euro-30-transacties.html"
+    },
+    {
+      "keyword": "btw factuur maken zzp gratis template",
+      "status": "published",
+      "priority": 1,
+      "addedBy": "growth-agent",
+      "rationale": "Hoge intentie, aansluitend op gratis tools, niet gedekt; kleine verkopers zoeken naar factuurtemplate zodra ze BTW-plichtig worden",
+      "addedDate": "2026-07-14",
+      "slug": "btw-factuur-maken-zzp-gratis-template",
+      "publishedDate": "2026-07-14",
+      "outputFile": "blog/btw-factuur-maken-zzp-gratis-template.html"
     }
   ],
   "settings": {
