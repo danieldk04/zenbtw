@@ -17,14 +17,6 @@
       "type": "geo-vraag"
     },
     {
-      "keyword": "dac7 grens 2000 euro 30 transacties uitleg",
-      "status": "pending",
-      "priority": 10,
-      "addedBy": "growth-agent",
-      "rationale": "Specifieke DAC7-drempelwaarden die veel hobbyverkopers onzeker maken; hoge relevantie en sluit aan op bestaande DAC7-content zonder overlap",
-      "addedDate": "2026-07-01"
-    },
-    {
       "keyword": "automatisch btw berekenen eu landen marketplace",
       "status": "pending",
       "priority": 10,
@@ -811,6 +803,17 @@
       "slug": "vinted-etsy-inkomsten-opgeven-ib-aangifte",
       "publishedDate": "2026-07-13",
       "outputFile": "blog/vinted-etsy-inkomsten-opgeven-ib-aangifte.html"
+    },
+    {
+      "keyword": "dac7 grens 2000 euro 30 transacties uitleg",
+      "status": "published",
+      "priority": 10,
+      "addedBy": "growth-agent",
+      "rationale": "Specifieke DAC7-drempelwaarden die veel hobbyverkopers onzeker maken; hoge relevantie en sluit aan op bestaande DAC7-content zonder overlap",
+      "addedDate": "2026-07-01",
+      "slug": "dac7-grens-2000-euro-30-transacties",
+      "publishedDate": "2026-07-14",
+      "outputFile": "blog/dac7-grens-2000-euro-30-transacties.html"
     }
   ],
   "settings": {
