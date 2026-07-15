@@ -25,14 +25,6 @@
       "addedDate": "2026-07-06"
     },
     {
-      "keyword": "particulier of ondernemer belastingdienst verschil marketplace",
-      "status": "pending",
-      "priority": 2,
-      "addedBy": "growth-agent",
-      "rationale": "Top-of-funnel vraag die veel Vinted/Etsy-starters stellen voordat ze weten of KOR of OSS relevant is; vult gat in huidige content",
-      "addedDate": "2026-07-14"
-    },
-    {
       "keyword": "etsy verkopen bijverdiensten opgeven 2026",
       "status": "pending",
       "priority": 3,
@@ -817,6 +809,17 @@
       "slug": "btw-factuur-maken-zzp-gratis-template",
       "publishedDate": "2026-07-14",
       "outputFile": "blog/btw-factuur-maken-zzp-gratis-template.html"
+    },
+    {
+      "keyword": "particulier of ondernemer belastingdienst verschil marketplace",
+      "status": "published",
+      "priority": 2,
+      "addedBy": "growth-agent",
+      "rationale": "Top-of-funnel vraag die veel Vinted/Etsy-starters stellen voordat ze weten of KOR of OSS relevant is; vult gat in huidige content",
+      "addedDate": "2026-07-14",
+      "slug": "particulier-of-ondernemer-belastingdienst-verschil-marketplace",
+      "publishedDate": "2026-07-15",
+      "outputFile": "blog/particulier-of-ondernemer-belastingdienst-verschil-marketplace.html"
     }
   ],
   "settings": {
