@@ -1,5 +1,36 @@
 [
   {
+    "date": "2026-07-15",
+    "actionsCount": 5,
+    "actions": [
+      "✅ Meta verbeterd: /blog/btw-aangifte-deadline-per-kwartaal-maand",
+      "✅ Meta verbeterd: /blog/oss-registratie-stappenplan-nederland",
+      "📊 4 pagina's met hoge bounce rate gedetecteerd",
+      "🔧 Bounce fix /blog/shopify-payments-btw-afdragen: Intro herschreven, CTA boven fold toegevoegd",
+      "🔧 Bounce fix /blog/kor-opzeggen-hoe: Intro herschreven, CTA boven fold toegevoegd"
+    ],
+    "queueAfter": 12,
+    "gscAvailable": true,
+    "gscOpportunities": 1,
+    "serperAvailable": true,
+    "gscSnapshot": {
+      "queriesCount": 100,
+      "pagesCount": 50
+    },
+    "metaImprovementsCount": 2,
+    "bounceFixes": 2,
+    "competitorFixes": 0,
+    "highBouncePages": 4,
+    "siteStats": {
+      "totalSessions": 213,
+      "totalViews": 303,
+      "bounceRate": 0.7183098591549296,
+      "avgDuration": 97
+    },
+    "trendsImproved": 0,
+    "trendsDeclining": 0
+  },
+  {
     "date": "2026-07-14",
     "actionsCount": 7,
     "actions": [

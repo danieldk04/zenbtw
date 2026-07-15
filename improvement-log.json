@@ -135,9 +135,9 @@
     "count": 2
   },
   "btw-aangifte-deadline-per-kwartaal-maand": {
-    "lastImproved": "2026-07-01",
+    "lastImproved": "2026-07-15",
     "type": "meta",
-    "count": 1
+    "count": 2
   },
   "ioss-aangifte": {
     "lastImproved": "2026-07-03",
@@ -186,6 +186,11 @@
   },
   "kor-aanmelden-belastingdienst-2026-hoe": {
     "lastImproved": "2026-07-14",
+    "type": "meta",
+    "count": 1
+  },
+  "oss-registratie-stappenplan-nederland": {
+    "lastImproved": "2026-07-15",
     "type": "meta",
     "count": 1
   }
