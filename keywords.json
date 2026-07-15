@@ -25,14 +25,6 @@
       "addedDate": "2026-07-06"
     },
     {
-      "keyword": "etsy verkopen bijverdiensten opgeven 2026",
-      "status": "pending",
-      "priority": 3,
-      "addedBy": "growth-agent",
-      "rationale": "Grote zoekintentie rondom bijverdiensten en belastingplicht; combineert Etsy + IB-aangifte invalshoek die nog niet is gedekt",
-      "addedDate": "2026-07-14"
-    },
-    {
       "keyword": "shopify nederland btw instellen stap voor stap",
       "status": "pending",
       "priority": 4,
@@ -820,6 +812,17 @@
       "slug": "particulier-of-ondernemer-belastingdienst-verschil-marketplace",
       "publishedDate": "2026-07-15",
       "outputFile": "blog/particulier-of-ondernemer-belastingdienst-verschil-marketplace.html"
+    },
+    {
+      "keyword": "etsy verkopen bijverdiensten opgeven 2026",
+      "status": "published",
+      "priority": 3,
+      "addedBy": "growth-agent",
+      "rationale": "Grote zoekintentie rondom bijverdiensten en belastingplicht; combineert Etsy + IB-aangifte invalshoek die nog niet is gedekt",
+      "addedDate": "2026-07-14",
+      "slug": "etsy-verkopen-bijverdiensten-opgeven-2026",
+      "publishedDate": "2026-07-15",
+      "outputFile": "blog/etsy-verkopen-bijverdiensten-opgeven-2026.html"
     }
   ],
   "settings": {
