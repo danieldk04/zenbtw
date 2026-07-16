@@ -25,14 +25,6 @@
       "addedDate": "2026-07-06"
     },
     {
-      "keyword": "shopify nederland btw instellen stap voor stap",
-      "status": "pending",
-      "priority": 4,
-      "addedBy": "growth-agent",
-      "rationale": "Praktische how-to met hoog volume; verschilt van 'btw berekenen shopify automatisch' door focus op technische Shopify-instellingen",
-      "addedDate": "2026-07-14"
-    },
-    {
       "keyword": "vinted winst berekenen na belasting",
       "status": "pending",
       "priority": 5,
@@ -823,6 +815,17 @@
       "slug": "etsy-verkopen-bijverdiensten-opgeven-2026",
       "publishedDate": "2026-07-15",
       "outputFile": "blog/etsy-verkopen-bijverdiensten-opgeven-2026.html"
+    },
+    {
+      "keyword": "shopify nederland btw instellen stap voor stap",
+      "status": "published",
+      "priority": 4,
+      "addedBy": "growth-agent",
+      "rationale": "Praktische how-to met hoog volume; verschilt van 'btw berekenen shopify automatisch' door focus op technische Shopify-instellingen",
+      "addedDate": "2026-07-14",
+      "slug": "shopify-nederland-btw-instellen-stap-voor",
+      "publishedDate": "2026-07-16",
+      "outputFile": "blog/shopify-nederland-btw-instellen-stap-voor.html"
     }
   ],
   "settings": {
