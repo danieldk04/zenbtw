@@ -25,14 +25,6 @@
       "addedDate": "2026-07-06"
     },
     {
-      "keyword": "vinted winst berekenen na belasting",
-      "status": "pending",
-      "priority": 5,
-      "addedBy": "growth-agent",
-      "rationale": "Directe link naar winstcalculator-functie van ZenBTW; specifiek genoeg om te converteren, niet eerder gedekt",
-      "addedDate": "2026-07-14"
-    },
-    {
       "keyword": "drempel buitenlandse btw afdragen eu 10000 euro",
       "status": "pending",
       "priority": 6,
@@ -826,6 +818,17 @@
       "slug": "shopify-nederland-btw-instellen-stap-voor",
       "publishedDate": "2026-07-16",
       "outputFile": "blog/shopify-nederland-btw-instellen-stap-voor.html"
+    },
+    {
+      "keyword": "vinted winst berekenen na belasting",
+      "status": "published",
+      "priority": 5,
+      "addedBy": "growth-agent",
+      "rationale": "Directe link naar winstcalculator-functie van ZenBTW; specifiek genoeg om te converteren, niet eerder gedekt",
+      "addedDate": "2026-07-14",
+      "slug": "vinted-winst-berekenen-na-belasting",
+      "publishedDate": "2026-07-16",
+      "outputFile": "blog/vinted-winst-berekenen-na-belasting.html"
     }
   ],
   "settings": {
