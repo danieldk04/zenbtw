@@ -140,14 +140,14 @@
     "count": 2
   },
   "ioss-aangifte": {
-    "lastImproved": "2026-07-03",
+    "lastImproved": "2026-07-17",
     "type": "meta",
-    "count": 1
+    "count": 2
   },
   "btw-export-buiten-eu": {
-    "lastImproved": "2026-07-03",
+    "lastImproved": "2026-07-17",
     "type": "meta",
-    "count": 1
+    "count": 2
   },
   "competitor:btw-tarief-eu-landen-2026": {
     "lastImproved": "2026-07-05",
@@ -191,6 +191,11 @@
   },
   "oss-registratie-stappenplan-nederland": {
     "lastImproved": "2026-07-15",
+    "type": "meta",
+    "count": 1
+  },
+  "oss-registratie-btw-buitenland": {
+    "lastImproved": "2026-07-17",
     "type": "meta",
     "count": 1
   }

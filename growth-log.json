@@ -1,5 +1,37 @@
 [
   {
+    "date": "2026-07-17",
+    "actionsCount": 6,
+    "actions": [
+      "✅ Meta verbeterd: /blog/ioss-aangifte",
+      "✅ Meta verbeterd: /blog/btw-export-buiten-eu",
+      "✅ Meta verbeterd: /blog/oss-registratie-btw-buitenland",
+      "📊 4 pagina's met hoge bounce rate gedetecteerd",
+      "🔧 Bounce fix /blog/kor-opzeggen-hoe: Intro herschreven, CTA boven fold toegevoegd",
+      "🔧 Bounce fix /blog/shopify-payments-btw-afdragen: Intro herschreven, CTA boven fold toegevoegd"
+    ],
+    "queueAfter": 8,
+    "gscAvailable": true,
+    "gscOpportunities": 1,
+    "serperAvailable": true,
+    "gscSnapshot": {
+      "queriesCount": 100,
+      "pagesCount": 50
+    },
+    "metaImprovementsCount": 3,
+    "bounceFixes": 2,
+    "competitorFixes": 0,
+    "highBouncePages": 4,
+    "siteStats": {
+      "totalSessions": 230,
+      "totalViews": 322,
+      "bounceRate": 0.717391304347826,
+      "avgDuration": 97
+    },
+    "trendsImproved": 0,
+    "trendsDeclining": 0
+  },
+  {
     "date": "2026-07-16",
     "actionsCount": 3,
     "actions": [
