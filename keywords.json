@@ -25,14 +25,6 @@
       "addedDate": "2026-07-06"
     },
     {
-      "keyword": "hoe werkt btw voor hobbyverkoper nederland",
-      "status": "pending",
-      "priority": 7,
-      "addedBy": "growth-agent",
-      "rationale": "Grote groep twijfelende verkopers (hobby vs. ondernemer) zoekt hier actief op; top-of-funnel instap richting KOR-uitleg",
-      "addedDate": "2026-07-14"
-    },
-    {
       "keyword": "intrastat aangifte kleine ondernemer verplicht",
       "status": "pending",
       "priority": 8,
@@ -832,6 +824,17 @@
       "slug": "drempel-buitenlandse-btw-afdragen-eu-10000",
       "publishedDate": "2026-07-17",
       "outputFile": "blog/drempel-buitenlandse-btw-afdragen-eu-10000.html"
+    },
+    {
+      "keyword": "hoe werkt btw voor hobbyverkoper nederland",
+      "status": "published",
+      "priority": 7,
+      "addedBy": "growth-agent",
+      "rationale": "Grote groep twijfelende verkopers (hobby vs. ondernemer) zoekt hier actief op; top-of-funnel instap richting KOR-uitleg",
+      "addedDate": "2026-07-14",
+      "slug": "hoe-werkt-btw-voor-hobbyverkoper-nederland",
+      "publishedDate": "2026-07-17",
+      "outputFile": "blog/hoe-werkt-btw-voor-hobbyverkoper-nederland.html"
     }
   ],
   "settings": {
