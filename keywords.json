@@ -25,14 +25,6 @@
       "addedDate": "2026-07-06"
     },
     {
-      "keyword": "terugkerende klant btw vrijstelling b2b nederland",
-      "status": "pending",
-      "priority": 9,
-      "addedBy": "growth-agent",
-      "rationale": "B2B-verkopen via Shopify/marketplace vereisen andere BTW-regels (0% intracommunautair); nog niet gedekt en hoge commerciële intentie",
-      "addedDate": "2026-07-14"
-    },
-    {
       "keyword": "wanneer kvk inschrijven als marketplace verkoper",
       "status": "pending",
       "priority": 10,
@@ -838,6 +830,17 @@
       "slug": "intrastat-aangifte-kleine-ondernemer-verplicht",
       "publishedDate": "2026-07-18",
       "outputFile": "blog/intrastat-aangifte-kleine-ondernemer-verplicht.html"
+    },
+    {
+      "keyword": "terugkerende klant btw vrijstelling b2b nederland",
+      "status": "published",
+      "priority": 9,
+      "addedBy": "growth-agent",
+      "rationale": "B2B-verkopen via Shopify/marketplace vereisen andere BTW-regels (0% intracommunautair); nog niet gedekt en hoge commerciële intentie",
+      "addedDate": "2026-07-14",
+      "slug": "terugkerende-klant-btw-vrijstelling-b2b-nederland",
+      "publishedDate": "2026-07-18",
+      "outputFile": "blog/terugkerende-klant-btw-vrijstelling-b2b-nederland.html"
     }
   ],
   "settings": {
