@@ -25,14 +25,6 @@
       "addedDate": "2026-07-06"
     },
     {
-      "keyword": "intrastat aangifte kleine ondernemer verplicht",
-      "status": "pending",
-      "priority": 8,
-      "addedBy": "growth-agent",
-      "rationale": "Aanvullende compliance-verplichting naast BTW en DAC7; niche maar relevant voor groeiende marketplace verkopers met EU-verkopen",
-      "addedDate": "2026-07-14"
-    },
-    {
       "keyword": "terugkerende klant btw vrijstelling b2b nederland",
       "status": "pending",
       "priority": 9,
@@ -835,6 +827,17 @@
       "slug": "hoe-werkt-btw-voor-hobbyverkoper-nederland",
       "publishedDate": "2026-07-17",
       "outputFile": "blog/hoe-werkt-btw-voor-hobbyverkoper-nederland.html"
+    },
+    {
+      "keyword": "intrastat aangifte kleine ondernemer verplicht",
+      "status": "published",
+      "priority": 8,
+      "addedBy": "growth-agent",
+      "rationale": "Aanvullende compliance-verplichting naast BTW en DAC7; niche maar relevant voor groeiende marketplace verkopers met EU-verkopen",
+      "addedDate": "2026-07-14",
+      "slug": "intrastat-aangifte-kleine-ondernemer-verplicht",
+      "publishedDate": "2026-07-18",
+      "outputFile": "blog/intrastat-aangifte-kleine-ondernemer-verplicht.html"
     }
   ],
   "settings": {
