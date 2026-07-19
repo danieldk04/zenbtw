@@ -25,14 +25,6 @@
       "addedDate": "2026-07-14"
     },
     {
-      "keyword": "btw tarief frankrijk 2026",
-      "status": "pending",
-      "priority": 1,
-      "addedBy": "growth-agent",
-      "rationale": "Zelfde patroon als 'btw tarief duitsland 2026' (positie 8.6) - landen-specifieke BTW-tarieven zijn populair bij OSS-verkopers die naar meerdere EU-landen verkopen, niet gedekt in huidige lijst",
-      "addedDate": "2026-07-19"
-    },
-    {
       "keyword": "btw tarief belgie 2026",
       "status": "pending",
       "priority": 2,
@@ -924,6 +916,17 @@
       "slug": "automatisch-btw-berekenen-eu-landen-marketplace",
       "publishedDate": "2026-07-19",
       "outputFile": "blog/automatisch-btw-berekenen-eu-landen-marketplace.html"
+    },
+    {
+      "keyword": "btw tarief frankrijk 2026",
+      "status": "published",
+      "priority": 1,
+      "addedBy": "growth-agent",
+      "rationale": "Zelfde patroon als 'btw tarief duitsland 2026' (positie 8.6) - landen-specifieke BTW-tarieven zijn populair bij OSS-verkopers die naar meerdere EU-landen verkopen, niet gedekt in huidige lijst",
+      "addedDate": "2026-07-19",
+      "slug": "btw-tarief-frankrijk-2026",
+      "publishedDate": "2026-07-19",
+      "outputFile": "blog/btw-tarief-frankrijk-2026.html"
     }
   ],
   "settings": {
