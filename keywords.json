@@ -17,14 +17,6 @@
       "type": "geo-vraag"
     },
     {
-      "keyword": "automatisch btw berekenen eu landen marketplace",
-      "status": "pending",
-      "priority": 10,
-      "addedBy": "growth-agent",
-      "rationale": "Tool-gericht keyword dat ZenBTW's calculatorfunctie direct positioneert — aanvulling op 'btw tarief eu landen overzicht 2026' zonder duplicaat te zijn",
-      "addedDate": "2026-07-06"
-    },
-    {
       "keyword": "wanneer kvk inschrijven als marketplace verkoper",
       "status": "pending",
       "priority": 10,
@@ -921,6 +913,17 @@
       "slug": "terugkerende-klant-btw-vrijstelling-b2b-nederland",
       "publishedDate": "2026-07-18",
       "outputFile": "blog/terugkerende-klant-btw-vrijstelling-b2b-nederland.html"
+    },
+    {
+      "keyword": "automatisch btw berekenen eu landen marketplace",
+      "status": "published",
+      "priority": 10,
+      "addedBy": "growth-agent",
+      "rationale": "Tool-gericht keyword dat ZenBTW's calculatorfunctie direct positioneert — aanvulling op 'btw tarief eu landen overzicht 2026' zonder duplicaat te zijn",
+      "addedDate": "2026-07-06",
+      "slug": "automatisch-btw-berekenen-eu-landen-marketplace",
+      "publishedDate": "2026-07-19",
+      "outputFile": "blog/automatisch-btw-berekenen-eu-landen-marketplace.html"
     }
   ],
   "settings": {
