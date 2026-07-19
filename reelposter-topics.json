@@ -1,36 +1,12 @@
 {
   "queue": [
     {
-      "topic": "Shopify verkoper in Nederland: dit zijn jouw BTW-verplichtingen in 2026",
-      "slug": "shopify-btw-verplichtingen-checklist",
-      "template": "checklist",
-      "status": "pending",
-      "priority": 13,
-      "notes": "Checklist specifiek voor Shopify: eigen webshop, geen DAC7-melding, wél KOR mogelijk"
-    },
-    {
       "topic": "5 fouten die Vinted-verkopers maken bij hun belastingaangifte",
       "slug": "vinted-aangifte-fouten-mythes",
       "template": "myth",
       "status": "pending",
       "priority": 14,
       "notes": "Mythe vs werkelijkheid over gebruikelijke fouten: tweedehands vrijstelling, hobby-status, etc."
-    },
-    {
-      "topic": "Van €0 naar €20.000: zo verloopt een jaar als Etsy-verkoper (met BTW-gevolgen)",
-      "slug": "etsy-jaar-tijdlijn-btw",
-      "template": "tijdlijn",
-      "status": "pending",
-      "priority": 15,
-      "notes": "Maandelijkse tijdlijn Etsy-verkoper met handmade items, EU-klanten en OSS-drempel"
-    },
-    {
-      "topic": "Welke marketplace-platforms melden automatisch aan de BD en welke niet?",
-      "slug": "platform-automatisch-melden-vergelijking",
-      "template": "compare",
-      "status": "pending",
-      "priority": 16,
-      "notes": "Uitgebreide vergelijkingstabel met alle grote platforms inclusief Marktplaats, Facebook Marketplace"
     }
   ],
   "published": [
@@ -153,6 +129,36 @@
       "notes": "Rekensom met twee scenario's: KOR €19.999 vs OSS €25.000 EU-omzet",
       "publishedDate": "2026-07-12",
       "outputDir": "reelposters/2026-07-12-oss-vs-kor-bol-vergelijking"
+    },
+    {
+      "topic": "Shopify verkoper in Nederland: dit zijn jouw BTW-verplichtingen in 2026",
+      "slug": "shopify-btw-verplichtingen-checklist",
+      "template": "checklist",
+      "status": "published",
+      "priority": 13,
+      "notes": "Checklist specifiek voor Shopify: eigen webshop, geen DAC7-melding, wél KOR mogelijk",
+      "publishedDate": "2026-07-19",
+      "outputDir": "reelposters/2026-07-19-shopify-btw-verplichtingen-checklist"
+    },
+    {
+      "topic": "Van €0 naar €20.000: zo verloopt een jaar als Etsy-verkoper (met BTW-gevolgen)",
+      "slug": "etsy-jaar-tijdlijn-btw",
+      "template": "tijdlijn",
+      "status": "published",
+      "priority": 15,
+      "notes": "Maandelijkse tijdlijn Etsy-verkoper met handmade items, EU-klanten en OSS-drempel",
+      "publishedDate": "2026-07-19",
+      "outputDir": "reelposters/2026-07-19-etsy-jaar-tijdlijn-btw"
+    },
+    {
+      "topic": "Welke marketplace-platforms melden automatisch aan de BD en welke niet?",
+      "slug": "platform-automatisch-melden-vergelijking",
+      "template": "compare",
+      "status": "published",
+      "priority": 16,
+      "notes": "Uitgebreide vergelijkingstabel met alle grote platforms inclusief Marktplaats, Facebook Marketplace",
+      "publishedDate": "2026-07-19",
+      "outputDir": "reelposters/2026-07-19-platform-automatisch-melden-vergelijking"
     }
   ],
   "settings": {

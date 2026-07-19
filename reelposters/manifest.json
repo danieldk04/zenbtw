@@ -1,6 +1,36 @@
 {
   "sets": [
     {
+      "id": "2026-07-19-platform-automatisch-melden-vergelijking",
+      "topic": "Welke marketplace-platforms melden automatisch aan de BD en welke niet?",
+      "date": "2026-07-19",
+      "template": "compare",
+      "file": "reelposters/2026-07-19-platform-automatisch-melden-vergelijking/poster.html",
+      "png": "reelposters/2026-07-19-platform-automatisch-melden-vergelijking/poster.png",
+      "description": "Niet alle marktplaatsen melden je automatisch aan bij de BD. Amazon doet het, Bol.com ook — maar Vinted, Depop en TikTok Shop? Je moet zelf actief worden.\n\nDit scheelt je maanden gedoe en boetes. Check welke platforms jou als verkoper beschermen en welke niet.\n\nzenbtw.nl\n\n#BTW #Marketplace #KOR #Ondernemer",
+      "threadsDescription": "Niet alle marktplaatsen melden je automatisch aan bij de BD. Amazon doet het, Bol.com ook — maar Vinted, Depop en TikTok Shop? Je moet zelf actief worden.\n\nDit scheelt je maanden gedoe en boetes. Check welke platforms jou als verkoper beschermen en welke niet.\n\nzenbtw.nl\n\n#BTW #Marketplace #KOR #Ondernemer"
+    },
+    {
+      "id": "2026-07-19-etsy-jaar-tijdlijn-btw",
+      "topic": "Van €0 naar €20.000: zo verloopt een jaar als Etsy-verkoper (met BTW-gevolgen)",
+      "date": "2026-07-19",
+      "template": "tijdlijn",
+      "file": "reelposters/2026-07-19-etsy-jaar-tijdlijn-btw/poster.html",
+      "png": "reelposters/2026-07-19-etsy-jaar-tijdlijn-btw/poster.png",
+      "description": "Ik groei van €0 naar €20.000 op Etsy en ontdek onderweg wat BTW eigenlijk met mijn winst doet. Van eerste verkoop tot belastingaangifte: deze timeline laat zien waar het geld echt heen gaat en hoe je daar controle over krijgt.\n\nWil je weten hoe je inkomsten echt werken? Check zenbtw.nl 🔗\n\n#Etsy #BTW #Ondernemersschap #KOR",
+      "threadsDescription": "Ik groei van €0 naar €20.000 op Etsy en ontdek onderweg wat BTW eigenlijk met mijn winst doet. Van eerste verkoop tot belastingaangifte: deze timeline laat zien waar het geld echt heen gaat en hoe je daar controle over krijgt.\n\nWil je weten hoe je inkomsten echt werken? Check zenbtw.nl 🔗\n\n#Etsy #BTW #Ondernemersschap #KOR"
+    },
+    {
+      "id": "2026-07-19-shopify-btw-verplichtingen-checklist",
+      "topic": "Shopify verkoper in Nederland: dit zijn jouw BTW-verplichtingen in 2026",
+      "date": "2026-07-19",
+      "template": "checklist",
+      "file": "reelposters/2026-07-19-shopify-btw-verplichtingen-checklist/poster.html",
+      "png": "reelposters/2026-07-19-shopify-btw-verplichtingen-checklist/poster.png",
+      "description": "Je Shopify-winkel draait, maar heb je je BTW-verplichtingen voor 2026 al gecheckt? Dit kan flink uitpakken.\n\n✓ Wanneer je aangifte moet doen\n✓ Welke marges je gebruikt\n✓ Hoe het werkt met Shopify Payments\n✓ Dit verandert voor jou in 2026\n\nCheck zenbtw.nl voor de volledige checklist.\n\n#BTW #Shopify #ZelfstandigenNL #2026",
+      "threadsDescription": "Je Shopify-winkel draait, maar heb je je BTW-verplichtingen voor 2026 al gecheckt? Dit kan flink uitpakken.\n\n✓ Wanneer je aangifte moet doen\n✓ Welke marges je gebruikt\n✓ Hoe het werkt met Shopify Payments\n✓ Dit verandert voor jou in 2026\n\nCheck zenbtw.nl voor de volledige checklist.\n\n#BTW #Shopify #ZelfstandigenNL #2026"
+    },
+    {
       "id": "2026-07-12-oss-vs-kor-bol-vergelijking",
       "topic": "OSS vs KOR: welke regeling is goedkoper voor jou als Bol.com verkoper?",
       "date": "2026-07-12",
