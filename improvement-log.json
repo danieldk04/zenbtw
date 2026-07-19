@@ -1,13 +1,13 @@
 {
   "btw-tarief-eu-landen-2026": {
-    "lastImproved": "2026-07-05",
+    "lastImproved": "2026-07-19",
     "type": "meta",
-    "count": 2
+    "count": 3
   },
   "oss-registratie-belastingdienst": {
-    "lastImproved": "2026-07-05",
+    "lastImproved": "2026-07-19",
     "type": "meta",
-    "count": 2
+    "count": 3
   },
   "dac7-belastingdienst-rapportage": {
     "lastImproved": "2026-07-05",
@@ -196,6 +196,11 @@
   },
   "oss-registratie-btw-buitenland": {
     "lastImproved": "2026-07-17",
+    "type": "meta",
+    "count": 1
+  },
+  "wanneer-ben-je-ondernemer-belastingdienst-marketplace": {
+    "lastImproved": "2026-07-19",
     "type": "meta",
     "count": 1
   }

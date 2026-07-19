@@ -1,5 +1,38 @@
 [
   {
+    "date": "2026-07-19",
+    "actionsCount": 7,
+    "actions": [
+      "✅ Meta verbeterd: /blog/btw-tarief-eu-landen-2026",
+      "✅ Meta verbeterd: /blog/oss-registratie-belastingdienst",
+      "✅ Meta verbeterd: /blog/wanneer-ben-je-ondernemer-belastingdienst-marketplace",
+      "📊 4 pagina's met hoge bounce rate gedetecteerd",
+      "🔧 Bounce fix /blog/kor-opzeggen-hoe: Intro herschreven, CTA boven fold toegevoegd",
+      "🔧 Bounce fix /blog/shopify-payments-btw-afdragen: Intro herschreven, CTA boven fold toegevoegd",
+      "🔑 10 nieuwe keywords toegevoegd"
+    ],
+    "queueAfter": 14,
+    "gscAvailable": true,
+    "gscOpportunities": 1,
+    "serperAvailable": true,
+    "gscSnapshot": {
+      "queriesCount": 100,
+      "pagesCount": 50
+    },
+    "metaImprovementsCount": 3,
+    "bounceFixes": 2,
+    "competitorFixes": 0,
+    "highBouncePages": 4,
+    "siteStats": {
+      "totalSessions": 239,
+      "totalViews": 336,
+      "bounceRate": 0.7071129707112971,
+      "avgDuration": 99
+    },
+    "trendsImproved": 0,
+    "trendsDeclining": 0
+  },
+  {
     "date": "2026-07-18",
     "actionsCount": 3,
     "actions": [

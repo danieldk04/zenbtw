@@ -31,6 +31,86 @@
       "addedBy": "growth-agent",
       "rationale": "Logische stap vóór BTW-registratie; veel zoekers op Etsy/Vinted weten niet of KvK verplicht is, goede instap naar KOR-content",
       "addedDate": "2026-07-14"
+    },
+    {
+      "keyword": "btw tarief frankrijk 2026",
+      "status": "pending",
+      "priority": 1,
+      "addedBy": "growth-agent",
+      "rationale": "Zelfde patroon als 'btw tarief duitsland 2026' (positie 8.6) - landen-specifieke BTW-tarieven zijn populair bij OSS-verkopers die naar meerdere EU-landen verkopen, niet gedekt in huidige lijst",
+      "addedDate": "2026-07-19"
+    },
+    {
+      "keyword": "btw tarief belgie 2026",
+      "status": "pending",
+      "priority": 2,
+      "addedBy": "growth-agent",
+      "rationale": "België is voor Nederlandse marketplace verkopers de meest nabije exportmarkt, hoog zoekvolume verwacht, sluit aan op btw tarief EU landen content",
+      "addedDate": "2026-07-19"
+    },
+    {
+      "keyword": "btw tarief spanje 2026",
+      "status": "pending",
+      "priority": 3,
+      "addedBy": "growth-agent",
+      "rationale": "Grote Etsy/Vinted markt, zelfde keyword-patroon als duitsland variant die al rankt op positie 8.6, ontbreekt volledig in huidige dekking",
+      "addedDate": "2026-07-19"
+    },
+    {
+      "keyword": "btw tarief italie 2026",
+      "status": "pending",
+      "priority": 4,
+      "addedBy": "growth-agent",
+      "rationale": "Top-5 EU-markt voor marketplace verkopen, consistent zoekpatroon met andere landen-BTW-zoektermen, directe kans gezien bestaande ranking",
+      "addedDate": "2026-07-19"
+    },
+    {
+      "keyword": "btw tarief polen 2026",
+      "status": "pending",
+      "priority": 5,
+      "addedBy": "growth-agent",
+      "rationale": "Polen is grote Vinted-markt en groeiende e-commerce bestemming voor Nederlandse verkopers, ontbreekt in huidige keyword-set",
+      "addedDate": "2026-07-19"
+    },
+    {
+      "keyword": "particuliere verkoper of ondernemer vinted 2026",
+      "status": "pending",
+      "priority": 6,
+      "addedBy": "growth-agent",
+      "rationale": "Veel Vinted-gebruikers weten niet of ze als ondernemer worden gezien, hoge zoekintentie, sluit aan op DAC7 en belastingplicht content",
+      "addedDate": "2026-07-19"
+    },
+    {
+      "keyword": "etsy fee btw teruggave nederland",
+      "status": "pending",
+      "priority": 7,
+      "addedBy": "growth-agent",
+      "rationale": "Etsy rekent BTW op fees aan verkopers, veel verkopers vragen zich af of ze dit kunnen terugvragen, specifieke pijnpunt niet gedekt",
+      "addedDate": "2026-07-19"
+    },
+    {
+      "keyword": "btw tarief zweden 2026",
+      "status": "pending",
+      "priority": 8,
+      "addedBy": "growth-agent",
+      "rationale": "Scandinavië is populaire Etsy-markt met hoog BTW-tarief (25%), verkopers zoeken dit actief bij OSS-aangiftes",
+      "addedDate": "2026-07-19"
+    },
+    {
+      "keyword": "buitenlandse btw aangifte voorbeeld invullen",
+      "status": "pending",
+      "priority": 9,
+      "addedBy": "growth-agent",
+      "rationale": "Praktische how-to vraag rond OSS-aangifte invullen, complementair aan bestaande OSS-content maar specifiek gericht op buitenlandse BTW-verwerking",
+      "addedDate": "2026-07-19"
+    },
+    {
+      "keyword": "etsy seller fees btw aftrekken nederland",
+      "status": "pending",
+      "priority": 10,
+      "addedBy": "growth-agent",
+      "rationale": "Kleine verkopers willen weten of Etsy-kosten aftrekbaar zijn voor BTW en IB, hoge commerciële intentie, directe koppeling aan ZenBTW winstcalculator",
+      "addedDate": "2026-07-19"
     }
   ],
   "published": [
