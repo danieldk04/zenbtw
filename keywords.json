@@ -25,14 +25,6 @@
       "addedDate": "2026-07-14"
     },
     {
-      "keyword": "btw tarief spanje 2026",
-      "status": "pending",
-      "priority": 3,
-      "addedBy": "growth-agent",
-      "rationale": "Grote Etsy/Vinted markt, zelfde keyword-patroon als duitsland variant die al rankt op positie 8.6, ontbreekt volledig in huidige dekking",
-      "addedDate": "2026-07-19"
-    },
-    {
       "keyword": "btw tarief italie 2026",
       "status": "pending",
       "priority": 4,
@@ -930,6 +922,17 @@
       "slug": "btw-tarief-belgie-2026",
       "publishedDate": "2026-07-20",
       "outputFile": "blog/btw-tarief-belgie-2026.html"
+    },
+    {
+      "keyword": "btw tarief spanje 2026",
+      "status": "published",
+      "priority": 3,
+      "addedBy": "growth-agent",
+      "rationale": "Grote Etsy/Vinted markt, zelfde keyword-patroon als duitsland variant die al rankt op positie 8.6, ontbreekt volledig in huidige dekking",
+      "addedDate": "2026-07-19",
+      "slug": "btw-tarief-spanje-2026",
+      "publishedDate": "2026-07-20",
+      "outputFile": "blog/btw-tarief-spanje-2026.html"
     }
   ],
   "settings": {
