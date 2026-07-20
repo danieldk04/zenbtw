@@ -25,14 +25,6 @@
       "addedDate": "2026-07-14"
     },
     {
-      "keyword": "btw tarief belgie 2026",
-      "status": "pending",
-      "priority": 2,
-      "addedBy": "growth-agent",
-      "rationale": "België is voor Nederlandse marketplace verkopers de meest nabije exportmarkt, hoog zoekvolume verwacht, sluit aan op btw tarief EU landen content",
-      "addedDate": "2026-07-19"
-    },
-    {
       "keyword": "btw tarief spanje 2026",
       "status": "pending",
       "priority": 3,
@@ -927,6 +919,17 @@
       "slug": "btw-tarief-frankrijk-2026",
       "publishedDate": "2026-07-19",
       "outputFile": "blog/btw-tarief-frankrijk-2026.html"
+    },
+    {
+      "keyword": "btw tarief belgie 2026",
+      "status": "published",
+      "priority": 2,
+      "addedBy": "growth-agent",
+      "rationale": "België is voor Nederlandse marketplace verkopers de meest nabije exportmarkt, hoog zoekvolume verwacht, sluit aan op btw tarief EU landen content",
+      "addedDate": "2026-07-19",
+      "slug": "btw-tarief-belgie-2026",
+      "publishedDate": "2026-07-20",
+      "outputFile": "blog/btw-tarief-belgie-2026.html"
     }
   ],
   "settings": {
