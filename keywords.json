@@ -25,14 +25,6 @@
       "addedDate": "2026-07-14"
     },
     {
-      "keyword": "btw tarief italie 2026",
-      "status": "pending",
-      "priority": 4,
-      "addedBy": "growth-agent",
-      "rationale": "Top-5 EU-markt voor marketplace verkopen, consistent zoekpatroon met andere landen-BTW-zoektermen, directe kans gezien bestaande ranking",
-      "addedDate": "2026-07-19"
-    },
-    {
       "keyword": "btw tarief polen 2026",
       "status": "pending",
       "priority": 5,
@@ -933,6 +925,17 @@
       "slug": "btw-tarief-spanje-2026",
       "publishedDate": "2026-07-20",
       "outputFile": "blog/btw-tarief-spanje-2026.html"
+    },
+    {
+      "keyword": "btw tarief italie 2026",
+      "status": "published",
+      "priority": 4,
+      "addedBy": "growth-agent",
+      "rationale": "Top-5 EU-markt voor marketplace verkopen, consistent zoekpatroon met andere landen-BTW-zoektermen, directe kans gezien bestaande ranking",
+      "addedDate": "2026-07-19",
+      "slug": "btw-tarief-italie-2026",
+      "publishedDate": "2026-07-21",
+      "outputFile": "blog/btw-tarief-italie-2026.html"
     }
   ],
   "settings": {
