@@ -1,5 +1,35 @@
 [
   {
+    "date": "2026-07-22",
+    "actionsCount": 4,
+    "actions": [
+      "✅ Meta verbeterd: /blog/btw-nummer-aanvragen-kleine-ondernemer-nederland",
+      "📊 6 pagina's met hoge bounce rate gedetecteerd",
+      "🔧 Bounce fix /blog/kor-opzeggen-hoe: CTA boven fold toegevoegd",
+      "🔧 Bounce fix /blog/shopify-payments-btw-afdragen: CTA boven fold toegevoegd"
+    ],
+    "queueAfter": 8,
+    "gscAvailable": true,
+    "gscOpportunities": 1,
+    "serperAvailable": true,
+    "gscSnapshot": {
+      "queriesCount": 100,
+      "pagesCount": 50
+    },
+    "metaImprovementsCount": 1,
+    "bounceFixes": 2,
+    "competitorFixes": 0,
+    "highBouncePages": 6,
+    "siteStats": {
+      "totalSessions": 246,
+      "totalViews": 322,
+      "bounceRate": 0.7276422764227642,
+      "avgDuration": 85
+    },
+    "trendsImproved": 0,
+    "trendsDeclining": 0
+  },
+  {
     "date": "2026-07-21",
     "actionsCount": 3,
     "actions": [
