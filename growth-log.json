@@ -1,5 +1,37 @@
 [
   {
+    "date": "2026-07-24",
+    "actionsCount": 6,
+    "actions": [
+      "✅ Meta verbeterd: /blog/vinted-belasting-2026-hoeveel-mag-je",
+      "✅ Meta verbeterd: /blog/ioss-registratie-nederland-hoe-werken",
+      "✅ Meta verbeterd: /blog/etsy-verkoper-belastingaangifte",
+      "📊 5 pagina's met hoge bounce rate gedetecteerd",
+      "🔧 Bounce fix /blog/kor-opzeggen-hoe: CTA boven fold toegevoegd",
+      "🔧 Bounce fix /blog/shopify-payments-btw-afdragen: CTA boven fold toegevoegd"
+    ],
+    "queueAfter": 8,
+    "gscAvailable": true,
+    "gscOpportunities": 1,
+    "serperAvailable": true,
+    "gscSnapshot": {
+      "queriesCount": 100,
+      "pagesCount": 50
+    },
+    "metaImprovementsCount": 3,
+    "bounceFixes": 2,
+    "competitorFixes": 0,
+    "highBouncePages": 5,
+    "siteStats": {
+      "totalSessions": 256,
+      "totalViews": 329,
+      "bounceRate": 0.71484375,
+      "avgDuration": 86
+    },
+    "trendsImproved": 0,
+    "trendsDeclining": 0
+  },
+  {
     "date": "2026-07-23",
     "actionsCount": 6,
     "actions": [
