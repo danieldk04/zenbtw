@@ -120,9 +120,9 @@
     "count": 1
   },
   "kor-opzeggen-hoe": {
-    "lastImproved": "2026-07-11",
+    "lastImproved": "2026-07-25",
     "type": "meta",
-    "count": 2
+    "count": 3
   },
   "vinted-ondernemer-btw-registratie": {
     "lastImproved": "2026-07-14",
@@ -180,9 +180,9 @@
     "count": 2
   },
   "dropshipping-btw-verplichting-2026-nederland": {
-    "lastImproved": "2026-07-11",
+    "lastImproved": "2026-07-25",
     "type": "meta",
-    "count": 1
+    "count": 2
   },
   "kor-aanmelden-belastingdienst-2026-hoe": {
     "lastImproved": "2026-07-14",
@@ -201,6 +201,11 @@
   },
   "wanneer-ben-je-ondernemer-belastingdienst-marketplace": {
     "lastImproved": "2026-07-19",
+    "type": "meta",
+    "count": 1
+  },
+  "oss-btw-aangifte-invullen-voorbeeld": {
+    "lastImproved": "2026-07-25",
     "type": "meta",
     "count": 1
   }
