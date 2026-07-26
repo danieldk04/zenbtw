@@ -1,5 +1,35 @@
 [
   {
+    "date": "2026-07-26",
+    "actionsCount": 4,
+    "actions": [
+      "📊 4 pagina's met hoge bounce rate gedetecteerd",
+      "🔧 Bounce fix /blog/shopify-payments-btw-afdragen: CTA boven fold toegevoegd",
+      "🔧 Bounce fix /blog/oss-registratie-belastingdienst: CTA boven fold toegevoegd",
+      "🔍 Competitor gap fix /blog/btw-tarief-eu-landen-2026: h2 sections toegevoegd"
+    ],
+    "queueAfter": 8,
+    "gscAvailable": true,
+    "gscOpportunities": 1,
+    "serperAvailable": true,
+    "gscSnapshot": {
+      "queriesCount": 100,
+      "pagesCount": 50
+    },
+    "metaImprovementsCount": 0,
+    "bounceFixes": 2,
+    "competitorFixes": 1,
+    "highBouncePages": 4,
+    "siteStats": {
+      "totalSessions": 250,
+      "totalViews": 317,
+      "bounceRate": 0.668,
+      "avgDuration": 108
+    },
+    "trendsImproved": 0,
+    "trendsDeclining": 0
+  },
+  {
     "date": "2026-07-25",
     "actionsCount": 6,
     "actions": [
