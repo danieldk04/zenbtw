@@ -1,5 +1,35 @@
 [
   {
+    "date": "2026-07-27",
+    "actionsCount": 4,
+    "actions": [
+      "✅ Meta verbeterd: /blog/hoe-werkt-margeregeling-praktisch-voorbeeld",
+      "📊 4 pagina's met hoge bounce rate gedetecteerd",
+      "🔧 Bounce fix /blog/shopify-payments-btw-afdragen: CTA boven fold toegevoegd",
+      "🔧 Bounce fix /blog/oss-registratie-belastingdienst: CTA boven fold toegevoegd"
+    ],
+    "queueAfter": 8,
+    "gscAvailable": true,
+    "gscOpportunities": 1,
+    "serperAvailable": true,
+    "gscSnapshot": {
+      "queriesCount": 100,
+      "pagesCount": 50
+    },
+    "metaImprovementsCount": 1,
+    "bounceFixes": 2,
+    "competitorFixes": 0,
+    "highBouncePages": 4,
+    "siteStats": {
+      "totalSessions": 253,
+      "totalViews": 322,
+      "bounceRate": 0.6600790513833992,
+      "avgDuration": 110
+    },
+    "trendsImproved": 0,
+    "trendsDeclining": 0
+  },
+  {
     "date": "2026-07-26",
     "actionsCount": 4,
     "actions": [
