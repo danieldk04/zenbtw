@@ -1,5 +1,35 @@
 [
   {
+    "date": "2026-08-03",
+    "actionsCount": 4,
+    "actions": [
+      "✅ Meta verbeterd: /blog/vinted-belasting-2026",
+      "📊 2 pagina's met hoge bounce rate gedetecteerd",
+      "🔧 Bounce fix /blog/vinted-belasting-2026: CTA boven fold toegevoegd",
+      "🔧 Bounce fix /blog/oss-registratie-belastingdienst: CTA boven fold toegevoegd"
+    ],
+    "queueAfter": 8,
+    "gscAvailable": true,
+    "gscOpportunities": 1,
+    "serperAvailable": true,
+    "gscSnapshot": {
+      "queriesCount": 100,
+      "pagesCount": 50
+    },
+    "metaImprovementsCount": 1,
+    "bounceFixes": 2,
+    "competitorFixes": 0,
+    "highBouncePages": 2,
+    "siteStats": {
+      "totalSessions": 233,
+      "totalViews": 297,
+      "bounceRate": 0.5364806866952789,
+      "avgDuration": 161
+    },
+    "trendsImproved": 0,
+    "trendsDeclining": 0
+  },
+  {
     "date": "2026-08-02",
     "actionsCount": 6,
     "actions": [
