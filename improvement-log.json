@@ -145,9 +145,9 @@
     "count": 3
   },
   "btw-export-buiten-eu": {
-    "lastImproved": "2026-07-17",
+    "lastImproved": "2026-08-05",
     "type": "meta",
-    "count": 2
+    "count": 3
   },
   "competitor:btw-tarief-eu-landen-2026": {
     "lastImproved": "2026-07-26",
@@ -221,6 +221,11 @@
   },
   "oss-registratie-luxemburg-btw": {
     "lastImproved": "2026-08-02",
+    "type": "meta",
+    "count": 1
+  },
+  "btw-aangifte-voorbeeld-invullen-nederland": {
+    "lastImproved": "2026-08-05",
     "type": "meta",
     "count": 1
   }
