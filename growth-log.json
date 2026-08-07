@@ -1,5 +1,37 @@
 [
   {
+    "date": "2026-08-07",
+    "actionsCount": 6,
+    "actions": [
+      "✅ Meta verbeterd: /blog/btw-nummer-aanvragen-kleine-ondernemer-nederland",
+      "✅ Meta verbeterd: /blog/vinted-belasting-2026-hoeveel-mag-je",
+      "✅ Meta verbeterd: /blog/ioss-registratie-nederland-hoe-werken",
+      "📊 2 pagina's met hoge bounce rate gedetecteerd",
+      "🔧 Bounce fix /blog/etsy-deemed-supplier-btw: CTA boven fold toegevoegd",
+      "🔧 Bounce fix /blog/oss-registratie-belastingdienst: CTA boven fold toegevoegd"
+    ],
+    "queueAfter": 8,
+    "gscAvailable": true,
+    "gscOpportunities": 0,
+    "serperAvailable": true,
+    "gscSnapshot": {
+      "queriesCount": 100,
+      "pagesCount": 50
+    },
+    "metaImprovementsCount": 3,
+    "bounceFixes": 2,
+    "competitorFixes": 0,
+    "highBouncePages": 2,
+    "siteStats": {
+      "totalSessions": 229,
+      "totalViews": 285,
+      "bounceRate": 0.5414847161572053,
+      "avgDuration": 165
+    },
+    "trendsImproved": 0,
+    "trendsDeclining": 0
+  },
+  {
     "date": "2026-08-06",
     "actionsCount": 5,
     "actions": [
