@@ -1,5 +1,37 @@
 [
   {
+    "date": "2026-08-08",
+    "actionsCount": 6,
+    "actions": [
+      "✅ Meta verbeterd: /blog/dropshipping-btw-verplichting-2026-nederland",
+      "✅ Meta verbeterd: /blog/kor-opzeggen-hoe",
+      "✅ Meta verbeterd: /blog/oss-btw-aangifte-invullen-voorbeeld",
+      "📊 3 pagina's met hoge bounce rate gedetecteerd",
+      "🔧 Bounce fix /blog/etsy-deemed-supplier-btw: CTA boven fold toegevoegd",
+      "🔧 Bounce fix /blog/oss-registratie-belastingdienst: CTA boven fold toegevoegd"
+    ],
+    "queueAfter": 8,
+    "gscAvailable": true,
+    "gscOpportunities": 0,
+    "serperAvailable": true,
+    "gscSnapshot": {
+      "queriesCount": 100,
+      "pagesCount": 50
+    },
+    "metaImprovementsCount": 3,
+    "bounceFixes": 2,
+    "competitorFixes": 0,
+    "highBouncePages": 3,
+    "siteStats": {
+      "totalSessions": 230,
+      "totalViews": 290,
+      "bounceRate": 0.5391304347826087,
+      "avgDuration": 164
+    },
+    "trendsImproved": 0,
+    "trendsDeclining": 0
+  },
+  {
     "date": "2026-08-07",
     "actionsCount": 6,
     "actions": [
