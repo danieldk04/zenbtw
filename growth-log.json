@@ -1,5 +1,35 @@
 [
   {
+    "date": "2026-08-09",
+    "actionsCount": 4,
+    "actions": [
+      "✅ Meta verbeterd: /blog/etsy-verkoper-belastingaangifte",
+      "📊 3 pagina's met hoge bounce rate gedetecteerd",
+      "🔧 Bounce fix /blog/etsy-deemed-supplier-btw: CTA boven fold toegevoegd",
+      "🔧 Bounce fix /blog/vinted-belasting-2026: CTA boven fold toegevoegd"
+    ],
+    "queueAfter": 8,
+    "gscAvailable": true,
+    "gscOpportunities": 1,
+    "serperAvailable": true,
+    "gscSnapshot": {
+      "queriesCount": 100,
+      "pagesCount": 50
+    },
+    "metaImprovementsCount": 1,
+    "bounceFixes": 2,
+    "competitorFixes": 0,
+    "highBouncePages": 3,
+    "siteStats": {
+      "totalSessions": 228,
+      "totalViews": 289,
+      "bounceRate": 0.5482456140350878,
+      "avgDuration": 165
+    },
+    "trendsImproved": 0,
+    "trendsDeclining": 0
+  },
+  {
     "date": "2026-08-08",
     "actionsCount": 6,
     "actions": [
