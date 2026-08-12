@@ -1,5 +1,36 @@
 [
   {
+    "date": "2026-08-12",
+    "actionsCount": 5,
+    "actions": [
+      "✅ Meta verbeterd: /blog/btw-aangifte-deadline-per-kwartaal-maand",
+      "✅ Meta verbeterd: /blog/factuur-sturen-kor-ondernemer",
+      "📊 2 pagina's met hoge bounce rate gedetecteerd",
+      "🔧 Bounce fix /blog/etsy-deemed-supplier-btw: CTA boven fold toegevoegd",
+      "🔧 Bounce fix /blog/oss-registratie-belastingdienst: CTA boven fold toegevoegd"
+    ],
+    "queueAfter": 8,
+    "gscAvailable": true,
+    "gscOpportunities": 1,
+    "serperAvailable": true,
+    "gscSnapshot": {
+      "queriesCount": 100,
+      "pagesCount": 50
+    },
+    "metaImprovementsCount": 2,
+    "bounceFixes": 2,
+    "competitorFixes": 0,
+    "highBouncePages": 2,
+    "siteStats": {
+      "totalSessions": 212,
+      "totalViews": 263,
+      "bounceRate": 0.5141509433962265,
+      "avgDuration": 166
+    },
+    "trendsImproved": 0,
+    "trendsDeclining": 0
+  },
+  {
     "date": "2026-08-11",
     "actionsCount": 5,
     "actions": [
