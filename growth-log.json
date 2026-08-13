@@ -1,5 +1,36 @@
 [
   {
+    "date": "2026-08-13",
+    "actionsCount": 5,
+    "actions": [
+      "✅ Meta verbeterd: /blog/etsy-inkomsten-opgeven-belastingdienst",
+      "✅ Meta verbeterd: /blog/wanneer-ben-je-ondernemer-belastingdienst-marketplace",
+      "📊 3 pagina's met hoge bounce rate gedetecteerd",
+      "🔧 Bounce fix /blog/etsy-deemed-supplier-btw: CTA boven fold toegevoegd",
+      "🔧 Bounce fix /blog/oss-registratie-belastingdienst: CTA boven fold toegevoegd"
+    ],
+    "queueAfter": 8,
+    "gscAvailable": true,
+    "gscOpportunities": 1,
+    "serperAvailable": true,
+    "gscSnapshot": {
+      "queriesCount": 100,
+      "pagesCount": 50
+    },
+    "metaImprovementsCount": 2,
+    "bounceFixes": 2,
+    "competitorFixes": 0,
+    "highBouncePages": 3,
+    "siteStats": {
+      "totalSessions": 209,
+      "totalViews": 261,
+      "bounceRate": 0.5119617224880383,
+      "avgDuration": 170
+    },
+    "trendsImproved": 0,
+    "trendsDeclining": 0
+  },
+  {
     "date": "2026-08-12",
     "actionsCount": 5,
     "actions": [
