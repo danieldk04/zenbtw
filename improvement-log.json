@@ -1,13 +1,13 @@
 {
   "btw-tarief-eu-landen-2026": {
-    "lastImproved": "2026-08-02",
+    "lastImproved": "2026-08-16",
     "type": "meta",
-    "count": 4
+    "count": 5
   },
   "oss-registratie-belastingdienst": {
-    "lastImproved": "2026-08-02",
+    "lastImproved": "2026-08-16",
     "type": "meta",
-    "count": 4
+    "count": 5
   },
   "dac7-belastingdienst-rapportage": {
     "lastImproved": "2026-07-05",
@@ -150,9 +150,9 @@
     "count": 3
   },
   "competitor:btw-tarief-eu-landen-2026": {
-    "lastImproved": "2026-07-26",
+    "lastImproved": "2026-08-16",
     "type": "competitor-gap",
-    "count": 2
+    "count": 3
   },
   "competitor:btw-aangifte-deadline-per-kwartaal-maand": {
     "lastImproved": "2026-07-05",
@@ -220,9 +220,9 @@
     "count": 2
   },
   "oss-registratie-luxemburg-btw": {
-    "lastImproved": "2026-08-02",
+    "lastImproved": "2026-08-16",
     "type": "meta",
-    "count": 1
+    "count": 2
   },
   "btw-aangifte-voorbeeld-invullen-nederland": {
     "lastImproved": "2026-08-05",
