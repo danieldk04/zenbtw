@@ -1,6 +1,45 @@
 {
   "runs": [
     {
+      "timestamp": "2026-08-17T07:47:12.125185",
+      "status": "success",
+      "queries_found": 2,
+      "top_queries": [
+        {
+          "query": "kor regeling stopzetten",
+          "score": 133600,
+          "type": "rising"
+        },
+        {
+          "query": "kor regeling aanvragen",
+          "score": 100,
+          "type": "top"
+        }
+      ],
+      "skipped_queries": [],
+      "blog": {
+        "date": "2026-08-17",
+        "query": "kor regeling stopzetten",
+        "trending_score": 133600,
+        "trending_type": "rising",
+        "seed_keyword": "kor regeling",
+        "title": "KOR regeling stopzetten: zo doe je dat (en dit verandert er)",
+        "slug": "kor-regeling-stopzetten",
+        "meta_description": "KOR regeling stopzetten? Je kunt opzeggen bij de Belastingdienst, maar pas op: je zit er minimaal 3 jaar aan vast. Lees hier hoe het werkt.",
+        "url": "https://zenbtw.nl/blog/kor-regeling-stopzetten",
+        "seo": {
+          "score": 100,
+          "title_length": 60,
+          "meta_length": 139,
+          "word_count": 852,
+          "keyword_in_title": true,
+          "keyword_in_meta": true,
+          "h2_count": 10,
+          "notes": []
+        }
+      }
+    },
+    {
       "timestamp": "2026-06-08T11:53:25.800459",
       "status": "success",
       "queries_found": 2,
@@ -182,6 +221,27 @@
     }
   ],
   "blogs": [
+    {
+      "date": "2026-08-17",
+      "query": "kor regeling stopzetten",
+      "trending_score": 133600,
+      "trending_type": "rising",
+      "seed_keyword": "kor regeling",
+      "title": "KOR regeling stopzetten: zo doe je dat (en dit verandert er)",
+      "slug": "kor-regeling-stopzetten",
+      "meta_description": "KOR regeling stopzetten? Je kunt opzeggen bij de Belastingdienst, maar pas op: je zit er minimaal 3 jaar aan vast. Lees hier hoe het werkt.",
+      "url": "https://zenbtw.nl/blog/kor-regeling-stopzetten",
+      "seo": {
+        "score": 100,
+        "title_length": 60,
+        "meta_length": 139,
+        "word_count": 852,
+        "keyword_in_title": true,
+        "keyword_in_meta": true,
+        "h2_count": 10,
+        "notes": []
+      }
+    },
     {
       "date": "2026-06-08",
       "query": "belastingdienst kor regeling",
