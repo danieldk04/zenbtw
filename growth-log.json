@@ -1,5 +1,33 @@
 [
   {
+    "date": "2026-08-19",
+    "actionsCount": 2,
+    "actions": [
+      "✅ Meta verbeterd: /blog/btw-aangifte-voorbeeld-invullen-nederland",
+      "✅ Meta verbeterd: /blog/btw-export-buiten-eu"
+    ],
+    "queueAfter": 8,
+    "gscAvailable": true,
+    "gscOpportunities": 0,
+    "serperAvailable": true,
+    "gscSnapshot": {
+      "queriesCount": 100,
+      "pagesCount": 50
+    },
+    "metaImprovementsCount": 2,
+    "bounceFixes": 0,
+    "competitorFixes": 0,
+    "highBouncePages": 0,
+    "siteStats": {
+      "totalSessions": 199,
+      "totalViews": 239,
+      "bounceRate": 0.4723618090452261,
+      "avgDuration": 195
+    },
+    "trendsImproved": 0,
+    "trendsDeclining": 0
+  },
+  {
     "date": "2026-08-18",
     "actionsCount": 1,
     "actions": [
