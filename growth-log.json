@@ -1,5 +1,32 @@
 [
   {
+    "date": "2026-08-20",
+    "actionsCount": 1,
+    "actions": [
+      "✅ Meta verbeterd: /blog/btw-op-kleding"
+    ],
+    "queueAfter": 8,
+    "gscAvailable": true,
+    "gscOpportunities": 1,
+    "serperAvailable": true,
+    "gscSnapshot": {
+      "queriesCount": 100,
+      "pagesCount": 50
+    },
+    "metaImprovementsCount": 1,
+    "bounceFixes": 0,
+    "competitorFixes": 0,
+    "highBouncePages": 0,
+    "siteStats": {
+      "totalSessions": 190,
+      "totalViews": 229,
+      "bounceRate": 0.46842105263157896,
+      "avgDuration": 204
+    },
+    "trendsImproved": 0,
+    "trendsDeclining": 0
+  },
+  {
     "date": "2026-08-19",
     "actionsCount": 2,
     "actions": [
