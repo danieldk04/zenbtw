@@ -1,5 +1,33 @@
 [
   {
+    "date": "2026-08-21",
+    "actionsCount": 2,
+    "actions": [
+      "✅ Meta verbeterd: /blog/vinted-belasting-2026-hoeveel-mag-je",
+      "✅ Meta verbeterd: /blog/btw-nummer-aanvragen-kleine-ondernemer-nederland"
+    ],
+    "queueAfter": 8,
+    "gscAvailable": true,
+    "gscOpportunities": 0,
+    "serperAvailable": true,
+    "gscSnapshot": {
+      "queriesCount": 100,
+      "pagesCount": 50
+    },
+    "metaImprovementsCount": 2,
+    "bounceFixes": 0,
+    "competitorFixes": 0,
+    "highBouncePages": 0,
+    "siteStats": {
+      "totalSessions": 181,
+      "totalViews": 221,
+      "bounceRate": 0.44751381215469616,
+      "avgDuration": 215
+    },
+    "trendsImproved": 0,
+    "trendsDeclining": 0
+  },
+  {
     "date": "2026-08-20",
     "actionsCount": 1,
     "actions": [
