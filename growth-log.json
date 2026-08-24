@@ -1,5 +1,35 @@
 [
   {
+    "date": "2026-08-24",
+    "actionsCount": 4,
+    "actions": [
+      "✅ Meta verbeterd: /blog/hoe-werkt-margeregeling-praktisch-voorbeeld",
+      "✅ Meta verbeterd: /blog/amazon-verkoper-btw-nederland",
+      "📊 1 pagina's met hoge bounce rate gedetecteerd",
+      "🔧 Bounce fix /blog/btw-tarief-eu-landen-2026: CTA boven fold toegevoegd"
+    ],
+    "queueAfter": 8,
+    "gscAvailable": true,
+    "gscOpportunities": 0,
+    "serperAvailable": true,
+    "gscSnapshot": {
+      "queriesCount": 100,
+      "pagesCount": 50
+    },
+    "metaImprovementsCount": 2,
+    "bounceFixes": 1,
+    "competitorFixes": 0,
+    "highBouncePages": 1,
+    "siteStats": {
+      "totalSessions": 178,
+      "totalViews": 209,
+      "bounceRate": 0.4606741573033708,
+      "avgDuration": 185
+    },
+    "trendsImproved": 0,
+    "trendsDeclining": 0
+  },
+  {
     "date": "2026-08-23",
     "actionsCount": 3,
     "actions": [
