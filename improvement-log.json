@@ -100,9 +100,9 @@
     "count": 1
   },
   "btw-op-kleding": {
-    "lastImproved": "2026-08-20",
+    "lastImproved": "2026-09-03",
     "type": "meta",
-    "count": 5
+    "count": 6
   },
   "factuur-sturen-kor-ondernemer": {
     "lastImproved": "2026-08-27",
@@ -241,6 +241,11 @@
   },
   "kor-en-inkomstenbelasting": {
     "lastImproved": "2026-08-29",
+    "type": "meta",
+    "count": 1
+  },
+  "oss-deadline-kwartaal-2026": {
+    "lastImproved": "2026-09-03",
     "type": "meta",
     "count": 1
   }
