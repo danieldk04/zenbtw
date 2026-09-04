@@ -1,5 +1,35 @@
 [
   {
+    "date": "2026-09-04",
+    "actionsCount": 4,
+    "actions": [
+      "✅ Meta verbeterd: /blog/vinted-belasting-2026-hoeveel-mag-je",
+      "📊 2 pagina's met hoge bounce rate gedetecteerd",
+      "🔧 Bounce fix /blog/btw-tarief-eu-landen-2026: CTA boven fold toegevoegd",
+      "🔧 Bounce fix /blog/oss-registratie-belastingdienst: CTA boven fold toegevoegd"
+    ],
+    "queueAfter": 8,
+    "gscAvailable": true,
+    "gscOpportunities": 0,
+    "serperAvailable": true,
+    "gscSnapshot": {
+      "queriesCount": 100,
+      "pagesCount": 50
+    },
+    "metaImprovementsCount": 1,
+    "bounceFixes": 2,
+    "competitorFixes": 0,
+    "highBouncePages": 2,
+    "siteStats": {
+      "totalSessions": 174,
+      "totalViews": 197,
+      "bounceRate": 0.5114942528735632,
+      "avgDuration": 155
+    },
+    "trendsImproved": 0,
+    "trendsDeclining": 0
+  },
+  {
     "date": "2026-09-03",
     "actionsCount": 5,
     "actions": [
@@ -2511,15 +2541,6 @@
   },
   {
     "date": "2026-06-21",
-    "actionsCount": 1,
-    "actions": [
-      "⚠️ GSC niet beschikbaar: GOOGLE_SERVICE_ACCOUNT_JSON not set"
-    ],
-    "queueAfter": 10,
-    "gscAvailable": false
-  },
-  {
-    "date": "2026-06-20",
     "actionsCount": 1,
     "actions": [
       "⚠️ GSC niet beschikbaar: GOOGLE_SERVICE_ACCOUNT_JSON not set"
