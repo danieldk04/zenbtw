@@ -1,5 +1,35 @@
 [
   {
+    "date": "2026-09-06",
+    "actionsCount": 4,
+    "actions": [
+      "✅ Meta verbeterd: /blog/etsy-verkoper-belastingaangifte",
+      "📊 1 pagina's met hoge bounce rate gedetecteerd",
+      "🔧 Bounce fix /blog/btw-tarief-eu-landen-2026: CTA boven fold toegevoegd",
+      "🔍 Competitor gap fix /blog/btw-tarief-eu-landen-2026: h2 sections toegevoegd"
+    ],
+    "queueAfter": 8,
+    "gscAvailable": true,
+    "gscOpportunities": 1,
+    "serperAvailable": true,
+    "gscSnapshot": {
+      "queriesCount": 100,
+      "pagesCount": 50
+    },
+    "metaImprovementsCount": 1,
+    "bounceFixes": 1,
+    "competitorFixes": 1,
+    "highBouncePages": 1,
+    "siteStats": {
+      "totalSessions": 174,
+      "totalViews": 201,
+      "bounceRate": 0.5,
+      "avgDuration": 165
+    },
+    "trendsImproved": 0,
+    "trendsDeclining": 0
+  },
+  {
     "date": "2026-09-05",
     "actionsCount": 4,
     "actions": [
@@ -2545,13 +2575,6 @@
     "actions": [
       "⚠️ GSC niet beschikbaar: Connection error."
     ],
-    "queueAfter": 8,
-    "gscAvailable": true
-  },
-  {
-    "date": "2026-06-21",
-    "actionsCount": 0,
-    "actions": [],
     "queueAfter": 8,
     "gscAvailable": true
   },
