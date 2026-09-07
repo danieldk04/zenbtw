@@ -1,5 +1,36 @@
 [
   {
+    "date": "2026-09-07",
+    "actionsCount": 5,
+    "actions": [
+      "✅ Meta verbeterd: /blog/hoe-werkt-margeregeling-praktisch-voorbeeld",
+      "✅ Meta verbeterd: /blog/amazon-verkoper-btw-nederland",
+      "📊 2 pagina's met hoge bounce rate gedetecteerd",
+      "🔧 Bounce fix /blog/oss-registratie-belastingdienst: CTA boven fold toegevoegd",
+      "🔧 Bounce fix /blog/btw-tarief-eu-landen-2026: CTA boven fold toegevoegd"
+    ],
+    "queueAfter": 8,
+    "gscAvailable": true,
+    "gscOpportunities": 1,
+    "serperAvailable": true,
+    "gscSnapshot": {
+      "queriesCount": 100,
+      "pagesCount": 50
+    },
+    "metaImprovementsCount": 2,
+    "bounceFixes": 2,
+    "competitorFixes": 0,
+    "highBouncePages": 2,
+    "siteStats": {
+      "totalSessions": 178,
+      "totalViews": 207,
+      "bounceRate": 0.5056179775280899,
+      "avgDuration": 168
+    },
+    "trendsImproved": 0,
+    "trendsDeclining": 0
+  },
+  {
     "date": "2026-09-06",
     "actionsCount": 4,
     "actions": [
@@ -2575,13 +2606,6 @@
     "actions": [
       "⚠️ GSC niet beschikbaar: Connection error."
     ],
-    "queueAfter": 8,
-    "gscAvailable": true
-  },
-  {
-    "date": "2026-06-21",
-    "actionsCount": 0,
-    "actions": [],
     "queueAfter": 8,
     "gscAvailable": true
   },
