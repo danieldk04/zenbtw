@@ -1,6 +1,91 @@
 {
   "runs": [
     {
+      "timestamp": "2026-09-07T13:13:26.318427",
+      "status": "success",
+      "queries_found": 14,
+      "top_queries": [
+        {
+          "query": "btw aangifte q3",
+          "score": 41700,
+          "type": "rising"
+        },
+        {
+          "query": "toelichting btw aangifte op papier uitgereikt",
+          "score": 12850,
+          "type": "rising"
+        },
+        {
+          "query": "3e kwartaal btw aangifte",
+          "score": 9750,
+          "type": "rising"
+        },
+        {
+          "query": "btw aangifte 3e kwartaal",
+          "score": 7500,
+          "type": "rising"
+        },
+        {
+          "query": "belastingdienst btw aangifte",
+          "score": 100,
+          "type": "top"
+        },
+        {
+          "query": "kleine ondernemersregeling btw",
+          "score": 100,
+          "type": "top"
+        },
+        {
+          "query": "hoe werkt vinted verkopen",
+          "score": 100,
+          "type": "top"
+        },
+        {
+          "query": "kor regeling aanvragen",
+          "score": 100,
+          "type": "top"
+        },
+        {
+          "query": "belastingdienst kor regeling",
+          "score": 90,
+          "type": "rising"
+        },
+        {
+          "query": "btw aangifte doen",
+          "score": 85,
+          "type": "top"
+        }
+      ],
+      "skipped_queries": [
+        "kor regeling aanvragen",
+        "belastingdienst kor regeling",
+        "kleine ondernemersregeling 2026"
+      ],
+      "blog": {
+        "date": "2026-09-07",
+        "query": "btw aangifte q3",
+        "trending_score": 41700,
+        "trending_type": "rising",
+        "seed_keyword": "btw aangifte",
+        "title": "BTW aangifte Q3: deadline, stappen en tips (2025)",
+        "slug": "btw-aangifte-q3",
+        "meta_description": "BTW aangifte Q3 loopt van juli t/m september. Deadline: 31 oktober. Lees hoe je 'm invult, wat marketplace verkopers moeten weten en voorkom boetes.",
+        "url": "https://zenbtw.nl/blog/btw-aangifte-q3",
+        "seo": {
+          "score": 75,
+          "title_length": 49,
+          "meta_length": 148,
+          "word_count": 863,
+          "keyword_in_title": true,
+          "keyword_in_meta": true,
+          "h2_count": 11,
+          "notes": [
+            "Titel 49 tekens (ideaal: 50-65)"
+          ]
+        }
+      }
+    },
+    {
       "timestamp": "2026-08-31T14:45:42.533408",
       "status": "success",
       "queries_found": 2,
@@ -268,6 +353,29 @@
     }
   ],
   "blogs": [
+    {
+      "date": "2026-09-07",
+      "query": "btw aangifte q3",
+      "trending_score": 41700,
+      "trending_type": "rising",
+      "seed_keyword": "btw aangifte",
+      "title": "BTW aangifte Q3: deadline, stappen en tips (2025)",
+      "slug": "btw-aangifte-q3",
+      "meta_description": "BTW aangifte Q3 loopt van juli t/m september. Deadline: 31 oktober. Lees hoe je 'm invult, wat marketplace verkopers moeten weten en voorkom boetes.",
+      "url": "https://zenbtw.nl/blog/btw-aangifte-q3",
+      "seo": {
+        "score": 75,
+        "title_length": 49,
+        "meta_length": 148,
+        "word_count": 863,
+        "keyword_in_title": true,
+        "keyword_in_meta": true,
+        "h2_count": 11,
+        "notes": [
+          "Titel 49 tekens (ideaal: 50-65)"
+        ]
+      }
+    },
     {
       "date": "2026-08-31",
       "query": "kor regeling aanvragen",
