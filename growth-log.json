@@ -1,5 +1,35 @@
 [
   {
+    "date": "2026-09-09",
+    "actionsCount": 4,
+    "actions": [
+      "✅ Meta verbeterd: /blog/dropshipping-btw-verplichting-2026-nederland",
+      "📊 3 pagina's met hoge bounce rate gedetecteerd",
+      "🔧 Bounce fix /blog/btw-op-kleding: CTA boven fold toegevoegd",
+      "🔧 Bounce fix /blog/btw-tarief-eu-landen-2026: CTA boven fold toegevoegd"
+    ],
+    "queueAfter": 8,
+    "gscAvailable": true,
+    "gscOpportunities": 0,
+    "serperAvailable": true,
+    "gscSnapshot": {
+      "queriesCount": 100,
+      "pagesCount": 50
+    },
+    "metaImprovementsCount": 1,
+    "bounceFixes": 2,
+    "competitorFixes": 0,
+    "highBouncePages": 3,
+    "siteStats": {
+      "totalSessions": 186,
+      "totalViews": 218,
+      "bounceRate": 0.521505376344086,
+      "avgDuration": 157
+    },
+    "trendsImproved": 0,
+    "trendsDeclining": 0
+  },
+  {
     "date": "2026-09-08",
     "actionsCount": 5,
     "actions": [
@@ -2621,15 +2651,6 @@
     "metaImprovementsCount": 0,
     "trendsImproved": 0,
     "trendsDeclining": 0
-  },
-  {
-    "date": "2026-06-21",
-    "actionsCount": 1,
-    "actions": [
-      "⚠️ GSC niet beschikbaar: Connection error."
-    ],
-    "queueAfter": 8,
-    "gscAvailable": true
   },
   {
     "date": "2026-06-21",
