@@ -1,5 +1,34 @@
 [
   {
+    "date": "2026-09-12",
+    "actionsCount": 3,
+    "actions": [
+      "✅ Meta verbeterd: /blog/btw-aangifte-deadline-per-kwartaal-maand",
+      "📊 1 pagina's met hoge bounce rate gedetecteerd",
+      "🔧 Bounce fix /blog/btw-tarief-eu-landen-2026: CTA boven fold toegevoegd"
+    ],
+    "queueAfter": 8,
+    "gscAvailable": true,
+    "gscOpportunities": 1,
+    "serperAvailable": true,
+    "gscSnapshot": {
+      "queriesCount": 100,
+      "pagesCount": 50
+    },
+    "metaImprovementsCount": 1,
+    "bounceFixes": 1,
+    "competitorFixes": 0,
+    "highBouncePages": 1,
+    "siteStats": {
+      "totalSessions": 195,
+      "totalViews": 227,
+      "bounceRate": 0.48205128205128206,
+      "avgDuration": 142
+    },
+    "trendsImproved": 0,
+    "trendsDeclining": 0
+  },
+  {
     "date": "2026-09-11",
     "actionsCount": 5,
     "actions": [
@@ -2679,24 +2708,6 @@
       "bounceRate": null,
       "avgDuration": 0
     },
-    "trendsImproved": 0,
-    "trendsDeclining": 0
-  },
-  {
-    "date": "2026-06-21",
-    "actionsCount": 3,
-    "actions": [
-      "✅ Meta verbeterd: /blog/btw-tarief-eu-landen-2026",
-      "✅ Meta verbeterd: /blog/oss-registratie-belastingdienst",
-      "✅ Meta verbeterd: /blog/dac7-belastingdienst-rapportage"
-    ],
-    "queueAfter": 8,
-    "gscAvailable": true,
-    "gscSnapshot": {
-      "queriesCount": 100,
-      "pagesCount": 37
-    },
-    "metaImprovementsCount": 3,
     "trendsImproved": 0,
     "trendsDeclining": 0
   }
