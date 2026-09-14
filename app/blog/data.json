@@ -1,6 +1,92 @@
 {
   "runs": [
     {
+      "timestamp": "2026-09-14T13:34:07.296555",
+      "status": "success",
+      "queries_found": 13,
+      "top_queries": [
+        {
+          "query": "kor regeling stopzetten",
+          "score": 184100,
+          "type": "rising"
+        },
+        {
+          "query": "btw aangifte q3",
+          "score": 18000,
+          "type": "rising"
+        },
+        {
+          "query": "elektronische btw aangifte",
+          "score": 14550,
+          "type": "rising"
+        },
+        {
+          "query": "btw aangifte 3e kwartaal",
+          "score": 7750,
+          "type": "rising"
+        },
+        {
+          "query": "btw aangifte belastingdienst",
+          "score": 100,
+          "type": "top"
+        },
+        {
+          "query": "kleine ondernemersregeling btw",
+          "score": 100,
+          "type": "top"
+        },
+        {
+          "query": "hoe werkt vinted verkopen",
+          "score": 100,
+          "type": "top"
+        },
+        {
+          "query": "kor regeling aanvragen",
+          "score": 100,
+          "type": "top"
+        },
+        {
+          "query": "belastingdienst",
+          "score": 99,
+          "type": "top"
+        },
+        {
+          "query": "belastingdienst aangifte",
+          "score": 97,
+          "type": "top"
+        }
+      ],
+      "skipped_queries": [
+        "kor regeling stopzetten",
+        "btw aangifte q3",
+        "kor regeling aanvragen",
+        "kleine ondernemersregeling 2026"
+      ],
+      "blog": {
+        "date": "2026-09-14",
+        "query": "elektronische btw aangifte",
+        "trending_score": 14550,
+        "trending_type": "rising",
+        "seed_keyword": "btw aangifte",
+        "title": "Elektronische BTW-aangifte: zo doe je het (2025)",
+        "slug": "elektronische-btw-aangifte",
+        "meta_description": "Elektronische BTW-aangifte doen? Zo werkt het via Mijn Belastingdienst, wat je moet invullen, en waar marketplace verkopers op moeten letten.",
+        "url": "https://zenbtw.nl/blog/elektronische-btw-aangifte",
+        "seo": {
+          "score": 75,
+          "title_length": 48,
+          "meta_length": 141,
+          "word_count": 803,
+          "keyword_in_title": true,
+          "keyword_in_meta": true,
+          "h2_count": 12,
+          "notes": [
+            "Titel 48 tekens (ideaal: 50-65)"
+          ]
+        }
+      }
+    },
+    {
       "timestamp": "2026-09-07T13:13:26.318427",
       "status": "success",
       "queries_found": 14,
@@ -353,6 +439,29 @@
     }
   ],
   "blogs": [
+    {
+      "date": "2026-09-14",
+      "query": "elektronische btw aangifte",
+      "trending_score": 14550,
+      "trending_type": "rising",
+      "seed_keyword": "btw aangifte",
+      "title": "Elektronische BTW-aangifte: zo doe je het (2025)",
+      "slug": "elektronische-btw-aangifte",
+      "meta_description": "Elektronische BTW-aangifte doen? Zo werkt het via Mijn Belastingdienst, wat je moet invullen, en waar marketplace verkopers op moeten letten.",
+      "url": "https://zenbtw.nl/blog/elektronische-btw-aangifte",
+      "seo": {
+        "score": 75,
+        "title_length": 48,
+        "meta_length": 141,
+        "word_count": 803,
+        "keyword_in_title": true,
+        "keyword_in_meta": true,
+        "h2_count": 12,
+        "notes": [
+          "Titel 48 tekens (ideaal: 50-65)"
+        ]
+      }
+    },
     {
       "date": "2026-09-07",
       "query": "btw aangifte q3",
