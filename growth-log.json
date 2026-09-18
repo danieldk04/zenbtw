@@ -1,5 +1,35 @@
 [
   {
+    "date": "2026-09-18",
+    "actionsCount": 4,
+    "actions": [
+      "✅ Meta verbeterd: /blog/vinted-belasting-2026-hoeveel-mag-je",
+      "📊 2 pagina's met hoge bounce rate gedetecteerd",
+      "🔧 Bounce fix /blog/btw-op-kleding: CTA boven fold toegevoegd",
+      "🔧 Bounce fix /blog/btw-tarief-eu-landen-2026: CTA boven fold toegevoegd"
+    ],
+    "queueAfter": 8,
+    "gscAvailable": true,
+    "gscOpportunities": 1,
+    "serperAvailable": true,
+    "gscSnapshot": {
+      "queriesCount": 100,
+      "pagesCount": 50
+    },
+    "metaImprovementsCount": 1,
+    "bounceFixes": 2,
+    "competitorFixes": 0,
+    "highBouncePages": 2,
+    "siteStats": {
+      "totalSessions": 207,
+      "totalViews": 245,
+      "bounceRate": 0.4927536231884058,
+      "avgDuration": 144
+    },
+    "trendsImproved": 0,
+    "trendsDeclining": 0
+  },
+  {
     "date": "2026-09-17",
     "actionsCount": 5,
     "actions": [
@@ -2687,36 +2717,6 @@
       "totalViews": 10,
       "bounceRate": 1,
       "avgDuration": 463
-    },
-    "trendsImproved": 0,
-    "trendsDeclining": 0
-  },
-  {
-    "date": "2026-06-21",
-    "actionsCount": 4,
-    "actions": [
-      "✅ Meta verbeterd: /blog/btw-tarief-eu-landen-2026",
-      "✅ Meta verbeterd: /blog/oss-registratie-belastingdienst",
-      "✅ Meta verbeterd: /blog/dac7-belastingdienst-rapportage",
-      "🔍 Competitor gap fix /blog/oss-registratie-belastingdienst: Meta title: \"OSS Registratie: Stappenplan voor Nederlandse Verkopers\", H1: \"OSS Registratie Belastingdienst: Stappenplan 2026\", faq section toegevoegd"
-    ],
-    "queueAfter": 8,
-    "gscAvailable": true,
-    "gscOpportunities": 1,
-    "serperAvailable": true,
-    "gscSnapshot": {
-      "queriesCount": 100,
-      "pagesCount": 37
-    },
-    "metaImprovementsCount": 3,
-    "bounceFixes": 0,
-    "competitorFixes": 1,
-    "highBouncePages": 0,
-    "siteStats": {
-      "totalSessions": 0,
-      "totalViews": 0,
-      "bounceRate": null,
-      "avgDuration": 0
     },
     "trendsImproved": 0,
     "trendsDeclining": 0
