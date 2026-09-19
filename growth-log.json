@@ -1,5 +1,35 @@
 [
   {
+    "date": "2026-09-19",
+    "actionsCount": 4,
+    "actions": [
+      "✅ Meta verbeterd: /blog/kor-opzeggen-hoe",
+      "📊 2 pagina's met hoge bounce rate gedetecteerd",
+      "🔧 Bounce fix /blog/btw-op-kleding: CTA boven fold toegevoegd",
+      "🔧 Bounce fix /blog/btw-tarief-eu-landen-2026: CTA boven fold toegevoegd"
+    ],
+    "queueAfter": 8,
+    "gscAvailable": true,
+    "gscOpportunities": 1,
+    "serperAvailable": true,
+    "gscSnapshot": {
+      "queriesCount": 100,
+      "pagesCount": 50
+    },
+    "metaImprovementsCount": 1,
+    "bounceFixes": 2,
+    "competitorFixes": 0,
+    "highBouncePages": 2,
+    "siteStats": {
+      "totalSessions": 210,
+      "totalViews": 245,
+      "bounceRate": 0.49523809523809526,
+      "avgDuration": 147
+    },
+    "trendsImproved": 0,
+    "trendsDeclining": 0
+  },
+  {
     "date": "2026-09-18",
     "actionsCount": 4,
     "actions": [
@@ -2670,35 +2700,6 @@
       "✅ Meta verbeterd: /blog/shopify-btw-nederland-2026",
       "✅ Meta verbeterd: /blog/oss-aangifte-nederland",
       "📋 HowTo schema toegevoegd aan 5 pagina('s)"
-    ],
-    "queueAfter": 8,
-    "gscAvailable": true,
-    "gscOpportunities": 1,
-    "serperAvailable": true,
-    "gscSnapshot": {
-      "queriesCount": 100,
-      "pagesCount": 40
-    },
-    "metaImprovementsCount": 3,
-    "bounceFixes": 0,
-    "competitorFixes": 0,
-    "highBouncePages": 0,
-    "siteStats": {
-      "totalSessions": 4,
-      "totalViews": 10,
-      "bounceRate": 1,
-      "avgDuration": 463
-    },
-    "trendsImproved": 0,
-    "trendsDeclining": 0
-  },
-  {
-    "date": "2026-06-22",
-    "actionsCount": 3,
-    "actions": [
-      "✅ Meta verbeterd: /blog/shopify-dropshipping-btw",
-      "✅ Meta verbeterd: /blog/kor-vrijstelling-2026",
-      "✅ Meta verbeterd: /blog/vinted-belasting-2026"
     ],
     "queueAfter": 8,
     "gscAvailable": true,
