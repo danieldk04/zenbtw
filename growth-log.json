@@ -1,5 +1,36 @@
 [
   {
+    "date": "2026-09-21",
+    "actionsCount": 5,
+    "actions": [
+      "✅ Meta verbeterd: /blog/hoe-werkt-margeregeling-praktisch-voorbeeld",
+      "✅ Meta verbeterd: /blog/amazon-verkoper-btw-nederland",
+      "📊 4 pagina's met hoge bounce rate gedetecteerd",
+      "🔧 Bounce fix /blog/btw-op-kleding: CTA boven fold toegevoegd",
+      "🔧 Bounce fix /blog/factuur-sturen-kor-ondernemer: CTA boven fold toegevoegd"
+    ],
+    "queueAfter": 8,
+    "gscAvailable": true,
+    "gscOpportunities": 2,
+    "serperAvailable": true,
+    "gscSnapshot": {
+      "queriesCount": 100,
+      "pagesCount": 50
+    },
+    "metaImprovementsCount": 2,
+    "bounceFixes": 2,
+    "competitorFixes": 0,
+    "highBouncePages": 4,
+    "siteStats": {
+      "totalSessions": 216,
+      "totalViews": 254,
+      "bounceRate": 0.5,
+      "avgDuration": 148
+    },
+    "trendsImproved": 0,
+    "trendsDeclining": 0
+  },
+  {
     "date": "2026-09-20",
     "actionsCount": 4,
     "actions": [
@@ -2689,35 +2720,6 @@
       "totalViews": 54,
       "bounceRate": 0.7894736842105263,
       "avgDuration": 172
-    },
-    "trendsImproved": 0,
-    "trendsDeclining": 0
-  },
-  {
-    "date": "2026-06-23",
-    "actionsCount": 3,
-    "actions": [
-      "✅ Meta verbeterd: /blog/oss-aangifte-zelf-doen",
-      "✅ Meta verbeterd: /blog/margeregeling-tweedehands-btw",
-      "✅ Meta verbeterd: /blog/dac7-uitleg-marketplace-verkoper"
-    ],
-    "queueAfter": 6,
-    "gscAvailable": true,
-    "gscOpportunities": 1,
-    "serperAvailable": true,
-    "gscSnapshot": {
-      "queriesCount": 100,
-      "pagesCount": 45
-    },
-    "metaImprovementsCount": 3,
-    "bounceFixes": 0,
-    "competitorFixes": 0,
-    "highBouncePages": 0,
-    "siteStats": {
-      "totalSessions": 12,
-      "totalViews": 36,
-      "bounceRate": 0.8333333333333334,
-      "avgDuration": 268
     },
     "trendsImproved": 0,
     "trendsDeclining": 0
