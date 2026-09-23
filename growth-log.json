@@ -1,5 +1,36 @@
 [
   {
+    "date": "2026-09-23",
+    "actionsCount": 5,
+    "actions": [
+      "✅ Meta verbeterd: /blog/dropshipping-btw-verplichting-2026-nederland",
+      "✅ Meta verbeterd: /blog/gratis-alternatief-moneybird",
+      "📊 2 pagina's met hoge bounce rate gedetecteerd",
+      "🔧 Bounce fix /blog/btw-op-kleding: CTA boven fold toegevoegd",
+      "🔧 Bounce fix /blog/factuur-sturen-kor-ondernemer: CTA boven fold toegevoegd"
+    ],
+    "queueAfter": 8,
+    "gscAvailable": true,
+    "gscOpportunities": 2,
+    "serperAvailable": true,
+    "gscSnapshot": {
+      "queriesCount": 100,
+      "pagesCount": 50
+    },
+    "metaImprovementsCount": 2,
+    "bounceFixes": 2,
+    "competitorFixes": 0,
+    "highBouncePages": 2,
+    "siteStats": {
+      "totalSessions": 207,
+      "totalViews": 247,
+      "bounceRate": 0.4830917874396135,
+      "avgDuration": 153
+    },
+    "trendsImproved": 0,
+    "trendsDeclining": 0
+  },
+  {
     "date": "2026-09-22",
     "actionsCount": 5,
     "actions": [
@@ -2694,35 +2725,6 @@
       "totalViews": 78,
       "bounceRate": 0.6923076923076923,
       "avgDuration": 122
-    },
-    "trendsImproved": 0,
-    "trendsDeclining": 0
-  },
-  {
-    "date": "2026-06-25",
-    "actionsCount": 3,
-    "actions": [
-      "✅ Meta verbeterd: /blog/btw-op-kleding",
-      "✅ Meta verbeterd: /blog/factuur-sturen-kor-ondernemer",
-      "🔑 10 nieuwe keywords toegevoegd"
-    ],
-    "queueAfter": 13,
-    "gscAvailable": true,
-    "gscOpportunities": 1,
-    "serperAvailable": true,
-    "gscSnapshot": {
-      "queriesCount": 100,
-      "pagesCount": 45
-    },
-    "metaImprovementsCount": 2,
-    "bounceFixes": 0,
-    "competitorFixes": 0,
-    "highBouncePages": 0,
-    "siteStats": {
-      "totalSessions": 26,
-      "totalViews": 62,
-      "bounceRate": 0.6153846153846154,
-      "avgDuration": 145
     },
     "trendsImproved": 0,
     "trendsDeclining": 0

@@ -180,9 +180,9 @@
     "count": 6
   },
   "dropshipping-btw-verplichting-2026-nederland": {
-    "lastImproved": "2026-09-09",
+    "lastImproved": "2026-09-23",
     "type": "meta",
-    "count": 5
+    "count": 6
   },
   "kor-aanmelden-belastingdienst-2026-hoe": {
     "lastImproved": "2026-07-28",
@@ -248,5 +248,10 @@
     "lastImproved": "2026-09-17",
     "type": "meta",
     "count": 2
+  },
+  "gratis-alternatief-moneybird": {
+    "lastImproved": "2026-09-23",
+    "type": "meta",
+    "count": 1
   }
 }
