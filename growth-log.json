@@ -1,5 +1,36 @@
 [
   {
+    "date": "2026-09-25",
+    "actionsCount": 5,
+    "actions": [
+      "✅ Meta verbeterd: /blog/ioss-aangifte",
+      "✅ Meta verbeterd: /blog/oss-btw-aangifte-invullen-voorbeeld",
+      "📊 4 pagina's met hoge bounce rate gedetecteerd",
+      "🔧 Bounce fix /blog/btw-op-kleding: CTA boven fold toegevoegd",
+      "🔧 Bounce fix /blog/factuur-sturen-kor-ondernemer: CTA boven fold toegevoegd"
+    ],
+    "queueAfter": 8,
+    "gscAvailable": true,
+    "gscOpportunities": 2,
+    "serperAvailable": true,
+    "gscSnapshot": {
+      "queriesCount": 100,
+      "pagesCount": 50
+    },
+    "metaImprovementsCount": 2,
+    "bounceFixes": 2,
+    "competitorFixes": 0,
+    "highBouncePages": 4,
+    "siteStats": {
+      "totalSessions": 198,
+      "totalViews": 237,
+      "bounceRate": 0.4898989898989899,
+      "avgDuration": 152
+    },
+    "trendsImproved": 0,
+    "trendsDeclining": 0
+  },
+  {
     "date": "2026-09-24",
     "actionsCount": 5,
     "actions": [
@@ -2699,35 +2730,6 @@
       "totalViews": 111,
       "bounceRate": 0.6964285714285714,
       "avgDuration": 116
-    },
-    "trendsImproved": 0,
-    "trendsDeclining": 0
-  },
-  {
-    "date": "2026-06-27",
-    "actionsCount": 3,
-    "actions": [
-      "✅ Meta verbeterd: /blog/kor-opzeggen-hoe",
-      "📊 1 pagina's met hoge bounce rate gedetecteerd",
-      "🔧 Bounce fix /blog/wanneer-btw-aangifte-doen: Intro herschreven, CTA boven fold toegevoegd"
-    ],
-    "queueAfter": 12,
-    "gscAvailable": true,
-    "gscOpportunities": 1,
-    "serperAvailable": true,
-    "gscSnapshot": {
-      "queriesCount": 100,
-      "pagesCount": 44
-    },
-    "metaImprovementsCount": 1,
-    "bounceFixes": 1,
-    "competitorFixes": 0,
-    "highBouncePages": 1,
-    "siteStats": {
-      "totalSessions": 45,
-      "totalViews": 98,
-      "bounceRate": 0.6444444444444445,
-      "avgDuration": 214
     },
     "trendsImproved": 0,
     "trendsDeclining": 0
