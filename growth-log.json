@@ -1,5 +1,38 @@
 [
   {
+    "date": "2026-09-27",
+    "actionsCount": 7,
+    "actions": [
+      "✅ Meta verbeterd: /blog/btw-tarief-eu-landen-2026",
+      "✅ Meta verbeterd: /blog/oss-registratie-belastingdienst",
+      "📊 2 pagina's met hoge bounce rate gedetecteerd",
+      "🔧 Bounce fix /blog/factuur-sturen-kor-ondernemer: CTA boven fold toegevoegd",
+      "🔧 Bounce fix /blog/oss-registratie-belastingdienst: CTA boven fold toegevoegd",
+      "🔍 Competitor gap fix /blog/btw-tarief-eu-landen-2026: h2 sections toegevoegd",
+      "🔍 Competitor gap fix /blog/btw-tarief-eu-landen-2026: h2 sections toegevoegd"
+    ],
+    "queueAfter": 8,
+    "gscAvailable": true,
+    "gscOpportunities": 2,
+    "serperAvailable": true,
+    "gscSnapshot": {
+      "queriesCount": 100,
+      "pagesCount": 50
+    },
+    "metaImprovementsCount": 2,
+    "bounceFixes": 2,
+    "competitorFixes": 2,
+    "highBouncePages": 2,
+    "siteStats": {
+      "totalSessions": 191,
+      "totalViews": 234,
+      "bounceRate": 0.4816753926701571,
+      "avgDuration": 141
+    },
+    "trendsImproved": 0,
+    "trendsDeclining": 0
+  },
+  {
     "date": "2026-09-26",
     "actionsCount": 3,
     "actions": [
@@ -2703,34 +2736,6 @@
       "totalViews": 131,
       "bounceRate": 0.76,
       "avgDuration": 91
-    },
-    "trendsImproved": 0,
-    "trendsDeclining": 0
-  },
-  {
-    "date": "2026-06-29",
-    "actionsCount": 2,
-    "actions": [
-      "📊 1 pagina's met hoge bounce rate gedetecteerd",
-      "🔧 Bounce fix /blog/wanneer-btw-aangifte-doen: Intro herschreven, CTA boven fold toegevoegd"
-    ],
-    "queueAfter": 8,
-    "gscAvailable": true,
-    "gscOpportunities": 1,
-    "serperAvailable": true,
-    "gscSnapshot": {
-      "queriesCount": 100,
-      "pagesCount": 50
-    },
-    "metaImprovementsCount": 0,
-    "bounceFixes": 1,
-    "competitorFixes": 0,
-    "highBouncePages": 1,
-    "siteStats": {
-      "totalSessions": 66,
-      "totalViews": 122,
-      "bounceRate": 0.7272727272727273,
-      "avgDuration": 103
     },
     "trendsImproved": 0,
     "trendsDeclining": 0
