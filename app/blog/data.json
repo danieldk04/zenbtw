@@ -1,6 +1,90 @@
 {
   "runs": [
     {
+      "timestamp": "2026-09-28T14:52:38.054936",
+      "status": "success",
+      "queries_found": 14,
+      "top_queries": [
+        {
+          "query": "btw aangifte q3",
+          "score": 35100,
+          "type": "rising"
+        },
+        {
+          "query": "btw aangifte 3e kwartaal",
+          "score": 28700,
+          "type": "rising"
+        },
+        {
+          "query": "kor regeling stopzetten",
+          "score": 8650,
+          "type": "rising"
+        },
+        {
+          "query": "toelichting btw aangifte op papier uitgereikt",
+          "score": 160,
+          "type": "rising"
+        },
+        {
+          "query": "belastingdienst aangifte btw",
+          "score": 100,
+          "type": "top"
+        },
+        {
+          "query": "kleine ondernemersregeling 2026",
+          "score": 100,
+          "type": "top"
+        },
+        {
+          "query": "hoe werkt vinted verkopen",
+          "score": 100,
+          "type": "top"
+        },
+        {
+          "query": "kor regeling aanvragen",
+          "score": 100,
+          "type": "top"
+        },
+        {
+          "query": "belastingdienst",
+          "score": 99,
+          "type": "top"
+        },
+        {
+          "query": "kleine ondernemersregeling aanvragen",
+          "score": 92,
+          "type": "top"
+        }
+      ],
+      "skipped_queries": [
+        "btw aangifte q3",
+        "kor regeling stopzetten",
+        "kleine ondernemersregeling 2026",
+        "kor regeling aanvragen"
+      ],
+      "blog": {
+        "date": "2026-09-28",
+        "query": "btw aangifte 3e kwartaal",
+        "trending_score": 28700,
+        "trending_type": "rising",
+        "seed_keyword": "btw aangifte",
+        "title": "BTW-aangifte 3e kwartaal: deadline, stappen en tips",
+        "slug": "btw-aangifte-3e-kwartaal",
+        "meta_description": "BTW-aangifte 3e kwartaal indienen? Deadline is 31 oktober. Lees hoe je het doet, wat je moet invullen en waar marketplace verkopers op moeten letten.",
+        "url": "https://zenbtw.nl/blog/btw-aangifte-3e-kwartaal",
+        "seo": {
+          "score": 100,
+          "title_length": 51,
+          "meta_length": 149,
+          "word_count": 801,
+          "keyword_in_title": true,
+          "keyword_in_meta": true,
+          "h2_count": 6,
+          "notes": []
+        }
+      }
+    },
+    {
       "timestamp": "2026-09-14T13:34:07.296555",
       "status": "success",
       "queries_found": 13,
@@ -439,6 +523,27 @@
     }
   ],
   "blogs": [
+    {
+      "date": "2026-09-28",
+      "query": "btw aangifte 3e kwartaal",
+      "trending_score": 28700,
+      "trending_type": "rising",
+      "seed_keyword": "btw aangifte",
+      "title": "BTW-aangifte 3e kwartaal: deadline, stappen en tips",
+      "slug": "btw-aangifte-3e-kwartaal",
+      "meta_description": "BTW-aangifte 3e kwartaal indienen? Deadline is 31 oktober. Lees hoe je het doet, wat je moet invullen en waar marketplace verkopers op moeten letten.",
+      "url": "https://zenbtw.nl/blog/btw-aangifte-3e-kwartaal",
+      "seo": {
+        "score": 100,
+        "title_length": 51,
+        "meta_length": 149,
+        "word_count": 801,
+        "keyword_in_title": true,
+        "keyword_in_meta": true,
+        "h2_count": 6,
+        "notes": []
+      }
+    },
     {
       "date": "2026-09-14",
       "query": "elektronische btw aangifte",
