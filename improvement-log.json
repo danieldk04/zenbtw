@@ -30,9 +30,9 @@
     "count": 2
   },
   "vinted-belasting-2026": {
-    "lastImproved": "2026-09-14",
+    "lastImproved": "2026-09-28",
     "type": "meta",
-    "count": 7
+    "count": 8
   },
   "etsy-btw-2026": {
     "lastImproved": "2026-06-22",
@@ -240,9 +240,9 @@
     "count": 3
   },
   "kor-en-inkomstenbelasting": {
-    "lastImproved": "2026-09-14",
+    "lastImproved": "2026-09-28",
     "type": "meta",
-    "count": 2
+    "count": 3
   },
   "oss-deadline-kwartaal-2026": {
     "lastImproved": "2026-09-17",
@@ -252,6 +252,11 @@
   "gratis-alternatief-moneybird": {
     "lastImproved": "2026-09-23",
     "type": "meta",
+    "count": 1
+  },
+  "competitor:ioss-aangifte": {
+    "lastImproved": "2026-09-28",
+    "type": "competitor-gap",
     "count": 1
   }
 }

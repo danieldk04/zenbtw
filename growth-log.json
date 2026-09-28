@@ -1,5 +1,37 @@
 [
   {
+    "date": "2026-09-28",
+    "actionsCount": 6,
+    "actions": [
+      "✅ Meta verbeterd: /blog/vinted-belasting-2026",
+      "✅ Meta verbeterd: /blog/kor-en-inkomstenbelasting",
+      "📊 2 pagina's met hoge bounce rate gedetecteerd",
+      "🔧 Bounce fix /blog/oss-registratie-belastingdienst: CTA boven fold toegevoegd",
+      "🔧 Bounce fix /blog/factuur-sturen-kor-ondernemer: CTA boven fold toegevoegd",
+      "🔍 Competitor gap fix /blog/ioss-aangifte: h2 sections toegevoegd"
+    ],
+    "queueAfter": 8,
+    "gscAvailable": true,
+    "gscOpportunities": 3,
+    "serperAvailable": true,
+    "gscSnapshot": {
+      "queriesCount": 100,
+      "pagesCount": 50
+    },
+    "metaImprovementsCount": 2,
+    "bounceFixes": 2,
+    "competitorFixes": 1,
+    "highBouncePages": 2,
+    "siteStats": {
+      "totalSessions": 201,
+      "totalViews": 247,
+      "bounceRate": 0.5074626865671642,
+      "avgDuration": 130
+    },
+    "trendsImproved": 0,
+    "trendsDeclining": 0
+  },
+  {
     "date": "2026-09-27",
     "actionsCount": 7,
     "actions": [
@@ -2706,36 +2738,6 @@
       "totalViews": 140,
       "bounceRate": 0.7857142857142857,
       "avgDuration": 84
-    },
-    "trendsImproved": 0,
-    "trendsDeclining": 0
-  },
-  {
-    "date": "2026-06-30",
-    "actionsCount": 4,
-    "actions": [
-      "✅ Meta verbeterd: /blog/vinted-ondernemer-btw-registratie",
-      "✅ Meta verbeterd: /blog/btw-bij-export-naar-uk",
-      "📊 1 pagina's met hoge bounce rate gedetecteerd",
-      "🔧 Bounce fix /blog/wanneer-btw-aangifte-doen: Intro herschreven, CTA boven fold toegevoegd"
-    ],
-    "queueAfter": 6,
-    "gscAvailable": true,
-    "gscOpportunities": 1,
-    "serperAvailable": true,
-    "gscSnapshot": {
-      "queriesCount": 100,
-      "pagesCount": 50
-    },
-    "metaImprovementsCount": 2,
-    "bounceFixes": 1,
-    "competitorFixes": 0,
-    "highBouncePages": 1,
-    "siteStats": {
-      "totalSessions": 75,
-      "totalViews": 131,
-      "bounceRate": 0.76,
-      "avgDuration": 91
     },
     "trendsImproved": 0,
     "trendsDeclining": 0
