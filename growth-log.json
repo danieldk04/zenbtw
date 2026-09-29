@@ -1,5 +1,34 @@
 [
   {
+    "date": "2026-09-29",
+    "actionsCount": 3,
+    "actions": [
+      "📊 2 pagina's met hoge bounce rate gedetecteerd",
+      "🔧 Bounce fix /blog/btw-op-kleding: CTA boven fold toegevoegd",
+      "🔧 Bounce fix /blog/oss-registratie-belastingdienst: CTA boven fold toegevoegd"
+    ],
+    "queueAfter": 8,
+    "gscAvailable": true,
+    "gscOpportunities": 4,
+    "serperAvailable": true,
+    "gscSnapshot": {
+      "queriesCount": 100,
+      "pagesCount": 50
+    },
+    "metaImprovementsCount": 0,
+    "bounceFixes": 2,
+    "competitorFixes": 0,
+    "highBouncePages": 2,
+    "siteStats": {
+      "totalSessions": 205,
+      "totalViews": 251,
+      "bounceRate": 0.5073170731707317,
+      "avgDuration": 128
+    },
+    "trendsImproved": 0,
+    "trendsDeclining": 0
+  },
+  {
     "date": "2026-09-28",
     "actionsCount": 6,
     "actions": [
@@ -2707,37 +2736,6 @@
       "totalViews": 149,
       "bounceRate": 0.7956989247311828,
       "avgDuration": 76
-    },
-    "trendsImproved": 0,
-    "trendsDeclining": 0
-  },
-  {
-    "date": "2026-07-01",
-    "actionsCount": 5,
-    "actions": [
-      "✅ Meta verbeterd: /blog/btw-aangifte-deadline-per-kwartaal-maand",
-      "📊 2 pagina's met hoge bounce rate gedetecteerd",
-      "🔧 Bounce fix /blog/btw-tarief-eu-landen-2026: Intro herschreven, CTA boven fold toegevoegd",
-      "🔧 Bounce fix /blog/wanneer-btw-aangifte-doen: Intro herschreven, CTA boven fold toegevoegd",
-      "🔑 10 nieuwe keywords toegevoegd"
-    ],
-    "queueAfter": 13,
-    "gscAvailable": true,
-    "gscOpportunities": 1,
-    "serperAvailable": true,
-    "gscSnapshot": {
-      "queriesCount": 100,
-      "pagesCount": 50
-    },
-    "metaImprovementsCount": 1,
-    "bounceFixes": 2,
-    "competitorFixes": 0,
-    "highBouncePages": 2,
-    "siteStats": {
-      "totalSessions": 84,
-      "totalViews": 140,
-      "bounceRate": 0.7857142857142857,
-      "avgDuration": 84
     },
     "trendsImproved": 0,
     "trendsDeclining": 0
