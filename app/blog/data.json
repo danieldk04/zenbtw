@@ -1,6 +1,90 @@
 {
   "runs": [
     {
+      "timestamp": "2026-10-05T15:29:16.868383",
+      "status": "success",
+      "queries_found": 10,
+      "top_queries": [
+        {
+          "query": "btw aangifte 3e kwartaal",
+          "score": 53300,
+          "type": "rising"
+        },
+        {
+          "query": "btw aangifte q3",
+          "score": 46400,
+          "type": "rising"
+        },
+        {
+          "query": "btw aangifte doen",
+          "score": 100,
+          "type": "top"
+        },
+        {
+          "query": "kleine ondernemersregeling btw",
+          "score": 100,
+          "type": "top"
+        },
+        {
+          "query": "hoe werkt vinted verkopen",
+          "score": 100,
+          "type": "top"
+        },
+        {
+          "query": "kor regeling aanvragen",
+          "score": 100,
+          "type": "top"
+        },
+        {
+          "query": "btw aangifte zakelijk",
+          "score": 85,
+          "type": "top"
+        },
+        {
+          "query": "kleine ondernemersregeling aanvragen",
+          "score": 67,
+          "type": "top"
+        },
+        {
+          "query": "wanneer btw aangifte",
+          "score": 50,
+          "type": "top"
+        },
+        {
+          "query": "kleine ondernemersregeling 2026",
+          "score": 27,
+          "type": "top"
+        }
+      ],
+      "skipped_queries": [
+        "btw aangifte 3e kwartaal",
+        "btw aangifte q3",
+        "kor regeling aanvragen",
+        "kleine ondernemersregeling 2026"
+      ],
+      "blog": {
+        "date": "2026-10-05",
+        "query": "btw aangifte doen",
+        "trending_score": 100,
+        "trending_type": "top",
+        "seed_keyword": "btw aangifte",
+        "title": "BTW aangifte doen: zo werkt het stap voor stap (2025)",
+        "slug": "btw-aangifte-doen",
+        "meta_description": "BTW aangifte doen? Zo doe je het bij de Belastingdienst: van inloggen tot indienen. Met concrete voorbeelden voor marketplace verkopers op Vinted en Etsy.",
+        "url": "https://zenbtw.nl/blog/btw-aangifte-doen",
+        "seo": {
+          "score": 100,
+          "title_length": 53,
+          "meta_length": 154,
+          "word_count": 911,
+          "keyword_in_title": true,
+          "keyword_in_meta": true,
+          "h2_count": 10,
+          "notes": []
+        }
+      }
+    },
+    {
       "timestamp": "2026-09-28T14:52:38.054936",
       "status": "success",
       "queries_found": 14,
@@ -523,6 +607,27 @@
     }
   ],
   "blogs": [
+    {
+      "date": "2026-10-05",
+      "query": "btw aangifte doen",
+      "trending_score": 100,
+      "trending_type": "top",
+      "seed_keyword": "btw aangifte",
+      "title": "BTW aangifte doen: zo werkt het stap voor stap (2025)",
+      "slug": "btw-aangifte-doen",
+      "meta_description": "BTW aangifte doen? Zo doe je het bij de Belastingdienst: van inloggen tot indienen. Met concrete voorbeelden voor marketplace verkopers op Vinted en Etsy.",
+      "url": "https://zenbtw.nl/blog/btw-aangifte-doen",
+      "seo": {
+        "score": 100,
+        "title_length": 53,
+        "meta_length": 154,
+        "word_count": 911,
+        "keyword_in_title": true,
+        "keyword_in_meta": true,
+        "h2_count": 10,
+        "notes": []
+      }
+    },
     {
       "date": "2026-09-28",
       "query": "btw aangifte 3e kwartaal",
