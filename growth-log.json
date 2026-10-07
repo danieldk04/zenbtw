@@ -1,5 +1,35 @@
 [
   {
+    "date": "2026-10-07",
+    "actionsCount": 4,
+    "actions": [
+      "✅ Meta verbeterd: /blog/dropshipping-btw-verplichting-2026-nederland",
+      "📊 4 pagina's met hoge bounce rate gedetecteerd",
+      "🔧 Bounce fix /blog/btw-op-kleding: CTA boven fold toegevoegd",
+      "🔧 Bounce fix /blog/factuur-sturen-kor-ondernemer: CTA boven fold toegevoegd"
+    ],
+    "queueAfter": 8,
+    "gscAvailable": true,
+    "gscOpportunities": 3,
+    "serperAvailable": true,
+    "gscSnapshot": {
+      "queriesCount": 100,
+      "pagesCount": 50
+    },
+    "metaImprovementsCount": 1,
+    "bounceFixes": 2,
+    "competitorFixes": 0,
+    "highBouncePages": 4,
+    "siteStats": {
+      "totalSessions": 194,
+      "totalViews": 226,
+      "bounceRate": 0.5773195876288659,
+      "avgDuration": 125
+    },
+    "trendsImproved": 0,
+    "trendsDeclining": 0
+  },
+  {
     "date": "2026-10-06",
     "actionsCount": 5,
     "actions": [
@@ -2698,38 +2728,6 @@
       "totalViews": 255,
       "bounceRate": 0.7528735632183908,
       "avgDuration": 73
-    },
-    "trendsImproved": 0,
-    "trendsDeclining": 0
-  },
-  {
-    "date": "2026-07-09",
-    "actionsCount": 6,
-    "actions": [
-      "✅ Meta verbeterd: /blog/btw-op-kleding",
-      "✅ Meta verbeterd: /blog/factuur-sturen-kor-ondernemer",
-      "✅ Meta verbeterd: /blog/btw-vrijstelling-kleine-ondernemer-grens-2026",
-      "📊 2 pagina's met hoge bounce rate gedetecteerd",
-      "🔧 Bounce fix /blog/wanneer-btw-aangifte-doen: CTA boven fold toegevoegd",
-      "🔧 Bounce fix /blog/btw-tarief-eu-landen-2026: CTA boven fold toegevoegd"
-    ],
-    "queueAfter": 10,
-    "gscAvailable": true,
-    "gscOpportunities": 1,
-    "serperAvailable": true,
-    "gscSnapshot": {
-      "queriesCount": 100,
-      "pagesCount": 50
-    },
-    "metaImprovementsCount": 3,
-    "bounceFixes": 2,
-    "competitorFixes": 0,
-    "highBouncePages": 2,
-    "siteStats": {
-      "totalSessions": 167,
-      "totalViews": 247,
-      "bounceRate": 0.7604790419161677,
-      "avgDuration": 74
     },
     "trendsImproved": 0,
     "trendsDeclining": 0
