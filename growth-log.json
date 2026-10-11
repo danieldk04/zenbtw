@@ -1,5 +1,36 @@
 [
   {
+    "date": "2026-10-11",
+    "actionsCount": 5,
+    "actions": [
+      "✅ Meta verbeterd: /blog/btw-tarief-eu-landen-2026",
+      "✅ Meta verbeterd: /blog/oss-registratie-belastingdienst",
+      "📊 4 pagina's met hoge bounce rate gedetecteerd",
+      "🔧 Bounce fix /blog/oss-registratie-belastingdienst: CTA boven fold toegevoegd",
+      "🔧 Bounce fix /blog/btw-op-kleding: CTA boven fold toegevoegd"
+    ],
+    "queueAfter": 8,
+    "gscAvailable": true,
+    "gscOpportunities": 3,
+    "serperAvailable": true,
+    "gscSnapshot": {
+      "queriesCount": 100,
+      "pagesCount": 50
+    },
+    "metaImprovementsCount": 2,
+    "bounceFixes": 2,
+    "competitorFixes": 0,
+    "highBouncePages": 4,
+    "siteStats": {
+      "totalSessions": 183,
+      "totalViews": 218,
+      "bounceRate": 0.5901639344262295,
+      "avgDuration": 132
+    },
+    "trendsImproved": 0,
+    "trendsDeclining": 0
+  },
+  {
     "date": "2026-10-10",
     "actionsCount": 3,
     "actions": [
@@ -2700,35 +2731,6 @@
       "totalViews": 296,
       "bounceRate": 0.7317073170731707,
       "avgDuration": 95
-    },
-    "trendsImproved": 0,
-    "trendsDeclining": 0
-  },
-  {
-    "date": "2026-07-13",
-    "actionsCount": 3,
-    "actions": [
-      "📊 4 pagina's met hoge bounce rate gedetecteerd",
-      "🔧 Bounce fix /blog/kor-opzeggen-hoe: Intro herschreven, CTA boven fold toegevoegd",
-      "🔧 Bounce fix /blog/shopify-payments-btw-afdragen: Intro herschreven, CTA boven fold toegevoegd"
-    ],
-    "queueAfter": 6,
-    "gscAvailable": true,
-    "gscOpportunities": 0,
-    "serperAvailable": true,
-    "gscSnapshot": {
-      "queriesCount": 100,
-      "pagesCount": 50
-    },
-    "metaImprovementsCount": 0,
-    "bounceFixes": 2,
-    "competitorFixes": 0,
-    "highBouncePages": 4,
-    "siteStats": {
-      "totalSessions": 199,
-      "totalViews": 285,
-      "bounceRate": 0.7236180904522613,
-      "avgDuration": 86
     },
     "trendsImproved": 0,
     "trendsDeclining": 0
