@@ -1,6 +1,95 @@
 {
   "runs": [
     {
+      "timestamp": "2026-10-12T16:24:37.932581",
+      "status": "success",
+      "queries_found": 13,
+      "top_queries": [
+        {
+          "query": "btw aangifte 3e kwartaal",
+          "score": 64650,
+          "type": "rising"
+        },
+        {
+          "query": "belasting btw aangifte ondernemers",
+          "score": 19450,
+          "type": "rising"
+        },
+        {
+          "query": "kor regeling stopzetten",
+          "score": 9950,
+          "type": "rising"
+        },
+        {
+          "query": "wat is voorbelasting bij btw aangifte",
+          "score": 2600,
+          "type": "rising"
+        },
+        {
+          "query": "kleine ondernemersregeling aanvragen",
+          "score": 250,
+          "type": "rising"
+        },
+        {
+          "query": "btw aangifte ondernemers inloggen",
+          "score": 130,
+          "type": "rising"
+        },
+        {
+          "query": "btw aangifte belastingdienst",
+          "score": 100,
+          "type": "top"
+        },
+        {
+          "query": "kleine ondernemersregeling btw",
+          "score": 100,
+          "type": "rising"
+        },
+        {
+          "query": "hoe werkt vinted verkopen",
+          "score": 100,
+          "type": "top"
+        },
+        {
+          "query": "kor regeling aanvragen",
+          "score": 100,
+          "type": "top"
+        }
+      ],
+      "skipped_queries": [
+        "btw aangifte 3e kwartaal",
+        "kor regeling stopzetten",
+        "kor regeling aanvragen",
+        "btw aangifte doen",
+        "kleine ondernemersregeling 2026"
+      ],
+      "blog": {
+        "date": "2026-10-12",
+        "query": "belasting btw aangifte ondernemers",
+        "trending_score": 19450,
+        "trending_type": "rising",
+        "seed_keyword": "btw aangifte",
+        "title": "BTW-aangifte als ondernemer: zo werkt het in 2025",
+        "slug": "btw-aangifte-ondernemers",
+        "meta_description": "BTW-aangifte doen als ondernemer? Leer hoe het werkt, wanneer je moet aangeven, en wanneer je juist vrijgesteld bent dankzij de KOR.",
+        "url": "https://zenbtw.nl/blog/btw-aangifte-ondernemers",
+        "seo": {
+          "score": 45,
+          "title_length": 49,
+          "meta_length": 132,
+          "word_count": 820,
+          "keyword_in_title": false,
+          "keyword_in_meta": false,
+          "h2_count": 6,
+          "notes": [
+            "Titel 49 tekens (ideaal: 50-65)",
+            "Keyword niet in titel",
+            "Keyword niet in meta-omschrijving"
+          ]
+        }
+      }
+    },
+    {
       "timestamp": "2026-10-05T15:29:16.868383",
       "status": "success",
       "queries_found": 10,
@@ -607,6 +696,31 @@
     }
   ],
   "blogs": [
+    {
+      "date": "2026-10-12",
+      "query": "belasting btw aangifte ondernemers",
+      "trending_score": 19450,
+      "trending_type": "rising",
+      "seed_keyword": "btw aangifte",
+      "title": "BTW-aangifte als ondernemer: zo werkt het in 2025",
+      "slug": "btw-aangifte-ondernemers",
+      "meta_description": "BTW-aangifte doen als ondernemer? Leer hoe het werkt, wanneer je moet aangeven, en wanneer je juist vrijgesteld bent dankzij de KOR.",
+      "url": "https://zenbtw.nl/blog/btw-aangifte-ondernemers",
+      "seo": {
+        "score": 45,
+        "title_length": 49,
+        "meta_length": 132,
+        "word_count": 820,
+        "keyword_in_title": false,
+        "keyword_in_meta": false,
+        "h2_count": 6,
+        "notes": [
+          "Titel 49 tekens (ideaal: 50-65)",
+          "Keyword niet in titel",
+          "Keyword niet in meta-omschrijving"
+        ]
+      }
+    },
     {
       "date": "2026-10-05",
       "query": "btw aangifte doen",
