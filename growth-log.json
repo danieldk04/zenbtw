@@ -1,5 +1,35 @@
 [
   {
+    "date": "2026-10-16",
+    "actionsCount": 4,
+    "actions": [
+      "✅ Meta verbeterd: /blog/vinted-belasting-2026-hoeveel-mag-je",
+      "📊 3 pagina's met hoge bounce rate gedetecteerd",
+      "🔧 Bounce fix /blog/oss-registratie-belastingdienst: CTA boven fold toegevoegd",
+      "🔧 Bounce fix /blog/btw-op-kleding: CTA boven fold toegevoegd"
+    ],
+    "queueAfter": 8,
+    "gscAvailable": true,
+    "gscOpportunities": 4,
+    "serperAvailable": true,
+    "gscSnapshot": {
+      "queriesCount": 100,
+      "pagesCount": 50
+    },
+    "metaImprovementsCount": 1,
+    "bounceFixes": 2,
+    "competitorFixes": 0,
+    "highBouncePages": 3,
+    "siteStats": {
+      "totalSessions": 186,
+      "totalViews": 239,
+      "bounceRate": 0.5806451612903226,
+      "avgDuration": 140
+    },
+    "trendsImproved": 0,
+    "trendsDeclining": 0
+  },
+  {
     "date": "2026-10-15",
     "actionsCount": 5,
     "actions": [
@@ -2698,35 +2728,6 @@
       "totalViews": 336,
       "bounceRate": 0.7071129707112971,
       "avgDuration": 99
-    },
-    "trendsImproved": 0,
-    "trendsDeclining": 0
-  },
-  {
-    "date": "2026-07-18",
-    "actionsCount": 3,
-    "actions": [
-      "📊 4 pagina's met hoge bounce rate gedetecteerd",
-      "🔧 Bounce fix /blog/kor-opzeggen-hoe: Intro herschreven, CTA boven fold toegevoegd",
-      "🔧 Bounce fix /blog/shopify-payments-btw-afdragen: Intro herschreven, CTA boven fold toegevoegd"
-    ],
-    "queueAfter": 6,
-    "gscAvailable": true,
-    "gscOpportunities": 1,
-    "serperAvailable": true,
-    "gscSnapshot": {
-      "queriesCount": 100,
-      "pagesCount": 50
-    },
-    "metaImprovementsCount": 0,
-    "bounceFixes": 2,
-    "competitorFixes": 0,
-    "highBouncePages": 4,
-    "siteStats": {
-      "totalSessions": 235,
-      "totalViews": 330,
-      "bounceRate": 0.7106382978723405,
-      "avgDuration": 101
     },
     "trendsImproved": 0,
     "trendsDeclining": 0
