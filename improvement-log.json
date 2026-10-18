@@ -90,9 +90,9 @@
     "count": 2
   },
   "etsy-verkoper-belastingaangifte": {
-    "lastImproved": "2026-10-04",
+    "lastImproved": "2026-10-18",
     "type": "meta",
-    "count": 8
+    "count": 9
   },
   "wanneer-btw-aangifte-doen": {
     "lastImproved": "2026-06-24",
@@ -150,9 +150,9 @@
     "count": 8
   },
   "competitor:btw-tarief-eu-landen-2026": {
-    "lastImproved": "2026-09-27",
+    "lastImproved": "2026-10-18",
     "type": "competitor-gap",
-    "count": 6
+    "count": 8
   },
   "competitor:btw-aangifte-deadline-per-kwartaal-maand": {
     "lastImproved": "2026-07-05",
