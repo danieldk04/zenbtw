@@ -1,6 +1,92 @@
 {
   "runs": [
     {
+      "timestamp": "2026-10-19T14:16:11.662765",
+      "status": "success",
+      "queries_found": 13,
+      "top_queries": [
+        {
+          "query": "kor regeling stopzetten",
+          "score": 118850,
+          "type": "rising"
+        },
+        {
+          "query": "btw aangifte 3e kwartaal",
+          "score": 88000,
+          "type": "rising"
+        },
+        {
+          "query": "wat is voorbelasting bij btw aangifte",
+          "score": 2200,
+          "type": "rising"
+        },
+        {
+          "query": "btw aangifte doen zzp",
+          "score": 110,
+          "type": "rising"
+        },
+        {
+          "query": "belastingdienst aangifte",
+          "score": 100,
+          "type": "top"
+        },
+        {
+          "query": "btw aangifte doen",
+          "score": 100,
+          "type": "top"
+        },
+        {
+          "query": "belastingdienst btw aangifte",
+          "score": 100,
+          "type": "top"
+        },
+        {
+          "query": "kleine ondernemersregeling btw",
+          "score": 100,
+          "type": "rising"
+        },
+        {
+          "query": "hoe werkt vinted verkopen",
+          "score": 100,
+          "type": "top"
+        },
+        {
+          "query": "kor regeling aanvragen",
+          "score": 100,
+          "type": "top"
+        }
+      ],
+      "skipped_queries": [
+        "kor regeling stopzetten",
+        "btw aangifte 3e kwartaal",
+        "btw aangifte doen",
+        "kor regeling aanvragen"
+      ],
+      "blog": {
+        "date": "2026-10-19",
+        "query": "wat is voorbelasting bij btw aangifte",
+        "trending_score": 2200,
+        "trending_type": "rising",
+        "seed_keyword": "btw aangifte",
+        "title": "Wat is voorbelasting bij je BTW-aangifte? Simpel uitgelegd",
+        "slug": "wat-is-voorbelasting-btw-aangifte",
+        "meta_description": "Voorbelasting is de BTW die je zelf hebt betaald op inkopen. Die mag je aftrekken van de BTW die je afdraagt. Zo werkt het bij je aangifte.",
+        "url": "https://zenbtw.nl/blog/wat-is-voorbelasting-btw-aangifte",
+        "seo": {
+          "score": 90,
+          "title_length": 58,
+          "meta_length": 139,
+          "word_count": 853,
+          "keyword_in_title": true,
+          "keyword_in_meta": false,
+          "h2_count": 8,
+          "notes": [
+            "Keyword niet in meta-omschrijving"
+          ]
+        }
+      }
+    },
+    {
       "timestamp": "2026-10-12T16:24:37.932581",
       "status": "success",
       "queries_found": 13,
@@ -687,15 +773,32 @@
       "status": "no_queries",
       "queries_found": 0,
       "blog": null
-    },
-    {
-      "timestamp": "2026-08-24T07:53:16.337437",
-      "status": "no_queries",
-      "queries_found": 0,
-      "blog": null
     }
   ],
   "blogs": [
+    {
+      "date": "2026-10-19",
+      "query": "wat is voorbelasting bij btw aangifte",
+      "trending_score": 2200,
+      "trending_type": "rising",
+      "seed_keyword": "btw aangifte",
+      "title": "Wat is voorbelasting bij je BTW-aangifte? Simpel uitgelegd",
+      "slug": "wat-is-voorbelasting-btw-aangifte",
+      "meta_description": "Voorbelasting is de BTW die je zelf hebt betaald op inkopen. Die mag je aftrekken van de BTW die je afdraagt. Zo werkt het bij je aangifte.",
+      "url": "https://zenbtw.nl/blog/wat-is-voorbelasting-btw-aangifte",
+      "seo": {
+        "score": 90,
+        "title_length": 58,
+        "meta_length": 139,
+        "word_count": 853,
+        "keyword_in_title": true,
+        "keyword_in_meta": false,
+        "h2_count": 8,
+        "notes": [
+          "Keyword niet in meta-omschrijving"
+        ]
+      }
+    },
     {
       "date": "2026-10-12",
       "query": "belasting btw aangifte ondernemers",
