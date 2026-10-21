@@ -1,5 +1,36 @@
 [
   {
+    "date": "2026-10-21",
+    "actionsCount": 5,
+    "actions": [
+      "✅ Meta verbeterd: /blog/dropshipping-btw-verplichting-2026-nederland",
+      "✅ Meta verbeterd: /blog/btw-aangifte-deadline-per-kwartaal-maand",
+      "📊 3 pagina's met hoge bounce rate gedetecteerd",
+      "🔧 Bounce fix /blog/oss-registratie-belastingdienst: CTA boven fold toegevoegd",
+      "🔧 Bounce fix /blog/btw-op-kleding: CTA boven fold toegevoegd"
+    ],
+    "queueAfter": 8,
+    "gscAvailable": true,
+    "gscOpportunities": 4,
+    "serperAvailable": true,
+    "gscSnapshot": {
+      "queriesCount": 100,
+      "pagesCount": 50
+    },
+    "metaImprovementsCount": 2,
+    "bounceFixes": 2,
+    "competitorFixes": 0,
+    "highBouncePages": 3,
+    "siteStats": {
+      "totalSessions": 191,
+      "totalViews": 243,
+      "bounceRate": 0.5916230366492147,
+      "avgDuration": 132
+    },
+    "trendsImproved": 0,
+    "trendsDeclining": 0
+  },
+  {
     "date": "2026-10-20",
     "actionsCount": 5,
     "actions": [
@@ -2700,38 +2731,6 @@
       "totalViews": 329,
       "bounceRate": 0.71484375,
       "avgDuration": 86
-    },
-    "trendsImproved": 0,
-    "trendsDeclining": 0
-  },
-  {
-    "date": "2026-07-23",
-    "actionsCount": 6,
-    "actions": [
-      "✅ Meta verbeterd: /blog/btw-op-kleding",
-      "✅ Meta verbeterd: /blog/btw-vrijstelling-kleine-ondernemer-grens-2026",
-      "✅ Meta verbeterd: /blog/factuur-sturen-kor-ondernemer",
-      "📊 7 pagina's met hoge bounce rate gedetecteerd",
-      "🔧 Bounce fix /blog/kor-opzeggen-hoe: CTA boven fold toegevoegd",
-      "🔧 Bounce fix /blog/shopify-payments-btw-afdragen: CTA boven fold toegevoegd"
-    ],
-    "queueAfter": 8,
-    "gscAvailable": true,
-    "gscOpportunities": 1,
-    "serperAvailable": true,
-    "gscSnapshot": {
-      "queriesCount": 100,
-      "pagesCount": 50
-    },
-    "metaImprovementsCount": 3,
-    "bounceFixes": 2,
-    "competitorFixes": 0,
-    "highBouncePages": 7,
-    "siteStats": {
-      "totalSessions": 253,
-      "totalViews": 330,
-      "bounceRate": 0.7351778656126482,
-      "avgDuration": 83
     },
     "trendsImproved": 0,
     "trendsDeclining": 0
