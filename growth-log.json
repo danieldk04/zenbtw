@@ -1,5 +1,37 @@
 [
   {
+    "date": "2026-10-22",
+    "actionsCount": 6,
+    "actions": [
+      "✅ Meta verbeterd: /blog/factuur-sturen-kor-ondernemer",
+      "✅ Meta verbeterd: /blog/etsy-inkomsten-opgeven-belastingdienst",
+      "✅ Meta verbeterd: /blog/hoeveel-btw-vinted-verkoper",
+      "📊 2 pagina's met hoge bounce rate gedetecteerd",
+      "🔧 Bounce fix /blog/oss-registratie-belastingdienst: CTA boven fold toegevoegd",
+      "🔧 Bounce fix /blog/btw-op-kleding: CTA boven fold toegevoegd"
+    ],
+    "queueAfter": 8,
+    "gscAvailable": true,
+    "gscOpportunities": 4,
+    "serperAvailable": true,
+    "gscSnapshot": {
+      "queriesCount": 100,
+      "pagesCount": 50
+    },
+    "metaImprovementsCount": 3,
+    "bounceFixes": 2,
+    "competitorFixes": 0,
+    "highBouncePages": 2,
+    "siteStats": {
+      "totalSessions": 192,
+      "totalViews": 244,
+      "bounceRate": 0.5885416666666666,
+      "avgDuration": 140
+    },
+    "trendsImproved": 0,
+    "trendsDeclining": 0
+  },
+  {
     "date": "2026-10-21",
     "actionsCount": 5,
     "actions": [
@@ -2699,38 +2731,6 @@
       "totalViews": 318,
       "bounceRate": 0.6941176470588235,
       "avgDuration": 94
-    },
-    "trendsImproved": 0,
-    "trendsDeclining": 0
-  },
-  {
-    "date": "2026-07-24",
-    "actionsCount": 6,
-    "actions": [
-      "✅ Meta verbeterd: /blog/vinted-belasting-2026-hoeveel-mag-je",
-      "✅ Meta verbeterd: /blog/ioss-registratie-nederland-hoe-werken",
-      "✅ Meta verbeterd: /blog/etsy-verkoper-belastingaangifte",
-      "📊 5 pagina's met hoge bounce rate gedetecteerd",
-      "🔧 Bounce fix /blog/kor-opzeggen-hoe: CTA boven fold toegevoegd",
-      "🔧 Bounce fix /blog/shopify-payments-btw-afdragen: CTA boven fold toegevoegd"
-    ],
-    "queueAfter": 8,
-    "gscAvailable": true,
-    "gscOpportunities": 1,
-    "serperAvailable": true,
-    "gscSnapshot": {
-      "queriesCount": 100,
-      "pagesCount": 50
-    },
-    "metaImprovementsCount": 3,
-    "bounceFixes": 2,
-    "competitorFixes": 0,
-    "highBouncePages": 5,
-    "siteStats": {
-      "totalSessions": 256,
-      "totalViews": 329,
-      "bounceRate": 0.71484375,
-      "avgDuration": 86
     },
     "trendsImproved": 0,
     "trendsDeclining": 0
