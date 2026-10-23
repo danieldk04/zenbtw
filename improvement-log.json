@@ -140,9 +140,9 @@
     "count": 7
   },
   "ioss-aangifte": {
-    "lastImproved": "2026-10-09",
+    "lastImproved": "2026-10-23",
     "type": "meta",
-    "count": 8
+    "count": 9
   },
   "btw-export-buiten-eu": {
     "lastImproved": "2026-10-14",
@@ -205,9 +205,9 @@
     "count": 2
   },
   "oss-btw-aangifte-invullen-voorbeeld": {
-    "lastImproved": "2026-10-09",
+    "lastImproved": "2026-10-23",
     "type": "meta",
-    "count": 6
+    "count": 7
   },
   "hoe-werkt-margeregeling-praktisch-voorbeeld": {
     "lastImproved": "2026-10-19",
@@ -260,8 +260,8 @@
     "count": 2
   },
   "competitor:dropshipping-btw-verplichting-2026-nederland": {
-    "lastImproved": "2026-10-02",
+    "lastImproved": "2026-10-23",
     "type": "competitor-gap",
-    "count": 1
+    "count": 2
   }
 }
