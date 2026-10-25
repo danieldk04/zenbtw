@@ -1,5 +1,37 @@
 [
   {
+    "date": "2026-10-25",
+    "actionsCount": 6,
+    "actions": [
+      "✅ Meta verbeterd: /blog/btw-tarief-eu-landen-2026",
+      "✅ Meta verbeterd: /blog/oss-registratie-belastingdienst",
+      "📊 3 pagina's met hoge bounce rate gedetecteerd",
+      "🔧 Bounce fix /blog/oss-registratie-belastingdienst: CTA boven fold toegevoegd",
+      "🔧 Bounce fix /blog/factuur-sturen-kor-ondernemer: CTA boven fold toegevoegd",
+      "🔍 Competitor gap fix /blog/btw-tarief-eu-landen-2026: h2 sections toegevoegd"
+    ],
+    "queueAfter": 8,
+    "gscAvailable": true,
+    "gscOpportunities": 2,
+    "serperAvailable": true,
+    "gscSnapshot": {
+      "queriesCount": 100,
+      "pagesCount": 50
+    },
+    "metaImprovementsCount": 2,
+    "bounceFixes": 2,
+    "competitorFixes": 1,
+    "highBouncePages": 3,
+    "siteStats": {
+      "totalSessions": 197,
+      "totalViews": 246,
+      "bounceRate": 0.5989847715736041,
+      "avgDuration": 134
+    },
+    "trendsImproved": 0,
+    "trendsDeclining": 0
+  },
+  {
     "date": "2026-10-24",
     "actionsCount": 4,
     "actions": [
@@ -2701,36 +2733,6 @@
       "totalViews": 305,
       "bounceRate": 0.6401673640167364,
       "avgDuration": 117
-    },
-    "trendsImproved": 0,
-    "trendsDeclining": 0
-  },
-  {
-    "date": "2026-07-27",
-    "actionsCount": 4,
-    "actions": [
-      "✅ Meta verbeterd: /blog/hoe-werkt-margeregeling-praktisch-voorbeeld",
-      "📊 4 pagina's met hoge bounce rate gedetecteerd",
-      "🔧 Bounce fix /blog/shopify-payments-btw-afdragen: CTA boven fold toegevoegd",
-      "🔧 Bounce fix /blog/oss-registratie-belastingdienst: CTA boven fold toegevoegd"
-    ],
-    "queueAfter": 8,
-    "gscAvailable": true,
-    "gscOpportunities": 1,
-    "serperAvailable": true,
-    "gscSnapshot": {
-      "queriesCount": 100,
-      "pagesCount": 50
-    },
-    "metaImprovementsCount": 1,
-    "bounceFixes": 2,
-    "competitorFixes": 0,
-    "highBouncePages": 4,
-    "siteStats": {
-      "totalSessions": 253,
-      "totalViews": 322,
-      "bounceRate": 0.6600790513833992,
-      "avgDuration": 110
     },
     "trendsImproved": 0,
     "trendsDeclining": 0
