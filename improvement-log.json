@@ -30,9 +30,9 @@
     "count": 2
   },
   "vinted-belasting-2026": {
-    "lastImproved": "2026-10-12",
+    "lastImproved": "2026-10-26",
     "type": "meta",
-    "count": 9
+    "count": 10
   },
   "etsy-btw-2026": {
     "lastImproved": "2026-06-22",
@@ -150,9 +150,9 @@
     "count": 8
   },
   "competitor:btw-tarief-eu-landen-2026": {
-    "lastImproved": "2026-10-25",
+    "lastImproved": "2026-10-26",
     "type": "competitor-gap",
-    "count": 10
+    "count": 11
   },
   "competitor:btw-aangifte-deadline-per-kwartaal-maand": {
     "lastImproved": "2026-07-05",
@@ -240,9 +240,9 @@
     "count": 5
   },
   "kor-en-inkomstenbelasting": {
-    "lastImproved": "2026-10-12",
+    "lastImproved": "2026-10-26",
     "type": "meta",
-    "count": 4
+    "count": 5
   },
   "oss-deadline-kwartaal-2026": {
     "lastImproved": "2026-09-17",
