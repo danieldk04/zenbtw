@@ -1,6 +1,91 @@
 {
   "runs": [
     {
+      "timestamp": "2026-10-26T13:48:21.880057",
+      "status": "success",
+      "queries_found": 12,
+      "top_queries": [
+        {
+          "query": "kor regeling stopzetten",
+          "score": 23350,
+          "type": "rising"
+        },
+        {
+          "query": "toelichting btw aangifte op papier uitgereikt",
+          "score": 16850,
+          "type": "rising"
+        },
+        {
+          "query": "3e kwartaal btw aangifte",
+          "score": 300,
+          "type": "rising"
+        },
+        {
+          "query": "aangifte btw doen",
+          "score": 100,
+          "type": "top"
+        },
+        {
+          "query": "kleine ondernemersregeling btw",
+          "score": 100,
+          "type": "top"
+        },
+        {
+          "query": "hoe werkt vinted verkopen",
+          "score": 100,
+          "type": "top"
+        },
+        {
+          "query": "kor regeling aanvragen",
+          "score": 100,
+          "type": "top"
+        },
+        {
+          "query": "belastingdienst aangifte",
+          "score": 98,
+          "type": "top"
+        },
+        {
+          "query": "btw aangifte wanneer",
+          "score": 50,
+          "type": "top"
+        },
+        {
+          "query": "belastingdienst kleine ondernemersregeling",
+          "score": 23,
+          "type": "top"
+        }
+      ],
+      "skipped_queries": [
+        "kor regeling stopzetten",
+        "kor regeling aanvragen",
+        "kleine ondernemersregeling 2026"
+      ],
+      "blog": {
+        "date": "2026-10-26",
+        "query": "toelichting btw aangifte op papier uitgereikt",
+        "trending_score": 16850,
+        "trending_type": "rising",
+        "seed_keyword": "btw aangifte",
+        "title": "Toelichting BTW-aangifte op papier: zo vul je hem in",
+        "slug": "toelichting-btw-aangifte-op-papier",
+        "meta_description": "BTW-aangifte op papier ontvangen? Hier lees je stap voor stap hoe je het formulier invult, met voorbeelden voor marketplace verkopers op Vinted of Etsy.",
+        "url": "https://zenbtw.nl/blog/toelichting-btw-aangifte-op-papier",
+        "seo": {
+          "score": 90,
+          "title_length": 52,
+          "meta_length": 152,
+          "word_count": 874,
+          "keyword_in_title": true,
+          "keyword_in_meta": false,
+          "h2_count": 11,
+          "notes": [
+            "Keyword niet in meta-omschrijving"
+          ]
+        }
+      }
+    },
+    {
       "timestamp": "2026-10-19T14:16:11.662765",
       "status": "success",
       "queries_found": 13,
@@ -767,15 +852,32 @@
       "status": "no_queries",
       "queries_found": 0,
       "blog": null
-    },
-    {
-      "timestamp": "2026-08-10T08:23:29.907168",
-      "status": "no_queries",
-      "queries_found": 0,
-      "blog": null
     }
   ],
   "blogs": [
+    {
+      "date": "2026-10-26",
+      "query": "toelichting btw aangifte op papier uitgereikt",
+      "trending_score": 16850,
+      "trending_type": "rising",
+      "seed_keyword": "btw aangifte",
+      "title": "Toelichting BTW-aangifte op papier: zo vul je hem in",
+      "slug": "toelichting-btw-aangifte-op-papier",
+      "meta_description": "BTW-aangifte op papier ontvangen? Hier lees je stap voor stap hoe je het formulier invult, met voorbeelden voor marketplace verkopers op Vinted of Etsy.",
+      "url": "https://zenbtw.nl/blog/toelichting-btw-aangifte-op-papier",
+      "seo": {
+        "score": 90,
+        "title_length": 52,
+        "meta_length": 152,
+        "word_count": 874,
+        "keyword_in_title": true,
+        "keyword_in_meta": false,
+        "h2_count": 11,
+        "notes": [
+          "Keyword niet in meta-omschrijving"
+        ]
+      }
+    },
     {
       "date": "2026-10-19",
       "query": "wat is voorbelasting bij btw aangifte",
