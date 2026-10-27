@@ -1,5 +1,36 @@
 [
   {
+    "date": "2026-10-27",
+    "actionsCount": 5,
+    "actions": [
+      "✅ Meta verbeterd: /blog/shopify-payments-btw-afdragen",
+      "📊 3 pagina's met hoge bounce rate gedetecteerd",
+      "🔧 Bounce fix /blog/factuur-sturen-kor-ondernemer: CTA boven fold toegevoegd",
+      "🔧 Bounce fix /blog/oss-registratie-belastingdienst: CTA boven fold toegevoegd",
+      "🔍 Competitor gap fix /blog/btw-tarief-eu-landen-2026: h2 sections toegevoegd"
+    ],
+    "queueAfter": 8,
+    "gscAvailable": true,
+    "gscOpportunities": 2,
+    "serperAvailable": true,
+    "gscSnapshot": {
+      "queriesCount": 100,
+      "pagesCount": 50
+    },
+    "metaImprovementsCount": 1,
+    "bounceFixes": 2,
+    "competitorFixes": 1,
+    "highBouncePages": 3,
+    "siteStats": {
+      "totalSessions": 195,
+      "totalViews": 241,
+      "bounceRate": 0.5846153846153846,
+      "avgDuration": 141
+    },
+    "trendsImproved": 0,
+    "trendsDeclining": 0
+  },
+  {
     "date": "2026-10-26",
     "actionsCount": 6,
     "actions": [
@@ -2702,36 +2733,6 @@
       "totalSessions": 252,
       "totalViews": 327,
       "bounceRate": 0.623015873015873,
-      "avgDuration": 123
-    },
-    "trendsImproved": 0,
-    "trendsDeclining": 0
-  },
-  {
-    "date": "2026-07-29",
-    "actionsCount": 4,
-    "actions": [
-      "✅ Meta verbeterd: /blog/btw-aangifte-deadline-per-kwartaal-maand",
-      "📊 2 pagina's met hoge bounce rate gedetecteerd",
-      "🔧 Bounce fix /blog/oss-registratie-belastingdienst: CTA boven fold toegevoegd",
-      "🔧 Bounce fix /blog/vinted-belasting-2026: CTA boven fold toegevoegd"
-    ],
-    "queueAfter": 8,
-    "gscAvailable": true,
-    "gscOpportunities": 1,
-    "serperAvailable": true,
-    "gscSnapshot": {
-      "queriesCount": 100,
-      "pagesCount": 50
-    },
-    "metaImprovementsCount": 1,
-    "bounceFixes": 2,
-    "competitorFixes": 0,
-    "highBouncePages": 2,
-    "siteStats": {
-      "totalSessions": 249,
-      "totalViews": 322,
-      "bounceRate": 0.6385542168674698,
       "avgDuration": 123
     },
     "trendsImproved": 0,

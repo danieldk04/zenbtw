@@ -150,9 +150,9 @@
     "count": 8
   },
   "competitor:btw-tarief-eu-landen-2026": {
-    "lastImproved": "2026-10-26",
+    "lastImproved": "2026-10-27",
     "type": "competitor-gap",
-    "count": 11
+    "count": 12
   },
   "competitor:btw-aangifte-deadline-per-kwartaal-maand": {
     "lastImproved": "2026-07-05",
@@ -263,5 +263,10 @@
     "lastImproved": "2026-10-23",
     "type": "competitor-gap",
     "count": 2
+  },
+  "shopify-payments-btw-afdragen": {
+    "lastImproved": "2026-10-27",
+    "type": "meta",
+    "count": 1
   }
 }
