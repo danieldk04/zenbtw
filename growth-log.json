@@ -1,5 +1,37 @@
 [
   {
+    "date": "2026-10-28",
+    "actionsCount": 6,
+    "actions": [
+      "✅ Meta verbeterd: /blog/oss-deadline-kwartaal-2026",
+      "✅ Meta verbeterd: /blog/btw-export-buiten-eu",
+      "📊 4 pagina's met hoge bounce rate gedetecteerd",
+      "🔧 Bounce fix /blog/btw-op-kleding: CTA boven fold toegevoegd",
+      "🔧 Bounce fix /blog/factuur-sturen-kor-ondernemer: CTA boven fold toegevoegd",
+      "🔍 Competitor gap fix /blog/oss-deadline-kwartaal-2026: h2 sections toegevoegd"
+    ],
+    "queueAfter": 8,
+    "gscAvailable": true,
+    "gscOpportunities": 2,
+    "serperAvailable": true,
+    "gscSnapshot": {
+      "queriesCount": 100,
+      "pagesCount": 50
+    },
+    "metaImprovementsCount": 2,
+    "bounceFixes": 2,
+    "competitorFixes": 1,
+    "highBouncePages": 4,
+    "siteStats": {
+      "totalSessions": 202,
+      "totalViews": 250,
+      "bounceRate": 0.5792079207920792,
+      "avgDuration": 145
+    },
+    "trendsImproved": 0,
+    "trendsDeclining": 0
+  },
+  {
     "date": "2026-10-27",
     "actionsCount": 5,
     "actions": [
@@ -2704,36 +2736,6 @@
       "totalViews": 325,
       "bounceRate": 0.5714285714285714,
       "avgDuration": 135
-    },
-    "trendsImproved": 0,
-    "trendsDeclining": 0
-  },
-  {
-    "date": "2026-07-30",
-    "actionsCount": 4,
-    "actions": [
-      "✅ Meta verbeterd: /blog/etsy-inkomsten-opgeven-belastingdienst",
-      "📊 3 pagina's met hoge bounce rate gedetecteerd",
-      "🔧 Bounce fix /blog/btw-op-kleding: CTA boven fold toegevoegd",
-      "🔧 Bounce fix /blog/oss-registratie-belastingdienst: CTA boven fold toegevoegd"
-    ],
-    "queueAfter": 8,
-    "gscAvailable": true,
-    "gscOpportunities": 2,
-    "serperAvailable": true,
-    "gscSnapshot": {
-      "queriesCount": 100,
-      "pagesCount": 50
-    },
-    "metaImprovementsCount": 1,
-    "bounceFixes": 2,
-    "competitorFixes": 0,
-    "highBouncePages": 3,
-    "siteStats": {
-      "totalSessions": 252,
-      "totalViews": 327,
-      "bounceRate": 0.623015873015873,
-      "avgDuration": 123
     },
     "trendsImproved": 0,
     "trendsDeclining": 0
