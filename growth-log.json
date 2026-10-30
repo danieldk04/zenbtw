@@ -1,5 +1,36 @@
 [
   {
+    "date": "2026-10-30",
+    "actionsCount": 5,
+    "actions": [
+      "✅ Meta verbeterd: /blog/vinted-belasting-2026-hoeveel-mag-je",
+      "📊 3 pagina's met hoge bounce rate gedetecteerd",
+      "🔧 Bounce fix /blog/oss-registratie-belastingdienst: CTA boven fold toegevoegd",
+      "🔧 Bounce fix /blog/btw-tarief-eu-landen-2026: CTA boven fold toegevoegd",
+      "🔍 Competitor gap fix /blog/oss-deadline-kwartaal-2026: h2 sections toegevoegd"
+    ],
+    "queueAfter": 8,
+    "gscAvailable": true,
+    "gscOpportunities": 2,
+    "serperAvailable": true,
+    "gscSnapshot": {
+      "queriesCount": 100,
+      "pagesCount": 50
+    },
+    "metaImprovementsCount": 1,
+    "bounceFixes": 2,
+    "competitorFixes": 1,
+    "highBouncePages": 3,
+    "siteStats": {
+      "totalSessions": 215,
+      "totalViews": 268,
+      "bounceRate": 0.5534883720930233,
+      "avgDuration": 155
+    },
+    "trendsImproved": 0,
+    "trendsDeclining": 0
+  },
+  {
     "date": "2026-10-29",
     "actionsCount": 5,
     "actions": [
@@ -2707,35 +2738,6 @@
       "totalViews": 306,
       "bounceRate": 0.5462184873949579,
       "avgDuration": 147
-    },
-    "trendsImproved": 0,
-    "trendsDeclining": 0
-  },
-  {
-    "date": "2026-08-01",
-    "actionsCount": 3,
-    "actions": [
-      "📊 2 pagina's met hoge bounce rate gedetecteerd",
-      "🔧 Bounce fix /blog/vinted-belasting-2026: CTA boven fold toegevoegd",
-      "🔧 Bounce fix /blog/oss-registratie-belastingdienst: CTA boven fold toegevoegd"
-    ],
-    "queueAfter": 8,
-    "gscAvailable": true,
-    "gscOpportunities": 1,
-    "serperAvailable": true,
-    "gscSnapshot": {
-      "queriesCount": 100,
-      "pagesCount": 50
-    },
-    "metaImprovementsCount": 0,
-    "bounceFixes": 2,
-    "competitorFixes": 0,
-    "highBouncePages": 2,
-    "siteStats": {
-      "totalSessions": 246,
-      "totalViews": 322,
-      "bounceRate": 0.5894308943089431,
-      "avgDuration": 130
     },
     "trendsImproved": 0,
     "trendsDeclining": 0
