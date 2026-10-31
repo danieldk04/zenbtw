@@ -1,5 +1,38 @@
 [
   {
+    "date": "2026-10-31",
+    "actionsCount": 7,
+    "actions": [
+      "✅ Meta verbeterd: /blog/kor-opzeggen-hoe",
+      "✅ Meta verbeterd: /blog/dac7-belastingdienst-rapportage",
+      "✅ Meta verbeterd: /blog/wanneer-btw-aangifte-etsy",
+      "📊 2 pagina's met hoge bounce rate gedetecteerd",
+      "🔧 Bounce fix /blog/oss-registratie-belastingdienst: CTA boven fold toegevoegd",
+      "🔧 Bounce fix /blog/btw-tarief-eu-landen-2026: CTA boven fold toegevoegd",
+      "🔍 Competitor gap fix /blog/oss-deadline-kwartaal-2026: h2 sections toegevoegd"
+    ],
+    "queueAfter": 8,
+    "gscAvailable": true,
+    "gscOpportunities": 2,
+    "serperAvailable": true,
+    "gscSnapshot": {
+      "queriesCount": 100,
+      "pagesCount": 50
+    },
+    "metaImprovementsCount": 3,
+    "bounceFixes": 2,
+    "competitorFixes": 1,
+    "highBouncePages": 2,
+    "siteStats": {
+      "totalSessions": 218,
+      "totalViews": 270,
+      "bounceRate": 0.5412844036697247,
+      "avgDuration": 160
+    },
+    "trendsImproved": 0,
+    "trendsDeclining": 0
+  },
+  {
     "date": "2026-10-30",
     "actionsCount": 5,
     "actions": [
@@ -2706,38 +2739,6 @@
       "totalViews": 297,
       "bounceRate": 0.5364806866952789,
       "avgDuration": 161
-    },
-    "trendsImproved": 0,
-    "trendsDeclining": 0
-  },
-  {
-    "date": "2026-08-02",
-    "actionsCount": 6,
-    "actions": [
-      "✅ Meta verbeterd: /blog/btw-tarief-eu-landen-2026",
-      "✅ Meta verbeterd: /blog/oss-registratie-belastingdienst",
-      "✅ Meta verbeterd: /blog/oss-registratie-luxemburg-btw",
-      "📊 2 pagina's met hoge bounce rate gedetecteerd",
-      "🔧 Bounce fix /blog/vinted-belasting-2026: CTA boven fold toegevoegd",
-      "🔧 Bounce fix /blog/oss-registratie-belastingdienst: CTA boven fold toegevoegd"
-    ],
-    "queueAfter": 8,
-    "gscAvailable": true,
-    "gscOpportunities": 2,
-    "serperAvailable": true,
-    "gscSnapshot": {
-      "queriesCount": 100,
-      "pagesCount": 50
-    },
-    "metaImprovementsCount": 3,
-    "bounceFixes": 2,
-    "competitorFixes": 0,
-    "highBouncePages": 2,
-    "siteStats": {
-      "totalSessions": 238,
-      "totalViews": 306,
-      "bounceRate": 0.5462184873949579,
-      "avgDuration": 147
     },
     "trendsImproved": 0,
     "trendsDeclining": 0

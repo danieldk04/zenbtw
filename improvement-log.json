@@ -10,9 +10,9 @@
     "count": 10
   },
   "dac7-belastingdienst-rapportage": {
-    "lastImproved": "2026-10-17",
+    "lastImproved": "2026-10-31",
     "type": "meta",
-    "count": 4
+    "count": 5
   },
   "competitor:oss-registratie-belastingdienst": {
     "lastImproved": "2026-06-21",
@@ -115,14 +115,14 @@
     "count": 3
   },
   "wanneer-btw-aangifte-etsy": {
-    "lastImproved": "2026-06-26",
+    "lastImproved": "2026-10-31",
     "type": "meta",
-    "count": 1
+    "count": 2
   },
   "kor-opzeggen-hoe": {
-    "lastImproved": "2026-10-17",
+    "lastImproved": "2026-10-31",
     "type": "meta",
-    "count": 9
+    "count": 10
   },
   "vinted-ondernemer-btw-registratie": {
     "lastImproved": "2026-10-20",
@@ -270,8 +270,8 @@
     "count": 1
   },
   "competitor:oss-deadline-kwartaal-2026": {
-    "lastImproved": "2026-10-30",
+    "lastImproved": "2026-10-31",
     "type": "competitor-gap",
-    "count": 3
+    "count": 4
   }
 }
