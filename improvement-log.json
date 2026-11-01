@@ -90,9 +90,9 @@
     "count": 2
   },
   "etsy-verkoper-belastingaangifte": {
-    "lastImproved": "2026-10-18",
+    "lastImproved": "2026-11-01",
     "type": "meta",
-    "count": 9
+    "count": 10
   },
   "wanneer-btw-aangifte-doen": {
     "lastImproved": "2026-06-24",
@@ -270,8 +270,8 @@
     "count": 1
   },
   "competitor:oss-deadline-kwartaal-2026": {
-    "lastImproved": "2026-10-31",
+    "lastImproved": "2026-11-01",
     "type": "competitor-gap",
-    "count": 4
+    "count": 5
   }
 }
