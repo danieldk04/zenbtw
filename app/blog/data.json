@@ -1,6 +1,91 @@
 {
   "runs": [
     {
+      "timestamp": "2026-11-02T16:45:22.095295",
+      "status": "success",
+      "queries_found": 13,
+      "top_queries": [
+        {
+          "query": "3e kwartaal btw aangifte",
+          "score": 116750,
+          "type": "rising"
+        },
+        {
+          "query": "toelichting btw aangifte op papier uitgereikt",
+          "score": 20750,
+          "type": "rising"
+        },
+        {
+          "query": "kor regeling stopzetten",
+          "score": 350,
+          "type": "rising"
+        },
+        {
+          "query": "btw aangifte doen",
+          "score": 100,
+          "type": "top"
+        },
+        {
+          "query": "kleine ondernemersregeling btw",
+          "score": 100,
+          "type": "top"
+        },
+        {
+          "query": "hoe werkt vinted verkopen",
+          "score": 100,
+          "type": "top"
+        },
+        {
+          "query": "kor regeling aanvragen",
+          "score": 100,
+          "type": "top"
+        },
+        {
+          "query": "belastingdienst btw aangifte",
+          "score": 94,
+          "type": "top"
+        },
+        {
+          "query": "belastingdienst aangifte",
+          "score": 90,
+          "type": "top"
+        },
+        {
+          "query": "belastingdienst kor regeling",
+          "score": 66,
+          "type": "top"
+        }
+      ],
+      "skipped_queries": [
+        "toelichting btw aangifte op papier uitgereikt",
+        "kor regeling stopzetten",
+        "btw aangifte doen",
+        "kor regeling aanvragen",
+        "belastingdienst kor regeling"
+      ],
+      "blog": {
+        "date": "2026-11-02",
+        "query": "3e kwartaal btw aangifte",
+        "trending_score": 116750,
+        "trending_type": "rising",
+        "seed_keyword": "btw aangifte",
+        "title": "3e kwartaal BTW aangifte: deadline, berekening & tips",
+        "slug": "3e-kwartaal-btw-aangifte",
+        "meta_description": "BTW aangifte 3e kwartaal: deadline is 31 oktober. Zo bereken je je BTW als marketplace verkoper op Vinted, Etsy of Shopify. Inclusief KOR en OSS uitleg.",
+        "url": "https://zenbtw.nl/blog/3e-kwartaal-btw-aangifte",
+        "seo": {
+          "score": 100,
+          "title_length": 53,
+          "meta_length": 152,
+          "word_count": 811,
+          "keyword_in_title": true,
+          "keyword_in_meta": true,
+          "h2_count": 7,
+          "notes": []
+        }
+      }
+    },
+    {
       "timestamp": "2026-10-26T13:48:21.880057",
       "status": "success",
       "queries_found": 12,
@@ -846,15 +931,30 @@
       "status": "no_queries",
       "queries_found": 0,
       "blog": null
-    },
-    {
-      "timestamp": "2026-08-03T10:37:09.644438",
-      "status": "no_queries",
-      "queries_found": 0,
-      "blog": null
     }
   ],
   "blogs": [
+    {
+      "date": "2026-11-02",
+      "query": "3e kwartaal btw aangifte",
+      "trending_score": 116750,
+      "trending_type": "rising",
+      "seed_keyword": "btw aangifte",
+      "title": "3e kwartaal BTW aangifte: deadline, berekening & tips",
+      "slug": "3e-kwartaal-btw-aangifte",
+      "meta_description": "BTW aangifte 3e kwartaal: deadline is 31 oktober. Zo bereken je je BTW als marketplace verkoper op Vinted, Etsy of Shopify. Inclusief KOR en OSS uitleg.",
+      "url": "https://zenbtw.nl/blog/3e-kwartaal-btw-aangifte",
+      "seo": {
+        "score": 100,
+        "title_length": 53,
+        "meta_length": 152,
+        "word_count": 811,
+        "keyword_in_title": true,
+        "keyword_in_meta": true,
+        "h2_count": 7,
+        "notes": []
+      }
+    },
     {
       "date": "2026-10-26",
       "query": "toelichting btw aangifte op papier uitgereikt",
