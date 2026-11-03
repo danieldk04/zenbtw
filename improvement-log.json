@@ -125,14 +125,14 @@
     "count": 10
   },
   "vinted-ondernemer-btw-registratie": {
-    "lastImproved": "2026-10-20",
+    "lastImproved": "2026-11-03",
     "type": "meta",
-    "count": 9
+    "count": 10
   },
   "btw-bij-export-naar-uk": {
-    "lastImproved": "2026-10-20",
+    "lastImproved": "2026-11-03",
     "type": "meta",
-    "count": 9
+    "count": 10
   },
   "btw-aangifte-deadline-per-kwartaal-maand": {
     "lastImproved": "2026-10-21",
@@ -270,8 +270,8 @@
     "count": 1
   },
   "competitor:oss-deadline-kwartaal-2026": {
-    "lastImproved": "2026-11-02",
+    "lastImproved": "2026-11-03",
     "type": "competitor-gap",
-    "count": 6
+    "count": 7
   }
 }
