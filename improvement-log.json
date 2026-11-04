@@ -180,9 +180,9 @@
     "count": 9
   },
   "dropshipping-btw-verplichting-2026-nederland": {
-    "lastImproved": "2026-10-21",
+    "lastImproved": "2026-11-04",
     "type": "meta",
-    "count": 8
+    "count": 9
   },
   "kor-aanmelden-belastingdienst-2026-hoe": {
     "lastImproved": "2026-07-28",
@@ -270,8 +270,8 @@
     "count": 1
   },
   "competitor:oss-deadline-kwartaal-2026": {
-    "lastImproved": "2026-11-03",
+    "lastImproved": "2026-11-04",
     "type": "competitor-gap",
-    "count": 7
+    "count": 8
   }
 }
