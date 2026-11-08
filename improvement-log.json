@@ -1,13 +1,13 @@
 {
   "btw-tarief-eu-landen-2026": {
-    "lastImproved": "2026-10-25",
+    "lastImproved": "2026-11-08",
     "type": "meta",
-    "count": 10
+    "count": 11
   },
   "oss-registratie-belastingdienst": {
-    "lastImproved": "2026-10-25",
+    "lastImproved": "2026-11-08",
     "type": "meta",
-    "count": 10
+    "count": 11
   },
   "dac7-belastingdienst-rapportage": {
     "lastImproved": "2026-10-31",
@@ -270,8 +270,8 @@
     "count": 1
   },
   "competitor:oss-deadline-kwartaal-2026": {
-    "lastImproved": "2026-11-04",
+    "lastImproved": "2026-11-08",
     "type": "competitor-gap",
-    "count": 8
+    "count": 9
   }
 }
