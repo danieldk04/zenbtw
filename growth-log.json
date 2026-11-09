@@ -1,5 +1,36 @@
 [
   {
+    "date": "2026-11-09",
+    "actionsCount": 5,
+    "actions": [
+      "✅ Meta verbeterd: /blog/vinted-belasting-2026",
+      "📊 3 pagina's met hoge bounce rate gedetecteerd",
+      "🔧 Bounce fix /blog/oss-registratie-belastingdienst: CTA boven fold toegevoegd",
+      "🔧 Bounce fix /blog/btw-tarief-eu-landen-2026: CTA boven fold toegevoegd",
+      "🔍 Competitor gap fix /blog/oss-deadline-kwartaal-2026: h2 sections toegevoegd"
+    ],
+    "queueAfter": 8,
+    "gscAvailable": true,
+    "gscOpportunities": 1,
+    "serperAvailable": true,
+    "gscSnapshot": {
+      "queriesCount": 100,
+      "pagesCount": 50
+    },
+    "metaImprovementsCount": 1,
+    "bounceFixes": 2,
+    "competitorFixes": 1,
+    "highBouncePages": 3,
+    "siteStats": {
+      "totalSessions": 254,
+      "totalViews": 303,
+      "bounceRate": 0.515748031496063,
+      "avgDuration": 153
+    },
+    "trendsImproved": 0,
+    "trendsDeclining": 0
+  },
+  {
     "date": "2026-11-08",
     "actionsCount": 6,
     "actions": [
@@ -2713,37 +2744,6 @@
       "totalViews": 263,
       "bounceRate": 0.5141509433962265,
       "avgDuration": 166
-    },
-    "trendsImproved": 0,
-    "trendsDeclining": 0
-  },
-  {
-    "date": "2026-08-11",
-    "actionsCount": 5,
-    "actions": [
-      "✅ Meta verbeterd: /blog/vinted-ondernemer-btw-registratie",
-      "✅ Meta verbeterd: /blog/btw-bij-export-naar-uk",
-      "📊 3 pagina's met hoge bounce rate gedetecteerd",
-      "🔧 Bounce fix /blog/etsy-deemed-supplier-btw: CTA boven fold toegevoegd",
-      "🔧 Bounce fix /blog/vinted-belasting-2026: CTA boven fold toegevoegd"
-    ],
-    "queueAfter": 8,
-    "gscAvailable": true,
-    "gscOpportunities": 1,
-    "serperAvailable": true,
-    "gscSnapshot": {
-      "queriesCount": 100,
-      "pagesCount": 50
-    },
-    "metaImprovementsCount": 2,
-    "bounceFixes": 2,
-    "competitorFixes": 0,
-    "highBouncePages": 3,
-    "siteStats": {
-      "totalSessions": 218,
-      "totalViews": 270,
-      "bounceRate": 0.5275229357798165,
-      "avgDuration": 170
     },
     "trendsImproved": 0,
     "trendsDeclining": 0

@@ -30,9 +30,9 @@
     "count": 2
   },
   "vinted-belasting-2026": {
-    "lastImproved": "2026-10-26",
+    "lastImproved": "2026-11-09",
     "type": "meta",
-    "count": 10
+    "count": 11
   },
   "etsy-btw-2026": {
     "lastImproved": "2026-06-22",
@@ -270,8 +270,8 @@
     "count": 1
   },
   "competitor:oss-deadline-kwartaal-2026": {
-    "lastImproved": "2026-11-08",
+    "lastImproved": "2026-11-09",
     "type": "competitor-gap",
-    "count": 9
+    "count": 10
   }
 }
