@@ -1,5 +1,36 @@
 [
   {
+    "date": "2026-11-12",
+    "actionsCount": 5,
+    "actions": [
+      "✅ Meta verbeterd: /blog/btw-op-kleding",
+      "📊 2 pagina's met hoge bounce rate gedetecteerd",
+      "🔧 Bounce fix /blog/btw-tarief-eu-landen-2026: CTA boven fold toegevoegd",
+      "🔧 Bounce fix /blog/oss-registratie-belastingdienst: CTA boven fold toegevoegd",
+      "🔍 Competitor gap fix /blog/oss-deadline-kwartaal-2026: h2 sections toegevoegd"
+    ],
+    "queueAfter": 8,
+    "gscAvailable": true,
+    "gscOpportunities": 1,
+    "serperAvailable": true,
+    "gscSnapshot": {
+      "queriesCount": 100,
+      "pagesCount": 50
+    },
+    "metaImprovementsCount": 1,
+    "bounceFixes": 2,
+    "competitorFixes": 1,
+    "highBouncePages": 2,
+    "siteStats": {
+      "totalSessions": 253,
+      "totalViews": 287,
+      "bounceRate": 0.541501976284585,
+      "avgDuration": 140
+    },
+    "trendsImproved": 0,
+    "trendsDeclining": 0
+  },
+  {
     "date": "2026-11-11",
     "actionsCount": 4,
     "actions": [
@@ -2711,36 +2742,6 @@
       "totalViews": 270,
       "bounceRate": 0.49765258215962443,
       "avgDuration": 184
-    },
-    "trendsImproved": 0,
-    "trendsDeclining": 0
-  },
-  {
-    "date": "2026-08-14",
-    "actionsCount": 4,
-    "actions": [
-      "✅ Meta verbeterd: /blog/ioss-aangifte",
-      "📊 3 pagina's met hoge bounce rate gedetecteerd",
-      "🔧 Bounce fix /blog/etsy-deemed-supplier-btw: CTA boven fold toegevoegd",
-      "🔧 Bounce fix /blog/oss-registratie-belastingdienst: CTA boven fold toegevoegd"
-    ],
-    "queueAfter": 8,
-    "gscAvailable": true,
-    "gscOpportunities": 1,
-    "serperAvailable": true,
-    "gscSnapshot": {
-      "queriesCount": 100,
-      "pagesCount": 50
-    },
-    "metaImprovementsCount": 1,
-    "bounceFixes": 2,
-    "competitorFixes": 0,
-    "highBouncePages": 3,
-    "siteStats": {
-      "totalSessions": 213,
-      "totalViews": 265,
-      "bounceRate": 0.5164319248826291,
-      "avgDuration": 180
     },
     "trendsImproved": 0,
     "trendsDeclining": 0
