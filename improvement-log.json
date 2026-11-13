@@ -175,9 +175,9 @@
     "count": 3
   },
   "vinted-belasting-2026-hoeveel-mag-je": {
-    "lastImproved": "2026-10-30",
+    "lastImproved": "2026-11-13",
     "type": "meta",
-    "count": 9
+    "count": 10
   },
   "dropshipping-btw-verplichting-2026-nederland": {
     "lastImproved": "2026-11-04",
@@ -270,8 +270,8 @@
     "count": 1
   },
   "competitor:oss-deadline-kwartaal-2026": {
-    "lastImproved": "2026-11-12",
+    "lastImproved": "2026-11-13",
     "type": "competitor-gap",
-    "count": 11
+    "count": 12
   }
 }
