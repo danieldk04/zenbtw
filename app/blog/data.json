@@ -1,6 +1,93 @@
 {
   "runs": [
     {
+      "timestamp": "2026-11-16T16:41:24.962861",
+      "status": "success",
+      "queries_found": 15,
+      "top_queries": [
+        {
+          "query": "btw aangifte 3e kwartaal",
+          "score": 118100,
+          "type": "rising"
+        },
+        {
+          "query": "belasting btw aangifte ondernemers",
+          "score": 32900,
+          "type": "rising"
+        },
+        {
+          "query": "wat is voorbelasting bij btw aangifte",
+          "score": 20800,
+          "type": "rising"
+        },
+        {
+          "query": "kor regeling stopzetten",
+          "score": 7950,
+          "type": "rising"
+        },
+        {
+          "query": "btw aangifte doen",
+          "score": 100,
+          "type": "top"
+        },
+        {
+          "query": "kleine ondernemersregeling aanvragen",
+          "score": 100,
+          "type": "rising"
+        },
+        {
+          "query": "btw kleine ondernemersregeling",
+          "score": 100,
+          "type": "top"
+        },
+        {
+          "query": "hoe werkt vinted verkopen",
+          "score": 100,
+          "type": "top"
+        },
+        {
+          "query": "kor regeling aanvragen",
+          "score": 100,
+          "type": "top"
+        },
+        {
+          "query": "btw aangifte belastingdienst",
+          "score": 96,
+          "type": "top"
+        }
+      ],
+      "skipped_queries": [
+        "btw aangifte 3e kwartaal",
+        "belasting btw aangifte ondernemers",
+        "wat is voorbelasting bij btw aangifte",
+        "kor regeling stopzetten",
+        "btw aangifte doen"
+      ],
+      "blog": {
+        "date": "2026-11-16",
+        "query": "kleine ondernemersregeling aanvragen",
+        "trending_score": 100,
+        "trending_type": "rising",
+        "seed_keyword": "kleine ondernemersregeling",
+        "title": "Kleine ondernemersregeling aanvragen: zo doe je dat in 2025",
+        "slug": "kleine-ondernemersregeling-aanvragen",
+        "meta_description": "KOR aanvragen? Je regelt het via Mijn Belastingdienst. Lees hier wanneer je in aanmerking komt, hoe je je aanmeldt en waar je op moet letten.",
+        "url": "https://zenbtw.nl/blog/kleine-ondernemersregeling-aanvragen",
+        "seo": {
+          "score": 90,
+          "title_length": 59,
+          "meta_length": 141,
+          "word_count": 800,
+          "keyword_in_title": true,
+          "keyword_in_meta": false,
+          "h2_count": 7,
+          "notes": [
+            "Keyword niet in meta-omschrijving"
+          ]
+        }
+      }
+    },
+    {
       "timestamp": "2026-11-02T16:45:22.095295",
       "status": "success",
       "queries_found": 13,
@@ -925,21 +1012,32 @@
       "status": "no_queries",
       "queries_found": 0,
       "blog": null
-    },
-    {
-      "timestamp": "2026-07-27T10:37:24.495509",
-      "status": "no_queries",
-      "queries_found": 0,
-      "blog": null
-    },
-    {
-      "timestamp": "2026-11-09T17:04:03.724500",
-      "status": "no_queries",
-      "queries_found": 0,
-      "blog": null
     }
   ],
   "blogs": [
+    {
+      "date": "2026-11-16",
+      "query": "kleine ondernemersregeling aanvragen",
+      "trending_score": 100,
+      "trending_type": "rising",
+      "seed_keyword": "kleine ondernemersregeling",
+      "title": "Kleine ondernemersregeling aanvragen: zo doe je dat in 2025",
+      "slug": "kleine-ondernemersregeling-aanvragen",
+      "meta_description": "KOR aanvragen? Je regelt het via Mijn Belastingdienst. Lees hier wanneer je in aanmerking komt, hoe je je aanmeldt en waar je op moet letten.",
+      "url": "https://zenbtw.nl/blog/kleine-ondernemersregeling-aanvragen",
+      "seo": {
+        "score": 90,
+        "title_length": 59,
+        "meta_length": 141,
+        "word_count": 800,
+        "keyword_in_title": true,
+        "keyword_in_meta": false,
+        "h2_count": 7,
+        "notes": [
+          "Keyword niet in meta-omschrijving"
+        ]
+      }
+    },
     {
       "date": "2026-11-02",
       "query": "3e kwartaal btw aangifte",
