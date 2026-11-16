@@ -210,9 +210,9 @@
     "count": 8
   },
   "hoe-werkt-margeregeling-praktisch-voorbeeld": {
-    "lastImproved": "2026-11-02",
+    "lastImproved": "2026-11-16",
     "type": "meta",
-    "count": 8
+    "count": 9
   },
   "etsy-inkomsten-opgeven-belastingdienst": {
     "lastImproved": "2026-11-05",
@@ -235,9 +235,9 @@
     "count": 1
   },
   "amazon-verkoper-btw-nederland": {
-    "lastImproved": "2026-11-02",
+    "lastImproved": "2026-11-16",
     "type": "meta",
-    "count": 6
+    "count": 7
   },
   "kor-en-inkomstenbelasting": {
     "lastImproved": "2026-10-26",
@@ -270,8 +270,13 @@
     "count": 1
   },
   "competitor:oss-deadline-kwartaal-2026": {
-    "lastImproved": "2026-11-14",
+    "lastImproved": "2026-11-16",
     "type": "competitor-gap",
-    "count": 13
+    "count": 14
+  },
+  "inkomstenbelasting-marketplace-verkoper": {
+    "lastImproved": "2026-11-16",
+    "type": "meta",
+    "count": 1
   }
 }

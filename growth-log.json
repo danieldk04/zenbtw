@@ -1,5 +1,38 @@
 [
   {
+    "date": "2026-11-16",
+    "actionsCount": 7,
+    "actions": [
+      "✅ Meta verbeterd: /blog/hoe-werkt-margeregeling-praktisch-voorbeeld",
+      "✅ Meta verbeterd: /blog/amazon-verkoper-btw-nederland",
+      "✅ Meta verbeterd: /blog/inkomstenbelasting-marketplace-verkoper",
+      "📊 2 pagina's met hoge bounce rate gedetecteerd",
+      "🔧 Bounce fix /blog/oss-registratie-belastingdienst: CTA boven fold toegevoegd",
+      "🔧 Bounce fix /blog/btw-tarief-eu-landen-2026: CTA boven fold toegevoegd",
+      "🔍 Competitor gap fix /blog/oss-deadline-kwartaal-2026: h2 sections toegevoegd"
+    ],
+    "queueAfter": 8,
+    "gscAvailable": true,
+    "gscOpportunities": 1,
+    "serperAvailable": true,
+    "gscSnapshot": {
+      "queriesCount": 100,
+      "pagesCount": 50
+    },
+    "metaImprovementsCount": 3,
+    "bounceFixes": 2,
+    "competitorFixes": 1,
+    "highBouncePages": 2,
+    "siteStats": {
+      "totalSessions": 258,
+      "totalViews": 301,
+      "bounceRate": 0.5426356589147286,
+      "avgDuration": 141
+    },
+    "trendsImproved": 0,
+    "trendsDeclining": 0
+  },
+  {
     "date": "2026-11-15",
     "actionsCount": 4,
     "actions": [
@@ -2717,33 +2750,6 @@
       "totalViews": 239,
       "bounceRate": 0.4723618090452261,
       "avgDuration": 195
-    },
-    "trendsImproved": 0,
-    "trendsDeclining": 0
-  },
-  {
-    "date": "2026-08-18",
-    "actionsCount": 1,
-    "actions": [
-      "✅ Meta verbeterd: /blog/btw-berekenen-shopify-automatisch"
-    ],
-    "queueAfter": 8,
-    "gscAvailable": true,
-    "gscOpportunities": 1,
-    "serperAvailable": true,
-    "gscSnapshot": {
-      "queriesCount": 100,
-      "pagesCount": 50
-    },
-    "metaImprovementsCount": 1,
-    "bounceFixes": 0,
-    "competitorFixes": 0,
-    "highBouncePages": 0,
-    "siteStats": {
-      "totalSessions": 201,
-      "totalViews": 245,
-      "bounceRate": 0.48756218905472637,
-      "avgDuration": 191
     },
     "trendsImproved": 0,
     "trendsDeclining": 0
