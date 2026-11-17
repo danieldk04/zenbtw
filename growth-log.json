@@ -1,5 +1,36 @@
 [
   {
+    "date": "2026-11-17",
+    "actionsCount": 5,
+    "actions": [
+      "✅ Meta verbeterd: /blog/vinted-ondernemer-btw-registratie",
+      "✅ Meta verbeterd: /blog/btw-bij-export-naar-uk",
+      "📊 2 pagina's met hoge bounce rate gedetecteerd",
+      "🔧 Bounce fix /blog/oss-registratie-belastingdienst: CTA boven fold toegevoegd",
+      "🔧 Bounce fix /blog/btw-tarief-eu-landen-2026: CTA boven fold toegevoegd"
+    ],
+    "queueAfter": 8,
+    "gscAvailable": true,
+    "gscOpportunities": 1,
+    "serperAvailable": true,
+    "gscSnapshot": {
+      "queriesCount": 100,
+      "pagesCount": 50
+    },
+    "metaImprovementsCount": 2,
+    "bounceFixes": 2,
+    "competitorFixes": 0,
+    "highBouncePages": 2,
+    "siteStats": {
+      "totalSessions": 263,
+      "totalViews": 306,
+      "bounceRate": 0.5437262357414449,
+      "avgDuration": 144
+    },
+    "trendsImproved": 0,
+    "trendsDeclining": 0
+  },
+  {
     "date": "2026-11-16",
     "actionsCount": 7,
     "actions": [
@@ -2722,34 +2753,6 @@
       "totalViews": 229,
       "bounceRate": 0.46842105263157896,
       "avgDuration": 204
-    },
-    "trendsImproved": 0,
-    "trendsDeclining": 0
-  },
-  {
-    "date": "2026-08-19",
-    "actionsCount": 2,
-    "actions": [
-      "✅ Meta verbeterd: /blog/btw-aangifte-voorbeeld-invullen-nederland",
-      "✅ Meta verbeterd: /blog/btw-export-buiten-eu"
-    ],
-    "queueAfter": 8,
-    "gscAvailable": true,
-    "gscOpportunities": 0,
-    "serperAvailable": true,
-    "gscSnapshot": {
-      "queriesCount": 100,
-      "pagesCount": 50
-    },
-    "metaImprovementsCount": 2,
-    "bounceFixes": 0,
-    "competitorFixes": 0,
-    "highBouncePages": 0,
-    "siteStats": {
-      "totalSessions": 199,
-      "totalViews": 239,
-      "bounceRate": 0.4723618090452261,
-      "avgDuration": 195
     },
     "trendsImproved": 0,
     "trendsDeclining": 0
