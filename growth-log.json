@@ -1,5 +1,37 @@
 [
   {
+    "date": "2026-11-19",
+    "actionsCount": 6,
+    "actions": [
+      "✅ Meta verbeterd: /blog/factuur-sturen-kor-ondernemer",
+      "✅ Meta verbeterd: /blog/etsy-inkomsten-opgeven-belastingdienst",
+      "✅ Meta verbeterd: /blog/hoeveel-btw-vinted-verkoper",
+      "📊 2 pagina's met hoge bounce rate gedetecteerd",
+      "🔧 Bounce fix /blog/oss-registratie-belastingdienst: CTA boven fold toegevoegd",
+      "🔧 Bounce fix /blog/btw-tarief-eu-landen-2026: CTA boven fold toegevoegd"
+    ],
+    "queueAfter": 8,
+    "gscAvailable": true,
+    "gscOpportunities": 0,
+    "serperAvailable": true,
+    "gscSnapshot": {
+      "queriesCount": 100,
+      "pagesCount": 50
+    },
+    "metaImprovementsCount": 3,
+    "bounceFixes": 2,
+    "competitorFixes": 0,
+    "highBouncePages": 2,
+    "siteStats": {
+      "totalSessions": 271,
+      "totalViews": 312,
+      "bounceRate": 0.5535055350553506,
+      "avgDuration": 134
+    },
+    "trendsImproved": 0,
+    "trendsDeclining": 0
+  },
+  {
     "date": "2026-11-18",
     "actionsCount": 4,
     "actions": [
@@ -2728,34 +2760,6 @@
       "totalViews": 217,
       "bounceRate": 0.4530386740331492,
       "avgDuration": 192
-    },
-    "trendsImproved": 0,
-    "trendsDeclining": 0
-  },
-  {
-    "date": "2026-08-21",
-    "actionsCount": 2,
-    "actions": [
-      "✅ Meta verbeterd: /blog/vinted-belasting-2026-hoeveel-mag-je",
-      "✅ Meta verbeterd: /blog/btw-nummer-aanvragen-kleine-ondernemer-nederland"
-    ],
-    "queueAfter": 8,
-    "gscAvailable": true,
-    "gscOpportunities": 0,
-    "serperAvailable": true,
-    "gscSnapshot": {
-      "queriesCount": 100,
-      "pagesCount": 50
-    },
-    "metaImprovementsCount": 2,
-    "bounceFixes": 0,
-    "competitorFixes": 0,
-    "highBouncePages": 0,
-    "siteStats": {
-      "totalSessions": 181,
-      "totalViews": 221,
-      "bounceRate": 0.44751381215469616,
-      "avgDuration": 215
     },
     "trendsImproved": 0,
     "trendsDeclining": 0
