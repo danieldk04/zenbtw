@@ -1,5 +1,37 @@
 [
   {
+    "date": "2026-11-20",
+    "actionsCount": 6,
+    "actions": [
+      "✅ Meta verbeterd: /blog/oss-btw-aangifte-invullen-voorbeeld",
+      "✅ Meta verbeterd: /blog/ioss-aangifte",
+      "📊 2 pagina's met hoge bounce rate gedetecteerd",
+      "🔧 Bounce fix /blog/oss-registratie-belastingdienst: CTA boven fold toegevoegd",
+      "🔧 Bounce fix /blog/btw-tarief-eu-landen-2026: CTA boven fold toegevoegd",
+      "🔍 Competitor gap fix /blog/ioss-aangifte: h2 sections toegevoegd"
+    ],
+    "queueAfter": 8,
+    "gscAvailable": true,
+    "gscOpportunities": 1,
+    "serperAvailable": true,
+    "gscSnapshot": {
+      "queriesCount": 100,
+      "pagesCount": 50
+    },
+    "metaImprovementsCount": 2,
+    "bounceFixes": 2,
+    "competitorFixes": 1,
+    "highBouncePages": 2,
+    "siteStats": {
+      "totalSessions": 271,
+      "totalViews": 310,
+      "bounceRate": 0.5571955719557196,
+      "avgDuration": 134
+    },
+    "trendsImproved": 0,
+    "trendsDeclining": 0
+  },
+  {
     "date": "2026-11-19",
     "actionsCount": 6,
     "actions": [
@@ -2731,35 +2763,6 @@
       "totalViews": 212,
       "bounceRate": 0.45251396648044695,
       "avgDuration": 187
-    },
-    "trendsImproved": 0,
-    "trendsDeclining": 0
-  },
-  {
-    "date": "2026-08-22",
-    "actionsCount": 3,
-    "actions": [
-      "✅ Meta verbeterd: /blog/kor-opzeggen-hoe",
-      "📊 1 pagina's met hoge bounce rate gedetecteerd",
-      "🔧 Bounce fix /blog/btw-tarief-eu-landen-2026: CTA boven fold toegevoegd"
-    ],
-    "queueAfter": 8,
-    "gscAvailable": true,
-    "gscOpportunities": 0,
-    "serperAvailable": true,
-    "gscSnapshot": {
-      "queriesCount": 100,
-      "pagesCount": 50
-    },
-    "metaImprovementsCount": 1,
-    "bounceFixes": 1,
-    "competitorFixes": 0,
-    "highBouncePages": 1,
-    "siteStats": {
-      "totalSessions": 181,
-      "totalViews": 217,
-      "bounceRate": 0.4530386740331492,
-      "avgDuration": 192
     },
     "trendsImproved": 0,
     "trendsDeclining": 0
