@@ -1,5 +1,35 @@
 [
   {
+    "date": "2026-11-23",
+    "actionsCount": 4,
+    "actions": [
+      "✅ Meta verbeterd: /blog/vinted-belasting-2026",
+      "📊 2 pagina's met hoge bounce rate gedetecteerd",
+      "🔧 Bounce fix /blog/oss-registratie-belastingdienst: CTA boven fold toegevoegd",
+      "🔧 Bounce fix /blog/btw-tarief-eu-landen-2026: CTA boven fold toegevoegd"
+    ],
+    "queueAfter": 8,
+    "gscAvailable": true,
+    "gscOpportunities": 1,
+    "serperAvailable": true,
+    "gscSnapshot": {
+      "queriesCount": 100,
+      "pagesCount": 50
+    },
+    "metaImprovementsCount": 1,
+    "bounceFixes": 2,
+    "competitorFixes": 0,
+    "highBouncePages": 2,
+    "siteStats": {
+      "totalSessions": 280,
+      "totalViews": 320,
+      "bounceRate": 0.5464285714285714,
+      "avgDuration": 140
+    },
+    "trendsImproved": 0,
+    "trendsDeclining": 0
+  },
+  {
     "date": "2026-11-22",
     "actionsCount": 5,
     "actions": [
@@ -2734,36 +2764,6 @@
       "totalViews": 206,
       "bounceRate": 0.4943181818181818,
       "avgDuration": 182
-    },
-    "trendsImproved": 0,
-    "trendsDeclining": 0
-  },
-  {
-    "date": "2026-08-25",
-    "actionsCount": 4,
-    "actions": [
-      "✅ Meta verbeterd: /blog/vinted-ondernemer-btw-registratie",
-      "✅ Meta verbeterd: /blog/btw-bij-export-naar-uk",
-      "📊 1 pagina's met hoge bounce rate gedetecteerd",
-      "🔧 Bounce fix /blog/btw-tarief-eu-landen-2026: CTA boven fold toegevoegd"
-    ],
-    "queueAfter": 8,
-    "gscAvailable": true,
-    "gscOpportunities": 0,
-    "serperAvailable": true,
-    "gscSnapshot": {
-      "queriesCount": 100,
-      "pagesCount": 50
-    },
-    "metaImprovementsCount": 2,
-    "bounceFixes": 1,
-    "competitorFixes": 0,
-    "highBouncePages": 1,
-    "siteStats": {
-      "totalSessions": 181,
-      "totalViews": 209,
-      "bounceRate": 0.49171270718232046,
-      "avgDuration": 174
     },
     "trendsImproved": 0,
     "trendsDeclining": 0
