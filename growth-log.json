@@ -1,5 +1,35 @@
 [
   {
+    "date": "2026-11-26",
+    "actionsCount": 4,
+    "actions": [
+      "✅ Meta verbeterd: /blog/btw-op-kleding",
+      "✅ Meta verbeterd: /blog/kor-en-inkomstenbelasting",
+      "📊 1 pagina's met hoge bounce rate gedetecteerd",
+      "🔧 Bounce fix /blog/btw-tarief-eu-landen-2026: CTA boven fold toegevoegd"
+    ],
+    "queueAfter": 8,
+    "gscAvailable": true,
+    "gscOpportunities": 1,
+    "serperAvailable": true,
+    "gscSnapshot": {
+      "queriesCount": 100,
+      "pagesCount": 50
+    },
+    "metaImprovementsCount": 2,
+    "bounceFixes": 1,
+    "competitorFixes": 0,
+    "highBouncePages": 1,
+    "siteStats": {
+      "totalSessions": 281,
+      "totalViews": 326,
+      "bounceRate": 0.5587188612099644,
+      "avgDuration": 124
+    },
+    "trendsImproved": 0,
+    "trendsDeclining": 0
+  },
+  {
     "date": "2026-11-25",
     "actionsCount": 4,
     "actions": [
@@ -2732,37 +2762,6 @@
       "totalViews": 194,
       "bounceRate": 0.5333333333333333,
       "avgDuration": 149
-    },
-    "trendsImproved": 0,
-    "trendsDeclining": 0
-  },
-  {
-    "date": "2026-08-28",
-    "actionsCount": 5,
-    "actions": [
-      "✅ Meta verbeterd: /blog/ioss-aangifte",
-      "✅ Meta verbeterd: /blog/oss-btw-aangifte-invullen-voorbeeld",
-      "📊 2 pagina's met hoge bounce rate gedetecteerd",
-      "🔧 Bounce fix /blog/oss-registratie-belastingdienst: CTA boven fold toegevoegd",
-      "🔧 Bounce fix /blog/btw-tarief-eu-landen-2026: CTA boven fold toegevoegd"
-    ],
-    "queueAfter": 8,
-    "gscAvailable": true,
-    "gscOpportunities": 0,
-    "serperAvailable": true,
-    "gscSnapshot": {
-      "queriesCount": 100,
-      "pagesCount": 50
-    },
-    "metaImprovementsCount": 2,
-    "bounceFixes": 2,
-    "competitorFixes": 0,
-    "highBouncePages": 2,
-    "siteStats": {
-      "totalSessions": 184,
-      "totalViews": 203,
-      "bounceRate": 0.532608695652174,
-      "avgDuration": 167
     },
     "trendsImproved": 0,
     "trendsDeclining": 0
